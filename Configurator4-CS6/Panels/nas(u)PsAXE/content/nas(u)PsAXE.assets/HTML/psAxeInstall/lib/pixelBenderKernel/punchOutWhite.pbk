@@ -1,0 +1,31 @@
+<languageVersion : 1.0;>
+
+kernel punchOutWhite
+<   namespace : "info.nekomataya";
+    vendor : "Nekomataya www.nekomataya.info";
+    version : 1;
+    description : "remove white pixel.";
+>
+//仕上げモジュールの機能ブロック　[1.,1.,1.]のピクセルを除去
+{
+    input image4 src;
+    output pixel4 dst;
+
+    void
+    evaluatePixel()
+    {
+	float4 myPix =sample(src,outCoord());
+
+	int X=0;
+	if(myPix == float4(1.,1.,1.,1.)) X=1;
+        dst.r =(X==0)? myPix.r:1.;
+        dst.g =(X==0)? myPix.g:1.;
+        dst.b =(X==0)? myPix.b:1.;
+        dst.a =(X==0)? myPix.a:0.;
+    }
+}
+/*
+	従来仕様
+	2012.04.05
+*/
+          

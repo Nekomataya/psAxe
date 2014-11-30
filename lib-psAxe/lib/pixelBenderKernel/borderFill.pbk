@@ -1,0 +1,61 @@
+<languageVersion : 1.0;>
+
+kernel borderfill
+<   namespace : "info.nekomataya";
+    vendor : "Nekomataya";
+    version : 1;
+    description : "paint borderpixel with negiber color";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+//    const float leach = 7.0;
+
+    parameter float leach
+    <
+        maxValue :10.0;
+        minValue :1.0;
+        defaultValue    :7.0;
+        descliption :"leach length";
+        
+    >;
+    void
+    evaluatePixel()
+    {
+    float2 myPosition = outCoord();
+    float2 myOffset = float2(0.0 , 0.0);
+        
+        dst = sampleNearest(src,myPosition);
+//borderColor is colorVectorLength == 0
+        if(
+            ( length(dst.rgb) == 0.0 ) &&
+            ( dst.a > 0.0 )
+        )
+        {
+	for(float myLine = 1.0;myLine<=leach;myLine++)
+	{
+			float countSpan = myLine * 2.0 + 1.0;
+            for(float myCount=0.0;myCount< pow(countSpan,2.0);myCount++)
+            {
+                float myX =floor(myCount/countSpan);
+                float myY =  mod(myCount,countSpan);
+		if(
+			(myX==0.0)||(myX==(countSpan-1.0))||(myY==0.0)||(myY==(countSpan-1.0))
+		){
+			
+                 float2 myShift=float2( myX - myLine , myY - myLine );
+               pixel4 mySample=sampleNearest(src,outCoord() + myShift);
+                if(
+                (length(mySample.rgb)!=0.0)&&(length (mySample.rgb) < length(pixel3(1.0,1.0,1.0)))&&(mySample.a !=0.0)
+                ){
+		myOffset=myShift;
+                break;
+                }}
+            }
+            if(myOffset!=float2(0,0))break;
+	}
+                dst.rgb = sampleNearest(src,outCoord()+myOffset).rgb;
+        }
+    }
+}

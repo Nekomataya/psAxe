@@ -1,0 +1,207 @@
+%!PS-Aobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 720 72
+%%TITLE: Peg3P.eps
+%%Creater: kiyo
+%%Pages: 1
+% ↑これが用紙の大きさです 単位はポイント(1/72インチ)で左から順に
+% 左下X座標 左下Y座標 右上X座標 右上Y座標
+% エリアは 12in × 1in
+% ３ポイントタップ(トンボ)
+% 2011.06.23	Nekomataya/kiyo
+%%EndComment
+% 単位換算
+/cm {28.3464 mul} def
+/mm {2.83464 mul} def
+/in {72 mul} def
+
+% %%%% フレーム単位変換関数(ここは、書き換えない様にして下さい)
+/fl {60 add 160 div BaseWidth mul} def
+/p2f {160 mul BaseWidth div 60 sub} def
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% % DATAs
+%用紙の幅
+	/PaperWidth {10 in} def
+%用紙の高さ
+	/PaperHeight {1 in} def
+
+% タップ穴を表示するか否かまたはタップ位置をトンボで打つか、外形を描くか
+% 0:非表示/1:トンボ打ち/2:外形描画/3:黒で塗りつぶし/4:外黒-中白
+	/PegForm {4} def
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%% ここから下は変更しないで下さいね
+
+
+% hall drawing
+% レジストリ孔を描く
+%　直径 1/4 インチ
+/HallDraw
+{
+		PegForm 1 gt
+		{
+	 newpath
+	 0 0 9 0 360 arc
+	  PegForm 3 le
+	  {
+	PegForm 3 eq
+	{
+		 closepath
+		 0.3 setgray
+%		 gsave
+		 fill
+%		 grestore
+	}
+	{
+		 0 setgray
+		 stroke
+	} ifelse
+	  }{
+  0.9 cm -0.75 cm moveto
+ -0.9 cm -0.75 cm lineto
+ -0.9 cm 0.75 cm lineto
+  0.9 cm 0.75 cm lineto
+gsave
+closepath 0.7 setgray  fill 
+grestore
+closepath 0.2 setgray  stroke 
+
+	  }ifelse
+		}
+		{
+	PegForm 1 eq
+	{
+	.2 in CrossDraw
+	} if
+		} ifelse
+} def
+
+% slot drawing
+% サイドスロットを描く
+% 原点位置はスロットの中心
+% 幅 5/8 インチ ・ 高さ 1/8 インチ
+/SlotDraw
+{
+		PegForm 1 gt
+		{
+			newpath
+% 4.5pt =1/16in 45pt=5/8in
+%			 -20.25 4.50 moveto
+			 0 4.50 moveto
+			 22.5 4.5 22.5 -4.5 4.50 arct
+			 22.5 -4.5 -22.5 -4.5 4.50 arct
+			 -22.5 -4.5 -22.5 4.5 4.50 arct
+			 -22.5 4.5 0 4.50 4.50 arct
+			0 4.50 lineto
+
+	  PegForm 3 le{
+	PegForm 3 eq
+	{
+		closepath
+		0.3 setgray
+		gsave
+		fill
+		grestore
+	}
+	{
+		 0 setgray
+		 stroke
+	} ifelse
+	  }{
+%  40.50 0 rlineto
+  1.4 cm 0.75 cm moveto
+ -1.4 cm 0.75 cm lineto
+ -1.4 cm -0.75 cm lineto
+  1.4 cm -0.75 cm lineto
+closepath 0.7 setgray gsave fill grestore
+
+	  }ifelse
+		}
+		{
+	PegForm 1 eq
+	{
+	 gsave	.5 in
+		dup 2 div neg 0 rmoveto
+		dup 0 rlineto
+		dup 9 div 0 exch rmoveto
+		dup 4.5 div 0 exch neg rlineto
+		dup neg 0 rlineto
+		dup 4.5 div 0 exch rlineto
+		 0 rlineto
+		0.02 cm setlinewidth
+		.0 setgray
+		stroke
+	 grestore
+	} if
+		} ifelse
+} def
+
+% 穴あけ用ガイド
+% 原点位置はホールの中心
+% 幅 238 mm ・ 高さ 1 インチ
+/DrawTappingGuide
+{
+119 mm neg 36 rmoveto
+ 0 72 neg rlineto
+238 mm 0 rmoveto
+ 0 72 rlineto
+
+0.02 cm setlinewidth
+.0 setgray
+
+stroke
+} def
+
+%	クロス 描画
+%		スタックにクロスのサイズを置いてから呼び出す
+%	例:	3 cm CrossDraw
+/CrossDraw
+{
+	dup 2 div neg 0 rmoveto
+	dup 0 rlineto
+	dup 2 div neg 0 rmoveto
+	dup 2 div 0 exch rmoveto
+	0 exch neg rlineto
+		0.02 cm setlinewidth
+		.0 setgray
+		stroke
+} def
+
+%%EndProlog
+
+% タップ孔描画
+ newpath
+	PaperWidth 2 div PaperHeight 2 div moveto
+%		タップ中心へ移動
+% センタレジストリホール
+gsave
+currentpoint translate
+HallDraw
+grestore
+
+% タッピングガイド描画
+gsave 
+	DrawTappingGuide
+grestore
+
+% 左スロット
+gsave
+	-288 0 rmoveto
+%		4インチ左へ
+currentpoint translate
+SlotDraw
+grestore
+
+% 右スロット
+gsave
+	288 0 rmoveto
+%		8インチ右へ
+currentpoint translate
+SlotDraw
+grestore
+
+% %%%%%%%%%
+showpage
+
+%%Trailer

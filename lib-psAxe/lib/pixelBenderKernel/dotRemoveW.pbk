@@ -1,0 +1,65 @@
+<languageVersion : 1.0;>
+
+kernel dotRemoveWhite
+<   namespace : "info.nekomataya";
+    vendor : "Nekomataya";
+    version : 1;
+    description : "paint standalone white pixel with negiber color";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    void
+    evaluatePixel()
+    {
+    float2 pos = outCoord();
+	float4 myPix =sampleNearest(src,pos);
+float4 px0=sampleNearest(src, pos+float2(-1.,-1.));
+float4 px1=sampleNearest(src, pos+float2( 0.,-1.));
+float4 px2=sampleNearest(src, pos+float2( 1.,-1.));
+float4 px3=sampleNearest(src, pos+float2(-1., 0.));
+float4 px4=sampleNearest(src, pos+float2( 0., 0.));
+float4 px5=sampleNearest(src, pos+float2( 1., 0.));
+float4 px6=sampleNearest(src, pos+float2(-1., 1.));
+float4 px7=sampleNearest(src, pos+float2( 0., 1.));
+float4 px8=sampleNearest(src, pos+float2( 1., 1.));
+
+//    float2 myOffset = float2(0.0 , 0.0);
+float checkParam=(px0.r*1.+px1.r*5.+px2.r*1.)+(px3.r*5.+px4.r*0.+px5.r*5.)*(px6.r*1.+px7.r*5.+px8.r*1.);
+dst.rgba=(((px4.r+px4.g+px4.b)>=3.)&&(checkParam<=4.))? float4 (0.,0.,0.,1.):px4.rgba;
+/*
+        dst = sampleNearest(src,myPosition);
+//borderColor is colorVectorLength == 0
+        if(
+            ( length(dst.rgb) == 0.0 ) &&
+            ( dst.a > 0.0 )
+        )
+        {
+	for(float myLine = 1.0;myLine<=leach;myLine++)
+	{
+			float countSpan = myLine * 2.0 + 1.0;
+            for(float myCount=0.0;myCount< pow(countSpan,2.0);myCount++)
+            {
+                float myX =floor(myCount/countSpan);
+                float myY =  mod(myCount,countSpan);
+		if(
+			(myX==0.0)||(myX==(countSpan-1.0))||(myY==0.0)||(myY==(countSpan-1.0))
+		){
+			
+                 float2 myShift=float2( myX - myLine , myY - myLine );
+               pixel4 mySample=sampleNearest(src,outCoord() + myShift);
+                if(
+                (length(mySample.rgb)!=0.0)&&(length (mySample.rgb) < length(pixel3(1.0,1.0,1.0)))&&(mySample.a !=0.0)
+                ){
+		myOffset=myShift;
+                break;
+                }}
+            }
+            if(myOffset!=float2(0,0))break;
+	}
+                dst.rgb = sampleNearest(src,outCoord()+myOffset).rgb;
+        }
+*/
+    }
+}

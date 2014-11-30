@@ -1,0 +1,122 @@
+<languageVersion : 1.0;>
+
+kernel pickup_Color
+<   namespace : "info.nekomataya";
+    vendor : "Nekomataya";
+    version : 1;
+    description : "pickup color and paint";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+    
+    parameter float centerHue
+    <
+        maxValue :512.0;
+        minValue :-511.0;
+        defaultValue    :307.0;
+        descliption :"HueAngle";
+        
+    >;
+
+    parameter float hueRange
+    <
+        maxValue :100.0;
+        minValue :1.0;
+        defaultValue    :30.0;
+        descliption :"HueRange";
+        
+    >;
+
+    parameter float strThreshold
+    <
+        maxValue :10.0;
+        minValue :1.0;
+        defaultValue    :3.0;
+        descliption :"SaturationThreshold";
+        
+    >;
+
+    parameter float backgroundClip
+    <
+        maxValue :100.0;
+        minValue :1.0;
+        defaultValue    :100.;
+        descliption :"clipThreshold";
+        
+    >;
+
+    parameter float lineIntensity
+    <
+        maxValue :100.0;
+        minValue :1.0;
+        defaultValue    :1.;
+        descliption :"lineIntensity";
+        
+    >;
+
+    void
+    evaluatePixel()
+    {
+    float2 myPosition = outCoord();
+    float2 myOffset = float2(0.0 , 0.0);
+
+    float4 myPix = sample(src, outCoord());
+// カラー参照を行いピクセルの彩度範囲が指定内に収まっていればアルファを算出する
+// ピクセルの値は中心色の原色
+///////////////////
+//r:
+//put(c2d(b-i,r-i)+512,0),hue 0-1023 #0　色相
+//put(c2m(b-i,r-i),1), satulation 0-255 #1　彩度
+//put(0,2), constant 0 #2 color offset
+//put(150,3), constant 150 #3 
+//put(r2x(get(2)+(ctl(0)*4),get(3)),4), ctl#0x #4
+//put(r2y(get(2)+(ctl(0)*4),get(3)),5), ctl#0y #5
+//極座標関数を使って指定色相角で長さctl#3のベクトル先端の位置を取得する
+//put((get(4)+76),6), offset#4 #6 B
+//put((get(5)+76),7), offset#5 #7 R
+//原点を左下へオフセットして保管（正数化）
+//put((256*76-29*get(4)-76*get(5))/150,8), G
+
+/////////////////
+//
+	float myY = myPix.r *0.299 + myPix.g * 0.587 + myPix.b * 0.114;
+	float2 myPxCol;
+	myPxCol.x =myPix.b-myY;
+	myPxCol.y =myPix.r-myY;
+	float myAngle = ((myPxCol.x==0.)||(myPxCol.y==0.))?1024.:1024. * (degrees(atan(myPxCol.y,myPxCol.x)))/360.;//一周1024分割
+	myAngle=mod(myAngle+1024.,1024.);//0-1024に正規化
+	float myLength = length(myPxCol)*10.;//ベクトル長x10
+	float maxValue= backgroundClip/100.;
+	float minValue= lineIntensity*maxValue/100.;
+	float myAlpha=1.-((min(min(myPix.r,myPix.g),myPix.b)-minValue)/(maxValue-minValue));//最大強度を反転してアルファ生成
+	float targetHue=mod(centerHue+1024.,1024.);//ターゲット色相を0-1024で正規化
+	float colorDistance=abs(targetHue-myAngle);//色相差を取得
+	if(colorDistance>512.) colorDistance=1024.-colorDistance;//色相差が半周を越えていたら反転して近接角を出す
+	float hueParam=((colorDistance-(hueRange/2.))*(-1.)+(hueRange*.25))/(hueRange*.5);//色相差にレンジ係数を乗せてパラメータ作成
+	if(hueParam<0.) hueParam=0.;
+	if(hueParam>1.) hueParam=1.;
+	float strParam=(myLength-strThreshold)/(strThreshold/2.);//彩度パラメータ作成
+	if(strParam<0.) strParam=0.;
+	if(strParam>1.) strParam=1.;
+
+	float3 paintColor;
+	paintColor.b=(cos(radians(360.*centerHue/1024.))*.5)+.5;
+	paintColor.r=(sin(radians(360.*centerHue/1024.))*.5)+.5;
+	paintColor.g=(.5-.114*paintColor.b-.299*paintColor.r)/.587;
+
+        myAlpha=hueParam*strParam*myAlpha;//アルファに彩度と色相評価を掛ける。
+
+        dst.r =(myAlpha==0.)? 1. : (paintColor.r-min(paintColor.g,paintColor.b))/(max(max(paintColor.r,paintColor.g),paintColor.b)-min(paintColor.g,paintColor.b));
+        dst.g =(myAlpha==0.)? 1. : (paintColor.g-min(paintColor.r,paintColor.b))/(max(max(paintColor.r,paintColor.g),paintColor.b)-min(paintColor.r,paintColor.g));
+        dst.b =(myAlpha==0.)? 1. : (paintColor.b-min(paintColor.r,paintColor.g))/(max(max(paintColor.r,paintColor.g),paintColor.b)-min(paintColor.r,paintColor.b));
+        dst.a =myAlpha;
+/*
+        dst.r = (min(paintColor.b,paintColor.g)>paintColor.r)?0.:(paintColor.r-min(paintColor.g,paintColor.b))/(max(max(paintColor.r,paintColor.g),paintColor.b)-min(paintColor.g,paintColor.b));
+        dst.g = (min(paintColor.b,paintColor.r)>paintColor.g)?0.:(paintColor.g-min(paintColor.r,paintColor.b))/(max(max(paintColor.r,paintColor.g),paintColor.b)-min(paintColor.r,paintColor.g));
+        dst.b = (min(paintColor.r,paintColor.g)>paintColor.b)?0.:(paintColor.b-min(paintColor.r,paintColor.g))/(max(max(paintColor.r,paintColor.g),paintColor.b)-min(paintColor.r,paintColor.b));
+//        dst.a = ((myAngle>(centerHue-hueRange))&&(myAngle<(centerHue+hueRange))&&(myLength>strThreshold))? 1.-((min(min(myPix.r,myPix.g),myPix.b)-(1.-lineIntensity))/(lineIntensity+((1.-lineIntensity)*backgroundClip))):0.;
+*/
+	}
+}
+

@@ -1,0 +1,109 @@
+<languageVersion : 1.0;>
+
+kernel trace_P
+<   namespace : "info_nekomataya";
+    vendor : "Nekomataya";
+    version : 1;
+>
+/*
+	色トレス分離フィルタ　移植 2012 04 04
+	各中心色相と置き換え色を設定して運用のこと
+*/
+// カラー参照を行いピクセルの彩度範囲が指定内に収まっていればアルファを算出する
+// ピクセルの値は中心色の原色
+/*
+,鉛筆の色,	略号	中心色相(/0-1023)　置き換え色(参考値)
+,ピンク	,	P,	149	float3(1.,.25,1.)
+,赤	,	R,	307	float3(1.,0.,0.)
+,黄色	,	Y,	487	float3(.94,.94,0.)
+,黄緑	,	GY,	557	float3(.67,.94,.06)
+,緑	,	G,	680	float3(0.,.67,0.)
+,水色	,	C,	870	float3(0.,1.,1.)
+,青	,	B,	921	float3(0.,0.,1.)
+*/
+
+{
+    input image4 src;
+    output pixel4 dst;
+//    centerHueは定数化するので　スライダ不要
+const float centerHue = 149.;
+const float3 paintColor = float3(1.,.25,1.);
+
+    parameter float hueOffset
+    <
+        maxValue :100.0;
+        minValue :-100.0;
+        defaultValue    :0.0;
+        descliption :"HueOffset";
+        
+    >;
+
+    parameter float hueRange
+    <
+        maxValue :100.0;
+        minValue :0.1;
+        defaultValue    :30.0;
+        descliption :"HueRange";
+        
+    >;
+
+    parameter float strThreshold
+    <
+        maxValue :10.0;
+        minValue :1.0;
+        defaultValue    :3.0;
+        descliption :"SaturationThreshold";
+        
+    >;
+
+    parameter float backgroundClip
+    <
+        maxValue :100.0;
+        minValue :1.0;
+        defaultValue    :100.;
+        descliption :"clipThreshold";
+        
+    >;
+
+    parameter float lineIntensity
+    <
+        maxValue :100.0;
+        minValue :1.0;
+        defaultValue    :1.0;
+        descliption :"lineIntensity";
+        
+    >;
+
+    void
+    evaluatePixel()
+    {
+
+    float4 myPix = sample(src, outCoord());
+	float myY = myPix.r *0.299 + myPix.g * 0.587 + myPix.b * 0.114;
+	float2 myPxCol;
+	myPxCol.x =myPix.b-myY;
+	myPxCol.y =myPix.r-myY;
+	float myAngle = ((myPxCol.x==0.)||(myPxCol.y==0.))?1024.:1024. * (degrees(atan(myPxCol.y,myPxCol.x)))/360.;//一周1024分割
+	myAngle=mod(myAngle+1024.,1024.);//0-1024で正規化
+	float myLength = length(myPxCol)*10.;//ベクトル長x10
+	float maxValue= backgroundClip/100.;
+	float minValue= lineIntensity*maxValue/100.;
+	float myAlpha=1.-((min(min(myPix.r,myPix.g),myPix.b)-minValue)/(maxValue-minValue));//最大強度を反転してアルファ生成
+	float targetHue=mod(centerHue+hueOffset+1024.,1024.);//ターゲット色相を0-1024で正規化
+	float colorDistance=abs(targetHue-myAngle);//色相差を取得
+	if(colorDistance>512.) colorDistance=1024.-colorDistance;//色相差が半周を越えていたら反転して近接角を出す
+	float hueParam=((colorDistance-(hueRange/2.))*(-1.)+(hueRange*.25))/(hueRange*.5);//色相差にレンジ係数を乗せてパラメータ作成
+	if(hueParam<0.) hueParam=0.;
+	if(hueParam>1.) hueParam=1.;
+	float strParam=(myLength-strThreshold)/(strThreshold/2.);//彩度パラメータ作成
+	if(strParam<0.) strParam=0.;
+	if(strParam>1.) strParam=1.;
+	
+        myAlpha=hueParam*strParam*myAlpha;//アルファに彩度と色相評価を掛ける。
+
+        dst.r =(myAlpha==0.)? 1. : paintColor.r;
+        dst.g =(myAlpha==0.)? 1. : paintColor.g;
+        dst.b =(myAlpha==0.)? 1. : paintColor.b;
+        dst.a = myAlpha;
+	}
+}

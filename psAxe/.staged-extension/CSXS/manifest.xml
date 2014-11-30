@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ExtensionManifest Version="4.0" ExtensionBundleId="info.nekomataya.psAxe" ExtensionBundleVersion="1.0.0"
+		ExtensionBundleName="psAxe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Author>
+		<![CDATA[kiyo@nekomataya.info]]>
+	</Author>	<Contact mailto="kiyo@nekomataya.info"/>	<Legal href="http://www.nekomataya.info/contract.html"/>	<Abstract href="http://www.nekomataya.info/"/>	<ExtensionList>
+		<Extension Id="info.nekomataya.psAxe" Version="0.9" />
+	</ExtensionList>
+	<ExecutionEnvironment>
+		<HostList>
+			<Host Name="PHSP" Version="[14.0,20.9]" />
+			<Host Name="PHXS" Version="[14.0,20.9]" />
+		</HostList>
+		<LocaleList>
+			<Locale Code="en_US" />
+			<Locale Code="ja_JP" />
+		</LocaleList>
+		<RequiredRuntimeList>
+			<RequiredRuntime Name="CSXS" Version="4.0" />
+
+		</RequiredRuntimeList>
+	</ExecutionEnvironment>
+	<DispatchInfoList>
+		<Extension Id="info.nekomataya.psAxe">
+			<DispatchInfo >
+				<Resources>
+				<MainPath>./index.html</MainPath>
+				<ScriptPath>./psAxe.jsx</ScriptPath>
+				</Resources>
+				<Lifecycle>
+					<AutoVisible>true</AutoVisible>
+				</Lifecycle>
+				<UI>
+					<Type>Panel</Type>
+					<Menu>nas(u)psAxe</Menu>
+					<Geometry>
+						<Size>
+							<Height>480</Height>
+							<Width>260</Width>
+						</Size>
+						<MinSize>
+							<Height>320</Height>
+							<Width>260</Width>
+						</MinSize>
+					</Geometry>
+					<Icons>
+						<Icon Type="Normal">./res/psaxe.png</Icon>
+						<Icon Type="RollOver">./res/axe_h.png</Icon>
+						<Icon Type="Disabled">./res/axe.png</Icon>
+						<Icon Type="DarkNormal">./res/psaxe_d.png</Icon>
+						<Icon Type="DarkRollOver">./res/axe_d.png</Icon>
+					</Icons>
+				</UI>
+			</DispatchInfo>
+		</Extension>
+	</DispatchInfoList>
+</ExtensionManifest>

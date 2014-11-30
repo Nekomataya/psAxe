@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja"><head>
+<title>TransEscape</title>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<style type="text/css"><!--
+body{background-color: #E6E6FA}
+address{margin: 1em 0em; font-style: normal}
+span.u{text-decoration: underline}
+small{line-height: 120%}
+#ST{background-color: #F0F0F0}
+@media all{
+	dt{margin: 1em 0em 0em}
+	dt strong{padding: 1px; background-color: #F0FFD8}
+	dd{margin: 0.3em 1em}
+	dd div{margin-left: 1em; line-height: 1.5em}
+	hr{height: 0.5em; background-color: white}
+	code{padding-left: 2px; font-size: 100%; background-color: white}
+	p.s{margin: 1em; font-size: 80%}
+	#U{display: none}
+}
+--></style></head><body>
+
+<form name="F" action="javascript://" onreset="WriteStatus('','')">
+<div><textarea name="T1" rows=13 cols=100 wrap="soft"></textarea></div>
+<div>
+<input type="reset" value=" AC " title="オールクリア">
+<input type="button" value=" Ｃ " onclick="WriteStatus(T1.value='',T2.value)" title="クリア">
+<input type="button" value="すべて選択" onclick="T1.focus();T1.select()" title="上段のテキストエリアの内容をすべて選択します">
+<input type="button" value="　変換　" onclick="Encode(this.form)" title="escape">
+<select name="C">
+<option value="SJIS" selected>Shift_JIS
+<option value="EUCJP">EUC-JP
+<option value="JIS7">JIS(7ビット)
+<option value="JIS8">JIS(8ビット)
+<option value="Unicode">Unicode
+<option value="UTF7">UTF-7
+<option value="UTF8">UTF-8
+<option value="UTF16LE">UTF-16LE
+<option value="Original">Original
+</select>
+<select name="L">
+<option>Default
+<option selected>LF
+<option>CR+LF
+<option>CR
+</select>
+<strong>TransEscape <small>Ver.041208</small></strong>
+</div>
+<div><textarea name="T2" rows=13 cols=100 wrap="soft"></textarea></div>
+<div>
+<input type="reset" value=" AC " title="オールクリア">
+<input type="button" value=" Ｃ " onclick="WriteStatus(T1.value,T2.value='')" title="クリア">
+<input type="button" value="すべて選択" onclick="T2.focus();T2.select()" title="下段のテキストエリアの内容をすべて選択します">
+<input type="button" value=" 逆変換 " onclick="Decode(this.form)" title="unescape">
+<input type="button" value="自動判別" onclick="AutoDetect(this.form)" title="自動判別機能付き unescape">
+<input type="button" value="表示確認" onclick="Open(this.form)" title="変換結果を逆変換して別窓で表示します">
+<input type="button" value="使い方を開く" onclick="Usage(this)">
+</div>
+<div id="U">
+<div><br>【<span class="u">文字列をすべてのコンピュータで読めるような形式に変換したり、変換されたものを元の文字列にデコードすることができるスクリプトです</span>】</div>
+<p class="s">　通常この用途には、ビルトイン関数 <code>escape()</code> , <code>unescape()</code> を使用しますが、ブラウザの種類によって動作が異なり、例えば、IEで escape エンコードしたものをNetscape では正しくデコードできないといったことが起こってしまいます。<br>
+　そこで、本スクリプトでは、<code>escape()</code> , <code>unescape()</code> 相当の関数を独自に作り上げたものを使用することで、どのブラウザでも同じ動作になるようにしました。<br>
+　この関数には、JISコード変換テーブルを搭載しているので、従来JavaScriptでは実現が困難であった、Shift_JISコードやEUC-JPコードなどの文字コードとしてのエンコード・デコードも可能となっています。<br>
+　JISコード変換テーブルには、JIS規格（JIS X 0208-1997）に取り込まれている文字に加えて、Windowsで使用できる○付き数字やｉモードの絵文字領域の文字（Shift_JIS、Unicode、UTF-8で使用可能）なども加えた10716文字が、JISコード順に組み込まれています。</p>
+<dl>
+<dt><strong>使い方</strong>
+<dd>　上段のテキストエリアに文字列を入力してから、<input type="button" value="　変換　" onclick="" title="escape"> を押すと、下段のテキストエリアに escape エンコードされた文字列が出力されます。<br>
+　反対に、下段のテキストエリアに escape エンコードされた文字列を入力してから、<input type="button" value=" 逆変換 " onclick="" title="unescape"> を押すと、上段のテキストエリアにデコードされた文字列が出力されます。<br>
+　文字コードのタイプや改行コードを選択することもできますので、詳しくは以下をご覧ください。
+<dt><strong>ボタン／セレクターについて</strong>
+<dd><hr>
+<dd><input type="button" value=" AC " onclick="" title="オールクリア"> → すべてのテキストエリアの内容を消去し、セレクターをリセットします。
+<dd><input type="button" value=" Ｃ " onclick="" title="クリア"> → 上段または下段のみのテキストエリアの内容を消去します。
+<dd><input type="button" value="すべて選択" onclick="" title="テキストエリアの内容をすべて選択します"> → 上段または下段のテキストエリアの内容をすべて選択します。
+<dd><input type="button" value="　変換　" onclick="" title="escape"> → 文字列を escape エンコードします。
+<dd><select>
+<option value="SJIS" selected>Shift_JIS
+<option value="EUCJP">EUC-JP
+<option value="JIS7">JIS(7ビット)
+<option value="JIS8">JIS(8ビット)
+<option value="Unicode">Unicode
+<option value="UTF7">UTF-7
+<option value="UTF8">UTF-8
+<option value="UTF16LE">UTF-16LE
+<option value="Original">Original
+</select> → どの文字コードのタイプでエンコード・デコードするかを選択します。<br>
+<small>
+　◆Shift_JIS ： Windows や Mac などで広く使われる形式。<br>
+　◆EUC-JP ： UNIXで使われている形式。<br>
+　◆JIS(7ビット) ： 日本語のメールやニュースで使われる形式。半角カタカナも使用可能です。<br>
+　◆JIS(8ビット) ： 半角カタカナを8ビットで表します。それ以外はJIS(7ビット)と同じ。<br>
+　◆Unicode ： IE4.0以上の <code>escape()</code> , <code>unescape()</code> と互換性のある形式。<br>
+　◆UTF-7 ： BASE64を基礎とした符号化形式。<br>
+　◆UTF-8 ： ビルトイン関数（IE5.5以上）の <code>encodeURI()</code> , <code>decodeURI()</code> で相互にエンコード・デコードが可能な形式。<br>
+　◆UTF-16LE ： 文字を常に 16ビット（リトルエンディアン）で表す形式。<br>
+　◆Original ： ビルトイン関数の <code>escape()</code> , <code>unescape()</code> をそのまま使用。変換形式はブラウザに依存します。<br>
+</small>
+<dd><select><option>Default<option selected>LF<option>CR+LF<option>CR</select> → 改行コードを設定します。いずれを選んでも、システムに関係なくデコードできるので、よりサイズの小さくなる <select><option>LF</select>（または<select><option>CR</select>）に設定しておくのが良いでしょう。<select><option>Default</select> ではブラウザに依存した改行コードになってしまうので注意してください。
+<dd><hr>
+<dd><input type="button" value=" 逆変換 " onclick="" title="unescape"> → escape エンコードされた文字列を元の文字列にデコードします。<br>
+<small>　※文字コードのタイプが一致しなければ正常にデコードされないので、セレクターで適切な文字コードを選択する必要があります。</small>
+<dd><input type="button" value="自動判別" onclick="" title="自動判別機能付き unescape"> →  escape エンコードされた文字列を解析し、文字コードのタイプを自動的に選択してデコードします。<br>
+<small>　※半角カタカナのみからなる文字列をエンコードしたものや、一部分を抜き出したもの、壊れたものなどは、正確に判定できない場合があります。また、UTF-7については判定しません。</small>
+<dd><input type="button" value="表示確認" onclick="" title="変換結果を逆変換して別窓で表示します"> → escape エンコードされた文字列をデコードし、新たにブラウザを開いてその内容を表示します。
+<dd><input type="button" value="使い方を開く／使い方を閉じる" onclick=""> → 今ご覧の説明文を表示／非表示に切り替えます。
+<dt><strong>ステータス バーについて</strong>
+<dd><span id="ST">オリジナルのバイト数 / 変換後のバイト数 [オリジナルに対する割合（％）]</span> を表示しています。<br>
+<small>　◆ASCIIコードの文字および半角カタカナは１文字を１バイト、その他の文字は１文字を２バイトとして計算しています。</small>
+<dt><strong>その他</strong>
+<dd>変換したあと逆変換を行うと、サイズが変わることがありますが、これは改行コードの違いによるもので、内容が変化しているわけではありません。試しに <select><option>Default</select> を選択してみてください。サイズが変化しなくなるはずです。
+<dt><strong>注意事項</strong>
+<dd>・Shift_JIS、EUC-JP、JISコードでは、JISコード変換テーブルに無い文字は「・」となりますので注意してください。
+<dd>・本体（TransEscape.html）のほかに Escape Codec Library (ecl.js) が必要となります（アーカイブに同封されています）。<br>
+　なお、このライブラリは各自自由に使用・応用してかまいません。
+<dd>・現在のバージョンでは、Netscape 4.x での動作は保障していません。
+<dd>・TransEscape および Escape Codec Library を使うことによって不利益等が生じたとしても、当方では一切責任は負いません。
+</dl>
+</div>
+<address><a href="http://nurucom-archives.hp.infoseek.co.jp/digital/">Copyright (C) ヌルコムアーカイブス・デジタル制作室</a></address>
+</form>
+
+<script type="text/javascript" src="ecl.js"></script>
+<script type="text/javascript"><!--
+/***************************************************
+ Copyright (C) ヌルコムアーカイブス・デジタル制作室
+ http://nurucom-archives.hp.infoseek.co.jp/digital/
+****************************************************/
+
+EscapeOriginal=escape;
+
+UnescapeOriginal=unescape;
+
+u=String.fromCharCode;
+
+LF=function(s,n){return n?s.replace(RegExp(u(92,114,92,110,63,124,92,110),"g"),1==n?u(10):2==n?u(13,10):u(13)):s}
+
+Wait=function(){window.status="計算中"};
+
+Encode=function(obj){Wait();WriteStatus(obj.T1.value,obj.T2.value=window["Escape"+obj.C.options[obj.C.selectedIndex].value](LF(obj.T1.value,obj.L.selectedIndex)))};
+
+Decode=function(obj){Wait();WriteStatus(obj.T1.value=window["Unescape"+obj.C.options[obj.C.selectedIndex].value](obj.T2.value),obj.T2.value)};
+
+AutoDetect=function(obj){Wait();for(var i=0,T=GetEscapeCodeType(obj.T2.value);i<obj.C.options.length;i++)if(T==obj.C.options[i].value)break;obj.C.selectedIndex=i;WriteStatus(obj.T1.value=window["Unescape"+T](obj.T2.value),obj.T2.value)};
+
+GetLength=function(str){return str.replace(RegExp(u(91,94,92,120,48,48,45,92,120,55,102,65377,45,65439,93),"g"),"gg").length};
+
+WriteStatus=function(u,d){var a=GetLength(u),b=GetLength(d);window.status=a+" / "+b+(a&&(b/=a)<10?" ["+Math.floor(1000*b)/10+"%]":"")};
+
+Open=function(obj){if(obj.T2.value){Decode(obj);with(window.open().document){open();write(obj.T1.value);close()}}else alert("下段テキストエリアに文字がありません")};
+
+Usage=new Function("obj",document.body?'var u=document.getElementById?document.getElementById("U"):document.all("U"),o="使い方を開く",c="使い方を閉じる";if(o==obj.value){obj.value=c;u.style.display="block";if(u.scrollIntoView)u.scrollIntoView()}else{obj.value=o;u.style.display="none"}':'');
+
+onload=function(){var f=document.forms.F;WriteStatus(f.T1.value,f.T2.value)};
+//-->
+</script>
+
+</body></html>

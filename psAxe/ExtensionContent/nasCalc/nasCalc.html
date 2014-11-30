@@ -1,0 +1,712 @@
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>電卓</title>
+	
+<LINK REL="stylesheet" TYPE="text/css" href="./nasCalc.css">
+<script type="text/javascript" src=./lib/AIRAliases.js></script>
+<script type="text/javascript" src=./nas_common.js></script>
+<script type="text/javascript" src=./lib/fakeAE.js></script>
+<script type="text/javascript" src=./nasCalc.js></script>
+<script type="text/javascript" src=./spf.js></script>
+<!--
+ -->
+
+</head>
+<body
+onLoad		= "nas_Action_Startup()"
+onMouseDown	= "nas_Mouse(event.which,event.target)"
+onMouseUp	= "return false"
+onContextMenu	= "if (KeyMODE == 'stopwatch') return false"
+>
+<!--
+公開試験中<br />
+気が向いたヒトつかってみてください。ツッコミ歓迎<br />
+デザインは暫定版でえす。<br />
+もっと小さいほうが良いとは思いますがフツーのフォーム部品で作っているのでとりあえずこんなカンジ。<br />
+機能とかもう少し決まったら変更します。<br />
+デザインのアイデアとかも希望があれば行ってみて下さい。<br />
+今の仕事が一区切りついたらこの電卓に「りまぴん」機能を組み込もうかと…<br />
+ご意見、ご感想は<A HREF="http://homepage2.nifty.com/Nekomata/bbs.html" target=_new>BBS</A>まで<br />
+<HR>-->
+	<!-- この下本体 -->
+	<table><tbody><tr><td>
+	<img id="basePicture" src="./images/tall.png" style="display:inline;">
+	</td><td>
+	<img id="flipPicture" src="./images/tall.png" style="display:inline;">
+	</td></tr></tbody></table>
+Nekomataya/2008
+<!--<span
+	id="uiTable"
+>Nekomataya/2008</span>  		-->
+
+<form id="nasCALC" >
+<!--
+カスタム変数です。ここを書き換えると初期状態が変わります。
+ブラウザには表示されません。値のみを書き換えてください。
+-->
+<!-- ウィンドウの自動サイズ調整 -->
+	<input type="hidden" id="AutoFit" value="true">
+<!-- 時計の表示モードです。12時制か24時制を指定します。-->
+	<input type="hidden" id="ClockOption" value="12">
+<!-- オープン時点の表示モード ストップウオッチ(stopwatch)か電卓(calculator)か -->
+	<input type="hidden" id="MODE" value="calculator">
+<!--ラップの最大数です。ラップ欄と数を合わせておいて下さい。-->
+	<input type="hidden" id="MaxLap" value="4">
+<!-- ランニングインジケータ
+何か２６文字置いてください。
+縦棒を隙間に挿入して２４コマのアニメーションを作ります。-->
+<input type="hidden" id="nas_Ri_base" value="|________________________|">
+<!--初期　計測フレームレートです。-->
+	<input type="hidden" id="RATE" value="24FPS">
+<!-- 初期解像度(dpiで入力) -->
+	<input type="hidden" id="Dpi" value="144">
+<!--
+設定できる値は以下の通りです、アルファベットは大文字のみで、
+リストにない値を与えると100分の1秒になります。
+24FPS	1秒あたり24フレーム(=デフォルト)
+25FPS	1秒あたり15フレーム
+30NDF	1秒あたり30フレーム(ノンドロップ)
+30DF	1秒あたり30フレーム(ドロップ)
+100fps	100分の1秒
+(数字)	1-100までの任意の数字(整数のみ)
+-->
+<!--フォーム内のオブジェクトの名前には意味があります。-->
+<div	id=mdpBox>
+	<!-- メインパネル -->
+<!--
+<b>ねこまたや・電卓</b><br />
+<br />このコンテンツは、Javascriptで書かれたアプリケーションです。<br />
+ご利用の際は、Javascriptを有効にしてお使いください。
+
+<br /><br />
+-->
+	<!-- メインパネル -->
+<img src="./images/01.gif"
+	id="CHG"
+	class="display"
+	type="button"
+	ALT="キーボードモード切り換え"
+	title="キーボードモード切り換え"
+	onMouseDown = "nas_ChangeKBD()"
+/><img src="./images/05.gif"
+	id="CHG_clock"
+	class="display"
+	type="button"
+	alt="時刻表示切り換え"
+	title="時刻表示切り換え"
+	onMouseDown = "nas_ChangeMODE()"
+/><span
+	id="nas_RATE"
+	class="display"
+//	value="24FPS"
+	onclick = "nas_ChangeRATE('next')"
+	title="フレームレート切り換え"
+>24FPS</span><span
+	id="Resolution"
+	class="display"
+//	value="144dpi"
+	onclick="chgResolution(inBuf)"
+	title="解像度を入力してクリック"
+>144dpi</span><span
+	id="inputMode"
+	class="display"
+	value="10"
+	onclick="chgINPUTmode('next')"
+	title="電卓の入力モードを切り換え"
+></span><input type="button"
+	id="nas_Ri"
+	class="display"
+	ALT="ランニングインジケータ"
+	title="lap/reset"
+	value=""
+	onMouseDown="nas_Capt('Lap_Reset')"
+><br /
+><span
+//	 size=7
+	id="sTatus"
+	class="display"
+	title="ストップウオッチの状態を示す"
+//	value="startup"
+>satrtup</span><input	type="button"
+	id="nas_display"
+	class="display"
+	title="ストップウオッチ表示部分"
+	value="00:00:00:00"
+	onMouseDown="nas_Capt('Start_Stop')"
+><br /
+><span
+	id="COMbuf"
+	class="display"
+	title="コマンドディスプレイ"
+//	size="1"
+//	value=""
+//	onFocus="key_off=1;"
+//	onBlur="key_off=0;"
+></span><span
+	id="INbuf"
+	class="display"
+	title="mainDisplay"
+	size="16"
+//	value="0"
+	onFocus="key_off=1;"
+	onBlur="key_off=0;"
+	onChange="checkINbuf();"
+>0</span><br /
+><input type="text"
+	id="SIbuf"
+	class="display"
+	title="subDisplay"
+	size="20"
+	value="0"
+	onFocus="key_off=0;"
+	onBlur="key_off=1;"
+>
+<!-- メインパネル -->
+
+</div>
+<div	id=consoleBox 
+	style="position:absolute;top:16px;left:260px;border-style:inset;display:inline;">
+	<!-- コンソール表示 -->
+<textarea
+	id="RESULT"
+	rows="6" cols="10"
+	style="
+		font-size:11pt;
+		width:240px;
+		height:128px;
+	"
+></textarea><br /><textarea
+	id="CONS"
+	rows="6" cols="26"
+	style="
+		font-size:11pt;
+		width:240px;
+		height:200px;
+	"
+></textarea><br /><INPUT type=button
+	name ="clearCONS"
+	value="CLEAR"
+	onClick="document.getElementById('CONS').value='';document.getElementById('RESULT').value='';"
+><!--	style="width:4EM;padding:0,0;"
+--><input type="button"
+	id="check"
+	value="CHECK"
+	onclick="pushKey(this.id)">
+<!--	style="width:4EM;padding:0,0;"
+-->
+	<!-- コンソール表示 挿入位置-->
+</div>
+
+<div	id="toolPanel"
+>
+	<!-- ツールボックスパネル 01-->
+<button
+	class=funcKB
+	id="Q"
+	value="Q"
+	onclick="qpimp(operandStack.top(),'Q');return false;"
+>Q</button><br /><button
+	class=funcKB
+	id="point"
+	value="pt"
+	onclick="qpimp(operandStack.top(),'pt');return false;"
+>pt</button><br /><button
+	class=funcKB
+	id="inch"
+	value="in"
+	onclick="qpimp(operandStack.top(),'in');return false;"
+>in</button><br /><button
+	class=funcKB
+	id="mm"
+	value="mm"
+	onclick="qpimp(operandStack.top(),'mm');return false;"
+>mm</button><br /><button
+	class=funcKB
+	id="pixel"
+	value="px"
+	onclick="qpimp(operandStack.top(),'px');return false;"
+>px</button><br /><hr />
+<button
+	class=funcKB
+	value="<->"
+	id="cons_bt"
+	title="コンソール"
+	onclick="return kb_Flip('cons')"
+	>cons</button><br />
+<button
+	class=funcKB
+	value="KBD"
+	id="kbd_bt"
+	title="キーボード切り換え"
+	onclick="return kb_Flip('kbd');"
+>KBD</button><br />
+<!--
+	<button
+	class=toolKB
+	value="FIT"
+	id="fitting"
+	title="ウィンドウを合わせる"
+	onMouseDown="sizeToContent();"
+	>fit</button>
+	<button
+	class=funcKB
+	value="log"
+	id="log"
+	ALT="print log"
+	onMouseDown="nas_write_Log()"
+><br /></button>
+	<button
+	class=funcKB
+	value="about"
+	id="about"
+	ALT="about this tool"
+	onMouseDown="about_nas()"
+><br /></button>
+	<button
+	class=toolKB
+	value="exp."
+	id="sbeval"
+	title="エクスプレッション"
+	onMouseDown='document.getElementById("INbuf").innerHTML=eval(document.getElementById("SIbuf").value);'
+><br /></button>
+
+-->
+<!-- ツールボックスパネル 01-->
+</div>
+<div	id="skbBox">
+<input type="button" 
+	id="SWButton"
+	title="計測・停止"
+	value="Start / Stop"
+	onMouseDown="nas_Capt('Start_Stop')"
+><input type="button"
+	id="LapButton"
+	title="ラップ・リセット"
+	value="Lap / Reset"
+	onMouseDown="nas_Capt('Lap_Reset')"
+>
+<br />
+<span class=aSelect onClick="chgINPUTmode('dec')"><input class=iSelect id=Sdec type=radio name=dispMode VALUE=dec checked=true onChange="chgINPUTmode(this.value)" />10</span>
+<span class=aSelect onClick="chgINPUTmode('bin')"><input class=iSelect id=Sbin type=radio name=dispMode VALUE=bin  onChange="chgINPUTmode(this.value)"> 2</span>
+<span class=aSelect onClick="chgINPUTmode('oct')"><input class=iSelect id=Soct type=radio name=dispMode VALUE=oct  onChange="chgINPUTmode(this.value)"> 8</span>
+<span class=aSelect onClick="chgINPUTmode('hex')"><input class=iSelect id=Shex type=radio name=dispMode VALUE=hex  onChange="chgINPUTmode(this.value)">16</span>
+<span class=aSelect onClick="chgINPUTmode('fct')"><input class=iSelect id=Sfct type=radio name=dispMode VALUE=fct  onChange="chgINPUTmode(this.value)">TC</span>
+<br />
+<select id=inputModeSelector onChange="chgINPUTmode(this.value)"
+	class=selectMode style="display:none;"
+>
+	<option VALUE=dec selected>(10) decimal
+	<option VALUE=bin >	(2) binary
+	<option VALUE=oct >	(8) octal
+	<option VALUE=hex >	(16) hexadecimal
+	<option VALUE=fct >	(TC) TimeCode
+</select>
+
+</div>
+
+<div	id="fkbBox" style="display:inline;">
+	<!-- ファンクションキーボード -->
+	
+	<!-- ファンクションキーボード -->
+
+<input type="button"
+	class=toolKB
+	id="MEM"
+	value="MR"
+	title="push memory stack data"
+	onclick="pushKey(this.id)"
+><br /><input type="button"
+	class=toolKB
+	id="dup"
+	value="DUP"
+	title="duplicate stack data"
+	onclick="pushKey(this.id)"
+><br /><input type="button"
+	class=toolKB
+	id="pop"
+	value="POP"
+	title="pop stack data"
+	onclick="pushKey(this.id)"
+><br /><input type="button"
+	class=toolKB
+	id="exc"
+	title="exchange stack data"
+	value="EXC"
+	onclick="pushKey(this.id)"
+><br /><hr />
+<input type="button"
+	class=toolKB
+	id="backspace"
+	value="BS"
+	title="取り消し"
+	onclick="pushKey('BS')"
+><br /><input type="button"
+	class=toolKB
+	id="clearentry"
+	value="CE"
+	title="バッファクリア"
+	onclick="pushKey('CE')"
+><br /><input type="button"
+	class=toolKB
+	id="allclear"
+	title="スタッククリア"
+	value="AC"
+	onclick="pushKey('AC')"
+><br />
+	<!-- ファンクションキーボード -->
+</div>
+
+
+<div
+	id="nkbBox"
+>
+<!-- 数値キーボード -->
+<table style="margin:0px;padding:0px;">
+<tbody><tr><td colspan=2><input type="button"
+class=numButtonW
+id="PF1"
+value="fitting"
+title="fittingWindow"
+onclick="nas_sizeToContent();"
+></td><td colspan=2><input type="button"
+		class=numButtonW
+		id="PF2"
+		value="switch"
+		title="changeSPF"
+		onclick=changeSPFB(this)
+></td><td><input type="button"
+				class=numButtonL
+				id="SPF1"
+				value=" "
+				title=""
+				onclick=";"
+></td></tr>
+
+<!-- <tr><td colspan=2><input type="button"
+class=numButtonW
+id="PF3"
+value="TEST"
+title="試験"
+onclick=myTest()
+></td><td colspan=2><input type="button"
+		class=numButtonW
+		id="PF4"
+		value="ibtest"
+		title=""
+		onclick="pushValue(12345)"
+></td><td><input type="button"
+				class=numButtonL
+				id="SPF2"
+				value=" "
+				title=""
+				onclick=";"
+></td></tr> -->
+<tr>
+<td><input type="button"
+class=numButtonDark
+id="OP1"
+value="±"
+title="flipValue"
+onclick="pushKey('T')"
+></td><td><input type="button"
+	class=numButtonDark
+	id="OP2"
+	value="π"
+	title="PI"
+	onclick="pushKey('P')"
+></td><td><input type="button"
+		class=numButtonDark
+		id="OP3"
+		value="√"
+		title="sqrt"
+		onclick="pushKey('R')"
+></td><td><input type="button"
+			class=numButtonDark
+			id="OP4"
+			value="%"
+			title="mod"
+			onclick="pushKey('MOD')"
+></td><td><input type="button"
+				class=numButtonL
+				id="SPF2"
+				value=" "
+				title=""
+				onclick=";"
+></td></tr><tr>
+<td><input type="button"
+class=numButtonDark
+id="OP5"
+value="↓TC"
+title="getTC"
+onclick="getTC();"
+></td><td><input type="button"
+	class=numButtonDark
+	id="OP6"
+	value="↑TC"
+	title="putTC"
+	onclick="putTC();"
+></td><td><input type="button"
+		class=numButtonDark
+		id="OP7"
+		value="＾"
+		title="power"
+		onclick="pushKey('^')"
+></td><td><input type="button"
+			class=numButtonDark
+			id="OP8"
+			value="÷"
+			title="div"
+			onclick="pushKey('/')"
+></td><td><input type="button"
+				class=numButtonL
+				id="SPF3"
+				value=" "
+				title=""
+				onclick=";"
+></td></tr><tr><td><input type="button"
+class=numButtonLight
+id="D"
+value="D"
+title="D"
+onclick="pushKey(this.value)"
+disabled=true
+></td><td><input type="button"
+	class=numButtonLight
+	id="E"
+	value="E"
+	title="E"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+		class=numButtonLight
+		id="F"
+		value="F"
+		title="F"
+		onclick="pushKey(this.value)"
+></td><td><input type="button"
+			class=numButtonDark
+			id="OP5"
+			value="×"
+			title="mul"
+			onclick="pushKey('*')"
+></td><td><input type="button"
+				class=numButtonL
+				id="SPF4"
+				value=" "
+				title=""
+				onclick=";"
+></td></tr><tr><td><input type="button"
+class=numButtonLight
+id="A"
+value="A"
+title="A"
+onclick="pushKey(this.value)"
+></td><td><input type="button"
+	class=numButtonLight
+	id="B"
+	value="B"
+	title="B"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+		class=numButtonLight
+		id="C"
+		value="C"
+		title="C"
+		onclick="pushKey(this.value)"
+></td><td><input type="button"
+			class=numButtonDark
+			id="OP6"
+			value="−"
+			title="minus"
+			onclick="pushKey('-')"
+></td><td><input type="button"
+				class=numButtonL
+				id="SPF5"
+				value=" "
+				title=""
+				onclick=";"
+></td></tr><tr><td><input type="button"
+class=numButton
+id="7"
+value="7"
+title="7"
+onclick="pushKey(this.value)"
+></td><td><input type="button"
+	class=numButton
+	id="8"
+	value="8"
+	title="8"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+		class=numButton
+		id="9"
+		value="9"
+		title="9"
+		onclick="pushKey(this.value)"
+></td><td rowspan=2><input type="button"
+			class=numButtonT
+			id="OP7"
+			value="＋"
+			title="plus"
+			onclick="pushKey('+')"
+></td><td><input type="button"
+				class=numButtonL
+				id="SPF6"
+				value=" "
+				title=""
+				onclick=";"
+></td></tr><tr><td><input type="button"
+class=numButton
+id="4"
+value="4"
+title="4"
+onclick="pushKey(this.value)"
+></td><td><input type="button"
+	class=numButton
+	id="5"
+	value="5"
+	title="5"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+		class=numButton
+		id="6"
+		value="6"
+		title="6"
+		onclick="pushKey(this.value)"
+></td><td><input type="button"
+				class=numButtonL
+				id="SPF7"
+				value=" "
+				title=""
+				onclick=";"
+></td></tr><tr><td><input type="button"
+class=numButton
+id="1"
+value="1"
+title="1"
+onclick="pushKey(this.value)"
+></td><td><input type="button"
+	class=numButton
+	id="2"
+	value="2"
+	title="2"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+		class=numButton
+		id="3"
+		value="3"
+		title="3"
+		onclick="pushKey(this.value)"
+></td><td rowspan=2><input type="button"
+			class=numButtonT
+			id="OP8"
+			value="＝"
+			title="equal"
+			onclick="pushKey('=')"
+></td><td><input type="button"
+				class=numButtonL
+				id="SPF8"
+				value=" "
+				title=""
+				onclick=";"
+></td></tr><tr><td><input type="button"
+class=numButton
+id="zero"
+value="0"
+title="zero"
+onclick="pushKey('0')"
+></td><td><input type="button"
+	class=numButton
+	id="zz"
+	value="00"
+	title="zerozero"
+	onclick="editBuf('00');"
+></td><td><input type="button"
+		class=numButton
+		id="dot"
+		value=". "
+		title="dot"
+		onclick="pushKey('.')"
+></td><td><input type="button"
+				class=numButtonL
+				id="SPF9"
+				value=" "
+				title=""
+				onclick=";"
+></td></tr></tbody></table>
+
+	<!-- 数値キーボード --></div>
+
+<div	id=rimaPing>
+	<!-- りまぴんmini挿入位置 -->
+
+</form>
+<!--
+
+<textarea
+	id=_MEMO
+	rows="10" cols="80"
+>
+2004.09.12<br />
+一応電卓、作り始め 何とか電卓らしくなってきた。<br />
+時計はまだ組み込んでない。<br />
+既成のストップウオッチを組み込むヨテー<br />
+タイムコードの計算機能もまだ。<br />
+<br />
+でんでろりん<br />
+時計とストップウオッチが合体！<br />
+混ぜただけですが…<br />
+<br />
+2004.09.18<br />
+game.gr.jpで見たライブラリを借用。<br />
+なるほど、こんなふうにすると良いのね<br />
+ああ、キーを拾う時はプレスの方が良いのか…な?<br />
+プレスとダウンの時間差を計ってみましょう。今度ね<br />
+2004.09.19<br />
+ぎゅー ちょっとカゼ<br />
+デザイン変えてみる<br />
+そろそろつかえる感じか?<br />
+<HR>
+2004.09.23 TC計算コーディング開始<br />
+
+実時間保持<br />
+cc値でとりあえず開始<br />
+9/26<br />
+ダメみたい<br />
+バッファ内部の値をcc値にすると乗算除算の際に入力バッファとスタックの値が変わるので、イヤ。<br />
+とりあえずフレーム保持型に変更してみる。
+
+10/15<br />
+やれやれ、やっぱり昔作った奴と似そう。<br />
+ま、よし
+10/17
+あまりゃ、
+いまさらデータ形式で悩む。
+文字列としてバッファを保持するのは正解だが、スタック自身を配列で持つのはいかが?
+結構いけそうな気が…ただしいろいろ基本機能に手を入れないとできない様な気も…
+
+05/01/17
+3カ月ぶりに再開。何をしていたかよく思い出せない。
+入力ルーチンだったかな?
+うむ、こんな感じ
+01/19
+ブラウザ判定を書いた。組み込んでみる。
+01/24
+さいてーカモ
+TCのサブルーチンを負の数に対応させるのをすっかり忘れていた。
+さらに、追加分の関数が小数点以下の数値に対応していない。
+TCの計算メチャクチャ…
+なんとかちょぼっと直してみる。かなりヒドイ
+
+2008/11/25
+AdobeAIRに対応させることにした
+AIRのお勉強にちょうどよサゲ
+AIRに馴染んだら、りまぴんをローカルアプリにしようっと
+
+2008/11/27
+なんとなくカタチになったような気もしないこともない。
+追加機能を外部ファイルにするかどうか思案中
+蛇足っぽいがメニューをつけてメニュー操作のお勉強としませう
+
+</textarea>
+-->
+</body></html>

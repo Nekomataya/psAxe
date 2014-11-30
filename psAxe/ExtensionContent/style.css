@@ -1,0 +1,73 @@
+
+body {
+text-align:center;
+}
+
+button, select, input
+{
+border:1px solid;
+height:19px;
+}
+
+input[type=text]
+{
+height:16px;
+}
+
+#content {
+margin-right:auto;
+margin-left:auto;
+vertical-align:middle;
+width:100%;
+}
+
+#content ul {
+padding:0px;
+}
+
+#content ul li {
+margin:3px 0px 3px 0px;
+}
+/* add for psAxe */
+
+    img         {width:24;height:24;vertical-align:middle;}
+
+    input{font-weight:100;vertical-align:middle;}
+    button{font-weight:100;vertical-align:middle;
+
+    border-style:none; }
+button:hover {border-style:groove;}
+button:active {border-style:ridge;}
+    .toolChip	{width: 27px;height:27px;background-color:#808080;font-size:8pt;padding:0;}
+    .operation	{width: 54px;height:20px;background-color:#666666;font-size:8pt;}
+    .fsp	{width: 216px;height:16px;background-color:#444444;font-size:8pt;}
+    .fw		{width: 216px;height:20px;background-color:#555555;font-size:8pt;}
+    .hw		{width: 108px;height:20px;background-color:#555555;font-size:8pt;}
+    .qw		{width: 54px;height:20px;background-color:#555555;font-size:8pt;}
+    .fwd	{width: 216px;height:20px;background-color:#777777;font-size:9pt;}
+    .hwd	{width: 108px;height:20px;background-color:#777777;font-size:9pt;}
+    .qwd	{width: 54px;height:20px;background-color:#777777;font-size:8pt;}
+    .owd	{width: 27px;height:20px;background-color:#777777;font-size:8pt;}
+
+
+input {font-size:9pt;border-width:1}
+button {font-size:9pt;border-width:1;color:snow;background-color:#666666;-webkit-border-radius:2px;}
+
+A:link    {text-decoration:none;}
+A:visited {text-decoration:none;}
+A:active  {text-decoration:none;}
+A:hover  {color:#808080;background-color:#dddddd;}
+
+#toolmenu
+{
+	position:absolute;
+	left:0px;top:96px;
+	width:192px;height100%;
+}
+#toolview
+{
+	position:absolute;
+	left:208px;top:96px;
+	width:75%;height:100%;
+	border-style:none;
+}

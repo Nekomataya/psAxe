@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns="http://ns.adobe.com/air/application/1.1" minimumPatchLevel="0">
+	<id>info.nekomataya.remaping</id>
+	<version>1.1</version>
+	<filename>nas_Calc_AIR</filename>
+	<initialWindow>
+		<content>nasCalc.html</content>
+		<visible>true</visible>
+		<transparent>false</transparent>
+		<systemChrome>standard</systemChrome>
+		<type>utility</type>
+		<width>512</width>
+		<height>286</height>
+	</initialWindow>
+
+</application>

@@ -1,0 +1,28 @@
+このフォルダには以下のファイル群が存在します。
+各ファイルの詳しい用途はファイルのコメントを参照するかねこまたやまでお問い合わせください。
+あとソース読めばわかる…と思う
+
+config.js	アプリケーション・環境に依存しない全体設定
+dataio.js	タイムシートのdataI/Oモジュール 読込み関数
+fakeAE.js	AE模倣環境を作成するためのモジュール・AEエクスプレッション互換ベクトル演算ライブラリを含む
+io.js	りまぴん入出力関連ライブラリ
+lib_STS.js	りまぴんSTS入出力用ライブラリ(バイナリI/Oライブラリ含む)
+map.js		Ps環境用Mapライブラリ
+mapio.js	MAP環境ライブラリ(ダミーオブジェクト)
+nas.XpsStore.js	AE環境以外でXPSStoreを利用する互換オブジェクト
+xpsio.js	XPSオブジェクトライブラリ
+xpsQueue.js	XPSオブジェクトからPsAXE用のキューをビルドするライブラリ
+現状ではアニメフレーム操作関数と同居しているので分離が必要
+GUI_test.js	GUIモジュール試験プロシジャ
+nasLibInstall.js	ライブラリインストーラ/アンインストーラ
+nas_lib_install.dat	インストーラーデータファイル
+nas_Otome_config.js	AE用乙女環境設定ファイル
+psAnimationFrameClass.js	アニメフレーム操作関数()
+[resource]	アイコンとかイロイロ
+[etc]	プリファレンスデータ保存してます
+[(temp)]	一時ファイル置き場
+nas_psAxeLib.js	PsAXE依存ライブラリ
+nas_prefarenceLib.js	プリファレンス入出力用ライブラリ
+nas_common.js	nasアニメーション一般ライブラリ
+nas_GUIlib.js	AdobeScriptGUIライブラリ
+filelist.txt	ライブラリファイルリスト

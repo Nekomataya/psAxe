@@ -1,0 +1,74 @@
+<languageVersion : 1.0;>
+
+kernel paintPreProcess
+<   namespace : "info.nekomataya";
+    vendor : "Nekomataya";
+    version : 1;
+    description : "make BW drawing for painting";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+    
+    parameter float baseClip
+    <
+        maxValue :100.0;
+        minValue :0.0;
+        defaultValue    :0.;
+        descliption :"lineIntensity";
+        
+    >;
+
+    parameter float backgroundClip
+    <
+        maxValue :100.0;
+        minValue :0.0;
+        defaultValue    :100.;
+        descliption :"clipThreshold";
+        
+    >;
+
+    parameter float threshold
+    <
+        maxValue :100.0;
+        minValue :0.0;
+        defaultValue    :50.;
+        descliption :"Threshold";
+        
+    >;
+
+    void
+    evaluatePixel()
+    {
+    float4 myPix = sample(src, outCoord());
+
+	float minValue= min(myPix.r,min(myPix.g,myPix.b));
+	float myValue=(minValue-(backgroundClip*baseClip/100.)/100.)/(backgroundClip-(backgroundClip*baseClip/100.)/100.);
+/*
+	float myY = myPix.r *0.299 + myPix.g * 0.587 + myPix.b * 0.114;
+	float2 myPxCol;
+	myPxCol.x =myPix.b-myY;
+	myPxCol.y =myPix.r-myY;
+	float myLength = length(myPxCol)*10.;//ƒxƒNƒgƒ‹’·
+	bool isGray =( ( myLength * 500. ) >saturation )? false:true;
+	float3 newColor;
+	float3 newComp;
+	newColor.r=(isGray)? myY:myPix.r;
+	newColor.g=(isGray)? myY:myPix.g;
+	newColor.b=(isGray)? myY:myPix.b;
+
+        newComp.r = (newColor.r < backgroundClip/100.)? (1.-newColor.r)*((100.-backgroundClip)/100.)+backgroundClip/100.:newColor.r;
+        newComp.g = (newColor.g < backgroundClip/100.)? (1.-newColor.g)*((100.-backgroundClip)/100.)+backgroundClip/100.:newColor.g;
+        newComp.b = (newColor.b < backgroundClip/100.)? (1.-newColor.b)*((100.-backgroundClip)/100.)+backgroundClip/100.:newColor.b;
+
+        dst.r = ((1.-abs(newColor.r-newComp.r))-((backgroundClip*lineIntensity)/10000.))/(1.-((lineIntensity*backgroundClip)/10000.));
+        dst.g = ((1.-abs(newColor.g-newComp.g))-((backgroundClip*lineIntensity)/10000.))/(1.-((lineIntensity*backgroundClip)/10000.));
+        dst.b = ((1.-abs(newColor.b-newComp.b))-((backgroundClip*lineIntensity)/10000.))/(1.-((lineIntensity*backgroundClip)/10000.));
+*/
+        dst.r = (minValue < threshold/100.)? 0.:1.;
+        dst.g = (minValue < threshold/100.)? 0.:1.;
+        dst.b = (minValue < threshold/100.)? 0.:1.;
+        dst.a = myPix.a;
+	}
+}
+
