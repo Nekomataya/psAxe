@@ -1,8 +1,29 @@
+//CC CC2014以降のHTML CEP環境とそれ以前のCSX環境を見分けるために window.__adobe_cep__オブジェクトの有無をチェックする
+//このスクリプトはCS6-CS2014エクステンション共用
+var isCEP={};
+try{ isCEP=(window.__adobe_cep__)?true:false;}catch(er){isCEP = false;}
 
 function onLoaded() {
-    var csInterface = new CSInterface();
+	if(isCEP) {
+		//CEP環境用
+		    var csInterface =new CSInterface();
+
+		    var appName = csInterface.hostEnvironment.appName;
+
+		    updateThemeWithAppSkinInfo(csInterface.hostEnvironment.appSkinInfo);
+		    // Update the color of the panel when the theme color of the product changed.
+		    csInterface.addEventListener(CSInterface.THEME_COLOR_CHANGED_EVENT, onAppThemeColorChanged);
+		    loadJSX();
+			}else{
+//		    chgPnl(0);//メニューバーの初期化
+		    document.getElementById('LLSelector').style.display="none";//CSX環境で使用不能なドロップダウンリストを非表示にする
+		    addEventListener('ThemeChangedEvent', onAppThemeColorChanged);
+		    //CSX環境では戻り値は無い CSX環境では起動時にテーマチェンジイベントが発生するがCEP環境では初回イベントは無い模様
+		    // Define event handler
+			}
+
+	var csInterface = new CSInterface();
 	
-    
     var appName = csInterface.hostEnvironment.appName;
     
     if(appName != "FLPR"){
@@ -18,8 +39,17 @@ function onLoaded() {
                 btn.disabled = false;
         }
     }
-    
 
+
+//各アプリケーション毎の初期化プロセス    
+//	alert(appName);
+ switch (appName){
+case "PHXS":
+	psHtmlDispatch();
+break;
+default:
+	alert("this is "+appName)
+ }
     updateThemeWithAppSkinInfo(csInterface.hostEnvironment.appSkinInfo);
     // Update the color of the panel when the theme color of the product changed.
     csInterface.addEventListener(CSInterface.THEME_COLOR_CHANGED_EVENT, onAppThemeColorChanged);
@@ -150,7 +180,14 @@ function onAppThemeColorChanged(event) {
     updateThemeWithAppSkinInfo(skinInfo);
 } 
 
-
+function psHtmlDispatch(){
+	// パネルの再ロードを抑制する
+	var event = new CSEvent();
+	event.type = "com.adobe.PhotoshopPersistent";
+	event.scope = "APPLICATION";
+	event.extensionId = window.__adobe_cep__.getExtensionId();
+	new CSInterface().dispatchEvent(event);
+}
 
     
 /**

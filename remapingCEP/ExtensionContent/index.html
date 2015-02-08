@@ -3,8 +3,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="./ext.js"></script>
 <script src="./lib/CSInterface-4.0.0.js"></script>
+<script src="./ext.js"></script>
 
         <style type="text/css">
             html, body, iframe {
@@ -19,6 +19,25 @@
 <title>remapingCEP</title>
     </head>
     <body>
-        <iframe src="http://192.168.188.2/~kiyo/remaping_/index.html"></iframe>
+<div id=topRibbon>
+<div id=leftAlign >
+<button class=ribbonButton
+	onClick="location.reload(true);"
+><img src=./images/cat.png></button>
+<button class=ribbonButton
+	onClick="history.back()"
+><img src=./images/left.png></button>
+<button class=ribbonButton
+	onClick="history.forward()"
+><img src=./images/right.png></button>
+<span id=titleBar><span>
+</div>
+<div id=rightAlign>
+<button class=ribbonButton
+	onClick="alert(history.length)"
+><img src=./images/history.png></button>
+</div>
+</div>
+        <iframe src="http://192.168.188.2/~kiyo/remaping/index.html"></iframe>
     </body>
 </html>
