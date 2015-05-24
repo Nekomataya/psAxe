@@ -37,7 +37,8 @@ margin:3px 0px 3px 0px;
     border-style:none; -webkit-border-radius:3px;}
 button:hover {border-style:groove;}
 button:active {border-style:ridge;}
-    .toolChip	{width: 32px;height:32px;margin: 0 1 0 0;padding:0 0 0 0;background-color:#808080;font-size:6pt;}
+    .toolChip	{width: 32px;height:32px;margin: 0 1 0 0;padding:0 0 0 0;background-color:#808080;font-size:9pt;}
+    .toolChipN	{width: 26px;height:32px;margin: 0 1 0 0;padding:0 0 0 0;background-color:#808080;font-size:9pt;}
     .operation	{width: 60px;height:24px;margin: 0 0 0 0;padding:0 0 0 0;background-color:#eeeeee;font-size:8pt;}
     .fsp	{width: 240px;height:18px;background-color:#eeeeee;font-size:8pt;}
     .fw		{width: 24px;height:32px;background-color:#cccccc;font-size:8pt;}
