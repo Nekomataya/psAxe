@@ -1,9 +1,9 @@
 /*
-	���C���摜���א�������
-	�P�@�\�t�B���^��A�����s���邱�Ƃōא������s�Ȃ��Ă���B
-	���C����RGB���[�h�ł��邱�ƁB
-	�����Q�l���͍s��Ȃ��̂ŁA���炩���߂Q�l�����s�Ȃ��Ă������ƁB
-	psPaint�v���O�C�������炩���߃C���X�g�[������Ă��邱��
+	レイヤ画像を細線化する
+	単機能フィルタを連続実行することで細線化を行なっている。
+	レイヤはRGBモードであること。
+	黒白２値化は行わないので、あらかじめ２値化を行なっておくこと。
+	psPaintプラグインがあらかじめインストールされていること
 	
 */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
@@ -12,13 +12,13 @@
 app.bringToFront();
 
 /*
-	�s�N�Z���x���_�[���A���s�\�ȏꍇ�͂������D��I�Ɏg�p����B
-	�A�v���P�[�V�����t�H���_�� Pixel Bender Files �t�H���_�̗L�����`�F�b�N����
-	Pixel Bender Kernel ���g�p�\��Photoshop���ۂ����肷��
-	CS6�ȍ~�́APixelBender����T�|�[�g�ƂȂ�̂Œ���
-	�x�[�^�łł͎��s�\�������B
-	�x�[�^�łł��̋@�\���g�p���邽�߂ɂ́A���ʂ̂��߂����Ƀt�H���_��ݒu���Ă������ƁB
-	(��t�H���_�ŗǂ�)2012.05.05
+	ピクセルベンダーが、実行可能な場合はそちらを優先的に使用する。
+	アプリケーションフォルダに Pixel Bender Files フォルダの有無をチェックして
+	Pixel Bender Kernel が使用可能なPhotoshopか否か判定する
+	CS6以降は、PixelBenderが非サポートとなるので注意
+	ベータ版では実行可能だった。
+	ベータ版でこの機能を使用するためには、判別のためだけにフォルダを設置しておくこと。
+	(空フォルダで良い)2012.05.05
 
 */
 var exPBK = new Folder(app.path.fullName+"/Pixel Bender Files").exists;
@@ -29,65 +29,65 @@ if(app.version.split(".")[0]==13){exPBK=true}
 if(exPBK){
 /*
 	applyPbk(myPBK,knlName,[[control,value]],dialog)
-����
-	myPBK	�t�B���^�L�q �J�e�S��+�t�B���^��(������)
-	control	�R���g���[���L�q(������)
-	value	�R���g���[���̒l(���l)
-	dialog	�_�C�A���O���[�h(������ "ALL""ERROR""NO")[�ȗ���]
-�߂�l
-	���ɂȂ�(undefeined)
-	pixel bender karnel�@���X�N���v�g����K�p����֐�
-	����myPBK�̓J�[�l���t�@�C�����̓t�@�C���p�X��
-	���݂��Ȃ��J�[�l���t�@�C�����w�肳�ꂽ�ꍇ�́A������X�L�b�v
+引数
+	myPBK	フィルタ記述 カテゴリ+フィルタ名(文字列)
+	control	コントロール記述(文字列)
+	value	コントロールの値(数値)
+	dialog	ダイアログモード(文字列 "ALL""ERROR""NO")[省略可]
+戻り値
+	特になし(undefeined)
+	pixel bender karnel　をスクリプトから適用する関数
+	引数myPBKはカーネルファイル又はファイルパスで
+	存在しないカーネルファイルが指定された場合は、動作をスキップ
 */
 applyPbk=function(myPBK,knlName,fVA,dMode){
 if(! dMode){dMode="NO"}
 if(! fVA){fVA=[];}
 if(! knlName ) knlName=false;
-if(!(myPBK instanceof(File))){myPBK=new File(myPBK);};//�t�@�C���I�u�W�F�N�g�łȂ���ΐV�K�t�@�C��
+if(!(myPBK instanceof(File))){myPBK=new File(myPBK);};//ファイルオブジェクトでなければ新規ファイル
 
 	if((myPBK.exists)&&(knlName)){
-// =======================================================pbk�K�p(�p�����^����)
-var idPbPl = charIDToTypeID( "PbPl" );//pbk���ʕ�����
-    var descPbk = new ActionDescriptor();//�A�N�V�����f�B�X�N���v�^�����
+// =======================================================pbk適用(パラメタあり)
+var idPbPl = charIDToTypeID( "PbPl" );//pbk識別文字列
+    var descPbk = new ActionDescriptor();//アクションディスクリプタを作る
 
     var idKnNm = charIDToTypeID( "KnNm" );//KarNel NaMe
-    descPbk.putString( idKnNm, knlName );//�J�[�l�����ʖ��ݒ�(���Ԃ�Undo�̎��ʖ��̂�)
+    descPbk.putString( idKnNm, knlName );//カーネル識別名設定(たぶんUndoの識別名のみ)
 
-    var idGpuY = charIDToTypeID( "GpuY" );//GPU�g�p�t���O(���ݎg�p���ɌŒ�@���肵�Ē����͑����K�v�@�������䂩�H)
-    descPbk.putBoolean( idGpuY, true );//���ݒ�
+    var idGpuY = charIDToTypeID( "GpuY" );//GPU使用フラグ(現在使用側に固定　判定して調整は多分必要　引数制御か？)
+    descPbk.putBoolean( idGpuY, true );//同設定
 
-    var idLIWy = charIDToTypeID( "LIWy" );//�s���Ȏ��ʎq
-    descPbk.putBoolean( idLIWy, true );//���ݒ� - ����͌��ߑł��Ŏc��
+    var idLIWy = charIDToTypeID( "LIWy" );//不明な識別子
+    descPbk.putBoolean( idLIWy, true );//同設定 - これは決め打ちで残す
 
-    var idFPth = charIDToTypeID( "FPth" );//�t�@�C���p�X���ʎq
-    descPbk.putString( idFPth, myPBK.fsName );//�t�@�C���p�X�ݒ�
-//�p�����^�����鐔�����J��Ԃ��Đݒ�@���݃p�����^�̎�ʂ�Float�݂̂Ō��ߑł�(�ėp���Ȃ�)
-//id�͎������������ǃA���t�@�x�b�g1���őł��~�߂Ƃ��Ă���
+    var idFPth = charIDToTypeID( "FPth" );//ファイルパス識別子
+    descPbk.putString( idFPth, myPBK.fsName );//ファイルパス設定
+//パラメタがある数だけ繰り返して設定　現在パラメタの種別はFloatのみで決め打ち(汎用性なし)
+//idは自動生成だけどアルファベット1巡で打ち止めとしておく
 var exText=new Array();
 for(var ix=0;ix< fVA.length;ix++){
 	var myChar="abcdefghijklmnopqrstuvwxyz".charAt(ix);
-    var idPN = charIDToTypeID( "PNa"+myChar );//�p�����^���{id
-    descPbk.putString( idPN, fVA[ix][0] );//�p�����^���ݒ�
+    var idPN = charIDToTypeID( "PNa"+myChar );//パラメタ名＋id
+    descPbk.putString( idPN, fVA[ix][0] );//パラメタ名設定
 exText.push([idPN, fVA[ix][0] ]);
-    var idPT = charIDToTypeID( "PTa"+myChar );//�p�����^�Ɋւ��鉽���̎��ʎq+id
-    descPbk.putInteger( idPT, 0 );//�����łO��ݒ肵�Ă���@�Ƃ肠�����R�s�[
+    var idPT = charIDToTypeID( "PTa"+myChar );//パラメタに関する何かの識別子+id
+    descPbk.putInteger( idPT, 0 );//整数で０を設定している　とりあえずコピー
 exText.push([idPT, 0]);
-   var idPF = charIDToTypeID( "PFa"+myChar );//���ۂɂ��������p�����^�̎��ʎq
-    descPbk.putDouble( idPF, fVA[ix][1] );//�K�p�p�����^
+   var idPF = charIDToTypeID( "PFa"+myChar );//実際にかけたいパラメタの識別子
+    descPbk.putDouble( idPF, fVA[ix][1] );//適用パラメタ
 exText.push([idPF, fVA[ix][1]]);
 }
-//�ȉ��p�����^���������J��Ԃ�
-//id�@�� aa,ab,ac,ad,ae~�ƘA��
+//以下パラメタ数分だけ繰り返し
+//id　は aa,ab,ac,ad,ae~と連続
 //alert(exText);
 executeAction( idPbPl, descPbk, DialogModes[dMode] );
 	}
 }
 if($.fileName){
-//	CS3�ȍ~�́@$.fileName�I�u�W�F�N�g������̂Ń��P�[�V�����t���[�ɂł���
+//	CS3以降は　$.fileNameオブジェクトがあるのでロケーションフリーにできる
 	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
 }else{
-//	$.fileName �I�u�W�F�N�g���Ȃ��ꍇ�̓C���X�g�[���p�X�����߂�������
+//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
 }
 var myExecute="";
@@ -99,17 +99,17 @@ myExecute+="applyPbk(\""+nasLibFolderPath+"PixelBenderKernel/thin003.pbk\",\"thi
 }
 myExecute+="applyPbk(\""+nasLibFolderPath+"PixelBenderKernel/punchOutRed.pbk\",\"punchOutRed\",);";
 
-app.activeDocument.suspendHistory ("�摜�א���", myExecute ); 
+app.activeDocument.suspendHistory ("画像細線化", myExecute ); 
 }else{
-/* ����Ȋ֐���?
+/* こんな関数か?
 	applyFilter(filterDescription,[[control,value]],dialog)
-����
-	filterDesctiotion	�t�B���^�L�q �J�e�S��+�t�B���^��(������)
-	control	�R���g���[���L�q(������)
-	value	�R���g���[���̒l(���l)
-	dialog	�_�C�A���O���[�h(������ "ALL""ERROR""NO")[�ȗ���]
-�߂�l
-	���ɂȂ�(undefeined)
+引数
+	filterDesctiotion	フィルタ記述 カテゴリ+フィルタ名(文字列)
+	control	コントロール記述(文字列)
+	value	コントロールの値(数値)
+	dialog	ダイアログモード(文字列 "ALL""ERROR""NO")[省略可]
+戻り値
+	特になし(undefeined)
  */
 
 
@@ -147,7 +147,7 @@ myExecute+="applyFilter(\"psPaint thin003\",[],\"NO\");"
 }
 myExecute+="applyFilter(\"psPaint punchOutRed\",[],\"NO\");"
 if(app.activeDocument.suspendHistory){
-app.activeDocument.suspendHistory ("�摜�א���", myExecute ); 
+app.activeDocument.suspendHistory ("画像細線化", myExecute ); 
 }else{
 eval(myExecute);
 }

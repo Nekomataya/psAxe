@@ -1,114 +1,19 @@
-//shiftLyers.jsx ƒŒƒCƒ„ƒZƒbƒg‚Ìƒƒ“ƒo[‚ğ’è”ƒVƒtƒg‚·‚é
+//shiftLyers.jsx ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã®ãƒ¡ãƒ³ãƒãƒ¼ã‚’å®šæ•°ã‚·ãƒ•ãƒˆã™ã‚‹
 /*
-	ƒXƒ‰ƒCƒ_‚Å”’lw’è‚ğs‚Á‚ÄÅ’Z‹——£‚É•ÏŠ·A‚»‚ÌŒãÀÛ‚ÌƒŒƒCƒ„‚ğƒVƒtƒg‚·‚é
-	count”‚ğİ’è‚µ‚ÄƒŒƒCƒ„‚ğˆÚ“®‚·‚éƒ‹[ƒ`ƒ“iŒ±j@‚ ‚Æ‚ÅƒXƒ‰ƒCƒ_‚ğ‚Â‚¯‚é‚±‚Æ
+	ã‚¹ãƒ©ã‚¤ãƒ€ã§æ•°å€¤æŒ‡å®šã‚’è¡Œã£ã¦æœ€çŸ­è·é›¢ã«å¤‰æ›ã€ãã®å¾Œå®Ÿéš›ã®ãƒ¬ã‚¤ãƒ¤ã‚’ã‚·ãƒ•ãƒˆã™ã‚‹
+	countæ•°ã‚’è¨­å®šã—ã¦ãƒ¬ã‚¤ãƒ¤ã‚’ç§»å‹•ã™ã‚‹ãƒ«ãƒ¼ãƒãƒ³ï¼ˆè©¦é¨“ï¼‰ã€€ã‚ã¨ã§ã‚¹ãƒ©ã‚¤ãƒ€ã‚’ã¤ã‘ã‚‹ã“ã¨
 */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
-//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
+	nas=app.nas
 
-if($.fileName){
-//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é
-	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-}
-var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñ
-
-if(! app.nas){
-//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é
-	var nas = new Object();
-		nas.Version=new Object();
-		nas.isAdobe=true;
-		nas.axe=new Object();
-		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p
-//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş
-/*
-	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB
-	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)
-	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş
-
-@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj
-@config.js"		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\
-  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ
-  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ
-  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ
-
-  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)
-  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ
-  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ
-  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ
-  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j
-  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ
-  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ
-  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ
-*/
-includeLibs=[
-	nasLibFolderPath+"config.js",
-	nasLibFolderPath+"nas_common.js",
-	nasLibFolderPath+"nas_GUIlib.js",
-	nasLibFolderPath+"nas_psAxeLib.js",
-	nasLibFolderPath+"nas_prefarenceLib.js"
-];
-//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é
-	app.nas=nas;
-	bootFlag=true;
-}else{
-	//alert("object nas exists")
-	nas=app.nas;
-	bootFlag=false;
-};
-
-/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
-‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤
-*/
-	if(false){
-includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
-includeLibs.push(nasLibFolderPath+"xpsio.js");
-includeLibs.push(nasLibFolderPath+"mapio.js");
-includeLibs.push(nasLibFolderPath+"lib_STS.js");
-includeLibs.push(nasLibFolderPath+"dataio.js");
-includeLibs.push(nasLibFolderPath+"fakeAE.js");
-includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
-includeLibs.push(nasLibFolderPath+"xpsQueue.js");
-	};
-for(prop in includeLibs){
-	var myScriptFileName=includeLibs[prop];
-	if($.evalFile){
-	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é
-		$.evalFile(myScriptFileName);
-	}else{
-	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·
-		var scriptFile = new File(myScriptFileName);
-		if(scriptFile.exists){
-			scriptFile.open();
-			var myContent=scriptFile.read()
-			scriptFile.close();
-			eval(myContent);
-		}
-	}
-}
-//=====================================•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾
-if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
-//=====================================
-//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p
-
-//=====================================================ƒŒƒCƒ„ƒVƒtƒgŠÖ”ƒ‰ƒCƒuƒ‰ƒŠ‚ÖˆÚs‚·‚é‚Ù‚¤‚ª‚æ‚¢‚©‚à
+//=====================================================ãƒ¬ã‚¤ãƒ¤ã‚·ãƒ•ãƒˆé–¢æ•°ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã¸ç§»è¡Œã™ã‚‹ã»ã†ãŒã‚ˆã„ã‹ã‚‚
 function shiftLayers(shiftCount){
-//shiftCount‚Í®”@0‚Í”»’è‚µ‚ÄƒŠƒ^[ƒ“iˆÚ“®‚ª‚È‚¢‚Ì‚Åj
+//shiftCountã¯æ•´æ•°ã€€0ã¯åˆ¤å®šã—ã¦ãƒªã‚¿ãƒ¼ãƒ³ï¼ˆç§»å‹•ãŒãªã„ã®ã§ï¼‰
  if(!shiftCount){shiftCount=0;};
  if(shiftCount==0){return};
  var idx=0;
  var myDocLayers=app.activeDocument.activeLayer.parent;
  var mxId=myDocLayers.layers.length;
- //ƒVƒtƒgƒJƒEƒ“ƒg‚ğÅ¬ˆÚ“®‚Ö•ÏŠ·
+ //ã‚·ãƒ•ãƒˆã‚«ã‚¦ãƒ³ãƒˆã‚’æœ€å°ç§»å‹•ã¸å¤‰æ›
 // alert(shiftCount);
  shiftCount=shiftCount%mxId;
 if(Math.abs(shiftCount)>(mxId/2)){shiftCount=(shiftCount<0)?(mxId+shiftCount):-(mxId-shiftCount)};
@@ -123,7 +28,7 @@ if(Math.abs(shiftCount)>(mxId/2)){shiftCount=(shiftCount<0)?(mxId+shiftCount):-(
 //activate TopLayer
 for(var idx=0;idx<myDocLayers.layers.length;idx++){if(myDocLayers.layers[idx].visible){app.activeDocument.activeLayer=myDocLayers.layers[idx];break;}};
 }
-//ƒ‰ƒxƒ‹”’l•”ƒJƒEƒ“ƒgŠÖ” •â••”•ª‚Í”‚¦‚È‚¢‚æ@‚Å‚à¬”•”‚Í”‚¦‚é‚©‚àH
+//ãƒ©ãƒ™ãƒ«æ•°å€¤éƒ¨ã‚«ã‚¦ãƒ³ãƒˆé–¢æ•° è£œåŠ©éƒ¨åˆ†ã¯æ•°ãˆãªã„ã‚ˆã€€ã§ã‚‚å°æ•°éƒ¨ã¯æ•°ãˆã‚‹ã‹ã‚‚ï¼Ÿ
 function countLabelNum(myLabel){
 	if (myLabel.match(/([0-9]+)/)){return RegExp.$1 *1;}else{return 0;}
 }
@@ -131,7 +36,7 @@ function countLabelNum(myLabel){
 if((app.documents.length)&&(app.version.split(".")[0]>9)){
 var myDocLayers=app.activeDocument.activeLayer.parent;
 var maxLayers=myDocLayers.layers.length;
-//ƒJƒŒƒ“ƒgƒIƒtƒZƒbƒg‚ğ’T‚é
+//ã‚«ãƒ¬ãƒ³ãƒˆã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’æ¢ã‚‹
 var currentOffset=0;
 var prV=countLabelNum(myDocLayers.layers[0].name);
 var myNames=new Array();
@@ -148,7 +53,7 @@ w.myLabel=nas.GUI.addComboBox(w,myNames,myNames[0],0,0,3,1);
 w.cnBt=nas.GUI.addButton(w,"cancel",3,0,1.5,1);
 w.okBt=nas.GUI.addButton(w,"G O !",4.5,0,1.5,1);
 w.mySlider=nas.GUI.addMultiControl(w,"number",1,0,1,6,2,true,"index",currentOffset+1,1,maxLayers);
-//ƒRƒ“ƒ{ƒ{ƒbƒNƒX‚ÌƒZƒŒƒNƒg‚Í‘¦ˆÚ“®E–¼‘O‚Ì“ü—Í‚ÍV‹Kì¬‚¾‚¯‚Ç¡“ú‚Í•Û—¯
+//ã‚³ãƒ³ãƒœãƒœãƒƒã‚¯ã‚¹ã®ã‚»ãƒ¬ã‚¯ãƒˆã¯å³ç§»å‹•ãƒ»åå‰ã®å…¥åŠ›ã¯æ–°è¦ä½œæˆã ã‘ã©ä»Šæ—¥ã¯ä¿ç•™
 w.myLabel.onChange=function(){
 //	alert(this.selected)
 	if(this.selected != null){
@@ -156,7 +61,7 @@ w.myLabel.onChange=function(){
 //		if((maxLayers/2)>this.selected){shiftLayers (-this.selected)}else{shiftLayers (maxLayers-this.selected)}
 		this.parent.close();
 	}else{
-		alert("‚±‚±‚ÅV‹K–¼Ì‚ÌƒŒƒCƒ„‚ğì¬‚·‚é—\’è‚¾‚¯‚ÇA‚ ‚Æ‚Å‘‚«‚Ü‚·B¡“ú‚ÍƒiƒV@2011.05.23");
+		alert("ã“ã“ã§æ–°è¦åç§°ã®ãƒ¬ã‚¤ãƒ¤ã‚’ä½œæˆã™ã‚‹äºˆå®šã ã‘ã©ã€ã‚ã¨ã§æ›¸ãã¾ã™ã€‚ä»Šæ—¥ã¯ãƒŠã‚·ã€€2011.05.23");
 	}
 }
 w.mySlider.onChange=function(){
@@ -169,7 +74,7 @@ w.cnBt.onClick=function(){this.parent.close();}
 w.show();
 //=================================
 }else{
-if(app.version.split(".")[0]<=9){alert("‚·‚İ‚Ü‚¹‚ñ CS2‚Å‚Í‹@”\‚µ‚Ü‚¹‚ñ")}
+if(app.version.split(".")[0]<=9){alert("ã™ã¿ã¾ã›ã‚“ CS2ã§ã¯æ©Ÿèƒ½ã—ã¾ã›ã‚“")}
 }
 
-//xLink (“¯ŠúƒŒƒCƒ„‘—‚è)‚É‚Í–¢‘Î‰‚È‚Ì‚Å’ˆÓ@2011 05.31
+//xLink (åŒæœŸãƒ¬ã‚¤ãƒ¤é€ã‚Š)ã«ã¯æœªå¯¾å¿œãªã®ã§æ³¨æ„ã€€2011 05.31

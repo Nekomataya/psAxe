@@ -21,36 +21,49 @@ function onLoaded(){
 
 	}
     chgPnl(0);//メニューバーの初期化
+    syncProp();//プロパティ初期化
+}
+function syncProp(){
+	//インターフェース上のスイッチで初期化の必要な物を初期化する
+document.getElementById("moveSpanDuration").value=Frm2FCT(getApplicationResult("app.nas.axe.skipFrames"),3,0);
+document.getElementById("vtUseOpt").innerHTML=(getApplicationResult("app.nas.axe.useOptKey"))? "o":"✓";
+document.getElementById("vtFocus").innerHTML  =(getApplicationResult("app.nas.axe.focusMove"))? "f":"✓";
+var myMode=getApplicationResult("if((app.documents.length)&&(app.activeDocument)){app.nas.axeCMC.getAnimationMode()}else{false}");
+if(myMode=="timelineAnimation"){
+	document.getElementById("vtControl").style.display="inline";document.getElementById("afControl").style.display="none";
+}else{
+	document.getElementById("vtControl").style.display="none";document.getElementById("afControl").style.display="inline";
 }
 
+}
 
-if(isCEP){
-	/**
-	 * Update the theme with the AppSkinInfo retrieved from the host product.
-	 */
+	if(isCEP){
+/**
+ * Update the theme with the AppSkinInfo retrieved from the host product.
+ */
 function updateThemeWithAppSkinInfo(appSkinInfo) {
- //Update the background color of the panel
+//Update the background color of the panel
     var panelBackgroundColor = appSkinInfo.panelBackgroundColor.color;
     document.body.bgColor = toHex(panelBackgroundColor);
-		        
+        
     document.body.style.color=reverseColor(appSkinInfo.panelBackgroundColor);
 
     document.styleSheets[0].addRule("button.fw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("button.hw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("button.qw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("A","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
+    document.styleSheets[0].addRule("button.hw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
+    document.styleSheets[0].addRule("button.qw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
+    document.styleSheets[0].addRule("A","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
 }
 	} else {
 //for CSX
 function updateThemeWithAppSkinInfoCSX(appSkinInfo) {
 // change the content to match the current scheme
-	document.body.bgColor=appSkinInfo.panelBackgroundColor;
-	document.body.style.color=reverseColor(Hex2Color(appSkinInfo.panelBackgroundColor));
+document.body.bgColor=appSkinInfo.panelBackgroundColor;
+document.body.style.color=reverseColor(Hex2Color(appSkinInfo.panelBackgroundColor));
 
-	document.styleSheets[0].addRule("button.fw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("button.hw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("button.qw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("A","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[0].addRule("button.fw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[0].addRule("button.hw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[0].addRule("button.qw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[0].addRule("A","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
 }
 updateThemeWithAppSkinInfo=updateThemeWithAppSkinInfoCSX;
 	};
@@ -210,6 +223,7 @@ function doCurrentScript(myName){
 
 afcSetDly=function(myTime){
 var myExpression='';
+if(false){
 myExpression += 'var desc = new ActionDescriptor();';
 myExpression += 'var ref = new ActionReference();';
 myExpression += 'ref.putEnumerated( stringIDToTypeID( "animationFrameClass" ), charIDToTypeID( "Ordn" ), charIDToTypeID( "Trgt" )  );';
@@ -220,70 +234,63 @@ myExpression += myTime.toString();
 myExpression +=' );';
 myExpression += 'desc.putObject( charIDToTypeID( "T   " ), stringIDToTypeID( "animationFrameClass" ), desc2 );';
 myExpression += 'executeAction( charIDToTypeID( "setd" ), desc, DialogModes.NO );';
+}else{
+myExpression+='nas=app.nas;nas.axeAFC.setDly( "';
+myExpression += myTime.toString(); 
+myExpression+='" );';
+}
 
 	doScript(myExpression);
 }
-
 //ツール切替コマンド
 function chgTool(myCommand){
 	if(! myCommand){return false};
 
 var myEx='ErrStrs = {};ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation");try{';
-
-switch (myCommand){
+if(myCommand.length==4){
 //ツール切り換え(CharID)
-case "PcTl":
-case "PbTl":
-case "ErTl":
-case "GrTl":
-myEx+=' var idslct = charIDToTypeID( "slct" );'
-myEx+="     var desc = new ActionDescriptor();";
-myEx+=' var idNull = charIDToTypeID( "null" );';
-myEx+="       var ref = new ActionReference();";
-myEx+='       var idTl = charIDToTypeID("';
-myEx+= myCommand;
-myEx+='" );'
-myEx+="        ref.putClass( idTl );";
-myEx+="    desc.putReference( idNull, ref );";
-myEx+='	executeAction( idslct, desc, DialogModes.NO );';
-//myEx+='	executeAction( charIDToTypeID( "slct" ), desc, DialogModes.ALL );';
-
-break;
+	myEx+='     var desc = new ActionDescriptor();';
+	myEx+='       var ref = new ActionReference();';
+	myEx+='       var idTl = charIDToTypeID("'+ myCommand+'" );';
+	myEx+='        ref.putClass( idTl );';
+	myEx+='    desc.putReference( charIDToTypeID( "null" ), ref );';
+	myEx+='	executeAction( charIDToTypeID( "slct" ), desc, DialogModes.NO );';
+}else{
 //ツール切り換え(StringID)
-case "moveTool":
-case "rotateTool":
-case "bucketTool":
-case "marqueeRectTool":
-case "marqueeEllipTool":
-case "lassoTool":
-case "magicWandTool":
-case "rulerTool":
-
-case "penTool":
-case "freeformPenTool":
-case "addKnotTool":
-case "deleteKnotTool":
-case "convertKnotTool":
-case "directSelectTool":
-case "quickSelectTool":
-case "pathComponentSelectTool":
-default:
-myEx+=' var idslct = charIDToTypeID( "slct" );'
-myEx+='    var desc = new ActionDescriptor();';
-myEx+=' var idNull = charIDToTypeID( "null" );';
-myEx+='      var ref = new ActionReference();';
-myEx+='       var idTool = stringIDToTypeID( "';
-myEx+= myCommand;
-myEx+='" );';
-myEx+='               ref.putClass( idTool );';
-myEx+='     desc.putReference( idNull, ref );';
-myEx+='var iddontRecord = stringIDToTypeID( "dontRecord" );'
-myEx+='desc.putBoolean( iddontRecord, true );'
-myEx+='var idforceNotify = stringIDToTypeID( "forceNotify" );'
-myEx+='desc.putBoolean( idforceNotify, true );'
-myEx+='executeAction( idslct, desc, DialogModes.NO );';
-break;
+	myEx+='     var desc = new ActionDescriptor();';
+	myEx+='       var ref = new ActionReference();';
+	myEx+='       var idTool = stringIDToTypeID( "'+myCommand+'" );';
+	myEx+='               ref.putClass( idTool );';
+	myEx+='     desc.putReference( charIDToTypeID( "null" ), ref );';
+	myEx+='desc.putBoolean( stringIDToTypeID( "dontRecord" ), true );'
+	myEx+='desc.putBoolean( stringIDToTypeID( "forceNotify" ), true );'
+	myEx+='executeAction( charIDToTypeID( "slct" ), desc, DialogModes.NO );';
 }
+/*
+//ツール切り換え(CharID)
+"PcTl":
+"PbTl":
+"ErTl":
+"GrTl":
+//ツール切り換え(StringID)
+"moveTool":
+"rotateTool":
+"bucketTool":
+"marqueeRectTool":
+"marqueeEllipTool":
+"lassoTool":
+"magicWandTool":
+"rulerTool":
+"penTool":
+"freeformPenTool":
+"addKnotTool":
+"deleteKnotTool":
+"convertKnotTool":
+"directSelectTool":
+"quickSelectTool":
+"pathComponentSelectTool":
+}
+*/
 myEx+='} catch(e){ if (e.toString().indexOf(ErrStrs.USER_CANCELLED)!=-1) {;} else{alert(localize("$$$/ScriptingSupport/Error/CommandNotAvailable=The command is currently not available"));}};';
 
 	doScript(myEx);
@@ -376,4 +383,5 @@ default	: myID=parseInt(kwd);if(myID===NaN){myID=0};myID=myID%pnlCount
 			document.getElementById("pnl"+pnlID).style.display="none";
 		}
 	}
+	syncProp();
 }

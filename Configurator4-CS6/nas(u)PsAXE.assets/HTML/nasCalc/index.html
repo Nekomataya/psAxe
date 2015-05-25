@@ -333,8 +333,14 @@ Nekomataya/2010
 	title="exchange stack data"
 	value="EXC"
 	onclick="pushKey(this.id)"
-><br /><hr />
-<input type="button"
+><br /><hr / padding=0><input type="button"
+	class=toolKB
+	id="back"
+	title="戻る"
+	value="BACK"
+	onclick='location="../index.html"'
+	style="background-color:gray;"
+><br /><input type="button"
 	class=toolKB
 	id="backspace"
 	value="BS"
@@ -352,13 +358,7 @@ Nekomataya/2010
 	title="スタッククリア"
 	value="AC"
 	onclick="pushKey('AC')"
-><br /><input type="button"
-	class=toolKB
-	id="back"
-	title="戻る"
-	value="BACK"
-	onclick='location="../index.html"'
-><br /><!--<hr>
+><!--<hr>
 
 <input type="button"
 	class=toolKB

@@ -1,32 +1,32 @@
 /*
     exportLayersAsFile.jsx
     
-    ƒŒƒCƒ„ó‘Ô‚ğŒÂ•Ê‚Ìƒtƒ@ƒCƒ‹‚Æ‚µ‚Ä•Û‘¶‚·‚éB
-    ƒIƒvƒVƒ‡ƒ“‚ÅƒOƒ‹[ƒvƒtƒHƒ‹ƒ_‚Ìì¬‚ğs‚¤
+    ãƒ¬ã‚¤ãƒ¤çŠ¶æ…‹ã‚’å€‹åˆ¥ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¨ã—ã¦ä¿å­˜ã™ã‚‹ã€‚
+    ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§ã‚°ãƒ«ãƒ¼ãƒ—ãƒ•ã‚©ãƒ«ãƒ€ã®ä½œæˆã‚’è¡Œã†
     
-è‡‚Æ‚µ‚Ä‚ÍA
-	MAPƒrƒ‹ƒh‚ğs‚¤
-	ƒl[ƒ€ƒXƒy[ƒX‚ğƒRƒŒƒNƒVƒ‡ƒ“‚Åì¬‚·‚é
-	ƒVƒXƒeƒ€ƒtƒHƒ‹ƒ_ˆÈ‰º‚ÌƒOƒ‹[ƒvƒf[ƒ^‚ğ‡Ÿ•\¦‚·‚éXPS‚ğ¶¬‚·‚éB
-	ƒrƒ‹ƒh‚·‚é
-	ƒtƒŒ[ƒ€‚ğƒŒƒCƒ„‚É“‡‚·‚é
-	ƒŒƒCƒ„‚ğ1“_‚Ã‚Âƒtƒ@ƒCƒ‹‚É‚Æ‚Á‚Ä•Û‘¶‚·‚éB
-	ƒIƒŠƒWƒiƒ‹ƒhƒLƒ…ƒƒ“ƒg‚ğ•Û‘¶‚¹‚¸‚É•Â‚¶‚é
-‚Æ‚¢‚¤‚Ì‚ª–]‚Ü‚µ‚¢ƒAƒvƒ[ƒ`‚¾‚¯‚ÇA¡‰ñ‚Í‚â‚ç‚È‚¢
-ƒR[ƒfƒBƒ“ƒO‚ÉŠÔ‚ª‚©‚©‚éã‚É@“®ì‘¬“x‚ª’x‚¢‚Ì‚à•Ûá•t
-ƒ}ƒbƒvƒrƒ‹ƒh‚ÌÈ—ªƒvƒƒZƒX‚Å‚»‚Ì‚Ü‚Ü‘‚«o‚µ‚ğ‚©‚¯‚éB
+æ‰‹é †ã¨ã—ã¦ã¯ã€
+	MAPãƒ“ãƒ«ãƒ‰ã‚’è¡Œã†
+	ãƒãƒ¼ãƒ ã‚¹ãƒšãƒ¼ã‚¹ã‚’ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã§ä½œæˆã™ã‚‹
+	ã‚·ã‚¹ãƒ†ãƒ ãƒ•ã‚©ãƒ«ãƒ€ä»¥ä¸‹ã®ã‚°ãƒ«ãƒ¼ãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’é †æ¬¡è¡¨ç¤ºã™ã‚‹XPSã‚’ç”Ÿæˆã™ã‚‹ã€‚
+	ãƒ“ãƒ«ãƒ‰ã™ã‚‹
+	ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ãƒ¬ã‚¤ãƒ¤ã«çµ±åˆã™ã‚‹
+	ãƒ¬ã‚¤ãƒ¤ã‚’1ç‚¹ã¥ã¤ãƒ•ã‚¡ã‚¤ãƒ«ã«ã¨ã£ã¦ä¿å­˜ã™ã‚‹ã€‚
+	ã‚ªãƒªã‚¸ãƒŠãƒ«ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’ä¿å­˜ã›ãšã«é–‰ã˜ã‚‹
+ã¨ã„ã†ã®ãŒæœ›ã¾ã—ã„ã‚¢ãƒ—ãƒ­ãƒ¼ãƒã ã‘ã©ã€ä»Šå›ã¯ã‚„ã‚‰ãªã„
+ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã«æ™‚é–“ãŒã‹ã‹ã‚‹ä¸Šã«ã€€å‹•ä½œé€Ÿåº¦ãŒé…ã„ã®ã‚‚ä¿éšœä»˜
+ãƒãƒƒãƒ—ãƒ“ãƒ«ãƒ‰ã®çœç•¥ãƒ—ãƒ­ã‚»ã‚¹ã§ãã®ã¾ã¾æ›¸ãå‡ºã—ã‚’ã‹ã‘ã‚‹ã€‚
 -----------
-ƒŒƒCƒ„–¼‚©‚çƒtƒ@ƒCƒ‹–¼‚ğì¬‚·‚é‚Æ‚«‚Éƒtƒ@ƒCƒ‹ƒVƒXƒeƒ€‚Å‹Ö~‚³‚ê‚Ä‚¢‚é•¶š‚ğƒgƒ‰ƒbƒv‚·‚é
-ƒAƒjƒƒrƒ‹ƒhˆÈŠO‚ÌÅI‘€ì‚ÍAƒtƒ@ƒCƒ‹‚Ì•¡»‚ğ‚Æ‚Á‚Ä‘‚«o‚µ‚ğs‚¤d—l‚É•ÏX
+ãƒ¬ã‚¤ãƒ¤åã‹ã‚‰ãƒ•ã‚¡ã‚¤ãƒ«åã‚’ä½œæˆã™ã‚‹ã¨ãã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã§ç¦æ­¢ã•ã‚Œã¦ã„ã‚‹æ–‡å­—ã‚’ãƒˆãƒ©ãƒƒãƒ—ã™ã‚‹
+ã‚¢ãƒ‹ãƒ¡ãƒ“ãƒ«ãƒ‰ä»¥å¤–ã®æœ€çµ‚æ“ä½œã¯ã€ãƒ•ã‚¡ã‚¤ãƒ«ã®è¤‡è£½ã‚’ã¨ã£ã¦æ›¸ãå‡ºã—ã‚’è¡Œã†ä»•æ§˜ã«å¤‰æ›´
 20111203
 
-ƒIƒvƒVƒ‡ƒ“‚Æ‚µ‚Äo—Í‘O‚ÉƒRƒ}ƒ“ƒhÀs‚ğ‰Â”\‚É‚·‚éB
-ƒXƒ€[ƒWƒ“ƒO“™‚É•K—v‚ÈƒRƒ}ƒ“ƒh‚ğoptCode‚É’u‚­iƒAƒNƒVƒ‡ƒ“Às@–”‚ÍƒtƒBƒ‹ƒ^ÀsƒR[ƒh‚È‚Çj
-•s—v‚Èê‡‚Í@false ‚ğ’u‚¢‚Æ‚¢‚Ä‚­‚¾‚³‚¢
-ƒR[ƒh‚Í•Û‘¶‚Ì’¼‘O‚ÉÀs‚³‚ê‚Ü‚·B
+ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã¨ã—ã¦å‡ºåŠ›å‰ã«ã‚³ãƒãƒ³ãƒ‰å®Ÿè¡Œã‚’å¯èƒ½ã«ã™ã‚‹ã€‚
+ã‚¹ãƒ ãƒ¼ã‚¸ãƒ³ã‚°ç­‰ã«å¿…è¦ãªã‚³ãƒãƒ³ãƒ‰ã‚’optCodeã«ç½®ãï¼ˆã‚¢ã‚¯ã‚·ãƒ§ãƒ³å®Ÿè¡Œã€€åˆã¯ãƒ•ã‚£ãƒ«ã‚¿å®Ÿè¡Œã‚³ãƒ¼ãƒ‰ãªã©ï¼‰
+ä¸è¦ãªå ´åˆã¯ã€€false ã‚’ç½®ã„ã¨ã„ã¦ãã ã•ã„
+ã‚³ãƒ¼ãƒ‰ã¯ä¿å­˜ã®ç›´å‰ã«å®Ÿè¡Œã•ã‚Œã¾ã™ã€‚
 20120416
 
-CS6‚ÅƒAƒjƒ[ƒVƒ‡ƒ“‚ª‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¢ó‘Ô‚ª”­¶‚µ‚½‚Ì‚Å‚»‚Ì‘Î‰iƒGƒ‰[’â~‚Ì‰ñ”ğjƒR[ƒh‚ğZ’è“I‚É’Ç‰Á
+CS6ã§ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒåˆæœŸåŒ–ã•ã‚Œã¦ã„ãªã„çŠ¶æ…‹ãŒç™ºç”Ÿã—ãŸã®ã§ãã®å¯¾å¿œï¼ˆã‚¨ãƒ©ãƒ¼åœæ­¢ã®å›é¿ï¼‰ã‚³ãƒ¼ãƒ‰ã‚’ç®—å®šçš„ã«è¿½åŠ 
 20120617
 */
 var optCode=false;
@@ -39,7 +39,7 @@ optCode+="var idUsng = charIDToTypeID( \"Usng\" );";
 optCode+="desc4.putString( idUsng, \"OLM Smoother...\" );";
 optCode+="executeAction( idFltr, desc4 );";
 
-// ========================================ƒAƒNƒVƒ‡ƒ“Às
+// ========================================ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å®Ÿè¡Œ
 var aSetName="animationTools";
 var actionName="Smoother";
 
@@ -54,112 +54,23 @@ optCode+="        refAct.putName( idASet, aSetName );";
 optCode+="    descAct.putReference( idnull, refAct );";
 optCode+="executeAction( idPly, descAct, DialogModes.NO );";
 */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-	app.bringToFront();
-//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
 
-if($.fileName){
-//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é
-	var nasLibFolderPath = Folder.userData.fullName + "/"+ localize("$$$/nas/lib=nas/lib/");
-}
-var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñ
+//Photoshopç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+	var nas=app.nas;
+	var bootFlag=false;
+	var nasLibFolderPath =Folder.nas.fullName+ "/lib/";
+//+++++++++++++++++++++++++++++++++ã“ã“ã¾ã§å…±ç”¨
 
-if(! app.nas){
-//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é
-	var nas = new Object();
-		nas.Version=new Object();
-		nas.isAdobe=true;
-		nas.axe=new Object();
-		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p
-//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş
-/*
-	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB
-	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)
-	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş
-
-@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj
-@config.js"		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\
-  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ
-  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ
-  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ
-
-  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)
-  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ
-  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ
-  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ
-  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j
-  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ
-  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ
-  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ
-*/
-includeLibs=[
-	nasLibFolderPath+"config.js",
-	nasLibFolderPath+"nas_common.js",
-	nasLibFolderPath+"nas_GUIlib.js",
-	nasLibFolderPath+"nas_psAxeLib.js",
-	nasLibFolderPath+"nas_prefarenceLib.js"
-];
-//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é
-	app.nas=nas;
-	bootFlag=true;
-}else{
-	//alert("object nas exists")
-	nas=app.nas;
-	bootFlag=false;
-};
-
-/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
-‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤
-*/
-includeLibs.push(nasLibFolderPath+"fakeAE.js");
-includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
-includeLibs.push(nasLibFolderPath+"xpsio.js");
-includeLibs.push(nasLibFolderPath+"mapio.js");
-includeLibs.push(nasLibFolderPath+"lib_STS.js");
-includeLibs.push(nasLibFolderPath+"dataio.js");
-includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
-includeLibs.push(nasLibFolderPath+"xpsQueue.js");
-	if(false){
-	}
-for(prop in includeLibs){
-	var myScriptFileName=includeLibs[prop];
-	if($.evalFile){
-	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é
-		$.evalFile(myScriptFileName);
-	}else{
-	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·
-		var scriptFile = new File(myScriptFileName);
-		if(scriptFile.exists){
-			scriptFile.open();
-			var myContent=scriptFile.read()
-			scriptFile.close();
-			eval(myContent);
-		}
-	}
-}
-//=====================================•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾
-if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
-//=====================================
-//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p
 var noSave=false;
-//-----------------------‘€ìŠJn‚É–¢•Û‘¶‚Ìê‡Œx
+//-----------------------æ“ä½œé–‹å§‹æ™‚ã«æœªä¿å­˜ã®å ´åˆè­¦å‘Š
 if((app.documents.length)&&(! app.activeDocument.saved)){
     noSave=true;
-    noSave=confirm("ƒhƒLƒ…ƒƒ“ƒg‚Í•Û‘¶‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB•Û‘¶‚µ‚Ü‚·‚©H");
-//ˆê“x‚à•Û‘¶‚³‚ê‚Ä‚¢‚È‚¢ƒtƒ@ƒCƒ‹‚É–¼‘O‚ğ‚Â‚¯‚Ä•Û‘¶‚·‚éƒ‹[ƒ`ƒ“‚ª•K—v
-//‚Ü‚½‚Í–¾¦“I‚É•Û‘¶‚³‚ê‚½ƒtƒ@ƒCƒ‹‚Ì‚İ‚ğˆµ‚¤‚æ‚¤‚Éƒgƒ‰ƒbƒv‚·‚é
+    noSave=confirm("ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã¯ä¿å­˜ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ä¿å­˜ã—ã¾ã™ã‹ï¼Ÿ");
+//ä¸€åº¦ã‚‚ä¿å­˜ã•ã‚Œã¦ã„ãªã„ãƒ•ã‚¡ã‚¤ãƒ«ã«åå‰ã‚’ã¤ã‘ã¦ä¿å­˜ã™ã‚‹ãƒ«ãƒ¼ãƒãƒ³ãŒå¿…è¦
+//ã¾ãŸã¯æ˜ç¤ºçš„ã«ä¿å­˜ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã®ã¿ã‚’æ‰±ã†ã‚ˆã†ã«ãƒˆãƒ©ãƒƒãƒ—ã™ã‚‹
     if(noSave){app.activeDocument.save();noSave=false;}
 }
-//-----------------------•Û‘¶‚µ‚È‚­‚Ä‚à‘€ì‚Í‘±s
+//-----------------------ä¿å­˜ã—ãªãã¦ã‚‚æ“ä½œã¯ç¶šè¡Œ
 if((! noSave)&&(app.documents.length)&&(app.activeDocument.layers.length)){
 var exportFiles=new Object;
  exportFiles.targetDoc=app.activeDocument;
@@ -168,8 +79,8 @@ try{
     }catch(eRR){
  exportFiles.currentTargetFolder=Folder.current;
     }
-//‘€ì—p‚ÌˆêƒhƒLƒ…ƒƒ“ƒg‚ğì‚Á‚Ä‚¨‚­
- exportFiles.tempDoc=app.activeDocument.duplicate("__exportTempDoc__");//‚±‚±‚ÅƒAƒNƒeƒBƒuƒhƒLƒ…ƒƒ“ƒg‚ªØ‚è‘Ö‚í‚é
+//æ“ä½œç”¨ã®ä¸€æ™‚ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’ä½œã£ã¦ãŠã
+ exportFiles.tempDoc=app.activeDocument.duplicate("__exportTempDoc__");//ã“ã“ã§ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒåˆ‡ã‚Šæ›¿ã‚ã‚‹
  if(nas.axeAFC.checkAnimationMode()!="frameAnimation"){
 	executeAction( stringIDToTypeID( "makeFrameAnimation" ), undefined, DialogModes.NO );
  };
@@ -185,24 +96,24 @@ try{
  exportFiles.outputListView=[];
 
 exportFiles.isMenber=function(myObject){
-    //ˆø””»’è‚µ‚Äƒƒ“ƒoğŒ‚ğ”»’è
+    //å¼•æ•°åˆ¤å®šã—ã¦ãƒ¡ãƒ³ãƒæ¡ä»¶ã‚’åˆ¤å®š
 	if(( myObject.typename=="ArtLayer")&&
 	    ((myObject.kind==LayerKind.NORMAL)||(myObject.kind==LayerKind.SMARTOBJECT))
     ){return true};
     return false;
 }
 exportFiles.refresh=function(){
-//ƒŠƒZƒbƒg‚ÌÄæ“¾‚àŠÜ‚Ş‚Ì‚Å”z—ñ‚ğ‰Šú‰»
+//ãƒªã‚»ãƒƒãƒˆæ™‚ã®å†å–å¾—ã‚‚å«ã‚€ã®ã§é…åˆ—ã‚’åˆæœŸåŒ–
 	 this.guideLayers.length=0;this.outputList.length=0;
  for (var ix=0;ix<this.tempDoc.layers.length;ix++){
 	if(this.tempDoc.layers[ix].name.match(/(frames?|peg|memo|system)/i)){
 	 this.guideLayers.push(this.tempDoc.layers[ix]);
 	 this.guideLayersA.push(this.targetDoc.layers[ix]);
 	 continue;
-	};//ƒtƒŒ[ƒ€ƒŒƒCƒ„EƒŒƒCƒ„ƒZƒbƒg‚ğƒXƒLƒbƒv
-//================ArtLayer@‚Åƒm[ƒ}ƒ‹‚ÆƒXƒ}[ƒgƒIƒuƒWƒFƒNƒg‚ğ‘I‘ğ
+	};//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ã‚¤ãƒ¤ãƒ»ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã‚’ã‚¹ã‚­ãƒƒãƒ—
+//================ArtLayerã€€ã§ãƒãƒ¼ãƒãƒ«ã¨ã‚¹ãƒãƒ¼ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é¸æŠ
 	if(this.isMenber(this.tempDoc.layers[ix])){this.outputList.push(this.tempDoc.layers[ix]);this.outputListA.push(this.targetDoc.layers[ix]);continue;}
-//=================ƒŒƒCƒ„ƒZƒbƒg‚Å‚©‚ÂA”z‰º‚ÉƒŒƒCƒ„‚ğŠÜ‚ñ‚Å‚¢‚éê‡i‚P’i‚Ì‚İŒ@‰º‚° ƒŒƒCƒ„ƒZƒbƒg‚àƒƒ“ƒo[‚É‚·‚éj
+//=================ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã§ã‹ã¤ã€é…ä¸‹ã«ãƒ¬ã‚¤ãƒ¤ã‚’å«ã‚“ã§ã„ã‚‹å ´åˆï¼ˆï¼‘æ®µã®ã¿æ˜ä¸‹ã’ ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã‚‚ãƒ¡ãƒ³ãƒãƒ¼ã«ã™ã‚‹ï¼‰
 	if((true)&&(this.tempDoc.layers[ix] instanceof LayerSet)&&(this.tempDoc.layers[ix].layers.length)){
 		for (var lx=0;lx<this.tempDoc.layers[ix].layers.length;lx++){
             this.outputList.push(this.tempDoc.layers[ix].layers[lx]);
@@ -210,8 +121,8 @@ exportFiles.refresh=function(){
             continue;
 		}
 	}
- };//ƒƒ“ƒoûWI—¹
-//ƒŠƒXƒg‚É“o˜^
+ };//ãƒ¡ãƒ³ãƒåé›†çµ‚äº†
+//ãƒªã‚¹ãƒˆã«ç™»éŒ²
 //	this.w.fileList.items
 }
 exportFiles.viewUpdate=function(){
@@ -219,7 +130,7 @@ exportFiles.viewUpdate=function(){
     if(this.byAFC){
         var myFrameCount=nas.axeAFC.countFrames();
         for(var fct=0;fct<myFrameCount;fct++){
-//=============ƒvƒŒƒtƒBƒNƒX‚ÍAƒ^[ƒQƒbƒg‚©‚çæ“¾‚·‚é
+//=============ãƒ—ãƒ¬ãƒ•ã‚£ã‚¯ã‚¹ã¯ã€ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‹ã‚‰å–å¾—ã™ã‚‹
             this.outputListView.push(this.targetDoc.name.replace(/\.[^.]*$/,"")+nas.Zf(fct+1,3));
         }
     }else{
@@ -232,9 +143,9 @@ exportFiles.viewUpdate=function(){
       }
     }
 }
-//ƒCƒ“ƒfƒbƒNƒX‚Å—^‚¦‚ç‚ê‚½ƒŒƒCƒ„‚ğc‚µ‚Ä‘¼‚ğ”ñ•\¦‚É‚·‚éB
-//ƒIƒvƒVƒ‡ƒ“‚ÅƒtƒŒ[ƒ€‚ğ”ñ•\¦
-//ƒAƒjƒƒtƒŒ[ƒ€ƒrƒ‹ƒh‚ÆƒZƒbƒg‘ÎÛ‚ªˆÙ‚È‚é‚Ì‚Å‘Î‰
+//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã§ä¸ãˆã‚‰ã‚ŒãŸãƒ¬ã‚¤ãƒ¤ã‚’æ®‹ã—ã¦ä»–ã‚’éè¡¨ç¤ºã«ã™ã‚‹ã€‚
+//ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’éè¡¨ç¤º
+//ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ“ãƒ«ãƒ‰ã¨ã‚»ãƒƒãƒˆå¯¾è±¡ãŒç•°ãªã‚‹ã®ã§å¯¾å¿œ
  exportFiles.set=function(index){
 	 for(var ix=0;ix<this.guideLayers.length;ix++){
 	  this.guideLayers[ix].visible=(this.withRegister==false)?false:true;
@@ -243,7 +154,7 @@ exportFiles.viewUpdate=function(){
 	 this.outputList[ix].visible=(index==ix)?true:false;
 	}
  }
-//ƒAƒjƒƒtƒŒ[ƒ€ƒrƒ‹ƒh—p‚Ìƒ^[ƒQƒbƒg‘€ì
+//ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ“ãƒ«ãƒ‰ç”¨ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæ“ä½œ
  exportFiles.setA=function(index){
 	 for(var ix=0;ix<this.guideLayers.length;ix++){
 	  this.guideLayersA[ix].visible=(this.withRegister==false)?false:true;
@@ -280,86 +191,86 @@ exportFiles.export=function(){
             default:
                 mySaveOptions=new PhotoshopSaveOptions;
         }
-//=================================== ÀÛ‚Ì‘€ì ======================================//
-    var myTempDoc=this.tempDoc;//‘ÎÛƒhƒLƒ…ƒƒ“ƒg‚ğƒ^[ƒQƒbƒg–{‘Ì‚Éİ’è
+//=================================== å®Ÿéš›ã®æ“ä½œ ======================================//
+    var myTempDoc=this.tempDoc;//å¯¾è±¡ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæœ¬ä½“ã«è¨­å®š
 	app.activeDocument=myTempDoc;
          if(this.byAFC){
 //     var myFrameCount=nas.axeAFC.countFrames();
      var myFrameCount=this.outputList.length;
      for(var fidx=0;fidx<myFrameCount;fidx++){
-       //ƒAƒjƒƒtƒŒ[ƒ€‚ğo—Í Œ»İ‚Ìƒtƒ@ƒCƒ‹–¼‚©‚çŠg’£q‚ğ‚Ì‚¼‚¢‚½‚à‚Ì‚ğƒvƒŒƒtƒBƒbƒNƒX‚É‚µ‚Äw’èƒtƒHƒ‹ƒ_’¼‰º‚É•Û‘¶
-                 nas.axeAFC.selectFrame(fidx+1);//•\¦ƒZƒbƒg
+       //ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’å‡ºåŠ› ç¾åœ¨ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‹ã‚‰æ‹¡å¼µå­ã‚’ã®ãã„ãŸã‚‚ã®ã‚’ãƒ—ãƒ¬ãƒ•ã‚£ãƒƒã‚¯ã‚¹ã«ã—ã¦æŒ‡å®šãƒ•ã‚©ãƒ«ãƒ€ç›´ä¸‹ã«ä¿å­˜
+                 nas.axeAFC.selectFrame(fidx+1);//è¡¨ç¤ºã‚»ãƒƒãƒˆ
                  var storeName=this.targetDoc.name.replace(/\.[^.]*$/,"")+nas.Zf(fidx+1,3)+this.opForms[this.opForm]
                  mySaveDocument=myTempDoc.duplicate (storeName, true)
          if(mySaveDocument){
-             app.activeDocument=mySaveDocument;nas.axeAFC.initFrames();//ƒAƒjƒƒtƒŒ[ƒ€‚ğ‰Šú‰»
-             mySaveDocument.layers[0].visible=true;//•\¦‚ªÁ‚¦‚é‚Ì‚Å•œ‹A‚µ‚Ä‚¨‚­             
+             app.activeDocument=mySaveDocument;nas.axeAFC.initFrames();//ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’åˆæœŸåŒ–
+             mySaveDocument.layers[0].visible=true;//è¡¨ç¤ºãŒæ¶ˆãˆã‚‹ã®ã§å¾©å¸°ã—ã¦ãŠã             
              var mySaveFile=new File(myTargetFolder.fullName+"/"+mySaveDocument.name)
-         //‰Â”\‚È‚ç•Û‘¶‚·‚é
+         //å¯èƒ½ãªã‚‰ä¿å­˜ã™ã‚‹
          try{
              mySaveDocument.saveAs(mySaveFile,mySaveOptions,true);
              }catch(eRR){alert(eRR)}
-             mySaveDocument.close(SaveOptions.DONOTSAVECHANGES);//•Â‚¶‚é
+             mySaveDocument.close(SaveOptions.DONOTSAVECHANGES);//é–‰ã˜ã‚‹
              app.activeDocument =myTempDoc;
        }
    }
          }else{
     for(var fidx=0;fidx<this.outputList.length;fidx++){
-       //ƒŒƒCƒ„‚ğ‚½‚Ç‚Á‚Äw’è‚É]‚Á‚ÄƒKƒCƒhƒŒƒCƒ„‚Ì‚ ‚é‚È‚µ‚ğ‘I‘ğ‚µ‚Äo—Í
+       //ãƒ¬ã‚¤ãƒ¤ã‚’ãŸã©ã£ã¦æŒ‡å®šã«å¾“ã£ã¦ã‚¬ã‚¤ãƒ‰ãƒ¬ã‚¤ãƒ¤ã®ã‚ã‚‹ãªã—ã‚’é¸æŠã—ã¦å‡ºåŠ›
                 if(this.mkFolder)
                 {
                    var folderName=this.outputList[fidx].parent.name.replace(/[\\\/\:\?\*\"\>\<\|]/g,"_");
                    myTargetFolder=new Folder(this.currentTargetFolder.fullName+"/"+folderName);
                 };
                 if(! myTargetFolder.exists){myTargetFolder.create();}
-                 this.set(fidx);//•\¦ƒZƒbƒg
+                 this.set(fidx);//è¡¨ç¤ºã‚»ãƒƒãƒˆ
                    var fileName=this.outputList[fidx].name.replace(/[\\\/\:\?\*\"\>\<\|]/g,"_");
                 mySaveDocument=myTempDoc.duplicate (fileName+this.opForms[this.opForm], true);
          if(mySaveDocument){
 /*
-	’P“Æƒtƒ@ƒCƒ‹‚Æ‚µ‚Ä•Û‘¶‚·‚é‚½‚ß‚ÉƒŒƒCƒ„“‡‚ğs‚¤B
-Œ³‚ÌƒhƒLƒ…ƒƒ“ƒg‚ÉƒAƒjƒƒtƒŒ[ƒ€‚ª‚ ‚Á‚½ê‡i‚©‚È‚è‚ÌŠm—¦‚Å—L‚éj
-psdƒhƒLƒ…ƒƒ“ƒg‚É‘¶İ‚µ‚È‚¢ƒŒƒCƒ„‚ğw‚·ƒtƒŒ[ƒ€‚âƒAƒjƒƒTƒ€ƒl[ƒ‹‚ÌƒLƒƒƒbƒVƒ…‚ª‚Â‚­‚Ì‚Å‰½‚©‚Æ•s“s‡‚Å‚ ‚éB
-ƒAƒjƒƒtƒŒ[ƒ€‚ğíœ‚·‚é‚½‚ß‚É‰Šú‰»‚ğs‚¤B
-’Pƒ‚È‰Šú‰»‚Å‚Í‘æˆêƒtƒŒ[ƒ€‚Ì•\ó‘Ô‚ªÄ¶‚³‚ê‚é‚½‚ßA“–ŠYƒŒƒCƒ„‚ª”ñ•\¦‚Ì‚Ü‚Ü•Û‘¶‚³‚ê‚éê‡‚ª‚ ‚é‚Ì‚ÅÄ•\¦‚ğs‚¤B
+	å˜ç‹¬ãƒ•ã‚¡ã‚¤ãƒ«ã¨ã—ã¦ä¿å­˜ã™ã‚‹ãŸã‚ã«ãƒ¬ã‚¤ãƒ¤çµ±åˆã‚’è¡Œã†ã€‚
+å…ƒã®ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã«ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ãŒã‚ã£ãŸå ´åˆï¼ˆã‹ãªã‚Šã®ç¢ºç‡ã§æœ‰ã‚‹ï¼‰
+psdãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã«å­˜åœ¨ã—ãªã„ãƒ¬ã‚¤ãƒ¤ã‚’æŒ‡ã™ãƒ•ãƒ¬ãƒ¼ãƒ ã‚„ã‚¢ãƒ‹ãƒ¡ã‚µãƒ ãƒãƒ¼ãƒ«ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãŒã¤ãã®ã§ä½•ã‹ã¨ä¸éƒ½åˆã§ã‚ã‚‹ã€‚
+ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’å‰Šé™¤ã™ã‚‹ãŸã‚ã«åˆæœŸåŒ–ã‚’è¡Œã†ã€‚
+å˜ç´”ãªåˆæœŸåŒ–ã§ã¯ç¬¬ä¸€ãƒ•ãƒ¬ãƒ¼ãƒ ã®è¡¨çŠ¶æ…‹ãŒå†ç”Ÿã•ã‚Œã‚‹ãŸã‚ã€å½“è©²ãƒ¬ã‚¤ãƒ¤ãŒéè¡¨ç¤ºã®ã¾ã¾ä¿å­˜ã•ã‚Œã‚‹å ´åˆãŒã‚ã‚‹ã®ã§å†è¡¨ç¤ºã‚’è¡Œã†ã€‚
 */
-             app.activeDocument=mySaveDocument;nas.axeAFC.initFrames();//ƒAƒjƒƒtƒŒ[ƒ€‚ğ‰Šú‰»
-             mySaveDocument.layers[0].visible=true;//•\¦‚ªÁ‚¦‚é‚Ì‚Å•œ‹A‚µ‚Ä‚¨‚­
+             app.activeDocument=mySaveDocument;nas.axeAFC.initFrames();//ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’åˆæœŸåŒ–
+             mySaveDocument.layers[0].visible=true;//è¡¨ç¤ºãŒæ¶ˆãˆã‚‹ã®ã§å¾©å¸°ã—ã¦ãŠã
 	if(optCode){eval(optCode);};
              var mySaveFile=new File(myTargetFolder.fullName+"/"+mySaveDocument.name);
-         //‰Â”\‚È‚ç•Û‘¶‚·‚é
+         //å¯èƒ½ãªã‚‰ä¿å­˜ã™ã‚‹
          try{
              mySaveDocument.saveAs(mySaveFile,mySaveOptions,true);
              }catch(eRR){alert(eRR)}
-             mySaveDocument.close(SaveOptions.DONOTSAVECHANGES);//•Â‚¶‚é
+             mySaveDocument.close(SaveOptions.DONOTSAVECHANGES);//é–‰ã˜ã‚‹
              app.activeDocument =myTempDoc;
          }
     }
          }
-//             myTempDoc.close(SaveOptions.DONOTSAVECHANGES);//ˆêƒtƒ@ƒCƒ‹‚È‚Ì‚Å•Û‘¶‚¹‚¸‚É•Â‚¶‚é
+//             myTempDoc.close(SaveOptions.DONOTSAVECHANGES);//ä¸€æ™‚ãƒ•ã‚¡ã‚¤ãƒ«ãªã®ã§ä¿å­˜ã›ãšã«é–‰ã˜ã‚‹
 /*
-    ƒeƒ“ƒ|ƒ‰ƒŠ‚Ì‚Æ‚è•û‚Íˆêl
-    •ÒWŒã‚Ìƒf[ƒ^\‘¢‚ğˆÚA‰Â”\‚È‚çÀ‘•‚·‚é‚±‚Æ‚É‚µ‚Äh‘è 2011/09/28
+    ãƒ†ãƒ³ãƒãƒ©ãƒªã®ã¨ã‚Šæ–¹ã¯ä¸€è€ƒ
+    ç·¨é›†å¾Œã®ãƒ‡ãƒ¼ã‚¿æ§‹é€ ã‚’ç§»æ¤å¯èƒ½ãªã‚‰å®Ÿè£…ã™ã‚‹ã“ã¨ã«ã—ã¦å®¿é¡Œ 2011/09/28
     */
 }
 //==============================================UI
-exportFiles.w=nas.GUI.newWindow("dialog","ƒŒƒCƒ„‚ğƒtƒ@ƒCƒ‹‚Æ‚µ‚Ä•Û‘¶",6,12);
+exportFiles.w=nas.GUI.newWindow("dialog","ãƒ¬ã‚¤ãƒ¤ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¨ã—ã¦ä¿å­˜",6,12);
 
-exportFiles.w.msgBox=nas.GUI.addStaticText(exportFiles.w,"ƒŒƒCƒ„‚ğƒtƒ@ƒCƒ‹‚Æ‚µ‚Ä•Û‘¶‚µ‚Ü‚·B•Û‘¶æ‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B",0,0,6,1);
+exportFiles.w.msgBox=nas.GUI.addStaticText(exportFiles.w,"ãƒ¬ã‚¤ãƒ¤ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¨ã—ã¦ä¿å­˜ã—ã¾ã™ã€‚ä¿å­˜å…ˆã‚’æŒ‡å®šã—ã¦ãã ã•ã„ã€‚",0,0,6,1);
 
 
 exportFiles.w.folderTargetName=nas.GUI.addEditText(exportFiles.w,exportFiles.currentTargetFolder.fsName,0,1,5,1);
-exportFiles.w.chgFolder=nas.GUI.addButton(exportFiles.w,"•ÏX",5,1,1,1);
+exportFiles.w.chgFolder=nas.GUI.addButton(exportFiles.w,"å¤‰æ›´",5,1,1,1);
 
 exportFiles.w.fileList=nas.GUI.addListBoxO(exportFiles.w,exportFiles.outputListView,null,0,2,4,7,{multiselect:true});
-//ƒ`ƒFƒbƒNƒRƒ“ƒgƒ[ƒ‹
-exportFiles.w.mkSF=nas.GUI.addCheckBox(exportFiles.w,"ƒTƒuƒtƒHƒ‹ƒ_‚ğì‚é",0,9,4,1);
+//ãƒã‚§ãƒƒã‚¯ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+exportFiles.w.mkSF=nas.GUI.addCheckBox(exportFiles.w,"ã‚µãƒ–ãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½œã‚‹",0,9,4,1);
 	exportFiles.w.mkSF.value=exportFiles.mkFolder;
-exportFiles.w.regOpt=nas.GUI.addCheckBox(exportFiles.w,"ƒ^ƒbƒv‚ÆƒtƒŒ[ƒ€‚ğ•\¦‚·‚é",0,10,4,1);
+exportFiles.w.regOpt=nas.GUI.addCheckBox(exportFiles.w,"ã‚¿ãƒƒãƒ—ã¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’è¡¨ç¤ºã™ã‚‹",0,10,4,1);
 	exportFiles.w.regOpt.value=exportFiles.withRegister;
-exportFiles.w.afcOpt=nas.GUI.addCheckBox(exportFiles.w,"ƒAƒjƒƒtƒŒ[ƒ€‚ğo—Í‚·‚é",0,11,4,1);
+exportFiles.w.afcOpt=nas.GUI.addCheckBox(exportFiles.w,"ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’å‡ºåŠ›ã™ã‚‹",0,11,4,1);
 	exportFiles.w.afcOpt.value=exportFiles.byAFC;
-//ƒ{ƒ^ƒ“ƒRƒ“ƒgƒ[ƒ‹
+//ãƒœã‚¿ãƒ³ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
 exportFiles.w.ffLb=nas.GUI.addStaticText(exportFiles.w,"file format:",4,2,2,1);
 exportFiles.w.ffBt=nas.GUI.addDropDownList(exportFiles.w,exportFiles.opForms,exportFiles.opForm,4,3,2,1);
 //exportFiles.w.FlBt=nas.GUI.addButton(exportFiles.w,"addFile",4,3,2,1);
@@ -370,8 +281,8 @@ exportFiles.w.rstBt=nas.GUI.addButton(exportFiles.w,"reset",4,5,2,1);
 exportFiles.w.bdBt=nas.GUI.addButton(exportFiles.w,"makeAnimation",4,9,2,1);
 exportFiles.w.okBt=nas.GUI.addButton(exportFiles.w,"OK",4,10,2,1);
 exportFiles.w.cnBt=nas.GUI.addButton(exportFiles.w,"cancel",4,11,2,1);
-//==================================ƒRƒ“ƒgƒ[ƒ‹ƒƒ\ƒbƒh
-//•Û‘¶ƒtƒHƒ‹ƒ_•ÏX
+//==================================ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ãƒ¡ã‚½ãƒƒãƒ‰
+//ä¿å­˜ãƒ•ã‚©ãƒ«ãƒ€å¤‰æ›´
 exportFiles.w.chgFolder.onClick=function(){
     var newFolder=exportFiles.currentTargetFolder.selectDlg("select Save folder");
     if(newFolder){
@@ -379,9 +290,9 @@ exportFiles.w.chgFolder.onClick=function(){
         this.parent.folderTargetName.text=exportFiles.currentTargetFolder.fsName;
     }
 }
-//ƒŠƒXƒg•ÒWiíœj
+//ãƒªã‚¹ãƒˆç·¨é›†ï¼ˆå‰Šé™¤ï¼‰
 exportFiles.w.rmBt.onClick=function(){
-    //‘I‘ğ‚³‚ê‚½ID‚ÌƒŒƒCƒ„‚ğíœ‚µ‚ÄƒAƒbƒvƒf[ƒg
+    //é¸æŠã•ã‚ŒãŸIDã®ãƒ¬ã‚¤ãƒ¤ã‚’å‰Šé™¤ã—ã¦ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
     if(this.parent.fileList.selection){
 var removeItemList=new Array();
 for(ecItem in this.parent.fileList.selection){removeItemList.push(this.parent.fileList.selection[ecItem].index);}
@@ -393,17 +304,17 @@ removeItemList.sort(function(a,b){return(b-a);});
     this.parent.fileList.update();
     }
  }
-//ƒtƒH[ƒ}ƒbƒg‘I‘ğ
+//ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆé¸æŠ
 exportFiles.w.ffBt.onChange=function(){
     exportFiles.opForm=this.selection.index;
 }
-//ƒŠƒXƒg‚ğƒŠƒZƒbƒg
+//ãƒªã‚¹ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
 exportFiles.w.rstBt.onClick=function(){
 	exportFiles.refresh();
 	exportFiles.viewUpdate();
     this.parent.fileList.update();
 }
-//ƒpƒ‰ƒ[ƒ^•ÏX
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å¤‰æ›´
 exportFiles.w.fileList.update=function(){
     this.removeAll();
     for(var lid=0;lid<exportFiles.outputListView.length;lid++){
@@ -414,14 +325,14 @@ exportFiles.w.fileList.update=function(){
 exportFiles.w.mkSF.onClick=function(){
     exportFiles.mkFolder=this.value;
       exportFiles.viewUpdate();
-      this.parent.fileList.update();//ƒNƒŠƒA‚µ‚Ä
+      this.parent.fileList.update();//ã‚¯ãƒªã‚¢ã—ã¦
       
 }
-//ƒ^ƒbƒvo—ÍƒIƒvƒVƒ‡ƒ“
+//ã‚¿ãƒƒãƒ—å‡ºåŠ›ã‚ªãƒ—ã‚·ãƒ§ãƒ³
 exportFiles.w.regOpt.onClick=function(){
     exportFiles.withRegister=this.value;
 }
-//ƒAƒjƒƒtƒŒ[ƒ€o—ÍƒIƒvƒVƒ‡ƒ“
+//ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ å‡ºåŠ›ã‚ªãƒ—ã‚·ãƒ§ãƒ³
 exportFiles.w.afcOpt.onClick=function(){
       exportFiles.byAFC=this.value;
       if(this.value){
@@ -434,12 +345,12 @@ exportFiles.w.afcOpt.onClick=function(){
         this.parent.bdBt.enabled=true;
       }
       exportFiles.viewUpdate();
-      this.parent.fileList.update();//ƒNƒŠƒA‚µ‚Ä
+      this.parent.fileList.update();//ã‚¯ãƒªã‚¢ã—ã¦
 }
-//ƒAƒjƒƒtƒŒ[ƒ€‚ğƒrƒ‹ƒh‚·‚é
+//ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ãƒ“ãƒ«ãƒ‰ã™ã‚‹
 exportFiles.w.bdBt.onClick=function(){
-@app.activeDocument=exportFiles.targetDoc;
- var UndoString="ƒŒƒCƒ„‚©‚çƒAƒjƒƒtƒŒ[ƒ€";
+ã€€app.activeDocument=exportFiles.targetDoc;
+ var UndoString="ãƒ¬ã‚¤ãƒ¤ã‹ã‚‰ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ";
  var myExecute="nas.axeAFC.initFrames();for(var fix=0;fix<this.parent.fileList.items.length;fix++){if(fix>0){nas.axeAFC.dupulicateFrame();}exportFiles.setA(fix);};nas.axeAFC.reverseAnimationFrames();";
 
  if(app.activeDocument.suspendHistory){
@@ -456,7 +367,7 @@ exportFiles.w.okBt.onClick=function(){
  var UndoString="output";
  if(app.activeDocument.suspendHistory){
      app.activeDocument.suspendHistory(UndoString, "exportFiles.export();");
-          // =================== UNDOƒoƒbƒtƒ@‚ğg—p‚µ‚Ä•œ‹A
+          // =================== UNDOãƒãƒƒãƒ•ã‚¡ã‚’ä½¿ç”¨ã—ã¦å¾©å¸°
 var id8 = charIDToTypeID( "slct" );
     var desc5 = new ActionDescriptor();
     var id9 = charIDToTypeID( "null" );
@@ -474,7 +385,7 @@ executeAction( id8, desc5, DialogModes.NO );
     exportFiles.tempDoc.close(SaveOptions.DONOTSAVECHANGES);
     this.parent.close();
 }
-//ƒLƒƒƒ“ƒZƒ‹‚µ‚ÄI—¹
+//ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ã¦çµ‚äº†
 exportFiles.w.cnBt.onClick=function(){
 	exportFiles.tempDoc.close(SaveOptions.DONOTSAVECHANGES);
 	this.parent.close();

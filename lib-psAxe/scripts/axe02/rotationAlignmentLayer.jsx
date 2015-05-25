@@ -1,26 +1,26 @@
-/*(��]�A���C�����g)
-�I��͈͂��쐬������Ԃł��̃X�N���v�g�����s���Ă��������B
-�I��̈�̑Ίp���𐅕��ɂȂ�悤�ɃA�N�e�B�u���C������]���܂��B
-�w�i���C�����I������Ă���ꍇ�́A����X�L�b�v
+/*(回転アライメント)
+選択範囲を作成した状態でこのスクリプトを実行してください。
+選択領域の対角線を水平になるようにアクティブレイヤを回転します。
+背景レイヤが選択されている場合は、動作スキップ
 
-Mac��Windows�Ń_�C�A���O�̃{�^���z�u���t�Ȃ̂Ŕ��肵�Ē���
+MacとWindowsでダイアログのボタン配置が逆なので判定して調整
 
-���̂����c�[���ƕό`����]���p�x�w���A�����đ��삷�邱�Ƃ�
-���l�̑����Photoshop�̋@�\�ōs�����Ƃ��\�B
-���̏ꍇ�A���̂����c�[���͊p�x���[�h�Ŏg���K�v������B
-�p�x���[�h��[alt]+�h���b�O
+ものさしツールと変形＞回転＞角度指定を連続して操作することで
+同様の操作をPhotoshopの機能で行うことが可能。
+その場合、ものさしツールは角度モードで使う必要がある。
+角度モード＞[alt]+ドラッグ
 
-���C���Z�b�g�̍ŏ�ʂɃt�H�[�J�X���ڂ���𒲐�
-�����C���폜�̃^�C�~���O�Ŏ����I�Ƀt�H�[�J�X���ړ����Ă����̌�X�N���v�g����̃A�N�Z�X���ł��Ȃ��l�Ȃ̂�
-�폜�O�ɐ�ɃA�N�e�B�u�ł��������C���̒���Ɉړ����郋�[�`����ǉ� 2011/12/03
+レイヤセットの最上位にフォーカスが移る問題を調整
+仮レイヤ削除のタイミングで自動的にフォーカスが移動してかつその後スクリプトからのアクセスができない様なので
+削除前に先にアクティブであったレイヤの直上に移動するルーチンを追加 2011/12/03
 */
 var isWindows=($.os.match(/windows/i))?true:false;
 if(activeDocument.activeLayer.isBackgroundLayer){
-�@alert("�ʏ탌�C����I�����Ď��s���Ă������� :"+activeDocument.activeLayer.name);
+　alert("通常レイヤを選択して実行してください :"+activeDocument.activeLayer.name);
 }else{
 var targetLayer=activeDocument.activeLayer;
-//AE�@ExpressionOtherMath �݊� �p�x<>���W�A���ϊ��֐�
-//���؂�Ȃ��ق����ǂ������A�^�p���Ă݂Ĕ��f���܂��傤 2006/06/23
+//AE　ExpressionOtherMath 互換 角度<>ラジアン変換関数
+//桁切らないほうが良いかも、運用してみて判断しましょう 2006/06/23
 function degreesToRadians(degrees)
 {
 	return Math.floor((degrees/180.)*Math.PI*100000000)/100000000;
@@ -30,9 +30,9 @@ function radiansToDegrees(radians)
 	return Math.floor(180. * (radians/Math.PI)* 100000)/100000;
 }
 
-//�A�N�e�B�u�h�L�������g�̑I��͈͂�bounds��Ԃ��֐�
-//�G���[�[�n���h�����O�������̂Œ���
-//�I��͈͂������ꍇ�A�h�L�������g�S�͈̂̔͂��߂�
+//アクティブドキュメントの選択範囲のboundsを返す関数
+//エラーーハンドリングが無いので注意
+//選択範囲が無い場合、ドキュメント全体の範囲が戻る
 activeDocument.selection.getBounds=function(){
 	var currentActiveLayer=this.parent.activeLayer;
 	var tempLayer=this.parent.artLayers.add();
@@ -43,18 +43,18 @@ activeDocument.selection.getBounds=function(){
 	this.parent.activeLayer=currentActiveLayer;
 	return myBounds;
 }
-//��̃��\�b�h�̓��C�u�����ɓ��ꂽ��
-//���̃X�N���v�g�̓��C����]�^�@���C���𒼐ڑ��삷��̂őI��͈͖͂���
-//�I��͈͂��g���ꍇ�́A���̂����c�[���ƕό`���j���[��g�ݍ��킹������𐄏�
+//上のメソッドはライブラリに入れたい
+//このスクリプトはレイヤ回転型　レイヤを直接操作するので選択範囲は無効
+//選択範囲を使う場合は、ものさしツールと変形メニューを組み合わせた操作を推奨
 var myBounds=activeDocument.selection.getBounds();
 var myAngle=radiansToDegrees(Math.atan2((myBounds[3].as("px")-myBounds[1].as("px")),(myBounds[2].as("px")-myBounds[0].as("px"))));
-if(isWindows){var msg="�͂�-�����v���� :������-���v����"}else{var msg="������-�����v����:�͂�-���v���� ";myAngle=-myAngle;};
+if(isWindows){var msg="はい-反時計方向 :いいえ-時計方向"}else{var msg="いいえ-反時計方向:はい-時計方向 ";myAngle=-myAngle;};
 //alert(activeDocument.activeLayer.name);
 //var backupCn=app.activeDocument.channels.add();
 //app.activeDocument.selection.store(backupCn);
-//�`�����l���Ƀo�b�N�A�b�v��������̂ŉ摜�`�����l���Ƀt�H�[�J�X��߂��B
+//チャンネルにバックアップを取ったので画像チャンネルにフォーカスを戻す。
 //activeDocument.activeLayer=targetLayer;
-//app.activeDocument.selection.deselect();//��������Z���N�V��������
+//app.activeDocument.selection.deselect();//いったんセレクション解除
 if(confirm(msg)){targetLayer.rotate(-myAngle);}else{targetLayer.rotate(myAngle);}
 }
 //

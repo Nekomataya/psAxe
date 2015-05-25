@@ -1,16 +1,16 @@
 /*
-		Photoshop@ƒŒƒCƒ„‚Ï‚ç‚Ï‚ç
-	ƒAƒNƒeƒBƒuƒŒƒCƒ„‚Ì‚ ‚éƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚ðƒpƒ‰ƒpƒ‰‚Å‚«‚é‚æ‚¤‚É‚·‚é‚æ
-	ŠÈˆÕƒAƒjƒƒ`ƒFƒbƒN‚É‚Ç‚¤‚¼BF“h‚è‚ÌƒpƒJ’T‚µ‚Æ‚©BŽwƒpƒ‰‚Ý‚½‚¢‚È‚à‚ñ‚Å‚·B
-	photoshop‚ÌƒAƒjƒ‹@”\‚ðŽg‚¤‚Ì‚ÅCS2ˆÈã‚ª•K—v‚Å‚·
+		Photoshopã€€ãƒ¬ã‚¤ãƒ¤ã±ã‚‰ã±ã‚‰
+	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã®ã‚ã‚‹ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‚’ãƒ‘ãƒ©ãƒ‘ãƒ©ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ã‚ˆ
+	ç°¡æ˜“ã‚¢ãƒ‹ãƒ¡ãƒã‚§ãƒƒã‚¯ã«ã©ã†ãžã€‚è‰²å¡—ã‚Šã®ãƒ‘ã‚«æŽ¢ã—ã¨ã‹ã€‚æŒ‡ãƒ‘ãƒ©ã¿ãŸã„ãªã‚‚ã‚“ã§ã™ã€‚
+	photoshopã®ã‚¢ãƒ‹ãƒ¡æ©Ÿèƒ½ã‚’ä½¿ã†ã®ã§CS2ä»¥ä¸ŠãŒå¿…è¦ã§ã™
 */
 	var exFlag=true;
-//‚»‚à‚»‚àƒhƒLƒ…ƒƒ“ƒg‚ª‚È‚¯‚ê‚ÎI—¹
+//ãã‚‚ãã‚‚ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒãªã‘ã‚Œã°çµ‚äº†
 	if(app.documents.length==0){
 		exFlag=false;
 	}else{
-//‹N“®Žž‚ÉƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚Ìó‘Ô‚ðŠm”F@ƒtƒŠƒbƒvƒAƒCƒeƒ€”‚ª1ˆÈ‰º‚È‚çI—¹
-	//‘I‘ðƒŒƒCƒ„Žæ“¾
+//èµ·å‹•æ™‚ã«ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹ã‚’ç¢ºèªã€€ãƒ•ãƒªãƒƒãƒ—ã‚¢ã‚¤ãƒ†ãƒ æ•°ãŒ1ä»¥ä¸‹ãªã‚‰çµ‚äº†
+	//é¸æŠžãƒ¬ã‚¤ãƒ¤å–å¾—
 if((app.activeDocument.activeLayer.parent.typename=="Document") && (app.activeDocument.activeLayer.typename=="LayerSet")){
 	var myLayers=app.activeDocument.activeLayer.layers;
 }else{
@@ -18,138 +18,37 @@ if((app.activeDocument.activeLayer.parent.typename=="Document") && (app.activeDo
 }
 		if(myLayers.length<=1){exFlag=false;};
 	}
+//ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã«nasã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚Œã°ä½¿ç”¨ã€€ãªã‘ã‚Œã°å‡¦ç†ä¸­æ–­
+	if(app.nas){ nas=app.nas;}else{exFlag=false;}
+
 	if(exFlag){
-
-//ƒAƒjƒƒEƒCƒ“ƒhƒE‘€ìŠÖ”@Œ»óŽæ“¾‚ª‚Å‚«‚È‚¢‚Ì‚Íƒwƒ{‚¢‚ª¡‚ÌƒgƒR‚ÍƒJƒ“ƒxƒ“@Œã‚Å®—‚·‚é
-/*
-	•œ‹A‚Í•s—v‚ÅƒgƒŒ[ƒ‰[“à•”‚Ì•\Ž¦ó‘Ô‚¾‚¯ƒZƒbƒg‚·‚éƒXƒNƒŠƒvƒg‚ð‚Ü‚¸ì‚é
-	ƒtƒŒ[ƒ€‚Í‰Šú‰»I
-*/
-setDly=function(myTime){
-// =======================================================ƒAƒjƒ[ƒVƒ‡ƒ“ƒEƒBƒ“ƒhƒE‚ÌÅ‰‚ÌƒtƒŒ[ƒ€‚Ì’x‰„‚ðÝ’è
-var idsetd = charIDToTypeID( "setd" );
-    var desc = new ActionDescriptor();
-    var idnull = charIDToTypeID( "null" );
-        var ref = new ActionReference();
-        var idanimationFrameClass = stringIDToTypeID( "animationFrameClass" );
-        var idOrdn = charIDToTypeID( "Ordn" );
-        var idTrgt = charIDToTypeID( "Trgt" );
-        ref.putEnumerated( idanimationFrameClass, idOrdn, idTrgt );
-    desc.putReference( idnull, ref );
-	
-    var idT = charIDToTypeID( "T   " );
-        var desc2 = new ActionDescriptor();
-        var idanimationFrameDelay = stringIDToTypeID( "animationFrameDelay" );
-        desc2.putDouble( idanimationFrameDelay, myTime );
-    var idanimationFrameClass = stringIDToTypeID( "animationFrameClass" );
-    desc.putObject( idT, idanimationFrameClass, desc2 );
-executeAction( idsetd, desc, DialogModes.NO );
-}
-dupulicateFrame=function(){
-// =======================================================ƒtƒŒ[ƒ€•¡»
-var idDplc = charIDToTypeID( "Dplc" );
-    var desc = new ActionDescriptor();
-    var idnull = charIDToTypeID( "null" );
-        var ref = new ActionReference();
-        var idanimationFrameClass = stringIDToTypeID( "animationFrameClass" );
-        var idOrdn = charIDToTypeID( "Ordn" );
-        var idTrgt = charIDToTypeID( "Trgt" );
-        ref.putEnumerated( idanimationFrameClass, idOrdn, idTrgt );
-    desc.putReference( idnull, ref );
-executeAction( idDplc, desc, DialogModes.NO );
-}
-selectFrame=function(idx){
-// =======================================================ƒtƒŒ[ƒ€‘I‘ð(1/6)
-var idslct = charIDToTypeID( "slct" );
-    var desc = new ActionDescriptor();
-    var idnull = charIDToTypeID( "null" );
-        var ref = new ActionReference();
-        var idanimationFrameClass = stringIDToTypeID( "animationFrameClass" );
-        ref.putIndex( idanimationFrameClass, idx );
-    desc.putReference( idnull, ref );
-var M=executeAction( idslct, desc, DialogModes.NO );
-}
-selectFramesAll=function(){
-// =======================================================ƒtƒŒ[ƒ€‘S‘I‘ð
-var idanimationSelectAll = stringIDToTypeID( "animationSelectAll" );
-    var desc = new ActionDescriptor();
-executeAction( idanimationSelectAll, desc, DialogModes.NO );
-}
-removeSelection=function(){
-// =======================================================‘I‘ðƒtƒŒ[ƒ€íœ
-var idDlt = charIDToTypeID( "Dlt " );
-    var desc = new ActionDescriptor();
-    var idnull = charIDToTypeID( "null" );
-        var ref = new ActionReference();
-        var idanimationFrameClass = stringIDToTypeID( "animationFrameClass" );
-        var idOrdn = charIDToTypeID( "Ordn" );
-        var idTrgt = charIDToTypeID( "Trgt" );
-        ref.putEnumerated( idanimationFrameClass, idOrdn, idTrgt );
-    desc.putReference( idnull, ref );
-executeAction( idDlt, desc, DialogModes.NO );
-}
-//ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ðƒAƒNƒeƒBƒu‚É‚·‚éi³‹t‡‘—‚èjƒZƒŒƒNƒg‚ÆƒAƒNƒeƒBƒu‚ª•ÊŠT”O‚Ì‚æ‚¤‚È‚Ì‚Å’ˆÓ‚¾
-activateFrame=function(kwd){
-//kwd = Nxt ,Prevs,Frst(Še‚SƒoƒCƒg)
-var idanimationFrameActivate = stringIDToTypeID( "animationFrameActivate" );
-    var desc = new ActionDescriptor();
-    var idnull = charIDToTypeID( "null" );
-        var ref = new ActionReference();
-        var idanimationFrameClass = stringIDToTypeID( "animationFrameClass" );
-        var idOrdn = charIDToTypeID( "Ordn" );
-		var idX = charIDToTypeID( kwd );
-        ref.putEnumerated( idanimationFrameClass, idOrdn, idX );
-    desc.putReference( idnull, ref );
-executeAction( idanimationFrameActivate, desc, DialogModes.NO );
-}
-//=======================================================ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ðƒNƒŠƒAi‰Šú‰»j
-initFrames=function(){
-var idDlt = charIDToTypeID( "Dlt " );
- var desc = new ActionDescriptor();
- var idnull = charIDToTypeID( "null" );
- var ref = new ActionReference();
- var idanimationClass = stringIDToTypeID( "animationClass" );
- var idOrdn = charIDToTypeID( "Ordn" );
- var idTrgt = charIDToTypeID( "Trgt" );
- ref.putEnumerated( idanimationClass, idOrdn, idTrgt );
- desc.putReference( idnull, ref );
- executeAction( idDlt, desc, DialogModes.ALL );
-}
-
-
 //=========================================main 
-		//•\Ž¦‰Šú‰» 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“ƒe[ƒuƒ‹‰Šú‰»
-		initFrames();
-		//‘I‘ðƒŒƒCƒ„‚Ì•\Ž¦‚ð‰Šú‰»(Å‚à‰º‚ÌƒŒƒCƒ„‚Ì‚Ý•\Ž¦‚µ‚Ä‚Ù‚©‚ðƒIƒt)
+		//è¡¨ç¤ºåˆæœŸåŒ– 
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ†ãƒ¼ãƒ–ãƒ«åˆæœŸåŒ–
+		nas.axeAFC.initFrames();
+		//é¸æŠžãƒ¬ã‚¤ãƒ¤ã®è¡¨ç¤ºã‚’åˆæœŸåŒ–(æœ€ã‚‚ä¸‹ã®ãƒ¬ã‚¤ãƒ¤ã®ã¿è¡¨ç¤ºã—ã¦ã»ã‹ã‚’ã‚ªãƒ•)
 		for(var ix=0;ix<myLayers.length;ix++){myLayers[ix].visible=(ix==(myLayers.length-1))?true:false;}
-//rootƒgƒŒ[ƒ‰‚ÌƒŒƒCƒ„”‚ðT‚¦‚é
+//rootãƒˆãƒ¬ãƒ¼ãƒ©ã®ãƒ¬ã‚¤ãƒ¤æ•°ã‚’æŽ§ãˆã‚‹
 var myRootCount=app.activeDocument.layers.length;
-		//‘æ“ñƒtƒŒ[ƒ€ˆÈ~‚ð•\Ž¦‚ðØ‚è‘Ö‚¦‚Â‚ÂƒAƒjƒƒtƒŒ[ƒ€‚É“o˜^
+		//ç¬¬äºŒãƒ•ãƒ¬ãƒ¼ãƒ ä»¥é™ã‚’è¡¨ç¤ºã‚’åˆ‡ã‚Šæ›¿ãˆã¤ã¤ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã«ç™»éŒ²
 		for(var idx=myLayers.length-1;idx>0;idx--){
-			dupulicateFrame();//ì‚éiƒtƒH[ƒJƒXˆÚ“®j
+			nas.axeAFC.dupulicateFrame();//ä½œã‚‹ï¼ˆãƒ•ã‚©ãƒ¼ã‚«ã‚¹ç§»å‹•ï¼‰
 if(myRootCount<app.activeDocument.layers.length){
-//ƒ‹[ƒg‘æˆêƒŒƒCƒ„‚ðŽÌ‚Ä‚Äƒ‚[ƒh‚ðØ‚è‘Ö‚¦‚é
+//ãƒ«ãƒ¼ãƒˆç¬¬ä¸€ãƒ¬ã‚¤ãƒ¤ã‚’æ¨ã¦ã¦ãƒ¢ãƒ¼ãƒ‰ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
  app.activeDocument.layers[0].remove();
 //=======================================================animationNewLayerPerFrame
- var idslct = charIDToTypeID( "slct" );
- var desc195 = new ActionDescriptor();
- var idnull = charIDToTypeID( "null" );
- var ref172 = new ActionReference();
- var idMn = charIDToTypeID( "Mn  " );
- var idMnIt = charIDToTypeID( "MnIt" );
- var idanimationNewLayerPerFrame = stringIDToTypeID( "animationNewLayerPerFrame" );
- ref172.putEnumerated( idMn, idMnIt, idanimationNewLayerPerFrame );
- desc195.putReference( idnull, ref172 );
- executeAction( idslct, desc195, DialogModes.NO );
+ var descANPF = new ActionDescriptor();
+ var refANPF = new ActionReference();
+ refANPF.putEnumerated( charIDToTypeID( "Mn  " ), charIDToTypeID( "MnIt" ), stringIDToTypeID( "animationNewLayerPerFrame" ) );
+ descANPF.putReference( charIDToTypeID( "null" ), refANPF );
+ executeAction( charIDToTypeID( "slct" ), descANPF, DialogModes.NO );
 }
-//			alert(this.playList[idx]);
 			myLayers[idx].visible=false;
 			myLayers[idx-1].visible=true;
 		}
 
 //==============================================================
-selectFrame(1);//ÅŒã‚É‘æˆêƒtƒŒ[ƒ€‚ÉƒtƒH[ƒJƒX‚µ‚Ä‚¨‚­
+nas.axeAFC.selectFrame(1);//æœ€å¾Œã«ç¬¬ä¸€ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãƒ•ã‚©ãƒ¼ã‚«ã‚¹ã—ã¦ãŠã
 
 
-	}else{alert("‚È‚ñ‚¾‚©ƒpƒ^ƒpƒ^‚·‚é‚à‚Ì‚ª–³‚¢‚Ý‚½‚¢");}
+	}else{alert(localize(nas.uiMsg["noLayers"]));};//"å±•é–‹ã™ã‚‹ãƒ¬ã‚¤ãƒ¤ãŒã‚ã‚Šã¾ã›ã‚“"

@@ -4,13 +4,16 @@
 <title> エクスプレッション </title>
 <LINK REL="stylesheet" id="ppstyle" TYPE="text/css" href="../style.css">
 
+<!--
+   <script src="../lib/CSInterface-4.0.0.js"></script>
+-->
 <script src="../ext.js"></script>
 <script src="../common_files/nas_common.js"></script>
 
 <script language = "JavaScript">
 <!--
 
-function TEST(name) {
+function evalCMD(name) {
 /*
 this_comp = new Object;
 this_layer = new Object;
@@ -23,6 +26,26 @@ var resultText="";
 try{resultText= eval(eXpression);}catch(err){resultText=err};
 
 document.nasExchg.RESULTBOX.value +="\n"+resultText;
+}
+function evalApplicationCMD(name) {
+/*
+this_comp = new Object;
+this_layer = new Object;
+var eXpression = document.nasExchg.INPUTBOX1.value
++ "\n with (this_layer) {\n" + document.nasExchg.INPUTBOX2.value +"\n}";
+*/
+var eXpression = document.nasExchg.INPUTBOX1.value
++ "\n;" + document.nasExchg.INPUTBOX2.value +"\n;";
+var resultText="";
+ if(isCEP){
+try{resultText= evalScript(eXpression,function(myResult){document.nasExchg.RESULTBOX.value+="\n"+myResult;});}catch(err){resultText=err};
+  if(resultText){
+   document.nasExchg.RESULTBOX.value +="\nerr:\n"+resultText;
+  }
+ }else{
+ try{resultText= getApplicationResult(eXpression);}catch(err){resultText=err;};
+   document.nasExchg.RESULTBOX.value +="\n"+resultText;
+ }
 }
 
 
@@ -65,7 +88,8 @@ INPUT2<BR>
 style="text-align:left;color:black;background:white;font-size:9pt;border:1"
 >
 </textarea><BR>
-<input type=button name=actioN value="EVAL" onClick="TEST()">
+<input type=button name=actioN value="EVAL" onClick="evalCMD()">
+<input type=button name=actioN value="EVAL-app" onClick="evalApplicationCMD()">
 <!-- <input type=button name=actioN value="action 2" onClick="TEST('INPUTBOX2')"> -->
 <input type=button name=cleaR value="clear result" onClick="CLEARBOX('RESULTBOX')"><br>
 

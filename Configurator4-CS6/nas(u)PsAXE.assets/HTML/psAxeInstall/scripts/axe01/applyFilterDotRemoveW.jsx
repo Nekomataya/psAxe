@@ -1,8 +1,8 @@
 /*
-	PhotoshopƒXƒNƒŠƒvƒg
-	ƒXƒNƒŠƒvƒg‚©‚çƒtƒBƒ‹ƒ^‚ğÀs‚·‚éƒeƒ“ƒvƒŒ[ƒg
+	Photoshopã‚¹ã‚¯ãƒªãƒ—ãƒˆ
+	ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‹ã‚‰ãƒ•ã‚£ãƒ«ã‚¿ã‚’å®Ÿè¡Œã™ã‚‹ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ
 
-	PBK‚ªg—p‰Â”\‚È‚ç—Dæ‚µ‚Äg—p
+	PBKãŒä½¿ç”¨å¯èƒ½ãªã‚‰å„ªå…ˆã—ã¦ä½¿ç”¨
  */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
 #target photoshop
@@ -12,8 +12,8 @@ app.bringToFront();
   if((app.documents.length)&&(app.activeDocument)&&(app.activeDocument.activeLayer)){
 
 /*
-	ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒtƒHƒ‹ƒ_‚É Pixel Bender Files ƒtƒHƒ‹ƒ_‚Ì—L–³‚ğƒ`ƒFƒbƒN‚µ‚Ä
-	Pixel Bender Kernel ‚ªg—p‰Â”\‚ÈPhotoshop‚©”Û‚©”»’è‚·‚é
+	ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ«ãƒ€ã« Pixel Bender Files ãƒ•ã‚©ãƒ«ãƒ€ã®æœ‰ç„¡ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¦
+	Pixel Bender Kernel ãŒä½¿ç”¨å¯èƒ½ãªPhotoshopã‹å¦ã‹åˆ¤å®šã™ã‚‹
 */
 var exPBK = new Folder(app.path.fullName+"/Pixel Bender Files").exists;
 if(app.version.split(".")[0]>13){exPBK=false}
@@ -21,80 +21,80 @@ if(app.version.split(".")[0]==13){exPBK=true}
 
 if(exPBK)
 {
-// =======================================================PixelBenderƒtƒBƒ‹ƒ^(pbk)
+// =======================================================PixelBenderãƒ•ã‚£ãƒ«ã‚¿(pbk)
 /*	applyPbk(myPBK,knlName,[[control,value]],dialog)
-ˆø”
-	myPBK	ƒtƒBƒ‹ƒ^‹Lq ƒJƒeƒSƒŠ+ƒtƒBƒ‹ƒ^–¼(•¶š—ñ)
-	control	ƒRƒ“ƒgƒ[ƒ‹‹Lq(•¶š—ñ)
-	value	ƒRƒ“ƒgƒ[ƒ‹‚Ì’l(”’l)
-	dialog	ƒ_ƒCƒAƒƒOƒ‚[ƒh(•¶š—ñ "ALL""ERROR""NO")[È—ª‰Â]
-–ß‚è’l
-	“Á‚É‚È‚µ(undefeined)
-	pixel bender karnel@‚ğƒXƒNƒŠƒvƒg‚©‚ç“K—p‚·‚éŠÖ”
-	ˆø”myPBK‚ÍƒJ[ƒlƒ‹ƒtƒ@ƒCƒ‹–”‚Íƒtƒ@ƒCƒ‹ƒpƒX‚Å
-	‘¶İ‚µ‚È‚¢ƒJ[ƒlƒ‹ƒtƒ@ƒCƒ‹‚ªw’è‚³‚ê‚½ê‡‚ÍA“®ì‚ğƒXƒLƒbƒv
+å¼•æ•°
+	myPBK	ãƒ•ã‚£ãƒ«ã‚¿è¨˜è¿° ã‚«ãƒ†ã‚´ãƒª+ãƒ•ã‚£ãƒ«ã‚¿å(æ–‡å­—åˆ—)
+	control	ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«è¨˜è¿°(æ–‡å­—åˆ—)
+	value	ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã®å€¤(æ•°å€¤)
+	dialog	ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒ¢ãƒ¼ãƒ‰(æ–‡å­—åˆ— "ALL""ERROR""NO")[çœç•¥å¯]
+æˆ»ã‚Šå€¤
+	ç‰¹ã«ãªã—(undefeined)
+	pixel bender karnelã€€ã‚’ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‹ã‚‰é©ç”¨ã™ã‚‹é–¢æ•°
+	å¼•æ•°myPBKã¯ã‚«ãƒ¼ãƒãƒ«ãƒ•ã‚¡ã‚¤ãƒ«åˆã¯ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã§
+	å­˜åœ¨ã—ãªã„ã‚«ãƒ¼ãƒãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ãŒæŒ‡å®šã•ã‚ŒãŸå ´åˆã¯ã€å‹•ä½œã‚’ã‚¹ã‚­ãƒƒãƒ—
 */
 applyPbk=function(myPBK,knlName,fVA,dMode){
  if(! dMode){dMode="NO"}
  if(! dMode.match(/(ALL|ERROR)/)){dMode="NO";};
  if(! fVA){fVA=[];}
  if(! knlName ) knlName=false;
- if(!(myPBK instanceof(File))){myPBK=new File(myPBK);};//ƒtƒ@ƒCƒ‹ƒIƒuƒWƒFƒNƒg‚Å‚È‚¯‚ê‚ÎV‹Kƒtƒ@ƒCƒ‹
+ if(!(myPBK instanceof(File))){myPBK=new File(myPBK);};//ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ãªã‘ã‚Œã°æ–°è¦ãƒ•ã‚¡ã‚¤ãƒ«
 
 	if((myPBK.exists)&&(knlName)){
-// =======================================================pbk“K—p(ƒpƒ‰ƒƒ^‚ ‚è)
-var idPbPl = charIDToTypeID( "PbPl" );//pbk¯•Ê•¶š—ñ
-    var descPbk = new ActionDescriptor();//ƒAƒNƒVƒ‡ƒ“ƒfƒBƒXƒNƒŠƒvƒ^‚ğì‚é
+// =======================================================pbké©ç”¨(ãƒ‘ãƒ©ãƒ¡ã‚¿ã‚ã‚Š)
+var idPbPl = charIDToTypeID( "PbPl" );//pbkè­˜åˆ¥æ–‡å­—åˆ—
+    var descPbk = new ActionDescriptor();//ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ã‚’ä½œã‚‹
 
     var idKnNm = charIDToTypeID( "KnNm" );//KarNel NaMe
-    descPbk.putString( idKnNm, knlName );//ƒJ[ƒlƒ‹¯•Ê–¼İ’è(‚½‚Ô‚ñUndo‚Ì¯•Ê–¼‚Ì‚İ)
+    descPbk.putString( idKnNm, knlName );//ã‚«ãƒ¼ãƒãƒ«è­˜åˆ¥åè¨­å®š(ãŸã¶ã‚“Undoã®è­˜åˆ¥åã®ã¿)
 
-    var idGpuY = charIDToTypeID( "GpuY" );//GPUg—pƒtƒ‰ƒO(Œ»İg—p‘¤‚ÉŒÅ’è@”»’è‚µ‚Ä’²®‚Í‘½•ª•K—v@ˆø”§Œä‚©H)
-    descPbk.putBoolean( idGpuY, true );//“¯İ’è
+    var idGpuY = charIDToTypeID( "GpuY" );//GPUä½¿ç”¨ãƒ•ãƒ©ã‚°(ç¾åœ¨ä½¿ç”¨å´ã«å›ºå®šã€€åˆ¤å®šã—ã¦èª¿æ•´ã¯å¤šåˆ†å¿…è¦ã€€å¼•æ•°åˆ¶å¾¡ã‹ï¼Ÿ)
+    descPbk.putBoolean( idGpuY, true );//åŒè¨­å®š
 
-    var idLIWy = charIDToTypeID( "LIWy" );//•s–¾‚È¯•Êq
-    descPbk.putBoolean( idLIWy, true );//“¯İ’è - ‚±‚ê‚ÍŒˆ‚ß‘Å‚¿‚Åc‚·
+    var idLIWy = charIDToTypeID( "LIWy" );//ä¸æ˜ãªè­˜åˆ¥å­
+    descPbk.putBoolean( idLIWy, true );//åŒè¨­å®š - ã“ã‚Œã¯æ±ºã‚æ‰“ã¡ã§æ®‹ã™
 
-    var idFPth = charIDToTypeID( "FPth" );//ƒtƒ@ƒCƒ‹ƒpƒX¯•Êq
-    descPbk.putString( idFPth, myPBK.fsName );//ƒtƒ@ƒCƒ‹ƒpƒXİ’è
-//ƒpƒ‰ƒƒ^‚ª‚ ‚é”‚¾‚¯ŒJ‚è•Ô‚µ‚Äİ’è@Œ»İƒpƒ‰ƒƒ^‚Ìí•Ê‚ÍFloat‚Ì‚İ‚ÅŒˆ‚ß‘Å‚¿(”Ä—p«‚È‚µ)
-//id‚Í©“®¶¬ ƒAƒ‹ƒtƒ@ƒxƒbƒg1„‚Å‘Å‚¿~‚ß
-//aa,ab,ac,ad,ae~‚Æ˜A‘±
+    var idFPth = charIDToTypeID( "FPth" );//ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹è­˜åˆ¥å­
+    descPbk.putString( idFPth, myPBK.fsName );//ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹è¨­å®š
+//ãƒ‘ãƒ©ãƒ¡ã‚¿ãŒã‚ã‚‹æ•°ã ã‘ç¹°ã‚Šè¿”ã—ã¦è¨­å®šã€€ç¾åœ¨ãƒ‘ãƒ©ãƒ¡ã‚¿ã®ç¨®åˆ¥ã¯Floatã®ã¿ã§æ±ºã‚æ‰“ã¡(æ±ç”¨æ€§ãªã—)
+//idã¯è‡ªå‹•ç”Ÿæˆ ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆ1å·¡ã§æ‰“ã¡æ­¢ã‚
+//aa,ab,ac,ad,ae~ã¨é€£ç¶š
  var exText=new Array();
  for(var ix=0;ix< fVA.length;ix++){
    var myChar="abcdefghijklmnopqrstuvwxyz".charAt(ix);
-   var idPN = charIDToTypeID( "PNa"+myChar );//ƒpƒ‰ƒƒ^–¼{id
-   descPbk.putString( idPN, fVA[ix][0] );//ƒpƒ‰ƒƒ^–¼İ’è
-   var idPT = charIDToTypeID( "PTa"+myChar );//ƒpƒ‰ƒƒ^‚ÉŠÖ‚·‚é‰½‚©‚Ì¯•Êq+id
-   descPbk.putInteger( idPT, 0 );//®”‚Å‚O‚ğİ’è‚µ‚Ä‚¢‚é@‚Æ‚è‚ ‚¦‚¸ƒRƒs[
-   var idPF = charIDToTypeID( "PFa"+myChar );//ÀÛ‚É‚©‚¯‚½‚¢ƒpƒ‰ƒƒ^‚Ì¯•Êq
-   descPbk.putDouble( idPF, fVA[ix][1] );//“K—pƒpƒ‰ƒƒ^
+   var idPN = charIDToTypeID( "PNa"+myChar );//ãƒ‘ãƒ©ãƒ¡ã‚¿åï¼‹id
+   descPbk.putString( idPN, fVA[ix][0] );//ãƒ‘ãƒ©ãƒ¡ã‚¿åè¨­å®š
+   var idPT = charIDToTypeID( "PTa"+myChar );//ãƒ‘ãƒ©ãƒ¡ã‚¿ã«é–¢ã™ã‚‹ä½•ã‹ã®è­˜åˆ¥å­+id
+   descPbk.putInteger( idPT, 0 );//æ•´æ•°ã§ï¼ã‚’è¨­å®šã—ã¦ã„ã‚‹ã€€ã¨ã‚Šã‚ãˆãšã‚³ãƒ”ãƒ¼
+   var idPF = charIDToTypeID( "PFa"+myChar );//å®Ÿéš›ã«ã‹ã‘ãŸã„ãƒ‘ãƒ©ãƒ¡ã‚¿ã®è­˜åˆ¥å­
+   descPbk.putDouble( idPF, fVA[ix][1] );//é©ç”¨ãƒ‘ãƒ©ãƒ¡ã‚¿
  }
  executeAction( idPbPl, descPbk, DialogModes[dMode] );
 	}
 }
 // =======================================================
-//nasƒ‰ƒCƒuƒ‰ƒŠƒpƒX‚Ìæ“¾
+//nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ‘ã‚¹ã®å–å¾—
 if($.fileName){
-//	$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚ê‚Îg—p‚·‚é
+//	$.fileNameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚Œã°ä½¿ç”¨ã™ã‚‹
 	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
 }else{
-//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
 }
 
 applyPbk(nasLibFolderPath+"PixelBenderKernel/dotRemoveW.pbk","dotRemoveWhite",[],"NO");
 
 }else{
-// =======================================================’ÊíƒtƒBƒ‹ƒ^(8BM)
+// =======================================================é€šå¸¸ãƒ•ã‚£ãƒ«ã‚¿(8BM)
 /*	applyFilter(filterDescription,[[control,value]],dialog)
-ˆø”
-	filterDescription	ƒtƒBƒ‹ƒ^‹Lq ƒJƒeƒSƒŠ+ƒtƒBƒ‹ƒ^–¼(•¶š—ñ)
-	control	ƒRƒ“ƒgƒ[ƒ‹‹Lq(•¶š—ñ)
-	value	ƒRƒ“ƒgƒ[ƒ‹‚Ì’l(”’l)
-	dialog	ƒ_ƒCƒAƒƒOƒ‚[ƒh(•¶š—ñ "ALL""ERROR""NO")[È—ª‰Â]
-–ß‚è’l
-	“Á‚É‚È‚µ(undefeined)
+å¼•æ•°
+	filterDescription	ãƒ•ã‚£ãƒ«ã‚¿è¨˜è¿° ã‚«ãƒ†ã‚´ãƒª+ãƒ•ã‚£ãƒ«ã‚¿å(æ–‡å­—åˆ—)
+	control	ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«è¨˜è¿°(æ–‡å­—åˆ—)
+	value	ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã®å€¤(æ•°å€¤)
+	dialog	ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒ¢ãƒ¼ãƒ‰(æ–‡å­—åˆ— "ALL""ERROR""NO")[çœç•¥å¯]
+æˆ»ã‚Šå€¤
+	ç‰¹ã«ãªã—(undefeined)
  */
 applyFilter=function(fD,fVA,dMode){
 if (fVA instanceof Array){
@@ -112,7 +112,7 @@ if (! dMode.match(/(ALL|ERROR)/)){dMode="NO";};
 	executeAction( actionID, myDescription, myMode );
 }else{return false;};//
 };
-// ===========================================================g—pƒTƒ“ƒvƒ‹
+// ===========================================================ä½¿ç”¨ã‚µãƒ³ãƒ—ãƒ«
 
 /*
 applyFilter("psPaint trace_B...",[["cTl0",127],["cTl1",127],["cTl2",127],["cTl3",255],["cTl4",0]]);
@@ -126,9 +126,9 @@ applyFilter("psPaint traceK...",[["cTl0",127],["cTl1",127],["cTl2",127]]);
 */
 var xs=Math.floor(((colorParams.fgc.s/1024))*256);
 var xss=Math.floor(((colorParams.bgc.m)*9+colorParams.fgc.m)/1.40);
-//Ê“xè‡’l‚ğƒoƒbƒNƒOƒ‰ƒEƒ“ƒh‚Ì2”{‚Å‚È‚­ƒ^[ƒQƒbƒgƒJƒ‰[‚ÆƒoƒbƒNƒOƒ‰ƒEƒ“ƒh‚ÌŠÔ‚É’u‚­ˆ’u‚ª•K—v
+//å½©åº¦é–¾å€¤ã‚’ãƒãƒƒã‚¯ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰ã®2å€ã§ãªãã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚«ãƒ©ãƒ¼ã¨ãƒãƒƒã‚¯ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰ã®é–“ã«ç½®ãå‡¦ç½®ãŒå¿…è¦
 /*
-(ƒoƒbƒNƒOƒ‰ƒEƒ“ƒhÊ“x*9+ƒ^[ƒQƒbƒgÊ“x)/10
+(ãƒãƒƒã‚¯ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰å½©åº¦*9+ã‚¿ãƒ¼ã‚²ãƒƒãƒˆå½©åº¦)/10
 */
 applyFilter("psPaint dotRemoveW",[],"NO");
 }

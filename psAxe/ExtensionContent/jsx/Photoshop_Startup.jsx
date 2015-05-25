@@ -1,11 +1,11 @@
-﻿// psAxe include function
+// psAxe include function
 function getApplicationResult(arg) {return eval(arg)}
 
-
+if(typeof app.nas =="undefined"){
 var myInstallFolder=Folder.userData.fullName+"/nas";
 //すでに１回以上インストールされている場合は選択的にインストール・アンインストールを行う
  if(!(File(myInstallFolder).exists)||!(File(myInstallFolder+"/lib/nas_psAxeLib.js").exists)){
-alert("インストールが完了していません\nパネルの左上の斧アイコンでライブラリをインストールして下さい\nInstallation is not complete\nPlease install the library in the upper left corner of the ax icon of panel")
+alert("インストールは完了していません\nパネルの左上の斧アイコンでインストールを完了して下さい")
 
 //$.evalFile("psAxe/scripts/psAxeSplash.jsx");
 
@@ -49,13 +49,16 @@ includeLibs=[
 	nasLibFolderPath+"nas_common.js",
 	nasLibFolderPath+"nas_GUIlib.js",
 	nasLibFolderPath+"nas_psAxeLib.js",
-	nasLibFolderPath+"nas_prefarenceLib.js"
+	nasLibFolderPath+"nas_prefarenceLib.js",
+    nasLibFolderPath+"nas_axeEventHandler.js",
+    nasLibFolderPath+"messages.js"
 ];
 //==============================　Application Objectに参照をつける
 	app.nas=nas;
 	bootFlag=true;
 /*	ライブラリ読み込み
 ここで必要なライブラリをリストに加えてから読み込みを行う
+includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
 */
 includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
 includeLibs.push(nasLibFolderPath+"xpsio.js");
@@ -64,9 +67,10 @@ includeLibs.push(nasLibFolderPath+"lib_STS.js");
 includeLibs.push(nasLibFolderPath+"dataio.js");
 includeLibs.push(nasLibFolderPath+"fakeAE.js");
 includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
 includeLibs.push(nasLibFolderPath+"xpsQueue.js");
 includeLibs.push(nasLibFolderPath+"messages.js");
+includeLibs.push(nasLibFolderPath+"psCCfontFix.js");
+
 for(prop in includeLibs){
 	var myScriptFileName=includeLibs[prop];
 	//$.evalFile ファンクションで実行する
@@ -77,7 +81,8 @@ nas.readPrefarence();nas.workTitles.select();
 //=====================================startup
 
  }
-
+}else{
+	nas=app.nas;
+}
 
 //+++++++++++++++++++++++++++++++++初期化終了
-

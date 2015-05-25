@@ -38,15 +38,21 @@ margin:3px 0px 3px 0px;
     border-style:none; }
 button:hover {border-style:groove;}
 button:active {border-style:ridge;}
+    .colorChip	{width: 27px;height:20px;background-color:#808080;font-size:8pt;}
     .toolChip	{width: 27px;height:27px;background-color:#808080;font-size:8pt;padding:0;}
     .operation	{width: 54px;height:20px;background-color:#666666;font-size:8pt;}
     .fsp	{width: 216px;height:16px;background-color:#444444;font-size:8pt;}
     .fw		{width: 216px;height:20px;background-color:#555555;font-size:8pt;}
     .hw		{width: 108px;height:20px;background-color:#555555;font-size:8pt;}
     .qw		{width: 54px;height:20px;background-color:#555555;font-size:8pt;}
+    .cw		{width: 43px;height:20px;background-color:#555555;font-size:8pt;}
+    .sw		{width: 36px;height:20px;background-color:#555555;font-size:8pt;}
+    .ow		{width: 27px;height:20px;background-color:#555555;font-size:8pt;}
     .fwd	{width: 216px;height:20px;background-color:#777777;font-size:9pt;}
     .hwd	{width: 108px;height:20px;background-color:#777777;font-size:9pt;}
     .qwd	{width: 54px;height:20px;background-color:#777777;font-size:8pt;}
+    .cwd	{width: 43px;height:20px;background-color:#777777;font-size:8pt;}
+    .swd	{width: 36px;height:20px;background-color:#777777;font-size:8pt;}
     .owd	{width: 27px;height:20px;background-color:#777777;font-size:8pt;}
 
 

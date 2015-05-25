@@ -1,1 +1,56 @@
-// EPS Open Options://Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ// enable double clicking from the Macintosh Finder or the Windows Explorer#target photoshop// in case we double clicked the file	app.bringToFront();//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İif($.fileName){//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";}else{//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";}var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñif(! app.nas){//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é	var nas = new Object();		nas.Version=new Object();		nas.isAdobe=true;		nas.axe=new Object();		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş/*	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj@config.js"		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ*/includeLibs=[	nasLibFolderPath+"config.js",	nasLibFolderPath+"nas_common.js",	nasLibFolderPath+"nas_GUIlib.js",	nasLibFolderPath+"nas_psAxeLib.js",	nasLibFolderPath+"nas_prefarenceLib.js"];//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é	app.nas=nas;	bootFlag=true;}else{	//alert("object nas exists")	nas=app.nas;	bootFlag=false;};/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤*/	if(false){includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");includeLibs.push(nasLibFolderPath+"xpsio.js");includeLibs.push(nasLibFolderPath+"mapio.js");includeLibs.push(nasLibFolderPath+"lib_STS.js");includeLibs.push(nasLibFolderPath+"dataio.js");includeLibs.push(nasLibFolderPath+"fakeAE.js");includeLibs.push(nasLibFolderPath+"io.js");includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");includeLibs.push(nasLibFolderPath+"xpsQueue.js");	}for(prop in includeLibs){	var myScriptFileName=includeLibs[prop];	if($.evalFile){	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é		$.evalFile(myScriptFileName);	}else{	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·		var scriptFile = new File(myScriptFileName);		if(scriptFile.exists){			scriptFile.open();			var myContent=scriptFile.read()			scriptFile.close();			eval(myContent);		}	}}//===========•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾(ƒIƒuƒWƒFƒNƒg‚ªŠù‘¶‚Ìê‡‚ÍƒXƒLƒbƒv)if(bootFlag){nas.readPrefarence();nas.workTitles.select();}//=====================================//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p//ƒtƒŒ[ƒ€ƒZƒbƒg“à‚ÉƒV[ƒgŒrü‚ğ“Ç‚İ‚İ(ƒtƒŒ[ƒ€ƒZƒbƒg‚ª‚È‚¢ê‡‚ÍƒXƒLƒbƒv)var myTargetSet=app.activeDocument;try{myTargetSet=app.activeDocument.layerSets["Frames"];}catch(err){;};var currentUnitBase=app.preferences.rulerUnits;//T‚¦‚éapp.preferences.rulerUnits=Units.MM;if(true){//ƒŒƒWƒXƒ^  var myRuleFile=new File(nasLibFolderPath+"resource/timeSheet6sA3.eps");  var myRuleLayer=nas.axeAFC.placeEps(myRuleFile);//‚±‚ÌŠÖ”‚ª‹ÈÒ  myRuleLayer.name="Sheet-Rule";//ã‹L‚ÌŠÖ”‚ÌÀsŒã‚ÉÅ‰‚ÉDOM‘€ì‚µ‚½ƒIƒuƒWƒFƒNƒg‚Íæ‚èÁ‚µ‚ğó‚¯‚Ä‚¢‚é/*ƒŠƒl[ƒ€‚ğ‚µ‚È‚©‚Á‚½ê‡‚ÍƒŒƒCƒ„‚Ì“Ç‚İ‚İ©‘Ì‚ªUNDO‚³‚ê‚Ä“Ç‚İ‚ñ‚¾‚Í‚¸‚ÌƒŒƒCƒ„‚ª‘r¸‚µ‚ÄƒGƒ‰[‚ª”­¶‚·‚é*/  myRuleLayer.translate("5 mm",-1*myRuleLayer.bounds[1]+7);//ã•Ó‚Ö‚Í‚Á‚Â‚¯//Œrü”z’uvar myOffset=(((myRuleLayer.bounds[3]-myRuleLayer.bounds[1])/2)+myRuleLayer.bounds[1]).as("mm")-nas.inputMedias.selectedRecord[7];  myRuleLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);  //ƒtƒŒ[ƒ€Ši”[ƒŒƒCƒ„ƒZƒbƒg‚ª‚ ‚éê‡‚Ì‚İ‚»‚¿‚ç‚ÖˆÚ“®if(myTargetSet){    myRuleLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);}  if(!bootFlag){    myRuleLayer.name="rule";  }}else{//===========================================//ƒŒƒWƒXƒ^‰æ‘œ‚ğ“Ç‚İ‚ñ‚Å‰æ‘œã•Ó‚ÖˆÚ“®  var myRuleFile=new File(nasLibFolderPath+"resource/timeSheet6sA3.eps"); var myRuleLayer=nas.axeAFC.placeEps(myRuleFile);myRuleLayer.name="rule";myRuleLayer.translate(new UnitValue("0 px"),-1*myPegLayer.bounds[1]);//ã•Ó‚Ö‚Í‚Á‚Â‚¯//ƒtƒŒ[ƒ€Ši”[ƒŒƒCƒ„ƒZƒbƒg‚ª‚ ‚éê‡‚Ì‚İ‚»‚¿‚ç‚ÖˆÚ“®var myTargetSet=app.activeDocument;try{myTargetSet=app.activeDocument.layerSets["Frames"];}catch(err){;};if(myTargetSet){  myPegLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);}    myPegLayer.name="Rule";}//ƒ‹[ƒ‰[ƒ†ƒjƒbƒg•œ‹Aapp.preferences.rulerUnits=currentUnitBase;//•œ‹A
+// EPS Open Options:
+//Photoshopç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+	var nas=app.nas;
+	var bootFlag=false;
+	var nasLibFolderPath =Folder.nas.fullName+ "/lib/";;
+
+//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆå†…ã«ã‚·ãƒ¼ãƒˆç½«ç·šã‚’èª­ã¿è¾¼ã¿(ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆãŒãªã„å ´åˆã¯ã‚¹ã‚­ãƒƒãƒ—)
+
+var myTargetSet=app.activeDocument;
+
+try{myTargetSet=app.activeDocument.layerSets["Frames"];}catch(err){;};
+var currentUnitBase=app.preferences.rulerUnits;//æ§ãˆã‚‹
+app.preferences.rulerUnits=Units.MM;
+
+if(true){
+//ãƒ¬ã‚¸ã‚¹ã‚¿
+  var myRuleFile=new File(è¡¨ç¤ºãƒªã‚»ãƒƒãƒˆ+"resource/timeSheet6sA3.eps");
+  var myRuleLayer=nas.axeAFC.placeEps(myRuleFile);//ã“ã®é–¢æ•°ãŒæ›²è€…
+  myRuleLayer.name="Sheet-Rule";//ä¸Šè¨˜ã®é–¢æ•°ã®å®Ÿè¡Œå¾Œã«æœ€åˆã«DOMæ“ä½œã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯å–ã‚Šæ¶ˆã—ã‚’å—ã‘ã¦ã„ã‚‹
+/*ãƒªãƒãƒ¼ãƒ ã‚’ã—ãªã‹ã£ãŸå ´åˆã¯ãƒ¬ã‚¤ãƒ¤ã®èª­ã¿è¾¼ã¿è‡ªä½“ãŒUNDOã•ã‚Œã¦èª­ã¿è¾¼ã‚“ã ã¯ãšã®ãƒ¬ã‚¤ãƒ¤ãŒå–ªå¤±ã—ã¦ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã™ã‚‹*/
+  myRuleLayer.translate("5 mm",-1*myRuleLayer.bounds[1]+7);//ä¸Šè¾ºã¸ã¯ã£ã¤ã‘
+
+//ç½«ç·šé…ç½®
+var myOffset=(((myRuleLayer.bounds[3]-myRuleLayer.bounds[1])/2)+myRuleLayer.bounds[1]).as("mm")-nas.inputMedias.selectedRecord[7];
+
+  myRuleLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);
+
+  //ãƒ•ãƒ¬ãƒ¼ãƒ æ ¼ç´ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆãŒã‚ã‚‹å ´åˆã®ã¿ãã¡ã‚‰ã¸ç§»å‹•
+if(myTargetSet){
+    myRuleLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);
+}
+  if(!bootFlag){
+    myRuleLayer.name="rule";
+  }
+}else{
+//===========================================
+//ãƒ¬ã‚¸ã‚¹ã‚¿ç”»åƒã‚’èª­ã¿è¾¼ã‚“ã§ç”»åƒä¸Šè¾ºã¸ç§»å‹•
+  var myRuleFile=new File(nasLibFolderPath+"resource/timeSheet6sA3.eps");
+
+ var myRuleLayer=nas.axeAFC.placeEps(myRuleFile);
+myRuleLayer.name="rule";
+myRuleLayer.translate(new UnitValue("0 px"),-1*myPegLayer.bounds[1]);//ä¸Šè¾ºã¸ã¯ã£ã¤ã‘
+
+
+//ãƒ•ãƒ¬ãƒ¼ãƒ æ ¼ç´ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆãŒã‚ã‚‹å ´åˆã®ã¿ãã¡ã‚‰ã¸ç§»å‹•
+var myTargetSet=app.activeDocument;
+
+try{myTargetSet=app.activeDocument.layerSets["Frames"];}catch(err){;};
+if(myTargetSet){
+  myPegLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);
+}
+    myPegLayer.name="Rule";
+}
+//ãƒ«ãƒ¼ãƒ©ãƒ¼ãƒ¦ãƒ‹ãƒƒãƒˆå¾©å¸°
+app.preferences.rulerUnits=currentUnitBase;//å¾©å¸°
+

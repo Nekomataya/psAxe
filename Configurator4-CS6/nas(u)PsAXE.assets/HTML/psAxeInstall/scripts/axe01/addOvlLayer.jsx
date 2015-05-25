@@ -1,140 +1,43 @@
 /*
-	ƒAƒNƒeƒBƒuƒŒƒCƒ„‚Ìã‚ÉC³i’ßj—pƒŒƒCƒ„‚ğ‚Â‚¯‚é
+	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã®ä¸Šã«ä¿®æ­£ï¼ˆæ³¨é‡ˆï¼‰ç”¨ãƒ¬ã‚¤ãƒ¤ã‚’ã¤ã‘ã‚‹
 	
-“®‰æ”Ô†‚ğXV‚µ‚È‚¢‚Å’ßƒ|ƒXƒgƒtƒBƒbƒNƒX‚ğ‰Á‚¦‚é
-—p†F‚ÍAw’èƒpƒ‰ƒ[ƒ^‚ğİ‚¯‚é
+å‹•ç”»ç•ªå·ã‚’æ›´æ–°ã—ãªã„ã§æ³¨é‡ˆãƒã‚¹ãƒˆãƒ•ã‚£ãƒƒã‚¯ã‚¹ã‚’åŠ ãˆã‚‹
+ç”¨ç´™è‰²ã¯ã€æŒ‡å®šãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­ã‘ã‚‹
 */
 
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
-//ƒhƒLƒ…ƒƒ“ƒg‚Í•K—v‚È‚Ì‚ÅƒhƒLƒ…ƒƒ“ƒg‚ª‚È‚¯‚ê‚Î‘S‘Ì‚ğƒXƒLƒbƒv
-if((app.documents.length>0)&&(app.activeDocument)){
-//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
+	var nas=app.nas;
 
-if($.fileName){
-//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é
-	var nasLibFolderPath = Folder.userData.fullName + "/"+ localize("$$$/nas/lib=nas/lib/");
-}
-var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñ
-
-if(! app.nas){
-//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é
-	var nas = new Object();
-		nas.Version=new Object();
-		nas.isAdobe=true;
-		nas.axe=new Object();
-		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p
-//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş
-/*
-	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB
-	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)
-	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş
-
-@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj
-@config.js"		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\
-  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ
-  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ
-  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ
-
-  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)
-  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ
-  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ
-  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ
-  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j
-  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ
-  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ
-  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ
-
-*/
-includeLibs=[
-	nasLibFolderPath+"config.js",
-	nasLibFolderPath+"nas_common.js",
-	nasLibFolderPath+"nas_GUIlib.js",
-	nasLibFolderPath+"nas_psAxeLib.js",
-	nasLibFolderPath+"nas_prefarenceLib.js"
-];
-//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é
-	app.nas=nas;
-	bootFlag=true;
-}else{
-	//alert("object nas exists")
-	nas=app.nas;
-	bootFlag=false;
-};
-
-/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
-‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤
-*/
-if(false){
-includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
-includeLibs.push(nasLibFolderPath+"xpsio.js");
-includeLibs.push(nasLibFolderPath+"mapio.js");
-includeLibs.push(nasLibFolderPath+"lib_STS.js");
-includeLibs.push(nasLibFolderPath+"dataio.js");
-includeLibs.push(nasLibFolderPath+"fakeAE.js");
-includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
-includeLibs.push(nasLibFolderPath+"xpsQueue.js");
-}
-for(prop in includeLibs){
-	var myScriptFileName=includeLibs[prop];
-	if($.evalFile){
-	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é
-		$.evalFile(myScriptFileName);
-	}else{
-	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·
-		var scriptFile = new File(myScriptFileName);
-		if(scriptFile.exists){
-			scriptFile.open();
-			var myContent=scriptFile.read()
-			scriptFile.close();
-			eval(myContent);
-		}
-	}
-}
-
-//=====================================•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾
-if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
-//=====================================
-//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p
 //add newLayer for animation drawing
-//‹L˜^‚µ‚Ä‚ ‚éF‚Æ”wŒiF‚ğÆ‡‚µ‚ÄAˆÙ‚È‚Á‚Ä‚¢‚½‚ç”wŒiF‚ğ•ÏX
+//è¨˜éŒ²ã—ã¦ã‚ã‚‹è‰²ã¨èƒŒæ™¯è‰²ã‚’ç…§åˆã—ã¦ã€ç•°ãªã£ã¦ã„ãŸã‚‰èƒŒæ™¯è‰²ã‚’å¤‰æ›´
 var myColor=new SolidColor();
 	myColor.rgb.red  =Math.floor(nas.axe.ovlBgColors[nas.axe.ovlBgColor][1][0]*255);
 	myColor.rgb.green=Math.floor(nas.axe.ovlBgColors[nas.axe.ovlBgColor][1][1]*255);
 	myColor.rgb.blue =Math.floor(nas.axe.ovlBgColors[nas.axe.ovlBgColor][1][2]*255);
-if (app.backgroundColor!=myColor){app.backgroundColor=myColor};//”wŒiF•ÏX‚ÍUNDO‘ÎÛŠO
-//V‹KƒŒƒCƒ„’Ç‰Á‚µ‚Ä
+if (app.backgroundColor!=myColor){app.backgroundColor=myColor};//èƒŒæ™¯è‰²å¤‰æ›´ã¯UNDOå¯¾è±¡å¤–
+	myColor.opacity  =Math.floor(nas.axe.ovlBgColors[nas.axe.ovlBgColor][1][3]*100);
+//æ–°è¦ãƒ¬ã‚¤ãƒ¤è¿½åŠ ã—ã¦
 var currentLayer=app.activeDocument.activeLayer;
 var newName=currentLayer.name+"+";
-//–¼‘O‚É”Ô†‚ª‚È‚¢ê‡‚Í01‚ğ•t‰Á‚·‚é
+//åå‰ã«ç•ªå·ãŒãªã„å ´åˆã¯01ã‚’ä»˜åŠ ã™ã‚‹
 //if(newName.match(/^\D+$/)){newName+="001";};
 var wasFold=(
  (app.activeDocument.activeLayer.parent.typename=="Document") &&
  (app.activeDocument.activeLayer.typename=="LayerSet")
  )?true:false;
 var myDocLayers=(wasFold)?app.activeDocument.activeLayer:app.activeDocument.activeLayer.parent;
-
-var myUndoStr="V‹KC³ƒŒƒCƒ„ì¬"
+//	æ–°è¦ä¿®æ­£ãƒ¬ã‚¤ãƒ¤ä½œæˆ
+var myUndoStr=localize(nas.uiMsg["addNewOvl"]);
 var myExcute="";
-myExcute+="myDocLayers.artLayers.add();";//‚±‚Ì‘€ì‚ÅƒAƒNƒeƒBƒuƒŒƒCƒ„ˆÚ“®
+myExcute+="myDocLayers.artLayers.add();";//ã“ã®æ“ä½œã§ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ç§»å‹•
 myExcute+="app.activeDocument.selection.selectAll();";
-myExcute+="app.activeDocument.selection.fill(app.backgroundColor);";
+if(myColor.opacity){
+myExcute+="app.activeDocument.selection.fill(app.backgroundColor,ColorBlendMode.NORMAL,myColor.opacity);";
+}
 myExcute+="if(wasFold){";
 myExcute+="app.activeDocument.activeLayer.move(currentLayer,ElementPlacement.PLACEATBEGINNING)}else{"
 myExcute+="app.activeDocument.activeLayer.move(currentLayer,ElementPlacement.PLACEBEFORE)};"
 myExcute+="app.activeDocument.activeLayer.name=newName;";
 myExcute+="if(nas.axe.newLayerTpr){app.activeDocument.activeLayer.opacity=nas.axe.onsOpc*100};";
-
-
 
 	if((app.documents.length)&&(activeDocument.suspendHistory)){
 		activeDocument.suspendHistory(myUndoStr,myExcute);
@@ -142,5 +45,4 @@ myExcute+="if(nas.axe.newLayerTpr){app.activeDocument.activeLayer.opacity=nas.ax
 		eval(myExcute);
 	}
 
-//ƒŒƒCƒ„–¼‚ğ•ÏX‚·‚éê‡‚ÌƒAƒ‹ƒSƒŠƒYƒ€Œ©’¼‚µ
-}
+//ãƒ¬ã‚¤ãƒ¤åã‚’å¤‰æ›´ã™ã‚‹å ´åˆã®ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ è¦‹ç›´ã—

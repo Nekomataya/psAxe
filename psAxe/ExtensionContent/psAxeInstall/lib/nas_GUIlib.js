@@ -28,10 +28,12 @@ try {
 	Photoshopにsettingsオブジェクトがない
 */
 if(app.name.match(/AfterEffects/i)){
-/*	UIレベル設定　現状は
+/*AE専用
+	UIレベル設定　現状は
 	0:最初のAE6.5基準
 	1:listbox等itemクラスの拡張
 	2:ScriptUiImageの拡張
+	3:SCriptUI.newImageメソッドの拡張
 */
 	nas.GUI.UIlvl=(app.version.split(".")[0]<7)? 0:2;
 
@@ -65,10 +67,12 @@ nas.GUI.shutdown=function()
 		app.settings.saveSetting("nas","currentFolder",nas.GUI.currentFolder.fsName);
 	};
 }else{
-/*	UIレベル判定　現状は
+/*　AE以外用
+	UIレベル判定　現状は
 	0:最初のAE6.5基準
 	1:listbox等itemクラスの拡張
 	2:ScriptUiImageの拡張
+	3:SCriptUI.newImageメソッドの拡張
 */
 	nas.GUI.UIlvl=(app.version.split(".")[0]<9)? 0:1;
 // セッティング取り込み
@@ -332,7 +336,7 @@ nas.GUI.newImage=function(myFile)
 	if(this.UIlvl<2){return false};//
 	if(false)
 	{
-		var myImage= new ScriptUIImage(myFile);//はやくサポートして判定式を書かせてほしい
+		var myImage= new ScriptUI.newImage(myFile);//はやくサポートして判定式を書かせてほしい
 	}else{
 		if(! nas.GUI.stabWindow){nas.GUI.stabWindow=new Window("palette","nasGUIStab",[0,0,100,100])};//なかったら仮ウィンドウ作る
 		if( (! myFile)||(! (myFile.exists))||(!(myFile.name.match(/\.png$/i))) ){myFile=new File(Folder.nas.path+"/nas/lib/resource/Icons/default.png")}

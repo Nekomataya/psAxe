@@ -1,8 +1,9 @@
-//ƒgƒŒ[ƒ‰“à‚ÌÅ‚àã‚Ì•\¦ƒŒƒCƒ„‚ğƒAƒNƒeƒBƒu‚É‚·‚é
+//ãƒˆãƒ¬ãƒ¼ãƒ©å†…ã®æœ€ã‚‚ä¸Šã®è¡¨ç¤ºãƒ¬ã‚¤ãƒ¤ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
 if(app.documents.length){
-var myUndo="•\¦ƒŒƒCƒ„‚ğƒAƒNƒeƒBƒu";var myAction="";
-var myDocLayers=app.activeDocument.activeLayer.parent;
-myAction="for(var idx=0;idx<myDocLayers.layers.length;idx++){if(myDocLayers.layers[idx].visible){app.activeDocument.activeLayer=myDocLayers.layers[idx];break;}};";
-
-if(app.activeDocument.suspendHistory){app.activeDocument.suspendHistory(myUndo,myAction)}else{evel(myAction)}
+  if(app.nas){nas=app.nas;}
+//	ä¸Šä½ãƒ¬ã‚¤ãƒ¤ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–;
+  var myUndo=localize(nas.uiMsg["activateUpperLayer"]);
+  var myAction="";
+	myAction+="nas.axeCMC.focusTop()";
+  if(app.activeDocument.suspendHistory){app.activeDocument.suspendHistory(myUndo,myAction)}else{evel(myAction)}
 }

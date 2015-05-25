@@ -1,5 +1,5 @@
 /*
-	�A�N�e�B�u���C���̂��郌�C���Z�b�g�̍ŏ�ʃ��C�������C�����ŉ��ʂֈړ��@�A�N�e�B�u���C�����ЂƂ��ֈړ�
+	アクティブレイヤのあるレイヤセットの最上位レイヤをレイヤを最下位へ移動　アクティブレイヤをひとつ下へ移動
 // enable double clicking from the Macintosh Finder or the Windows Explorer
 #target photoshop
 */

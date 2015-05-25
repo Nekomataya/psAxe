@@ -1,12 +1,12 @@
-//@ì‹ÆƒpƒX‚ğfill‚µ‚Äì‹ÆƒpƒX‚ğíœ‚·‚éB(‘OŒiFEƒpƒX•Â‚¶‚éEƒAƒ“ƒ`ƒGƒŠƒAƒXoff)
+//ã€€ä½œæ¥­ãƒ‘ã‚¹ã‚’fillã—ã¦ä½œæ¥­ãƒ‘ã‚¹ã‚’å‰Šé™¤ã™ã‚‹ã€‚(å‰æ™¯è‰²ãƒ»ãƒ‘ã‚¹é–‰ã˜ã‚‹ãƒ»ã‚¢ãƒ³ãƒã‚¨ãƒªã‚¢ã‚¹off)
  if((app.activeDocument.pathItems.length)&&(app.activeDocument.pathItems[0].kind==PathKind.WORKPATH)){
 var myPathFill="var myPath=app.activeDocument.pathItems[0];";
-//ì‹ÆƒpƒX‚ğ‰”•M‚Å•`‰æ
+//ä½œæ¥­ãƒ‘ã‚¹ã‚’é‰›ç­†ã§æç”»
     myPathFill+="myPath.fillPath(app.foregroundColor,ColorBlendMode.NORMAL,100.0,false,0.0,false,true);";
-//ì‹ÆƒpƒX‚ğíœ
+//ä½œæ¥­ãƒ‘ã‚¹ã‚’å‰Šé™¤
     myPathFill+="myPath.remove();";
  if(app.activeDocument.suspendHistory){
-     app.activeDocument.suspendHistory("ƒpƒX‚ğ“h’×‚µ", myPathFill);
+     app.activeDocument.suspendHistory("ãƒ‘ã‚¹ã‚’å¡—æ½°ã—", myPathFill);
  }else{
      eval(myPathStroke);
  }

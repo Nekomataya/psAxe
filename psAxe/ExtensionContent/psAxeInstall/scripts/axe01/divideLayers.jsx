@@ -1,51 +1,51 @@
 /*
 	divideLayers.jsx
-	ƒŒƒCƒ„–¼‚ðƒL[‚É‚µ‚ÄƒŒƒCƒ„‚ðŽd•ª‚¯‚µ‚½ƒhƒLƒ…ƒƒ“ƒg‚ðì¬‚·‚é
-Žå‚ÈŽg—p–Ú“I‚ÍAƒŒƒCƒAƒEƒgEŒ´‰æ‚â“®‰æ“™‚ð‚»‚ê‚¼‚êƒŒƒCƒ„‚²‚Æ‚ÉƒŒƒCƒ„ƒZƒbƒg‚É
-•ª—Þ‚³‚ê‚½ƒhƒLƒ…ƒƒ“ƒg‚ðì¬‚·‚é‚½‚ß‚Ìì‹Æ•â•ƒXƒNƒŠƒvƒg‚Å‚ ‚éB
+	ãƒ¬ã‚¤ãƒ¤åã‚’ã‚­ãƒ¼ã«ã—ã¦ãƒ¬ã‚¤ãƒ¤ã‚’ä»•åˆ†ã‘ã—ãŸãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’ä½œæˆã™ã‚‹
+ä¸»ãªä½¿ç”¨ç›®çš„ã¯ã€ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆãƒ»åŽŸç”»ã‚„å‹•ç”»ç­‰ã‚’ãã‚Œãžã‚Œãƒ¬ã‚¤ãƒ¤ã”ã¨ã«ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã«
+åˆ†é¡žã•ã‚ŒãŸãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’ä½œæˆã™ã‚‹ãŸã‚ã®ä½œæ¥­è£œåŠ©ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ã‚ã‚‹ã€‚
 
 
 
 */
 /*
-			layerSort(ƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“[,•À‚Ñ‡]);
-	”Ä—pƒŒƒCƒ„ƒ\[ƒgŠÖ”
-		Žw’è‚³‚ê‚½ƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚ðƒŒƒCƒ„–¼‚Åƒ\[ƒg‚·‚éB
-		ˆø”‚Éfalse‚ð—^‚¦‚é‚ÆA‹t‡ƒ\[ƒg‚É‚È‚éiƒAƒjƒ‚ÌƒZƒ‹‚Å‚Í‹t‡‚ªƒXƒL‚È‚Ì‚ÅƒfƒtƒHƒ‹ƒgj
-		“¯–¼‚ÌƒŒƒCƒ„‚ª‚ ‚éê‡‚ÍAŒx‚ðo‚µ‚Äˆ—‚ð‘±sB
-		“ñ‚Â–ÚˆÈ~‚Íˆ—‘ÎÛ‚É‚È‚ç‚¸‚É‰º‚É‚½‚Ü‚Á‚ÄŽc‚é
-		•À‚Ñ‡ƒIƒvƒVƒ‡ƒ“‚Ítrue/false‚ÅŽw’è
-		ƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚ÍALayers,ArtLayers,LayerSets ‚È‚Ç
+			layerSort(ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³[,ä¸¦ã³é †]);
+	æ±Žç”¨ãƒ¬ã‚¤ãƒ¤ã‚½ãƒ¼ãƒˆé–¢æ•°
+		æŒ‡å®šã•ã‚ŒãŸãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‚’ãƒ¬ã‚¤ãƒ¤åã§ã‚½ãƒ¼ãƒˆã™ã‚‹ã€‚
+		å¼•æ•°ã«falseã‚’ä¸Žãˆã‚‹ã¨ã€é€†é †ã‚½ãƒ¼ãƒˆã«ãªã‚‹ï¼ˆã‚¢ãƒ‹ãƒ¡ã®ã‚»ãƒ«ã§ã¯é€†é †ãŒã‚¹ã‚­ãªã®ã§ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆï¼‰
+		åŒåã®ãƒ¬ã‚¤ãƒ¤ãŒã‚ã‚‹å ´åˆã¯ã€è­¦å‘Šã‚’å‡ºã—ã¦å‡¦ç†ã‚’ç¶šè¡Œã€‚
+		äºŒã¤ç›®ä»¥é™ã¯å‡¦ç†å¯¾è±¡ã«ãªã‚‰ãšã«ä¸‹ã«ãŸã¾ã£ã¦æ®‹ã‚‹
+		ä¸¦ã³é †ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã¯true/falseã§æŒ‡å®š
+		ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã¯ã€Layers,ArtLayers,LayerSets ãªã©
 */
 
 layerSort= function(targetCol,revFlag){
-//	•À‚Ñ‘Ö‚¦‘ÎÛ‚ðÝ’è
+//	ä¸¦ã³æ›¿ãˆå¯¾è±¡ã‚’è¨­å®š
 	var myTarget=targetCol;
-//	ˆø”‚ªƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚Å‚È‚©‚Á‚½ê‡AƒLƒƒƒ“ƒZƒ‹
+//	å¼•æ•°ãŒãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã§ãªã‹ã£ãŸå ´åˆã€ã‚­ãƒ£ãƒ³ã‚»ãƒ«
 	if(!(targetCol instanceof Layers)){return false;};
-//	ˆø”‚È‚¯‚ê‚Î‰º‚©‚ç³‡
+//	å¼•æ•°ãªã‘ã‚Œã°ä¸‹ã‹ã‚‰æ­£é †
 	if(! revFlag) revFlag=false;//
-//	•À‚Ñ‘Ö‚¦‘ÎÌ‚ÌƒŒƒCƒ„‚ª1‚Â‚µ‚©‚È‚¢ê‡‚ÍA•À‚Ñ‘Ö‚¦•s”\‚È‚Ì‚ÅƒLƒƒƒ“ƒZƒ‹
+//	ä¸¦ã³æ›¿ãˆå¯¾ç§°ã®ãƒ¬ã‚¤ãƒ¤ãŒ1ã¤ã—ã‹ãªã„å ´åˆã¯ã€ä¸¦ã³æ›¿ãˆä¸èƒ½ãªã®ã§ã‚­ãƒ£ãƒ³ã‚»ãƒ«
 	if(myTarget.length<=1){return false;};
-//	ƒ\[ƒg—p”z—ñ‚ðì‚é
+//	ã‚½ãƒ¼ãƒˆç”¨é…åˆ—ã‚’ä½œã‚‹
 	var sortOrder=new Array();
 	for (idx=0;idx<myTarget.length;idx++){
 		if (myTarget[idx].isBackgroundLayer){
-			continue;//ƒŒƒCƒ„‚ª”wŒi‚¾‚Á‚½‚ç–³Ž‹
+			continue;//ãƒ¬ã‚¤ãƒ¤ãŒèƒŒæ™¯ã ã£ãŸã‚‰ç„¡è¦–
 		}else{
 			sortOrder.push(myTarget[idx].name);
 		}
 	}
-//‚Ü‚¸•À‚Ñ‘Ö‚¦‚é(‚±‚ÌŽž“_‚Å‰º‚©‚ç³‡)
+//ã¾ãšä¸¦ã³æ›¿ãˆã‚‹(ã“ã®æ™‚ç‚¹ã§ä¸‹ã‹ã‚‰æ­£é †)
 		sortOrder.sort();
 	if (revFlag){
-//”½“]ƒtƒ‰ƒO‚ ‚ê‚Î”½“]
+//åè»¢ãƒ•ãƒ©ã‚°ã‚ã‚Œã°åè»¢
 		sortOrder.reverse();
 	}
-//•À‚Ñ‘Ö‚¦‚½”z—ñ‚©‚ç“¯–¼ƒŒƒCƒ„‚Ìƒ`ƒFƒbƒN
+//ä¸¦ã³æ›¿ãˆãŸé…åˆ—ã‹ã‚‰åŒåãƒ¬ã‚¤ãƒ¤ã®ãƒã‚§ãƒƒã‚¯
 	for (idx=1;idx<sortOrder.length;idx++){
 		if(sortOrder[idx-1]==sortOrder[idx]){
-			alert("“¯–¼‚ÌƒŒƒCƒ„‚ª‚ ‚è‚Ü‚·B\n“ñ‚Â–ÚˆÈ~‚ÌƒŒƒCƒ„‚Í•À‚Ñ‘Ö‚¦‚Ì‘ÎÛ‚É‚È‚è‚Ü‚¹‚ñB");
+			alert("åŒåã®ãƒ¬ã‚¤ãƒ¤ãŒã‚ã‚Šã¾ã™ã€‚\näºŒã¤ç›®ä»¥é™ã®ãƒ¬ã‚¤ãƒ¤ã¯ä¸¦ã³æ›¿ãˆã®å¯¾è±¡ã«ãªã‚Šã¾ã›ã‚“ã€‚");
 			break;
 		}
 	}
@@ -55,29 +55,29 @@ layerSort= function(targetCol,revFlag){
 	return sortOrder;
 }
 /*
-		layerReverse(ƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“);
-	ƒŒƒCƒ„•À‚Ñ‡”½“]ƒTƒuƒvƒƒV[ƒWƒƒ
-	ƒŒƒCƒ„‚Ì•À‚Ñ‡‚ð”½“]‚·‚éBˆø”‚ÍƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“(~.layers)
+		layerReverse(ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³);
+	ãƒ¬ã‚¤ãƒ¤ä¸¦ã³é †åè»¢ã‚µãƒ–ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
+	ãƒ¬ã‚¤ãƒ¤ã®ä¸¦ã³é †ã‚’åè»¢ã™ã‚‹ã€‚å¼•æ•°ã¯ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³(~.layers)
 */
 layerReverse= function(targetCol){
-//	•À‚Ñ‘Ö‚¦‘ÎÛ‚ðÝ’è
+//	ä¸¦ã³æ›¿ãˆå¯¾è±¡ã‚’è¨­å®š
 	var myTarget=targetCol;
-//	ˆø”‚ªƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚Å‚È‚©‚Á‚½ê‡AƒLƒƒƒ“ƒZƒ‹
+//	å¼•æ•°ãŒãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã§ãªã‹ã£ãŸå ´åˆã€ã‚­ãƒ£ãƒ³ã‚»ãƒ«
 	if(!(targetCol instanceof Layers)){return false;};
-//	•À‚Ñ‘Ö‚¦‘ÎÌ‚ÌƒŒƒCƒ„‚ª1‚Â‚µ‚©‚È‚¢ê‡‚ÍA•À‚Ñ‘Ö‚¦•s”\‚È‚Ì‚ÅƒLƒƒƒ“ƒZƒ‹
+//	ä¸¦ã³æ›¿ãˆå¯¾ç§°ã®ãƒ¬ã‚¤ãƒ¤ãŒ1ã¤ã—ã‹ãªã„å ´åˆã¯ã€ä¸¦ã³æ›¿ãˆä¸èƒ½ãªã®ã§ã‚­ãƒ£ãƒ³ã‚»ãƒ«
 	if(myTarget.length<=1){return false;};
 
-//	ƒ\[ƒg—p”z—ñ‚ðì‚é
+//	ã‚½ãƒ¼ãƒˆç”¨é…åˆ—ã‚’ä½œã‚‹
 	var sortOrder=new Array();
 	for (idx=0;idx<myTarget.length;idx++){
 		if (myTarget[idx].isBackgroundLayer){
-			continue;//ƒŒƒCƒ„‚ª”wŒi‚¾‚Á‚½‚ç–³Ž‹
+			continue;//ãƒ¬ã‚¤ãƒ¤ãŒèƒŒæ™¯ã ã£ãŸã‚‰ç„¡è¦–
 		}else{
-//ƒŒƒCƒ„Ž©‘Ì‚ð”z—ñ‚ÉŠi”[
+//ãƒ¬ã‚¤ãƒ¤è‡ªä½“ã‚’é…åˆ—ã«æ ¼ç´
 			sortOrder.push(myTarget[idx]);
 		}
 	}
-//‹t‡‚Å”z’u
+//é€†é †ã§é…ç½®
 	for (idx=0;idx<sortOrder.length;idx++){  
 		sortOrder[idx].move(myTarget[0],ElementPlacement.PLACEBEFORE);
 	}
@@ -86,43 +86,43 @@ layerReverse= function(targetCol){
 
 
 /*
-		reductString(‘ÎÛ•¶Žš—ñ);
-	•¶Žš—ñ‚ð‰ðŽß‚µ‚Ä—v‘f•ª‰ð‚·‚éŠÖ”
-	ˆø”‚Í•¶Žš—ñ
-	–ß‚è’l‚ÍAƒGƒŒƒƒ“ƒgƒRƒŒƒNƒVƒ‡ƒ“”z—ñ
-	[[ƒIƒŠƒWƒiƒ‹‚ÌƒGƒŒƒƒ“ƒg–¼,ƒXƒe[ƒW,ƒOƒ‹[ƒvƒ‰ƒxƒ‹,ƒGƒŒƒƒ“ƒgID,C³‹LqŽq],[(“¯¶)],[(“¯¶)]c]
+		reductString(å¯¾è±¡æ–‡å­—åˆ—);
+	æ–‡å­—åˆ—ã‚’è§£é‡ˆã—ã¦è¦ç´ åˆ†è§£ã™ã‚‹é–¢æ•°
+	å¼•æ•°ã¯æ–‡å­—åˆ—
+	æˆ»ã‚Šå€¤ã¯ã€ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³é…åˆ—
+	[[ã‚ªãƒªã‚¸ãƒŠãƒ«ã®ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆå,ã‚¹ãƒ†ãƒ¼ã‚¸,ã‚°ãƒ«ãƒ¼ãƒ—ãƒ©ãƒ™ãƒ«,ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆID,ä¿®æ­£è¨˜è¿°å­],[(åŒå·¦)],[(åŒå·¦)]â€¦]
 */
 reductString=function(myString){
 	if(!myString){return false};
 	var resultArray=new Array();
 
-var stgRegex=new RegExp("^(cont|layout|rough|key|cell|ƒRƒ“ƒe|ƒŒƒCƒAƒEƒg|ƒ‰ƒtŒ´|Œ´‰æ|ˆêŒ´|“ñŒ´|ƒZƒ‹)","i");
-var lblRegex=new RegExp("^(BG|BOOK|SLIDE|PAN|T\\.U|T\\.B|Z\\.I|Z\\.O|L\/?O|”wŒi|Œ´}|ƒuƒbƒN|[A-Z])","i");
+var stgRegex=new RegExp("^(cont|layout|rough|key|cell|ã‚³ãƒ³ãƒ†|ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ|ãƒ©ãƒ•åŽŸ|åŽŸç”»|ä¸€åŽŸ|äºŒåŽŸ|ã‚»ãƒ«)","i");
+var lblRegex=new RegExp("^(BG|BOOK|SLIDE|PAN|T\\.U|T\\.B|Z\\.I|Z\\.O|L\/?O|èƒŒæ™¯|åŽŸå›³|ãƒ–ãƒƒã‚¯|[A-Z])","i");
 
-var revRegex=new RegExp("(‰‰o?|ìŠÄ?|ƒƒJ?|ƒG(ƒtƒFƒNƒg)?|ŠÄ“Â?|ƒJ(ƒuƒZ)?|C³?|\\*+)$");
-//ƒGƒŒƒƒ“ƒgƒZƒpƒŒ[ƒ^‚Æ‚µ‚Ä"/","_"‚ðŽg—p‚µ‚Ä‚¢‚é‚Ì‚Åƒ‰ƒxƒ‹‚ÆID‚ÌŠÔ‚É‚±‚ê‚ç‚Ì•¶Žš‚ª‚ ‚éê‡‚Í‚ ‚ç‚©‚¶‚ß’uŠ·‚µ‚Ä‚©‚ç‚±‚ÌƒXƒNƒŠƒvƒg‚É“n‚·‚±‚Æ
+var revRegex=new RegExp("(æ¼”å‡º?|ä½œç›£?|ãƒ¡ã‚«?|ã‚¨(ãƒ•ã‚§ã‚¯ãƒˆ)?|ç›£ç£?|ã‚«(ãƒ–ã‚»)?|ä¿®æ­£?|\\*+)$");
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ã¨ã—ã¦"/","_"ã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã®ã§ãƒ©ãƒ™ãƒ«ã¨IDã®é–“ã«ã“ã‚Œã‚‰ã®æ–‡å­—ãŒã‚ã‚‹å ´åˆã¯ã‚ã‚‰ã‹ã˜ã‚ç½®æ›ã—ã¦ã‹ã‚‰ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã«æ¸¡ã™ã“ã¨
 
-	if(myString.match(/(.+)\..+$/)){myString=RegExp.$1};//ƒtƒ@ƒCƒ‹Šg’£Žq‚ÍŽÌ‚Ä‚é
-	if(myString.match(/^([^\/\_\ ]+)[\/\_\ ]([0-9]+)$/)){myString=RegExp.$1+"-"+RegExp.$2};//•¶Žš—ñ‘S‘Ì‚ª1ƒ‰ƒxƒ‹{”’l‚¾‚ÆŽv‚í‚ê‚éê‡‚Íƒ‰ƒxƒ‹ƒZƒpƒŒ[ƒ^‚ðíœ
-//ˆø”•¶Žš—ñ‚ðƒGƒŒƒƒ“ƒg”z—ñ‚É•ªŠ„
+	if(myString.match(/(.+)\..+$/)){myString=RegExp.$1};//ãƒ•ã‚¡ã‚¤ãƒ«æ‹¡å¼µå­ã¯æ¨ã¦ã‚‹
+	if(myString.match(/^([^\/\_\ ]+)[\/\_\ ]([0-9]+)$/)){myString=RegExp.$1+"-"+RegExp.$2};//æ–‡å­—åˆ—å…¨ä½“ãŒ1ãƒ©ãƒ™ãƒ«ï¼‹æ•°å€¤ã ã¨æ€ã‚ã‚Œã‚‹å ´åˆã¯ãƒ©ãƒ™ãƒ«ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ã‚’å‰Šé™¤
+//å¼•æ•°æ–‡å­—åˆ—ã‚’ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆé…åˆ—ã«åˆ†å‰²
 	myElements=myString.replace(/\s*[\/\_]\s*/g,"/").split("/");
-//ŠeƒGƒŒƒƒ“ƒg‚ð‰ðÍ
+//å„ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆã‚’è§£æž
 	for (var idx=0;idx<myElements.length;idx++){
 
 		myPattern=myElements[idx].replace(/\ *[\-\ ]\ */g,"-").split("-");
 		if(myPattern.length==4){
-			//—v‘f4‚Ìê‡‚ÍA–³ðŒ‚Å‘SŽw’è‚Æ‚Ý‚È‚·
+			//è¦ç´ 4ã®å ´åˆã¯ã€ç„¡æ¡ä»¶ã§å…¨æŒ‡å®šã¨ã¿ãªã™
 		}else{
 			
 		}
 		switch (myPattern.length){
-		case 4:;//—v‘f”4‚È‚Ì‚Å‘SŽw’è‚Æ‚Ý‚È‚µ‚Äƒ}ƒbƒsƒ“ƒO
+		case 4:;//è¦ç´ æ•°4ãªã®ã§å…¨æŒ‡å®šã¨ã¿ãªã—ã¦ãƒžãƒƒãƒ”ãƒ³ã‚°
 			myStgPrefix	=myPattern[0];
 			myGrpLabel	=myPattern[1];
 			myElmIndex	=myPattern[2];
 			myRevPostfix	=myPattern[3];
 		break;
-		case 3:;//—v‘f”3‚ÍA‘æˆê—v‘f‚Å”»’è 2•ªŠò
+		case 3:;//è¦ç´ æ•°3ã¯ã€ç¬¬ä¸€è¦ç´ ã§åˆ¤å®š 2åˆ†å²
 			if(myPattern[0].match(stgRegex)){
 				myStgPrefix	=myPattern[0];
 				myGrpLabel	=myPattern[1];
@@ -135,45 +135,45 @@ var revRegex=new RegExp("(‰‰o?|ìŠÄ?|ƒƒJ?|ƒG(ƒtƒFƒNƒg)?|ŠÄ“Â?|ƒJ(ƒuƒZ)?|C³?|
 				myRevPostfix	=myPattern[2];
 			}
 		break;
-		case 2:;//—v‘f”2‚Ìê‡‚ÍAƒ‰ƒxƒ‹‚ÆƒCƒ“ƒfƒbƒNƒX‚Ì‘Î‚Æ‚µ‚Äˆ—
+		case 2:;//è¦ç´ æ•°2ã®å ´åˆã¯ã€ãƒ©ãƒ™ãƒ«ã¨ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®å¯¾ã¨ã—ã¦å‡¦ç†
 				myStgPrefix	="";
 				myGrpLabel	=myPattern[0];
 				myElmIndex	=myPattern[1];
 				myRevPostfix	="";
 		break;
-		default:;//•W€ˆ—
+		default:;//æ¨™æº–å‡¦ç†
 			myTestStr=myElements[idx];
-//	–`“ª‚ÍƒXƒe[ƒWŽw’è‚©?
+//	å†’é ­ã¯ã‚¹ãƒ†ãƒ¼ã‚¸æŒ‡å®šã‹?
 	if(myTestStr.match(stgRegex)){
 		myStgPrefix=RegExp.$1;
-//						•]‰¿•¶Žš—ñXV
+//						è©•ä¾¡æ–‡å­—åˆ—æ›´æ–°
 		myTestStr=myTestStr.replace(myStgPrefix,"");
 	}else{
 		myStgPrefix="";
 	}
-//	––”ö‚ÉC³ƒŒƒxƒ‹Žw’è‚ª‚ ‚é‚©
+//	æœ«å°¾ã«ä¿®æ­£ãƒ¬ãƒ™ãƒ«æŒ‡å®šãŒã‚ã‚‹ã‹
 	if(myTestStr.match(revRegex)){
 		myRevPostfix=RegExp.$1;
-//						•]‰¿•¶Žš—ñXV
+//						è©•ä¾¡æ–‡å­—åˆ—æ›´æ–°
 		myTestStr=myTestStr.replace(myRevPrefix,"");
 	}else{
 		myRevPostfix="";
 	}
-//	ƒ‰ƒxƒ‹ƒ}ƒbƒ`H
+//	ãƒ©ãƒ™ãƒ«ãƒžãƒƒãƒï¼Ÿ
 	if(myTestStr.match(lblRegex)){
 		myGrpLabel=RegExp.$1;
-//						•]‰¿•¶Žš—ñXV
+//						è©•ä¾¡æ–‡å­—åˆ—æ›´æ–°
 		myElmIndex=myTestStr.replace(myGrpLabel,"");
 	}else{
 		myGrpLabel="";
 		myElmIndex=myTestStr;
 	}
-//•]‰¿Œã‚ÉƒOƒ‹[ƒvƒ‰ƒxƒ‹‚ÆƒCƒ“ƒfƒbƒNƒX‚É‹ó•¶Žš—ñ‚ªŒ»‚ê‚½ê‡•âŠ®‚·‚é
-//‹ó•¶Žš—ñ‚Í‹ÖŽ~
+//è©•ä¾¡å¾Œã«ã‚°ãƒ«ãƒ¼ãƒ—ãƒ©ãƒ™ãƒ«ã¨ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã«ç©ºæ–‡å­—åˆ—ãŒç¾ã‚ŒãŸå ´åˆè£œå®Œã™ã‚‹
+//ç©ºæ–‡å­—åˆ—ã¯ç¦æ­¢
 		if(myElmIndex==""){myElmIndex=myElements[idx];};
 		if(myGrpLabel==""){myGrpLabel=myElmIndex;};
-//ƒtƒH[ƒ}ƒbƒg‘¤‚ÅƒOƒ‹[ƒv“à‚ÉƒGƒ“ƒgƒŠ‚ª1“_‚Ì‚Ý‚Ìê‡‚ÍAƒGƒŒƒƒ“ƒgƒCƒ“ƒfƒbƒNƒX‚ÆƒOƒ‹[ƒv–¼‚ðˆê’v‚³‚¹‚é•ûŒü«‚ð‚Â‚¯‚é
-//	------ Žb’è”ÅƒGƒŒƒƒ“ƒg–¼•]‰¿
+//ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆå´ã§ã‚°ãƒ«ãƒ¼ãƒ—å†…ã«ã‚¨ãƒ³ãƒˆãƒªãŒ1ç‚¹ã®ã¿ã®å ´åˆã¯ã€ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã¨ã‚°ãƒ«ãƒ¼ãƒ—åã‚’ä¸€è‡´ã•ã›ã‚‹æ–¹å‘æ€§ã‚’ã¤ã‘ã‚‹
+//	------ æš«å®šç‰ˆã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåè©•ä¾¡
 		break;
 		}
 				resultArray.push([myElements[idx],myStgPrefix,myGrpLabel,myElmIndex,myRevPostfix]);
@@ -182,24 +182,24 @@ var revRegex=new RegExp("(‰‰o?|ìŠÄ?|ƒƒJ?|ƒG(ƒtƒFƒNƒg)?|ŠÄ“Â?|ƒJ(ƒuƒZ)?|C³?|
 return resultArray;
 }
 /*
-		classify(ƒ^[ƒQƒbƒgƒŒƒCƒ„ƒgƒŒ[ƒ‰)
-	ƒ^[ƒQƒbƒg‚ÌƒŒƒCƒ„ƒgƒŒ[ƒ‰‚ð‘ÎÛ‚ÉƒŒƒCƒ„‚ð•ª—Þ®—(Žd•ª‚¯)‚·‚éƒiƒŠ‚æ
-	ˆø”‚ÍAƒŒƒCƒ„ƒgƒŒ[ƒ‰(layers ‚ð‚à‚ÂƒIƒuƒWƒFƒNƒg)
+		classify(ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¬ã‚¤ãƒ¤ãƒˆãƒ¬ãƒ¼ãƒ©)
+	ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒ¬ã‚¤ãƒ¤ãƒˆãƒ¬ãƒ¼ãƒ©ã‚’å¯¾è±¡ã«ãƒ¬ã‚¤ãƒ¤ã‚’åˆ†é¡žæ•´ç†(ä»•åˆ†ã‘)ã™ã‚‹ãƒŠãƒªã‚ˆ
+	å¼•æ•°ã¯ã€ãƒ¬ã‚¤ãƒ¤ãƒˆãƒ¬ãƒ¼ãƒ©(layers ã‚’ã‚‚ã¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ)
 */
 classify=function(targetObject){
-//	ƒ^[ƒQƒbƒg“à‚ÉƒA[ƒgƒŒƒCƒ„‚ª–³‚¢ê‡‚Íˆ—’†Ž~
+//	ã‚¿ãƒ¼ã‚²ãƒƒãƒˆå†…ã«ã‚¢ãƒ¼ãƒˆãƒ¬ã‚¤ãƒ¤ãŒç„¡ã„å ´åˆã¯å‡¦ç†ä¸­æ­¢
 	if(targetObject.artLayers.length==0){return false;}
 	var moveActions=new Array();
-//		‚Ü‚¸î•ñŽûW
+//		ã¾ãšæƒ…å ±åŽé›†
 	for (var idx=0;idx<targetObject.artLayers.length;idx++){
-		//	–¼‘O‚ð•ª‰ð
+		//	åå‰ã‚’åˆ†è§£
 			myElements=reductString(targetObject.artLayers[idx].name);
 			for (var id=0;id<myElements.length;id++){
 //			var newLayerName=myElements[id].join("-").replace(/^\-/,"").replace(/\-$/,"");
 			var newLayerName=myElements[id][0];
 //				moveActions.push([targetObject.artLayers[idx],myElements[id][2],myElements[id][3],id]);
 				moveActions.push([targetObject.artLayers[idx],myElements[id][2],newLayerName,id]);
-		//		ˆ—ƒXƒ^ƒbƒN‚É[ƒŒƒCƒ„ƒIƒuƒWƒFƒNƒg/ƒ^[ƒQƒbƒgƒtƒHƒ‹ƒ_–¼/VƒŒƒCƒ„–¼/ƒAƒNƒVƒ‡ƒ“ƒtƒ‰ƒO]‚ÅÏ‚Þ
+		//		å‡¦ç†ã‚¹ã‚¿ãƒƒã‚¯ã«[ãƒ¬ã‚¤ãƒ¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ/ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ•ã‚©ãƒ«ãƒ€å/æ–°ãƒ¬ã‚¤ãƒ¤å/ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚°]ã§ç©ã‚€
 			}
 	}
 //	alert(moveActions.toString());
@@ -210,7 +210,7 @@ classify=function(targetObject){
 		var dstLayerName	=moveActions[idl][2];
 		var actionFlag	=(moveActions[idl][3]==0)? true : false;
 		var myDestFolder =new Object();
-//	ˆÚ“®æƒtƒHƒ‹ƒ_‚ðÝ’è(getByName‚ÅƒAƒNƒZƒX‚µ‚ÄŽ¸”s‚µ‚½‚çì¬EÝ’è‚·‚é)‚±‚ê‚ÍCS‚Å‚Í“®‚­‚ª CS2ˆÈ~‚Å‚Íƒ_ƒ
+//	ç§»å‹•å…ˆãƒ•ã‚©ãƒ«ãƒ€ã‚’è¨­å®š(getByNameã§ã‚¢ã‚¯ã‚»ã‚¹ã—ã¦å¤±æ•—ã—ãŸã‚‰ä½œæˆãƒ»è¨­å®šã™ã‚‹)ã“ã‚Œã¯CSã§ã¯å‹•ããŒ CS2ä»¥é™ã§ã¯ãƒ€ãƒ¡
 //		try{myDestFolder=targetObject.layerSets.getByName(dstFolderName);}catch(e){myDestFolder=targetObject.layerSets.add(dstFolderName);}
 //		dstFolderName=prompt("dstFolderName",dstFolderName);
 var folderExists=false;
@@ -220,11 +220,11 @@ for(var ids=0;ids<targetObject.layerSets.length;ids++){
 if(folderExists){
 	myDestFolder=targetObject.layerSets.getByName(dstFolderName);
 }else{
-	myDestFolder=targetObject.layerSets.add();//VƒZƒbƒgì‚Á‚Ä–¼‘O‚ð‚Â‚¯‚È‚¢‚Æƒ_ƒ‚Á‚Û‚¢
-	myDestFolder.name=dstFolderName;//“{‚é‚æ‚à‚¤!
+	myDestFolder=targetObject.layerSets.add();//æ–°ã‚»ãƒƒãƒˆä½œã£ã¦åå‰ã‚’ã¤ã‘ãªã„ã¨ãƒ€ãƒ¡ã£ã½ã„
+	myDestFolder.name=dstFolderName;//æ€’ã‚‹ã‚ˆã‚‚ã†!
 }
-//	ƒAƒNƒVƒ‡ƒ“ƒtƒ‰ƒO‚ª0ˆÈŠO‚È‚ç•¡»
-//	0‚È‚ç‚ÎAƒ^[ƒQƒbƒgŽ©g‚ðˆÚ“®
+//	ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚°ãŒ0ä»¥å¤–ãªã‚‰è¤‡è£½
+//	0ãªã‚‰ã°ã€ã‚¿ãƒ¼ã‚²ãƒƒãƒˆè‡ªèº«ã‚’ç§»å‹•
 //	dstLayerName=prompt(targetLayer.name + " to targetLayerName?",dstLayerName);
 		if(! actionFlag){
 			newLayer=targetLayer.duplicate(myDestFolder,ElementPlacement.INSIDE);
@@ -234,46 +234,46 @@ if(folderExists){
 			targetLayer.name=dstLayerName;
 		}
 
-//	ƒŠƒl[ƒ€
+//	ãƒªãƒãƒ¼ãƒ 
 	}
-//ƒtƒHƒ‹ƒ_“à‚ðƒ\[ƒg
+//ãƒ•ã‚©ãƒ«ãƒ€å†…ã‚’ã‚½ãƒ¼ãƒˆ
 for(var idf=0;idf<targetObject.layerSets.length;idf++){
 	layerSort(targetObject.layerSets[idf].layers);
 }
-//ƒ^[ƒQƒbƒg‚ðƒ\[ƒg
+//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’ã‚½ãƒ¼ãƒˆ
 	layerSort(targetObject.layers);
 /* */
-//”wŒiƒŒƒCƒ„‚ðÅ‚à‰º‚Ö
+//èƒŒæ™¯ãƒ¬ã‚¤ãƒ¤ã‚’æœ€ã‚‚ä¸‹ã¸
 for(var idf=0;idf<targetObject.layerSets.length;idf++){
 	if(targetObject.layerSets[idf].name.match(/BG/i)){
 		targetObject.layerSets[idf].move(targetObject,ElementPlacement.PLACEATEND);
 	}
 }
-//ƒuƒbƒNƒŒƒCƒ„‚ª‚ ‚ê‚ÎÅ‚àã‚Ö
+//ãƒ–ãƒƒã‚¯ãƒ¬ã‚¤ãƒ¤ãŒã‚ã‚Œã°æœ€ã‚‚ä¸Šã¸
 for(var idf=0;idf<targetObject.layerSets.length;idf++){
 	if(targetObject.layerSets[idf].name.match(/BOOK/i)){
 		targetObject.layerSets[idf].move(targetObject,ElementPlacement.PLACEATBEGINNING);
 	}
 }
-//ƒŒƒCƒAƒEƒg‚ª‚ ‚ê‚Î‚³‚ç‚Éã‚Ö
+//ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆãŒã‚ã‚Œã°ã•ã‚‰ã«ä¸Šã¸
 for(var idf=0;idf<targetObject.layerSets.length;idf++){
-	if(targetObject.layerSets[idf].name.match(/L\/?O|ƒŒƒCƒAƒEƒg/i)){
+	if(targetObject.layerSets[idf].name.match(/L\/?O|ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ/i)){
 		targetObject.layerSets[idf].move(targetObject,ElementPlacement.PLACEATBEGINNING);
 	}
 }
-//ƒŒƒCƒ„ƒZƒbƒg‚Í’Ê‰ß‚Å‚Í‚È‚­’Êí‚É‚µ‚Ä‚¨‚­‚±‚Æ?(ƒXƒCƒbƒ`‚Â‚¯‚æ‚¤)
+//ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã¯é€šéŽã§ã¯ãªãé€šå¸¸ã«ã—ã¦ãŠãã“ã¨?(ã‚¹ã‚¤ãƒƒãƒã¤ã‘ã‚ˆã†)
 for(var idf=0;idf<targetObject.layerSets.length;idf++){
 	targetObject.layerSets[idf].blendMode=BlendMode.NORMAL;
 }
-//I—¹
+//çµ‚äº†
 return true;
 }
 /*
-ƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚ÌgetByName‚Í‘å•ÏŽg‚¢‚Ã‚ç‚¢‚Ì‚Å
-Ž©‘O‚ÌŠÖ”‚ð‚Â‚­‚Á‚Ä‚¨‚­‚±‚Æ
+ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã®getByNameã¯å¤§å¤‰ä½¿ã„ã¥ã‚‰ã„ã®ã§
+è‡ªå‰ã®é–¢æ•°ã‚’ã¤ãã£ã¦ãŠãã“ã¨
 
 */
-//‹t‡‚ÅƒR[ƒ‹
+//é€†é †ã§ã‚³ãƒ¼ãƒ«
 //var tgt=activeDocument.activeLayer.parent.layers;
 //alert(layerSort(tgt,false).toString());
 
@@ -283,7 +283,7 @@ return true;
 //	
 //alert(activeDocument.name);
 if(app.documents.length){
-var myUndo="ƒŒƒCƒ„Žd•ª‚¯";var myAction="classify(activeDocument.activeLayer.parent)";
+var myUndo="ãƒ¬ã‚¤ãƒ¤ä»•åˆ†ã‘";var myAction="classify(activeDocument.activeLayer.parent)";
 
 
 if(app.activeDocument.suspendHistory){app.activeDocument.suspendHistory(myUndo,myAction)}else{evel(myAction)}

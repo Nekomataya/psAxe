@@ -1,22 +1,22 @@
-/*(‘OŒiF‚ÌFƒgƒŒƒX‚ð’Šo)
-	Photoshop—pƒAƒjƒŽdã‚°ƒXƒNƒŠƒvƒg
+/*(å‰æ™¯è‰²ã®è‰²ãƒˆãƒ¬ã‚¹ã‚’æŠ½å‡º)
+	Photoshopç”¨ã‚¢ãƒ‹ãƒ¡ä»•ä¸Šã’ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 
-	‘OŒiF‚ð’Šo‚µ‚½‚¢FƒgƒŒƒX‚ÌF‚É‚µ‚ÄA‚±‚ÌƒXƒNƒŠƒvƒg‚ðŽÀs‚µ‚Ü‚·B
-	ƒ_ƒCƒAƒƒO‚ªo‚é‚Ì‚Å•K—v‚É‚µ‚½‚ª‚Á‚Ä”÷’²®‚µ‚ÄA[OK]ƒ{ƒ^ƒ“‚ðƒNƒŠƒbƒN‚µ‚Ü‚·B
-	psPaint pickupColor... ƒtƒBƒ‹ƒ^‚ðŽg—p‚µ‚Ü‚·‚Ì‚ÅA‚ ‚ç‚©‚¶‚ßƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚¨‚¢‚Ä‚­‚¾‚³‚¢B 
+	å‰æ™¯è‰²ã‚’æŠ½å‡ºã—ãŸã„è‰²ãƒˆãƒ¬ã‚¹ã®è‰²ã«ã—ã¦ã€ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å®Ÿè¡Œã—ã¾ã™ã€‚
+	ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãŒå‡ºã‚‹ã®ã§å¿…è¦ã«ã—ãŸãŒã£ã¦å¾®èª¿æ•´ã—ã¦ã€[OK]ãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¾ã™ã€‚
+	psPaint pickupColor... ãƒ•ã‚£ãƒ«ã‚¿ã‚’ä½¿ç”¨ã—ã¾ã™ã®ã§ã€ã‚ã‚‰ã‹ã˜ã‚ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãŠã„ã¦ãã ã•ã„ã€‚ 
 
 Nekomataya/kiyo 2008
 */
 
-/* ‚±‚ñ‚ÈŠÖ”‚©?
+/* ã“ã‚“ãªé–¢æ•°ã‹?
 	applyFilter(filterDescription,[[control,value]],dialog)
-ˆø”
-	filterDesctiotion	ƒtƒBƒ‹ƒ^‹Lq ƒJƒeƒSƒŠ+ƒtƒBƒ‹ƒ^–¼(•¶Žš—ñ)
-	control	ƒRƒ“ƒgƒ[ƒ‹‹Lq(•¶Žš—ñ)
-	value	ƒRƒ“ƒgƒ[ƒ‹‚Ì’l(”’l)
-	dialog	ƒ_ƒCƒAƒƒOƒ‚[ƒh(•¶Žš—ñ "ALL""ERROR""NO")[È—ª‰Â]
-–ß‚è’l
-	“Á‚É‚È‚µ(undefeined)
+å¼•æ•°
+	filterDesctiotion	ãƒ•ã‚£ãƒ«ã‚¿è¨˜è¿° ã‚«ãƒ†ã‚´ãƒª+ãƒ•ã‚£ãƒ«ã‚¿å(æ–‡å­—åˆ—)
+	control	ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«è¨˜è¿°(æ–‡å­—åˆ—)
+	value	ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã®å€¤(æ•°å€¤)
+	dialog	ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒ¢ãƒ¼ãƒ‰(æ–‡å­—åˆ— "ALL""ERROR""NO")[çœç•¥å¯]
+æˆ»ã‚Šå€¤
+	ç‰¹ã«ãªã—(undefeined)
  */
 applyFilter=function(fD,fVA,dMode){
 if (fVA instanceof Array){
@@ -34,7 +34,7 @@ if (! dMode.match(/(ALL|ERROR)/)){dMode="NO";};
 	executeAction( actionID, myDescription, myMode );
 }else{return false;};//
 }
-// ƒJƒ‰[’lŽæ“¾
+// ã‚«ãƒ©ãƒ¼å€¤å–å¾—
 var r=app.foregroundColor.rgb.red;
 var g=app.foregroundColor.rgb.green;
 var b=app.foregroundColor.rgb.blue;

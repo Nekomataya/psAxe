@@ -20,15 +20,16 @@ function onLoaded(){
     // Define event handler
 
 	}
-    chgPnl(0);//メニューバーの初期化
+    chgPnl(0);//メニューバーの初期化 at toolbar
     syncProp();//プロパティ初期化
 }
 /*=======================================*/
 function syncProp(){
 	//インターフェース上のスイッチで初期化の必要な物を初期化する
  if(isCEP){
-	 evalScript('getApplicationResult([app.nas.axe.skipFrames,app.nas.axe.useOptKey,app.nas.axe.focusMove,app.nas.axeCMC.getAnimationMode()])',function(currentStatus){
-			myStatus=currentStatus.split(",");
+	 evalScript('if((typeof app.nas !="undefined")){getApplicationResult([app.nas.axe.skipFrames,app.nas.axe.useOptKey,app.nas.axe.focusMove,app.nas.axeCMC.getAnimationMode()])}else{getApplicationResult(false)}',function(currentStatus){
+		 if(! currentStatus){return false}
+		 myStatus=currentStatus.split(",");
 	document.getElementById("moveSpanDuration").value=Frm2FCT(myStatus[0],3,0);
 	document.getElementById("vtUseOpt").innerHTML=(myStatus[1])? "o":"✓";
 	document.getElementById("vtFocus").innerHTML  =(myStatus[2])? "f":"✓";
@@ -39,6 +40,7 @@ function syncProp(){
     }
 });
  }else{
+	 if(getApplicationResult('(typeof app.nas=="undefined")')) return false;
 document.getElementById("moveSpanDuration").value=Frm2FCT(getApplicationResult("app.nas.axe.skipFrames"),3,0);
 document.getElementById("vtUseOpt").innerHTML=(getApplicationResult("app.nas.axe.useOptKey"))? "o":"✓";
 document.getElementById("vtFocus").innerHTML  =(getApplicationResult("app.nas.axe.focusMove"))? "f":"✓";
@@ -397,5 +399,10 @@ default	: myID=parseInt(kwd);if(myID===NaN){myID=0};myID=myID%pnlCount
 			document.getElementById("pnl"+pnlID).style.display="none";
 		}
 	}
-	syncProp();
 }
+
+//以下はアプリケーションに対するよく使用するコマンド
+//各自の機能は別立ての同名のスクリプトが存在するが、ロード負荷の省略のためこちらで処理を行う
+//ショートカット登録の場合は、スクリプト側を参照のこと
+/*
+*/

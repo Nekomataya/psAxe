@@ -1,35 +1,35 @@
 /*
-		Photoshop@ƒŒƒCƒ„–¼•ÏXƒpƒlƒ‹
-	ƒAƒNƒeƒBƒuƒŒƒCƒ„‚ÌƒŒƒCƒ„–¼‚ğ•ÏX‚·‚é‚æ
+		Photoshopã€€ãƒ¬ã‚¤ãƒ¤åå¤‰æ›´ãƒ‘ãƒãƒ«
+	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã®ãƒ¬ã‚¤ãƒ¤åã‚’å¤‰æ›´ã™ã‚‹ã‚ˆ
 */
 	var exFlag=true;
-//‚»‚à‚»‚àƒhƒLƒ…ƒƒ“ƒg‚ª‚È‚¯‚ê‚ÎI—¹
+//ãã‚‚ãã‚‚ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒãªã‘ã‚Œã°çµ‚äº†
 	if(app.documents.length==0){
 		exFlag=false;
 	}else{
-//‹N“®‚ÉƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚Ìó‘Ô‚ğŠm”F@ƒtƒŠƒbƒvƒAƒCƒeƒ€”‚ª0ˆÈ‰º‚È‚çI—¹
+//èµ·å‹•æ™‚ã«ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹ã‚’ç¢ºèªã€€ãƒ•ãƒªãƒƒãƒ—ã‚¢ã‚¤ãƒ†ãƒ æ•°ãŒ0ä»¥ä¸‹ãªã‚‰çµ‚äº†
 		if(activeDocument.activeLayer.parent.layers.length<1){exFlag=false;};
 	}
 	if(exFlag){
-//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é
+//iclude nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«å¿…è¦ãªåŸºç¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã™ã‚‹
 	var nas = new Object();
 		nas.Version=new Object();
 		nas.isAdobe=true;
-//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-4—p CS5‚Íƒ`ƒFƒbƒN‚µ‚Ä‚¢‚È‚¢‚ª‚½‚Ô‚ñÀs‰Â”\
-//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş
+//	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ­ãƒ¼ãƒ‰ã€€CS2-4ç”¨ CS5ã¯ãƒã‚§ãƒƒã‚¯ã—ã¦ã„ãªã„ãŒãŸã¶ã‚“å®Ÿè¡Œå¯èƒ½
+//==================== ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ç™»éŒ²ã—ã¦äº‹å‰ã«èª­ã¿è¾¼ã‚€
 /*
-	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB
-	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)
-	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş
+	includeLibsé…åˆ—ã«ç™»éŒ²ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’é †æ¬¡èª­ã¿è¾¼ã‚€ã€‚
+	ç™»éŒ²ã¯ãƒ‘ã‚¹ã§è¡Œã†ã€‚(Fileã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯ãªã„)
+	$.evalFile ãƒ¡ã‚½ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯ãã‚Œã‚’ä½¿ç”¨ã™ã‚‹ãŒCS2ä»¥å‰ã®ç’°å¢ƒã§ã¯global ã® evalé–¢æ•°ã§èª­ã¿è¾¼ã‚€
 */
 //var nasLibFolderPath = Folder.userData.fullName + "/"+ localize("$$$/BenderSig/App/ScriptingSupport/InstalledScripts=Adobe/Adobe Photoshop CS4/Presets/Scripts") + "/"
 //var nasLibFolderPath = app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas/lib/";
 
 if($.fileName){
-//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚Åƒ[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é
+//	CS3ä»¥é™ã¯ã€€$.fileNameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚‹ã®ã§ãƒ­ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒªãƒ¼ã«ã§ãã‚‹
 	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
 }else{
-//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
 }
 var includeLibs=[
@@ -49,11 +49,11 @@ var includeLibs=[
 for(prop in includeLibs){
 	var myScriptFileName=includeLibs[prop];
 	if($.evalFile){
-	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é
+	//$.evalFile ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ãŒã‚ã‚Œã°å®Ÿè¡Œã™ã‚‹
 //		alert("loading with $.evalFile: "+myScriptFileName)
 		$.evalFile(myScriptFileName);
 	}else{
-	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·
+	//$.evalFile ãŒå­˜åœ¨ã—ãªã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯evalã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¸¡ã™
 //		var prevCurrentFolder = Folder.current;
 		var scriptFile = new File(myScriptFileName);
 //		Folder.current = scriptFile.path ;
@@ -67,10 +67,10 @@ for(prop in includeLibs){
 	}
 }
 
-//‰Šú‰»
+//åˆæœŸåŒ–
 var currentLayer=app.activeDocument.activeLayer;
-//	GUI‰Šú‰»
-w=nas.GUI.newWindow("dialog","ƒŒƒCƒ„ƒvƒƒpƒeƒB",5,5);
+//	GUIåˆæœŸåŒ–
+w=nas.GUI.newWindow("dialog","ãƒ¬ã‚¤ãƒ¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£",5,5);
 w.countBuf=1;
 w.onOpen=true;
 
@@ -78,16 +78,16 @@ w.nameView=nas.GUI.addButton(w,currentLayer.name,1,0,4,1);
 w.bt0=nas.GUI.addButton(w,"[ / ]",0,1,1,1);
 w.bt1=nas.GUI.addButton(w,"[++]",0,2,1,1);
 w.bt2=nas.GUI.addButton(w,"[--]",1,2,1,1);
-w.bt3=nas.GUI.addButton(w,"[}##]",2,2,1,1);
+w.bt3=nas.GUI.addButton(w,"[Â±##]",2,2,1,1);
 w.namePad=nas.GUI.addEditText(w,currentLayer.name,1,1,4,1);
 
 w.btL0=nas.GUI.addSelectButton(w,["frame","BG","BOOK","LO","A","B","C","D","E","F","G","H","I","J","K","L"],3,0,3,1.5,1);
-w.btL1=nas.GUI.addButton(w,"£",1.5,3,1,1);
+w.btL1=nas.GUI.addButton(w,"â–²",1.5,3,1,1);
 //w.btL2=nas.GUI.addButton(w,">>",2  ,3,0.7,1);
 
 
-//w.bt3=nas.GUI.addButton(w,"¢goFWD¢",2.5,2,2.5,1);
-//w.bt4=nas.GUI.addButton(w,"¥goBWD¥",2.5,3,2.5,1);
+//w.bt3=nas.GUI.addButton(w,"â–³goFWDâ–³",2.5,2,2.5,1);
+//w.bt4=nas.GUI.addButton(w,"â–¼goBWDâ–¼",2.5,3,2.5,1);
 w.bt6=nas.GUI.addButton(w,"auto-number",2.5,3,2.5,1);
 w.bt7=nas.GUI.addButton(w,"cancel",0,4,2.5,1);
 w.bt5=nas.GUI.addButton(w,"OK",2.5,4,2.5,1);
@@ -147,7 +147,7 @@ w.bt5.onClick=function(){
 };
 
 w.bt6.onClick=function(){
-//@‘ÎÛƒgƒŒ[ƒ‰‚Ìƒ‰ƒxƒ‹‚ğ©“®XV
+//ã€€å¯¾è±¡ãƒˆãƒ¬ãƒ¼ãƒ©ã®ãƒ©ãƒ™ãƒ«ã‚’è‡ªå‹•æ›´æ–°
 	var myLabel=currentLayer.parent.name;
 	var startNumber=1;
 	var currentName=[myLabel,nas.Zf(startNumber,3)].join("-");
@@ -163,4 +163,4 @@ w.show();
 //w.watch("onOpen",function(){alert(w.onOpen);w.unwatch("onOpen");});
 
 //whle(true){}
-	}else{alert("‚È‚ñ‚¾‚©ƒŒƒCƒ„‚ª–³‚¢‚İ‚½‚¢");}
+	}else{alert("ãªã‚“ã ã‹ãƒ¬ã‚¤ãƒ¤ãŒç„¡ã„ã¿ãŸã„");}

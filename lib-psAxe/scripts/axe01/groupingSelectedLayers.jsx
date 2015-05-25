@@ -1,8 +1,8 @@
 /*
-	‘I‘ğƒŒƒCƒ„‚ğƒOƒ‹[ƒv‰»‚µ‚ÄƒvƒƒpƒeƒBƒEƒCƒ“ƒhƒE‚ğŒÄ‚Ño‚·
+	é¸æŠãƒ¬ã‚¤ãƒ¤ã‚’ã‚°ãƒ«ãƒ¼ãƒ—åŒ–ã—ã¦ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚’å‘¼ã³å‡ºã™
 */
 ErrStrs = {}; ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation"); try {
-//=========================== ƒŒƒCƒ„‚©‚çƒOƒ‹[ƒv
+//=========================== ãƒ¬ã‚¤ãƒ¤ã‹ã‚‰ã‚°ãƒ«ãƒ¼ãƒ—
  var id1010 = stringIDToTypeID( "groupLayersEvent" );
  var desc190 = new ActionDescriptor();
  var id1011 = charIDToTypeID( "null" );
@@ -13,17 +13,17 @@ ErrStrs = {}; ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCa
  ref149.putEnumerated( id1012, id1013, id1014 );
  desc190.putReference( id1011, ref149 );
  executeAction( id1010, desc190, DialogModes.NO ); 
- //===========================ƒOƒ‹[ƒsƒ“ƒO‚³‚ê‚½ƒŒƒCƒ„‚©‚ç–¼‘O‚ğ„‘ª‚µ‚Ä•ÏX
+ //===========================ã‚°ãƒ«ãƒ¼ãƒ”ãƒ³ã‚°ã•ã‚ŒãŸãƒ¬ã‚¤ãƒ¤ã‹ã‚‰åå‰ã‚’æ¨æ¸¬ã—ã¦å¤‰æ›´
  var myLayers=app.activeDocument.activeLayer;
  var myName=myLayers.layers[0].name.replace(/[-_\ ]?[0-9]*$/,"");
  myLayers.name=myName;
- //===========================ƒŒƒCƒ„ƒvƒƒpƒeƒB‚ğŒÄ‚Ño‚·
+ //===========================ãƒ¬ã‚¤ãƒ¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å‘¼ã³å‡ºã™
 /*
-CS6ˆÈ~@ƒŒƒCƒ„ƒvƒƒpƒeƒB‚ªŒÄ‚×‚È‚¢—l‚È‚Ì‚Å©‘O‚ÌƒEƒCƒ“ƒhƒE‚ÅƒŠƒl[ƒ€‚ğs‚¤
-ƒŠƒl[ƒ€‚È‚µ‚Ì”Å‚àl—¶
-‚Ü‚½@ƒvƒƒpƒeƒB—l‚ÌUI‚Íƒ‰ƒCƒuƒ‰ƒŠ‚É•Ò“ü‚µ‚½‚Ù‚¤‚ª—Ç‚¢‚©‚à
+CS6ä»¥é™ã€€ãƒ¬ã‚¤ãƒ¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒå‘¼ã¹ãªã„æ§˜ãªã®ã§è‡ªå‰ã®ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã§ãƒªãƒãƒ¼ãƒ ã‚’è¡Œã†
+ãƒªãƒãƒ¼ãƒ ãªã—ã®ç‰ˆã‚‚è€ƒæ…®
+ã¾ãŸã€€ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£æ§˜ã®UIã¯ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«ç·¨å…¥ã—ãŸã»ã†ãŒè‰¯ã„ã‹ã‚‚
 
-prompt‚Ì‚Ù‚¤‚ªƒR[ƒfƒBƒ“ƒO‘‚»‚¤c
+promptã®ã»ã†ãŒã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°æ—©ãã†â€¦
 
  var id1030 = charIDToTypeID( "slct" );
  var desc194 = new ActionDescriptor();
@@ -37,7 +37,7 @@ prompt‚Ì‚Ù‚¤‚ªƒR[ƒfƒBƒ“ƒO‘‚»‚¤c
  executeAction( id1030, desc194, DialogModes.ALL ); 
 */
 
-var newName=prompt("ƒŒƒCƒ„–¼‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B",myLayers.name,"change Name?");
+var newName=prompt("ãƒ¬ã‚¤ãƒ¤åã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚",myLayers.name,"change Name?");
 
 if((newName!=myName)&&(newName)&&(newName.length)){myLayers.name=newName};
 

@@ -1,7 +1,7 @@
 /*	smartMove.jsx
-	ì‰æQl‚Ì‚½‚ß‚ÉƒŒƒCƒ„‚ğƒXƒ}[ƒgƒIƒuƒWƒFƒNƒg‚É•ÏŠ·‚µ‚Ä©—R•ÏŒ`‚É“ü‚é
-	‚·‚Å‚ÉƒXƒ}[ƒgƒIƒuƒWƒFƒNƒg‚É‚È‚Á‚Ä‚¢‚éê‡‚Í©—R•ÏŒ`‚Ì‚İ
-	•¡”ƒŒƒCƒ„‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚éê‡‚ÍœŠO‚µ‚½‚Ù‚¤‚ª—Ç‚¢‚©‚à‚µ‚ê‚È‚¢B
+	ä½œç”»å‚è€ƒã®ãŸã‚ã«ãƒ¬ã‚¤ãƒ¤ã‚’ã‚¹ãƒãƒ¼ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å¤‰æ›ã—ã¦è‡ªç”±å¤‰å½¢ã«å…¥ã‚‹
+	ã™ã§ã«ã‚¹ãƒãƒ¼ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãªã£ã¦ã„ã‚‹å ´åˆã¯è‡ªç”±å¤‰å½¢ã®ã¿
+	è¤‡æ•°ãƒ¬ã‚¤ãƒ¤ãŒé¸æŠã•ã‚Œã¦ã„ã‚‹å ´åˆã¯é™¤å¤–ã—ãŸã»ã†ãŒè‰¯ã„ã‹ã‚‚ã—ã‚Œãªã„ã€‚
 */
 ErrStrs = {}; ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation"); try {
 
@@ -18,7 +18,7 @@ if(app.activeDocument.activeLayer.kind != LayerKind.SMARTOBJECT){
  desc108.putReference( id558, ref77 );
  executeAction( id557, desc108, DialogModes.NO );
  }
-//ƒXƒ}[ƒgƒIƒuƒWƒFƒNƒg‚Ì©—R•ÏŒ`‚Í‘I‘ğ”ÍˆÍ‚ª‚ ‚é‚ÆÀs‚Å‚«‚È‚¢‚Ì‚Å‚±‚±‚Å‘I‘ğ”ÍˆÍ‚ğ‰ğœ‚·‚é
+//ã‚¹ãƒãƒ¼ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è‡ªç”±å¤‰å½¢ã¯é¸æŠç¯„å›²ãŒã‚ã‚‹ã¨å®Ÿè¡Œã§ããªã„ã®ã§ã“ã“ã§é¸æŠç¯„å›²ã‚’è§£é™¤ã™ã‚‹
 //app.activeDocument.selection.selectAll();
 app.activeDocument.selection.deselect();
 
@@ -34,5 +34,5 @@ app.activeDocument.selection.deselect();
  desc74.putReference( idnull, ref40 );
  executeAction( idslct, desc74, DialogModes.NO );
 
-//‰Â”\‚È‚çƒLƒƒƒ“ƒZƒ‹‚ÅƒƒbƒZ[ƒW‚ªo‚È‚¢‚æ‚¤‚Éª
+//å¯èƒ½ãªã‚‰ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã§ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒå‡ºãªã„ã‚ˆã†ã«â†‘
 } catch(e){if (e.toString().indexOf(ErrStrs.USER_CANCELLED)!=-1) {;} else{alert(localize("$$$/ScriptingSupport/Error/CommandNotAvailable=The command is currently not available"));}}

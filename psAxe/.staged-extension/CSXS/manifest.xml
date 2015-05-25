@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ExtensionManifest Version="4.0" ExtensionBundleId="info.nekomataya.psAxe" ExtensionBundleVersion="1.0.0"
+<ExtensionManifest Version="4.0" ExtensionBundleId="info.nekomataya.psAxe" ExtensionBundleVersion="1.1.0"
 		ExtensionBundleName="psAxe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Author>
 		<![CDATA[kiyo@nekomataya.info]]>
 	</Author>	<Contact mailto="kiyo@nekomataya.info"/>	<Legal href="http://www.nekomataya.info/contract.html"/>	<Abstract href="http://www.nekomataya.info/"/>	<ExtensionList>
-		<Extension Id="info.nekomataya.psAxe" Version="0.9" />
+		<Extension Id="info.nekomataya.psAxe" Version="1.1" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
@@ -26,7 +26,7 @@
 			<DispatchInfo >
 				<Resources>
 				<MainPath>./index.html</MainPath>
-				<ScriptPath>./psAxe.jsx</ScriptPath>
+				<ScriptPath>./jsx/Photoshop_Startup.jsx</ScriptPath>
 				</Resources>
 				<Lifecycle>
 					<AutoVisible>true</AutoVisible>

@@ -1,6 +1,6 @@
 /*	onsReset.jsx
-	ƒIƒjƒIƒ“ƒXƒLƒ“ó‘Ô‚ÌƒŠƒZƒbƒg
-	ƒAƒNƒeƒBƒuƒŒƒCƒ„‚Ì‚ ‚éƒŒƒCƒ„ƒZƒbƒg‚Ì‘SƒŒƒCƒ„‚Ì•s“§–¾“x‚ðƒŠƒZƒbƒg‚·‚éB
+	ã‚ªãƒ‹ã‚ªãƒ³ã‚¹ã‚­ãƒ³çŠ¶æ…‹ã®ãƒªã‚»ãƒƒãƒˆ
+	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã®ã‚ã‚‹ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã®å…¨ãƒ¬ã‚¤ãƒ¤ã®ä¸é€æ˜Žåº¦ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã€‚
 // enable double clicking from the Macintosh Finder or the Windows Explorer
 #target photoshop
 */

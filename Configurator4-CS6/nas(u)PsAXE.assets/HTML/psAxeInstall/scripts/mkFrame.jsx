@@ -1,1 +1,219 @@
-/*	ƒXƒNƒŠƒvƒgŽw’è‚Åƒeƒ“ƒvƒŒ[ƒg‚ÌƒL[ƒ[ƒh‚ð’u‚«Š·‚¦‚Ä	Žw’è‚ÌƒtƒŒ[ƒ€eps‚ð¶¬‚·‚é	adobe”Ä—p$Id:$ */// enable double clicking from the Macintosh Finder or the Windows Explorer// #target photoshop/*	‚ ‚ç‚©‚¶‚ßˆø”•t‚ÅƒR[ƒ‹‚³‚ê‚½ê‡‚ÍAƒfƒtƒHƒ‹ƒg’l‚Éˆø”‚ðƒ}[ƒW‚µ‚Äƒtƒ@ƒCƒ‹‚ð•Û‘¶‚·‚é	ˆø”‚È‚µ‚Ìê‡‚ÍƒCƒ“ƒ^ƒ‰ƒNƒeƒBƒuUI‚ð’ñŽ¦‚·‚éˆø”‚Í‡ˆÊˆË‘¶arguments[0]	arguments[1]	•Û‘¶ƒtƒ@ƒCƒ‹ƒpƒX (Ž©“®Ý’è BWmmWxH.eps)arguments[2]	baseWidth ("254 mm")arguments[3]	aspectW   (16)arguments[4]	aspectH	  (9)arguments[5]	pegOffsetX ("0 mm")arguments[6]	pegOffsetY ("104 mm")arguments[7]	pegOffertR (0)arguments[8]	*///ˆø”ƒIƒuƒWƒFƒNƒg‚ª‘¶Ý‚µ‚È‚¢ê‡‰¼‚ÌƒIƒuƒWƒFƒNƒg‚ÅƒGƒ‰[‚ð‰ñ”ð‚·‚étry{if(arguments[0]){;};}catch(ERR){var arguments=new Array();}//==================== ƒ^[ƒQƒbƒgƒpƒX‚ðŽæ“¾‚µ‚Ä‚¨‚­//alert(arguments[0] +":"+ Folder.current.path)if($.fileName){//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ðŽg—p	 var nasFolderPath = new File($.fileName).parent.path +"/";}else{//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ð‚«‚ß‚¤‚¿‚·‚é	var nasFolderPath = Folder.userData.fullName + "/nas/";}//	alert(nasFolderPath)//	nasƒ‰ƒCƒuƒ‰ƒŠ‚ð‘O’ñ‚Æ‚µ‚È‚¢A’P“Æ‚Å“®ì‚·‚éƒXƒNƒŠƒvƒg‚Å‚ ‚éBtry{//app ƒIƒuƒWƒFƒNƒg‚ª‚ ‚ê‚ÎAdobeScriptŠÂ‹«‚Æ”»’f‚·‚éBƒGƒ‰[‚ª‚Å‚ê‚ÎA‚½‚Ô‚ñHTMLƒuƒ‰ƒEƒU‚Á‚Ä‚±‚Æ‚Åif(app){;};}catch(ERR){	abortProcess("AdobeŠÂ‹«‚©‚ç‹N“®‚µ‚Ä‚­‚¾‚³‚¢B");}var nas_buildFrame=new Object();//	nas_buildFrame.savePath       =nasFolderPath+"lib/resource/Frames";//	nas_buildFrame.baseWidth      =254;//10in	nas_buildFrame.aspectW        =16;	nas_buildFrame.aspectH        =9;//frame aspect	nas_buildFrame.pegOffsetX     =0;//ƒZƒ“ƒ^‚©‚ç‚Ì¶‰EƒIƒtƒZƒbƒg(mm)	nas_buildFrame.pegOffsetY     =104;//ƒZƒ“ƒ^‚©‚ç‚ÌãŒÀƒIƒtƒZƒbƒg(mm)	nas_buildFrame.pegOffsetR     =0;//‰ñ“]ƒIƒtƒZƒbƒg(degrees)	nas_buildFrame.baseResolution =(200/2.54) ;//standrd Resolution(dpc)	nas_buildFrame.debug          =false;//actionLog//ˆø”‚ ‚ê‚Î—L‚é‚¾‚¯ƒfƒtƒHƒ‹ƒg’l‚Æ’u‚«Š·‚¦	if(arguments.length>1){	 var props=["(skip)","savePath","baseWidth","aspectW","aspectH","pegOffsetX","pegOffsetY","pegOffertR"];	 for(var ix=1;ix<arguments.length;ix++){nas_buildFrame[props[ix]]=arguments[ix]};	}//ŠÈˆÕŽ¯•Êvar isWindows=($.os.match(/windows/i))?true:false;//windowsƒtƒ‰ƒOnas_buildFrame.sourceFile=new File(nasFolderPath+"lib/resource/Frames/frameTemplate.ps");///Applications/Adobe%20Photoshop%20CS6/Presets/Scripts//ŠÈˆÕGUIƒ‰ƒCƒuƒ‰ƒŠ‚ð“‹Ú‚·‚éBvar LineFeed=(isWindows)?"\x0d\x0a":"\x0d";//‰üsƒR[ƒhÝ’è// GUI Setup//ŠÈˆÕGUIƒ‰ƒCƒuƒ‰ƒŠ	var leftMargin=12;	var rightMargin=24;	var topMargin=2;	var bottomMargin=24;	var leftPadding=8;	var rightPadding=8;	var topPadding=2;	var bottomPadding=2;	var colUnit=120;	var lineUnit=24;	var quartsOffset=(isWindows)? 0:4;function nasGrid(col,line,width,height){	left=(col*colUnit)+leftMargin+leftPadding;	top=(line*lineUnit)+topMargin+topPadding;	right=left+(width*colUnit)-rightPadding;	bottom=(height <= lineUnit)?top+(height*lineUnit)-bottomPadding-quartsOffset:top+(height*lineUnit)-bottomPadding;		return [left,top,right,bottom];}// if(nas_buildFrame.debug){alert(nas_buildFrame.sourceFile.fsName);}/* *///ƒpƒ‰ƒ[ƒ^’uŠ·nas_buildFrame.pathReplace=function(myString){	myString = myString.replace(/\%PAPERWIDTH\%/g  ,Math.ceil(parseFloat(this.baseWidth)*1.2*72/25.4));	myString = myString.replace(/\%PAPERHEIGHT\%/g ,Math.ceil(parseFloat(this.pegOffsetY)*2*72/25.4));	myString = myString.replace(/\%FRAMENAME\%/g   ,this.saveFile.name);	myString = myString.replace(/\%BASEWIDTH\%/g   ,this.baseWidth);	myString = myString.replace(/\%ASPECTH\%/g     ,this.aspectH);	myString = myString.replace(/\%ASPECTW\%/g     ,this.aspectW);	myString = myString.replace(/\%FRAMEOFFSET\%/g ,this.pegOffsetY);return myString;}//’uŠ·‚Â‚«ƒtƒ@ƒCƒ‹•¡ŽÊnas_buildFrame.copyScriptWithReplace= function(readfile,writefile){	if (readfile.exists && readfile.name.match(/\.ps$/i)){		var myOpenfile = new File(readfile.fsName);		myOpenfile.open("r");		myContent = myOpenfile.read();//alert(myContent);		if (writefile && writefile.name.match(/\.eps$/i)){			var myWritefile = new File(writefile.fsName);			myWritefile.open("w");			myWritefile.write(this.pathReplace(myContent));			myWritefile.close();		}else{	return false    }		return true;	}else {		return false;	};}//•Û‘¶ƒpƒXì¬@ˆø”‚ª‚È‚¯‚ê‚ÎŒ»Ý‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒtƒŒ[ƒ€ƒtƒHƒ‹ƒ_‚É‘‚«‰Á‚¦‚éB//	nas_buildFrame.saveFile= new File( nas_buildFrame.savePath+"/"+					nas_buildFrame.baseWidth.toString()+"mm"+					nas_buildFrame.aspectW+"x"+					nas_buildFrame.aspectH+".eps");//                    function updateName(){	nas_buildFrame.saveFile= new File( nas_buildFrame.savePath+"/"+					nas_buildFrame.baseWidth.toString()+"mm"+					nas_buildFrame.aspectW+"x"+					nas_buildFrame.aspectH+".eps");//     nas_buildFrame.w.etxName.text=nas_buildFrame.saveFile.name; }//ðŒ‚ª¬—§‚µ‚Ä‚¢‚½‚çUI•\Ž¦‚µ‚Ä•ÒW‰Â”\‚É	if(true){		nas_buildFrame.w=new Window(			"dialog",			"ƒtƒŒ[ƒ€ƒf[ƒ^‚ð•Û‘¶‚µ‚Ü‚·B",			[240,240,240+colUnit*5+leftMargin+rightMargin,240+lineUnit*6+topMargin+bottomMargin]		);		  nas_buildFrame.w.etxSP=nas_buildFrame.w.add("staticText",nasGrid(0,0,4,1),nas_buildFrame.savePath);		  nas_buildFrame.w.etxName=nas_buildFrame.w.add("editText",nasGrid(0,1,4,1),nas_buildFrame.saveFile.name);		  nas_buildFrame.w.chgSP=nas_buildFrame.w.add("button",nasGrid(4,1,1,1),"Save");		  nas_buildFrame.w.lblBW=nas_buildFrame.w.add("staticText",nasGrid(0,2,1,1),"Width(mm)");		  nas_buildFrame.w.etxBW=nas_buildFrame.w.add("editText",nasGrid(1,2,1,1),nas_buildFrame.baseWidth);		  nas_buildFrame.w.pfxBW=nas_buildFrame.w.add("staticText",nasGrid(2,2,1,1),"mm");		  nas_buildFrame.w.lblFA=nas_buildFrame.w.add("staticText",nasGrid(0    ,3,1,1     ),"Aspect(W:H)");		  nas_buildFrame.w.etxAW=nas_buildFrame.w.add("editText",nasGrid(1    ,3,1,1     ),nas_buildFrame.aspectW);		  nas_buildFrame.w.lblAT=nas_buildFrame.w.add("staticText",nasGrid(2     ,3,.25,1  ),":");		  nas_buildFrame.w.etxAH=nas_buildFrame.w.add("editText",nasGrid(2.25 ,3,1,1     ),nas_buildFrame.aspectH);           nas_buildFrame.w.lblPO=nas_buildFrame.w.add("staticText",nasGrid(0,4,1,1),"Pegbar offset");		  nas_buildFrame.w.etxPY=nas_buildFrame.w.add("editText",nasGrid(1,4,1,1),nas_buildFrame.pegOffsetY);		  nas_buildFrame.w.lblPY=nas_buildFrame.w.add("staticText",nasGrid(2,4,.5,1),"mm");           nas_buildFrame.w.memo=nas_buildFrame.w.add("staticText",nasGrid(2,6,4,1),"*[esc] key for exit");/*		  nas_buildFrame.w.etxPX=nas_buildFrame.w.add("editText",nasGrid(1,4,1,1),nas_buildFrame.pegOffsetX);		  nas_buildFrame.w.lblPX=nas_buildFrame.w.add("staticText",nasGrid(2,4,.5,1),"mm");//		  nas_buildFrame.w.etxPR=nas_buildFrame.w.add("editText",nasGrid(3,4,1,1),nas_buildFrame.pegOffsetR);*/        nas_buildFrame.w.etxBW.onChange=function(){            if(this.text!=nas_buildFrame.baseWidth){                nas_buildFrame.baseWidth=(this.text*1);                updateName();            }        }        nas_buildFrame.w.etxAW.onChange=function(){            if(this.text!=nas_buildFrame.aspectW){                nas_buildFrame.aspectW=(this.text*1);                updateName();            }        }        nas_buildFrame.w.etxAH.onChange=function(){            if(this.text!=nas_buildFrame.aspectH){                nas_buildFrame.aspectH=(this.text*1);                updateName();            }        }        nas_buildFrame.w.etxPY.onChange=function(){            if(this.text!=nas_buildFrame.pegOffsetY){                nas_buildFrame.pegOffsetY=(this.text*1);                updateName();            }        }    nas_buildFrame.w.chgSP.onClick=function(){        //•Û‘¶ƒ^[ƒQƒbƒg‚ªA‚·‚Å‚É‘¶Ý‚·‚é‚È‚çŒx        var doSave=true;        if(nas_buildFrame.saveFile.exists){	@   doSave=confirm(nas_buildFrame.saveFile.fullName+"\n‚ªA‚·‚Å‚É‚ ‚è‚Ü‚·Bã‘‚«•Û‘¶‚µ‚Ä—Ç‚¢‚Å‚·‚©H",true,"ƒtƒ@ƒCƒ‹•Û‘¶")        }        if(doSave){            nas_buildFrame.baseWidth+=" mm";            nas_buildFrame.pegOffsetY+=" mm";            nas_buildFrame.copyScriptWithReplace(nas_buildFrame.sourceFile,nas_buildFrame.saveFile);            this.parent.close();        }//           alert(nas_buildFrame.sourceFile +">>>"+ nas_buildFrame.saveFile+"\n"+doSave);     }/**/		nas_buildFrame.w.show();	}
+/*
+	ã‚¹ã‚¯ãƒªãƒ—ãƒˆæŒ‡å®šã§ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’ç½®ãæ›ãˆã¦
+	æŒ‡å®šã®ãƒ•ãƒ¬ãƒ¼ãƒ epsã‚’ç”Ÿæˆã™ã‚‹
+	adobeæ±Žç”¨
+
+$Id:$
+ */
+// enable double clicking from the Macintosh Finder or the Windows Explorer
+// #target photoshop
+/*
+	ã‚ã‚‰ã‹ã˜ã‚å¼•æ•°ä»˜ã§ã‚³ãƒ¼ãƒ«ã•ã‚ŒãŸå ´åˆã¯ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã«å¼•æ•°ã‚’ãƒžãƒ¼ã‚¸ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜ã™ã‚‹
+	å¼•æ•°ãªã—ã®å ´åˆã¯ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ãƒ†ã‚£ãƒ–UIã‚’æç¤ºã™ã‚‹
+å¼•æ•°ã¯é †ä½ä¾å­˜
+arguments[0]	
+arguments[1]	ä¿å­˜ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ (è‡ªå‹•è¨­å®š BWmmWxH.eps)
+arguments[2]	baseWidth ("254 mm")
+arguments[3]	aspectW   (16)
+arguments[4]	aspectH	  (9)
+arguments[5]	pegOffsetX ("0 mm")
+arguments[6]	pegOffsetY ("104 mm")
+arguments[7]	pegOffertR (0)
+arguments[8]	
+*/
+
+//å¼•æ•°ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå­˜åœ¨ã—ãªã„å ´åˆä»®ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã‚¨ãƒ©ãƒ¼ã‚’å›žé¿ã™ã‚‹
+try{if(arguments[0]){;};}catch(ERR){var arguments=new Array();}
+//==================== ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ‘ã‚¹ã‚’å–å¾—ã—ã¦ãŠã
+//alert(arguments[0] +":"+ Folder.current.path)
+
+if($.fileName){
+//	CS3ä»¥é™ã¯ã€€$.fileNameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½¿ç”¨
+	 var nasFolderPath = new File($.fileName).parent.path +"/";
+}else{
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
+	var nasFolderPath = Folder.userData.fullName + "/nas/";
+}
+//	alert(nasFolderPath)
+//	nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’å‰æã¨ã—ãªã„ã€å˜ç‹¬ã§å‹•ä½œã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ã‚ã‚‹ã€‚
+
+try{
+//app ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚Œã°AdobeScriptç’°å¢ƒã¨åˆ¤æ–­ã™ã‚‹ã€‚ã‚¨ãƒ©ãƒ¼ãŒã§ã‚Œã°ã€ãŸã¶ã‚“HTMLãƒ–ãƒ©ã‚¦ã‚¶ã£ã¦ã“ã¨ã§
+if(app){;};}catch(ERR){	abortProcess("Adobeç’°å¢ƒã‹ã‚‰èµ·å‹•ã—ã¦ãã ã•ã„ã€‚");}
+
+var nas_buildFrame=new Object();//
+
+	nas_buildFrame.savePath       =nasFolderPath+"lib/resource/Frames";//
+	nas_buildFrame.baseWidth      =254;//10in
+	nas_buildFrame.aspectW        =16;
+	nas_buildFrame.aspectH        =9;//frame aspect
+	nas_buildFrame.pegOffsetX     =0;//ã‚»ãƒ³ã‚¿ã‹ã‚‰ã®å·¦å³ã‚ªãƒ•ã‚»ãƒƒãƒˆ(mm)
+	nas_buildFrame.pegOffsetY     =104;//ã‚»ãƒ³ã‚¿ã‹ã‚‰ã®ä¸Šé™ã‚ªãƒ•ã‚»ãƒƒãƒˆ(mm)
+	nas_buildFrame.pegOffsetR     =0;//å›žè»¢ã‚ªãƒ•ã‚»ãƒƒãƒˆ(degrees)
+	nas_buildFrame.baseResolution =(200/2.54) ;//standrd Resolution(dpc)
+	nas_buildFrame.debug          =false;//actionLog
+
+
+//å¼•æ•°ã‚ã‚Œã°æœ‰ã‚‹ã ã‘ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã¨ç½®ãæ›ãˆ
+	if(arguments.length>1){
+	 var props=["(skip)","savePath","baseWidth","aspectW","aspectH","pegOffsetX","pegOffsetY","pegOffertR"];
+	 for(var ix=1;ix<arguments.length;ix++){nas_buildFrame[props[ix]]=arguments[ix]};
+	}
+
+//ç°¡æ˜“è­˜åˆ¥
+var isWindows=($.os.match(/windows/i))?true:false;//windowsãƒ•ãƒ©ã‚°
+nas_buildFrame.sourceFile=new File(nasFolderPath+"lib/resource/Frames/frameTemplate.ps");
+///Applications/Adobe%20Photoshop%20CS6/Presets/Scripts
+
+//ç°¡æ˜“GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’æ­è¼‰ã™ã‚‹ã€‚
+var LineFeed=(isWindows)?"\x0d\x0a":"\x0d";//æ”¹è¡Œã‚³ãƒ¼ãƒ‰è¨­å®š
+
+// GUI Setup
+//ç°¡æ˜“GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+	var leftMargin=12;
+	var rightMargin=24;
+	var topMargin=2;
+	var bottomMargin=24;
+	var leftPadding=8;
+	var rightPadding=8;
+	var topPadding=2;
+	var bottomPadding=2;
+	var colUnit=120;
+	var lineUnit=24;
+	var quartsOffset=(isWindows)? 0:4;
+function nasGrid(col,line,width,height){
+	left=(col*colUnit)+leftMargin+leftPadding;
+	top=(line*lineUnit)+topMargin+topPadding;
+	right=left+(width*colUnit)-rightPadding;
+	bottom=(height <= lineUnit)?top+(height*lineUnit)-bottomPadding-quartsOffset:top+(height*lineUnit)-bottomPadding;
+		return [left,top,right,bottom];
+}
+//
+ if(nas_buildFrame.debug){alert(nas_buildFrame.sourceFile.fsName);}
+
+/*
+
+ */
+
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç½®æ›
+nas_buildFrame.pathReplace=function(myString)
+{
+	myString = myString.replace(/\%PAPERWIDTH\%/g  ,Math.ceil(parseFloat(this.baseWidth)*1.2*72/25.4));
+	myString = myString.replace(/\%PAPERHEIGHT\%/g ,Math.ceil(parseFloat(this.pegOffsetY)*2*72/25.4));
+	myString = myString.replace(/\%FRAMENAME\%/g   ,this.saveFile.name);
+	myString = myString.replace(/\%BASEWIDTH\%/g   ,this.baseWidth);
+	myString = myString.replace(/\%ASPECTH\%/g     ,this.aspectH);
+	myString = myString.replace(/\%ASPECTW\%/g     ,this.aspectW);
+	myString = myString.replace(/\%FRAMEOFFSET\%/g ,this.pegOffsetY);
+return myString;
+}
+//ç½®æ›ã¤ããƒ•ã‚¡ã‚¤ãƒ«è¤‡å†™
+nas_buildFrame.copyScriptWithReplace= function(readfile,writefile)
+{
+	if (readfile.exists && readfile.name.match(/\.ps$/i)){
+		var myOpenfile = new File(readfile.fsName);
+		myOpenfile.open("r");
+		myContent = myOpenfile.read();
+//alert(myContent);
+		if (writefile && writefile.name.match(/\.eps$/i)){
+			var myWritefile = new File(writefile.fsName);
+			myWritefile.open("w");
+			myWritefile.write(this.pathReplace(myContent));
+			myWritefile.close();
+		}else{	return false    }
+		return true;
+	}else {
+		return false;
+	};
+}
+
+//ä¿å­˜ãƒ‘ã‚¹ä½œæˆã€€å¼•æ•°ãŒãªã‘ã‚Œã°ç¾åœ¨ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ•ã‚©ãƒ«ãƒ€ã«æ›¸ãåŠ ãˆã‚‹ã€‚
+//
+	nas_buildFrame.saveFile= new File( nas_buildFrame.savePath+"/"+
+					nas_buildFrame.baseWidth.toString()+"mm"+
+					nas_buildFrame.aspectW+"x"+
+					nas_buildFrame.aspectH+".eps");//
+                    
+function updateName(){
+	nas_buildFrame.saveFile= new File( nas_buildFrame.savePath+"/"+
+					nas_buildFrame.baseWidth.toString()+"mm"+
+					nas_buildFrame.aspectW+"x"+
+					nas_buildFrame.aspectH+".eps");//
+     nas_buildFrame.w.etxName.text=nas_buildFrame.saveFile.name;
+ }
+//æ¡ä»¶ãŒæˆç«‹ã—ã¦ã„ãŸã‚‰UIè¡¨ç¤ºã—ã¦ç·¨é›†å¯èƒ½ã«
+	if(true){
+		nas_buildFrame.w=new Window(
+			"dialog",
+			"ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã—ã¾ã™ã€‚",
+			[240,240,240+colUnit*5+leftMargin+rightMargin,240+lineUnit*6+topMargin+bottomMargin]
+		);
+		  nas_buildFrame.w.etxSP=nas_buildFrame.w.add("staticText",nasGrid(0,0,4,1),nas_buildFrame.savePath);
+		  nas_buildFrame.w.etxName=nas_buildFrame.w.add("editText",nasGrid(0,1,4,1),nas_buildFrame.saveFile.name);
+		  nas_buildFrame.w.chgSP=nas_buildFrame.w.add("button",nasGrid(4,1,1,1),"Save");
+
+		  nas_buildFrame.w.lblBW=nas_buildFrame.w.add("staticText",nasGrid(0,2,1,1),"Width(mm)");
+		  nas_buildFrame.w.etxBW=nas_buildFrame.w.add("editText",nasGrid(1,2,1,1),nas_buildFrame.baseWidth);
+		  nas_buildFrame.w.pfxBW=nas_buildFrame.w.add("staticText",nasGrid(2,2,1,1),"mm");
+
+		  nas_buildFrame.w.lblFA=nas_buildFrame.w.add("staticText",nasGrid(0    ,3,1,1     ),"Aspect(W:H)");
+		  nas_buildFrame.w.etxAW=nas_buildFrame.w.add("editText",nasGrid(1    ,3,1,1     ),nas_buildFrame.aspectW);
+		  nas_buildFrame.w.lblAT=nas_buildFrame.w.add("staticText",nasGrid(2     ,3,.25,1  ),":");
+		  nas_buildFrame.w.etxAH=nas_buildFrame.w.add("editText",nasGrid(2.25 ,3,1,1     ),nas_buildFrame.aspectH);
+
+           nas_buildFrame.w.lblPO=nas_buildFrame.w.add("staticText",nasGrid(0,4,1,1),"Pegbar offset");
+		  nas_buildFrame.w.etxPY=nas_buildFrame.w.add("editText",nasGrid(1,4,1,1),nas_buildFrame.pegOffsetY);
+		  nas_buildFrame.w.lblPY=nas_buildFrame.w.add("staticText",nasGrid(2,4,.5,1),"mm");
+
+           nas_buildFrame.w.memo=nas_buildFrame.w.add("staticText",nasGrid(2,6,4,1),"*[esc] key for exit");
+/*
+		  nas_buildFrame.w.etxPX=nas_buildFrame.w.add("editText",nasGrid(1,4,1,1),nas_buildFrame.pegOffsetX);
+		  nas_buildFrame.w.lblPX=nas_buildFrame.w.add("staticText",nasGrid(2,4,.5,1),"mm");
+//		  nas_buildFrame.w.etxPR=nas_buildFrame.w.add("editText",nasGrid(3,4,1,1),nas_buildFrame.pegOffsetR);
+*/
+        nas_buildFrame.w.etxBW.onChange=function(){
+            if(this.text!=nas_buildFrame.baseWidth){
+                nas_buildFrame.baseWidth=(this.text*1);
+                updateName();
+            }
+        }
+        nas_buildFrame.w.etxAW.onChange=function(){
+            if(this.text!=nas_buildFrame.aspectW){
+                nas_buildFrame.aspectW=(this.text*1);
+                updateName();
+            }
+        }
+        nas_buildFrame.w.etxAH.onChange=function(){
+            if(this.text!=nas_buildFrame.aspectH){
+                nas_buildFrame.aspectH=(this.text*1);
+                updateName();
+            }
+        }
+        nas_buildFrame.w.etxPY.onChange=function(){
+            if(this.text!=nas_buildFrame.pegOffsetY){
+                nas_buildFrame.pegOffsetY=(this.text*1);
+                updateName();
+            }
+        }
+    nas_buildFrame.w.chgSP.onClick=function(){
+        //ä¿å­˜ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒã€ã™ã§ã«å­˜åœ¨ã™ã‚‹ãªã‚‰è­¦å‘Š
+        var doSave=true;
+        if(nas_buildFrame.saveFile.exists){
+	ã€€   doSave=confirm(nas_buildFrame.saveFile.fullName+"\nãŒã€ã™ã§ã«ã‚ã‚Šã¾ã™ã€‚ä¸Šæ›¸ãä¿å­˜ã—ã¦è‰¯ã„ã§ã™ã‹ï¼Ÿ",true,"ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜")
+        }
+        if(doSave){
+            nas_buildFrame.baseWidth+=" mm";
+            nas_buildFrame.pegOffsetY+=" mm";
+            nas_buildFrame.copyScriptWithReplace(nas_buildFrame.sourceFile,nas_buildFrame.saveFile);
+            this.parent.close();
+        }
+//           alert(nas_buildFrame.sourceFile +">>>"+ nas_buildFrame.saveFile+"\n"+doSave);
+ 
+    }
+
+
+/*
+*/
+		nas_buildFrame.w.show();
+	}
+

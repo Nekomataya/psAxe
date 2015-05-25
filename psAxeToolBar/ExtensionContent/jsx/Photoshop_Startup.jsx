@@ -1,14 +1,13 @@
 // psAxe include function
 function getApplicationResult(arg) {return eval(arg)}
 
-{
+if(typeof app.nas =="undefined"){
 var myInstallFolder=Folder.userData.fullName+"/nas";
-//すでに１回以上インストールされている場合は選択的にインストール・アンインストールを行う
+//すでに１回以上インストールされている場合は選択的にインストール・アンインストールを行う＝　ツールバーは特に警告を行わない
  if(!(File(myInstallFolder).exists)||!(File(myInstallFolder+"/lib/nas_psAxeLib.js").exists)){
-alert("インストールは完了していません\nパネルの左上の斧アイコンでインストールを完了して下さい")
+//alert("インストールは完了していません\nパネルの左上の斧アイコンでインストールを完了して下さい")
 
 //$.evalFile("psAxe/scripts/psAxeSplash.jsx");
-
  }else{
 //ここでnasオブジェクトの初期化を行う、同様のinitializeをCSX環境下ではPsAxe.jsxで担当するので　そこに同ルーチンを入れる
 
@@ -66,7 +65,6 @@ includeLibs.push(nasLibFolderPath+"lib_STS.js");
 includeLibs.push(nasLibFolderPath+"dataio.js");
 includeLibs.push(nasLibFolderPath+"fakeAE.js");
 includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
 includeLibs.push(nasLibFolderPath+"xpsQueue.js");
 includeLibs.push(nasLibFolderPath+"messages.js");
 includeLibs.push(nasLibFolderPath+"psCCfontFix.js");
@@ -81,6 +79,8 @@ nas.readPrefarence();nas.workTitles.select();
 //=====================================startup
 
  }
+}else{
+	nas=app.nas;
 }
 
 //+++++++++++++++++++++++++++++++++初期化終了

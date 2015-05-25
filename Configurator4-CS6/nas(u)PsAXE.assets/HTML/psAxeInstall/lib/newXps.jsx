@@ -190,6 +190,7 @@ nas.FCT2Frm(w.tlEt.text);
 	その場合はリレーションが切れることを警告すること
 */
 var myXpsFile=new File([myTarget.fullName.path,myTarget.fullName.name.replace(/\.psd/,".xps")].join("/"));
+var isWindows=($.os.indexOf("Win")==-1)? false:true;
 if(isWindows)
 {
 	var mySavefile = myXpsFile.saveDlg("ファイルの保存場所を変更するとデータの適用ができないことがあります","nasXPSheet(*.xps):*.XPS");

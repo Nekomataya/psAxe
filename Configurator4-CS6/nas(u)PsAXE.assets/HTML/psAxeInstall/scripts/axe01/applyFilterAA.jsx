@@ -1,54 +1,54 @@
 /* applyFilterAA.jsx
-	PhotoshopƒXƒNƒŠƒvƒg
-	ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìü‰æ‚ÉAnti AliasƒtƒBƒ‹ƒ^‚ğ“K—p‚µ‚Ü‚·B
+	Photoshopã‚¹ã‚¯ãƒªãƒ—ãƒˆ
+	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·šç”»ã«Anti Aliasãƒ•ã‚£ãƒ«ã‚¿ã‚’é©ç”¨ã—ã¾ã™ã€‚
 
-	OLM Smoother ‚Æ pixelBenderƒtƒBƒ‹ƒ^‚ğ‘I•Ê‚µ‚Ä—˜—p‚µ‚Ü‚·B
-	‚±‚ÌƒXƒNƒŠƒvƒg‚Ì—˜—p‚É‚ÍˆÈ‰º‚Ì‚¢‚¸‚ê‚©‚ÌƒtƒBƒ‹ƒ^‚ª•K—v‚Å‚·B
-	ƒtƒBƒ‹ƒ^‚ÍApsAxeƒpƒbƒP[ƒW‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚¹‚ñ‚Ì‚ÅAŠe©“üè‚µ‚Ä‰º‚³‚¢B
+	OLM Smoother ã¨ pixelBenderãƒ•ã‚£ãƒ«ã‚¿ã‚’é¸åˆ¥ã—ã¦åˆ©ç”¨ã—ã¾ã™ã€‚
+	ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®åˆ©ç”¨ã«ã¯ä»¥ä¸‹ã®ã„ãšã‚Œã‹ã®ãƒ•ã‚£ãƒ«ã‚¿ãŒå¿…è¦ã§ã™ã€‚
+	ãƒ•ã‚£ãƒ«ã‚¿ã¯ã€psAxeãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã«å«ã¾ã‚Œã¦ã„ã¾ã›ã‚“ã®ã§ã€å„è‡ªå…¥æ‰‹ã—ã¦ä¸‹ã•ã„ã€‚
 
-	‚±‚ÌƒXƒNƒŠƒvƒg‚Åg—p‚·‚éƒsƒNƒZƒ‹ƒxƒ“ƒ_[ƒJ[ƒlƒ‹‚Í
-	AdobeƒGƒNƒXƒ`ƒFƒ“ƒW‚Å“üè‰Â”\‚Å‚·B
-	Ä”Ğ•z‚Ìƒ‰ƒCƒZƒ“ƒX‹y‚ÑƒGƒNƒXƒ`ƒFƒ“ƒW‚Ì«¿‚ğl‚¦‚ÄpsAxeƒpƒbƒP[ƒW‚É‚ÍŠÜ‚Ü‚ê‚Ä‚¨‚è‚Ü‚¹‚ñ‚Ì‚Å
-	‚²©g‚ÅƒCƒ“ƒXƒg[ƒ‹‚ğ‚¨Šè‚¢‚µ‚Ü‚·B
+	ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ä½¿ç”¨ã™ã‚‹ãƒ”ã‚¯ã‚»ãƒ«ãƒ™ãƒ³ãƒ€ãƒ¼ã‚«ãƒ¼ãƒãƒ«ã¯
+	Adobeã‚¨ã‚¯ã‚¹ãƒã‚§ãƒ³ã‚¸ã§å…¥æ‰‹å¯èƒ½ã§ã™ã€‚
+	å†é ’å¸ƒã®ãƒ©ã‚¤ã‚»ãƒ³ã‚¹åŠã³ã‚¨ã‚¯ã‚¹ãƒã‚§ãƒ³ã‚¸ã®æ€§è³ªã‚’è€ƒãˆã¦psAxeãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã«ã¯å«ã¾ã‚Œã¦ãŠã‚Šã¾ã›ã‚“ã®ã§
+	ã”è‡ªèº«ã§ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’ãŠé¡˜ã„ã—ã¾ã™ã€‚
 
-pixelBender‚ª—˜—p‰Â”\‚È•û
+pixelBenderãŒåˆ©ç”¨å¯èƒ½ãªæ–¹
 
 	MLAA
-	i‚Ü‚½‚Í@SmartAA“™j
+	ï¼ˆã¾ãŸã¯ã€€SmartAAç­‰ï¼‰
 http://www.adobe.com/cfusion/exchange/index.cfm?searchfield=anti+alias&search_exchange=26&search_category=-1&search_license=&search_rating=&search_platform=0&search_pubdate=&Submit=Search&num=10&startnum=1&event=search&sort=0&dummy_tmpfield=
 
-AdobeƒGƒNƒXƒ`ƒFƒ“ƒW“à‚Ìƒ_ƒEƒ“ƒ[ƒhƒR[ƒi[‚Å“üè‰Â”\‚Å‚·BPhotoshop CS4 ˆÈ~‚Å—˜—p‰Â”\‚Å‚·B
+Adobeã‚¨ã‚¯ã‚¹ãƒã‚§ãƒ³ã‚¸å†…ã®ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã‚³ãƒ¼ãƒŠãƒ¼ã§å…¥æ‰‹å¯èƒ½ã§ã™ã€‚Photoshop CS4 ä»¥é™ã§åˆ©ç”¨å¯èƒ½ã§ã™ã€‚
 
-CS2,3 ‚Ü‚½‚ÍƒsƒNƒZƒ‹ƒxƒ“ƒ_[‚ğ‚²—˜—p‚Å‚È‚¢•û‚ÍAˆÈ‰º‚Ìƒvƒ‰ƒOƒCƒ“‚ªg—p‰Â”\‚Å‚·B
+CS2,3 ã¾ãŸã¯ãƒ”ã‚¯ã‚»ãƒ«ãƒ™ãƒ³ãƒ€ãƒ¼ã‚’ã”åˆ©ç”¨ã§ãªã„æ–¹ã¯ã€ä»¥ä¸‹ã®ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãŒä½¿ç”¨å¯èƒ½ã§ã™ã€‚
 
 	OLM Smoother(for photoshop)
 http://www.olm.co.jp/rd/technology/tools/?lang=ja
 
-	ƒAƒjƒ[ƒVƒ‡ƒ“§ì‰ïĞOLM—l‚ÌƒTƒCƒg‚Å–³‚Åƒ_ƒEƒ“ƒ[ƒh‰Â”\‚Å‚·B
-	ƒ[ƒ‹ƒAƒhƒŒƒX‚Ì“o˜^‚ª•K—v‚Å‚·B
+	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³åˆ¶ä½œä¼šç¤¾OLMæ§˜ã®ã‚µã‚¤ãƒˆã§ç„¡å„Ÿã§ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰å¯èƒ½ã§ã™ã€‚
+	ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã®ç™»éŒ²ãŒå¿…è¦ã§ã™ã€‚
 
 */
 
 // enable double clicking from the Macintosh Finder or the Windows Explorer
-// ƒ_ƒuƒ‹ƒNƒŠƒbƒNÀs‚µ‚½ê‡‚Éphotoshop‚ğƒ^[ƒQƒbƒg‚É‚·‚é
+// ãƒ€ãƒ–ãƒ«ã‚¯ãƒªãƒƒã‚¯å®Ÿè¡Œã—ãŸå ´åˆã«photoshopã‚’ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«ã™ã‚‹
 #target photoshop
 // in case we double clicked the file
-// ‘O–Ê‚Éo‚·
+// å‰é¢ã«å‡ºã™
 app.bringToFront();
 
   if((app.documents.length)&&(app.activeDocument)&&(app.activeDocument.activeLayer)){
 /*
-	ƒ_ƒCƒAƒƒO‚Ì•\¦‚ğw’è‚Å‚«‚Ü‚·B
-	ƒtƒBƒ‹ƒ^‚Ìƒpƒ‰ƒ[ƒ^‚ÍAƒfƒtƒHƒ‹ƒg‚ÅŒˆ‚ß‘Å‚¿‚Å‚·B
-	‚½‚¾‚µAOLM Smoother‚ğg—p‚·‚éê‡‚ÍAŒ»İ‚Ì‚Æ‚±‚ëƒ_ƒCƒAƒƒOƒ‚[ƒh‚ğ"NO"‚Éİ’è‚µ‚Ä‚à
-	ƒ_ƒCƒAƒƒO‚ğ•\¦‚·‚éó‘Ô‚ÅƒRƒ“ƒpƒCƒ‹‚³‚ê‚Ä‚¢‚é‚æ‚¤‚Å‚·‚Ì‚ÅA‚±‚¿‚ç‚Ìİ’è‚Í–³Œø‚É‚È‚è‚Ü‚·B
+	ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®è¡¨ç¤ºã‚’æŒ‡å®šã§ãã¾ã™ã€‚
+	ãƒ•ã‚£ãƒ«ã‚¿ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã¯ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§æ±ºã‚æ‰“ã¡ã§ã™ã€‚
+	ãŸã ã—ã€OLM Smootherã‚’ä½¿ç”¨ã™ã‚‹å ´åˆã¯ã€ç¾åœ¨ã®ã¨ã“ã‚ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’"NO"ã«è¨­å®šã—ã¦ã‚‚
+	ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤ºã™ã‚‹çŠ¶æ…‹ã§ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã•ã‚Œã¦ã„ã‚‹ã‚ˆã†ã§ã™ã®ã§ã€ã“ã¡ã‚‰ã®è¨­å®šã¯ç„¡åŠ¹ã«ãªã‚Šã¾ã™ã€‚
 */
-	var myDialogModes ="NO";//YES/NO/ALL ‚ÌOí‚ªİ’è‰Â”\‚Å‚·B
-	var usePB         =false;//pixelBender‚ªg—p‰Â”\‚È‚çƒsƒNƒZƒ‹ƒxƒ“ƒ_[‚ğg—p‚·‚éBfalse‚É‚·‚é‚ÆOLM Smoother‚ğg—p
+	var myDialogModes ="NO";//YES/NO/ALL ã®ä¸‰ç¨®ãŒè¨­å®šå¯èƒ½ã§ã™ã€‚
+	var usePB         =false;//pixelBenderãŒä½¿ç”¨å¯èƒ½ãªã‚‰ãƒ”ã‚¯ã‚»ãƒ«ãƒ™ãƒ³ãƒ€ãƒ¼ã‚’ä½¿ç”¨ã™ã‚‹ã€‚falseã«ã™ã‚‹ã¨OLM Smootherã‚’ä½¿ç”¨
 /*
-	CS4-5‚Å‚ÍAƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒtƒHƒ‹ƒ_‚É Pixel Bender Files ƒtƒHƒ‹ƒ_‚Ì—L–³‚ğƒ`ƒFƒbƒN‚µ‚Ä
-	Pixel Bender Kernel ‚ªg—p‰Â”\‚©”Û‚©”»’è‚·‚éB
-	CS6‚Å‚Í–³ğŒ‚ÉPixel Bender ‚ªg—p‰Â”\
+	CS4-5ã§ã¯ã€ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ«ãƒ€ã« Pixel Bender Files ãƒ•ã‚©ãƒ«ãƒ€ã®æœ‰ç„¡ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¦
+	Pixel Bender Kernel ãŒä½¿ç”¨å¯èƒ½ã‹å¦ã‹åˆ¤å®šã™ã‚‹ã€‚
+	CS6ã§ã¯ç„¡æ¡ä»¶ã«Pixel Bender ãŒä½¿ç”¨å¯èƒ½
 */
 var exPBK = new Folder(app.path.fullName+"/Pixel Bender Files").exists;
 if(app.version.split(".")[0]>13){exPBK=false}
@@ -56,69 +56,69 @@ if(app.version.split(".")[0]==13){exPBK=true}
 
 if((exPBK)&&(usePB))
 {
-// =======================================================PixelBenderƒtƒBƒ‹ƒ^(pbk)
+// =======================================================PixelBenderãƒ•ã‚£ãƒ«ã‚¿(pbk)
 /*	applyPbk(myPBK,knlName,[[control,value]],dialog)
-ˆø”
-	myPBK	ƒtƒ@ƒCƒ‹ƒIƒuƒWƒFƒNƒg–”‚Íƒtƒ@ƒCƒ‹ƒpƒX
-	knlName	ƒJ[ƒlƒ‹¯•Êq
-	control	ƒRƒ“ƒgƒ[ƒ‹‹Lq(•¶š—ñ)
-	value	ƒRƒ“ƒgƒ[ƒ‹‚Ì’l(”’l)
-	dialog	ƒ_ƒCƒAƒƒOƒ‚[ƒh(•¶š—ñ "ALL""ERROR""NO")[È—ª‰Â]
-–ß‚è’l
-	“Á‚É‚È‚µ(undefeined)
-	pixel bender karnel@‚ğƒXƒNƒŠƒvƒg‚©‚ç“K—p‚·‚éŠÖ”
-	ˆø”myPBK‚ÍƒJ[ƒlƒ‹ƒtƒ@ƒCƒ‹–”‚Íƒtƒ@ƒCƒ‹ƒpƒX‚Å
-	‘¶İ‚µ‚È‚¢ƒJ[ƒlƒ‹ƒtƒ@ƒCƒ‹‚ªw’è‚³‚ê‚½ê‡‚ÍA“®ì‚ğƒXƒLƒbƒv
+å¼•æ•°
+	myPBK	ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆã¯ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	knlName	ã‚«ãƒ¼ãƒãƒ«è­˜åˆ¥å­
+	control	ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«è¨˜è¿°(æ–‡å­—åˆ—)
+	value	ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã®å€¤(æ•°å€¤)
+	dialog	ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒ¢ãƒ¼ãƒ‰(æ–‡å­—åˆ— "ALL""ERROR""NO")[çœç•¥å¯]
+æˆ»ã‚Šå€¤
+	ç‰¹ã«ãªã—(undefeined)
+	pixel bender karnelã€€ã‚’ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‹ã‚‰é©ç”¨ã™ã‚‹é–¢æ•°
+	å¼•æ•°myPBKã¯ã‚«ãƒ¼ãƒãƒ«ãƒ•ã‚¡ã‚¤ãƒ«åˆã¯ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã§
+	å­˜åœ¨ã—ãªã„ã‚«ãƒ¼ãƒãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ãŒæŒ‡å®šã•ã‚ŒãŸå ´åˆã¯ã€å‹•ä½œã‚’ã‚¹ã‚­ãƒƒãƒ—
 */
 applyPbk=function(myPBK,knlName,fVA,dMode){
  if(! dMode){dMode="NO"}
  if(! dMode.match(/(ALL|ERROR)/)){dMode="NO";};
  if(! fVA){fVA=[];}
  if(! knlName ) knlName=false;
- if(!(myPBK instanceof(File))){myPBK=new File(myPBK);};//ƒtƒ@ƒCƒ‹ƒIƒuƒWƒFƒNƒg‚Å‚È‚¯‚ê‚ÎV‹Kƒtƒ@ƒCƒ‹
+ if(!(myPBK instanceof(File))){myPBK=new File(myPBK);};//ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ãªã‘ã‚Œã°æ–°è¦ãƒ•ã‚¡ã‚¤ãƒ«
 
 	if((myPBK.exists)&&(knlName)){
-// =======================================================pbk“K—p(ƒpƒ‰ƒƒ^‚ ‚è)
-var idPbPl = charIDToTypeID( "PbPl" );//pbk¯•Ê•¶š—ñ
-    var descPbk = new ActionDescriptor();//ƒAƒNƒVƒ‡ƒ“ƒfƒBƒXƒNƒŠƒvƒ^‚ğì‚é
+// =======================================================pbké©ç”¨(ãƒ‘ãƒ©ãƒ¡ã‚¿ã‚ã‚Š)
+var idPbPl = charIDToTypeID( "PbPl" );//pbkè­˜åˆ¥æ–‡å­—åˆ—
+    var descPbk = new ActionDescriptor();//ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ã‚’ä½œã‚‹
 
     var idKnNm = charIDToTypeID( "KnNm" );//KarNel NaMe
-    descPbk.putString( idKnNm, knlName );//ƒJ[ƒlƒ‹¯•Ê–¼İ’è(‚½‚Ô‚ñUndo‚Ì¯•Ê–¼‚Ì‚İ)
+    descPbk.putString( idKnNm, knlName );//ã‚«ãƒ¼ãƒãƒ«è­˜åˆ¥åè¨­å®š(ãŸã¶ã‚“Undoã®è­˜åˆ¥åã®ã¿)
 
-    var idGpuY = charIDToTypeID( "GpuY" );//GPUg—pƒtƒ‰ƒO(Œ»İg—p‘¤‚ÉŒÅ’è@”»’è‚µ‚Ä’²®‚Í‘½•ª•K—v@ˆø”§Œä‚©H)
-    descPbk.putBoolean( idGpuY, true );//“¯İ’è
+    var idGpuY = charIDToTypeID( "GpuY" );//GPUä½¿ç”¨ãƒ•ãƒ©ã‚°(ç¾åœ¨ä½¿ç”¨å´ã«å›ºå®šã€€åˆ¤å®šã—ã¦èª¿æ•´ã¯å¤šåˆ†å¿…è¦ã€€å¼•æ•°åˆ¶å¾¡ã‹ï¼Ÿ)
+    descPbk.putBoolean( idGpuY, true );//åŒè¨­å®š
 
-    var idLIWy = charIDToTypeID( "LIWy" );//•s–¾‚È¯•Êq
-    descPbk.putBoolean( idLIWy, true );//“¯İ’è - ‚±‚ê‚ÍŒˆ‚ß‘Å‚¿‚Åc‚·
+    var idLIWy = charIDToTypeID( "LIWy" );//ä¸æ˜ãªè­˜åˆ¥å­
+    descPbk.putBoolean( idLIWy, true );//åŒè¨­å®š - ã“ã‚Œã¯æ±ºã‚æ‰“ã¡ã§æ®‹ã™
 
-    var idFPth = charIDToTypeID( "FPth" );//ƒtƒ@ƒCƒ‹ƒpƒX¯•Êq
-    descPbk.putString( idFPth, myPBK.fsName );//ƒtƒ@ƒCƒ‹ƒpƒXİ’è
-//ƒpƒ‰ƒƒ^‚ª‚ ‚é”‚¾‚¯ŒJ‚è•Ô‚µ‚Äİ’è@Œ»İƒpƒ‰ƒƒ^‚Ìí•Ê‚ÍFloat‚Ì‚İ‚ÅŒˆ‚ß‘Å‚¿(”Ä—p«‚È‚µ)
-//id‚Í©“®¶¬ ƒAƒ‹ƒtƒ@ƒxƒbƒg1„‚Å‘Å‚¿~‚ß
-//aa,ab,ac,ad,ae~‚Æ˜A‘±
+    var idFPth = charIDToTypeID( "FPth" );//ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹è­˜åˆ¥å­
+    descPbk.putString( idFPth, myPBK.fsName );//ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹è¨­å®š
+//ãƒ‘ãƒ©ãƒ¡ã‚¿ãŒã‚ã‚‹æ•°ã ã‘ç¹°ã‚Šè¿”ã—ã¦è¨­å®šã€€ç¾åœ¨ãƒ‘ãƒ©ãƒ¡ã‚¿ã®ç¨®åˆ¥ã¯Floatã®ã¿ã§æ±ºã‚æ‰“ã¡(æ±ç”¨æ€§ãªã—)
+//idã¯è‡ªå‹•ç”Ÿæˆ ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆ1å·¡ã§æ‰“ã¡æ­¢ã‚
+//aa,ab,ac,ad,ae~ã¨é€£ç¶š
  var exText=new Array();
  for(var ix=0;ix< fVA.length;ix++){
    var myChar="abcdefghijklmnopqrstuvwxyz".charAt(ix);
-   var idPN = charIDToTypeID( "PNa"+myChar );//ƒpƒ‰ƒƒ^–¼{id
-   descPbk.putString( idPN, fVA[ix][0] );//ƒpƒ‰ƒƒ^–¼İ’è
-   var idPT = charIDToTypeID( "PTa"+myChar );//ƒpƒ‰ƒƒ^‚ÉŠÖ‚·‚é‰½‚©‚Ì¯•Êq+id
-   descPbk.putInteger( idPT, 0 );//®”‚Å‚O‚ğİ’è‚µ‚Ä‚¢‚é@‚Æ‚è‚ ‚¦‚¸ƒRƒs[
-   var idPF = charIDToTypeID( "PFa"+myChar );//ÀÛ‚É‚©‚¯‚½‚¢ƒpƒ‰ƒƒ^‚Ì¯•Êq
-   descPbk.putDouble( idPF, fVA[ix][1] );//“K—pƒpƒ‰ƒƒ^
+   var idPN = charIDToTypeID( "PNa"+myChar );//ãƒ‘ãƒ©ãƒ¡ã‚¿åï¼‹id
+   descPbk.putString( idPN, fVA[ix][0] );//ãƒ‘ãƒ©ãƒ¡ã‚¿åè¨­å®š
+   var idPT = charIDToTypeID( "PTa"+myChar );//ãƒ‘ãƒ©ãƒ¡ã‚¿ã«é–¢ã™ã‚‹ä½•ã‹ã®è­˜åˆ¥å­+id
+   descPbk.putInteger( idPT, 0 );//æ•´æ•°ã§ï¼ã‚’è¨­å®šã—ã¦ã„ã‚‹ã€€ã¨ã‚Šã‚ãˆãšã‚³ãƒ”ãƒ¼
+   var idPF = charIDToTypeID( "PFa"+myChar );//å®Ÿéš›ã«ã‹ã‘ãŸã„ãƒ‘ãƒ©ãƒ¡ã‚¿ã®è­˜åˆ¥å­
+   descPbk.putDouble( idPF, fVA[ix][1] );//é©ç”¨ãƒ‘ãƒ©ãƒ¡ã‚¿
  }
  executeAction( idPbPl, descPbk, DialogModes[dMode] );
 	}else{
-//ƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚È‚¢‚©–”‚Í¯•Êq‚ªˆê’v‚µ‚Ä‚¢‚È‚¢
+//ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã—ãªã„ã‹åˆã¯è­˜åˆ¥å­ãŒä¸€è‡´ã—ã¦ã„ãªã„
 alert("pixelBenderKernel not exists or wrong id");
 	}
 }
 // =======================================================
-//nasƒ‰ƒCƒuƒ‰ƒŠƒpƒX‚Ìæ“¾
+//nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ‘ã‚¹ã®å–å¾—
 if($.fileName){
-//	$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚ê‚Îg—p‚·‚é
+//	$.fileNameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚Œã°ä½¿ç”¨ã™ã‚‹
 	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
 }else{
-//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
 }
 //applyPbk(nasLibFolderPath+"PixelBenderKernel/SmartAA.pbk","SmartAA",[],myDialogModes);
@@ -126,7 +126,7 @@ applyPbk(nasLibFolderPath+"PixelBenderKernel/MLAA.pbg","MLAA",[],myDialogModes);
 
 
 }else{
-// =======================================================Smoother (OLM Smootherg—p)
+// =======================================================Smoother (OLM Smootherä½¿ç”¨)
 var idFltr = charIDToTypeID( "Fltr" );
     var desc10 = new ActionDescriptor();
     var idUsng = charIDToTypeID( "Usng" );

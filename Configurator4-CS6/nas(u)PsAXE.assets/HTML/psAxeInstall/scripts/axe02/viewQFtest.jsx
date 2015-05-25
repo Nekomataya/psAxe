@@ -1,20 +1,20 @@
 /*
-	‚˜‚‚“‚©‚çPsƒLƒ…[ƒtƒŒ[ƒ€—ñ‚ğ¶¬‚·‚éŠÖ”
+	ï½˜ï½ï½“ã‹ã‚‰Psã‚­ãƒ¥ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ åˆ—ã‚’ç”Ÿæˆã™ã‚‹é–¢æ•°
 	
 */
 
-var qFrames=new Array;//”z—ñƒRƒŒƒNƒVƒ‡ƒ“
-//ƒLƒ…[ƒtƒŒ[ƒ€ƒIƒuƒWƒFƒNƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
+var qFrames=new Array;//é…åˆ—ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
+//ã‚­ãƒ¥ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 QFrame=function(myIndex,myBody,myDuration)
 {
 	if(!(myBody instanceof Array)){myBody=[];}
 	if(! myDuration){myDuration=1;}
-//“ü—Í‚ğƒtƒBƒ‹ƒ^‚µ‚Ä‚¨‚­
-	this.index=myIndex;//ŠJnƒtƒŒ[ƒ€index
-	this.orderingBody=myBody;//•À‚Ñ”z—ñ
-	this.duration=myDuration;//Œp‘±ŠÔiƒtƒŒ[ƒ€”j
+//å…¥åŠ›ã‚’ãƒ•ã‚£ãƒ«ã‚¿ã—ã¦ãŠã
+	this.index=myIndex;//é–‹å§‹ãƒ•ãƒ¬ãƒ¼ãƒ index
+	this.orderingBody=myBody;//ä¸¦ã³é…åˆ—
+	this.duration=myDuration;//ç¶™ç¶šæ™‚é–“ï¼ˆãƒ•ãƒ¬ãƒ¼ãƒ æ•°ï¼‰
 	this.isSame=function (myTarget){
-		//ƒ^[ƒQƒbƒgƒIƒuƒWƒFƒNƒg‚Æbody”z—ñ‚ğ”äŠr‚·‚éƒƒ“ƒoŠÖ”
+		//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨bodyé…åˆ—ã‚’æ¯”è¼ƒã™ã‚‹ãƒ¡ãƒ³ãƒé–¢æ•°
 		if((myTarget instanceof QFrame)&&(myTarget.orderingBody.length==this.orderingBody.length))
 		{
 			
@@ -22,15 +22,15 @@ QFrame=function(myIndex,myBody,myDuration)
 for(var ix=0;ix<this.orderingBody.length;ix++){
 				if(this.orderingBody[ix]!=myTarget.orderingBody[ix]){return false;}
 			}
-			return true;//ƒ‹[ƒv‚ğÅŒã‚Ü‚Å”²‚¯‚é‚Ætrue
+			return true;//ãƒ«ãƒ¼ãƒ—ã‚’æœ€å¾Œã¾ã§æŠœã‘ã‚‹ã¨true
 		}else{
-			return null;//”äŠr—vŒ‚ğ–‚½‚µ‚Ä‚¢‚È‚¢‚Ì‚Ånull‚ğ•Ô‚·
+			return null;//æ¯”è¼ƒè¦ä»¶ã‚’æº€ãŸã—ã¦ã„ãªã„ã®ã§nullã‚’è¿”ã™
 		}
 	}
 }
 
-/*	ˆÈ‰ºQFrameƒIƒuƒWƒFƒNƒg‚Å•\¦‚ğ§Œä‚·‚éŠg’£ƒƒ\ƒbƒh
-QFrame ƒIƒuƒWƒFƒNƒg‚Ü‚½‚Í•\¦”z—ñ‚ğˆø”‚Å—^‚¦‚é
+/*	ä»¥ä¸‹QFrameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§è¡¨ç¤ºã‚’åˆ¶å¾¡ã™ã‚‹æ‹¡å¼µãƒ¡ã‚½ãƒƒãƒ‰
+QFrame ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¾ãŸã¯è¡¨ç¤ºé…åˆ—ã‚’å¼•æ•°ã§ä¸ãˆã‚‹
 
 */
 function _setView(params){
@@ -43,7 +43,7 @@ function _setView(params){
 		var elX=this.layers[mx-ix-1];
 		var qX=params[ix%params.length];
 		if(qX==0){
-			elX.visible=false;//ƒZƒbƒg‘S‘Ì‚ÅƒJƒ‰ˆ—
+			elX.visible=false;//ã‚»ãƒƒãƒˆå…¨ä½“ã§ã‚«ãƒ©å‡¦ç†
 			for(var qix=0;qix<elX.layers.length;qix++){elX.layers[qix].visible=false;}
 		}else{
 			elX.visible=true;
@@ -51,15 +51,15 @@ function _setView(params){
 			for(var qix=0;qix<qmx;qix++)
 			{
 				var lidx=qmx-qix-1;
-				elX.layers[lidx].visible=((qix+1)==qX)?true:false;//•\¦w’è‚ª‚ ‚ê‚Î•\¦
+				elX.layers[lidx].visible=((qix+1)==qX)?true:false;//è¡¨ç¤ºæŒ‡å®šãŒã‚ã‚Œã°è¡¨ç¤º
 			}
 		}
 	}
 }
-//ƒAƒNƒeƒBƒuƒhƒLƒ…ƒƒ“ƒg‚É‘Î‚µ‚ÄŠg’£@
+//ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã«å¯¾ã—ã¦æ‹¡å¼µã€€
 app.activeDocument.setView=_setView;
 
-//Œ±
+//è©¦é¨“
 var myQF=new QFrame(0,[1,2,3],1);
 app.activeDocument.setView(myQF);
 

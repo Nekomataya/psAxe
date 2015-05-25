@@ -1,10 +1,10 @@
 /*
-		Photoshop@ƒŒƒCƒ„‚Ï‚ç‚Ï‚ç
-	ƒAƒNƒeƒBƒuƒŒƒCƒ„‚Ì‚ ‚éƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚ðƒpƒ‰ƒpƒ‰‚·‚é‚æ
-	ŠÈˆÕƒAƒjƒƒ`ƒFƒbƒN‚É‚Ç‚¤‚¼BF“h‚è‚ÌƒpƒJ’T‚µ‚Æ‚©BŽwƒpƒ‰‚Ý‚½‚¢‚È‚à‚ñ‚Å‚·B
-	ŽžŠÔ§Œä‚·‚é‚Æ‚Ç‚¤‚à•\Ž¦‚ÌƒŠƒtƒŒƒbƒVƒ…‚ª•ÏHƒXƒCƒbƒ`§‚É‚·‚×‚«‚©H
-	’ˆÓ––‚ ‚Ü‚è’·ŽžŠÔŽg‚¤‚Æ‰æ–ÊƒŠƒtƒŒƒbƒVƒ…‚ªŽ~‚Ü‚éB‚µ‚å‚¤‚ª‚È‚¢‚¯‚Ç‚Ë@05/08
-	ƒŠƒtƒŒƒbƒVƒ…‚ðƒAƒjƒ‹@”\‚Éƒ‰ƒbƒv‚·‚é
+		Photoshopã€€ãƒ¬ã‚¤ãƒ¤ã±ã‚‰ã±ã‚‰
+	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã®ã‚ã‚‹ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‚’ãƒ‘ãƒ©ãƒ‘ãƒ©ã™ã‚‹ã‚ˆ
+	ç°¡æ˜“ã‚¢ãƒ‹ãƒ¡ãƒã‚§ãƒƒã‚¯ã«ã©ã†ãžã€‚è‰²å¡—ã‚Šã®ãƒ‘ã‚«æŽ¢ã—ã¨ã‹ã€‚æŒ‡ãƒ‘ãƒ©ã¿ãŸã„ãªã‚‚ã‚“ã§ã™ã€‚
+	æ™‚é–“åˆ¶å¾¡ã™ã‚‹ã¨ã©ã†ã‚‚è¡¨ç¤ºã®ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãŒå¤‰ï¼Ÿã‚¹ã‚¤ãƒƒãƒåˆ¶ã«ã™ã¹ãã‹ï¼Ÿ
+	æ³¨æ„ï¼Šï¼Šã‚ã¾ã‚Šé•·æ™‚é–“ä½¿ã†ã¨ç”»é¢ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãŒæ­¢ã¾ã‚‹ã€‚ã—ã‚‡ã†ãŒãªã„ã‘ã©ã­ã€€05/08
+	ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ã‚’ã‚¢ãƒ‹ãƒ¡æ©Ÿèƒ½ã«ãƒ©ãƒƒãƒ—ã™ã‚‹
 */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
 #target photoshop
@@ -12,58 +12,58 @@
 	app.bringToFront();
 
 	var exFlag=true;
-//‚»‚à‚»‚àƒhƒLƒ…ƒƒ“ƒg‚ª‚È‚¯‚ê‚ÎI—¹
+//ãã‚‚ãã‚‚ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒãªã‘ã‚Œã°çµ‚äº†
 	if(app.documents.length==0){
 		exFlag=false;
 	}else{
-//‹N“®Žž‚ÉƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚Ìó‘Ô‚ðŠm”F@ƒtƒŠƒbƒvƒAƒCƒeƒ€”‚ª1ˆÈ‰º‚È‚çI—¹
+//èµ·å‹•æ™‚ã«ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹ã‚’ç¢ºèªã€€ãƒ•ãƒªãƒƒãƒ—ã‚¢ã‚¤ãƒ†ãƒ æ•°ãŒ1ä»¥ä¸‹ãªã‚‰çµ‚äº†
 		if(activeDocument.activeLayer.parent.layers.length<=1){exFlag=false;};
 	}
 	if(exFlag){
-//ƒIƒvƒVƒ‡ƒ“‚Å”wŒiƒŒƒCƒ„‚ðƒpƒ‰ƒpƒ‰‚ÉŽG‚º‚é‚©”Û‚©‚ð’²®
-//Å‰º‘wƒŒƒCƒ„‚Å‚Í‚È‚­Au”wŒiƒŒƒCƒ„vŒÀ’è? l—¶’†
+//ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§èƒŒæ™¯ãƒ¬ã‚¤ãƒ¤ã‚’ãƒ‘ãƒ©ãƒ‘ãƒ©ã«é›‘ãœã‚‹ã‹å¦ã‹ã‚’èª¿æ•´
+//æœ€ä¸‹å±¤ãƒ¬ã‚¤ãƒ¤ã§ã¯ãªãã€ã€ŒèƒŒæ™¯ãƒ¬ã‚¤ãƒ¤ã€é™å®š? è€ƒæ…®ä¸­
 
-//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚Ýž‚Ý
+//Photoshopç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
 
 if($.fileName){
-//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é
+//	CS3ä»¥é™ã¯ã€€$.fileNameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚‹ã®ã§ãƒ­ã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒªãƒ¼ã«ã§ãã‚‹
 	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
 }else{
-//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ð‚«‚ß‚¤‚¿‚·‚é
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
 }
-var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚Ýž‚Ýƒ‰ƒCƒuƒ‰ƒŠ‚ðŠi”[‚·‚é”z—ñ
+var includeLibs=[nasLibFolderPath+"config.js"];//èª­ã¿è¾¼ã¿ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’æ ¼ç´ã™ã‚‹é…åˆ—
 
 if(! app.nas){
-//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ðì¬‚·‚é
+//iclude nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«å¿…è¦ãªåŸºç¤Žã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã™ã‚‹
 	var nas = new Object();
 		nas.Version=new Object();
 		nas.isAdobe=true;
 		nas.axe=new Object();
 		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p
-//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ð“o˜^‚µ‚ÄŽ–‘O‚É“Ç‚Ýž‚Þ
+//	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ­ãƒ¼ãƒ‰ã€€CS2-5ç”¨
+//==================== ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ç™»éŒ²ã—ã¦äº‹å‰ã«èª­ã¿è¾¼ã‚€
 /*
-	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ð‡ŽŸ“Ç‚Ýž‚ÞB
-	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)
-	$.evalFile ƒƒ\ƒbƒh‚ª‘¶Ý‚·‚éê‡‚Í‚»‚ê‚ðŽg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚Ýž‚Þ
+	includeLibsé…åˆ—ã«ç™»éŒ²ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’é †æ¬¡èª­ã¿è¾¼ã‚€ã€‚
+	ç™»éŒ²ã¯ãƒ‘ã‚¹ã§è¡Œã†ã€‚(Fileã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯ãªã„)
+	$.evalFile ãƒ¡ã‚½ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯ãã‚Œã‚’ä½¿ç”¨ã™ã‚‹ãŒCS2ä»¥å‰ã®ç’°å¢ƒã§ã¯global ã® evalé–¢æ•°ã§èª­ã¿è¾¼ã‚€
 
-@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚Ýž‚Ý‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj
-@config.js"		ˆê”ÊÝ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘žj‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍŽQÆ•s”\
-  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ
-  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ
-  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ
+ï¼ï¼ï¼ã€€ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒªã‚¹ãƒˆï¼ˆä»¥ä¸‹ã¯èª­ã¿è¾¼ã¿é †ä½ã«ä¸€å®šã®ä¾å­˜æ€§ãŒã‚ã‚‹ã®ã§æ³¨æ„ï¼‰
+ã€€config.js"		ä¸€èˆ¬è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤æ›¸è¾¼ï¼‰ã“ã®ãƒ«ãƒ¼ãƒãƒ³å¤–ã§ã¯å‚ç…§ä¸èƒ½
+  nas_common.js		AEãƒ»HTMLå…±ç”¨ä¸€èˆ¬ã‚¢ãƒ‹ãƒ¡ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_GUIlib.js		Adobeç’°å¢ƒå…±ç”¨GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_psAxeLib.js	PSç”¨ç’°å¢ƒãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_prefarenceLib.js	Adobeç’°å¢ƒå…±ç”¨ãƒ‡ãƒ¼ã‚¿ä¿å­˜ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 
-  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“ÁŽê)
-  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ
-  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ
-  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ
-  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j
-  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ
-  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ
-  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ
+  nasXpsStore.js	PSã»ã‹Adobeæ±Žç”¨XpsStoreãƒ©ã‚¤ãƒ–ãƒ©ãƒª(AEç”¨ã¯ç‰¹æ®Š)
+  xpsio.js		æ±Žç”¨Xpsãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  mapio.js		æ±Žç”¨Mapãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  lib_STS.js		Adobeç’°å¢ƒå…±ç”¨STSãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  dataio.js		Xpsã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå…¥å‡ºåŠ›ãƒ©ã‚¤ãƒ–ãƒ©ãƒªï¼ˆã‚³ãƒ³ãƒãƒ¼ã‚¿éƒ¨ï¼‰
+  fakeAE.js		ä¸­é–“ç’°å¢ƒãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  io.js			ã‚Šã¾ã´ã‚“å…¥å‡ºåŠ›ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  psAnimationFrameClass.js	PSç”¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ“ä½œãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  xpsQueue.js		PSç”¨Xps-FrameAnimationé€£æºãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 */
 includeLibs=[
 	nasLibFolderPath+"config.js",
@@ -72,7 +72,7 @@ includeLibs=[
 	nasLibFolderPath+"nas_psAxeLib.js",
 	nasLibFolderPath+"nas_prefarenceLib.js"
 ];
-//=====================================@Application Object‚ÉŽQÆ‚ð‚Â‚¯‚é
+//=====================================ã€€Application Objectã«å‚ç…§ã‚’ã¤ã‘ã‚‹
 	app.nas=nas;
 	bootFlag=true;
 }else{
@@ -81,8 +81,8 @@ includeLibs=[
 	bootFlag=false;
 };
 
-/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚Ýž‚Ý
-‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ðƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚Ýž‚Ý‚ðs‚¤
+/*	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+ã“ã“ã§å¿…è¦ãªãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ãƒªã‚¹ãƒˆã«åŠ ãˆã¦ã‹ã‚‰èª­ã¿è¾¼ã¿ã‚’è¡Œã†
 */
 
 includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
@@ -98,10 +98,10 @@ includeLibs.push(nasLibFolderPath+"xpsQueue.js");
 for(prop in includeLibs){
 	var myScriptFileName=includeLibs[prop];
 	if($.evalFile){
-	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎŽÀs‚·‚é
+	//$.evalFile ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ãŒã‚ã‚Œã°å®Ÿè¡Œã™ã‚‹
 		$.evalFile(myScriptFileName);
 	}else{
-	//$.evalFile ‚ª‘¶Ý‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ð“n‚·
+	//$.evalFile ãŒå­˜åœ¨ã—ãªã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯evalã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¸¡ã™
 		var scriptFile = new File(myScriptFileName);
 		if(scriptFile.exists){
 			scriptFile.open();
@@ -111,17 +111,17 @@ for(prop in includeLibs){
 		}
 	}
 }
-//=====================================•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ðŽæ“¾
+//=====================================ä¿å­˜ã—ã¦ã‚ã‚‹ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºæƒ…å ±ã‚’å–å¾—
 if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
 //=====================================
-//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p
+//+++++++++++++++++++++++++++++++++ã“ã“ã¾ã§å…±ç”¨
 
-/*------	nasˆê”Êƒƒ\ƒbƒhV‚µ‚¢‚â‚ÂŽb’èŽŽŒ±	------*/
-/*	nas.numInc([string ‹Œ”Ô†],step);
-	–ß‚è’l:V”Ô†
-ƒJƒbƒg”Å”Ô†‚ð•¶Žš—ñ‚Å—^‚¦‚ÄÅ‰‚ÉŒ»‚ê‚é”’l•”•ª‚ð1‘‰Á‚³‚¹‚ÄŒã’u•”•ª‚ðØ‚èŽÌ‚Ä‚Ä–ß‚·B
-”’l‚ðŠÜ‚Ü‚È‚¢•¶Žš—ñ‚ð—^‚¦‚é‚Æ‚»‚ê‚ð‘O’u•”•ª‚Æ‚µ‚Ä"001"‚ð•t‚¯‚Ä–ß‚·B
-ˆø”–³‚µ‚Ìê‡‚ÍŠJŽn”Ô†‚Ì"001"‚ð–ß‚·B
+/*------	nasä¸€èˆ¬ãƒ¡ã‚½ãƒƒãƒ‰æ–°ã—ã„ã‚„ã¤æš«å®šè©¦é¨“	------*/
+/*	nas.numInc([string æ—§ç•ªå·],step);
+	æˆ»ã‚Šå€¤:æ–°ç•ªå·
+ã‚«ãƒƒãƒˆç‰ˆç•ªå·ã‚’æ–‡å­—åˆ—ã§ä¸Žãˆã¦æœ€åˆã«ç¾ã‚Œã‚‹æ•°å€¤éƒ¨åˆ†ã‚’1å¢—åŠ ã•ã›ã¦å¾Œç½®éƒ¨åˆ†ã‚’åˆ‡ã‚Šæ¨ã¦ã¦æˆ»ã™ã€‚
+æ•°å€¤ã‚’å«ã¾ãªã„æ–‡å­—åˆ—ã‚’ä¸Žãˆã‚‹ã¨ãã‚Œã‚’å‰ç½®éƒ¨åˆ†ã¨ã—ã¦"001"ã‚’ä»˜ã‘ã¦æˆ»ã™ã€‚
+å¼•æ•°ç„¡ã—ã®å ´åˆã¯é–‹å§‹ç•ªå·ã®"001"ã‚’æˆ»ã™ã€‚
 */
 nas.numInc =function(oldNumber,myStep){
 
@@ -134,20 +134,20 @@ nas.numInc =function(oldNumber,myStep){
 	}else{
 		preFix=currentValue;numValue="001";postFix="";
 	}
-//Œ…‚ ‚í‚¹‚Ì•¶Žš”Žæ“¾
+//æ¡ã‚ã‚ã›ã®æ–‡å­—æ•°å–å¾—
 	var myOrder=numValue.length;
-//ƒ|ƒXƒgƒtƒBƒbƒNƒX‚ª‚ ‚éê‡‚ÍA–³ðŒ‚Å”pŠü
-//ƒvƒŒƒtƒBƒbƒNƒX‚Í–³ðŒ‚Å•ÛŽ
+//ãƒã‚¹ãƒˆãƒ•ã‚£ãƒƒã‚¯ã‚¹ãŒã‚ã‚‹å ´åˆã¯ã€ç„¡æ¡ä»¶ã§å»ƒæ£„
+//ãƒ—ãƒ¬ãƒ•ã‚£ãƒƒã‚¯ã‚¹ã¯ç„¡æ¡ä»¶ã§ä¿æŒ
 	return preFix+nas.Zf(numValue*1+myStep,myOrder);
 }
 
-//ƒAƒjƒƒEƒCƒ“ƒhƒE‘€ì@Œ»óŽæ“¾‚ª‚Å‚«‚È‚¢‚Ì‚Íƒwƒ{‚¢‚ª¡‚ÌƒgƒR‚ÍƒJƒ“ƒxƒ“
+//ã‚¢ãƒ‹ãƒ¡ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦æ“ä½œã€€ç¾çŠ¶å–å¾—ãŒã§ããªã„ã®ã¯ãƒ˜ãƒœã„ãŒä»Šã®ãƒˆã‚³ã¯ã‚«ãƒ³ãƒ™ãƒ³
 /*
-	•œ‹A‚Í•s—v‚ÅƒgƒŒ[ƒ‰[“à•”‚Ì•\Ž¦ó‘Ô‚¾‚¯ƒZƒbƒg‚·‚éƒXƒNƒŠƒvƒg‚ð‚Ü‚¸ì‚é
-	ƒtƒŒ[ƒ€‚Í‰Šú‰»I
+	å¾©å¸°ã¯ä¸è¦ã§ãƒˆãƒ¬ãƒ¼ãƒ©ãƒ¼å†…éƒ¨ã®è¡¨ç¤ºçŠ¶æ…‹ã ã‘ã‚»ãƒƒãƒˆã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ã¾ãšä½œã‚‹
+	ãƒ•ãƒ¬ãƒ¼ãƒ ã¯åˆæœŸåŒ–ï¼
 */
 setDly=function(myTime){
-// =======================================================ƒAƒjƒ[ƒVƒ‡ƒ“ƒEƒBƒ“ƒhƒE‚ÌÅ‰‚ÌƒtƒŒ[ƒ€‚Ì’x‰„‚ðÝ’è
+// =======================================================ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æœ€åˆã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®é…å»¶ã‚’è¨­å®š
 var idsetd = charIDToTypeID( "setd" );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -167,7 +167,7 @@ var idsetd = charIDToTypeID( "setd" );
 executeAction( idsetd, desc, DialogModes.NO );
 }
 dupulicateFrame=function(){
-// =======================================================ƒtƒŒ[ƒ€•¡»
+// =======================================================ãƒ•ãƒ¬ãƒ¼ãƒ è¤‡è£½
 var idDplc = charIDToTypeID( "Dplc" );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -180,7 +180,7 @@ var idDplc = charIDToTypeID( "Dplc" );
 executeAction( idDplc, desc, DialogModes.NO );
 }
 selectFrame=function(idx){
-// =======================================================ƒtƒŒ[ƒ€‘I‘ð(1/6)
+// =======================================================ãƒ•ãƒ¬ãƒ¼ãƒ é¸æŠž(1/6)
 var idslct = charIDToTypeID( "slct" );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -191,13 +191,13 @@ var idslct = charIDToTypeID( "slct" );
 var M=executeAction( idslct, desc, DialogModes.NO );
 }
 selectFramesAll=function(){
-// =======================================================ƒtƒŒ[ƒ€‘S‘I‘ð
+// =======================================================ãƒ•ãƒ¬ãƒ¼ãƒ å…¨é¸æŠž
 var idanimationSelectAll = stringIDToTypeID( "animationSelectAll" );
     var desc = new ActionDescriptor();
 executeAction( idanimationSelectAll, desc, DialogModes.NO );
 }
 removeSelection=function(){
-// =======================================================‘I‘ðƒtƒŒ[ƒ€íœ
+// =======================================================é¸æŠžãƒ•ãƒ¬ãƒ¼ãƒ å‰Šé™¤
 var idDlt = charIDToTypeID( "Dlt " );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -209,9 +209,9 @@ var idDlt = charIDToTypeID( "Dlt " );
     desc.putReference( idnull, ref );
 executeAction( idDlt, desc, DialogModes.NO );
 }
-//ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ðƒAƒNƒeƒBƒu‚É‚·‚éi³‹t‡‘—‚èjƒZƒŒƒNƒg‚ÆƒAƒNƒeƒBƒu‚ª•ÊŠT”O‚Ì‚æ‚¤‚È‚Ì‚Å’ˆÓ‚¾
+//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ï¼ˆæ­£é€†é †é€ã‚Šï¼‰ã‚»ãƒ¬ã‚¯ãƒˆã¨ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãŒåˆ¥æ¦‚å¿µã®ã‚ˆã†ãªã®ã§æ³¨æ„ã 
 activateFrame=function(kwd){
-//kwd = Nxt ,Prevs,Frst(Še‚SƒoƒCƒg)
+//kwd = Nxt ,Prevs,Frst(å„ï¼”ãƒã‚¤ãƒˆ)
 var idanimationFrameActivate = stringIDToTypeID( "animationFrameActivate" );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -238,8 +238,8 @@ var myEasyFlip=new Object();
 	myEasyFlip.backupView=new Array();
 
 	myEasyFlip.tableInit=function(){
-		//ƒe[ƒuƒ‹‚Ì‰Šú‰»
-		//ƒvƒŒƒCƒŠƒXƒgŽæ“¾”wŒiƒŒƒCƒ„‚ðƒIƒvƒVƒ‡ƒ“‚É]‚Á‚Ä”rœ
+		//ãƒ†ãƒ¼ãƒ–ãƒ«ã®åˆæœŸåŒ–
+		//ãƒ—ãƒ¬ã‚¤ãƒªã‚¹ãƒˆå–å¾—èƒŒæ™¯ãƒ¬ã‚¤ãƒ¤ã‚’ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã«å¾“ã£ã¦æŽ’é™¤
 		for(idx=0;idx<myEasyFlip.targetLayers.length;idx++){
 			if((myEasyFlip.bgFix)&&(idx==myEasyFlip.targetLayers.length-1)){
 				continue;
@@ -248,7 +248,7 @@ var myEasyFlip=new Object();
 			}
 		}
 		myEasyFlip.playList.active=myEasyFlip.playList.length-1;
-		//•\Ž¦ƒoƒbƒNƒAƒbƒv‚ðT‚¦‚é
+		//è¡¨ç¤ºãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‚’æŽ§ãˆã‚‹
 		for(idx=0;idx<myEasyFlip.targetLayers.length;idx++){
 			myEasyFlip.backupView.push(myEasyFlip.targetLayers[idx].visible);
 		}
@@ -258,23 +258,23 @@ var myEasyFlip=new Object();
 	myEasyFlip.tableInit();
 
 	myEasyFlip.viewRestore=function(){
-		//ƒAƒjƒƒEƒCƒ“ƒhƒE‚ð‰Šú‰»
-//		selectFramesAll();//‘S‘I‘ð
-//		removeSelection();//íœ
-		//•\Ž¦ó‘Ô‚ÆƒAƒNƒeƒBƒuƒŒƒCƒ„‚ð•œ‹A
+		//ã‚¢ãƒ‹ãƒ¡ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚’åˆæœŸåŒ–
+//		selectFramesAll();//å…¨é¸æŠž
+//		removeSelection();//å‰Šé™¤
+		//è¡¨ç¤ºçŠ¶æ…‹ã¨ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã‚’å¾©å¸°
 		for(idx=0;idx<this.backupView.length;idx++){
 			this.targetLayers[idx].visible=this.backupView[idx];
 		}
-		activeDocument.activeLayer=myEasyFlip.backupView.active;//‚±‚ê‚Í—v‚ç‚ñ‚©‚à
+		activeDocument.activeLayer=myEasyFlip.backupView.active;//ã“ã‚Œã¯è¦ã‚‰ã‚“ã‹ã‚‚
 	}
 
 	myEasyFlip.viewInit=function(){
-		//•\Ž¦‰Šú‰»
-		//ƒAƒjƒ[ƒVƒ‡ƒ“ƒe[ƒuƒ‹‰Šú‰»
-		//ƒAƒjƒƒEƒBƒ“ƒhƒE‚ð‰Šú‰»‚·‚é„—v‚·‚é‚É‘S‚ÄÁ‚·
-		dupulicateFrame();//ˆêŒÂ•¡»‚µ‚ÄÅ’á‚QŒÂ‚ÌƒtƒŒ[ƒ€‚É‚·‚éiƒGƒ‰[‰ñ”ðj
-		selectFramesAll();//‘S‘I‘ð
-		removeSelection();//íœ
+		//è¡¨ç¤ºåˆæœŸåŒ–
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ†ãƒ¼ãƒ–ãƒ«åˆæœŸåŒ–
+		//ã‚¢ãƒ‹ãƒ¡ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’åˆæœŸåŒ–ã™ã‚‹ï¼žè¦ã™ã‚‹ã«å…¨ã¦æ¶ˆã™
+		dupulicateFrame();//ä¸€å€‹è¤‡è£½ã—ã¦æœ€ä½Žï¼’å€‹ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã«ã™ã‚‹ï¼ˆã‚¨ãƒ©ãƒ¼å›žé¿ï¼‰
+		selectFramesAll();//å…¨é¸æŠž
+		removeSelection();//å‰Šé™¤
 //==============================================================
 		for(idx=0;idx<this.backupView.length;idx++){
 			if(!this.targetLayers[idx].visible){this.targetLayers[idx].visible=true}
@@ -282,24 +282,24 @@ var myEasyFlip=new Object();
 		for(idx=0;idx<this.playList.length;idx++){
 			if(this.targetLayers[this.playList[idx]].visible){this.targetLayers[this.playList[idx]].visible=false}
 		};//playList unvisible
-		this.targetLayers[this.playList[this.playList.length-1]].visible=true;//‘æˆêƒtƒŒ[ƒ€•\Ž¦
-		//‘æ“ñƒtƒŒ[ƒ€ˆÈ~‚ð•\Ž¦‚ðØ‚è‘Ö‚¦‚Â‚ÂƒAƒjƒƒtƒŒ[ƒ€‚É“o˜^
+		this.targetLayers[this.playList[this.playList.length-1]].visible=true;//ç¬¬ä¸€ãƒ•ãƒ¬ãƒ¼ãƒ è¡¨ç¤º
+		//ç¬¬äºŒãƒ•ãƒ¬ãƒ¼ãƒ ä»¥é™ã‚’è¡¨ç¤ºã‚’åˆ‡ã‚Šæ›¿ãˆã¤ã¤ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã«ç™»éŒ²
 		for(var idx=this.playList.length-1;idx>0;idx--){
-			dupulicateFrame();//ì‚éiƒtƒH[ƒJƒXˆÚ“®j
+			dupulicateFrame();//ä½œã‚‹ï¼ˆãƒ•ã‚©ãƒ¼ã‚«ã‚¹ç§»å‹•ï¼‰
 //			alert(this.playList[idx]);
 			this.targetLayers[this.playList[idx]].visible=false;
 			this.targetLayers[this.playList[idx-1]].visible=true;
 		}
-		//•\Ž¦I—¹”z’u‰Šú‰»
-		activateFrame ("Frst");//ÅŒã‚É‘æˆêƒtƒŒ[ƒ€‚ÉƒtƒH[ƒJƒX‚µ‚Ä‚¨‚­
-//		myEasyFlip.playList[0].visible=true;//‘æˆêƒtƒŒ[ƒ€•\Ž¦
+		//è¡¨ç¤ºçµ‚äº†é…ç½®åˆæœŸåŒ–
+		activateFrame ("Frst");//æœ€å¾Œã«ç¬¬ä¸€ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãƒ•ã‚©ãƒ¼ã‚«ã‚¹ã—ã¦ãŠã
+//		myEasyFlip.playList[0].visible=true;//ç¬¬ä¸€ãƒ•ãƒ¬ãƒ¼ãƒ è¡¨ç¤º
 		//setStart
 		this.playStatus="stop";
 		this.previewLayer=this.targetLayers[this.playList.active];
 		activeDocument.activeLayer=myEasyFlip.previewLayer;
-//		this.previewLayer.visible=true;//previewLayer‚ÍƒIƒuƒWƒFƒNƒg(ƒAƒNƒZƒXƒ^[ƒQƒbƒg)‚Å
+//		this.previewLayer.visible=true;//previewLayerã¯ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(ã‚¢ã‚¯ã‚»ã‚¹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ)ã§
 	}
-@
+ã€€
 	myEasyFlip.flip=function(WD){
 		var myOffset=(WD=="BWD")?-1:1;
 		if(myOffset==1){activateFrame("Nxt ")}else{activateFrame("Prvs")}
@@ -308,7 +308,7 @@ var myEasyFlip=new Object();
 		}
 //		this.previewLayer.visible=false;
 		if(this.onLoop){
-			this.playList.active=(this.playList.active+this.playList.length-myOffset)%this.playList.length;//ƒ‹[ƒv
+			this.playList.active=(this.playList.active+this.playList.length-myOffset)%this.playList.length;//ãƒ«ãƒ¼ãƒ—
 		}else{
 			this.playList.active=(this.playList.active>0)?this.playList.active-myOffset:0;//stop
 		}
@@ -322,14 +322,14 @@ var myEasyFlip=new Object();
 //		return "OK!";
 	}
 
-//‰Šú‰»
+//åˆæœŸåŒ–
 myEasyFlip.viewInit();
 
 
 if(false){
 		var startCount=new Date().getTime();
-		var breakRimit=startCount+10000;//10•b§ŒÀ
-		var nextCount=startCount+1000;//1•bŽŽŒ±
+		var breakRimit=startCount+10000;//10ç§’åˆ¶é™
+		var nextCount=startCount+1000;//1ç§’è©¦é¨“
 //alert("start"+startCount +" / "+nextCount)
 		while(true){
 			currentCount=new Date().getTime()
@@ -346,8 +346,8 @@ break;}
 		nextCount;
 	}
 
-//	GUI‰Šú‰»
-w=nas.GUI.newWindow("dialog","ƒŒƒCƒ„ƒŠƒl[ƒ€",5,5);
+//	GUIåˆæœŸåŒ–
+w=nas.GUI.newWindow("dialog","ãƒ¬ã‚¤ãƒ¤ãƒªãƒãƒ¼ãƒ ",5,5);
 w.onClose=function(){myEasyFlip.viewRestore();};
 w.onOpen=true;
 
@@ -358,12 +358,12 @@ w.bt2=nas.GUI.addButton(w,"[--]",1,2,1,1);
 w.namePad=nas.GUI.addEditText(w,myEasyFlip.previewLayer.name,1,1,4,1);
 
 w.btL0=nas.GUI.addSelectButton(w,["BG","BOOK","LO","Frame","A","B","C","D","E","F","G","H","I","J","K","L"],3,0,3,1.5,1);
-w.btL1=nas.GUI.addButton(w,"£",1.5,3,1,1);
+w.btL1=nas.GUI.addButton(w,"â–²",1.5,3,1,1);
 //w.btL2=nas.GUI.addButton(w,">>",2  ,3,0.7,1);
 
 
-w.bt3=nas.GUI.addButton(w,"¢goFWD¢",2.5,2,2.5,1);
-w.bt4=nas.GUI.addButton(w,"¥goBWD¥",2.5,3,2.5,1);
+w.bt3=nas.GUI.addButton(w,"â–³goFWDâ–³",2.5,2,2.5,1);
+w.bt4=nas.GUI.addButton(w,"â–¼goBWDâ–¼",2.5,3,2.5,1);
 w.bt5=nas.GUI.addButton(w,"close",2.5,4,2.5,1);
 w.bt6=nas.GUI.addButton(w,"label X",0,4,2.5,1);
 
@@ -410,7 +410,7 @@ w.bt5.onClick=function(){
 };
 
 w.bt6.onClick=function(){
-//@‘ÎÛƒgƒŒ[ƒ‰‚Ìƒ‰ƒxƒ‹‚ðŽ©“®XV
+//ã€€å¯¾è±¡ãƒˆãƒ¬ãƒ¼ãƒ©ã®ãƒ©ãƒ™ãƒ«ã‚’è‡ªå‹•æ›´æ–°
 	var myLabel=myEasyFlip.targetLayers[0].parent.name;
 	var startNumber=1;
 	var currentName=[myLabel,nas.Zf(startNumber,3)].join("-");
@@ -425,4 +425,4 @@ w.show();
 //w.watch("onOpen",function(){alert(w.onOpen);w.unwatch("onOpen");});
 
 //whle(true){}
-	}else{alert("‚È‚ñ‚¾‚©ƒpƒ^ƒpƒ^‚·‚é‚à‚Ì‚ª–³‚¢‚Ý‚½‚¢");}
+	}else{alert("ãªã‚“ã ã‹ãƒ‘ã‚¿ãƒ‘ã‚¿ã™ã‚‹ã‚‚ã®ãŒç„¡ã„ã¿ãŸã„");}

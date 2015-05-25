@@ -20,4 +20,5 @@ $._ext = {
         }
     }
 };
-
+alert($.fileName);
+$._ext.evalFiles("jsx");

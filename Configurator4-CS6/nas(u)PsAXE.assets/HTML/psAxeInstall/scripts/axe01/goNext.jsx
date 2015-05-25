@@ -1,51 +1,19 @@
 /*(goNext)
-	ƒAƒjƒƒtƒŒ[ƒ€‚ğŸ‚Öi‚ß‚é
-	ƒIƒvƒVƒ‡ƒ“‚ÅƒtƒH[ƒJƒX‚àˆÚ“®
+	ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ¬¡ã¸é€²ã‚ã‚‹
+	ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§ãƒ•ã‚©ãƒ¼ã‚«ã‚¹ã‚‚ç§»å‹•
+ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ãƒ¢ãƒ¼ãƒ‰å¯¾å¿œã€€ç§»å‹•ã‚’ãƒ’ã‚¹ãƒˆãƒªã«ç½®ã‹ãªã„ä»•æ§˜ã«å¤‰æ›´ 2015.05
  */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
-//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
-if($.fileName){
-//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
+//Photoshopç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿ CS6ä»¥é™ã€€å°å‹ç‰ˆ
+if(app.nas){
+	nas=app.nas;bootFlag=false;
 }else{
-//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é
-	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-}
-var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñ
-if(! app.nas){
-//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é
+var includeLibs=[];//èª­ã¿è¾¼ã¿ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’æ ¼ç´ã™ã‚‹é…åˆ—
 	var nas = new Object();
 		nas.Version=new Object();
 		nas.isAdobe=true;
 		nas.axe=new Object();
 		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p
-//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş
-/*
-	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB
-	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)
-	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş
-
-@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj
-@config.js"		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\
-  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ
-  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ
-  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ
-
-  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)
-  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ
-  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ
-  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ
-  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j
-  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ
-  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ
-  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ
-*/
+var nasLibFolderPath =  nas.baseLocation+"/lib/";
 includeLibs=[
 	nasLibFolderPath+"config.js",
 	nasLibFolderPath+"nas_common.js",
@@ -53,59 +21,26 @@ includeLibs=[
 	nasLibFolderPath+"nas_psAxeLib.js",
 	nasLibFolderPath+"nas_prefarenceLib.js"
 ];
-//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é
-	app.nas=nas;
-	bootFlag=true;
-}else{
-	//alert("object nas exists")
-	nas=app.nas;
-	bootFlag=false;
-};
 
-/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
-‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤
-*/
-	if(false){
-includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
-includeLibs.push(nasLibFolderPath+"xpsio.js");
-includeLibs.push(nasLibFolderPath+"mapio.js");
-includeLibs.push(nasLibFolderPath+"lib_STS.js");
-includeLibs.push(nasLibFolderPath+"dataio.js");
-includeLibs.push(nasLibFolderPath+"fakeAE.js");
-includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
-includeLibs.push(nasLibFolderPath+"xpsQueue.js");
-	}
 for(prop in includeLibs){
 	var myScriptFileName=includeLibs[prop];
-	if($.evalFile){
-	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é
+	//$.evalFile ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ã§å®Ÿè¡Œã™ã‚‹
 		$.evalFile(myScriptFileName);
-	}else{
-	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·
-		var scriptFile = new File(myScriptFileName);
-		if(scriptFile.exists){
-			scriptFile.open();
-			var myContent=scriptFile.read()
-			scriptFile.close();
-			eval(myContent);
-		}
-	}
 }
-//=====================================•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾
-if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
-//=====================================
-//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p
-
-var myUndoStr="ƒtƒŒ[ƒ€ˆÚ“®";
+//=====================================ä¿å­˜ã—ã¦ã‚ã‚‹ã‚«ã‚¹ã‚¿ãƒã‚¤ã‚ºæƒ…å ±ã‚’å–å¾—
+nas.readPrefarence("nas.axe");
+nas.readPrefarence("nas.FRATE");
+//=====================================startup
+//=====================================ã€€Application Objectã«å‚ç…§ã‚’ã¤ã‘ã‚‹
+	app.nas=nas;
+	bootFlag=true;
+ }
+//+++++++++++++++++++++++++++++++++ã“ã“ã¾ã§å…±ç”¨
 var myExcute="";
-//=============== ƒR[ƒh
-myExcute+="nas.axeAFC.goFrame(\"n\");";
-//=================================@Execute width Undo
-ErrStrs = {}; ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation"); try {
-	if(activeDocument.suspendHistory){
-		activeDocument.suspendHistory(myUndoStr,myExcute);
-	}else{
-		eval(myExcute)
-	}
-} catch(e){if (e.toString().indexOf(ErrStrs.USER_CANCELLED)!=-1) {;} else{alert(localize("$$$/ScriptingSupport/Error/CommandNotAvailable=The command is currently not available"));}}
+//=============== ã‚³ãƒ¼ãƒ‰
+if(app.nas.axeVTC.getDuration()){
+	myExcute+='nas.axeVTC.goFrame("n");';	
+}else{
+	myExcute+='nas.axeAFC.goFrame("n");';
+}
+eval(myExcute)

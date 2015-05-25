@@ -1,1 +1,280 @@
-// EPS Open Options://Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ// enable double clicking from the Macintosh Finder or the Windows Explorer#target photoshop// in case we double clicked the file	app.bringToFront();//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İif($.fileName){//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";}else{//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";}var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñif(! app.nas){//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é	var nas = new Object();		nas.Version=new Object();		nas.isAdobe=true;		nas.axe=new Object();		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş/*	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj@config.js"		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ*/includeLibs=[	nasLibFolderPath+"config.js",	nasLibFolderPath+"nas_common.js",	nasLibFolderPath+"nas_GUIlib.js",	nasLibFolderPath+"nas_psAxeLib.js",	nasLibFolderPath+"nas_prefarenceLib.js"];//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é	app.nas=nas;	bootFlag=true;}else{	//alert("object nas exists")	nas=app.nas;	bootFlag=false;};/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤*/	if(false){includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");includeLibs.push(nasLibFolderPath+"xpsio.js");includeLibs.push(nasLibFolderPath+"mapio.js");includeLibs.push(nasLibFolderPath+"lib_STS.js");includeLibs.push(nasLibFolderPath+"dataio.js");includeLibs.push(nasLibFolderPath+"fakeAE.js");includeLibs.push(nasLibFolderPath+"io.js");includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");includeLibs.push(nasLibFolderPath+"xpsQueue.js");	}for(prop in includeLibs){	var myScriptFileName=includeLibs[prop];	if($.evalFile){	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é		$.evalFile(myScriptFileName);	}else{	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·		var scriptFile = new File(myScriptFileName);		if(scriptFile.exists){			scriptFile.open();			var myContent=scriptFile.read()			scriptFile.close();			eval(myContent);		}	}}//===========•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾(ƒIƒuƒWƒFƒNƒg‚ªŠù‘¶‚Ìê‡‚ÍƒXƒLƒbƒv)if(bootFlag){nas.readPrefarence();nas.workTitles.select();}//=====================================//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p//ƒtƒŒ[ƒ€ƒZƒbƒg‚ÉƒŒƒWƒXƒ^‰æ‘œ‚ÆƒtƒŒ[ƒ€‚ğ“Ç‚İ‚İ(ƒtƒŒ[ƒ€ƒZƒbƒg‚ª‚È‚¢ê‡‚ÍƒXƒLƒbƒv)var myTargetSet=app.activeDocument;try{myTargetSet=app.activeDocument.layerSets["Frames"];}catch(err){;};var currentUnitBase=app.preferences.rulerUnits;//T‚¦‚éapp.preferences.rulerUnits=Units.MM;if(true){//ƒŒƒWƒXƒ^  var myPegFile=new File(nasLibFolderPath+"resource/Pegs/"+nas.registerMarks.selectedRecord[1]);  var myPegLayer=nas.axeAFC.placeEps(myPegFile);//‚±‚ÌŠÖ”‚ª‹ÈÒ  myPegLayer.name="peg";//ã‹L‚ÌŠÖ”‚ÌÀsŒã‚ÉÅ‰‚ÉDOM‘€ì‚µ‚½ƒIƒuƒWƒFƒNƒg‚Íæ‚èÁ‚µ‚ğó‚¯‚Ä‚¢‚é/*ƒŠƒl[ƒ€‚ğ‚µ‚È‚©‚Á‚½ê‡‚ÍƒŒƒCƒ„‚Ì“Ç‚İ‚İ©‘Ì‚ªUNDO‚³‚ê‚Ä“Ç‚İ‚ñ‚¾‚Í‚¸‚ÌƒŒƒCƒ„‚ª‘r¸‚µ‚ÄƒGƒ‰[‚ª”­¶‚·‚é*/  myPegLayer.translate("0 mm",-1*myPegLayer.bounds[1]);//ã•Ó‚Ö‚Í‚Á‚Â‚¯//100ƒtƒŒ[ƒ€˜g‚ğ“Ç‚İ‚İ  var myFrameFile=new File(nasLibFolderPath+"resource/Frames/"	+nas.inputMedias.selectedRecord[1]+"mm"	+nas.inputMedias.selectedRecord[2].replace(/\//,"x")	+".eps"  );  var  myFrameLayer=nas.axeAFC.placeEps(myFrameFile);//ƒ|ƒCƒ“ƒg//ƒtƒŒ[ƒ€”z’u@¡“ú‚ÍƒZƒ“ƒ^ƒŠƒ“ƒO‚Ì‚İ‚Å¶‰E‚ÍƒpƒX 20110820  var myOffset=(((myFrameLayer.bounds[3]-myFrameLayer.bounds[1])/2)+myFrameLayer.bounds[1]).as("mm")-nas.inputMedias.selectedRecord[7];  myFrameLayer.name="frame";//‚±‚Ì‘€ì‚ªæ‚èÁ‚µ‘ÎÛƒ_ƒ~[  myFrameLayer.translate(new UnitValue("0 mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm")-myOffset)+" mm"));//ƒ^ƒbƒv‚©‚ç‚Ì‹——£‚ğ//ƒŒƒCƒ„‚ÌƒvƒƒpƒeƒB’²»  if(nas.axe.frameOpc){myFrameLayer.opacity=20;};  if(nas.axe.pegBlend){myPegLayer.blendMode=BlendMode.DIFFERENCE;};//ƒtƒŒ[ƒ€Ši”[ƒŒƒCƒ„ƒZƒbƒg‚ª‚ ‚éê‡‚Ì‚İ‚»‚¿‚ç‚ÖˆÚ“®if(myTargetSet){    myFrameLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);    myPegLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);}  if(!bootFlag){    myPegLayer.name="peg";    myFrameLayer.name="frame";  }}else{//===========================================//ƒŒƒWƒXƒ^‰æ‘œ‚ğ“Ç‚İ‚ñ‚Å‰æ‘œã•Ó‚ÖˆÚ“®  var myPegFile=new File(nasLibFolderPath+"resource/Pegs/"+nas.registerMarks.selectedRecord[1]); var myPegLayer=nas.axeAFC.placeEps(myPegFile);myPegLayer.name="peg";myPegLayer.translate(new UnitValue("0 px"),-1*myPegLayer.bounds[1]);//ã•Ó‚Ö‚Í‚Á‚Â‚¯//ƒtƒŒ[ƒ€Ši”[ƒŒƒCƒ„ƒZƒbƒg‚ª‚ ‚éê‡‚Ì‚İ‚»‚¿‚ç‚ÖˆÚ“®var myTargetSet=app.activeDocument;try{myTargetSet=app.activeDocument.layerSets["Frames"];}catch(err){;};if(myTargetSet){  myPegLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);}    myPegLayer.name="peg";}//ƒ‹[ƒ‰[ƒ†ƒjƒbƒg•œ‹Aapp.preferences.rulerUnits=currentUnitBase;//•œ‹Aif(false){/*	ƒ^ƒbƒv‰æ‘œ‚ğ“Ç‚İ‚Şw’è‚³‚ê‚½ƒCƒ“ƒfƒbƒNƒX‚Ìƒ^ƒbƒv‰æ‘œ‚ğƒ‰ƒCƒuƒ‰ƒŠ‚©‚ç“Ç‚İ‚ñ‚ÅƒtƒŒ[ƒ€ƒtƒHƒ‹ƒ_‚É”z’u‚·‚éBƒ^[ƒQƒbƒg‚Ì‰ğ‘œ“x‚ğŠm”F‚µ‚Ä“¯‚¶‰ğ‘œ“x‚Åw’è‚³‚ê‚½ƒ^ƒbƒviƒŒƒWƒXƒ^j‰æ‘œ‚ğŠJ‚­B‰æ‘œƒTƒCƒY‚ªƒ^ƒbƒv‚É‘Î‚µ‚Ä¬‚³‚·‚¬‚éê‡A‚Ü‚½‚ÍŠg’£ƒIƒvƒVƒ‡ƒ“‚ª‚ ‚éê‡‚ÍƒhƒLƒ…ƒƒ“ƒg‚ğŠg’£‚·‚éPegƒvƒƒpƒeƒBPegType.NOPEGPegType.CORNERPegType.DOUBLEPOINTPegType.ACADEMYtype	0P,1P,2P,3PoffsetX	0mmoffsetY (frameHeight/2)+3cm (1in ?)rotation 0dparentFrame DrawingFrame0d:ãƒ^ƒbƒvA90d:‰E‰¡ƒ^ƒbƒvA180d:‰ºƒ^ƒbƒvA270d:¶‰¡ƒ^ƒbƒv@ƒ^ƒbƒv”z’u”’l‚Å Œv‰ñ‚èƒyƒO‚ÌƒvƒƒpƒeƒB‚ğ‚½‚¹‚È‚¢‚Æ³Šm‚È”z’u‚ª‚Å‚«‚È‚¢‚Ì‚Å’ˆÓ’£‚è‚İè‡‚ÍˆÈ‰º‚Ì‚Æ‚¨‚è‚ÅƒhƒLƒ…ƒƒ“ƒgî•ñæ“¾î•ñ‚ğˆê’v‚³‚¹‚Äƒeƒ“ƒvƒŒ[ƒgŠJ‚­ƒyƒO‚ÌƒvƒƒpƒeƒB‚É‡‚í‚¹‚Äƒeƒ“ƒvƒŒ[ƒg‰ñ“]”z’u‚ğŠ„‚èo‚µƒy[ƒXƒgŒã‚ÉˆÚ“®‚ª•K—v‚©”Û‚©”»’èƒy[ƒXƒg•K—v‚È‚çˆÚ“®iBITMAPjƒ‚[ƒh‚Å‚Í“\•t‚¯“_‚ÅŒ©Ø‚ê‚é‚Ì‚ÅƒpƒX‚µ‚Ä‚à—Ç‚¢H*//*function Pegbar(myParent,barType,myRotation,myOffset){	if(! myParent){myParent=new DrawingFrame};	if(! barType){barType=3};//ƒ^ƒCƒv‚O‚ª‚ ‚é‚Ì‚Å‚±‚ê‚Î‚æ‚­‚È‚¢	if(! myRotation){myRotation=newRotation};	if(! myOffset){myOffset=new Offset};	this.type=barType;	this.parent=myParent;	this.parent.pegbar=this;	this.rotation=myRotation;	this.offsetX=;	this.offsetY=;}var myPegbar=new Pegbar(3); //myPeg.rotation=0; //myPeg.offsetY=0*/var myTarget=app.activeDocument;var myTemplates=[	"peg2p1.eps",	"peg2p2.eps",	"peg2p3.eps",	"peg3p1.eps",	"peg3p2.eps",	"peg3p3.eps"]/*var epsOpts = new EPSOpenOptions();	epsOpts.antiAlias = true;	epsOpts.mode = eval("Open"+myTarget.mode.toString());// other modes - GRAYSCALE, LAB, or RGB	epsOpts.resolution = myTarget.resolution; // pixels per inch	epsOpts.constrainProportions = true;// if constrainProportions == true you can only set the width, but if you don't set both Photoshop will throw a missing value error	epsOpts.width = new UnitValue(1800, 'px' );	epsOpts.height =  new UnitValue(1800, 'px' );// height is ingored unless constrainProportions == false*///«‚±‚ñ‚È•—‚Ég‚¤‚ç‚µ‚¢@‚È‚é‚Ù‚Çif (myTarget.mode==DocumentMode.BITMAP){	var myFile=new File(nasLibFolderPath+"resource/Pegs/peg3p.eps");	var myOpt=new EPSOpenOptions();	myOpt.mode = OpenDocumentMode.GRAYSCALE;	myOpt.resolution=myTarget.resolution;	myOpt.antiAlias=false;}else{	var myFile=new File(nasLibFolderPath+"resource/Pegs/peg3p.eps");	var myOpt=new EPSOpenOptions();	myOpt.mode = eval("Open"+myTarget.mode.toString());	myOpt.resolution=myTarget.resolution;	myOpt.antiAlias=true;}var tempDoc=app.open(myFile,myOpt);var pegBounds=tempDoc.artLayers[0].bounds;//ƒoƒEƒ“ƒX‚ğæ“¾//ƒ^[ƒQƒbƒg‚Æƒeƒ“ƒvƒŒ[ƒg‚ÌƒTƒCƒY·‚ğæ“¾i‚Æ‚è‚ ‚¦‚¸‰¡‚¾‚¯jvar myShift=Math.floor((myTarget.width.as("px")-tempDoc.width.as("px"))/2);var mySelectRegion=[[pegBounds[0].as("px")+myShift,pegBounds[1].as("px")],[pegBounds[2].as("px")+myShift,pegBounds[1].as("px")],[pegBounds[2].as("px")+myShift,pegBounds[3].as("px")],[pegBounds[0].as("px")+myShift,pegBounds[3].as("px")]];//‘I‘ğƒŠƒWƒ‡ƒ“‚ğƒhƒLƒ…ƒƒ“ƒg’†‰›‚É‚·‚é//var myCenter=[Math.floor(myTarget.width.as("px")/2),Math.floor(myTarget.height.as("px")/2)];//var mySelectRegion=[add(myCenter,[-100,-100]),add(myCenter,[-100,100]),add(myCenter,[100,100]),add(myCenter,[100,-100])];tempDoc.layers[0].copy();//ƒNƒŠƒbƒvƒ{[ƒh‚Ö“]‘—tempDoc.close(SaveOptions.DONOTSAVECHANGES);//•Û‘¶‚¹‚¸‚ÉƒNƒ[ƒX	myTarget.selection.select(mySelectRegion,SelectionType.REPLACE);//ƒŠƒWƒ‡ƒ“‚ğ‘I‘ğ@ƒhƒLƒ…ƒƒ“ƒg’PˆÊ‚Å¶’[‚ªƒ}ƒbƒ`//	myTarget.selection.select([[200,0],[500,0],[500,100],[200,100]],SelectionType.INTERSECT);//ƒŠƒWƒ‡ƒ“‚ğ‘I‘ğ@ƒhƒLƒ…ƒƒ“ƒg’PˆÊ‚Å¶’[‚ªƒ}ƒbƒ`var myPegLayer=myTarget.paste();//ƒ^[ƒQƒbƒgƒmÅãˆÊ‚É“\‚è•t‚¯ myPegLayer.name="peg";	myTarget.selection.select(mySelectRegion,SelectionType.REPLACE);//ƒŠƒWƒ‡ƒ“‚ğ‘I‘ğ@ƒhƒLƒ…ƒƒ“ƒg’PˆÊ‚Å¶’[‚ªƒ}ƒbƒ`}
+// EPS Open Options:
+//Photoshopç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+// enable double clicking from the Macintosh Finder or the Windows Explorer
+#target photoshop
+// in case we double clicked the file
+	app.bringToFront();
+
+//Photoshopç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+
+if($.fileName){
+//	CS3ä»¥é™ã¯ã€€$.fileNameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚‹ã®ã§ãƒ­ã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒªãƒ¼ã«ã§ãã‚‹
+	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
+}else{
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
+	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
+}
+var includeLibs=[nasLibFolderPath+"config.js"];//èª­ã¿è¾¼ã¿ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’æ ¼ç´ã™ã‚‹é…åˆ—
+
+if(! app.nas){
+//iclude nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«å¿…è¦ãªåŸºç¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã™ã‚‹
+	var nas = new Object();
+		nas.Version=new Object();
+		nas.isAdobe=true;
+		nas.axe=new Object();
+		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
+//	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ­ãƒ¼ãƒ‰ã€€CS2-5ç”¨
+//==================== ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ç™»éŒ²ã—ã¦äº‹å‰ã«èª­ã¿è¾¼ã‚€
+/*
+	includeLibsé…åˆ—ã«ç™»éŒ²ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’é †æ¬¡èª­ã¿è¾¼ã‚€ã€‚
+	ç™»éŒ²ã¯ãƒ‘ã‚¹ã§è¡Œã†ã€‚(Fileã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯ãªã„)
+	$.evalFile ãƒ¡ã‚½ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯ãã‚Œã‚’ä½¿ç”¨ã™ã‚‹ãŒCS2ä»¥å‰ã®ç’°å¢ƒã§ã¯global ã® evalé–¢æ•°ã§èª­ã¿è¾¼ã‚€
+
+ï¼ï¼ï¼ã€€ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒªã‚¹ãƒˆï¼ˆä»¥ä¸‹ã¯èª­ã¿è¾¼ã¿é †ä½ã«ä¸€å®šã®ä¾å­˜æ€§ãŒã‚ã‚‹ã®ã§æ³¨æ„ï¼‰
+ã€€config.js"		ä¸€èˆ¬è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤æ›¸è¾¼ï¼‰ã“ã®ãƒ«ãƒ¼ãƒãƒ³å¤–ã§ã¯å‚ç…§ä¸èƒ½
+  nas_common.js		AEãƒ»HTMLå…±ç”¨ä¸€èˆ¬ã‚¢ãƒ‹ãƒ¡ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_GUIlib.js		Adobeç’°å¢ƒå…±ç”¨GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_psAxeLib.js	PSç”¨ç’°å¢ƒãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_prefarenceLib.js	Adobeç’°å¢ƒå…±ç”¨ãƒ‡ãƒ¼ã‚¿ä¿å­˜ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+
+  nasXpsStore.js	PSã»ã‹Adobeæ±ç”¨XpsStoreãƒ©ã‚¤ãƒ–ãƒ©ãƒª(AEç”¨ã¯ç‰¹æ®Š)
+  xpsio.js		æ±ç”¨Xpsãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  mapio.js		æ±ç”¨Mapãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  lib_STS.js		Adobeç’°å¢ƒå…±ç”¨STSãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  dataio.js		Xpsã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå…¥å‡ºåŠ›ãƒ©ã‚¤ãƒ–ãƒ©ãƒªï¼ˆã‚³ãƒ³ãƒãƒ¼ã‚¿éƒ¨ï¼‰
+  fakeAE.js		ä¸­é–“ç’°å¢ƒãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  io.js			ã‚Šã¾ã´ã‚“å…¥å‡ºåŠ›ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  psAnimationFrameClass.js	PSç”¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ“ä½œãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  xpsQueue.js		PSç”¨Xps-FrameAnimationé€£æºãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+*/
+includeLibs=[
+	nasLibFolderPath+"config.js",
+	nasLibFolderPath+"nas_common.js",
+	nasLibFolderPath+"nas_GUIlib.js",
+	nasLibFolderPath+"nas_psAxeLib.js",
+	nasLibFolderPath+"nas_prefarenceLib.js"
+];
+//=====================================ã€€Application Objectã«å‚ç…§ã‚’ã¤ã‘ã‚‹
+	app.nas=nas;
+	bootFlag=true;
+}else{
+	//alert("object nas exists")
+	nas=app.nas;
+	bootFlag=false;
+};
+
+/*	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+ã“ã“ã§å¿…è¦ãªãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ãƒªã‚¹ãƒˆã«åŠ ãˆã¦ã‹ã‚‰èª­ã¿è¾¼ã¿ã‚’è¡Œã†
+*/
+	if(false){
+includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
+includeLibs.push(nasLibFolderPath+"xpsio.js");
+includeLibs.push(nasLibFolderPath+"mapio.js");
+includeLibs.push(nasLibFolderPath+"lib_STS.js");
+includeLibs.push(nasLibFolderPath+"dataio.js");
+includeLibs.push(nasLibFolderPath+"fakeAE.js");
+includeLibs.push(nasLibFolderPath+"io.js");
+includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
+includeLibs.push(nasLibFolderPath+"xpsQueue.js");
+	}
+for(prop in includeLibs){
+	var myScriptFileName=includeLibs[prop];
+	if($.evalFile){
+	//$.evalFile ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ãŒã‚ã‚Œã°å®Ÿè¡Œã™ã‚‹
+		$.evalFile(myScriptFileName);
+	}else{
+	//$.evalFile ãŒå­˜åœ¨ã—ãªã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯evalã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¸¡ã™
+		var scriptFile = new File(myScriptFileName);
+		if(scriptFile.exists){
+			scriptFile.open();
+			var myContent=scriptFile.read()
+			scriptFile.close();
+			eval(myContent);
+		}
+	}
+}
+//===========ä¿å­˜ã—ã¦ã‚ã‚‹ã‚«ã‚¹ã‚¿ãƒã‚¤ã‚ºæƒ…å ±ã‚’å–å¾—(ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæ—¢å­˜ã®å ´åˆã¯ã‚¹ã‚­ãƒƒãƒ—)
+if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
+//=====================================
+//+++++++++++++++++++++++++++++++++ã“ã“ã¾ã§å…±ç”¨
+//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆã«ãƒ¬ã‚¸ã‚¹ã‚¿ç”»åƒã¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’èª­ã¿è¾¼ã¿(ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆãŒãªã„å ´åˆã¯ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã®ãƒ«ãƒ¼ãƒˆãƒˆãƒ¬ãƒ¼ãƒ©ãƒ¼ã«ã‚»ãƒƒãƒˆ)
+
+var myTargetSet=app.activeDocument;
+
+try{myTargetSet=app.activeDocument.layerSets["Frames"];}catch(err){;};
+var currentUnitBase=app.preferences.rulerUnits;//æ§ãˆã‚‹
+var currentActiveLayer=app.activeDocument.activeLayer ;//æ§ãˆã‚‹
+app.preferences.rulerUnits=Units.MM;
+
+if(true){
+//ãƒ¬ã‚¸ã‚¹ã‚¿
+  var myPegFile=new File(nasLibFolderPath+"resource/Pegs/"+nas.registerMarks.selectedRecord[1]);
+  var myPegLayer=nas.axeAFC.placeEps(myPegFile);//ã“ã®é–¢æ•°ãŒæ›²è€…
+  myPegLayer.name="peg";//ä¸Šè¨˜ã®é–¢æ•°ã®å®Ÿè¡Œå¾Œã«æœ€åˆã«DOMæ“ä½œã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯å–ã‚Šæ¶ˆã—ã‚’å—ã‘ã¦ã„ã‚‹
+/*ãƒªãƒãƒ¼ãƒ ã‚’ã—ãªã‹ã£ãŸå ´åˆã¯ãƒ¬ã‚¤ãƒ¤ã®èª­ã¿è¾¼ã¿è‡ªä½“ãŒUNDOã•ã‚Œã¦èª­ã¿è¾¼ã‚“ã ã¯ãšã®ãƒ¬ã‚¤ãƒ¤ãŒå–ªå¤±ã—ã¦ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã™ã‚‹*/
+  myPegLayer.translate("0 mm",-1*myPegLayer.bounds[1]);//ä¸Šè¾ºã¸ã¯ã£ã¤ã‘
+//100ãƒ•ãƒ¬ãƒ¼ãƒ æ ã‚’èª­ã¿è¾¼ã¿
+  var myFrameFile=new File(nasLibFolderPath+"resource/Frames/"
+	+nas.inputMedias.selectedRecord[1]+"mm"
+	+nas.inputMedias.selectedRecord[2].replace(/\//,"x")
+	+".eps"
+  );
+//ã‚»ãƒƒãƒˆ
+  var  myFrameLayer=nas.axeAFC.placeEps(myFrameFile);//ãƒã‚¤ãƒ³ãƒˆ
+//ãƒ•ãƒ¬ãƒ¼ãƒ é…ç½®ã€€ä»Šæ—¥ã¯ã‚»ãƒ³ã‚¿ãƒªãƒ³ã‚°ã®ã¿ã§å·¦å³ã¯ãƒ‘ã‚¹ 20110820
+  var myOffset=(((myFrameLayer.bounds[3]-myFrameLayer.bounds[1])/2)+myFrameLayer.bounds[1]).as("mm")-nas.inputMedias.selectedRecord[7];
+  myFrameLayer.name="frame";//ã“ã®æ“ä½œãŒå–ã‚Šæ¶ˆã—å¯¾è±¡ãƒ€ãƒŸãƒ¼
+  myFrameLayer.translate(new UnitValue("0 mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm")-myOffset)+" mm"));//ã‚¿ãƒƒãƒ—ã‹ã‚‰ã®è·é›¢ã‚’
+//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãƒãƒ£ãƒ¼ãƒˆã¯ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§å–ã‚Šè¾¼ã¿
+if(false){
+//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãƒãƒ£ãƒ¼ãƒˆã‚’é¸å®š
+//11in 14in 16in ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆå¹…ã‚ˆã‚Šã‚‚å°ã•ããã®ä¸­ã§æœ€ã‚‚å¤§ããªã‚‚ã®ã‚’é¸å®š
+var docWidth=Math.floor(app.activeDocument.width.as("in"));
+var myWidth=11;
+for(var w =0;w<2;w++){if([16,14][w]<=docWidth){myWidth=[16,14][w];break;}};
+//alert(nasLibFolderPath+"resorce/FieldCharts/fieldChart"+myWidth.toString()+"F.eps");
+ var myFieldChart=new File(nasLibFolderPath+"resource/FieldCharts/fieldChart"+myWidth.toString()+"F.eps");
+//ã‚»ãƒƒãƒˆ
+  var  myFieldChartLayer=nas.axeAFC.placeEps(myFieldChart);//ãƒã‚¤ãƒ³ãƒˆ
+//ãƒ•ãƒ¬ãƒ¼ãƒ é…ç½®ã€€ä»Šæ—¥ã¯ã‚»ãƒ³ã‚¿ãƒªãƒ³ã‚°ã®ã¿ã§å·¦å³ã¯ãƒ‘ã‚¹ 20110820
+  myFieldChartLayer.name="fieldCart";//ã“ã®æ“ä½œãŒå–ã‚Šæ¶ˆã—å¯¾è±¡ãƒ€ãƒŸãƒ¼
+  myFieldChartLayer.translate(new UnitValue("0 mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm")-myOffset)+" mm"));//ã‚¿ãƒƒãƒ—ã‹ã‚‰ã®è·é›¢ã‚’è¨­å®š
+}
+
+//ãƒ¬ã‚¤ãƒ¤ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£èª¿è£½
+  if(nas.axe.frameOpc){myFrameLayer.opacity=20;};
+  if(nas.axe.pegBlend){myPegLayer.blendMode=BlendMode.DIFFERENCE;};
+  if(nas.axe.withFldCht){myFieldChartLayer.blendMode=BlendMode.DIFFERENCE;};
+//ãƒ•ãƒ¬ãƒ¼ãƒ æ ¼ç´ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆãŒã‚ã‚‹å ´åˆã®ã¿ãã¡ã‚‰ã¸ç§»å‹•
+if(myTargetSet){
+    myFrameLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);
+//    myFieldChartLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);
+    myPegLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);
+}
+  if(!bootFlag){
+    myPegLayer.name="peg";
+    myFrameLayer.name="frame";
+//    myFieldChartLayer.name="fieldCart";
+  }
+}else{
+//===========================================
+//ãƒ¬ã‚¸ã‚¹ã‚¿ç”»åƒã‚’èª­ã¿è¾¼ã‚“ã§ç”»åƒä¸Šè¾ºã¸ç§»å‹•
+  var myPegFile=new File(nasLibFolderPath+"resource/Pegs/"+nas.registerMarks.selectedRecord[1]);
+
+ var myPegLayer=nas.axeAFC.placeEps(myPegFile);
+myPegLayer.name="peg";
+myPegLayer.translate(new UnitValue("0 px"),-1*myPegLayer.bounds[1]);//ä¸Šè¾ºã¸ã¯ã£ã¤ã‘
+
+
+//ãƒ•ãƒ¬ãƒ¼ãƒ æ ¼ç´ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆãŒã‚ã‚‹å ´åˆã®ã¿ãã¡ã‚‰ã¸ç§»å‹•
+var myTargetSet=app.activeDocument;
+
+try{myTargetSet=app.activeDocument.layerSets["Frames"];}catch(err){;};
+if(myTargetSet){
+  myPegLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);
+}
+    myPegLayer.name="peg";
+}
+//ãƒ«ãƒ¼ãƒ©ãƒ¼ãƒ¦ãƒ‹ãƒƒãƒˆ
+app.preferences.rulerUnits=currentUnitBase;//å¾©å¸°
+//ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤
+app.activeDocument.activeLayer=currentActiveLayer;//å¾©å¸°
+if(false){
+/*
+	ã‚¿ãƒƒãƒ—ç”»åƒã‚’èª­ã¿è¾¼ã‚€
+æŒ‡å®šã•ã‚ŒãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ã‚¿ãƒƒãƒ—ç”»åƒã‚’ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‹ã‚‰èª­ã¿è¾¼ã‚“ã§ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ•ã‚©ãƒ«ãƒ€ã«é…ç½®ã™ã‚‹ã€‚
+ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è§£åƒåº¦ã‚’ç¢ºèªã—ã¦åŒã˜è§£åƒåº¦ã§æŒ‡å®šã•ã‚ŒãŸã‚¿ãƒƒãƒ—ï¼ˆãƒ¬ã‚¸ã‚¹ã‚¿ï¼‰ç”»åƒã‚’é–‹ãã€‚
+
+ç”»åƒã‚µã‚¤ã‚ºãŒã‚¿ãƒƒãƒ—ã«å¯¾ã—ã¦å°ã•ã™ãã‚‹å ´åˆã€ã¾ãŸã¯æ‹¡å¼µã‚ªãƒ—ã‚·ãƒ§ãƒ³ãŒã‚ã‚‹å ´åˆã¯ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’æ‹¡å¼µã™ã‚‹
+Pegãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
+PegType.NOPEG
+PegType.CORNER
+PegType.DOUBLEPOINT
+PegType.ACADEMY
+type	0P,1P,2P,3P
+offsetX	0mm
+offsetY (frameHeight/2)+3cm (1in ?)
+rotation 0d
+parentFrame DrawingFrame
+0d:ä¸Šã‚¿ãƒƒãƒ—ã€90d:å³æ¨ªã‚¿ãƒƒãƒ—ã€180d:ä¸‹ã‚¿ãƒƒãƒ—ã€270d:å·¦æ¨ªã‚¿ãƒƒãƒ—ã€€ã‚¿ãƒƒãƒ—é…ç½®ï¼æ•°å€¤ã§ æ™‚è¨ˆå›ã‚Š
+ãƒšã‚°ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’æŒãŸã›ãªã„ã¨æ­£ç¢ºãªé…ç½®ãŒã§ããªã„ã®ã§æ³¨æ„
+
+å¼µã‚Šè¾¼ã¿æ‰‹é †ã¯ä»¥ä¸‹ã®ã¨ãŠã‚Šã§
+ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆæƒ…å ±å–å¾—
+æƒ…å ±ã‚’ä¸€è‡´ã•ã›ã¦ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–‹ã
+ãƒšã‚°ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«åˆã‚ã›ã¦ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå›è»¢
+é…ç½®ã‚’å‰²ã‚Šå‡ºã—
+ãƒšãƒ¼ã‚¹ãƒˆå¾Œã«ç§»å‹•ãŒå¿…è¦ã‹å¦ã‹åˆ¤å®š
+ãƒšãƒ¼ã‚¹ãƒˆ
+å¿…è¦ãªã‚‰ç§»å‹•ï¼ˆBITMAPï¼‰ãƒ¢ãƒ¼ãƒ‰ã§ã¯è²¼ä»˜ã‘æ™‚ç‚¹ã§è¦‹åˆ‡ã‚Œã‚‹ã®ã§ãƒ‘ã‚¹ã—ã¦ã‚‚è‰¯ã„ï¼Ÿ
+*/
+/*
+function Pegbar(myParent,barType,myRotation,myOffset){
+	if(! myParent){myParent=new DrawingFrame};
+	if(! barType){barType=3};//ã‚¿ã‚¤ãƒ—ï¼ãŒã‚ã‚‹ã®ã§ã“ã‚Œã°ã‚ˆããªã„
+	if(! myRotation){myRotation=newRotation};
+	if(! myOffset){myOffset=new Offset};
+	this.type=barType;
+	this.parent=myParent;
+	this.parent.pegbar=this;
+	this.rotation=myRotation;
+	this.offsetX=;
+	this.offsetY=;
+}
+var myPegbar=new Pegbar(3);
+ //myPeg.rotation=0;
+ //myPeg.offsetY=0
+*/
+var myTarget=app.activeDocument;
+var myTemplates=[
+	"peg2p1.eps",
+	"peg2p2.eps",
+	"peg2p3.eps",
+	"peg3p1.eps",
+	"peg3p2.eps",
+	"peg3p3.eps"
+]
+/*
+var epsOpts = new EPSOpenOptions();
+	epsOpts.antiAlias = true;
+	epsOpts.mode = eval("Open"+myTarget.mode.toString());
+// other modes - GRAYSCALE, LAB, or RGB
+	epsOpts.resolution = myTarget.resolution; // pixels per inch
+	epsOpts.constrainProportions = true;
+// if constrainProportions == true you can only set the width, but if you don't set both Photoshop will throw a missing value error
+	epsOpts.width = new UnitValue(1800, 'px' );
+	epsOpts.height =  new UnitValue(1800, 'px' );
+// height is ingored unless constrainProportions == false
+*/
+//â†“ã“ã‚“ãªé¢¨ã«ä½¿ã†ã‚‰ã—ã„ã€€ãªã‚‹ã»ã©
+if (myTarget.mode==DocumentMode.BITMAP){
+	var myFile=new File(nasLibFolderPath+"resource/Pegs/peg3p.eps");
+	var myOpt=new EPSOpenOptions();
+	myOpt.mode = OpenDocumentMode.GRAYSCALE;
+	myOpt.resolution=myTarget.resolution;
+	myOpt.antiAlias=false;
+}else{
+	var myFile=new File(nasLibFolderPath+"resource/Pegs/peg3p.eps");
+	var myOpt=new EPSOpenOptions();
+	myOpt.mode = eval("Open"+myTarget.mode.toString());
+	myOpt.resolution=myTarget.resolution;
+	myOpt.antiAlias=true;
+}
+var tempDoc=app.open(myFile,myOpt);
+
+var pegBounds=tempDoc.artLayers[0].bounds;//ãƒã‚¦ãƒ³ã‚¹ã‚’å–å¾—
+//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®ã‚µã‚¤ã‚ºå·®ã‚’å–å¾—ï¼ˆã¨ã‚Šã‚ãˆãšæ¨ªã ã‘ï¼‰
+var myShift=Math.floor((myTarget.width.as("px")-tempDoc.width.as("px"))/2);
+var mySelectRegion=[[pegBounds[0].as("px")+myShift,pegBounds[1].as("px")],[pegBounds[2].as("px")+myShift,pegBounds[1].as("px")],[pegBounds[2].as("px")+myShift,pegBounds[3].as("px")],[pegBounds[0].as("px")+myShift,pegBounds[3].as("px")]];
+//é¸æŠãƒªã‚¸ãƒ§ãƒ³ã‚’ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆä¸­å¤®ã«ã™ã‚‹
+//var myCenter=[Math.floor(myTarget.width.as("px")/2),Math.floor(myTarget.height.as("px")/2)];
+//var mySelectRegion=[add(myCenter,[-100,-100]),add(myCenter,[-100,100]),add(myCenter,[100,100]),add(myCenter,[100,-100])];
+tempDoc.layers[0].copy();//ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã¸è»¢é€
+tempDoc.close(SaveOptions.DONOTSAVECHANGES);//ä¿å­˜ã›ãšã«ã‚¯ãƒ­ãƒ¼ã‚¹
+	myTarget.selection.select(mySelectRegion,SelectionType.REPLACE);//ãƒªã‚¸ãƒ§ãƒ³ã‚’é¸æŠã€€ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆå˜ä½ã§å·¦ç«¯ãŒãƒãƒƒãƒ
+//	myTarget.selection.select([[200,0],[500,0],[500,100],[200,100]],SelectionType.INTERSECT);//ãƒªã‚¸ãƒ§ãƒ³ã‚’é¸æŠã€€ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆå˜ä½ã§å·¦ç«¯ãŒãƒãƒƒãƒ
+var myPegLayer=myTarget.paste();//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒæœ€ä¸Šä½ã«è²¼ã‚Šä»˜ã‘
+ myPegLayer.name="peg";
+
+	myTarget.selection.select(mySelectRegion,SelectionType.REPLACE);//ãƒªã‚¸ãƒ§ãƒ³ã‚’é¸æŠã€€ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆå˜ä½ã§å·¦ç«¯ãŒãƒãƒƒãƒ
+}

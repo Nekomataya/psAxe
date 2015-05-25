@@ -1,5 +1,5 @@
 /*
-	ƒŒƒCƒ„ƒgƒŒ[ƒ‰[“à‚ÌƒŒƒCƒ„‚ð‹t‡(‰º‚©‚ç‡)‚Åƒ\[ƒg
+	ãƒ¬ã‚¤ãƒ¤ãƒˆãƒ¬ãƒ¼ãƒ©ãƒ¼å†…ã®ãƒ¬ã‚¤ãƒ¤ã‚’é€†é †(ä¸‹ã‹ã‚‰é †)ã§ã‚½ãƒ¼ãƒˆ
 	sortLayersByName.jsx
 */
 ErrStrs = {};ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation");try {
@@ -8,7 +8,7 @@ if(myTarget.length>1){
 	var sortOrder=new Array();
 	for (idx=0;idx<myTarget.length;idx++){
 		if (myTarget[idx].isBackgroundLayer){
-			continue;//ƒŒƒCƒ„‚ª”wŒi‚¾‚Á‚½‚ç–³Ž‹
+			continue;//ãƒ¬ã‚¤ãƒ¤ãŒèƒŒæ™¯ã ã£ãŸã‚‰ç„¡è¦–
 		}else{
 			sortOrder.push(myTarget[idx].name);
 		}
@@ -16,7 +16,7 @@ if(myTarget.length>1){
 	sortOrder.sort();//sortOrder.reverse();
 	for (idx=1;idx<sortOrder.length;idx++){
 		if(sortOrder[idx-1]==sortOrder[idx]){
-			alert("“¯–¼‚ÌƒŒƒCƒ„‚ª‚ ‚è‚Ü‚·B\n“ñ‚Â–ÚˆÈ~‚ÌƒŒƒCƒ„‚Í•À‚Ñ‘Ö‚¦‚Ì‘ÎÛ‚É‚È‚è‚Ü‚¹‚ñB");
+			alert("åŒåã®ãƒ¬ã‚¤ãƒ¤ãŒã‚ã‚Šã¾ã™ã€‚\näºŒã¤ç›®ä»¥é™ã®ãƒ¬ã‚¤ãƒ¤ã¯ä¸¦ã³æ›¿ãˆã®å¯¾è±¡ã«ãªã‚Šã¾ã›ã‚“ã€‚");
 			break;
 		}
 	}

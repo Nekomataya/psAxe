@@ -1,32 +1,32 @@
-/*	�ėp���C���\�[�g�֐�
-		�A�N�e�B�u���C���̊܂܂�郌�C���R���N�V���������C�����Ń\�[�g����B
-		������false��^����ƁA�t���\�[�g�i�A�j���̃Z���Ȃ�t�����]�܂����j
-		�����̃��C��������ꍇ�́A�x�����o���ď����͑��s
+/*	汎用レイヤソート関数
+		アクティブレイヤの含まれるレイヤコレクションをレイヤ名でソートする。
+		引数にfalseを与えると、逆順ソート（アニメのセルなら逆順が望ましい）
+		同名のレイヤがある場合は、警告を出して処理は続行
 */
 
 layerSort= function(revFlag){
 	if(! revFlag) revFlag=false;//
-//	�A�N�e�B�u���C���̃g���[���[���^�[�Q�b�g�ɃZ�b�g����
+//	アクティブレイヤのトレーラーをターゲットにセットする
 	var myTarget=activeDocument.activeLayer.parent.layers;
-//	���ёւ��Ώ̂̃��C����1�����Ȃ��ꍇ�́A���ёւ��s�\�Ȃ̂ŃL�����Z��
+//	並び替え対称のレイヤが1つしかない場合は、並び替え不能なのでキャンセル
 	if(myTarget.length<=1){return false;}
-//	�\�[�g�p�z������
+//	ソート用配列を作る
 	var sortOrder=new Array();
 	for (idx=0;idx<myTarget.length;idx++){
 		if (myTarget[idx].isBackgroundLayer){
-			continue;//���C�����w�i�������疳��
+			continue;//レイヤが背景だったら無視
 		}else{
 			sortOrder.push(myTarget[idx].name);
 		}
 	}
-		sortOrder.sort();//�t�����ёւ�
+		sortOrder.sort();//逆順並び替え
 	if (revFlag){
-		sortOrder.reverse();//�������ёւ�
+		sortOrder.reverse();//正順並び替え
 	}
-//���ёւ����z�񂩂瓯�����C���̃`�F�b�N
+//並び替えた配列から同名レイヤのチェック
 	for (idx=1;idx<sortOrder.length;idx++){
 		if(sortOrder[idx-1]==sortOrder[idx]){
-			alert("�����̃��C��������܂��B\n��ڈȍ~�̃��C���͕��ёւ��̑ΏۂɂȂ�܂���B");
+			alert("同名のレイヤがあります。\n二つ目以降のレイヤは並び替えの対象になりません。");
 			break;
 		}
 	}
@@ -35,6 +35,6 @@ layerSort= function(revFlag){
 	}
 	return sortOrder;
 }
-//�t���ŃR�[��
+//逆順でコール
 layerSort(true).toString();
 

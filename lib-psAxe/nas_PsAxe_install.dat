@@ -1,45 +1,45 @@
-//(nas_PsAxe_installer_data03)
-/*===========================	‚±‚ê‚ÍƒCƒ“ƒXƒg[ƒ‹İ’èƒtƒ@ƒCƒ‹	===============================*/
-//‘æˆês–Ú‚ÌƒVƒOƒlƒ`ƒƒ‚ÍAƒCƒ“ƒXƒg[ƒ‰‚É‹Lq‚³‚ê‚½•Ï”‚Æˆê’v‚·‚é•K—v‚ª‚ ‚é‚Ì‚ÅA’ˆÓ ‚±‚ê‚ªƒf[ƒ^‚Ì¯•Êq‚Æ‚È‚è‚Ü‚·B”CˆÓ
+//(nas_PsAxe_installer_data04)
+/*===========================	ã“ã‚Œã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«	===============================*/
+//ç¬¬ä¸€è¡Œç›®ã®ã‚·ã‚°ãƒãƒãƒ£ã¯ã€ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©ã«è¨˜è¿°ã•ã‚ŒãŸå¤‰æ•°ã¨ä¸€è‡´ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã®ã§ã€æ³¨æ„ ã“ã‚ŒãŒãƒ‡ãƒ¼ã‚¿ã®è­˜åˆ¥å­ã¨ãªã‚Šã¾ã™ã€‚ä»»æ„
 /*
-	ƒCƒ“ƒXƒg[ƒ‹‚ğ‹Lq‚·‚é‚É‚Í‚±‚Ìƒtƒ@ƒCƒ‹‚ğ‘‚«’¼‚µ‚Ü‚·B
+	ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’è¨˜è¿°ã™ã‚‹ã«ã¯ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ›¸ãç›´ã—ã¾ã™ã€‚
 	
 $id:$
 */
-//								**ƒCƒ“ƒXƒg[ƒ‰[“®ìğŒ
+//								**ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©ãƒ¼å‹•ä½œæ¡ä»¶
 
-//ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ª‘z’èƒAƒvƒŠ‚Å‘z’èƒo[ƒWƒ‡ƒ“‚Å‚ ‚é–
-nas_Installer.locale="ja_JP";//ŒÀ’èc‚±‚Ì”»’è‚Í‚Ç‚¤‚àŠÈ’P‚¶‚á‚È‚³‚»‚¤
-//ƒCƒ“ƒXƒg[ƒ‹ƒpƒbƒP[ƒW–¼Ì‚Æƒo[ƒWƒ‡ƒ“
-nas_Installer.pkgName    ="nas_animation_Tools";//package–¼Ì(•¶š—ñ)ƒCƒ“ƒXƒg[ƒ‹Ï‚İ‚Ìî•ñƒtƒ@ƒCƒ‹–¼‚É‚·‚é‚Ì‚Åƒtƒ@ƒCƒ‹–¼g—p‰Â”\‚ÈƒpƒbƒP[ƒW–¼‚É‚µ‚Æ‚¢‚Ä‚­‚ç‚³‚¢B
-nas_Installer.pkgVersion ="2.6.0";//ƒo[ƒWƒ‡ƒ“”Ô†‚Íƒhƒbƒg‹æØ‚è3ƒuƒƒbƒN‚Ì”’l•¶š—ñ‚Å Beta 9
+//ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒæƒ³å®šã‚¢ãƒ—ãƒªã§æƒ³å®šãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã‚ã‚‹äº‹
+nas_Installer.locale="ja_JP";//é™å®šâ€¦ã“ã®åˆ¤å®šã¯ã©ã†ã‚‚ç°¡å˜ã˜ã‚ƒãªã•ãã†
+//ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åç§°ã¨ãƒãƒ¼ã‚¸ãƒ§ãƒ³
+nas_Installer.pkgName    ="nas_animation_Tools";//packageåç§°(æ–‡å­—åˆ—)ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ¸ˆã¿ã®æƒ…å ±ãƒ•ã‚¡ã‚¤ãƒ«åã«ã™ã‚‹ã®ã§ãƒ•ã‚¡ã‚¤ãƒ«åä½¿ç”¨å¯èƒ½ãªãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã«ã—ã¨ã„ã¦ãã‚‰ã•ã„ã€‚
+nas_Installer.pkgVersion ="2.7.0";//ãƒãƒ¼ã‚¸ãƒ§ãƒ³ç•ªå·ã¯ãƒ‰ãƒƒãƒˆåŒºåˆ‡ã‚Š3ãƒ–ãƒ­ãƒƒã‚¯ã®æ•°å€¤æ–‡å­—åˆ—ã§
 
 /*
 
-ƒpƒbƒP[ƒW‚ªƒCƒ“ƒXƒg[ƒ‹Ï‚İ‚Ìê‡‚ÍA
-ƒo[ƒWƒ‡ƒ“‚ÌV‹Œ‚É‚©‚©‚í‚ç‚¸ƒƒbƒZ[ƒW‚ğ’ñ¦‚µ‚ÄI—¹
-‚Æ‚¢‚¤–‚É¡‚Ì‚Æ‚±‚ë‚µ‚Ä‚¨‚­
+ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ¸ˆã¿ã®å ´åˆã¯ã€
+ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®æ–°æ—§ã«ã‹ã‹ã‚ã‚‰ãšãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æç¤ºã—ã¦çµ‚äº†
+ã¨ã„ã†äº‹ã«ä»Šã®ã¨ã“ã‚ã—ã¦ãŠã
 
-Photoshop CC/CC2014 ‚Ì‚½‚ß‚ÉpixelBenderŠÖ˜A‚ÆIconsŠÖ˜A‚ğíœ
-b’è“I‚É100ƒtƒ@ƒCƒ‹‚ğ’´‚¦‚éƒ‰ƒCƒuƒ‰ƒŠ‚ğ•ªŠ„‚µ‚ÄŠi”[
+Photoshop CC/CC2014 ã®ãŸã‚ã«pixelBenderé–¢é€£ã¨Iconsé–¢é€£ã‚’å‰Šé™¤
+æš«å®šçš„ã«100ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¶…ãˆã‚‹ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’åˆ†å‰²ã—ã¦æ ¼ç´
 2014.10.27
 
-V‹K‚Ìƒtƒ@ƒCƒ‹‚ğ’Ç‰Á@11.26
+æ–°è¦ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¿½åŠ ã€€11.26
 */
 
-//’u‚«‘Ö‚¦æ‚ÌƒpƒX‚ğ•¶š—ñ‚Åİ’è‚µ‚Ä‚­‚¾‚³‚¢
+//ç½®ãæ›¿ãˆå…ˆã®ãƒ‘ã‚¹ã‚’æ–‡å­—åˆ—ã§è¨­å®šã—ã¦ãã ã•ã„
 
-nas_Installer.replacePath.nas=app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas";	//%NAS% Vƒo[ƒWƒ‡ƒ“2011 ‚©‚ç‚Íƒ^[ƒQƒbƒgƒpƒX‚ğ ‚±‚¿‚ç‚É•ÏX@‚½‚¾‚µ@plugin ƒVƒXƒeƒ€ƒƒjƒ…[‚Éo‚·ƒXƒNƒŠƒvƒg‚Í•Ê
-//@Ps—p‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚âƒXƒNƒŠƒvƒg‚Í‚±‚¿‚ç‚ÅAAE—p‚Í•Ï‚í‚ç‚¸AEƒvƒƒOƒ‰ƒ€ƒtƒHƒ‹ƒ_‚ÌƒXƒNƒŠƒvƒgƒƒP[ƒVƒ‡ƒ“‚ÉƒCƒ“ƒXƒg[ƒ‹‚·‚éB
-//@ƒR[ƒh‚Í‰Â”\‚ÈŒÀ‚è‹¤—L@ƒ^[ƒQƒbƒgİ’è‚à‚µ‚Ä‚¨‚¢‚½‚Ù‚¤‚ª‚æ‚³‚°
+nas_Installer.replacePath.nas=app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas";	//%NAS% æ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³2011 ã‹ã‚‰ã¯ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ‘ã‚¹ã‚’ ã“ã¡ã‚‰ã«å¤‰æ›´ã€€ãŸã ã—ã€€plugin ã‚·ã‚¹ãƒ†ãƒ ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«å‡ºã™ã‚¹ã‚¯ãƒªãƒ—ãƒˆã¯åˆ¥
+//ã€€Psç”¨ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚„ã‚¹ã‚¯ãƒªãƒ—ãƒˆã¯ã“ã¡ã‚‰ã§ã€AEç”¨ã¯å¤‰ã‚ã‚‰ãšAEãƒ—ãƒ­ã‚°ãƒ©ãƒ ãƒ•ã‚©ãƒ«ãƒ€ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆãƒ­ã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã«ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹ã€‚
+//ã€€ã‚³ãƒ¼ãƒ‰ã¯å¯èƒ½ãªé™ã‚Šå…±æœ‰ã€€ã‚¿ãƒ¼ã‚²ãƒƒãƒˆè¨­å®šã‚‚ã—ã¦ãŠã„ãŸã»ã†ãŒã‚ˆã•ã’
 // localize("$$$/BenderSig/App/ScriptingSupport/InstalledScripts=Adobe/Adobe Photoshop CS4/Presets/Scripts") + "/"
 //app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas"
 nas_Installer.replacePath.install=Folder.userData.fullName+"/nas";//%INSTALL%
-//nas_Installer.replacePath.startup+"/ƒvƒŠƒZƒbƒg/ƒXƒNƒŠƒvƒg/nas";	
-//%INSTALL%ƒCƒ“ƒXƒg[ƒ‹æ‚Í•K{(ƒAƒ“ƒCƒ“ƒXƒg[ƒ‹î•ñ‚ğ’u‚­‚½‚ß)•W€‚ÅNASƒtƒHƒ‹ƒ_‚ÅOK
-nas_Installer.replacePath.user=Folder.userData.fullName+"/nas";//"‚±‚±‚ğD‚«‚È•¶š—ñ‚É’u‚«Š·‚¦‚Äg‚Á‚Ä‚­‚¾‚³‚¢";//%USER% ƒ†[ƒUw’è‰Â”\
+//nas_Installer.replacePath.startup+"/ãƒ—ãƒªã‚»ãƒƒãƒˆ/ã‚¹ã‚¯ãƒªãƒ—ãƒˆ/nas";	
+//%INSTALL%ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ˆã¯å¿…é ˆ(ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æƒ…å ±ã‚’ç½®ããŸã‚)æ¨™æº–ã§NASãƒ•ã‚©ãƒ«ãƒ€ã§OK
+nas_Installer.replacePath.user=Folder.userData.fullName+"/nas";//"ã“ã“ã‚’å¥½ããªæ–‡å­—åˆ—ã«ç½®ãæ›ãˆã¦ä½¿ã£ã¦ãã ã•ã„";//%USER% ãƒ¦ãƒ¼ã‚¶æŒ‡å®šå¯èƒ½
 
-//=================================ˆÈ‰º‚ÉƒAƒvƒŠƒP[ƒVƒ‡ƒ“Eƒo[ƒWƒ‡ƒ“‚Ì§ŒÀ‚ğ³‹K•\Œ»‚Å‹Lq
+//=================================ä»¥ä¸‹ã«ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ»ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®åˆ¶é™ã‚’æ­£è¦è¡¨ç¾ã§è¨˜è¿°
 
 nas_Installer.myAppRegExp=new RegExp("^Adobe\\ Photoshop$");//application.name
 /*
@@ -48,61 +48,85 @@ Adobe AfterEffects
 Extend Toolkit
 Adobe Bridge
 
-‚È‚Ç‚Ì "app.name"‚ÅQÆ‚³‚ê‚é•¶š—ñ‚ğ³‹K•\Œ»‚ÅƒtƒBƒ‹ƒ^‚·‚éB
+ãªã©ã® "app.name"ã§å‚ç…§ã•ã‚Œã‚‹æ–‡å­—åˆ—ã‚’æ­£è¦è¡¨ç¾ã§ãƒ•ã‚£ãƒ«ã‚¿ã™ã‚‹ã€‚
 */
 nas_Installer.myVersionRegExp=new RegExp("^(15|14|13|12|11|10|9)\\.[012]\\..+$");//version.name
 /*
-ƒo[ƒVƒ‡ƒ“”Ô†‚ğ³‹K•\Œ»‚ÅƒtƒBƒ‹ƒ^
+ãƒãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·ã‚’æ­£è¦è¡¨ç¾ã§ãƒ•ã‚£ãƒ«ã‚¿
  */
 
 
-//ƒCƒ“ƒXƒg[ƒ‹ƒAƒNƒVƒ‡ƒ“‚ÌƒŠƒXƒg‚ğ”z—ñ nas_Installer.myInstall ‚É‹Lq
+//ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã®ãƒªã‚¹ãƒˆã‚’é…åˆ— nas_Installer.myInstall ã«è¨˜è¿°
 /*
-1 —v‘f‚ª 1 ƒŒƒR[ƒh(=ƒRƒ}ƒ“ƒh)
-”z—ñ—v‘f‚Í‚·‚×‚Ä”z—ñ
-ƒRƒ}ƒ“ƒh”z—ñ ‚Ì0”Ô—v‘f‚ğƒRƒ}ƒ“ƒh•¶š—ñ‚Æ‚µ‚Ä1”Ô—v‘fˆÈ~‚ğˆø”‚Æ‚µ‚ÄÀs
-ˆÈ‰º‚ÌƒRƒ}ƒ“ƒh‚ªg—p‰Â”\
-["mkdir"	,ˆø”	]	ƒpƒX•¶š—ñ(’uŠ·‚ ‚è)
-["rmdir"	,ˆø”	]	ƒpƒX•¶š—ñ(’uŠ·‚ ‚è)
-[   "cd"	,ˆø”	]	ƒpƒX•¶š—ñ(’uŠ·‚ ‚è)
-[   "cp"	,ˆø”,ˆø”]	ƒpƒX•¶š—ñ(’uŠ·‚ ‚è)
-[   "mv"	,ˆø”,ˆø”]	ƒpƒX•¶š—ñ(’uŠ·‚ ‚è)
-[   "rm"	,ˆø”	]	ƒpƒX•¶š—ñ(’uŠ·‚ ‚è)
-[Function	,ˆø”	]	ˆø”‚Í•¶š—ñ
-[ "ƒpƒX"	,"ƒpƒX"	]	’Pƒ‚Éƒtƒ@ƒCƒ‹ƒpƒX•¶š—ñ‚Ó‚½‚Â ‘OÒ‚ğŒãÒ‚ÖƒRƒs[
-["confirm"	,ˆø”	]	Šm”F—pƒƒbƒZ[ƒW(’†’f‹@”\•t)
-["shutdown"]	ˆø”‚È‚µ	ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğI—¹‚·‚éB
-•ªŠò‚Æ‚©ƒ‹[ƒv‚ª•K—v‚È‚ç‚Î‚Æ‚è‚ ‚¦‚¸‚Í’¼Ú‘‚«‚Ü‚µ‚å‚¤B
+1 è¦ç´ ãŒ 1 ãƒ¬ã‚³ãƒ¼ãƒ‰(=ã‚³ãƒãƒ³ãƒ‰)
+é…åˆ—è¦ç´ ã¯ã™ã¹ã¦é…åˆ—
+ã‚³ãƒãƒ³ãƒ‰é…åˆ— ã®0ç•ªè¦ç´ ã‚’ã‚³ãƒãƒ³ãƒ‰æ–‡å­—åˆ—ã¨ã—ã¦1ç•ªè¦ç´ ä»¥é™ã‚’å¼•æ•°ã¨ã—ã¦å®Ÿè¡Œ
+ä»¥ä¸‹ã®ã‚³ãƒãƒ³ãƒ‰ãŒä½¿ç”¨å¯èƒ½
+["mkdir"	,å¼•æ•°	]	ãƒ‘ã‚¹æ–‡å­—åˆ—(ç½®æ›ã‚ã‚Š)
+["rmdir"	,å¼•æ•°	]	ãƒ‘ã‚¹æ–‡å­—åˆ—(ç½®æ›ã‚ã‚Š)
+[   "cd"	,å¼•æ•°	]	ãƒ‘ã‚¹æ–‡å­—åˆ—(ç½®æ›ã‚ã‚Š)
+[   "cp"	,å¼•æ•°,å¼•æ•°]	ãƒ‘ã‚¹æ–‡å­—åˆ—(ç½®æ›ã‚ã‚Š)
+[   "mv"	,å¼•æ•°,å¼•æ•°]	ãƒ‘ã‚¹æ–‡å­—åˆ—(ç½®æ›ã‚ã‚Š)
+[   "rm"	,å¼•æ•°	]	ãƒ‘ã‚¹æ–‡å­—åˆ—(ç½®æ›ã‚ã‚Š)
+[Function	,å¼•æ•°	]	å¼•æ•°ã¯æ–‡å­—åˆ—
+[ "ãƒ‘ã‚¹"	,"ãƒ‘ã‚¹"	]	å˜ç´”ã«ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹æ–‡å­—åˆ—ãµãŸã¤ å‰è€…ã‚’å¾Œè€…ã¸ã‚³ãƒ”ãƒ¼
+["confirm"	,å¼•æ•°	]	ç¢ºèªç”¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸(ä¸­æ–­æ©Ÿèƒ½ä»˜)
+["shutdown"]	å¼•æ•°ãªã—	ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’çµ‚äº†ã™ã‚‹ã€‚
+åˆ†å²ã¨ã‹ãƒ«ãƒ¼ãƒ—ãŒå¿…è¦ãªã‚‰ã°ã¨ã‚Šã‚ãˆãšã¯ç›´æ¥æ›¸ãã¾ã—ã‚‡ã†ã€‚
 
-ƒpƒX•¶š—ñ‚ÍƒCƒ“ƒXƒg[ƒ‰‚ğŠî“_‚É‘Š‘ÎƒpƒX‚Å‹Lq
-ƒRƒ}ƒ“ƒh‚ÍƒCƒ“ƒfƒbƒNƒX‚Ìá‚¢‡‚ÉÀs‚³‚ê‚é
-‘¶İ‚µ‚È‚¢ƒfƒBƒŒƒNƒgƒŠ‚Ö‚Ì•¡»‚Í‚¨‚±‚È‚í‚È‚¢BƒGƒ‰[‚ğ‹L˜^
-ƒfƒBƒŒƒNƒgƒŠ‚Ìíœ‚ÍAƒJƒ‰‚Ìê‡‚Ì‚İ¬Œ÷(‚»‚Ì‚Ü‚ÜFolder.remove()‚ğÀs)B
-ŠÖ”‚ğ’P“Æ‚Å’u‚­‚Æ1”Ô—v‘f‚ğˆø”‚ÉÀs
+ãƒ‘ã‚¹æ–‡å­—åˆ—ã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©ã‚’åŸºç‚¹ã«ç›¸å¯¾ãƒ‘ã‚¹ã§è¨˜è¿°
+ã‚³ãƒãƒ³ãƒ‰ã¯ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®è‹¥ã„é †ã«å®Ÿè¡Œã•ã‚Œã‚‹
+å­˜åœ¨ã—ãªã„ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¸ã®è¤‡è£½ã¯ãŠã“ãªã‚ãªã„ã€‚ã‚¨ãƒ©ãƒ¼ã‚’è¨˜éŒ²
+ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å‰Šé™¤ã¯ã€ã‚«ãƒ©ã®å ´åˆã®ã¿æˆåŠŸ(ãã®ã¾ã¾Folder.remove()ã‚’å®Ÿè¡Œ)ã€‚
+é–¢æ•°ã‚’å˜ç‹¬ã§ç½®ãã¨1ç•ªè¦ç´ ã‚’å¼•æ•°ã«å®Ÿè¡Œ
 
 
 */
-//installè‡‚Æuninstallè‡‚Í“–‚½‚è‘O‚¾‚¯‚Ç•Ê‚È‚Ì‚Å’ˆÓ
+//installæ‰‹é †ã¨uninstallæ‰‹é †ã¯å½“ãŸã‚Šå‰ã ã‘ã©åˆ¥ãªã®ã§æ³¨æ„
 /*
 
-	‚±‚Ìƒtƒ@ƒCƒ‹‚ÍAPhotoshop‚ğƒ^[ƒQƒbƒg‚ÉMac‚Ì‚İƒo[ƒWƒ‡ƒ“‚Å•ªŠò‚µ‚Ä‚¢‚Ü‚·B
+	ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€Photoshopã‚’ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«Macã®ã¿ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§åˆ†å²ã—ã¦ã„ã¾ã™ã€‚
 
-ŠeŠÂ‹«‚ÌƒCƒ“ƒXƒg[ƒ‹‚ÆƒAƒ“ƒCƒ“ƒXƒg[ƒ‹è‡‚ğ‹Lq‚µ‚Ä‚±‚Ìƒtƒ@ƒCƒ‹‚Ì––”ö‚ÅÀs—p‚Ìƒoƒbƒtƒ@‚Ö“–ŠYŠÂ‹«‚Ì
-è‡‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B
+å„ç’°å¢ƒã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¨ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ‰‹é †ã‚’è¨˜è¿°ã—ã¦ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ«å°¾ã§å®Ÿè¡Œç”¨ã®ãƒãƒƒãƒ•ã‚¡ã¸å½“è©²ç’°å¢ƒã®
+æ‰‹é †ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™ã€‚
 
 */
-//Mac/Windows‚Ù‚© ‘ÎÛ‘Sƒo[ƒWƒ‡ƒ“—p
+//Mac/Windowsã»ã‹ å¯¾è±¡å…¨ãƒãƒ¼ã‚¸ãƒ§ãƒ³ç”¨
 
 nas_Installer.myInstall=[
-["confirm","nasPsAXEƒpƒbƒP[ƒW ‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B\n ŠJ‚¢‚Ä‚¢‚éƒhƒLƒ…ƒƒ“ƒg‚Í•Â‚¶‚Ä‚¨‚¢‚½•û‚ª—Ç‚¢‚Æv‚¢‚Ü‚·B\n‚Í‚¶‚ß‚Ä—Ç‚¢‚Å‚·‚©?"],
+["confirm","nasPsAXEãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™ã€‚\n é–‹ã„ã¦ã„ã‚‹ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã¯é–‰ã˜ã¦ãŠã„ãŸæ–¹ãŒè‰¯ã„ã¨æ€ã„ã¾ã™ã€‚\nã¯ã˜ã‚ã¦è‰¯ã„ã§ã™ã‹?"],
 ["mkdir","%USER%"],
 ["mkdir","%USER%/lib"],
 ["mkdir","%USER%/lib/resource"],
 
-["confirm","ƒ‰ƒCƒuƒ‰ƒŠ‚Ì“à—e•ÏX‚Ì‚½‚ßİ’è‚Ìˆê•”‚ğÁ‹‚µ‚Ü‚·B\nƒoƒbƒNƒAƒbƒv‚ª•K—v‚Èê‡‚Í’†’f‚µ‚Ä•Û‘¶‚µ‚Ä‚­‚¾‚³‚¢B\nŒp‘±‚µ‚Ü‚·‚©H"],
-["rm","%SOURCE%/lib/etc/nas.axe.json"],
+["confirm","ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®å†…å®¹å¤‰æ›´ã®ãŸã‚è¨­å®šã®ä¸€éƒ¨ã‚’æ¶ˆå»ã—ã¾ã™ã€‚\nãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãŒå¿…è¦ãªå ´åˆã¯ä¸­æ–­ã—ã¦ä¿å­˜ã—ã¦ãã ã•ã„ã€‚\nç¶™ç¶šã—ã¾ã™ã‹ï¼Ÿ"],
+["rm","%USER%/lib/etc/nas.axe.json"],
 
 ["%SOURCE%/lib/resource/timeSheet6sA3.eps","%USER%/lib/resource/timeSheet6sA3.eps"],
+
+["mkdir","%USER%/lib/resource/FieldCharts"],
+["%SOURCE%/lib/resource/FieldCharts/fieldChart11F.eps","%USER%/lib/resource/FieldCharts/fieldChart11F.eps"],
+["%SOURCE%/lib/resource/FieldCharts/fieldChart14F.eps","%USER%/lib/resource/FieldCharts/fieldChart14F.eps"],
+["%SOURCE%/lib/resource/FieldCharts/fieldChart16F.eps","%USER%/lib/resource/FieldCharts/fieldChart16F.eps"],
+
+["mkdir","%USER%/lib/resource/Frames"],
+["%SOURCE%/lib/resource/Frames/203mm16x9.eps","%USER%/lib/resource/Frames/203mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/225mm4x3.eps","%USER%/lib/resource/Frames/225mm4x3.eps"],
+["%SOURCE%/lib/resource/Frames/225mm22x16.eps","%USER%/lib/resource/Frames/225mm22x16.eps"],
+["%SOURCE%/lib/resource/Frames/240mm4x3.eps","%USER%/lib/resource/Frames/240mm4x3.eps"],
+["%SOURCE%/lib/resource/Frames/240mm16x9.eps","%USER%/lib/resource/Frames/240mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/240mm22x16.eps","%USER%/lib/resource/Frames/240mm22x16.eps"],
+["%SOURCE%/lib/resource/Frames/254mm1.85x1.eps","%USER%/lib/resource/Frames/254mm1.85x1.eps"],
+["%SOURCE%/lib/resource/Frames/254mm16x9.eps","%USER%/lib/resource/Frames/254mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/260mm16x9.eps","%USER%/lib/resource/Frames/260mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/263mm16x9.eps","%USER%/lib/resource/Frames/263mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/264mm16x9.eps","%USER%/lib/resource/Frames/264mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/265mm1.85x1.eps","%USER%/lib/resource/Frames/265mm1.85x1.eps"],
+["%SOURCE%/lib/resource/Frames/265mm16x9.eps","%USER%/lib/resource/Frames/265mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/271mm16x9.eps","%USER%/lib/resource/Frames/271mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/303mm16x9.eps","%USER%/lib/resource/Frames/303mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/305mm16x9.eps","%USER%/lib/resource/Frames/305mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/frameTemplate.ps","%USER%/lib/resource/Frames/frameTemplate.ps"],
 
 ["mkdir","%USER%/lib/resource/Pegs"],
 ["%SOURCE%/lib/resource/Pegs/peg2p1.eps","%USER%/lib/resource/Pegs/peg2p1.eps"],
@@ -113,18 +137,11 @@ nas_Installer.myInstall=[
 ["%SOURCE%/lib/resource/Pegs/peg3p3.eps","%USER%/lib/resource/Pegs/peg3p3.eps"],
 ["%SOURCE%/lib/resource/Pegs/peg3p4.eps","%USER%/lib/resource/Pegs/peg3p4.eps"],
 
-["mkdir","%USER%/lib/resource/Frames"],
-["%SOURCE%/lib/resource/Frames/203mm16x9.eps","%USER%/lib/resource/Frames/203mm16x9.eps"],
-["%SOURCE%/lib/resource/Frames/225mm4x3.eps","%USER%/lib/resource/Frames/225mm4x3.eps"],
-["%SOURCE%/lib/resource/Frames/225mm22x16.eps","%USER%/lib/resource/Frames/225mm22x16.eps"],
-["%SOURCE%/lib/resource/Frames/240mm16x9.eps","%USER%/lib/resource/Frames/240mm16x9.eps"],
-["%SOURCE%/lib/resource/Frames/240mm4x3.eps","%USER%/lib/resource/Frames/240mm4x3.eps"],
-["%SOURCE%/lib/resource/Frames/254mm16x9.eps","%USER%/lib/resource/Frames/254mm16x9.eps"],
-["%SOURCE%/lib/resource/Frames/260mm16x9.eps","%USER%/lib/resource/Frames/260mm16x9.eps"],
-["%SOURCE%/lib/resource/Frames/264mm16x9.eps","%USER%/lib/resource/Frames/264mm16x9.eps"],
-["%SOURCE%/lib/resource/Frames/265mm16x9.eps","%USER%/lib/resource/Frames/265mm16x9.eps"],
-["%SOURCE%/lib/resource/Frames/254mm1.85x1.eps","%USER%/lib/resource/Frames/254mm1.85x1.eps"],
-["%SOURCE%/lib/resource/Frames/frameTemplate.ps","%USER%/lib/resource/Frames/frameTemplate.ps"],
+["mkdir","%USER%/lib/resource/Reference"],
+["%SOURCE%/lib/resource/Reference/refSheetA3F.eps","%USER%/lib/resource/Reference/refSheetA3F.eps"],
+["%SOURCE%/lib/resource/Reference/refSheetA3L.eps","%USER%/lib/resource/Reference/refSheetA3L.eps"],
+["%SOURCE%/lib/resource/Reference/refSheetA4L.eps","%USER%/lib/resource/Reference/refSheetA4L.eps"],
+["%SOURCE%/lib/resource/Reference/refSheetB4L.eps","%USER%/lib/resource/Reference/refSheetB4L.eps"],
 
 ["mkdir","%USER%/lib/pixelBenderKernel"],
 ["%SOURCE%/lib/pixelBenderKernel/borderFill.pbk","%USER%/lib/pixelBenderKernel/borderFill.pbk"],
@@ -151,38 +168,40 @@ nas_Installer.myInstall=[
 ["mkdir","%USER%/lib/etc"],
 ["mkdir","%USER%/lib/(temp)"],
 
-["%SOURCE%/lib/config.js","%USER%/lib/config.js"],
-["%SOURCE%/lib/dataio.js","%USER%/lib/dataio.js"],
-["%SOURCE%/lib/fakeAE.js","%USER%/lib/fakeAE.js"],
-["%SOURCE%/lib/io.js","%USER%/lib/io.js"],
-["%SOURCE%/lib/lib_STS.js","%USER%/lib/lib_STS.js"],
-["%SOURCE%/lib/map.js","%USER%/lib/map.js"],
-["%SOURCE%/lib/mapio.js","%USER%/lib/mapio.js"],
-["%SOURCE%/lib/messages.js","%USER%/lib/messages.js"],
-["%SOURCE%/lib/nas.XpsStore.js","%USER%/lib/nas.XpsStore.js"],
-["%SOURCE%/lib/nasLibInstall.js","%USER%/lib/nasLibInstall.js"],
-["%SOURCE%/lib/nas_common.js","%USER%/lib/nas_common.js"],
-["%SOURCE%/lib/nas_GUIlib.js","%USER%/lib/nas_GUIlib.js"],
-["%SOURCE%/lib/nas_Otome_config.js","%USER%/lib/nas_Otome_config.js"],
-["%SOURCE%/lib/nas_prefarenceLib.js","%USER%/lib/nas_prefarenceLib.js"],
-["%SOURCE%/lib/nas_psAxeLib.js","%USER%/lib/nas_psAxeLib.js"],
-["%SOURCE%/lib/psAnimationFrameClass.js","%USER%/lib/psAnimationFrameClass.js"],
-["%SOURCE%/lib/xpsio.js","%USER%/lib/xpsio.js"],
-["%SOURCE%/lib/xpsQueue.js","%USER%/lib/xpsQueue.js"],
-["%SOURCE%/lib/newXps.jsx","%USER%/lib/newXps.jsx"],
-["%SOURCE%/lib/psCCfontFix.js","%USER%/lib/psCCfontFix.js"],
+["%SOURCE%/lib/_event.js"  , "%USER%/lib/_event.js"],
+["%SOURCE%/lib/config.js"  , "%USER%/lib/config.js"],
+["%SOURCE%/lib/dataio.js"  , "%USER%/lib/dataio.js"],
+["%SOURCE%/lib/fakeAE.js" , "%USER%/lib/fakeAE.js"],
+["%SOURCE%/lib/io.js"         , "%USER%/lib/io.js"],
+["%SOURCE%/lib/lib_STS.js" , "%USER%/lib/lib_STS.js"],
+["%SOURCE%/lib/map.js"     , "%USER%/lib/map.js"],
+["%SOURCE%/lib/mapio.js"  , "%USER%/lib/mapio.js"],
+["%SOURCE%/lib/messages.js"  , "%USER%/lib/messages.js"],
+["%SOURCE%/lib/nas_axeEventHandler.js" , "%USER%/lib/nas_axeEventHandler.js"],
+["%SOURCE%/lib/nas_common.js" , "%USER%/lib/nas_common.js"],
+["%SOURCE%/lib/nas_GUIlib.js"     , "%USER%/lib/nas_GUIlib.js"],
+["%SOURCE%/lib/nas_Otome_config.js" , "%USER%/lib/nas_Otome_config.js"],
+["%SOURCE%/lib/nas_prefarenceLib.js" , "%USER%/lib/nas_prefarenceLib.js"],
+["%SOURCE%/lib/nas_psAxeLib.js" , "%USER%/lib/nas_psAxeLib.js"],
+["%SOURCE%/lib/nas.XpsStore.js" , "%USER%/lib/nas.XpsStore.js"],
+["%SOURCE%/lib/nasLibInstall.js" , "%USER%/lib/nasLibInstall.js"],
+["%SOURCE%/lib/newXps.jsx"       , "%USER%/lib/newXps.jsx"],
+["%SOURCE%/lib/psAnimationFrameClass.js" ," %USER%/lib/psAnimationFrameClass.js"],
+["%SOURCE%/lib/psCCfontFix.js" , "%USER%/lib/psCCfontFix.js"],
+["%SOURCE%/lib/xpsio.js"            , "%USER%/lib/xpsio.js"],
+["%SOURCE%/lib/xpsQueue.js"     , "%USER%/lib/xpsQueue.js"],
 
-
-
-["confirm","nasƒ‰ƒCƒuƒ‰ƒŠƒpƒbƒP[ƒW‚ğƒCƒ“ƒXƒg[ƒ‹‚Å‚«‚½‚Æv‚¢‚Ü‚·B\n‘±‚¯‚ÄPsAxe‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B"],
+["confirm","nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã§ããŸã¨æ€ã„ã¾ã™ã€‚\nç¶šã‘ã¦PsAxeã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™ã€‚"],
 
 ["mkdir","%USER%/scripts"],
-["%SOURCE%/scripts/mkFrame.jsx","%USER%/scripts/mkFrame.jsx"],
+["%SOURCE%/scripts/mkFrame.jsx" , "%USER%/scripts/mkFrame.jsx"],
 ["%SOURCE%/scripts/nasPrefPs.jsx","%USER%/scripts/nasPrefPs.jsx"],
 
 ["mkdir","%USER%/scripts/axe"],
 
+["%SOURCE%/scripts/axe01/activateKey.jsx","%USER%/scripts/axe/activateKey.jsx"],
 ["%SOURCE%/scripts/axe01/activateTopLayer.jsx","%USER%/scripts/axe/activateTopLayer.jsx"],
+["%SOURCE%/scripts/axe01/addFav.jsx","%USER%/scripts/axe/addFav.jsx"],
 ["%SOURCE%/scripts/axe01/addNewDocument.jsx","%USER%/scripts/axe/addNewDocument.jsx"],
 ["%SOURCE%/scripts/axe01/addNewLayer.jsx","%USER%/scripts/axe/addNewLayer.jsx"],
 ["%SOURCE%/scripts/axe01/addNewNumText.jsx","%USER%/scripts/axe/addNewNumText.jsx"],
@@ -213,7 +232,16 @@ nas_Installer.myInstall=[
 ["%SOURCE%/scripts/axe01/applyFilterTraceR.jsx","%USER%/scripts/axe/applyFilterTraceR.jsx"],
 ["%SOURCE%/scripts/axe01/applyFilterTraceY.jsx","%USER%/scripts/axe/applyFilterTraceY.jsx"],
 ["%SOURCE%/scripts/axe01/applyXps.jsx","%USER%/scripts/axe/applyXps.jsx"],
+["%SOURCE%/scripts/axe01/ccBl.jsx","%USER%/scripts/axe/ccBl.jsx"],
+["%SOURCE%/scripts/axe01/ccGr.jsx","%USER%/scripts/axe/ccGr.jsx"],
+["%SOURCE%/scripts/axe01/ccGy.jsx","%USER%/scripts/axe/ccGy.jsx"],
+["%SOURCE%/scripts/axe01/ccOr.jsx","%USER%/scripts/axe/ccOr.jsx"],
+["%SOURCE%/scripts/axe01/ccRd.jsx","%USER%/scripts/axe/ccRd.jsx"],
+["%SOURCE%/scripts/axe01/ccVl.jsx","%USER%/scripts/axe/ccVl.jsx"],
+["%SOURCE%/scripts/axe01/ccX.jsx","%USER%/scripts/axe/ccX.jsx"],
+["%SOURCE%/scripts/axe01/ccYl.jsx","%USER%/scripts/axe/ccYl.jsx"],
 ["%SOURCE%/scripts/axe01/centeringLayers.jsx","%USER%/scripts/axe/centeringLayers.jsx"],
+["%SOURCE%/scripts/axe01/convertPsAxeAnimation.jsx","%USER%/scripts/axe/convertPsAxeAnimation.jsx"],
 ["%SOURCE%/scripts/axe01/dbgConsolePs.jsx","%USER%/scripts/axe/dbgConsolePs.jsx"],
 ["%SOURCE%/scripts/axe01/divideLayers.jsx","%USER%/scripts/axe/divideLayers.jsx"],
 ["%SOURCE%/scripts/axe01/documentBinder.jsx","%USER%/scripts/axe/documentBinder.jsx"],
@@ -223,15 +251,25 @@ nas_Installer.myInstall=[
 ["%SOURCE%/scripts/axe01/editTextSource.jsx","%USER%/scripts/axe/editTextSource.jsx"],
 ["%SOURCE%/scripts/axe01/editXps.jsx","%USER%/scripts/axe/editXps.jsx"],
 ["%SOURCE%/scripts/axe01/exportLayersAsFile.jsx","%USER%/scripts/axe/exportLayersAsFile.jsx"],
+["%SOURCE%/scripts/axe01/extractWA.jsx","%USER%/scripts/axe/extractWA.jsx"],
 ["%SOURCE%/scripts/axe01/ezFlip.jsx","%USER%/scripts/axe/ezFlip.jsx"],
 ["%SOURCE%/scripts/axe01/ezFlip2.jsx","%USER%/scripts/axe/ezFlip2.jsx"],
 ["%SOURCE%/scripts/axe01/getFrontColorInfo.jsx","%USER%/scripts/axe/getFrontColorInfo.jsx"],
 ["%SOURCE%/scripts/axe01/goEnd.jsx","%USER%/scripts/axe/goEnd.jsx"],
+["%SOURCE%/scripts/axe01/goFC.jsx","%USER%/scripts/axe/goFC.jsx"],
 ["%SOURCE%/scripts/axe01/goFrst.jsx","%USER%/scripts/axe/goFrst.jsx"],
 ["%SOURCE%/scripts/axe01/goNext.jsx","%USER%/scripts/axe/goNext.jsx"],
 ["%SOURCE%/scripts/axe01/goPrev.jsx","%USER%/scripts/axe/goPrev.jsx"],
+["%SOURCE%/scripts/axe01/goTC.jsx","%USER%/scripts/axe/goTC.jsx"],
+["%SOURCE%/scripts/axe01/goWAend.jsx","%USER%/scripts/axe/goWAend.jsx"],
+["%SOURCE%/scripts/axe01/goWAsrt.jsx","%USER%/scripts/axe/goWAsrt.jsx"],
 ["%SOURCE%/scripts/axe01/groupingSelectedLayers.jsx","%USER%/scripts/axe/groupingSelectedLayers.jsx"],
+["%SOURCE%/scripts/axe01/importFieldChart.jsx","%USER%/scripts/axe/importFieldChart.jsx"],
 ["%SOURCE%/scripts/axe01/importFilesAsLayer.jsx","%USER%/scripts/axe/importFilesAsLayer.jsx"],
+["%SOURCE%/scripts/axe01/importReference.jsx","%USER%/scripts/axe/importReference.jsx"],
+
+["%SOURCE%/scripts/axe02/PacPs.jsx","%USER%/scripts/axe/PacPs.jsx"],
+["%SOURCE%/scripts/axe02/PaintPreProcess.jsx","%USER%/scripts/axe/PaintPreProcess.jsx"],
 ["%SOURCE%/scripts/axe02/layerName.jsx","%USER%/scripts/axe/layerName.jsx"],
 ["%SOURCE%/scripts/axe02/layerNameDec.jsx","%USER%/scripts/axe/layerNameDec.jsx"],
 ["%SOURCE%/scripts/axe02/layerNameInc.jsx","%USER%/scripts/axe/layerNameInc.jsx"],
@@ -239,18 +277,20 @@ nas_Installer.myInstall=[
 ["%SOURCE%/scripts/axe02/layers2Frames0.jsx","%USER%/scripts/axe/layers2Frames0.jsx"],
 ["%SOURCE%/scripts/axe02/layers2Frames1.jsx","%USER%/scripts/axe/layers2Frames1.jsx"],
 ["%SOURCE%/scripts/axe02/layers2Frames2.jsx","%USER%/scripts/axe/layers2Frames2.jsx"],
+["%SOURCE%/scripts/axe02/liftWA.jsx","%USER%/scripts/axe/liftWA.jsx"],
 ["%SOURCE%/scripts/axe02/lineSplit.jsx","%USER%/scripts/axe/lineSplit.jsx"],
 ["%SOURCE%/scripts/axe02/loadPeg.jsx","%USER%/scripts/axe/loadPeg.jsx"],
 ["%SOURCE%/scripts/axe02/loadSheetRule.jsx","%USER%/scripts/axe/loadSheetRule.jsx"],
+["%SOURCE%/scripts/axe02/moveIP.jsx","%USER%/scripts/axe/moveIP.jsx"],
+["%SOURCE%/scripts/axe02/moveOP.jsx","%USER%/scripts/axe/moveOP.jsx"],
 ["%SOURCE%/scripts/axe02/numberingLayers.jsx","%USER%/scripts/axe/numberingLayers.jsx"],
+["%SOURCE%/scripts/axe02/ons.jsx","%USER%/scripts/axe/ons.jsx"],
 ["%SOURCE%/scripts/axe02/ons0.jsx","%USER%/scripts/axe/ons0.jsx"],
 ["%SOURCE%/scripts/axe02/ons2.jsx","%USER%/scripts/axe/ons2.jsx"],
 ["%SOURCE%/scripts/axe02/ons3.jsx","%USER%/scripts/axe/ons3.jsx"],
 ["%SOURCE%/scripts/axe02/ons4.jsx","%USER%/scripts/axe/ons4.jsx"],
 ["%SOURCE%/scripts/axe02/onsPref.jsx","%USER%/scripts/axe/onsPref.jsx"],
 ["%SOURCE%/scripts/axe02/onsReset.jsx","%USER%/scripts/axe/onsReset.jsx"],
-["%SOURCE%/scripts/axe02/PacPs.jsx","%USER%/scripts/axe/PacPs.jsx"],
-["%SOURCE%/scripts/axe02/PaintPreProcess.jsx","%USER%/scripts/axe/PaintPreProcess.jsx"],
 ["%SOURCE%/scripts/axe02/pathRPAFa.jsx","%USER%/scripts/axe/pathRPAFa.jsx"],
 ["%SOURCE%/scripts/axe02/pathRPASnp.jsx","%USER%/scripts/axe/pathRPASnp.jsx"],
 ["%SOURCE%/scripts/axe02/pathRPASnpB.jsx","%USER%/scripts/axe/pathRPASnpB.jsx"],
@@ -263,6 +303,7 @@ nas_Installer.myInstall=[
 ["%SOURCE%/scripts/axe02/removeLayerSets.jsx","%USER%/scripts/axe/removeLayerSets.jsx"],
 ["%SOURCE%/scripts/axe02/removeWhitePixel.jsx","%USER%/scripts/axe/removeWhitePixel.jsx"],
 ["%SOURCE%/scripts/axe02/reverseLayerOrder.jsx","%USER%/scripts/axe/reverseLayerOrder.jsx"],
+["%SOURCE%/scripts/axe02/rmKey.jsx","%USER%/scripts/axe/rmKey.jsx"],
 ["%SOURCE%/scripts/axe02/rotate.jsx","%USER%/scripts/axe/rotate.jsx"],
 ["%SOURCE%/scripts/axe02/rotateCanvas.jsx","%USER%/scripts/axe/rotateCanvas.jsx"],
 ["%SOURCE%/scripts/axe02/rotateLayersB.jsx","%USER%/scripts/axe/rotateLayersB.jsx"],
@@ -274,21 +315,30 @@ nas_Installer.myInstall=[
 ["%SOURCE%/scripts/axe02/setDelay1.jsx","%USER%/scripts/axe/setDelay1.jsx"],
 ["%SOURCE%/scripts/axe02/setDelay2.jsx","%USER%/scripts/axe/setDelay2.jsx"],
 ["%SOURCE%/scripts/axe02/setDelay3.jsx","%USER%/scripts/axe/setDelay3.jsx"],
+["%SOURCE%/scripts/axe02/setFps.jsx","%USER%/scripts/axe/setFps.jsx"],
+["%SOURCE%/scripts/axe02/setKey.jsx","%USER%/scripts/axe/setKey.jsx"],
 ["%SOURCE%/scripts/axe02/setLabel.jsx","%USER%/scripts/axe/setLabel.jsx"],
+["%SOURCE%/scripts/axe02/setOns.jsx","%USER%/scripts/axe/setOns.jsx"],
+["%SOURCE%/scripts/axe02/setWAend.jsx","%USER%/scripts/axe/setWAend.jsx"],
+["%SOURCE%/scripts/axe02/setWAsrt.jsx","%USER%/scripts/axe/setWAsrt.jsx"],
 ["%SOURCE%/scripts/axe02/shiftLayers.jsx","%USER%/scripts/axe/shiftLayers.jsx"],
 ["%SOURCE%/scripts/axe02/shiftLayersB.jsx","%USER%/scripts/axe/shiftLayersB.jsx"],
 ["%SOURCE%/scripts/axe02/shiftLayersU.jsx","%USER%/scripts/axe/shiftLayersU.jsx"],
+["%SOURCE%/scripts/axe02/sliceTL.jsx","%USER%/scripts/axe/sliceTL.jsx"],
 ["%SOURCE%/scripts/axe02/smartFix.jsx","%USER%/scripts/axe/smartFix.jsx"],
 ["%SOURCE%/scripts/axe02/smartMove.jsx","%USER%/scripts/axe/smartMove.jsx"],
 ["%SOURCE%/scripts/axe02/smartReset.jsx","%USER%/scripts/axe/smartReset.jsx"],
+["%SOURCE%/scripts/axe02/sortLayersByName.jsx","%USER%/scripts/axe/sortLayersByName.jsx"],
 ["%SOURCE%/scripts/axe02/sortLayers_B.jsx","%USER%/scripts/axe/sortLayers_B.jsx"],
 ["%SOURCE%/scripts/axe02/sortLayers_F.jsx","%USER%/scripts/axe/sortLayers_F.jsx"],
-["%SOURCE%/scripts/axe02/sortLayersByName.jsx","%USER%/scripts/axe/sortLayersByName.jsx"],
 ["%SOURCE%/scripts/axe02/swapLayers.jsx","%USER%/scripts/axe/swapLayers.jsx"],
+["%SOURCE%/scripts/axe02/swcFav.jsx","%USER%/scripts/axe/swcFav.jsx"],
 ["%SOURCE%/scripts/axe02/test_console.jsx","%USER%/scripts/axe/test_console.jsx"],
 ["%SOURCE%/scripts/axe02/test_libLoad.jsx","%USER%/scripts/axe/test_libLoad.jsx"],
 ["%SOURCE%/scripts/axe02/thinLine.jsx","%USER%/scripts/axe/thinLine.jsx"],
 ["%SOURCE%/scripts/axe02/thinLinePbk.jsx","%USER%/scripts/axe/thinLinePbk.jsx"],
+["%SOURCE%/scripts/axe02/trimIP.jsx","%USER%/scripts/axe/trimIP.jsx"],
+["%SOURCE%/scripts/axe02/trimOP.jsx","%USER%/scripts/axe/trimOP.jsx"],
 ["%SOURCE%/scripts/axe02/viewQFtest.jsx","%USER%/scripts/axe/viewQFtest.jsx"],
 ["%SOURCE%/scripts/axe02/viewReset.jsx","%USER%/scripts/axe/viewReset.jsx"],
 ["%SOURCE%/scripts/axe02/void.jsx","%USER%/scripts/axe/void.jsx"],
@@ -296,13 +346,37 @@ nas_Installer.myInstall=[
 
 ["%SOURCE%/nasPsAxeInstall.jsx","%USER%/nasPsAxeInstall.jsx"],
 ["%SOURCE%/nas_PsAxe_install.dat","%USER%/nas_PsAxe_install.dat"],
-["confirm","“r’†‚ÅƒGƒ‰[‚ª‚ ‚Ü‚è–³‚¯‚ê‚ÎPsAxeƒpƒbƒP[ƒW‚ğƒCƒ“ƒXƒg[ƒ‹‚Å‚«‚½‚Æv‚¢‚Ü‚·B\n”O‚Ìˆ×‚ÉPhotoshop‚ğÄ‹N“®‚µ‚½‚Ù‚¤‚ªˆÀ‘S‚Å‚·"]
+["confirm","é€”ä¸­ã§ã‚¨ãƒ©ãƒ¼ãŒã‚ã¾ã‚Šç„¡ã‘ã‚Œã°PsAxeãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã§ããŸã¨æ€ã„ã¾ã™ã€‚\nå¿µã®ç‚ºã«Photoshopã‚’å†èµ·å‹•ã—ãŸã»ã†ãŒå®‰å…¨ã§ã™"]
 ];
 
 nas_Installer.myUnInstall=[
-["confirm","nasƒ‰ƒCƒuƒ‰ƒŠ‚ğƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B\nƒ‰ƒCƒuƒ‰ƒŠ‚ÉˆË‘¶‚·‚éƒXƒNƒŠƒvƒg‚Í¢‚é‚©‚à’m‚ê‚Ü‚¹‚ñB\n—Ç‚¢‚Å‚·‚©?"],
+["confirm","nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™ã€‚\nãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«ä¾å­˜ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆã¯å›°ã‚‹ã‹ã‚‚çŸ¥ã‚Œã¾ã›ã‚“ã€‚\nè‰¯ã„ã§ã™ã‹?"],
 
 ["rm","%USER%/lib/resource/timeSheet6sA3.eps"],
+
+["rm","%USER%/lib/resource/FieldCharts/fieldChart11F.eps"],
+["rm","%USER%/lib/resource/FieldCharts/fieldChart14F.eps"],
+["rm","%USER%/lib/resource/FieldCharts/fieldChart16F.eps"],
+["rmdir","%USER%/lib/resource/FieldCharts"],
+
+["rm","%USER%/lib/resource/Frames/203mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/225mm4x3.eps"],
+["rm","%USER%/lib/resource/Frames/225mm22x16.eps"],
+["rm","%USER%/lib/resource/Frames/240mm4x3.eps"],
+["rm","%USER%/lib/resource/Frames/240mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/240mm22x16.eps"],
+["rm","%USER%/lib/resource/Frames/254mm1.85x1.eps"],
+["rm","%USER%/lib/resource/Frames/254mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/260mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/263mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/264mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/265mm1.85x1.eps"],
+["rm","%USER%/lib/resource/Frames/265mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/271mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/303mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/305mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/frameTemplate.ps"],
+["rmdir","%USER%/lib/resource/Frames"],
 
 ["rm","%USER%/lib/resource/Pegs/peg2p1.eps"],
 ["rm","%USER%/lib/resource/Pegs/peg2p2.eps"],
@@ -313,18 +387,11 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/lib/resource/Pegs/peg3p4.eps"],
 ["rmdir","%USER%/lib/resource/Pegs"],
 
-["rm","%USER%/lib/resource/Frames/203mm16x9.eps"],
-["rm","%USER%/lib/resource/Frames/225mm4x3.eps"],
-["rm","%USER%/lib/resource/Frames/225mm22x16.eps"],
-["rm","%USER%/lib/resource/Frames/240mm16x9.eps"],
-["rm","%USER%/lib/resource/Frames/240mm4x3.eps"],
-["rm","%USER%/lib/resource/Frames/254mm16x9.eps"],
-["rm","%USER%/lib/resource/Frames/260mm16x9.eps"],
-["rm","%USER%/lib/resource/Frames/264mm16x9.eps"],
-["rm","%USER%/lib/resource/Frames/265mm16x9.eps"],
-["rm","%USER%/lib/resource/Frames/254mm1.85x1.eps"],
-["rm","%USER%/lib/resource/Frames/frameTemplate.ps"],
-["rmdir","%USER%/lib/resource/Frames"],
+["rm","%USER%/lib/resource/Reference/refSheetA3F.eps"],
+["rm","%USER%/lib/resource/Reference/refSheetA3L.eps"],
+["rm","%USER%/lib/resource/Reference/refSheetA4L.eps"],
+["rm","%USER%/lib/resource/Reference/refSheetB4L.eps"],
+["rmdir","%USER%/lib/resource/Reference"],
 
 ["rm","%USER%/lib/pixelBenderKernel/borderFill.pbk"],
 ["rm","%USER%/lib/pixelBenderKernel/dotRemoveW.pbk"],
@@ -348,6 +415,7 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/lib/pixelBenderKernel/traceY.pbk"],
 ["rmdir","%USER%/lib/pixelBenderKernel"],
 
+["rm","%USER%/lib/_event.js"],
 ["rm","%USER%/lib/config.js"],
 ["rm","%USER%/lib/dataio.js"],
 ["rm","%USER%/lib/fakeAE.js"],
@@ -356,20 +424,23 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/lib/map.js"],
 ["rm","%USER%/lib/mapio.js"],
 ["rm","%USER%/lib/messages.js"],
-["rm","%USER%/lib/nas.XpsStore.js"],
-["rm","%USER%/lib/nasLibInstall.js"],
+["rm","%USER%/lib/nas_axeEventHandler.js"],
 ["rm","%USER%/lib/nas_common.js"],
 ["rm","%USER%/lib/nas_GUIlib.js"],
 ["rm","%USER%/lib/nas_Otome_config.js"],
 ["rm","%USER%/lib/nas_prefarenceLib.js"],
 ["rm","%USER%/lib/nas_psAxeLib.js"],
+["rm","%USER%/lib/nas.XpsStore.js"],
+["rm","%USER%/lib/nasLibInstall.js"],
+["rm","%USER%/lib/newXps.jsx"],
 ["rm","%USER%/lib/psAnimationFrameClass.js"],
+["rm","%USER%/lib/psCCfontFix.js"],
 ["rm","%USER%/lib/xpsio.js"],
 ["rm","%USER%/lib/xpsQueue.js"],
-["rm","%USER%/lib/newXps.jsx"],
-["rm","%USER%/lib/psCCfontFix.js"],
 
+["rm","%USER%/scripts/axe/activateKey.jsx"],
 ["rm","%USER%/scripts/axe/activateTopLayer.jsx"],
+["rm","%USER%/scripts/axe/addFav.jsx"],
 ["rm","%USER%/scripts/axe/addNewDocument.jsx"],
 ["rm","%USER%/scripts/axe/addNewLayer.jsx"],
 ["rm","%USER%/scripts/axe/addNewNumText.jsx"],
@@ -400,7 +471,16 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/scripts/axe/applyFilterTraceR.jsx"],
 ["rm","%USER%/scripts/axe/applyFilterTraceY.jsx"],
 ["rm","%USER%/scripts/axe/applyXps.jsx"],
+["rm","%USER%/scripts/axe/ccBl.jsx"],
+["rm","%USER%/scripts/axe/ccGr.jsx"],
+["rm","%USER%/scripts/axe/ccGy.jsx"],
+["rm","%USER%/scripts/axe/ccOr.jsx"],
+["rm","%USER%/scripts/axe/ccRd.jsx"],
+["rm","%USER%/scripts/axe/ccVl.jsx"],
+["rm","%USER%/scripts/axe/ccX.jsx"],
+["rm","%USER%/scripts/axe/ccYl.jsx"],
 ["rm","%USER%/scripts/axe/centeringLayers.jsx"],
+["rm","%USER%/scripts/axe/convertPsAxeAnimation.jsx"],
 ["rm","%USER%/scripts/axe/dbgConsolePs.jsx"],
 ["rm","%USER%/scripts/axe/divideLayers.jsx"],
 ["rm","%USER%/scripts/axe/documentBinder.jsx"],
@@ -410,15 +490,24 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/scripts/axe/editTextSource.jsx"],
 ["rm","%USER%/scripts/axe/editXps.jsx"],
 ["rm","%USER%/scripts/axe/exportLayersAsFile.jsx"],
+["rm","%USER%/scripts/axe/extractWA.jsx"],
 ["rm","%USER%/scripts/axe/ezFlip.jsx"],
 ["rm","%USER%/scripts/axe/ezFlip2.jsx"],
 ["rm","%USER%/scripts/axe/getFrontColorInfo.jsx"],
 ["rm","%USER%/scripts/axe/goEnd.jsx"],
+["rm","%USER%/scripts/axe/goFC.jsx"],
 ["rm","%USER%/scripts/axe/goFrst.jsx"],
 ["rm","%USER%/scripts/axe/goNext.jsx"],
 ["rm","%USER%/scripts/axe/goPrev.jsx"],
+["rm","%USER%/scripts/axe/goTC.jsx"],
+["rm","%USER%/scripts/axe/goWAend.jsx"],
+["rm","%USER%/scripts/axe/goWAsrt.jsx"],
 ["rm","%USER%/scripts/axe/groupingSelectedLayers.jsx"],
+["rm","%USER%/scripts/axe/importFieldChart.jsx"],
 ["rm","%USER%/scripts/axe/importFilesAsLayer.jsx"],
+["rm","%USER%/scripts/axe/importReference.jsx"],
+["rm","%USER%/scripts/axe/PacPs.jsx"],
+["rm","%USER%/scripts/axe/PaintPreProcess.jsx"],
 ["rm","%USER%/scripts/axe/layerName.jsx"],
 ["rm","%USER%/scripts/axe/layerNameDec.jsx"],
 ["rm","%USER%/scripts/axe/layerNameInc.jsx"],
@@ -426,18 +515,20 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/scripts/axe/layers2Frames0.jsx"],
 ["rm","%USER%/scripts/axe/layers2Frames1.jsx"],
 ["rm","%USER%/scripts/axe/layers2Frames2.jsx"],
+["rm","%USER%/scripts/axe/liftWA.jsx"],
 ["rm","%USER%/scripts/axe/lineSplit.jsx"],
 ["rm","%USER%/scripts/axe/loadPeg.jsx"],
 ["rm","%USER%/scripts/axe/loadSheetRule.jsx"],
+["rm","%USER%/scripts/axe/moveIP.jsx"],
+["rm","%USER%/scripts/axe/moveOP.jsx"],
 ["rm","%USER%/scripts/axe/numberingLayers.jsx"],
+["rm","%USER%/scripts/axe/ons.jsx"],
 ["rm","%USER%/scripts/axe/ons0.jsx"],
 ["rm","%USER%/scripts/axe/ons2.jsx"],
 ["rm","%USER%/scripts/axe/ons3.jsx"],
 ["rm","%USER%/scripts/axe/ons4.jsx"],
 ["rm","%USER%/scripts/axe/onsPref.jsx"],
 ["rm","%USER%/scripts/axe/onsReset.jsx"],
-["rm","%USER%/scripts/axe/PacPs.jsx"],
-["rm","%USER%/scripts/axe/PaintPreProcess.jsx"],
 ["rm","%USER%/scripts/axe/pathRPAFa.jsx"],
 ["rm","%USER%/scripts/axe/pathRPASnp.jsx"],
 ["rm","%USER%/scripts/axe/pathRPASnpB.jsx"],
@@ -450,6 +541,7 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/scripts/axe/removeLayerSets.jsx"],
 ["rm","%USER%/scripts/axe/removeWhitePixel.jsx"],
 ["rm","%USER%/scripts/axe/reverseLayerOrder.jsx"],
+["rm","%USER%/scripts/axe/rmKey.jsx"],
 ["rm","%USER%/scripts/axe/rotate.jsx"],
 ["rm","%USER%/scripts/axe/rotateCanvas.jsx"],
 ["rm","%USER%/scripts/axe/rotateLayersB.jsx"],
@@ -461,21 +553,30 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/scripts/axe/setDelay1.jsx"],
 ["rm","%USER%/scripts/axe/setDelay2.jsx"],
 ["rm","%USER%/scripts/axe/setDelay3.jsx"],
+["rm","%USER%/scripts/axe/setFps.jsx"],
+["rm","%USER%/scripts/axe/setKey.jsx"],
 ["rm","%USER%/scripts/axe/setLabel.jsx"],
+["rm","%USER%/scripts/axe/setOns.jsx"],
+["rm","%USER%/scripts/axe/setWAend.jsx"],
+["rm","%USER%/scripts/axe/setWAsrt.jsx"],
 ["rm","%USER%/scripts/axe/shiftLayers.jsx"],
 ["rm","%USER%/scripts/axe/shiftLayersB.jsx"],
 ["rm","%USER%/scripts/axe/shiftLayersU.jsx"],
+["rm","%USER%/scripts/axe/sliceTL.jsx"],
 ["rm","%USER%/scripts/axe/smartFix.jsx"],
 ["rm","%USER%/scripts/axe/smartMove.jsx"],
 ["rm","%USER%/scripts/axe/smartReset.jsx"],
+["rm","%USER%/scripts/axe/sortLayersByName.jsx"],
 ["rm","%USER%/scripts/axe/sortLayers_B.jsx"],
 ["rm","%USER%/scripts/axe/sortLayers_F.jsx"],
-["rm","%USER%/scripts/axe/sortLayersByName.jsx"],
 ["rm","%USER%/scripts/axe/swapLayers.jsx"],
+["rm","%USER%/scripts/axe/swcFav.jsx"],
 ["rm","%USER%/scripts/axe/test_console.jsx"],
 ["rm","%USER%/scripts/axe/test_libLoad.jsx"],
 ["rm","%USER%/scripts/axe/thinLine.jsx"],
 ["rm","%USER%/scripts/axe/thinLinePbk.jsx"],
+["rm","%USER%/scripts/axe/trimIP.jsx"],
+["rm","%USER%/scripts/axe/trimOP.jsx"],
 ["rm","%USER%/scripts/axe/viewQFtest.jsx"],
 ["rm","%USER%/scripts/axe/viewReset.jsx"],
 ["rm","%USER%/scripts/axe/void.jsx"],
@@ -489,7 +590,7 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/nasPsAxeInstall.jsx"],
 ["rm","%USER%/nas_PsAxe_install.dat"],
 
-[nas_Installer.showMsg,"ƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚Å‚«‚½‚Æv‚¢‚Ü‚·B\n‚à‚µ•K—v‚È‚çÄ“xƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚İ‚Ä‚­‚¾‚³‚¢B"]
+[nas_Installer.showMsg,"ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã§ããŸã¨æ€ã„ã¾ã™ã€‚\nã‚‚ã—å¿…è¦ãªã‚‰å†åº¦ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ã¿ã¦ãã ã•ã„ã€‚"]
 ];
 /*
 
@@ -505,18 +606,18 @@ nas_Installer.myUnInstall=[
 ["rmdir","%USER%/lib/resource/Pegs"],
 ["rmdir","%USER%"],
 */
-/*===========================	‚±‚ê‚ÍƒCƒ“ƒXƒg[ƒ‹İ’èƒtƒ@ƒCƒ‹	===============================*/
+/*===========================	ã“ã‚Œã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«	===============================*/
 /*
-	‚±‚Ìƒtƒ@ƒCƒ‹‚ÍAAdobe Script ‚Ìƒ\[ƒXƒtƒ@ƒCƒ‹‚Å‚·B
-	ŠÂ‹«‚ª®‚Á‚½“_‚ÅƒCƒ“ƒXƒg[ƒ‰“à‚Åeval‚³‚ê‚ÄŠeƒpƒbƒP[ƒW•Ê‚Ìî•ñ‚ğİ’è‚µ‚Ü‚·B
-	‚±‚Ìƒtƒ@ƒCƒ‹“à‚ÅˆÈ‰º‚ÌƒvƒƒpƒeƒB‚Ìİ’è‚ªI—¹‚µ‚Ä‚¢‚é–
+	ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€Adobe Script ã®ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã§ã™ã€‚
+	ç’°å¢ƒãŒæ•´ã£ãŸæ™‚ç‚¹ã§ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©å†…ã§evalã•ã‚Œã¦å„ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åˆ¥ã®æƒ…å ±ã‚’è¨­å®šã—ã¾ã™ã€‚
+	ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«å†…ã§ä»¥ä¸‹ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®è¨­å®šãŒçµ‚äº†ã—ã¦ã„ã‚‹äº‹
 
-	nas_Installer.replacePath.nas	nas‚ÌƒCƒ“ƒXƒg[ƒ‹æ
-	nas_Installer.replacePath.install	ƒpƒbƒP[ƒW‚ÌƒCƒ“ƒXƒg[ƒ‹æ
-	nas_Installer.replacePath.user	’uŠ·—pƒ†[ƒUƒpƒX(”CˆÓ)
+	nas_Installer.replacePath.nas	nasã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ˆ
+	nas_Installer.replacePath.install	ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ˆ
+	nas_Installer.replacePath.user	ç½®æ›ç”¨ãƒ¦ãƒ¼ã‚¶ãƒ‘ã‚¹(ä»»æ„)
 
-	nas_Installer.myInstall	ƒCƒ“ƒXƒg[ƒ‹è‡
-	nas_Installer.myUnInstall	ƒAƒ“ƒCƒ“ƒXƒg[ƒ‹è‡
+	nas_Installer.myInstall	ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ‰‹é †
+	nas_Installer.myUnInstall	ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ‰‹é †
 
-		‘®‚ÍcƒRƒƒ“ƒg“Ç‚ñ‚Å‚Ë
+		æ›¸å¼ã¯â€¦ã‚³ãƒ¡ãƒ³ãƒˆèª­ã‚“ã§ã­
  */

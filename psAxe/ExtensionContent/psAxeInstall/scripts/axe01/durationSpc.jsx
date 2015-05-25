@@ -1,1 +1,84 @@
-/*	ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ÉŒp‘±ŠÔ‚ğƒZƒbƒg‚·‚éB	ÅŒã‚Éw’è‚µ‚½Œp‘±ŠÔ‚ÍAƒ{ƒ^ƒ“‚É‹L˜^‚µ‚Ä‚PƒNƒŠƒbƒN‚ÅƒEƒBƒ“ƒhƒE‚ÌƒNƒ[ƒY‚Ü‚Ås‚¤*/// enable double clicking from the Macintosh Finder or the Windows Explorer#target photoshop// in case we double clicked the file	app.bringToFront();	var exFlag=true;//‚»‚à‚»‚àƒhƒLƒ…ƒƒ“ƒg‚ª‚È‚¯‚ê‚ÎI—¹	if(app.documents.length==0){		exFlag=false;	}else{//‹N“®‚ÉƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚Ìó‘Ô‚ğŠm”F@ƒAƒCƒeƒ€”‚ª1ˆÈ‰º‚È‚çI—¹ ko //		if(activeDocument.activeLayer.parent.layers.length<=1){exFlag=false;};	}	if(exFlag){//Å‰º‘wƒŒƒCƒ„‚Å‚Í‚È‚­Au”wŒiƒŒƒCƒ„vŒÀ’è? l—¶’†//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İif($.fileName){//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";}else{//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";}var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñif(! app.nas){//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é	var nas = new Object();		nas.Version=new Object();		nas.isAdobe=true;		nas.axe=new Object();		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş/*	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj@config.js		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ*/includeLibs=[	nasLibFolderPath+"config.js",	nasLibFolderPath+"nas_common.js",	nasLibFolderPath+"nas_GUIlib.js",	nasLibFolderPath+"nas_psAxeLib.js",	nasLibFolderPath+"nas_prefarenceLib.js"];//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é	app.nas=nas;	bootFlag=true;}else{	//alert("object nas exists")	nas=app.nas;	bootFlag=false;};/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤*/includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");includeLibs.push(nasLibFolderPath+"xpsio.js");includeLibs.push(nasLibFolderPath+"mapio.js");includeLibs.push(nasLibFolderPath+"lib_STS.js");includeLibs.push(nasLibFolderPath+"dataio.js");includeLibs.push(nasLibFolderPath+"fakeAE.js");includeLibs.push(nasLibFolderPath+"io.js");includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");includeLibs.push(nasLibFolderPath+"xpsQueue.js");for(prop in includeLibs){	var myScriptFileName=includeLibs[prop];	if($.evalFile){	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é		$.evalFile(myScriptFileName);	}else{	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·		var scriptFile = new File(myScriptFileName);		if(scriptFile.exists){			scriptFile.open();			var myContent=scriptFile.read()			scriptFile.close();			eval(myContent);		}	}}//=====================================•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾if(bootFlag){nas.readPrefarence();nas.workTitles.select();}//=====================================//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p//==================================================================mainvar myValues=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];//=========================@ƒ_ƒCƒAƒƒO‚ğì¬var myHeight=Math.ceil(myValues.length/6)+2.5;w = nas.GUI.newWindow("dialog","Frame Duration -eXt",6,myHeight,320,360);//ƒvƒƒpƒeƒBİ’è		w.setFrames ="0";// ”z—ñ‚ğƒ{ƒ^ƒ“‚É“WŠJvar myText="";//buttonFunction_aplDur=function(){	var myFrames=nas.FCT2Frm(this.text);	if(! isNaN(myFrames)){		setDly(myFrames/nas.FRATE);		this.parent.close();	}}for (myLine=0;myLine<Math.floor(myValues.length/6);myLine++){    for (myColumn =0;myColumn<6;myColumn++){        w["bt"+myLine+myColumn]=nas.GUI.addButton(w,myValues[myColumn+myLine*6],myColumn*.95,myLine*.85,1.25,1);        w["bt"+myLine+myColumn].onClick=_aplDur;    }}if (false){alert(myText);w.bt11=nas.GUI.addButton(w,"0",0,0,1.25,1);w.bt12=nas.GUI.addButton(w,"4",1,0,1.25,1);w.bt13=nas.GUI.addButton(w,"8",2,0,1.25,1);w.bt14=nas.GUI.addButton(w,"12",3,0,1.25,1);w.bt15=nas.GUI.addButton(w,"18",4,0,1.25,1);w.bt16=nas.GUI.addButton(w,"--",5,0,1,1);}/*ƒpƒlƒ‹ã•û‚Éƒ{ƒ^ƒ“‚ğ©“®”z’u‚µ‚½‚Ì‚Å”z—ñ‚Ì”‚©‚ç‚’¼ƒIƒtƒZƒbƒg‚ğo‚·*/var vOffset=Math.floor(myValues.length/6);w.sl00=nas.GUI.addSlider(w,0,0,24,0,vOffset-1,6);w.cb21=nas.GUI.addComboBox(w,["0+0","0+4","0+6","0+8","0+9","0+12","0+15","0+16","0+18"],w.setFrames,0,.5+vOffset,2,1);w.lb22=nas.GUI.addStaticText(w,"frames",2,.7+vOffset,1,1);w.cb23=nas.GUI.addComboBox(w,[15,24,23.98,25,30,29.97,59.94,60,100],nas.FRATE,3,.5+vOffset,2,1)w.cb24=nas.GUI.addStaticText(w,"fps",5,.7+vOffset,1,1);w.bt31=nas.GUI.addButton(w,"Cancel",0,1.7+vOffset,3,1);w.bt32=nas.GUI.addButton(w,"O K",3,1.7+vOffset,3,1);if (false){w.bt11.onClick=_aplDur ;w.bt12.onClick=_aplDur ;w.bt13.onClick=_aplDur;w.bt14.onClick=_aplDur;w.bt15.onClick=_aplDur;w.bt16.onClick=_aplDur;}w.sl00.onChange=function(){w.cb21.set(nas.FCT2Frm(w.cb21.value)+this.value);}Slider.onw.cb21.onChange=function(){this.parent.setFrames=nas.FCT2Frm(this.value)}w.cb23.onChange=function(){nas.FRATE=parseFloat (this.value);}w.bt32.onClick=function(){	if(! (isNaN(this.parent.setFrames))){		setDly(this.parent.setFrames/nas.FRATE);		this.parent.close();	}}w.bt31.onClick=function(){this.parent.close();}w.show();//var myXps=new Xps();}
+/*
+	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã«ç¶™ç¶šæ™‚é–“ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ã€‚
+	æœ€å¾Œã«æŒ‡å®šã—ãŸç¶™ç¶šæ™‚é–“ã¯ã€ãƒœã‚¿ãƒ³ã«è¨˜éŒ²ã—ã¦ï¼‘ã‚¯ãƒªãƒƒã‚¯ã§ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¯ãƒ­ãƒ¼ã‚ºã¾ã§è¡Œã†
+*/
+	var exFlag=true;
+
+	nas=app.nas;
+	var animationMode=nas.axeCMC.getAnimationMode();
+
+//ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒãªã„ãƒ»ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ¢ãƒ¼ãƒ‰ãŒåˆæœŸåŒ–ã•ã‚Œã¦ã„ãªã„å ´åˆã¯çµ‚äº†
+	if((app.documents.length==0)||(animationMode.indexOf("NI")>=0)){
+		exFlag=false;
+	}else{
+//èµ·å‹•æ™‚ã«ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹ã‚’ç¢ºèªã€€ã‚¢ã‚¤ãƒ†ãƒ æ•°ãŒ1ä»¥ä¸‹ãªã‚‰çµ‚äº† ko 
+//		if(activeDocument.activeLayer.parent.layers.length<=1){exFlag=false;};
+	}
+
+	if(exFlag){
+//æœ€ä¸‹å±¤ãƒ¬ã‚¤ãƒ¤ã§ã¯ãªãã€ã€ŒèƒŒæ™¯ãƒ¬ã‚¤ãƒ¤ã€é™å®š? è€ƒæ…®ä¸­
+
+
+//==================================================================main
+var myValues=(animationMode=="timelineAnimation")?
+	[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]:
+	[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+//=========================ã€€ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’ä½œæˆ
+var myHeight=Math.ceil(myValues.length/6)+2.5;
+w = nas.GUI.newWindow("dialog","Frame Duration -eXt",6,myHeight,320,360);
+//ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£è¨­å®š	
+	w.setFrames ="0";
+// é…åˆ—ã‚’ãƒœã‚¿ãƒ³ã«å±•é–‹
+var myText="";
+
+//buttonFunction
+_aplDur=function(){
+	var myFrames=nas.FCT2Frm(this.text);
+	if(! isNaN(myFrames)){
+	   if(animationMode=="timelineAnimation"){nas.axeVTC.setDuration(myFrames);}else{nas.axeAFC.setDly(myFrames/nas.FRATE)};
+		this.parent.close();
+	}
+}
+
+for (myLine=0;myLine<Math.floor(myValues.length/6);myLine++){
+    for (myColumn =0;myColumn<6;myColumn++){
+        w["bt"+myLine+myColumn]=nas.GUI.addButton(w,myValues[myColumn+myLine*6],myColumn*.95,myLine*.85,1.25,1);
+        w["bt"+myLine+myColumn].onClick=_aplDur;
+    }
+}
+
+/*
+ãƒ‘ãƒãƒ«ä¸Šæ–¹ã«ãƒœã‚¿ãƒ³ã‚’è‡ªå‹•é…ç½®ã—ãŸã®ã§é…åˆ—ã®æ•°ã‹ã‚‰å‚ç›´ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’å‡ºã™
+*/
+var vOffset=Math.floor(myValues.length/6);
+if(animationMode=="timelineAnimation"){
+w.sl00=nas.GUI.addSlider(w,1,1,24,0,vOffset-1,6);
+}else{
+w.sl00=nas.GUI.addSlider(w,0,0,24,0,vOffset-1,6);
+}
+
+w.cb21=nas.GUI.addComboBox(w,["0+4","0+5","0+6","0+8","0+9","0+12","0+15","0+16","0+18"],w.setFrames,0,.5+vOffset,2,1);
+w.lb22=nas.GUI.addStaticText(w,"frames",2,.7+vOffset,1,1);
+w.cb23=nas.GUI.addComboBox(w,[15,24,23.98,25,30,29.97,59.94,60,100],nas.FRATE,3,.5+vOffset,2,1)
+w.cb24=nas.GUI.addStaticText(w,"fps",5,.7+vOffset,1,1);
+w.bt31=nas.GUI.addButton(w,"Cancel",0,1.7+vOffset,3,1);
+w.bt32=nas.GUI.addButton(w,"O K",3,1.7+vOffset,3,1);
+//======================================================================
+w.sl00.onChange=function(){w.cb21.set(nas.Frm2FCT(Math.floor(this.value*nas.FRATE),3,0));w.cb21.onChange();}
+
+Slider.on
+w.cb21.onChange=function(){this.parent.setFrames=nas.FCT2Frm(this.value)}
+w.cb23.onChange=function(){nas.FRATE=parseFloat(this.value);if(animationMode=="timelineAnimation"){nas.axeVTC.setFrameRate();}};
+w.bt32.onClick=function(){
+	var myFrames=this.parent.setFrames;
+	if(! isNaN(myFrames)){
+	   if(animationMode=="timelineAnimation"){nas.axeVTC.setDuration(myFrames)}else{nas.axeAFC.setDly(myFrames/nas.FRATE)};
+		this.parent.close();
+	}
+}
+w.bt31.onClick=function(){this.parent.close();}
+w.show();
+//var myXps=new Xps();
+
+
+}

@@ -1,140 +1,32 @@
-/*(ƒAƒjƒƒtƒŒ[ƒ€‚Ìíœ)
-	ƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‰Šú‰»‚·‚é
+/*(ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã®å‰Šé™¤)
+	ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’åˆæœŸåŒ–ã™ã‚‹
 */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
 #target photoshop
 // in case we double clicked the file
 app.bringToFront();
-//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
-
-if($.fileName){
-//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é
-	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-}
-var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñ
-
-if(! app.nas){
-//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é
-	var nas = new Object();
-		nas.Version=new Object();
-		nas.isAdobe=true;
-		nas.axe=new Object();
-		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p
-//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş
-/*
-	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB
-	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)
-	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş
-
-@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj
-@config.js"		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\
-  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ
-  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ
-  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ
-
-  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)
-  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ
-  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ
-  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ
-  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j
-  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ
-  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ
-  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ
-*/
-includeLibs=[
-	nasLibFolderPath+"config.js",
-	nasLibFolderPath+"nas_common.js",
-	nasLibFolderPath+"nas_GUIlib.js",
-	nasLibFolderPath+"nas_psAxeLib.js",
-	nasLibFolderPath+"nas_prefarenceLib.js"
-];
-//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é
-	app.nas=nas;
-	bootFlag=true;
-}else{
-	//alert("object nas exists")
+//Photoshopç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
+//	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
 	nas=app.nas;
-	bootFlag=false;
-};
 
-/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
-‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤
-*/
-	if(false){
-includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
-includeLibs.push(nasLibFolderPath+"xpsio.js");
-includeLibs.push(nasLibFolderPath+"mapio.js");
-includeLibs.push(nasLibFolderPath+"lib_STS.js");
-includeLibs.push(nasLibFolderPath+"dataio.js");
-includeLibs.push(nasLibFolderPath+"fakeAE.js");
-includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"xpsQueue.js");
-	}
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
-
-for(prop in includeLibs){
-	var myScriptFileName=includeLibs[prop];
-	if($.evalFile){
-	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é
-		$.evalFile(myScriptFileName);
-	}else{
-	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·
-		var scriptFile = new File(myScriptFileName);
-		if(scriptFile.exists){
-			scriptFile.open();
-			var myContent=scriptFile.read()
-			scriptFile.close();
-			eval(myContent);
-		}
-	}
-}
-//=====================================•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾
-if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
-//=====================================
-//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p
+//+++++++++++++++++++++++++++++++++ã“ã“ã¾ã§å…±ç”¨
 ErrStrs = {};
 ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation");
 try{
-
-		//ƒAƒjƒ[ƒVƒ‡ƒ“ƒe[ƒuƒ‹‰Šú‰»
-		//ƒAƒjƒƒEƒBƒ“ƒhƒE‚ğ‰Šú‰»‚·‚é„—v‚·‚é‚É‘S‚ÄÁ‚·
-//		dupulicateFrame();//ˆêŒÂ•¡»‚µ‚ÄÅ’á‚QŒÂ‚ÌƒtƒŒ[ƒ€‚É‚·‚éiƒGƒ‰[‰ñ”ğj
-//		selectFramesAll();//‘S‘I‘ğ
-//		removeSelection();//íœ
-		intFrames();//‰Šú‰»ƒ‚±‚Ì•û‚ª‘‚¢
-//	ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ğíœ‚·‚é–Ú“I‚ªƒhƒLƒ…ƒƒ“ƒg‚Ì‰Šú‰»‚È‚Ì‚ÅA
-//	‚±‚±‚ÅƒtƒŒ[ƒ€‚Ì‘S•\¦‚ÆƒIƒjƒIƒ“ƒXƒLƒ“‚ÌƒNƒŠƒA‚ğs‚¤
-if(true){
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ†ãƒ¼ãƒ–ãƒ«åˆæœŸåŒ–
+		//ã‚¢ãƒ‹ãƒ¡ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’åˆæœŸåŒ–ã™ã‚‹ï¼è¦ã™ã‚‹ã«å…¨ã¦æ¶ˆã™
+		nas.axeAFC.initFrames();//åˆæœŸåŒ–
+//	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’å‰Šé™¤ã™ã‚‹ç›®çš„ãŒãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã®åˆæœŸåŒ–ãªã®ã§ã€
+//	ã“ã“ã§ãƒ•ãƒ¬ãƒ¼ãƒ ã®å…¨è¡¨ç¤ºã¨ã‚ªãƒ‹ã‚ªãƒ³ã‚¹ã‚­ãƒ³ã®ã‚¯ãƒªã‚¢ã‚’è¡Œã†
 		var myDocLayers=app.activeDocument.activeLayer.parent.layers;
 		for(var idx=0;idx<myDocLayers.length;idx++){
-		if(myDocLayers[idx].opacity!=100.0){myDocLayers[idx].opacity=100.0}
-		if(myDocLayers[idx].visible!=true){myDocLayers[idx].visible=true}
+		 var myTarget=myDocLayers[idx];
+//visibleãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒfalseã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯ä»–ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£æ“ä½œãŒãƒ­ãƒƒã‚¯ã•ã‚Œã‚‹ã®ã§visibleã®æ“ä½œã‚’å…ˆè¡Œ
+		if(myTarget.visible!=true){myTarget.visible=true};
+		if(myTarget.opacity!=100.0){myTarget.opacity=100.0};
 		}
-		app.activeDocument.activeLayer=myDocLayers[0];//‘S•\¦‚µ‚½‚Ì‚Å0”Ô‚ğƒAƒNƒeƒBƒu
-}else{
-	
-	var myCount=0;
-for(var Cidx=0;Cidx<app.activeDocument.layers.length;Cidx++){
-	if(app.activeDocument.layers[Cidx].layers){
-	//ƒŒƒCƒ„ƒZƒbƒg
-		var myDocLayers=app.activeDocument.layers[Cidx].layers;
-		for(var idx=0;idx<myDocLayers.length;idx++){
-		if(myDocLayers[idx].opacity!=100.0){myDocLayers[idx].opacity=100.0}
-		if(myDocLayers[idx].visible!=true){myDocLayers[idx].visible=true}
-		}
-	}else{
-	//ƒA[ƒgƒŒƒCƒ„‚È‚ç•\¦‚Ì‚İXV
-		if(app.activeDocument.layers[Cidx].visible!=true){app.activeDocument.layers[Cidx].visible=true}
-	}
-}
-
-}
+		app.activeDocument.activeLayer=myDocLayers[0];//å…¨è¡¨ç¤ºã—ãŸã®ã§0ç•ªã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–
 
 } catch(e){ if (e.toString().indexOf(ErrStrs.USER_CANCELLED)!=-1) {;} else{alert(localize("$$$/ScriptingSupport/Error/CommandNotAvailable=The command is currently not available"));}};
 

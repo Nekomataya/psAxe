@@ -1,5 +1,5 @@
 /*
-	選択レイヤのトレーラー内をナンバリングする;3桁番号
+	驕ｸ謚槭Ξ繧､繝､縺ｮ繝医Ξ繝ｼ繝ｩ繝ｼ蜀�繧偵リ繝ｳ繝舌Μ繝ｳ繧ｰ縺吶ｋ;3譯∫分蜿ｷ
 */
 var myLayers=app.activeDocument.activeLayer;
 if(myLayers.typename =="ArtLayer"){myLayers=myLayers.parent};
