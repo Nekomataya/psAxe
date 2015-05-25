@@ -201,7 +201,6 @@ if(isWindows){
 //WorkTitleDBは共用（環境非依存ライブラリ）側に
 	nas.workTitles=new nTable();
 
-			nas.workTitles.push("パチンコ翠星のガルガンティア",["garPC","SGG",7,3]);
 			nas.workTitles.push("タイトル",["略称","記号",0,3]);
 			nas.workTitles.push("ぽこあぽこ・られんたんど",["poco","PP",5,3]);
 			nas.workTitles.push("かちかち山",["KachiKachi","KT",1,4]);

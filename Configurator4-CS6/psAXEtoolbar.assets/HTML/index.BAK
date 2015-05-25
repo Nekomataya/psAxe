@@ -3,9 +3,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!-- <script src="./lib/CSInterface-4.0.0.js"></script> -->
-<script src="./ext.js"></script>
+<script src="./lib/CSInterface-4.0.0.js"></script>
 <script src="./common_files/nas_common.js"></script>
+<script src="./ext.js"></script>
 
 <!-- <script src="./lib/Vulcan-4.0.0.js"></script> -->
 <title>psAxeToolBar</title>
@@ -64,65 +64,7 @@
 </div>
 <div id="pnl0" >
 
-<button id="convertAFT" class=toolChip onClick='doAxeScript("convertPsAxeAnimation")' title="convert animation/timeline"><img src=images/ICONs/ModeConv.png>
-</button><button id="vtFocus" class=toolChip style="width:26px;background-color:#558888;"
- onClick='if(this.innerHTML=="f"){this.innerHTML="✓";doScript("nas.axe.focusMove=false;");}else{this.innerHTML="f";doScript("nas.axe.focusMove=true;");};doScript("nas.writePrefarence(\"nas.axe\")");'  title="focus change with moveing playhead">✓
-</button>
-<!-- animationframe/playhead move -->
-	<span id=vtControl style="display:none;">
-                <button id="atFst" class=toolChipN onClick='doAxeScript("goFrst")' title="start"><img src=images/ICONs/leftStop.png>
-</button><button id="atPrv" class=toolChipN onClick='doAxeScript("goPrev")' title="prev"><img src=images/ICONs/LEFT.png>
-</button><button id="atNxt" class=toolChipN onClick='doAxeScript("goNext")' title="next"><img src=images/ICONs/RIGHT.png>
-</button><button id="atEnd" class=toolChipN onClick='doAxeScript("goEnd") ' title="end"><img src=images/ICONs/rightStop.png>
-</button>
-<!-- workarea controll -->
-                 <button id="goWAsrt" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/moveWAhead.png>
-</button><button id="setWAsrt" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/WAhead.png>
-</button><button id="liftWA" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/extractWA.png>
-</button><button id="extractWA" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/liftWA.png>
-</button><button id="setWAend" class=toolChipN onClick='doAxeScript(this.id)'  title=""><img src=images/ICONs/WAtail.png>
-</button><button id="goWAend" class=toolChipN onClick='doAxeScript(this.id)'  title=""><img src=images/ICONs/moveWAtail.png>
-</button>
-<!-- move and trimming timeline-->
-                 <button id="moveIP" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/MoveHead.png>
-</button><button id="trimIP" class=toolChipN onClick='doAxeScript(this.id)' title=""> <img src=images/ICONs/Head.png>
-</button><button id="sliceTL" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/Scissors.png>
-</button><button id="trimOP" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/Tail.png>
-</button><button id="moveOP" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/MoveTail.png>
-</button>
-
-                 <button id="setKey" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/placeMark.png>
-</button><button id="rmKey" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/deleteMark.png>
-</button><button id="activateKey" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/stopWatch.png>
-</button><button id="swcFav" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/switchFAV.png>
-</button><button id="addFav" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/setFAV.png>
-</button><button id="ons" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/Ons.png>
-</button><button id="setOns" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONs/LyrSetting.png>
-</button>
-
-<!-- 新規タイムライン /　移動スキップ量-->
-<button id="vtNewLyr" class=toolChipN onClick='doAxeScript("addNewLayer")' title="add new timeline"><img src=images/ICONs/addNewLayer.png>
-</button><input id=moveSpanDuration class=operation type=text size=5 value="1 + 00." style="text-align:center;" title="new timeline length and moveing step"
-onMousedown = "this.value=FCT2Frm(this.value);sliderVALUE([event,this,'240','1','0']);"
-onChange='this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);doScript("nas.axe.skipFrames="+FCT2Frm(this.value.toString(),3,0)+";nas.writePrefarence(\"nas.axe\")");'
-><button id="vtDec" class=toolChipN style="border-style:outset;width:12px;" 
-onClick='document.getElementById("moveSpanDuration").value=(FCT2Frm(document.getElementById("moveSpanDuration").value)>1)?Frm2FCT(FCT2Frm(document.getElementById("moveSpanDuration").value)-1,3,0):"0 + 01 .";doScript("app.nas.axe.skipFrames="+FCT2Frm(document.getElementById("moveSpanDuration").value.toString(),3,0)+";nas.writePrefarence(\"nas.axe\")");'
-  title="減値">-
-</button><button id="vtInc" class=toolChipN style="border-style:outset;width:12px;" 
-onClick='document.getElementById("moveSpanDuration").value=Frm2FCT(FCT2Frm(document.getElementById("moveSpanDuration").value)+1,3,0);doScript("app.nas.axe.skipFrames="+FCT2Frm(document.getElementById("moveSpanDuration").value.toString(),3,0)+";nas.writePrefarence(\"nas.axe\")");'
-  title="増値">+
-</button><button id="vtUseOpt" class=toolChipN style="width:26px;background-color:#5555cc;"
- onClick='if(this.innerHTML=="o"){this.innerHTML="✓";doScript("nas.axe.useOptKey=false;");}else{this.innerHTML="o";doScript("nas.axe.useOptKey=true;");};doScript("nas.writePrefarence(\"nas.axe\")");'
-  title="move to keyframe">✓
-</button>	</span>
-<!--			タイムシート適用		
-         <button class=toolChip onClick='doAxeScript("applyXps")' title="XPS適用"><img src=images/ICONs/applyXPS.png>
-</button><button class=toolChip onClick='doAxeScript("editXps")' title="XPS編集"><img src=images/ICONs/editXPS.png>
-</button><button class=toolChip onClick='doAxeScript("easyXPSLink_Ps")' title="（詳細）"><img src=images/ICONs/linkXPS.png>
-</button>-->
-<!-----  --------->
-	<span id=afControl style="display:inline;">
-                 <button id="afFst" class=toolChip onClick='doAxeScript("goFrst")' title="start"><img src=images/ICONs/leftStop.png>
+         <button id="afFst" class=toolChip onClick='doAxeScript("goFrst")' title="start"><img src=images/ICONs/leftStop.png>
 </button><button id="afPrv" class=toolChip onClick='doAxeScript("goPrev")' title="prev"><img src=images/ICONs/LEFT.png>
 </button><button id="afNxt" class=toolChip onClick='doAxeScript("goNext")' title="next"><img src=images/ICONs/RIGHT.png>
 </button><button id="afEnd" class=toolChip onClick='doAxeScript("goEnd") ' title="end"><img src=images/ICONs/rightStop.png>
@@ -139,11 +81,10 @@ onClick='document.getElementById("moveSpanDuration").value=Frm2FCT(FCT2Frm(docum
 </button><button id="afLF1" class=toolChip onClick='doAxeScript("layers2Frames1")' title="make animationFrames from layerset"><img src=images/ICONs/exPandLayerset.png>
 </button><button id="afLF0" class=toolChip onClick='doAxeScript("layers2Frames0")' title="make animationFrames from all ArtLayers"><img src=images/ICONs/exPandAll.png>
 </button>
-	</span>
+
 <button id="afSd1" class=toolChip onClick='doAxeScript("setDelay1")' title="set delay 1f"><img src=images/ICONs/1k.png>
 </button><button id="afSd2" class=toolChip onClick='doAxeScript("setDelay2")' title="set delay 2f"><img src=images/ICONs/2k.png>
 </button><button id="afSd3" class=toolChip onClick='doAxeScript("setDelay3")' title="set delay 3f"><img src=images/ICONs/3k.png>
-</button><button id="afSdS" class=toolChip onClick='doAxeScript("durationSpc")' title="遅延指定パネル"><img src=images/ICONs/spc.png>
 </button>
 
 <input id=currentDuration class=operation type=text size=5 value="0 + 00." style="text-align:center;" title="遅延時間を整数またはTCで指定"
@@ -155,15 +96,21 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
 </button><button id="afInc" class=toolChip style="border-style:outset;width:12px;"
  onClick='document.getElementById("currentDuration").value=Frm2FCT(FCT2Frm(document.getElementById("currentDuration").value)+1,3,0);'
   title="増値">+
-</button><button id="afSet" class=toolChip onClick='doAxeScript("setDelay",[document.getElementById("currentDuration").value]);' title="フレーム数指定">set!
-</button><button id="setFps" class=toolChip onClick='doAxeScript(this.id)' title="setting framerate"><img src=images/ICONs/setFPS.png>
+</button><button id="afSet" class=toolChip onClick='afcSetDly(FCT2Frm(document.getElementById("currentDuration").value)/FRATE);' title="フレーム数指定">set!
+</button><button id="afSdS" class=toolChip onClick='doAxeScript("durationSpc")' title="遅延指定パネル"><img src=images/ICONs/spc.png>
 </button>
-<!--		apply Xps			-->
+<!--			タイムシート適用		-->
          <button class=toolChip onClick='doAxeScript("applyXps")' title="XPS適用"><img src=images/ICONs/applyXPS.png>
 </button><button class=toolChip onClick='doAxeScript("editXps")' title="XPS編集"><img src=images/ICONs/editXPS.png>
 </button><button class=toolChip onClick='doAxeScript("easyXPSLink_Ps")' title="（詳細）"><img src=images/ICONs/linkXPS.png>
 </button>
+<!-- ================================================================= -->
+<!--
 </div>
+<div id="pnl2">
+-->
+</div>
+
 <div id=pnl1 style="display:inline">
 
 <!--			standerd tools			-->
@@ -207,7 +154,7 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
 </button>
 </div>
 <!-- ================================================================= -->
-<!--		document/layer controll	ドキュメント/レイヤ管理			-->
+<!--			ドキュメント/レイヤ管理			-->
 <div id=pnl3 >
          <button class=toolChip onClick='doAxeScript("addNewDocument")' title="新規書類"><img src=images/ICONs/newDoc.png>
 </button><button class=toolChip onClick='doAxeScript("addNewXpsA3")' title="新規シート(画像)"><img src=images/ICONs/newXps.png>
@@ -215,24 +162,21 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
 </button><button class=toolChip onClick='doAxeScript("exportLayersAsFile")' title="レイヤをファイルに書き出し"><img src=images/ICONs/export.png>
 </button>
 
-	       <button class=toolChip onClick='doAxeScript("loadPeg")' title="レジスタマークを読み込み"><img src=images/ICONs/addRegister.png>
+	<button class=toolChip onClick='doAxeScript("loadPeg")' title="レジスタマークを読み込み"><img src=images/ICONs/addRegister.png>
 </button><button class=toolChip onClick='doAxeScript("duplicateReg")' title="選択レイヤにレジスタマークを複製"><img src=images/ICONs/dupRegister.png>
 </button><button class=toolChip onClick='doAxeScript("addNewNumText")' title="カット番号を挿入"><img src=images/ICONs/addText.png>
 </button><button class=toolChip onClick='doAxeScript("editTextSource")' title="テキストレイヤのソースを編集"><img src=images/ICONs/editText.png>
-</button><button class=toolChip onClick='doAxeScript("importFieldChart")' title="フィールドガイド"><img src=images/ICONs/fieldChart.png>
-</button><button class=toolChip onClick='doAxeScript("importReference")' title="リファレンス"><img src=images/ICONs/Reference.png>
-</button>
-                 <button class=toolChip onClick='doAxeScript("documentBinder")' title="ドキュメントをひとつにまとめる"><img src=images/ICONs/gather.png>
+	<button class=toolChip onClick='doAxeScript("documentBinder")' title="ドキュメントをひとつにまとめる"><img src=images/ICONs/gather.png>
 </button><button class=toolChip onClick='doAxeScript("divideLayers")' title="レイヤ名で振り分け"><img src=images/ICONs/divider.png>
 </button><button class=toolChip onClick='doAxeScript("groupingSelectedLayers")' title="選択レイヤをグループに"><img src=images/ICONs/bind.png>
 </button><button class=toolChip onClick='doAxeScript("numberingLayers")' title="セット内を連番"><img src=images/ICONs/numbering.png>
 </button>
 <!-- ================================================================= -->
-<!-- Layer label editor  レイヤラベルエディタ 
+<!-- レイヤラベルエディタ 
 数値付きラベルだった場合は数値部分を残してプレフィックスのみを変更する
 複数レイヤが選択されている場合は、全てのレイヤのプレフィックスを更新する
 -->
-<div style="position:absolute;top:4px;left:600px;bottom:54px;">
+<div style="position:absolute;top:4px;left:650px;bottom:54px;">
 	<button class=owd style="width:18px;" onclick="var newValue=getCurrentLabel(document.getElementById('myLabel').value);" value=">" title="get label from current layer">⇒
 	</button><input type=text id=myLabel class=hw style="text-align:center;background-color:#eeeeee;width:108px;" value="LO"
 	onChange="setLabel(this.value,false);"
@@ -258,20 +202,7 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
  </button><button class=qwd onClick='setLabel(document.getElementById("myLabel").value,"")' title="set　layerName" > name
  </button><button class=qwd onClick='setLabel(document.getElementById("myLabel").value,"auto");' title="set　Label to Layers" >bulk
  </button><button class=qwd onClick='setLabel(document.getElementById("myLabel").value,"swap");' title="set　Label to selected layers" >apply
- </button>
- <!-- 　label color setting/ラベルカラー設定 -->
-                 <button id="ccRd" class=owd onClick='doAxeScript(this.id)' style="backGround-color:red">R
-</button><button id="ccOr" class=owd onClick='doAxeScript(this.id)' style="backGround-color:orange">Or
-</button><button id="ccYl" class=owd onClick='doAxeScript(this.id)' style="backGround-color:gold" >Yl
-</button><button id="ccGr" class=owd onClick='doAxeScript(this.id)' style="backGround-color:green">Gr
-</button><button id="ccBl" class=owd onClick='doAxeScript(this.id)' style="backGround-color:blue" >B
-</button><button id="ccVl" class=owd onClick='doAxeScript(this.id)' style="backGround-color:violet" >V
-</button><button id="ccGy" class=owd onClick='doAxeScript(this.id)' style="backGround-color:gray" >Gy
-</button><button id="ccX" class=owd onClick='doAxeScript(this.id)' style="backGround-color:whitesmoke;color:black;" >×
-</button>
-
- <br>
- <!-- layer name util -->
+ </button><br>
         <button class=qwd style="height:16px;" onClick='setLabel("+","add");' title="layer name add +"> add+</button>
         <button class=qwd style="height:16px;" onClick='setLabel("+","remove");' title="remove +" >rmv+ </button>
         <button class=qwd style="height:16px;" onClick='doAxeScript("layerNameInc")' title="label number ++">( ++ )</button>

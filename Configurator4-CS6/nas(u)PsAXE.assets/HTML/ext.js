@@ -7,6 +7,7 @@ function onLoaded(){
 	if(isCEP) {
 //CEP環境用
     var csInterface =new CSInterface();
+
     var appName = csInterface.hostEnvironment.appName;
 
     updateThemeWithAppSkinInfo(csInterface.hostEnvironment.appSkinInfo);
@@ -22,30 +23,25 @@ function onLoaded(){
 //    chgPnl(0);//メニューバーの初期化
     syncProp();//プロパティ初期化
 }
-
+/*=======================================*/
 function syncProp(){
 	//インターフェース上のスイッチで初期化の必要な物を初期化する
  if(isCEP){
- 	var csInterface =new CSInterface();
-csInterface.evalScript(
-	'(function(myStatus){return myStatus})({
-		skipFrames:app.nas.axe.skipFrames,
-		useOptKey:app.nas.axe.useOptKey,
-		focusMove:app.nas.axe.focusMove,
-		animationMode:app.nas.axeCMC.getAnimationMode()
-		});',
-function(curentStatus){
-document.getElementById("moveSpanDuration").value=Frm2FCT(currentStatus.skipFrames),3,0);
-document.getElementById("vtUseOpt").innerHTML=(currentStatus.useOptKey)? "o":"✓";
-document.getElementById("vtFocus").innerHTML  =(currentStatus.focusMove)? "f":"✓";
- if(currentStatus.animationMode=="timelineAnimation"){
-	document.getElementById("vtControl").style.display="inline";document.getElementById("afControl").style.display="none";
- }else{
+	 evalScript('if((typeof app.nas !="undefined")){getApplicationResult([app.nas.axe.skipFrames,app.nas.axe.useOptKey,app.nas.axe.focusMove,app.nas.axeCMC.getAnimationMode()])}else{getApplicationResult(false)}',function(currentStatus){
+		 if(! currentStatus){return false}
+		 myStatus=currentStatus.split(",");
+	document.getElementById("moveSpanDuration").value=Frm2FCT(myStatus[0],3,0);
+	document.getElementById("vtUseOpt").innerHTML=(myStatus[1])? "o":"✓";
+	document.getElementById("vtFocus").innerHTML  =(myStatus[2])? "f":"✓";
+	if(myStatus[3]=="timelineAnimation"){
+		document.getElementById("vtControl").style.display="inline";document.getElementById("afControl").style.display="none";
+	}else{
 	document.getElementById("vtControl").style.display="none";document.getElementById("afControl").style.display="inline";
- }
+    }
 });
  }else{
-document.getElementById("moveSpanDuration").value=Frm2FCT(getApplicationResult("app.nas.axe.skipFrames"),3,0;
+	 if(getApplicationResult('(typeof app.nas=="undefined")')) return false;
+document.getElementById("moveSpanDuration").value=Frm2FCT(getApplicationResult("app.nas.axe.skipFrames"),3,0);
 document.getElementById("vtUseOpt").innerHTML=(getApplicationResult("app.nas.axe.useOptKey"))? "o":"✓";
 document.getElementById("vtFocus").innerHTML  =(getApplicationResult("app.nas.axe.focusMove"))? "f":"✓";
 var myMode=getApplicationResult("if((app.documents.length)&&(app.activeDocument)){app.nas.axeCMC.getAnimationMode()}else{false}");
@@ -56,7 +52,7 @@ if(myMode=="timelineAnimation"){
 }
  }
 }
-
+/*=======================================*/
 	if(isCEP){
 /**
  * Update the theme with the AppSkinInfo retrieved from the host product.
@@ -376,7 +372,6 @@ default :
     }
 }
 
-//この関数(getApplicationResult)はCSX環境限定なのでCEP環境では切り分けて等価なイテレータに置き換える必要がある（要注意）
 function getApplicationResult(myProp){return _Adobe.JSXInterface.call("eval",myProp)}
 
 //UIパネル切替部分
