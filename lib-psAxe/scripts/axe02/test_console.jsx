@@ -1,18 +1,18 @@
-/*(ŠÈˆÕƒRƒ“ƒ\[ƒ‹)
+/*(ç°¡æ˜“ã‚³ãƒ³ã‚½ãƒ¼ãƒ«)
 //	Nekomataya/kiyo	2005.11.07
-//	‰üsƒR[ƒh’²®’Ç‰Á	11.08
-//	ƒtƒ@ƒCƒ‹“Ç‚İ‚İ’Ç‰Á	11.09
-//	macã‚Å‚Ì•\¦‚Ì‰ü‘PEŠÈˆÕGUIƒ‰ƒCƒuƒ‰ƒŠŒ±@11.17
-//	’²®@11.23  ‚±‚ê‚Å‚¨‚í‚è‚©‚È
-//	•Û‘¶‘Î‰‚·‚é‚±‚Æ‚É‚µ‚½Bˆê‰
-//	‚Â‚¢‚Å‚ÉPhotoshop‘Î‰ inDesign‚Æ‚©‘¼‚ÌCS‘g‚Í‚à‚Á‚Ä‚È‚¢‚Ì‚ÅƒƒJƒŠƒ}ƒZƒ“B12/21
+//	æ”¹è¡Œã‚³ãƒ¼ãƒ‰èª¿æ•´è¿½åŠ 	11.08
+//	ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿è¿½åŠ 	11.09
+//	macä¸Šã§ã®è¡¨ç¤ºã®æ”¹å–„ãƒ»ç°¡æ˜“GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒªè©¦é¨“ã€€11.17
+//	èª¿æ•´ã€€11.23  ã“ã‚Œã§ãŠã‚ã‚Šã‹ãª
+//	ä¿å­˜å¯¾å¿œã™ã‚‹ã“ã¨ã«ã—ãŸã€‚ä¸€å¿œ
+//	ã¤ã„ã§ã«Photoshopå¯¾å¿œ inDesignã¨ã‹ä»–ã®CSçµ„ã¯ã‚‚ã£ã¦ãªã„ã®ã§ãƒ¯ã‚«ãƒªãƒã‚»ãƒ³ã€‚12/21
 
-	‚±‚ÌƒRƒ“ƒ\[ƒ‹‚ÍA‰º’i‚ÌƒeƒLƒXƒgƒ{ƒbƒNƒX‚Ì“à—e‚ğ‚ğeval()‚ÅÀs‚µ‚ÄA
-	ã’i‚ÌƒeƒLƒXƒgƒ{ƒbƒNƒX‚É–ß’l‚ğ•\¦‚·‚éŠÈˆÕƒRƒ“ƒ\[ƒ‹‚Å‚·B
-	“Á’è‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚É‚ÍˆË‘¶‚µ‚Ä‚¨‚è‚Ü‚¹‚ñ‚Ì‚Å ‘å”¼‚ÌAdobeScriptŠÂ‹«‚Å“®ì‰Â”\‚Å‚·B
-	ŠÈ’P‚ÈƒR[ƒh‚ÌŒ±‚âƒfƒoƒbƒO“™‚É‚²—˜—p‚­‚¾‚³‚¢B
+	ã“ã®ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¯ã€ä¸‹æ®µã®ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã®å†…å®¹ã‚’ã‚’eval()ã§å®Ÿè¡Œã—ã¦ã€
+	ä¸Šæ®µã®ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã«æˆ»å€¤ã‚’è¡¨ç¤ºã™ã‚‹ç°¡æ˜“ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã§ã™ã€‚
+	ç‰¹å®šã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«ã¯ä¾å­˜ã—ã¦ãŠã‚Šã¾ã›ã‚“ã®ã§ å¤§åŠã®AdobeScriptç’°å¢ƒã§å‹•ä½œå¯èƒ½ã§ã™ã€‚
+	ç°¡å˜ãªã‚³ãƒ¼ãƒ‰ã®è©¦é¨“ã‚„ãƒ‡ãƒãƒƒã‚°ç­‰ã«ã”åˆ©ç”¨ãã ã•ã„ã€‚
 
-	‰º’i‚Ì“Ç‚İ‚İ‚Æ ã‰º’i•ÊX‚Ì•Û‘¶‚ª‰Â”\‚Å‚·B
+	ä¸‹æ®µã®èª­ã¿è¾¼ã¿ã¨ ä¸Šä¸‹æ®µåˆ¥ã€…ã®ä¿å­˜ãŒå¯èƒ½ã§ã™ã€‚
 
  */
 try{if(app.isProfessionalVersion)
@@ -27,26 +27,26 @@ try{if(app.isProfessionalVersion)
 	isWindows =true;
 }
 /*
-	edittext‚É‰Šúó‘Ô‚Å256ƒoƒCƒg‚Åƒy[ƒXƒg‚âè“ü—Í‚ª‘Å‚¿~‚ß‚É‚È‚éŒ»Û‚ª‚ ‚éB
-	ƒXƒNƒŠƒvƒg‚Å‚Ìƒf[ƒ^’Ç‰Á‚ğs‚¤‚Æ“®“I‚Éƒƒ‚ƒŠ‚ªŠm•Û‚³‚ê‚Ä‚¢‚é‚æ‚¤‚È‚Ì‚ÅA
-	‚±‚ê‚ÍAedittext‚É–³—‚â‚è‹ó”’‚ğ’Ç‰Á‚µ‚Äƒtƒ‰ƒbƒVƒ…‚·‚éƒƒ\ƒbƒhB
-	‚±‚ÌƒoƒO‚ª‰ğÁ‚µ‚½‚ç•s—vB	ˆø”‚Íƒ‹[ƒv‰ñ”B1‰ñƒAƒ^ƒŠ1kb
+	edittextã«åˆæœŸçŠ¶æ…‹ã§256ãƒã‚¤ãƒˆã§ãƒšãƒ¼ã‚¹ãƒˆã‚„æ‰‹å…¥åŠ›ãŒæ‰“ã¡æ­¢ã‚ã«ãªã‚‹ç¾è±¡ãŒã‚ã‚‹ã€‚
+	ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ã®ãƒ‡ãƒ¼ã‚¿è¿½åŠ ã‚’è¡Œã†ã¨å‹•çš„ã«ãƒ¡ãƒ¢ãƒªãŒç¢ºä¿ã•ã‚Œã¦ã„ã‚‹ã‚ˆã†ãªã®ã§ã€
+	ã“ã‚Œã¯ã€edittextã«ç„¡ç†ã‚„ã‚Šç©ºç™½ã‚’è¿½åŠ ã—ã¦ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã€‚
+	ã“ã®ãƒã‚°ãŒè§£æ¶ˆã—ãŸã‚‰ä¸è¦ã€‚	å¼•æ•°ã¯ãƒ«ãƒ¼ãƒ—å›æ•°ã€‚1å›ã‚¢ã‚¿ãƒª1kb
 
-	AE7.0 256ƒoƒCƒg‚Å‚Í‚È‚­‚È‚Á‚½‚ª“¯ƒoƒOˆË‘R—L‚èB‚³‚ç‚Éíœ‘€ìŒã‚ÉƒL[“ü—Í•s‘S’Ç‰Á
-	‚½‚¾‚µAƒRƒ“ƒ\[ƒ‹‹@”\‚ÍƒIƒŠƒWƒiƒ‹‚ÌƒXƒNƒŠƒvƒgƒGƒfƒBƒ^‚ª‚ ‚é‚Ì‚ÅA‚±‚Ìƒc[ƒ‹©‘Ì‚Í
-	‚¨–ğŒä–Æó‘Ô‚È‚Ì‚ÅƒAƒbƒvƒf[ƒg‚Í‚µ‚È‚¢
+	AE7.0 256ãƒã‚¤ãƒˆã§ã¯ãªããªã£ãŸãŒåŒãƒã‚°ä¾ç„¶æœ‰ã‚Šã€‚ã•ã‚‰ã«å‰Šé™¤æ“ä½œå¾Œã«ã‚­ãƒ¼å…¥åŠ›ä¸å…¨è¿½åŠ 
+	ãŸã ã—ã€ã‚³ãƒ³ã‚½ãƒ¼ãƒ«æ©Ÿèƒ½ã¯ã‚ªãƒªã‚¸ãƒŠãƒ«ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚¨ãƒ‡ã‚£ã‚¿ãŒã‚ã‚‹ã®ã§ã€ã“ã®ãƒ„ãƒ¼ãƒ«è‡ªä½“ã¯
+	ãŠå½¹å¾¡å…çŠ¶æ…‹ãªã®ã§ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã¯ã—ãªã„
 
-	AE8(CS3) ‚ ‚¢‚©‚í‚ç‚¸ƒoƒO‚¾‚ç‚¯B
-	è‚ª‚é‚È‚Ì‚Å‚±‚ÌƒRƒ“ƒ\[ƒ‹‚à‚ ‚¢‚©‚í‚ç‚¸Œ»–ğ
-	¡“x‚ÍAƒL[ƒ{[ƒh‚©‚ç‰üs‚ª“ü—Í‚Å‚«‚È‚¢–Í—l?‚¤[‚ñ
+	AE8(CS3) ã‚ã„ã‹ã‚ã‚‰ãšãƒã‚°ã ã‚‰ã‘ã€‚
+	æ‰‹ãŒã‚‹ãªã®ã§ã“ã®ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‚‚ã‚ã„ã‹ã‚ã‚‰ãšç¾å½¹
+	ä»Šåº¦ã¯ã€ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã‹ã‚‰æ”¹è¡ŒãŒå…¥åŠ›ã§ããªã„æ¨¡æ§˜?ã†ãƒ¼ã‚“
 
 */
 function getScript()
 {
 if(isWindows){
-	var scriptfile = File.openDialog("“Ç‚İ‚ŞƒXƒNƒŠƒvƒg‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢","JSX-Script(*.jsx *.js):*.JSX;*.JS");
+	var scriptfile = File.openDialog("èª­ã¿è¾¼ã‚€ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’é¸ã‚“ã§ãã ã•ã„","JSX-Script(*.jsx *.js):*.JSX;*.JS");
 }else{
-	var scriptfile = File.openDialog("“Ç‚İ‚ŞƒXƒNƒŠƒvƒg‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢");
+	var scriptfile = File.openDialog("èª­ã¿è¾¼ã‚€ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’é¸ã‚“ã§ãã ã•ã„");
 }
 if (scriptfile && scriptfile.name.match(/^[a-z_\-\#0-9]+\.jsx?$/i)){
 	var myOpenfile = new File(scriptfile.fsName);
@@ -67,17 +67,17 @@ function addBuf_(KB)
 
 function saveText(myText)
 {
-if (! myText.length){alert("•Û‘¶‚·‚éƒf[ƒ^‚ª‚ ‚è‚Ü‚¹‚ñ");return false;}
+if (! myText.length){alert("ä¿å­˜ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Šã¾ã›ã‚“");return false;}
 if(isWindows)
 {
-	var mySavefile = File.saveDialog("‘‚«o‚µ‚Ìƒtƒ@ƒCƒ‹–¼‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢","File (*.js *.jsx *.txt):*.JS;*.JSX;*.TXT");
+	var mySavefile = File.saveDialog("æ›¸ãå‡ºã—ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’æŒ‡å®šã—ã¦ãã ã•ã„","File (*.js *.jsx *.txt):*.JS;*.JSX;*.TXT");
 }else{
-	var mySavefile = File.saveDialog("‘‚«o‚µ‚Ìƒtƒ@ƒCƒ‹–¼‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢","");
+	var mySavefile = File.saveDialog("æ›¸ãå‡ºã—ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’æŒ‡å®šã—ã¦ãã ã•ã„","");
 }
 if(! mySavefile){return};
 if(mySavefile.exists)
 {
-if(! confirm("“¯–¼‚Ìƒtƒ@ƒCƒ‹‚ª‚·‚Å‚É‚ ‚è‚Ü‚·.\nã‘‚«‚µ‚Ä‚æ‚ë‚µ‚¢‚Å‚·‚©?")){return false;};
+if(! confirm("åŒåã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒã™ã§ã«ã‚ã‚Šã¾ã™.\nä¸Šæ›¸ãã—ã¦ã‚ˆã‚ã—ã„ã§ã™ã‹?")){return false;};
 }
 
 if (mySavefile && mySavefile.name.match(/^[a-z_\-\#0-9]+\.(jsx?|txt)$/i)){
@@ -86,12 +86,12 @@ var myOpenfile = new File(mySavefile.fsName);
 	myOpenfile.write(myText);
 	myOpenfile.close();
 }else {
-	alert("Šg’£q‚Í js/jsx/txt ‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B")
+	alert("æ‹¡å¼µå­ã¯ js/jsx/txt ã‚’æŒ‡å®šã—ã¦ãã ã•ã„ã€‚")
 	return false;
 };
 }
 // GUI Setup
-//‚·‚²‚­ŠÈˆÕGUIƒ‰ƒCƒuƒ‰ƒŠ
+//ã™ã”ãç°¡æ˜“GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 	var leftMargin=12;
 	var rightMargin=24;
 	var topMargin=2;
@@ -125,8 +125,8 @@ if((this)&&(this.type=="panel"))
 var testConsole= new Window("dialog","nas-Console",[myWinOffset[0],myWinOffset[1],myWinsize[0]+myWinOffset[0],myWinsize[1]+myWinOffset[1]]);
 }
 
-/*	ƒEƒBƒ“ƒhƒE‚ÉGUIƒp[ƒc‚ğ”z’u	*/
-testConsole.titleLabel=testConsole.add("statictext",nasGrid(0,0,480,24),"Œ±ƒRƒ“ƒ\[ƒ‹ nas(u) tools (Nekomataya/2009)",{multiline:false});testConsole.titleLabel.justify="right";
+/*	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã«GUIãƒ‘ãƒ¼ãƒ„ã‚’é…ç½®	*/
+testConsole.titleLabel=testConsole.add("statictext",nasGrid(0,0,480,24),"è©¦é¨“ã‚³ãƒ³ã‚½ãƒ¼ãƒ« nas(u) tools (Nekomataya/2009)",{multiline:false});testConsole.titleLabel.justify="right";
 
 testConsole.resultBox=testConsole.add("edittext",nasGrid(0,1,480,192),"",{multiline:true});
 	if(app.name=="Adobe AfterEffects"){testConsole.resultBox.addBuf=addBuf_;}
@@ -150,7 +150,7 @@ testConsole.writeButton=testConsole.add("button",nasGrid(4,10,96,24),"writeResul
 	testConsole.writeButton.onClick = function (){saveText(this.parent.resultBox.text);};
 //	testConsole.closeButton.onClick = function (){this.parent.close();};
 
-/*	GUIƒp[ƒc‚ğÄ”z’u	*/
+/*	GUIãƒ‘ãƒ¼ãƒ„ã‚’å†é…ç½®	*/
 testConsole.onResize=function(){
 var myWidth=(testConsole.bounds.width-leftMargin-rightMargin)/colUnit;
 var myHeight=(testConsole.bounds.height-topMargin-bottomMargin)/lineUnit;
@@ -182,5 +182,5 @@ if(app.name=="Adobe AfterEffects")
 {		testConsole.resultBox.addBuf(20);
 		testConsole.commandBox.addBuf(10);
 }
-		testConsole.commandBox.text="/*\t‚±‚Ìƒ{ƒbƒNƒX‚ÉƒR[ƒh‚ğ‘‚«‚ñ‚Å‚­‚¾‚³‚¢\t*/"+LineFeed;
-//——R‚Í‚í‚©‚ç‚È‚¢‚ª‰Šúó‘Ô‚¾‚Æ256b‚Åƒy[ƒXƒg‚ª‘Å‚¿~‚ß‚É‚È‚é‚Ì‚ÅƒXƒNƒŠƒvƒg‘¤‚©‚çedittext‚ÌŠg’£‚ğ‚©‚¯‚Ä‚â‚éB
+		testConsole.commandBox.text="/*\tã“ã®ãƒœãƒƒã‚¯ã‚¹ã«ã‚³ãƒ¼ãƒ‰ã‚’æ›¸ãè¾¼ã‚“ã§ãã ã•ã„\t*/"+LineFeed;
+//ç†ç”±ã¯ã‚ã‹ã‚‰ãªã„ãŒåˆæœŸçŠ¶æ…‹ã ã¨256bã§ãƒšãƒ¼ã‚¹ãƒˆãŒæ‰“ã¡æ­¢ã‚ã«ãªã‚‹ã®ã§ã‚¹ã‚¯ãƒªãƒ—ãƒˆå´ã‹ã‚‰edittextã®æ‹¡å¼µã‚’ã‹ã‘ã¦ã‚„ã‚‹ã€‚

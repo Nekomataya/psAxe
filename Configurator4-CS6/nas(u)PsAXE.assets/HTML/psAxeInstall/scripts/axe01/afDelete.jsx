@@ -2,7 +2,7 @@
 	アニメフレームを複製
  */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
+// #target photoshop
 // in case we double clicked the file
 app.bringToFront();
 //Photoshop用ライブラリ読み込み

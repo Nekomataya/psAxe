@@ -1,16 +1,16 @@
 /*
-		Photoshop@ƒŒƒCƒ„‚Ï‚ç‚Ï‚ç
-	ƒAƒNƒeƒBƒuƒŒƒCƒ„‚Ì‚ ‚éƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚ğƒpƒ‰ƒpƒ‰‚Å‚«‚é‚æ‚¤‚É‚·‚é‚æ
-	ŠÈˆÕƒAƒjƒƒ`ƒFƒbƒN‚É‚Ç‚¤‚¼BF“h‚è‚ÌƒpƒJ’T‚µ‚Æ‚©Bwƒpƒ‰‚İ‚½‚¢‚È‚à‚ñ‚Å‚·B
-	photoshop‚ÌƒAƒjƒ‹@”\‚ğg‚¤‚Ì‚ÅCS2ˆÈã‚ª•K—v‚Å‚·
+		Photoshopã€€ãƒ¬ã‚¤ãƒ¤ã±ã‚‰ã±ã‚‰
+	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã®ã‚ã‚‹ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‚’ãƒ‘ãƒ©ãƒ‘ãƒ©ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ã‚ˆ
+	ç°¡æ˜“ã‚¢ãƒ‹ãƒ¡ãƒã‚§ãƒƒã‚¯ã«ã©ã†ãã€‚è‰²å¡—ã‚Šã®ãƒ‘ã‚«æ¢ã—ã¨ã‹ã€‚æŒ‡ãƒ‘ãƒ©ã¿ãŸã„ãªã‚‚ã‚“ã§ã™ã€‚
+	photoshopã®ã‚¢ãƒ‹ãƒ¡æ©Ÿèƒ½ã‚’ä½¿ã†ã®ã§CS2ä»¥ä¸ŠãŒå¿…è¦ã§ã™
 */
 	var exFlag=true;
-//‚»‚à‚»‚àƒhƒLƒ…ƒƒ“ƒg‚ª‚È‚¯‚ê‚ÎI—¹
+//ãã‚‚ãã‚‚ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒãªã‘ã‚Œã°çµ‚äº†
 	if(app.documents.length==0){
 		exFlag=false;
 	}else{
-//‹N“®‚ÉƒŒƒCƒ„ƒRƒŒƒNƒVƒ‡ƒ“‚Ìó‘Ô‚ğŠm”F@ƒtƒŠƒbƒvƒAƒCƒeƒ€”‚ª1ˆÈ‰º‚È‚çI—¹
-	//‘I‘ğƒŒƒCƒ„æ“¾
+//èµ·å‹•æ™‚ã«ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹ã‚’ç¢ºèªã€€ãƒ•ãƒªãƒƒãƒ—ã‚¢ã‚¤ãƒ†ãƒ æ•°ãŒ1ä»¥ä¸‹ãªã‚‰çµ‚äº†
+	//é¸æŠãƒ¬ã‚¤ãƒ¤å–å¾—
 if((app.activeDocument.activeLayer.parent.typename=="Document") && (app.activeDocument.activeLayer.typename=="LayerSet")){
 	var myLayers=app.activeDocument.activeLayer.layers;
 }else{
@@ -20,13 +20,13 @@ if((app.activeDocument.activeLayer.parent.typename=="Document") && (app.activeDo
 	}
 	if(exFlag){
 
-//ƒAƒjƒƒEƒCƒ“ƒhƒE‘€ìŠÖ”@Œ»óæ“¾‚ª‚Å‚«‚È‚¢‚Ì‚Íƒwƒ{‚¢‚ª¡‚ÌƒgƒR‚ÍƒJƒ“ƒxƒ“@Œã‚Å®—‚·‚é
+//ã‚¢ãƒ‹ãƒ¡ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦æ“ä½œé–¢æ•°ã€€ç¾çŠ¶å–å¾—ãŒã§ããªã„ã®ã¯ãƒ˜ãƒœã„ãŒä»Šã®ãƒˆã‚³ã¯ã‚«ãƒ³ãƒ™ãƒ³ã€€å¾Œã§æ•´ç†ã™ã‚‹
 /*
-	•œ‹A‚Í•s—v‚ÅƒgƒŒ[ƒ‰[“à•”‚Ì•\¦ó‘Ô‚¾‚¯ƒZƒbƒg‚·‚éƒXƒNƒŠƒvƒg‚ğ‚Ü‚¸ì‚é
-	ƒtƒŒ[ƒ€‚Í‰Šú‰»I
+	å¾©å¸°ã¯ä¸è¦ã§ãƒˆãƒ¬ãƒ¼ãƒ©ãƒ¼å†…éƒ¨ã®è¡¨ç¤ºçŠ¶æ…‹ã ã‘ã‚»ãƒƒãƒˆã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ã¾ãšä½œã‚‹
+	ãƒ•ãƒ¬ãƒ¼ãƒ ã¯åˆæœŸåŒ–ï¼
 */
 setDly=function(myTime){
-// =======================================================ƒAƒjƒ[ƒVƒ‡ƒ“ƒEƒBƒ“ƒhƒE‚ÌÅ‰‚ÌƒtƒŒ[ƒ€‚Ì’x‰„‚ğİ’è
+// =======================================================ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æœ€åˆã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®é…å»¶ã‚’è¨­å®š
 var idsetd = charIDToTypeID( "setd" );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -46,7 +46,7 @@ var idsetd = charIDToTypeID( "setd" );
 executeAction( idsetd, desc, DialogModes.NO );
 }
 dupulicateFrame=function(){
-// =======================================================ƒtƒŒ[ƒ€•¡»
+// =======================================================ãƒ•ãƒ¬ãƒ¼ãƒ è¤‡è£½
 var idDplc = charIDToTypeID( "Dplc" );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -59,7 +59,7 @@ var idDplc = charIDToTypeID( "Dplc" );
 executeAction( idDplc, desc, DialogModes.NO );
 }
 selectFrame=function(idx){
-// =======================================================ƒtƒŒ[ƒ€‘I‘ğ(1/6)
+// =======================================================ãƒ•ãƒ¬ãƒ¼ãƒ é¸æŠ(1/6)
 var idslct = charIDToTypeID( "slct" );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -70,13 +70,13 @@ var idslct = charIDToTypeID( "slct" );
 var M=executeAction( idslct, desc, DialogModes.NO );
 }
 selectFramesAll=function(){
-// =======================================================ƒtƒŒ[ƒ€‘S‘I‘ğ
+// =======================================================ãƒ•ãƒ¬ãƒ¼ãƒ å…¨é¸æŠ
 var idanimationSelectAll = stringIDToTypeID( "animationSelectAll" );
     var desc = new ActionDescriptor();
 executeAction( idanimationSelectAll, desc, DialogModes.NO );
 }
 removeSelection=function(){
-// =======================================================‘I‘ğƒtƒŒ[ƒ€íœ
+// =======================================================é¸æŠãƒ•ãƒ¬ãƒ¼ãƒ å‰Šé™¤
 var idDlt = charIDToTypeID( "Dlt " );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -88,9 +88,9 @@ var idDlt = charIDToTypeID( "Dlt " );
     desc.putReference( idnull, ref );
 executeAction( idDlt, desc, DialogModes.NO );
 }
-//ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ğƒAƒNƒeƒBƒu‚É‚·‚éi³‹t‡‘—‚èjƒZƒŒƒNƒg‚ÆƒAƒNƒeƒBƒu‚ª•ÊŠT”O‚Ì‚æ‚¤‚È‚Ì‚Å’ˆÓ‚¾
+//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ï¼ˆæ­£é€†é †é€ã‚Šï¼‰ã‚»ãƒ¬ã‚¯ãƒˆã¨ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãŒåˆ¥æ¦‚å¿µã®ã‚ˆã†ãªã®ã§æ³¨æ„ã 
 activateFrame=function(kwd){
-//kwd = Nxt ,Prevs,Frst(Še‚SƒoƒCƒg)
+//kwd = Nxt ,Prevs,Frst(å„ï¼”ãƒã‚¤ãƒˆ)
 var idanimationFrameActivate = stringIDToTypeID( "animationFrameActivate" );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -102,7 +102,7 @@ var idanimationFrameActivate = stringIDToTypeID( "animationFrameActivate" );
     desc.putReference( idnull, ref );
 executeAction( idanimationFrameActivate, desc, DialogModes.NO );
 }
-//=======================================================ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ğƒNƒŠƒAi‰Šú‰»j
+//=======================================================ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ã‚¯ãƒªã‚¢ï¼ˆåˆæœŸåŒ–ï¼‰
 initFrames=function(){
 var idDlt = charIDToTypeID( "Dlt " );
  var desc = new ActionDescriptor();
@@ -118,18 +118,18 @@ var idDlt = charIDToTypeID( "Dlt " );
 
 
 //=========================================main 
-		//•\¦‰Šú‰» 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“ƒe[ƒuƒ‹‰Šú‰»
+		//è¡¨ç¤ºåˆæœŸåŒ– 
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ†ãƒ¼ãƒ–ãƒ«åˆæœŸåŒ–
 		initFrames();
-		//‘I‘ğƒŒƒCƒ„‚Ì•\¦‚ğ‰Šú‰»(Å‚à‰º‚ÌƒŒƒCƒ„‚Ì‚İ•\¦‚µ‚Ä‚Ù‚©‚ğƒIƒt)
+		//é¸æŠãƒ¬ã‚¤ãƒ¤ã®è¡¨ç¤ºã‚’åˆæœŸåŒ–(æœ€ã‚‚ä¸‹ã®ãƒ¬ã‚¤ãƒ¤ã®ã¿è¡¨ç¤ºã—ã¦ã»ã‹ã‚’ã‚ªãƒ•)
 		for(var ix=0;ix<myLayers.length;ix++){myLayers[ix].visible=(ix==(myLayers.length-1))?true:false;}
-//rootƒgƒŒ[ƒ‰‚ÌƒŒƒCƒ„”‚ğT‚¦‚é
+//rootãƒˆãƒ¬ãƒ¼ãƒ©ã®ãƒ¬ã‚¤ãƒ¤æ•°ã‚’æ§ãˆã‚‹
 var myRootCount=app.activeDocument.layers.length;
-		//‘æ“ñƒtƒŒ[ƒ€ˆÈ~‚ğ•\¦‚ğØ‚è‘Ö‚¦‚Â‚ÂƒAƒjƒƒtƒŒ[ƒ€‚É“o˜^
+		//ç¬¬äºŒãƒ•ãƒ¬ãƒ¼ãƒ ä»¥é™ã‚’è¡¨ç¤ºã‚’åˆ‡ã‚Šæ›¿ãˆã¤ã¤ã‚¢ãƒ‹ãƒ¡ãƒ•ãƒ¬ãƒ¼ãƒ ã«ç™»éŒ²
 		for(var idx=myLayers.length-1;idx>0;idx--){
-			dupulicateFrame();//ì‚éiƒtƒH[ƒJƒXˆÚ“®j
+			dupulicateFrame();//ä½œã‚‹ï¼ˆãƒ•ã‚©ãƒ¼ã‚«ã‚¹ç§»å‹•ï¼‰
 if(myRootCount<app.activeDocument.layers.length){
-//ƒ‹[ƒg‘æˆêƒŒƒCƒ„‚ğÌ‚Ä‚Äƒ‚[ƒh‚ğØ‚è‘Ö‚¦‚é
+//ãƒ«ãƒ¼ãƒˆç¬¬ä¸€ãƒ¬ã‚¤ãƒ¤ã‚’æ¨ã¦ã¦ãƒ¢ãƒ¼ãƒ‰ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
  app.activeDocument.layers[0].remove();
 //=======================================================animationNewLayerPerFrame
  var idslct = charIDToTypeID( "slct" );
@@ -149,7 +149,7 @@ if(myRootCount<app.activeDocument.layers.length){
 		}
 
 //==============================================================
-selectFrame(1);//ÅŒã‚É‘æˆêƒtƒŒ[ƒ€‚ÉƒtƒH[ƒJƒX‚µ‚Ä‚¨‚­
+selectFrame(1);//æœ€å¾Œã«ç¬¬ä¸€ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãƒ•ã‚©ãƒ¼ã‚«ã‚¹ã—ã¦ãŠã
 
 
-	}else{alert("‚È‚ñ‚¾‚©ƒpƒ^ƒpƒ^‚·‚é‚à‚Ì‚ª–³‚¢‚İ‚½‚¢");}
+	}else{alert("ãªã‚“ã ã‹ãƒ‘ã‚¿ãƒ‘ã‚¿ã™ã‚‹ã‚‚ã®ãŒç„¡ã„ã¿ãŸã„");}

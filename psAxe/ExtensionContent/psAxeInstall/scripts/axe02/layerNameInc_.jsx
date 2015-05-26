@@ -1,1 +1,76 @@
-/*(ƒŒƒCƒ„–¼––”ö‚Ì”’l•”•ª‚ğŒJ‚èã‚°)*/	var getSelectedLayers=function(){ 		//ŒÀ’è“®ì@”wŒiƒŒƒCƒ„‚ªŠÜ‚Ü‚ê‚Ä‚¢‚é‚Æ‚«‚É‚ÍƒGƒ‰[‚¾‚¯‚Ç‚Æ‚è‚ ‚¦‚¸–³‹ ‘I‘ğƒŒƒCƒ„‚ª‚È‚¢ê‡‚àƒGƒ‰[‚¾‚¯‚Ç‚»‚ê‚à–³‹//--------------------------------------ƒŒƒCƒ„‚©‚çƒOƒ‹[ƒv var idGrp = stringIDToTypeID( "groupLayersEvent" ); var descGrp = new ActionDescriptor(); var refGrp = new ActionReference(); refGrp.putEnumerated(charIDToTypeID( "Lyr " ),charIDToTypeID( "Ordn" ),charIDToTypeID( "Trgt" )); descGrp.putReference(charIDToTypeID( "null" ), refGrp ); executeAction( idGrp, descGrp, DialogModes.ALL );//ŠO•”ŠÖ”‚É‚µ‚ÄŒÄ‚Ño‚µ‚·‚é‚Æ–­‚É’x‚¢‚Ì‚Å’ˆÓ‚¾//·•ª‚ğæ“¾‚µ‚ÄƒtƒŒ[ƒ€”‚ğæ“¾//================== ƒgƒŒ[ƒ‰[‚ÌƒŒƒCƒ„”‚ğæ“¾var resultLayers=new Array();for (var ix=0;ix<app.activeDocument.activeLayer.layers.length;ix++){resultLayers.push(app.activeDocument.activeLayer.layers[ix])}// =================== UNDOƒoƒbƒtƒ@‚ğg—p‚µ‚Ä•œ‹Avar id8 = charIDToTypeID( "slct" );    var desc5 = new ActionDescriptor();    var id9 = charIDToTypeID( "null" );        var ref2 = new ActionReference();        var id10 = charIDToTypeID( "HstS" );        var id11 = charIDToTypeID( "Ordn" );        var id12 = charIDToTypeID( "Prvs" );          ref2.putEnumerated( id10, id11, id12 );    desc5.putReference( id9, ref2 );executeAction( id8, desc5, DialogModes.NO );return resultLayers;//‘I‘ğƒŒƒCƒ„‚Ì•œ‹A‚Í‚µ‚È‚¢(•s—v)}var myTargetLayers=getSelectedLayers();if(myTargetLayers.length){	if(! app.nas){//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é	var nas = new Object();		nas.Version=new Object();		nas.isAdobe=true;//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş/*	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş*/if($.fileName){//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚Åƒ[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";}else{//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";}var includeLibs=[nasLibFolderPath+"config.js",nasLibFolderPath+"nas_common.js"];for(prop in includeLibs){	var myScriptFileName=includeLibs[prop];	if($.evalFile){	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é		$.evalFile(myScriptFileName);	}else{	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·		var scriptFile = new File(myScriptFileName);		if(scriptFile.exists){			scriptFile.open();			var myContent=scriptFile.read()			scriptFile.close();			eval(myContent);		}	}}	}else{	nas=app.nas;	}	for (var ix=0;ix<myTargetLayers.length;ix++){myTargetLayers[ix].name=nas.incrStr(myTargetLayers[ix].name,1,true);	}}
+/*(ãƒ¬ã‚¤ãƒ¤åæœ«å°¾ã®æ•°å€¤éƒ¨åˆ†ã‚’ç¹°ã‚Šä¸Šã’)
+*/
+	var getSelectedLayers=function(){ 
+		//é™å®šå‹•ä½œã€€èƒŒæ™¯ãƒ¬ã‚¤ãƒ¤ãŒå«ã¾ã‚Œã¦ã„ã‚‹ã¨ãã«ã¯ã‚¨ãƒ©ãƒ¼ã ã‘ã©ã¨ã‚Šã‚ãˆãšç„¡è¦– é¸æŠãƒ¬ã‚¤ãƒ¤ãŒãªã„å ´åˆã‚‚ã‚¨ãƒ©ãƒ¼ã ã‘ã©ãã‚Œã‚‚ç„¡è¦–
+//--------------------------------------ãƒ¬ã‚¤ãƒ¤ã‹ã‚‰ã‚°ãƒ«ãƒ¼ãƒ—
+ var idGrp = stringIDToTypeID( "groupLayersEvent" );
+ var descGrp = new ActionDescriptor();
+ var refGrp = new ActionReference();
+ refGrp.putEnumerated(charIDToTypeID( "Lyr " ),charIDToTypeID( "Ordn" ),charIDToTypeID( "Trgt" ));
+ descGrp.putReference(charIDToTypeID( "null" ), refGrp );
+ executeAction( idGrp, descGrp, DialogModes.ALL );//å¤–éƒ¨é–¢æ•°ã«ã—ã¦å‘¼ã³å‡ºã—ã™ã‚‹ã¨å¦™ã«é…ã„ã®ã§æ³¨æ„ã 
+//å·®åˆ†ã‚’å–å¾—ã—ã¦ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’å–å¾—
+//================== ãƒˆãƒ¬ãƒ¼ãƒ©ãƒ¼ã®ãƒ¬ã‚¤ãƒ¤æ•°ã‚’å–å¾—
+var resultLayers=new Array();
+for (var ix=0;ix<app.activeDocument.activeLayer.layers.length;ix++){resultLayers.push(app.activeDocument.activeLayer.layers[ix])}
+// =================== UNDOãƒãƒƒãƒ•ã‚¡ã‚’ä½¿ç”¨ã—ã¦å¾©å¸°
+var id8 = charIDToTypeID( "slct" );
+    var desc5 = new ActionDescriptor();
+    var id9 = charIDToTypeID( "null" );
+        var ref2 = new ActionReference();
+        var id10 = charIDToTypeID( "HstS" );
+        var id11 = charIDToTypeID( "Ordn" );
+        var id12 = charIDToTypeID( "Prvs" );  
+        ref2.putEnumerated( id10, id11, id12 );
+    desc5.putReference( id9, ref2 );
+executeAction( id8, desc5, DialogModes.NO );
+return resultLayers;
+//é¸æŠãƒ¬ã‚¤ãƒ¤ã®å¾©å¸°ã¯ã—ãªã„(ä¸è¦)
+}
+
+var myTargetLayers=getSelectedLayers();
+
+if(myTargetLayers.length){
+	if(! app.nas){
+//iclude nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«å¿…è¦ãªåŸºç¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã™ã‚‹
+	var nas = new Object();
+		nas.Version=new Object();
+		nas.isAdobe=true;
+//	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ­ãƒ¼ãƒ‰
+//==================== ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ç™»éŒ²ã—ã¦äº‹å‰ã«èª­ã¿è¾¼ã‚€
+/*
+	includeLibsé…åˆ—ã«ç™»éŒ²ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’é †æ¬¡èª­ã¿è¾¼ã‚€ã€‚
+	ç™»éŒ²ã¯ãƒ‘ã‚¹ã§è¡Œã†ã€‚(Fileã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯ãªã„)
+	$.evalFile ãƒ¡ã‚½ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯ãã‚Œã‚’ä½¿ç”¨ã™ã‚‹ãŒCS2ä»¥å‰ã®ç’°å¢ƒã§ã¯global ã® evalé–¢æ•°ã§èª­ã¿è¾¼ã‚€
+*/
+if($.fileName){
+//	CS3ä»¥é™ã¯ã€€$.fileNameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚‹ã®ã§ãƒ­ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒªãƒ¼ã«ã§ãã‚‹
+	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
+}else{
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
+	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
+}
+var includeLibs=[nasLibFolderPath+"config.js",nasLibFolderPath+"nas_common.js"];
+for(prop in includeLibs){
+	var myScriptFileName=includeLibs[prop];
+	if($.evalFile){
+	//$.evalFile ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ãŒã‚ã‚Œã°å®Ÿè¡Œã™ã‚‹
+		$.evalFile(myScriptFileName);
+	}else{
+	//$.evalFile ãŒå­˜åœ¨ã—ãªã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯evalã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¸¡ã™
+		var scriptFile = new File(myScriptFileName);
+		if(scriptFile.exists){
+			scriptFile.open();
+			var myContent=scriptFile.read()
+			scriptFile.close();
+			eval(myContent);
+		}
+	}
+}
+	}else{
+	nas=app.nas;
+	}
+	for (var ix=0;ix<myTargetLayers.length;ix++){
+myTargetLayers[ix].name=nas.incrStr(myTargetLayers[ix].name,1,true);
+	}
+}

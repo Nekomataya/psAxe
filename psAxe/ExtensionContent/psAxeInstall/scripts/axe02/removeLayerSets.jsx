@@ -1,10 +1,10 @@
 /*
-	ƒŒƒCƒ„ƒZƒbƒg‚Ì‘Síœ
-	‘I‘ð‚µ‚½ƒŒƒCƒ„‚ÌŠÜ‚Ü‚ê‚éƒgƒŒ[ƒ‰“à‚ÌƒŒƒCƒ„ƒZƒbƒg‚ð‰ðœ‚·‚é
-	ƒŒƒCƒ„ƒZƒbƒg“à‚ÌƒŒƒCƒ„‚ÍƒŒƒCƒ„‚Æ‚µ‚Äˆ—‚·‚éBiÄ‹Aˆ—‚Í‚µ‚È‚¢j
+	ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã®å…¨å‰Šé™¤
+	é¸æŠžã—ãŸãƒ¬ã‚¤ãƒ¤ã®å«ã¾ã‚Œã‚‹ãƒˆãƒ¬ãƒ¼ãƒ©å†…ã®ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã‚’è§£é™¤ã™ã‚‹
+	ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆå†…ã®ãƒ¬ã‚¤ãƒ¤ã¯ãƒ¬ã‚¤ãƒ¤ã¨ã—ã¦å‡¦ç†ã™ã‚‹ã€‚ï¼ˆå†å¸°å‡¦ç†ã¯ã—ãªã„ï¼‰
 */
 exFlag=true;
-//‚»‚à‚»‚àƒhƒLƒ…ƒƒ“ƒg‚ª‚È‚¯‚ê‚ÎI—¹
+//ãã‚‚ãã‚‚ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒãªã‘ã‚Œã°çµ‚äº†
 	if(app.documents.length==0){
 		exFlag=false;
 	}
@@ -18,4 +18,4 @@ var targetSets=activeDocument.activeLayer.parent.layerSets;var setCount=targetSe
 		}
 		targetSet.remove();
 	}
-}else{alert("ƒhƒLƒ…ƒƒ“ƒg‚ª–³‚¢‚Ý‚½‚¢ƒ_");}
+}else{alert("ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒç„¡ã„ã¿ãŸã„ãƒ€");}

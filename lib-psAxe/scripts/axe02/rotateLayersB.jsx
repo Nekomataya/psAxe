@@ -1,7 +1,7 @@
 /*
-	ƒAƒNƒeƒBƒuƒŒƒCƒ„‚Ì‚ ‚éƒŒƒCƒ„ƒZƒbƒg‚ÌÅ‰ºˆÊƒŒƒCƒ„‚ğƒŒƒCƒ„‚ğÅãˆÊ‚ÖˆÚ“®@ƒAƒNƒeƒBƒuƒŒƒCƒ„‚ğ‚Ğ‚Æ‚Âã‚ÖˆÚ“®
+	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã®ã‚ã‚‹ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã®æœ€ä¸‹ä½ãƒ¬ã‚¤ãƒ¤ã‚’ãƒ¬ã‚¤ãƒ¤ã‚’æœ€ä¸Šä½ã¸ç§»å‹•ã€€ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã‚’ã²ã¨ã¤ä¸Šã¸ç§»å‹•
 // enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
+// #target photoshop
 */
 ErrStrs = {};ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation");try {
 var idx=0;var mxId=app.activeDocument.activeLayer.parent.layers.length;

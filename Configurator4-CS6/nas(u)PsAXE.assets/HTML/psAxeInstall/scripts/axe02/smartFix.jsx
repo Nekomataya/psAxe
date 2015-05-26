@@ -1,7 +1,7 @@
 /* smartFix.jsx
-	ƒXƒ}[ƒgƒIƒuƒWƒFƒNƒg‚ðƒ‰ƒXƒ^ƒ‰ƒCƒX
+	ã‚¹ãƒžãƒ¼ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¹
 */
-//app.activeDocument.activeLayer.merge();//ƒŒƒCƒ„ƒZƒbƒg
+//app.activeDocument.activeLayer.merge();//ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆ
 ErrStrs = {}; ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation"); try {
 if(app.activeDocument.activeLayer.kind == LayerKind.SMARTOBJECT){
 //=======================================rasterizePlaced

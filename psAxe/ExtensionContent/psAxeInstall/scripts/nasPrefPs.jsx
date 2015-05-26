@@ -1,1 +1,1004 @@
-/*(Šeíİ’è) *	nasPsPref.jsx * *	ƒvƒŠƒtƒ@ƒŒƒ“ƒXƒpƒlƒ‹ ‚Ü‚¾‚Ü‚¾•Ï‚í‚é‚æ b’è”Å *	’¼Ú	lib/config.js *		lib/nas_axeLib.js ‚ğ‘‚«Š·‚¦‚ê‚Î‰½‚Å‚à‚©‚¯‚Ü‚·‚æA‚Æ *	Photoshop—p‚Éb’è“I‚É‰ü‘•@2011 06 25 */// enable double clicking from the Macintosh Finder or the Windows Explorer#target photoshop// in case we double clicked the fileapp.bringToFront();//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İif($.fileName){//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é	var nasLibFolderPath = new File($.fileName).parent.path +"/lib/";}else{//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";}var includeLibs=[];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñif(! app.nas){//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é	var nas = new Object();		nas.Version=new Object();		nas.isAdobe=true;		nas.axe=new Object();		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş/*	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj@config.js"		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ*/includeLibs=[	nasLibFolderPath+"config.js",	nasLibFolderPath+"nas_common.js",	nasLibFolderPath+"nas_GUIlib.js",	nasLibFolderPath+"nas_psAxeLib.js",	nasLibFolderPath+"nas_prefarenceLib.js"];//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é	app.nas=nas;	bootFlag=true;}else{	//alert("object nas exists")	nas=app.nas;	bootFlag=false;};/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤*/includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");includeLibs.push(nasLibFolderPath+"xpsio.js");includeLibs.push(nasLibFolderPath+"mapio.js");includeLibs.push(nasLibFolderPath+"lib_STS.js");includeLibs.push(nasLibFolderPath+"dataio.js");includeLibs.push(nasLibFolderPath+"fakeAE.js");includeLibs.push(nasLibFolderPath+"io.js");includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");includeLibs.push(nasLibFolderPath+"xpsQueue.js");includeLibs.push(nasLibFolderPath+"messages.js");for(prop in includeLibs){	var myScriptFileName=includeLibs[prop];	if($.evalFile){	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é		$.evalFile(myScriptFileName);	}else{	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·		var scriptFile = new File(myScriptFileName);		if(scriptFile.exists){			scriptFile.open();			var myContent=scriptFile.read()			scriptFile.close();			eval(myContent);		}	}}//=====================================•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾if(bootFlag){nas.readPrefarence();nas.workTitles.select();}//=====================================//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p//ƒIƒuƒWƒFƒNƒg¯•Ê•¶š—ñ¶¬ var myFilename=("$RCSfile: nasPrefPs.jsx,v $").split(":")[1].split(",")[0];var myFilerevision=("$Revision: 1.1 $").split(":")[1].split("$")[0];var exFlag=true;var moduleName="Pref";//ƒ‚ƒWƒ…[ƒ‹–¼‚Å’u‚«Š·‚¦‚Ä‚­‚¾‚³‚¢B//“ñd‰Šú‰»–h~ƒgƒ‰ƒbƒvtry{	if(nas.Version)	{	nas.Version[moduleName]=moduleName+" :"+myFilename+" :"+myFilerevision;		try{if(nas[moduleName]){//	nas.Pref.show();//	Ä‰Šú‰»ƒgƒŠƒK[‚Íƒ‚ƒWƒ…[ƒ‹‚²‚Æ‚É“K³‚ÈƒRƒ}ƒ“ƒh‚É’u‚«Š·‚¦‚Ä‚­‚¾‚³‚¢B	exFlag=true;}else{	nas[moduleName]=new Object();}		}catch(err){	nas[moduleName]=new Object();		}	}}catch(err){	alert("nasƒ‰ƒCƒuƒ‰ƒŠ‚ª•K—v‚Å‚·B\nnasStartup.jsx ‚ğÀs‚µ‚Ä‚­‚¾‚³‚¢B");	exFlag=false;}if(exFlag){//		‰Šú‰»//		ƒTƒuƒvƒƒVƒWƒƒ// ƒVƒXƒeƒ€İ’è‚É’u‚¢‚½ƒEƒBƒ“ƒhƒEƒIƒtƒZƒbƒgæ“¾B	myLeft=(nas.GUI.winOffset["Pref"])?	nas.GUI.winOffset["Pref"][0] : nas.GUI.dafaultOffset[0];	myTop=(nas.GUI.winOffset["Pref"])?	nas.GUI.winOffset["Pref"][1] : nas.GUI.dafaultOffset[1];// ------ GUIƒZƒbƒgƒAƒbƒv ---------//WindowSetup	‚±‚ê‚Íƒ_ƒCƒAƒƒO‚ª‚æ‚©‚ë‚¤c‚Æv‚¤‚æB//ƒ_ƒCƒAƒƒO‚ÍƒpƒŒƒbƒg‚ÆƒIƒuƒWƒFƒNƒg‚Ìˆµ‚¢‚ª‚¿‚ª[‚¤	nas.Pref=nas.GUI.newWindow("dialog","Preference",9,20,myLeft,myTop);//ƒRƒ“ƒgƒ[ƒ‹’è‹`//ƒƒCƒ“ƒRƒ“ƒgƒ[ƒ‹// TABİ’è	nas.GUI.setTabPanel(nas.Pref,["ˆê”ÊŠÂ‹«","ƒƒfƒBƒAİ’è","“®ìİ’è","ì‰æİ’è"],0,0,9,19);//Šeƒ^ƒu‚ÉƒRƒ“ƒgƒ[ƒ‹‚ğ”z’u//	ƒ^ƒuƒpƒlƒ‹‚O/ˆê”ÊŠÂ‹«İ’è/*config.jsŠÖ˜A@•€E‚è‚Ü‚Ò‚ñ‹¤’Ê•”•ª(nas)*/	nas.GUI.addStaticText(nas.Pref.tabPanel[0],localize(nas.uiMsg["Name"]),0,1,2,1).justify="right";//	nas.GUI.addStaticText(nas.Pref.tabPanel[0],localize({en:"name"}),0,1,2,1).justify="right";	nas.Pref.tabPanel[0].Uname=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,1,2,1);	nas.GUI.addStaticText(nas.Pref.tabPanel[0],"Šî€‰ğ‘œ“x",0,2,2,1).justify="right";	nas.Pref.tabPanel[0].bResolution=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,2,2,1);	nas.GUI.addStaticText(nas.Pref.tabPanel[0],"ƒtƒŒ[ƒ€ƒŒ[ƒg",0,3,2,1).justify="right";	nas.Pref.tabPanel[0].fRate=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,3,2,1);	nas.GUI.addStaticText(nas.Pref.tabPanel[0],"ƒV[ƒg1–‡‚Ì’·‚³",0,4,2,1).justify="right";	nas.Pref.tabPanel[0].stLength=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,4,2,1);//ƒ^ƒCƒgƒ‹•ÒW//	nas.GUI.addStaticText(nas.Pref.tabPanel[0],"ì•iƒ^ƒCƒgƒ‹“o˜^",0,9,3,1);/*	ì‹Æƒ^ƒCƒgƒ‹DBXVƒCƒ“ƒ^[ƒtƒF[ƒX*///ƒvƒŠƒZƒbƒgƒŠƒXƒg	nas.Pref.tabPanel[0].TitleSelector=		nas.GUI.addPanel(nas.Pref.tabPanel[0],"ì•iƒ^ƒCƒgƒ‹“o˜^",0.2,8,8.5,9);//•ÒWƒRƒ“ƒgƒ[ƒ‹“o˜^	nas.Pref.tabPanel[0].TitleSelector.init=function(){	this.list=		nas.GUI.addListBox(this,nas.workTitles.names("all"),nas.workTitles.selected,0.5,3.5,7,4);//ƒ^ƒCƒgƒ‹	this.titleId=		nas.GUI.addStaticText(this,"( "+nas.workTitles.selected+" )",0.3,1.6,0.7,1);	this.titleId.justify="right";//ƒƒ“ƒOƒvƒŒƒtƒBƒNƒX	this.myTitle=		nas.GUI.addEditText(this,nas.workTitles.selectedName,1,1.5,4,1);	this.myPrefix=		nas.GUI.addEditText(this,nas.workTitles.selectedRecord[1],5,1.5,2,1);//ƒVƒ‡[ƒgƒvƒŒƒtƒBƒNƒX	this.myCode=		nas.GUI.addEditText(this,nas.workTitles.selectedRecord[2],7,1.5,1,1);//IM	this.linkIM=		nas.GUI.addSelectButton(this,nas.inputMedias.names(),nas.workTitles.selectedRecord[3],1,2.5,3,1);//OM	this.linkOM=		nas.GUI.addSelectButton(this,nas.outputMedias.names(),nas.workTitles.selectedRecord[4],4,2.5,3,1);//ƒf[ƒ^‘€ìƒRƒ“ƒgƒ[ƒ‹	this.addEntry=		nas.GUI.addButton(this,"V‹K“o˜^",2.5,0.4,2,1);	this.delEntry=		nas.GUI.addButton(this,"íœ",4.5,0.4,2,1);	this.chgEntry=		nas.GUI.addButton(this,"XV",6.5,0.4,2,1);	}nas.Pref.tabPanel[0].TitleSelector.init();//•ÒWƒRƒ“ƒgƒ[ƒ‹Ä“o˜^	nas.Pref.tabPanel[0].TitleSelector.reInit=function(){//	nas.workTitles.select();	this.list.setOptions(nas.workTitles.names("all"),nas.workTitles.selected);//ƒ^ƒCƒgƒ‹	this.titleId.text="( "+nas.workTitles.selected+" )";//ƒƒ“ƒOƒvƒŒƒtƒBƒNƒX	this.myTitle.text=nas.workTitles.selectedName;	this.myPrefix.text=nas.workTitles.selectedRecord[1];//ƒVƒ‡[ƒgƒvƒŒƒtƒBƒNƒX	this.myCode.text=nas.workTitles.selectedRecord[2];//IM	this.linkIM.options=nas.inputMedias.names();	this.linkIM.select(nas.workTitles.selectedRecord[3]);//OM	this.linkOM.options=nas.outputMedias.names();	this.linkOM.select(nas.workTitles.selectedRecord[4]);}//‰æ–ÊƒAƒbƒvƒf[ƒgnas.Pref.tabPanel[0].TitleSelector.update = function(){	this.titleId.text	="( "+nas.workTitles.selected+" )";	this.myTitle.text	=nas.workTitles.selectedRecord[0];	this.myPrefix.text	=nas.workTitles.selectedRecord[1];	this.myCode.text	=nas.workTitles.selectedRecord[2];	this.linkIM.select(nas.workTitles.selectedRecord[3]);	this.linkOM.select(nas.workTitles.selectedRecord[4]);	if(nas.Pref.tabPanel[1].MediaList){		nas.Pref.tabPanel[1].MediaList.update();		nas.Pref.tabPanel[1].oMediaList.update();	}	if(this.list.selected!=nas.workTitles.selected){		this.list.check(nas.workTitles.selected)	nas.inputMedias.select(nas.workTitles.selectedRecord[3]);	nas.outputMedias.select(nas.workTitles.selectedRecord[4]);//ƒZƒŒƒNƒ^‚Åƒ^ƒCƒgƒ‹‚ğØ‚è‘Ö‚¦‚éƒ^ƒCƒ~ƒ“ƒO‚Å“¯‚É“üo—ÍƒƒfƒBƒA‚Íƒ^ƒCƒgƒ‹‚Ì‚à‚Ì‚ÉƒŠƒZƒbƒg‚³‚ê‚é‚×‚«@201010128			}	this.addEntry.enabled=false;	this.chgEntry.enabled=false;}//nas.Pref.tabPanel[0].TitleSelector.update();nas.Pref.tabPanel[0].init=function(){	this.Uname.text=nas.CURRENTUSER;	this.bResolution.text=nas.Dpi();	this.fRate.text=nas.FRATE;	this.stLength.text=nas.Frm2FCT(nas.SheetLength*nas.FRATE,3);	nas.workTitles.select();	this.TitleSelector.reInit();	this.TitleSelector.update();}nas.Pref.tabPanel[0].init();//=========================================================ƒ^ƒuƒpƒlƒ‹‚P/ƒƒfƒBƒA“o˜^//ƒtƒŒ[ƒ€—p//ƒvƒŠƒZƒbƒgƒŠƒXƒg	nas.Pref.tabPanel[1].MediaList=			nas.GUI.addPanel(nas.Pref.tabPanel[1],"“ü—ÍƒƒfƒBƒA•ÒW",0.2,0,8.5,9.);//•ÒWƒRƒ“ƒgƒ[ƒ‹“o˜^	nas.Pref.tabPanel[1].MediaList.init=function()	{	this.list=		nas.GUI.addListBox(this,nas.inputMedias.names("all"),nas.inputMedias.selected,0.5,3.5,7,4);	this.imId=		nas.GUI.addStaticText(this,"( "+nas.inputMedias.selected+" )",0.3,1.6,0.7,1);	this.imId.justify="right";	this.imName=		nas.GUI.addEditText(this,nas.inputMedias.selectedName,1,1.5,3,1);	this.imWidth=		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[1],4,1.5,1,1);	this.imFrameRatio=		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[2],5,1.5,1,1);	this.imResolution=		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[3],6,1.5,1,1);	this.imFrameRate=		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[4],7,1.5,1,1);	this.imPegID=		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[5],4,2.5,1,1);	this.imPegX=		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[6],5,2.5,1,1);	this.imPegY=		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[7],6,2.5,1,1);	this.imPegR=		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[8],7,2.5,1,1);//ƒf[ƒ^‘€ìƒRƒ“ƒgƒ[ƒ‹	this.addEntry=		nas.GUI.addButton(this,"V‹K“o˜^",2.5,0.4,2,1);	this.delEntry=		nas.GUI.addButton(this,"íœ",4.5,0.4,2,1);	this.chgEntry=		nas.GUI.addButton(this,"XV",6.5,0.4,2,1);	}nas.Pref.tabPanel[1].MediaList.init();//•ÒWƒRƒ“ƒgƒ[ƒ‹Ä“o˜^	nas.Pref.tabPanel[1].MediaList.reInit=function()	{	nas.inputMedias.select();	this.list.setOptions(nas.inputMedias.names("all"),nas.inputMedias.selected);	this.imId.text="( "+nas.inputMedias.selected+" )";	this.imName.text=nas.inputMedias.selectedName;	this.imWidth,text=nas.inputMedias.selectedRecord;	this.imFrameRatio.text=nas.inputMedias.selectedRecord[2];	this.imResolution.text=nas.inputMedias.selectedRecord[3];	this.imFrameRate.text=nas.inputMedias.selectedRecord[4];	this.imPegID.text=nas.inputMedias.selectedRecord[5];	this.imPegX.text=nas.inputMedias.selectedRecord[6];	this.imPegY.text=nas.inputMedias.selectedRecord[7];	this.imPegR.text=nas.inputMedias.selectedRecord[8];	}//‰æ–ÊƒAƒbƒvƒf[ƒgnas.Pref.tabPanel[1].MediaList.update = function(){	this.imId.text	="( "+nas.inputMedias.selected+" )";	this.imName.text	=nas.inputMedias.selectedRecord[0];	this.imWidth.text	=nas.inputMedias.selectedRecord[1];	this.imFrameRatio.text	=nas.inputMedias.selectedRecord[2];	this.imResolution.text	=nas.inputMedias.selectedRecord[3];	this.imFrameRate.text	=nas.inputMedias.selectedRecord[4];	this.imPegID.text	=nas.inputMedias.selectedRecord[5];	this.imPegX.text	=nas.inputMedias.selectedRecord[6];	this.imPegY.text	=nas.inputMedias.selectedRecord[7];	this.imPegR.text	=nas.inputMedias.selectedRecord[8];	if(this.list.selected!=nas.inputMedias.selected){this.list.check(nas.inputMedias.selected);}	this.addEntry.enabled=false;	this.chgEntry.enabled=false;	nas.Pref.tabPanel[0].bResolution.text=nas.Dpi();	nas.Pref.tabPanel[0].fRate.text=nas.FRATE;}//nas.Pref.tabPanel[1].MediaList.update();// o—ÍƒƒfƒBƒADB//	nas.GUI.addStaticText(nas.Pref.tabPanel[1],"o—ÍƒƒfƒBƒA“o˜^",0,9,3,1);//ƒvƒŠƒZƒbƒgƒŠƒXƒg	nas.Pref.tabPanel[1].oMediaList=		nas.GUI.addPanel(nas.Pref.tabPanel[1],"o—ÍƒƒfƒBƒA•ÒW",0.2,9,8.5,8.5);//•ÒWƒRƒ“ƒgƒ[ƒ‹“o˜^	nas.Pref.tabPanel[1].oMediaList.init=function()	{	this.list=		nas.GUI.addListBox(this,nas.outputMedias.names("all"),nas.outputMedias.selected,0.5,3,7,4);	this.omId=		nas.GUI.addStaticText(this,"( "+nas.outputMedias.selected+" )",0.3,1.6,0.7,1);	this.omId.justify="right";	this.omName=		nas.GUI.addEditText(this,nas.outputMedias.selectedName,1,1.5,3,1);	this.omWidth=		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[1],4,1.5,1,1);	this.omHeight=		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[2],5,1.5,1,1);	this.omPa=		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[3],6,1.5,1,1);	this.omFramerate=		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[4],7,1.5,1,1);//ƒf[ƒ^‘€ìƒRƒ“ƒgƒ[ƒ‹	this.addEntry=		nas.GUI.addButton(this,"V‹K“o˜^",2.5,0.4,2,1);	this.delEntry=		nas.GUI.addButton(this,"íœ",4.5,0.4,2,1);	this.chgEntry=		nas.GUI.addButton(this,"XV",6.5,0.4,2,1);	}nas.Pref.tabPanel[1].oMediaList.init();//•ÒWƒRƒ“ƒgƒ[ƒ‹“o˜^	nas.Pref.tabPanel[1].oMediaList.reInit=function()	{		nas.outputMedias.select();	this.list.setOptions(nas.outputMedias.names("all"),nas.outputMedias.selected);	this.omId.text="( "+nas.outputMedias.selected+" )";	this.omName.text=nas.outputMedias.selectedName;	this.omWidth.text=nas.outputMedias.selectedRecord[1];	this.omHeight.text=nas.outputMedias.selectedRecord[2];	this.omPa.text=nas.outputMedias.selectedRecord[3];	this.omFramerate.text=nas.outputMedias.selectedRecord[4];	}//‰æ–ÊƒAƒbƒvƒf[ƒgnas.Pref.tabPanel[1].oMediaList.update = function(){	this.omId.text	="( "+nas.outputMedias.selected+" )";	this.omName.text	=nas.outputMedias.selectedRecord[0];	this.omWidth.text	=nas.outputMedias.selectedRecord[1];	this.omHeight.text	=nas.outputMedias.selectedRecord[2];	this.omPa.text	=nas.outputMedias.selectedRecord[3];	this.omFramerate.text	=nas.outputMedias.selectedRecord[4];	if(this.list.selected!=nas.outputMedias.selected){this.list.check(nas.outputMedias.selected)}	this.addEntry.enabled=false;	this.chgEntry.enabled=false;//	nas.Pref.tabPanel[0].TitleSelector.linkOM.options=nas.outputMedias.names();//	nas.Pref.tabPanel[0].TitleSelector.linkOM.select();}//nas.Pref.tabPanel[1].oMediaList.update();nas.Pref.tabPanel[1].init=function(){	this.MediaList.reInit();	this.oMediaList.reInit();	this.MediaList.update();	this.oMediaList.update();}nas.Pref.tabPanel[1].init();//=========================================================ƒ^ƒuƒpƒlƒ‹‚Q/Ú×“®ìİ’è	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"====================	“Ç‚İ‚İƒtƒBƒ‹ƒ^@====================",0,0,8,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"‘fŞƒtƒBƒ‹ƒ^ : ",0,1,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ƒZƒ‹ƒtƒBƒ‹ƒ^ : ",0,2,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"”wŒi : ",0,3,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"BOOK : ",0,4,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ƒŒƒCƒAƒEƒg : ",0,5,2,1).justify="right";/*	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"====================	‘fŞŠÇ—ƒtƒHƒ‹ƒ_@====================",0,6,8,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ƒZƒ‹ : ",0,7,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"”wŒi : ",0,8,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ƒŒƒCƒAƒEƒg : ",0,9,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ƒtƒŒ[ƒ€ : ",0,10,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ƒ^ƒCƒ€ƒV[ƒg : ",0,11,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"“®‰æ : ",0,12,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"Œ´‰æ : ",0,13,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ƒTƒEƒ“ƒh: ",0,14,2,1).justify="right";	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"‚»‚Ì‘¼ : ",0,15,2,1).justify="right";*///ƒCƒ“ƒ|[ƒgƒtƒBƒ‹ƒ^	nas.Pref.tabPanel[2].impFilt=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,1,7,1);//ƒZƒ‹”»’èƒtƒBƒ‹ƒ^	nas.Pref.tabPanel[2].cellFilt=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,2,7,1);//BG	nas.Pref.tabPanel[2].bgFilt=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,3,7,1);//BOOK	nas.Pref.tabPanel[2].mgFilt=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,4,7,1);//ƒŒƒCƒAƒEƒg	nas.Pref.tabPanel[2].loFilt=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,5,7,1);/*//ƒtƒ@ƒCƒ‹”z’uDB//	”wŒi(Ã~‰æ)	nas.Pref.tabPanel[2].bgFld=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	7	,7,1);//	ƒZƒ‹(ƒyƒCƒ“ƒg)	nas.Pref.tabPanel[2].paintFld=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	8	,7,1);//	ƒŒƒCƒAƒEƒg(ƒtƒŒ[ƒ€‚Æ“¯‹`‚Å‰Â@‚Ç‚¿‚ç‚ÌƒtƒHƒ‹ƒ_‚ğg‚¤‚Ì‚à‰Â@‚½‚¾‚µƒŒB‚ÌÛ‚Í‚±‚¿‚ç‚ªŠG‘fŞ)	nas.Pref.tabPanel[2].loFld=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	9	,7,1);//	ƒtƒŒ[ƒ€(ƒŒƒCƒAƒEƒg‚Æ“¯‹`‚Å‰Â@‚Ç‚¿‚ç‚ÌƒtƒHƒ‹ƒ_‚ğg‚¤‚Ì‚à‰Â@ƒŒB‚Ìê‡‚ÍB‰eQlƒtƒŒ[ƒ€”z’uêŠ)	nas.Pref.tabPanel[2].frameFld=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	10	,7,1);//	ƒ^ƒCƒ€ƒV[ƒgA‚»‚Ì‚Ù‚©‚ÌXPSî•ñB«—ˆ“I‚É‚Íi’»ŠÇ—Eì‹ÆŠÇ—‚à‚±‚±	nas.Pref.tabPanel[2].etcFld=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	11	,7,1);//	“®‰æ(ƒŒƒ^ƒXì‹Æ‚ÍSCANƒtƒHƒ‹ƒ_‚Æ“¯‹`)	nas.Pref.tabPanel[2].drwFld=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	12	,7,1);//	Œ´‰æiƒL[ƒAƒjƒ[ƒVƒ‡ƒ“Eƒ‰ƒtŒ´‚Í•Ê‚¾‚ª–¢İ’èj	nas.Pref.tabPanel[2].keyFld=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	13	,7,1);//	ƒTƒEƒ“ƒh(ƒTƒEƒ“ƒhƒtƒbƒe[ƒW@‚Ü‚½‚Í@š–‹ƒeƒLƒXƒg‚ğŠ’èŒ`®‚Å@<<—\–ñ>>)	nas.Pref.tabPanel[2].sndFld=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	14	,7,1);//	‚»‚Ì‚Ù‚©Šeí‘fŞ	nas.Pref.tabPanel[2].othFld=		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	15	,7,1);*///=========================================================ƒ^ƒuƒpƒlƒ‹‚Q‰Šú‰»	nas.Pref.tabPanel[2].init=function()	{//ƒtƒBƒ‹ƒ^		this.impFilt.text=nas.importFilter.toString();//ƒCƒ“ƒ|[ƒgƒtƒBƒ‹ƒ^		this.cellFilt.text=nas.cellRegex.toString();//ƒZƒ‹”»’èƒtƒBƒ‹ƒ^		this.bgFilt.text=nas.bgRegex.toString();//BG		this.mgFilt.text=nas.mgRegex.toString();//BOOK		this.loFilt.text=nas.loRegex.toString();//ƒŒƒCƒAƒEƒg//ƒtƒHƒ‹ƒ_/*		this.bgFld.text=(nas.ftgFolders["bg"].toString());//		this.paintFld.text=(nas.ftgFolders["paint"].toString());//		this.loFld.text=(nas.ftgFolders["lo"].toString());//		this.frameFld.text=(nas.ftgFolders["frame"].toString());//		this.etcFld.text=(nas.ftgFolders["etc"].toString());//		this.drwFld.text=(nas.ftgFolders["drawing"].toString());//		this.keyFld.text=(nas.ftgFolders["key"].toString());//		this.sndFld.text=(nas.ftgFolders["sound"].toString());//		this.othFld.text=(nas.ftgFolders["unknown"].toString());//*///		this.Fld.text=decodeURI(nas.ftgFolders[].toSource());//	}	nas.Pref.tabPanel[2].init();/*//ƒŒƒCƒAƒEƒgˆ—	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"L/O ƒIƒvƒVƒ‡ƒ“ : ",0,7,2,1);	nas.Pref.tabPanel[2].loAp=		nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"”ñ•\¦",0.5,8,1.5,1);		nas.Pref.tabPanel[2].loAp.value=(nas.viewLayout.visible)?false:true;	nas.Pref.tabPanel[2].loMode=		nas.GUI.addSelectButton(nas.Pref.tabPanel[2],["’Êí","æZ","”äŠr(–¾)","”äŠr(ˆÃ)","·‚Ìâ‘Î’l","ƒVƒ‹ƒGƒbƒgƒ‹ƒ~ƒiƒ“ƒX"],0,2,8,3,1);		switch(nas.viewLayout.MODE){		case 3612:	nas.Pref.tabPanel[2].loMode.select(0);break;		case 3616:	nas.Pref.tabPanel[2].loMode.select(1);break;		case 3621:	nas.Pref.tabPanel[2].loMode.select(2);break;		case 3615:	nas.Pref.tabPanel[2].loMode.select(3);break;		case 3633:	nas.Pref.tabPanel[2].loMode.select(4);break;		case 3643:	nas.Pref.tabPanel[2].loMode.select(5);break;		default:	nas.Pref.tabPanel[2].loMode.select(0);		}	nas.Pref.tabPanel[2].loOpa=		nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"50%",5,8,1.5,1);		nas.Pref.tabPanel[2].loOpa.value=(nas.viewLayout.RATIO==100)?false:true;	nas.Pref.tabPanel[2].loGd=		nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"ƒKƒCƒhƒŒƒCƒ„‚É‚·‚é",6.5,8,2.5,1);		nas.Pref.tabPanel[2].loGd.value=nas.viewLayout.guideLayer;//ƒZƒ‹‚Ìˆ—	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"CELL ƒIƒvƒVƒ‡ƒ“ : ",0,9,2,1);	nas.Pref.tabPanel[2].goClip=	nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"ƒJƒ‰[ƒL[‚Å”’‚ğ“§‰ß",0,10,3,1);	nas.Pref.tabPanel[2].goClip.value=nas.goClip;	nas.Pref.tabPanel[2].killAlpha0=		nas.GUI.addRadioButton(nas.Pref.tabPanel[2],"ƒAƒ‹ƒtƒ@ƒ`ƒƒƒ“ƒlƒ‹—Dæ",0.5,11,3,1);	nas.Pref.tabPanel[2].killAlpha0.value=(nas.killAlpha)?false:true;	nas.Pref.tabPanel[2].killAlpha1=		nas.GUI.addRadioButton(nas.Pref.tabPanel[2],"ƒJƒ‰[ƒL[—Dæ",4,11,3,1);	nas.Pref.tabPanel[2].killAlpha1.value=(nas.killAlpha)?true:false;	nas.Pref.tabPanel[2].goSms=	nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"ƒXƒ€[ƒWƒ“ƒO‚·‚é",0,13,3,1);	nas.Pref.tabPanel[2].goSms.value=nas.goSmooth;	nas.Pref.tabPanel[2].smsOpt0=		nas.GUI.addRadioButton(nas.Pref.tabPanel[2],"kp-smooth",1,14,2,1);	nas.Pref.tabPanel[2].smsOpt0.value=(nas.cellOptions.selected==0)?true:false;	nas.Pref.tabPanel[2].smsOpt1=		nas.GUI.addRadioButton(nas.Pref.tabPanel[2],"KP-AntiAlias",1,15,4,1);	nas.Pref.tabPanel[2].smsOpt1.value=(nas.cellOptions.selected==1)?true:false;	nas.Pref.tabPanel[2].smsClip=	nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"white option",3,14,3,1);	nas.Pref.tabPanel[2].smsClip.value=nas.smoothClip;*///memo	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"‚±‚Ìƒpƒlƒ‹‚Ì•ÏX‚ÍƒZƒbƒVƒ‡ƒ“ŒÀ‚è‚Å‚·B‹L˜^‚ª•K—v‚Èê‡‚Í‰º‚Ìƒ{ƒ^ƒ“‚Å•Û‘¶‚µ‚Ä‚­‚¾‚³‚¢B",0,17,9,1).justify="right";//=========================================================ƒ^ƒuƒpƒlƒ‹‚R@/@ì‰æ‹@”\İ’è	nas.GUI.addStaticText(nas.Pref.tabPanel[3],"ì‰æ‹@”\İ’è",0,0,9,1).justify="right";//ƒŒƒCƒ„ƒRƒ“ƒgƒ[ƒ‹İ’è	nas.GUI.addStaticText(nas.Pref.tabPanel[3],"ƒŒƒCƒ„ƒRƒ“ƒgƒ[ƒ‹",0,1,2,1).justify="right";nas.GUI.addStaticText(nas.Pref.tabPanel[3],"V‹KƒŒƒCƒ„ì¬‚É",1,1.5,3,1).justify="right";nas.Pref.tabPanel[3].nlOpc=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],"“§‰ß‚³‚¹‚é",4,1.5,2,1);nas.Pref.tabPanel[3].nlOpcValue=nas.GUI.addEditText(nas.Pref.tabPanel[3],"65",6,1.5,1,1);nas.GUI.addStaticText(nas.Pref.tabPanel[3],"%",7,1.5,1,1).justify="left";//=========F‘I‘ğ//“®‰æƒŒƒCƒ„nas.Pref.tabPanel[3].colorSPC=nas.GUI.addPanel(nas.Pref.tabPanel[3],"V‹KƒŒƒCƒ„‚Ì”wŒiF",2,2,6,2);for(var ix=0;ix<nas.axe.lyBgColors.length;ix++){	nas.Pref.tabPanel[3]["rb"+ix]=nas.GUI.addRadioButton(nas.Pref.tabPanel[3].colorSPC,nas.axe.lyBgColors[ix][0],ix*1.2,0.3,1.5,1);}	nas.Pref.tabPanel[3]["rb"+nas.axe.lyBgColor].value=true;//C³ƒŒƒCƒ„nas.Pref.tabPanel[3].colorSPCo=nas.GUI.addPanel(nas.Pref.tabPanel[3],"C³ƒŒƒCƒ„‚Ì”wŒiF",2,3.7,6,2);for(var ix=0;ix<nas.axe.ovlBgColors.length;ix++){	nas.Pref.tabPanel[3]["rbo"+ix]=nas.GUI.addRadioButton(nas.Pref.tabPanel[3].colorSPCo,nas.axe.ovlBgColors[ix][0],ix*1.2,0.3,1.5,1);}	nas.Pref.tabPanel[3]["rbo"+nas.axe.ovlBgColor].value=true;//ƒvƒŒƒrƒ…[ƒRƒ“ƒgƒ[ƒ‹İ’è	nas.GUI.addStaticText(nas.Pref.tabPanel[3],"ƒvƒŒƒrƒ…[ƒRƒ“ƒgƒ[ƒ‹",0,7,2,1).justify="right";nas.Pref.tabPanel[3].focusInterlocking=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],"ƒtƒŒ[ƒ€ˆÚ“®‚ÉƒAƒNƒeƒBƒuƒŒƒCƒ„‚ÌˆÚ“®‚ğ‚·‚é"+nas.GUI.LineFeed+"(ƒGƒNƒXƒeƒ“ƒVƒ‡ƒ“g—p‚Ì‚İ—LŒø)",4,6,6,2)//ƒhƒLƒ…ƒƒ“ƒgİ’è	nas.GUI.addStaticText(nas.Pref.tabPanel[3],"ƒhƒLƒ…ƒƒ“ƒgİ’è",0,9,2,1).justify="right";//nas.GUI.addStaticText(nas.Pref.tabPanel[3],"V‹Kƒtƒ@ƒCƒ‹ì¬ƒ_ƒCƒAƒƒO",1,9,2,1).justify="right";nas.Pref.tabPanel[3].selectDialog=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],"V‹KƒhƒLƒ…ƒƒ“ƒgì¬‚ÉƒAƒjƒŠg’£‹@”\‚ğg‚¤",4,8,6,1)//ƒ^ƒbƒv‰æ‘œ”z’u‚ÉƒuƒŒƒ“ƒhƒ‚[ƒh‚ğ·‚Ìâ‘Î’l‚É‚·‚énas.Pref.tabPanel[3].pegBlendMode=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],"ƒ^ƒbƒv‰æ‘œ”z’u‚É·‚Ìâ‘Î’l‚É‚·‚é",4,9,6,1)//ƒtƒŒ[ƒ€‰æ‘œ”z’u‚É‚Q‚O““§‰ß‚É‚·‚énas.Pref.tabPanel[3].frameOpacity=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],"ƒtƒŒ[ƒ€‰æ‘œ”z’u‚É”¼“§–¾‚É‚·‚é",4,10,6,1)nas.Pref.tabPanel[3].init=function(){	nas.Pref.tabPanel[3].nlOpc.value=nas.axe.newLayerTpr;	nas.Pref.tabPanel[3].nlOpcValue.text=(nas.axe.onsOpc*100);	nas.Pref.tabPanel[3]["rb"+nas.axe.lyBgColor].value=true;	nas.Pref.tabPanel[3]["rbo"+nas.axe.ovlBgColor].value=true;	nas.Pref.tabPanel[3].focusInterlocking.value=nas.axe.focusMove;	nas.Pref.tabPanel[3].selectDialog.value=nas.axe.dmDialog;	nas.Pref.tabPanel[3].pegBlendMode.value=nas.axe.pegBlend;	nas.Pref.tabPanel[3].frameOpacity.value=nas.axe.frameOpc;}nas.Pref.tabPanel[3].init();//Yes No Cancel	nas.Pref.readButton=nas.GUI.addButton(nas.Pref,"“Ç",0,19,2,1);	nas.Pref.writeButton=nas.GUI.addButton(nas.Pref,"•Û‘¶",2,19,2,1);	nas.Pref.clearButton=nas.GUI.addButton(nas.Pref,"Á‹",4,19,2,1);	nas.Pref.closeButton=nas.GUI.addButton(nas.Pref,"close",6,19,3,1);	//=========================================================ƒRƒ“ƒgƒ[ƒ‹ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“İ’è//ƒƒCƒ“ƒRƒ“ƒgƒ[ƒ‹//Tab[0]//nas_common	nas.Pref.tabPanel[0].Uname.onChange=function(){nas.CURRENTUSER=this.text};	nas.Pref.tabPanel[0].bResolution.onChange=function(){nas.RESOLUTION=this.text/2.54;this.text=nas.Dpi()};	nas.Pref.tabPanel[0].fRate.onChange=function(){if(! isNaN(this.text)){nas.FRATE=this.text;};this.text=nas.FRATE;};	nas.Pref.tabPanel[0].stLength.onChange=function(){var frames=nas.FCT2Frm(this.text);if(! isNaN(frames)){nas.SheetLength=frames};this.text=nas.Frm2FCT(nas.SheetLength,3);};//TitleDB	nas.Pref.tabPanel[0].TitleSelector.addEntry.onClick=function()	{		nas.workTitles.push(			this.parent.myTitle.text,			[				this.parent.myPrefix.text,				this.parent.myCode.text,				this.parent.linkIM.selected,				this.parent.linkOM.selected			]		);		this.parent.list.setOptions(nas.workTitles.names("all"),nas.workTitles.selected);		this.parent.list.check(nas.workTitles.selected);	};	nas.Pref.tabPanel[0].TitleSelector.delEntry.onClick=function()	{		if(this.parent.list.options.length==1) {alert("ƒGƒ“ƒgƒŠ‚ª0‚É‚È‚é‚Ì‚Åíœ‚Å‚«‚Ü‚¹‚ñB");return;}		if(confirm("‘I‘ğ‚³‚ê‚½ƒGƒ“ƒgƒŠ‚ğíœ‚µ‚Ü‚·B\n‚æ‚ë‚µ‚¢‚Å‚·‚©?"))		{			nas.workTitles.del(this.parent.list.selected);			nas.workTitles.select();			this.parent.list.setOptions(nas.workTitles.names("all"),nas.workTitles.selected);			this.parent.list.check(nas.workTitles.selected);			this.parent.update();		}	};	nas.Pref.tabPanel[0].TitleSelector.chgEntry.onClick=function()	{		nas.workTitles.change(			this.parent.myTitle.text,			[				this.parent.myPrefix.text,				this.parent.myCode.text,				this.parent.linkIM.selected,				this.parent.linkOM.selected			],			this.parent.list.selected		);		this.parent.list.setOptions(nas.workTitles.names("all"),nas.workTitles.selected);		this.parent.list.check(nas.workTitles.selected);		this.parent.update();	};	nas.Pref.tabPanel[0].TitleSelector.myTitle.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[0].TitleSelector.myPrefix.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[0].TitleSelector.myCode.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[0].TitleSelector.linkIM.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[0].TitleSelector.linkOM.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[0].TitleSelector.chgvalue=function()	{		this.addEntry.enabled=true;		this.chgEntry.enabled=true;	return;	};	nas.Pref.tabPanel[0].TitleSelector.list.onChange=function()	{		if(this.selected==null)		{			this.check(nas.workTitles.selected);			return;		};		nas.workTitles.select(this.selected);		this.parent.update();	};//Tab[1]//IM DB	nas.Pref.tabPanel[1].MediaList.addEntry.onClick=function()	{		nas.inputMedias.push(			this.parent.imName.text,			[				this.parent.imWidth.text,				this.parent.imFrameRatio.text,				this.parent.imResolution.text,				this.parent.imFrameRate.text,				this.parent.imPegID.text,				this.parent.imPegX.text,				this.parent.imPegY.text,				this.parent.imPegR.text			]		);		this.parent.list.setOptions(nas.inputMedias.names("all"),nas.inputMedias.selected);		this.parent.list.check(nas.inputMedias.selected);			};	nas.Pref.tabPanel[1].MediaList.delEntry.onClick=function()	{		if(this.parent.list.options.length==1) {alert("ƒGƒ“ƒgƒŠ‚ª0‚É‚È‚é‚Ì‚Åíœ‚Å‚«‚Ü‚¹‚ñB");return;}		if(confirm("‘I‘ğ‚³‚ê‚½ƒGƒ“ƒgƒŠ‚ğíœ‚µ‚Ü‚·B\n‚æ‚ë‚µ‚¢‚Å‚·‚©?"))		{			nas.inputMedias.del(this.parent.list.selected);			this.parent.list.setOptions(nas.inputMedias.names("all"),nas.inputMedias.selected);			this.parent.list.check(nas.inputMedias.selected);			this.parent.reInit();		}	};	nas.Pref.tabPanel[1].MediaList.chgEntry.onClick=function()	{		nas.inputMedias.change(			this.parent.imName.text,			[				this.parent.imWidth.text,				this.parent.imFrameRatio.text,				this.parent.imResolution.text,				this.parent.imFrameRate.text,				this.parent.imPegID.text,				this.parent.imPegX.text,				this.parent.imPegY.text,				this.parent.imPegR.text			],			this.parent.list.selected		);		this.parent.list.setOptions(nas.inputMedias.names("all"),nas.inputMedias.selected);		this.parent.list.check(nas.inputMedias.selected);				this.parent.update();	};	nas.Pref.tabPanel[1].MediaList.imName.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].MediaList.imWidth.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].MediaList.imFrameRatio.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].MediaList.imResolution.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].MediaList.imFrameRate.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].MediaList.imPegID.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].MediaList.imPegX.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].MediaList.imPegY.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].MediaList.imPegR.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].MediaList.chgvalue=function()	{		this.addEntry.enabled=true;		this.chgEntry.enabled=true;	return;	};	nas.Pref.tabPanel[1].MediaList.list.onChange=function()	{		if(this.selected==null)		{			this.check(nas.inputMedias.selected);			return;		};		nas.inputMedias.select(this.selected);		nas.registerMarks.select(nas.inputMedias.selectedRecord[5])		this.parent.update();	};//OM DB	nas.Pref.tabPanel[1].oMediaList.addEntry.onClick=function()	{		nas.outputMedias.push(			this.parent.omName.text,			[				this.parent.omWidth.text,				this.parent.omHeight.text,				this.parent.omPa.text,				this.parent.omFramerate.text			]		);		this.parent.list.setOptions(nas.outputMedias.names("all"),nas.outputMedias.selected);		this.parent.list.check(nas.outputMedias.selected);			};	nas.Pref.tabPanel[1].oMediaList.delEntry.onClick=function()	{		if(this.parent.list.options.length==1) {alert("ƒGƒ“ƒgƒŠ‚ª0‚É‚È‚é‚Ì‚Åíœ‚Å‚«‚Ü‚¹‚ñB");return;}		if(confirm("‘I‘ğ‚³‚ê‚½ƒGƒ“ƒgƒŠ‚ğíœ‚µ‚Ü‚·B\n‚æ‚ë‚µ‚¢‚Å‚·‚©?"))		{			nas.outputMedias.del(this.parent.list.selected);			this.parent.list.setOptions(nas.outputMedias.names("all"),nas.outputMedias.selected);			this.parent.list.check(nas.outputMedias.selected);			this.parent.reInit();		}	};	nas.Pref.tabPanel[1].oMediaList.chgEntry.onClick=function()	{		nas.outputMedias.change(			this.parent.omName.text,			[				this.parent.omWidth.text,				this.parent.omHeight.text,				this.parent.omPa.text,				this.parent.omFramerate.text			],			this.parent.list.selected		);		this.parent.list.setOptions(nas.outputMedias.names("all"),nas.outputMedias.selected);		this.parent.list.check(nas.outputMedias.selected);				this.parent.update();	};	nas.Pref.tabPanel[1].oMediaList.omName.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].oMediaList.omWidth.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].oMediaList.omHeight.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].oMediaList.omPa.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].oMediaList.omFramerate.onChange=function(){this.parent.chgvalue("Name")};	nas.Pref.tabPanel[1].oMediaList.chgvalue=function()	{		this.addEntry.enabled=true;		this.chgEntry.enabled=true;	return;	};	nas.Pref.tabPanel[1].oMediaList.list.onChange=function()	{		if(this.selected==null)		{			this.check(nas.outputMedias.selected);			return;		};		nas.outputMedias.select(this.selected);		this.parent.update();	};//Tab[2]	nas.Pref.tabPanel[2].impFilt.onChange=function(){nas.importFilter=(this.text.match(/^\/.*\/[rgi]$/))?eval(this.text):new RegExp(this.text)};	nas.Pref.tabPanel[2].cellFilt.onChange=function(){nas.cellRegex=(this.text.match(/^\/.*\/[rgi]$/))?eval(this.text):new RegExp(this.text)};	nas.Pref.tabPanel[2].bgFilt.onChange=function(){nas.bgRegex=(this.text.match(/^\/.*\/[rgi]$/))?eval(this.text):new RegExp(this.text)};	nas.Pref.tabPanel[2].mgFilt.onChange=function(){nas.mgRegex=(this.text.match(/^\/.*\/[rgi]$/))?eval(this.text):new RegExp(this.text)};	nas.Pref.tabPanel[2].loFilt.onChange=function(){nas.loRegex=(this.text.match(/^\/.*\/[rgi]$/))?eval(this.text):new RegExp(this.text)};/*	nas.Pref.tabPanel[2].bgFld.onChange=function(){nas.ftgFolders["bg"]=(this.text.split(","))};	nas.Pref.tabPanel[2].paintFld.onChange=function(){nas.ftgFolders["paint"]=(this.text.split(","))};	nas.Pref.tabPanel[2].loFld.onChange=function(){nas.ftgFolders["lo"]=(this.text.split(","))};	nas.Pref.tabPanel[2].frameFld.onChange=function(){nas.ftgFolders["frame"]=(this.text.split(","))};	nas.Pref.tabPanel[2].etcFld.onChange=function(){nas.ftgFolders["etc"]=(this.text.split(","))};	nas.Pref.tabPanel[2].drwFld.onChange=function(){nas.ftgFolders["drawing"]=(this.text.split(","))};	nas.Pref.tabPanel[2].keyFld.onChange=function(){nas.ftgFolders["key"]=(this.text.split(","))};	nas.Pref.tabPanel[2].sndFld.onChange=function(){nas.ftgFolders["sound"]=(this.text.split(","))};	nas.Pref.tabPanel[2].othFld.onChange=function(){nas.ftgFolders["unknown"]=(this.text.split(","))};*//*	nas.Pref.tabPanel[2].loAp.onClick=function(){nas.viewLayout.visible=(this.value)?false:true;}	nas.Pref.tabPanel[2].loMode.onChange=function(){		switch(this.selected)		{	case 0:nas.viewLayout.MODE=BlendingMode.NORMAL ;break;	case 1:nas.viewLayout.MODE=BlendingMode.MULTIPLY ;break;	case 2:nas.viewLayout.MODE=BlendingMode.LIGHTEN ;break;	case 3:nas.viewLayout.MODE=BlendingMode.DARKEN ;break;	case 4:nas.viewLayout.MODE=BlendingMode.DIFFERENCE ;break;	case 5:nas.viewLayout.MODE=BlendingMode.SILHOUETTE_LUMA ;break;	default :nas.viewLayout.MODE=BlendingMode.NORMAL ;		}	}nas.Pref.tabPanel[2].loOpa.onClick=function(){nas.viewLayout.RATIO=(this.value)?50:100;};nas.Pref.tabPanel[2].loGd.onClick=function(){nas.viewLayout.guideLayer=(this.value)?true:false;};//ƒZƒ‹ƒNƒŠƒbƒv	nas.Pref.tabPanel[2].goClip.onClick=function(){nas.goClip=this.value;}	nas.Pref.tabPanel[2].killAlpha0.onClick=function(){nas.killAlpha=(this.value)?false:true;}	nas.Pref.tabPanel[2].killAlpha1.onClick=function(){nas.killAlpha=(this.value)?true:false;}	nas.Pref.tabPanel[2].goSms.onClick=function(){nas.goSmooth=this.value;};	nas.Pref.tabPanel[2].smsOpt0.onClick=function(){nas.cellOptions.select(0)};	nas.Pref.tabPanel[2].smsOpt1.onClick=function(){nas.cellOptions.select(1)};	nas.Pref.tabPanel[2].smsClip.onClick=function(){nas.smoothClip=this.value;}*///tab[3]	nas.Pref.tabPanel[3].nlOpc.onClick=function(){nas.axe.newLayerTpr=this.value};	nas.Pref.tabPanel[3].nlOpcValue.onChange=function(){		var myNumber=new Number(this.text);		if((myNumber<=100)&&(myNumber>=0)){nas.axe.onsOpc=myNumber/100}else{this.text=(nas.axe.onsOpc*100);}	}	nas.Pref.tabPanel[3].chgColor=function(){	 for(var ix=0;ix<nas.axe.lyBgColors.length;ix++){	  if(nas.Pref.tabPanel[3]["rb"+ix].value){nas.axe.lyBgColor=ix;break;}	 }	 for(var ix=0;ix<nas.axe.ovlBgColors.length;ix++){	  if(nas.Pref.tabPanel[3]["rbo"+ix].value){nas.axe.ovlBgColor=ix;break;}	 }	};	for(var ix=0;ix<nas.axe.lyBgColors.length;ix++){	 nas.Pref.tabPanel[3]["rb"+ix].onClick=nas.Pref.tabPanel[3].chgColor	}	for(var ix=0;ix<nas.axe.ovlBgColors.length;ix++){	 nas.Pref.tabPanel[3]["rbo"+ix].onClick=nas.Pref.tabPanel[3].chgColor	}	nas.Pref.tabPanel[3].focusInterlocking.onClick=function(){nas.axe.focusMove=this.value;}	nas.Pref.tabPanel[3].selectDialog.onClick=function(){nas.axe.dmDialog=this.value;}	nas.Pref.tabPanel[3].pegBlendMode.onClick=function(){nas.axe.pegBlend=this.value;}	nas.Pref.tabPanel[3].frameOpacity.onClick=function(){nas.axe.frameOpc=this.value;}//Yes/No/Cacel	nas.Pref.readButton.onClick=function(){		var doAction=confirm("•Û‘¶’†‚Ìİ’è‚ğ“Ç‚İ‚İ‚Ü‚·BŒ»İ‚Ìİ’è‚Íã‘‚«‚³‚ê‚Ü‚·B"+nas.GUI.LineFeed+"æ‚èÁ‚µ‚Í‚Å‚«‚Ü‚¹‚ñB‚æ‚ë‚µ‚¢‚Å‚·‚©H");		if(doAction){nas.readPrefarence();this.parent.init("all")};		};	nas.Pref.writeButton.onClick=function(){		var doAction=confirm("İ’è‚ğ["+nas.prefarenceFolder.fsName+"]ˆÈ‰º‚É•Û‘¶‚µ‚Ü‚·B"+nas.GUI.LineFeed+"ˆÈ‘O‚Ìƒtƒ@ƒCƒ‹‚Íã‘‚«‚³‚ê‚Ü‚·B‚æ‚ë‚µ‚¢‚Å‚·‚©H");		if(doAction){nas.writePrefarence()}		};	nas.Pref.clearButton.onClick=function(){nas.cleraPrefarence();};	nas.Pref.closeButton.onClick=function(){nas.Pref.close();};//ƒAƒbƒvƒf[ƒgƒRƒ“ƒgƒ[ƒ‹	nas.Pref.init=function(opt)	{		if(!opt) opt="all";		switch(opt){		case	"0":			this.tabPanel[0].init();		break;		case	"1":;			this.tabPanel[1].init();		break;		case	"2":;			this.tabPanel[2].init();		break;		case	"3":;			this.tabPanel[3].init();		break;		default:			this.tabPanel[0].init();			this.tabPanel[1].init();			this.tabPanel[2].init();			this.tabPanel[3].init();		}	}//	ƒEƒBƒ“ƒhƒEÅIˆÊ’u‚ğ‹L˜^	nas.Pref.onMove=function(){nas.GUI.winOffset["Pref"] =[nas.Pref.bounds[0],nas.Pref.bounds[1]];	}//Start GUInas.Pref.show();//}
+/*(å„ç¨®è¨­å®š)
+ *	nasPsPref.jsx
+ *
+ *	ãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ãƒ‘ãƒãƒ« ã¾ã ã¾ã å¤‰ã‚ã‚‹ã‚ˆ æš«å®šç‰ˆ
+ *	ç›´æ¥	lib/config.js
+ *		lib/nas_axeLib.js ã‚’æ›¸ãæ›ãˆã‚Œã°ä½•ã§ã‚‚ã‹ã‘ã¾ã™ã‚ˆã€ã¨
+ *	Photoshopç”¨ã«æš«å®šçš„ã«æ”¹è£…ã€€2011 06 25
+ */
+
+// enable double clicking from the Macintosh Finder or the Windows Explorer
+#target photoshop
+// in case we double clicked the file
+app.bringToFront();
+//Photoshopç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+
+if($.fileName){
+//	CS3ä»¥é™ã¯ã€€$.fileNameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚‹ã®ã§ãƒ­ã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒªãƒ¼ã«ã§ãã‚‹
+	var nasLibFolderPath = new File($.fileName).parent.path +"/lib/";
+}else{
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
+	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
+}
+var includeLibs=[];//èª­ã¿è¾¼ã¿ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’æ ¼ç´ã™ã‚‹é…åˆ—
+
+if(! app.nas){
+//iclude nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«å¿…è¦ãªåŸºç¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã™ã‚‹
+	var nas = new Object();
+		nas.Version=new Object();
+		nas.isAdobe=true;
+		nas.axe=new Object();
+		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
+//	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ­ãƒ¼ãƒ‰ã€€CS2-5ç”¨
+//==================== ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ç™»éŒ²ã—ã¦äº‹å‰ã«èª­ã¿è¾¼ã‚€
+/*
+	includeLibsé…åˆ—ã«ç™»éŒ²ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’é †æ¬¡èª­ã¿è¾¼ã‚€ã€‚
+	ç™»éŒ²ã¯ãƒ‘ã‚¹ã§è¡Œã†ã€‚(Fileã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯ãªã„)
+	$.evalFile ãƒ¡ã‚½ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯ãã‚Œã‚’ä½¿ç”¨ã™ã‚‹ãŒCS2ä»¥å‰ã®ç’°å¢ƒã§ã¯global ã® evalé–¢æ•°ã§èª­ã¿è¾¼ã‚€
+
+ï¼ï¼ï¼ã€€ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒªã‚¹ãƒˆï¼ˆä»¥ä¸‹ã¯èª­ã¿è¾¼ã¿é †ä½ã«ä¸€å®šã®ä¾å­˜æ€§ãŒã‚ã‚‹ã®ã§æ³¨æ„ï¼‰
+ã€€config.js"		ä¸€èˆ¬è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤æ›¸è¾¼ï¼‰ã“ã®ãƒ«ãƒ¼ãƒãƒ³å¤–ã§ã¯å‚ç…§ä¸èƒ½
+  nas_common.js		AEãƒ»HTMLå…±ç”¨ä¸€èˆ¬ã‚¢ãƒ‹ãƒ¡ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_GUIlib.js		Adobeç’°å¢ƒå…±ç”¨GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_psAxeLib.js	PSç”¨ç’°å¢ƒãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_prefarenceLib.js	Adobeç’°å¢ƒå…±ç”¨ãƒ‡ãƒ¼ã‚¿ä¿å­˜ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+
+  nasXpsStore.js	PSã»ã‹Adobeæ±ç”¨XpsStoreãƒ©ã‚¤ãƒ–ãƒ©ãƒª(AEç”¨ã¯ç‰¹æ®Š)
+  xpsio.js		æ±ç”¨Xpsãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  mapio.js		æ±ç”¨Mapãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  lib_STS.js		Adobeç’°å¢ƒå…±ç”¨STSãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  dataio.js		Xpsã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå…¥å‡ºåŠ›ãƒ©ã‚¤ãƒ–ãƒ©ãƒªï¼ˆã‚³ãƒ³ãƒãƒ¼ã‚¿éƒ¨ï¼‰
+  fakeAE.js		ä¸­é–“ç’°å¢ƒãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  io.js			ã‚Šã¾ã´ã‚“å…¥å‡ºåŠ›ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  psAnimationFrameClass.js	PSç”¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ“ä½œãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  xpsQueue.js		PSç”¨Xps-FrameAnimationé€£æºãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+*/
+includeLibs=[
+	nasLibFolderPath+"config.js",
+	nasLibFolderPath+"nas_common.js",
+	nasLibFolderPath+"nas_GUIlib.js",
+	nasLibFolderPath+"nas_psAxeLib.js",
+	nasLibFolderPath+"nas_prefarenceLib.js"
+];
+//=====================================ã€€Application Objectã«å‚ç…§ã‚’ã¤ã‘ã‚‹
+	app.nas=nas;
+	bootFlag=true;
+}else{
+	//alert("object nas exists")
+	nas=app.nas;
+	bootFlag=false;
+};
+
+/*	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+ã“ã“ã§å¿…è¦ãªãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ãƒªã‚¹ãƒˆã«åŠ ãˆã¦ã‹ã‚‰èª­ã¿è¾¼ã¿ã‚’è¡Œã†
+*/
+
+
+includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
+includeLibs.push(nasLibFolderPath+"xpsio.js");
+includeLibs.push(nasLibFolderPath+"mapio.js");
+includeLibs.push(nasLibFolderPath+"lib_STS.js");
+includeLibs.push(nasLibFolderPath+"dataio.js");
+includeLibs.push(nasLibFolderPath+"fakeAE.js");
+includeLibs.push(nasLibFolderPath+"io.js");
+includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
+includeLibs.push(nasLibFolderPath+"xpsQueue.js");
+includeLibs.push(nasLibFolderPath+"messages.js");
+for(prop in includeLibs){
+	var myScriptFileName=includeLibs[prop];
+	if($.evalFile){
+	//$.evalFile ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ãŒã‚ã‚Œã°å®Ÿè¡Œã™ã‚‹
+		$.evalFile(myScriptFileName);
+	}else{
+	//$.evalFile ãŒå­˜åœ¨ã—ãªã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯evalã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¸¡ã™
+		var scriptFile = new File(myScriptFileName);
+		if(scriptFile.exists){
+			scriptFile.open();
+			var myContent=scriptFile.read()
+			scriptFile.close();
+			eval(myContent);
+		}
+	}
+}
+//=====================================ä¿å­˜ã—ã¦ã‚ã‚‹ã‚«ã‚¹ã‚¿ãƒã‚¤ã‚ºæƒ…å ±ã‚’å–å¾—
+if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
+//=====================================
+//+++++++++++++++++++++++++++++++++ã“ã“ã¾ã§å…±ç”¨
+
+//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè­˜åˆ¥æ–‡å­—åˆ—ç”Ÿæˆ 
+var myFilename=("$RCSfile: nasPrefPs.jsx,v $").split(":")[1].split(",")[0];
+var myFilerevision=("$Revision: 1.1 $").split(":")[1].split("$")[0];
+var exFlag=true;
+var moduleName="Pref";//ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«åã§ç½®ãæ›ãˆã¦ãã ã•ã„ã€‚
+//äºŒé‡åˆæœŸåŒ–é˜²æ­¢ãƒˆãƒ©ãƒƒãƒ—
+try{
+	if(nas.Version)
+	{	nas.Version[moduleName]=moduleName+" :"+myFilename+" :"+myFilerevision;
+		try{
+if(nas[moduleName]){
+//	nas.Pref.show();
+//	å†åˆæœŸåŒ–ãƒˆãƒªã‚¬ãƒ¼ã¯ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã”ã¨ã«é©æ­£ãªã‚³ãƒãƒ³ãƒ‰ã«ç½®ãæ›ãˆã¦ãã ã•ã„ã€‚
+	exFlag=true;
+}else{
+	nas[moduleName]=new Object();
+}
+		}catch(err){
+	nas[moduleName]=new Object();
+		}
+	}
+}catch(err){
+	alert("nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªãŒå¿…è¦ã§ã™ã€‚\nnasStartup.jsx ã‚’å®Ÿè¡Œã—ã¦ãã ã•ã„ã€‚");
+	exFlag=false;
+}
+
+
+if(exFlag){
+//		åˆæœŸåŒ–
+
+//		ã‚µãƒ–ãƒ—ãƒ­ã‚·ã‚¸ãƒ£
+
+// ã‚·ã‚¹ãƒ†ãƒ è¨­å®šã«ç½®ã„ãŸã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚ªãƒ•ã‚»ãƒƒãƒˆå–å¾—ã€‚
+	myLeft=(nas.GUI.winOffset["Pref"])?
+	nas.GUI.winOffset["Pref"][0] : nas.GUI.dafaultOffset[0];
+	myTop=(nas.GUI.winOffset["Pref"])?
+	nas.GUI.winOffset["Pref"][1] : nas.GUI.dafaultOffset[1];
+// ------ GUIã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ— ---------
+//WindowSetup	ã“ã‚Œã¯ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãŒã‚ˆã‹ã‚ã†â€¦ã¨æ€ã†ã‚ˆã€‚
+//ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã¯ãƒ‘ãƒ¬ãƒƒãƒˆã¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ‰±ã„ãŒã¡ãŒãƒ¼ã†
+	nas.Pref=nas.GUI.newWindow("dialog","Preference",9,20,myLeft,myTop);
+//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«å®šç¾©
+//ãƒ¡ã‚¤ãƒ³ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+
+// TABè¨­å®š
+	nas.GUI.setTabPanel(nas.Pref,["ä¸€èˆ¬ç’°å¢ƒ","ãƒ¡ãƒ‡ã‚£ã‚¢è¨­å®š","å‹•ä½œè¨­å®š","ä½œç”»è¨­å®š"],0,0,9,19);
+
+//å„ã‚¿ãƒ–ã«ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã‚’é…ç½®
+//	ã‚¿ãƒ–ãƒ‘ãƒãƒ«ï¼/ä¸€èˆ¬ç’°å¢ƒè¨­å®š
+/*
+config.jsé–¢é€£ã€€æ–§ãƒ»ã‚Šã¾ã´ã‚“å…±é€šéƒ¨åˆ†(nas)
+*/
+	nas.GUI.addStaticText(nas.Pref.tabPanel[0],localize(nas.uiMsg["Name"]),0,1,2,1).justify="right";
+//	nas.GUI.addStaticText(nas.Pref.tabPanel[0],localize({en:"name"}),0,1,2,1).justify="right";
+	nas.Pref.tabPanel[0].Uname=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,1,2,1);
+
+	nas.GUI.addStaticText(nas.Pref.tabPanel[0],"åŸºæº–è§£åƒåº¦",0,2,2,1).justify="right";
+	nas.Pref.tabPanel[0].bResolution=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,2,2,1);
+
+	nas.GUI.addStaticText(nas.Pref.tabPanel[0],"ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ",0,3,2,1).justify="right";
+	nas.Pref.tabPanel[0].fRate=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,3,2,1);
+
+	nas.GUI.addStaticText(nas.Pref.tabPanel[0],"ã‚·ãƒ¼ãƒˆ1æšã®é•·ã•",0,4,2,1).justify="right";
+	nas.Pref.tabPanel[0].stLength=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,4,2,1);
+
+//ã‚¿ã‚¤ãƒˆãƒ«ç·¨é›†
+//	nas.GUI.addStaticText(nas.Pref.tabPanel[0],"ä½œå“ã‚¿ã‚¤ãƒˆãƒ«ç™»éŒ²",0,9,3,1);
+
+/*
+	ä½œæ¥­ã‚¿ã‚¤ãƒˆãƒ«DBæ›´æ–°ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
+*/
+
+//ãƒ—ãƒªã‚»ãƒƒãƒˆãƒªã‚¹ãƒˆ
+	nas.Pref.tabPanel[0].TitleSelector=
+		nas.GUI.addPanel(nas.Pref.tabPanel[0],"ä½œå“ã‚¿ã‚¤ãƒˆãƒ«ç™»éŒ²",0.2,8,8.5,9);
+//ç·¨é›†ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ç™»éŒ²
+	nas.Pref.tabPanel[0].TitleSelector.init=function(){
+	this.list=
+		nas.GUI.addListBox(this,nas.workTitles.names("all"),nas.workTitles.selected,0.5,3.5,7,4);
+//ã‚¿ã‚¤ãƒˆãƒ«
+	this.titleId=
+		nas.GUI.addStaticText(this,"( "+nas.workTitles.selected+" )",0.3,1.6,0.7,1);
+	this.titleId.justify="right";
+
+//ãƒ­ãƒ³ã‚°ãƒ—ãƒ¬ãƒ•ã‚£ã‚¯ã‚¹
+	this.myTitle=
+		nas.GUI.addEditText(this,nas.workTitles.selectedName,1,1.5,4,1);
+	this.myPrefix=
+		nas.GUI.addEditText(this,nas.workTitles.selectedRecord[1],5,1.5,2,1);
+//ã‚·ãƒ§ãƒ¼ãƒˆãƒ—ãƒ¬ãƒ•ã‚£ã‚¯ã‚¹
+	this.myCode=
+		nas.GUI.addEditText(this,nas.workTitles.selectedRecord[2],7,1.5,1,1);
+//IM
+	this.linkIM=
+		nas.GUI.addSelectButton(this,nas.inputMedias.names(),nas.workTitles.selectedRecord[3],1,2.5,3,1);
+//OM
+	this.linkOM=
+		nas.GUI.addSelectButton(this,nas.outputMedias.names(),nas.workTitles.selectedRecord[4],4,2.5,3,1);
+
+
+//ãƒ‡ãƒ¼ã‚¿æ“ä½œã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+	this.addEntry=
+		nas.GUI.addButton(this,"æ–°è¦ç™»éŒ²",2.5,0.4,2,1);
+	this.delEntry=
+		nas.GUI.addButton(this,"å‰Šé™¤",4.5,0.4,2,1);
+	this.chgEntry=
+		nas.GUI.addButton(this,"æ›´æ–°",6.5,0.4,2,1);
+	}
+nas.Pref.tabPanel[0].TitleSelector.init();
+
+//ç·¨é›†ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«å†ç™»éŒ²
+	nas.Pref.tabPanel[0].TitleSelector.reInit=function(){
+//	nas.workTitles.select();
+	this.list.setOptions(nas.workTitles.names("all"),nas.workTitles.selected);
+//ã‚¿ã‚¤ãƒˆãƒ«
+	this.titleId.text="( "+nas.workTitles.selected+" )";
+//ãƒ­ãƒ³ã‚°ãƒ—ãƒ¬ãƒ•ã‚£ã‚¯ã‚¹
+	this.myTitle.text=nas.workTitles.selectedName;
+	this.myPrefix.text=nas.workTitles.selectedRecord[1];
+//ã‚·ãƒ§ãƒ¼ãƒˆãƒ—ãƒ¬ãƒ•ã‚£ã‚¯ã‚¹
+	this.myCode.text=nas.workTitles.selectedRecord[2];
+//IM
+	this.linkIM.options=nas.inputMedias.names();
+	this.linkIM.select(nas.workTitles.selectedRecord[3]);
+//OM
+	this.linkOM.options=nas.outputMedias.names();
+	this.linkOM.select(nas.workTitles.selectedRecord[4]);
+}
+
+//ç”»é¢ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
+nas.Pref.tabPanel[0].TitleSelector.update = function()
+{
+	this.titleId.text	="( "+nas.workTitles.selected+" )";
+	this.myTitle.text	=nas.workTitles.selectedRecord[0];
+	this.myPrefix.text	=nas.workTitles.selectedRecord[1];
+	this.myCode.text	=nas.workTitles.selectedRecord[2];
+	this.linkIM.select(nas.workTitles.selectedRecord[3]);
+	this.linkOM.select(nas.workTitles.selectedRecord[4]);
+	if(nas.Pref.tabPanel[1].MediaList){
+		nas.Pref.tabPanel[1].MediaList.update();
+		nas.Pref.tabPanel[1].oMediaList.update();
+	}
+	if(this.list.selected!=nas.workTitles.selected){
+		this.list.check(nas.workTitles.selected)
+	nas.inputMedias.select(nas.workTitles.selectedRecord[3]);
+	nas.outputMedias.select(nas.workTitles.selectedRecord[4]);
+//ã‚»ãƒ¬ã‚¯ã‚¿ã§ã‚¿ã‚¤ãƒˆãƒ«ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§åŒæ™‚ã«å…¥å‡ºåŠ›ãƒ¡ãƒ‡ã‚£ã‚¢ã¯ã‚¿ã‚¤ãƒˆãƒ«ã®ã‚‚ã®ã«ãƒªã‚»ãƒƒãƒˆã•ã‚Œã‚‹ã¹ãã€€201010128	
+		}
+
+	this.addEntry.enabled=false;
+	this.chgEntry.enabled=false;
+}
+
+//nas.Pref.tabPanel[0].TitleSelector.update();
+
+nas.Pref.tabPanel[0].init=function()
+{
+	this.Uname.text=nas.CURRENTUSER;
+	this.bResolution.text=nas.Dpi();
+	this.fRate.text=nas.FRATE;
+	this.stLength.text=nas.Frm2FCT(nas.SheetLength*nas.FRATE,3);
+	nas.workTitles.select();
+	this.TitleSelector.reInit();
+	this.TitleSelector.update();
+}
+
+nas.Pref.tabPanel[0].init();
+//=========================================================ã‚¿ãƒ–ãƒ‘ãƒãƒ«ï¼‘/ãƒ¡ãƒ‡ã‚£ã‚¢ç™»éŒ²
+//ãƒ•ãƒ¬ãƒ¼ãƒ ç”¨
+
+//ãƒ—ãƒªã‚»ãƒƒãƒˆãƒªã‚¹ãƒˆ
+	nas.Pref.tabPanel[1].MediaList=
+			nas.GUI.addPanel(nas.Pref.tabPanel[1],"å…¥åŠ›ãƒ¡ãƒ‡ã‚£ã‚¢ç·¨é›†",0.2,0,8.5,9.);
+
+//ç·¨é›†ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ç™»éŒ²
+	nas.Pref.tabPanel[1].MediaList.init=function()
+	{
+	this.list=
+		nas.GUI.addListBox(this,nas.inputMedias.names("all"),nas.inputMedias.selected,0.5,3.5,7,4);
+
+	this.imId=
+		nas.GUI.addStaticText(this,"( "+nas.inputMedias.selected+" )",0.3,1.6,0.7,1);
+	this.imId.justify="right";
+
+	this.imName=
+		nas.GUI.addEditText(this,nas.inputMedias.selectedName,1,1.5,3,1);
+	this.imWidth=
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[1],4,1.5,1,1);
+
+
+	this.imFrameRatio=
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[2],5,1.5,1,1);
+	this.imResolution=
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[3],6,1.5,1,1);
+	this.imFrameRate=
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[4],7,1.5,1,1);
+
+	this.imPegID=
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[5],4,2.5,1,1);
+	this.imPegX=
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[6],5,2.5,1,1);
+	this.imPegY=
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[7],6,2.5,1,1);
+	this.imPegR=
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[8],7,2.5,1,1);
+
+//ãƒ‡ãƒ¼ã‚¿æ“ä½œã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+	this.addEntry=
+		nas.GUI.addButton(this,"æ–°è¦ç™»éŒ²",2.5,0.4,2,1);
+	this.delEntry=
+		nas.GUI.addButton(this,"å‰Šé™¤",4.5,0.4,2,1);
+	this.chgEntry=
+		nas.GUI.addButton(this,"æ›´æ–°",6.5,0.4,2,1);
+	}
+nas.Pref.tabPanel[1].MediaList.init();
+
+//ç·¨é›†ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«å†ç™»éŒ²
+	nas.Pref.tabPanel[1].MediaList.reInit=function()
+	{
+	nas.inputMedias.select();
+	this.list.setOptions(nas.inputMedias.names("all"),nas.inputMedias.selected);
+
+	this.imId.text="( "+nas.inputMedias.selected+" )";
+	this.imName.text=nas.inputMedias.selectedName;
+	this.imWidth,text=nas.inputMedias.selectedRecord;
+	this.imFrameRatio.text=nas.inputMedias.selectedRecord[2];
+	this.imResolution.text=nas.inputMedias.selectedRecord[3];
+	this.imFrameRate.text=nas.inputMedias.selectedRecord[4];
+	this.imPegID.text=nas.inputMedias.selectedRecord[5];
+	this.imPegX.text=nas.inputMedias.selectedRecord[6];
+	this.imPegY.text=nas.inputMedias.selectedRecord[7];
+	this.imPegR.text=nas.inputMedias.selectedRecord[8];
+	}
+//ç”»é¢ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
+nas.Pref.tabPanel[1].MediaList.update = function()
+{
+	this.imId.text	="( "+nas.inputMedias.selected+" )";
+	this.imName.text	=nas.inputMedias.selectedRecord[0];
+	this.imWidth.text	=nas.inputMedias.selectedRecord[1];
+	this.imFrameRatio.text	=nas.inputMedias.selectedRecord[2];
+	this.imResolution.text	=nas.inputMedias.selectedRecord[3];
+	this.imFrameRate.text	=nas.inputMedias.selectedRecord[4];
+	this.imPegID.text	=nas.inputMedias.selectedRecord[5];
+	this.imPegX.text	=nas.inputMedias.selectedRecord[6];
+	this.imPegY.text	=nas.inputMedias.selectedRecord[7];
+	this.imPegR.text	=nas.inputMedias.selectedRecord[8];
+
+	if(this.list.selected!=nas.inputMedias.selected){this.list.check(nas.inputMedias.selected);}
+
+	this.addEntry.enabled=false;
+	this.chgEntry.enabled=false;
+
+	nas.Pref.tabPanel[0].bResolution.text=nas.Dpi();
+	nas.Pref.tabPanel[0].fRate.text=nas.FRATE;
+}
+
+//nas.Pref.tabPanel[1].MediaList.update();
+
+// å‡ºåŠ›ãƒ¡ãƒ‡ã‚£ã‚¢DB
+
+//	nas.GUI.addStaticText(nas.Pref.tabPanel[1],"å‡ºåŠ›ãƒ¡ãƒ‡ã‚£ã‚¢ç™»éŒ²",0,9,3,1);
+
+//ãƒ—ãƒªã‚»ãƒƒãƒˆãƒªã‚¹ãƒˆ
+	nas.Pref.tabPanel[1].oMediaList=
+		nas.GUI.addPanel(nas.Pref.tabPanel[1],"å‡ºåŠ›ãƒ¡ãƒ‡ã‚£ã‚¢ç·¨é›†",0.2,9,8.5,8.5);
+
+//ç·¨é›†ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ç™»éŒ²
+	nas.Pref.tabPanel[1].oMediaList.init=function()
+	{
+	this.list=
+		nas.GUI.addListBox(this,nas.outputMedias.names("all"),nas.outputMedias.selected,0.5,3,7,4);
+
+	this.omId=
+		nas.GUI.addStaticText(this,"( "+nas.outputMedias.selected+" )",0.3,1.6,0.7,1);
+	this.omId.justify="right";
+
+	this.omName=
+		nas.GUI.addEditText(this,nas.outputMedias.selectedName,1,1.5,3,1);
+	this.omWidth=
+		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[1],4,1.5,1,1);
+
+
+	this.omHeight=
+		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[2],5,1.5,1,1);
+	this.omPa=
+		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[3],6,1.5,1,1);
+
+	this.omFramerate=
+		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[4],7,1.5,1,1);
+
+//ãƒ‡ãƒ¼ã‚¿æ“ä½œã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+	this.addEntry=
+		nas.GUI.addButton(this,"æ–°è¦ç™»éŒ²",2.5,0.4,2,1);
+	this.delEntry=
+		nas.GUI.addButton(this,"å‰Šé™¤",4.5,0.4,2,1);
+	this.chgEntry=
+		nas.GUI.addButton(this,"æ›´æ–°",6.5,0.4,2,1);
+	}
+nas.Pref.tabPanel[1].oMediaList.init();
+
+//ç·¨é›†ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ç™»éŒ²
+	nas.Pref.tabPanel[1].oMediaList.reInit=function()
+	{
+		nas.outputMedias.select();
+	this.list.setOptions(nas.outputMedias.names("all"),nas.outputMedias.selected);
+
+	this.omId.text="( "+nas.outputMedias.selected+" )";
+	this.omName.text=nas.outputMedias.selectedName;
+	this.omWidth.text=nas.outputMedias.selectedRecord[1];
+	this.omHeight.text=nas.outputMedias.selectedRecord[2];
+	this.omPa.text=nas.outputMedias.selectedRecord[3];
+	this.omFramerate.text=nas.outputMedias.selectedRecord[4];
+	}
+//ç”»é¢ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
+nas.Pref.tabPanel[1].oMediaList.update = function()
+{
+	this.omId.text	="( "+nas.outputMedias.selected+" )";
+	this.omName.text	=nas.outputMedias.selectedRecord[0];
+	this.omWidth.text	=nas.outputMedias.selectedRecord[1];
+	this.omHeight.text	=nas.outputMedias.selectedRecord[2];
+	this.omPa.text	=nas.outputMedias.selectedRecord[3];
+	this.omFramerate.text	=nas.outputMedias.selectedRecord[4];
+
+	if(this.list.selected!=nas.outputMedias.selected){this.list.check(nas.outputMedias.selected)}
+
+	this.addEntry.enabled=false;
+	this.chgEntry.enabled=false;
+
+//	nas.Pref.tabPanel[0].TitleSelector.linkOM.options=nas.outputMedias.names();
+//	nas.Pref.tabPanel[0].TitleSelector.linkOM.select();
+}
+
+//nas.Pref.tabPanel[1].oMediaList.update();
+
+nas.Pref.tabPanel[1].init=function()
+{
+	this.MediaList.reInit();
+	this.oMediaList.reInit();
+	this.MediaList.update();
+	this.oMediaList.update();
+}
+
+nas.Pref.tabPanel[1].init();
+
+
+//=========================================================ã‚¿ãƒ–ãƒ‘ãƒãƒ«ï¼’/è©³ç´°å‹•ä½œè¨­å®š
+
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"====================	èª­ã¿è¾¼ã¿ãƒ•ã‚£ãƒ«ã‚¿ã€€====================",0,0,8,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ç´ æãƒ•ã‚£ãƒ«ã‚¿ : ",0,1,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ã‚»ãƒ«ãƒ•ã‚£ãƒ«ã‚¿ : ",0,2,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"èƒŒæ™¯ : ",0,3,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"BOOK : ",0,4,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ : ",0,5,2,1).justify="right";
+/*
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"====================	ç´ æç®¡ç†ãƒ•ã‚©ãƒ«ãƒ€ã€€====================",0,6,8,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ã‚»ãƒ« : ",0,7,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"èƒŒæ™¯ : ",0,8,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ : ",0,9,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ãƒ•ãƒ¬ãƒ¼ãƒ  : ",0,10,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆ : ",0,11,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"å‹•ç”» : ",0,12,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"åŸç”» : ",0,13,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ã‚µã‚¦ãƒ³ãƒ‰: ",0,14,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ãã®ä»– : ",0,15,2,1).justify="right";
+*/
+//ã‚¤ãƒ³ãƒãƒ¼ãƒˆãƒ•ã‚£ãƒ«ã‚¿
+	nas.Pref.tabPanel[2].impFilt=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,1,7,1);
+//ã‚»ãƒ«åˆ¤å®šãƒ•ã‚£ãƒ«ã‚¿
+	nas.Pref.tabPanel[2].cellFilt=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,2,7,1);
+//BG
+	nas.Pref.tabPanel[2].bgFilt=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,3,7,1);
+//BOOK
+	nas.Pref.tabPanel[2].mgFilt=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,4,7,1);
+//ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
+	nas.Pref.tabPanel[2].loFilt=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,5,7,1);
+
+/*
+//ãƒ•ã‚¡ã‚¤ãƒ«é…ç½®DB
+//	èƒŒæ™¯(é™æ­¢ç”»)
+	nas.Pref.tabPanel[2].bgFld=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	7	,7,1);
+//	ã‚»ãƒ«(ãƒšã‚¤ãƒ³ãƒˆ)
+	nas.Pref.tabPanel[2].paintFld=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	8	,7,1);
+//	ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ(ãƒ•ãƒ¬ãƒ¼ãƒ ã¨åŒç¾©ã§å¯ã€€ã©ã¡ã‚‰ã®ãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½¿ã†ã®ã‚‚å¯ã€€ãŸã ã—ãƒ¬æ’®ã®éš›ã¯ã“ã¡ã‚‰ãŒçµµç´ æ)
+	nas.Pref.tabPanel[2].loFld=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	9	,7,1);
+//	ãƒ•ãƒ¬ãƒ¼ãƒ (ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã¨åŒç¾©ã§å¯ã€€ã©ã¡ã‚‰ã®ãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½¿ã†ã®ã‚‚å¯ã€€ãƒ¬æ’®ã®å ´åˆã¯æ’®å½±å‚è€ƒãƒ•ãƒ¬ãƒ¼ãƒ é…ç½®å ´æ‰€)
+	nas.Pref.tabPanel[2].frameFld=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	10	,7,1);
+//	ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆã€ãã®ã»ã‹ã®XPSæƒ…å ±ã€‚å°†æ¥çš„ã«ã¯é€²æ—ç®¡ç†ãƒ»ä½œæ¥­ç®¡ç†ã‚‚ã“ã“
+	nas.Pref.tabPanel[2].etcFld=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	11	,7,1);
+//	å‹•ç”»(ãƒ¬ã‚¿ã‚¹ä½œæ¥­æ™‚ã¯SCANãƒ•ã‚©ãƒ«ãƒ€ã¨åŒç¾©)
+	nas.Pref.tabPanel[2].drwFld=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	12	,7,1);
+//	åŸç”»ï¼ˆã‚­ãƒ¼ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ»ãƒ©ãƒ•åŸã¯åˆ¥ã ãŒæœªè¨­å®šï¼‰
+	nas.Pref.tabPanel[2].keyFld=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	13	,7,1);
+//	ã‚µã‚¦ãƒ³ãƒ‰(ã‚µã‚¦ãƒ³ãƒ‰ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸ã€€ã¾ãŸã¯ã€€å­—å¹•ãƒ†ã‚­ã‚¹ãƒˆã‚’æ‰€å®šå½¢å¼ã§ã€€<<äºˆç´„>>)
+	nas.Pref.tabPanel[2].sndFld=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	14	,7,1);
+//	ãã®ã»ã‹å„ç¨®ç´ æ
+	nas.Pref.tabPanel[2].othFld=
+		nas.GUI.addEditText(nas.Pref.tabPanel[2],"",2,	15	,7,1);
+*/
+//=========================================================ã‚¿ãƒ–ãƒ‘ãƒãƒ«ï¼’åˆæœŸåŒ–
+	nas.Pref.tabPanel[2].init=function()
+	{
+//ãƒ•ã‚£ãƒ«ã‚¿
+		this.impFilt.text=nas.importFilter.toString();//ã‚¤ãƒ³ãƒãƒ¼ãƒˆãƒ•ã‚£ãƒ«ã‚¿
+		this.cellFilt.text=nas.cellRegex.toString();//ã‚»ãƒ«åˆ¤å®šãƒ•ã‚£ãƒ«ã‚¿
+		this.bgFilt.text=nas.bgRegex.toString();//BG
+		this.mgFilt.text=nas.mgRegex.toString();//BOOK
+		this.loFilt.text=nas.loRegex.toString();//ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
+//ãƒ•ã‚©ãƒ«ãƒ€
+/*
+		this.bgFld.text=(nas.ftgFolders["bg"].toString());//
+		this.paintFld.text=(nas.ftgFolders["paint"].toString());//
+		this.loFld.text=(nas.ftgFolders["lo"].toString());//
+		this.frameFld.text=(nas.ftgFolders["frame"].toString());//
+		this.etcFld.text=(nas.ftgFolders["etc"].toString());//
+		this.drwFld.text=(nas.ftgFolders["drawing"].toString());//
+		this.keyFld.text=(nas.ftgFolders["key"].toString());//
+		this.sndFld.text=(nas.ftgFolders["sound"].toString());//
+		this.othFld.text=(nas.ftgFolders["unknown"].toString());//
+*/
+//		this.Fld.text=decodeURI(nas.ftgFolders[].toSource());//
+	}
+	nas.Pref.tabPanel[2].init();
+/*
+//ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆå‡¦ç†
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"L/O ã‚ªãƒ—ã‚·ãƒ§ãƒ³ : ",0,7,2,1);
+	nas.Pref.tabPanel[2].loAp=
+		nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"éè¡¨ç¤º",0.5,8,1.5,1);
+		nas.Pref.tabPanel[2].loAp.value=(nas.viewLayout.visible)?false:true;
+	nas.Pref.tabPanel[2].loMode=
+		nas.GUI.addSelectButton(nas.Pref.tabPanel[2],["é€šå¸¸","ä¹—ç®—","æ¯”è¼ƒ(æ˜)","æ¯”è¼ƒ(æš—)","å·®ã®çµ¶å¯¾å€¤","ã‚·ãƒ«ã‚¨ãƒƒãƒˆãƒ«ãƒŸãƒŠãƒ³ã‚¹"],0,2,8,3,1);
+		switch(nas.viewLayout.MODE){
+		case 3612:	nas.Pref.tabPanel[2].loMode.select(0);break;
+		case 3616:	nas.Pref.tabPanel[2].loMode.select(1);break;
+		case 3621:	nas.Pref.tabPanel[2].loMode.select(2);break;
+		case 3615:	nas.Pref.tabPanel[2].loMode.select(3);break;
+		case 3633:	nas.Pref.tabPanel[2].loMode.select(4);break;
+		case 3643:	nas.Pref.tabPanel[2].loMode.select(5);break;
+		default:	nas.Pref.tabPanel[2].loMode.select(0);
+		}
+	nas.Pref.tabPanel[2].loOpa=
+		nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"50%",5,8,1.5,1);
+		nas.Pref.tabPanel[2].loOpa.value=(nas.viewLayout.RATIO==100)?false:true;
+	nas.Pref.tabPanel[2].loGd=
+		nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"ã‚¬ã‚¤ãƒ‰ãƒ¬ã‚¤ãƒ¤ã«ã™ã‚‹",6.5,8,2.5,1);
+		nas.Pref.tabPanel[2].loGd.value=nas.viewLayout.guideLayer;
+//ã‚»ãƒ«ã®å‡¦ç†
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"CELL ã‚ªãƒ—ã‚·ãƒ§ãƒ³ : ",0,9,2,1);
+
+	nas.Pref.tabPanel[2].goClip=
+	nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"ã‚«ãƒ©ãƒ¼ã‚­ãƒ¼ã§ç™½ã‚’é€é",0,10,3,1);
+	nas.Pref.tabPanel[2].goClip.value=nas.goClip;
+
+	nas.Pref.tabPanel[2].killAlpha0=
+		nas.GUI.addRadioButton(nas.Pref.tabPanel[2],"ã‚¢ãƒ«ãƒ•ã‚¡ãƒãƒ£ãƒ³ãƒãƒ«å„ªå…ˆ",0.5,11,3,1);	nas.Pref.tabPanel[2].killAlpha0.value=(nas.killAlpha)?false:true;
+
+	nas.Pref.tabPanel[2].killAlpha1=
+		nas.GUI.addRadioButton(nas.Pref.tabPanel[2],"ã‚«ãƒ©ãƒ¼ã‚­ãƒ¼å„ªå…ˆ",4,11,3,1);
+	nas.Pref.tabPanel[2].killAlpha1.value=(nas.killAlpha)?true:false;
+
+	nas.Pref.tabPanel[2].goSms=
+	nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"ã‚¹ãƒ ãƒ¼ã‚¸ãƒ³ã‚°ã™ã‚‹",0,13,3,1);
+	nas.Pref.tabPanel[2].goSms.value=nas.goSmooth;
+
+	nas.Pref.tabPanel[2].smsOpt0=
+		nas.GUI.addRadioButton(nas.Pref.tabPanel[2],"kp-smooth",1,14,2,1);
+	nas.Pref.tabPanel[2].smsOpt0.value=(nas.cellOptions.selected==0)?true:false;
+
+	nas.Pref.tabPanel[2].smsOpt1=
+		nas.GUI.addRadioButton(nas.Pref.tabPanel[2],"KP-AntiAlias",1,15,4,1);
+	nas.Pref.tabPanel[2].smsOpt1.value=(nas.cellOptions.selected==1)?true:false;
+
+	nas.Pref.tabPanel[2].smsClip=
+	nas.GUI.addCheckBox(nas.Pref.tabPanel[2],"white option",3,14,3,1);
+	nas.Pref.tabPanel[2].smsClip.value=nas.smoothClip;
+*/
+//memo
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"ã“ã®ãƒ‘ãƒãƒ«ã®å¤‰æ›´ã¯ã‚»ãƒƒã‚·ãƒ§ãƒ³é™ã‚Šã§ã™ã€‚è¨˜éŒ²ãŒå¿…è¦ãªå ´åˆã¯ä¸‹ã®ãƒœã‚¿ãƒ³ã§ä¿å­˜ã—ã¦ãã ã•ã„ã€‚",0,17,9,1).justify="right";
+//=========================================================ã‚¿ãƒ–ãƒ‘ãƒãƒ«ï¼“ã€€/ã€€ä½œç”»æ©Ÿèƒ½è¨­å®š
+
+	nas.GUI.addStaticText(nas.Pref.tabPanel[3],"ä½œç”»æ©Ÿèƒ½è¨­å®š",0,0,9,1).justify="right";
+
+//ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«è¨­å®š
+	nas.GUI.addStaticText(nas.Pref.tabPanel[3],"ãƒ¬ã‚¤ãƒ¤ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«",0,1,2,1).justify="right";
+
+nas.GUI.addStaticText(nas.Pref.tabPanel[3],"æ–°è¦ãƒ¬ã‚¤ãƒ¤ä½œæˆæ™‚ã«",1,1.5,3,1).justify="right";
+nas.Pref.tabPanel[3].nlOpc=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],"é€éã•ã›ã‚‹",4,1.5,2,1);
+nas.Pref.tabPanel[3].nlOpcValue=nas.GUI.addEditText(nas.Pref.tabPanel[3],"65",6,1.5,1,1);
+nas.GUI.addStaticText(nas.Pref.tabPanel[3],"%",7,1.5,1,1).justify="left";
+
+//=========è‰²é¸æŠ
+//å‹•ç”»ãƒ¬ã‚¤ãƒ¤
+nas.Pref.tabPanel[3].colorSPC=nas.GUI.addPanel(nas.Pref.tabPanel[3],"æ–°è¦ãƒ¬ã‚¤ãƒ¤ã®èƒŒæ™¯è‰²",2,2,6,2);
+for(var ix=0;ix<nas.axe.lyBgColors.length;ix++){
+	nas.Pref.tabPanel[3]["rb"+ix]=nas.GUI.addRadioButton(nas.Pref.tabPanel[3].colorSPC,nas.axe.lyBgColors[ix][0],ix*1.2,0.3,1.5,1);
+}
+	nas.Pref.tabPanel[3]["rb"+nas.axe.lyBgColor].value=true;
+//ä¿®æ­£ãƒ¬ã‚¤ãƒ¤
+nas.Pref.tabPanel[3].colorSPCo=nas.GUI.addPanel(nas.Pref.tabPanel[3],"ä¿®æ­£ãƒ¬ã‚¤ãƒ¤ã®èƒŒæ™¯è‰²",2,3.7,6,2);
+for(var ix=0;ix<nas.axe.ovlBgColors.length;ix++){
+	nas.Pref.tabPanel[3]["rbo"+ix]=nas.GUI.addRadioButton(nas.Pref.tabPanel[3].colorSPCo,nas.axe.ovlBgColors[ix][0],ix*1.2,0.3,1.5,1);
+}
+	nas.Pref.tabPanel[3]["rbo"+nas.axe.ovlBgColor].value=true;
+
+//ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«è¨­å®š
+	nas.GUI.addStaticText(nas.Pref.tabPanel[3],"ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«",0,7,2,1).justify="right";
+
+nas.Pref.tabPanel[3].focusInterlocking=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],"ãƒ•ãƒ¬ãƒ¼ãƒ ç§»å‹•æ™‚ã«ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã®ç§»å‹•ã‚’ã™ã‚‹"+nas.GUI.LineFeed+"(ã‚¨ã‚¯ã‚¹ãƒ†ãƒ³ã‚·ãƒ§ãƒ³ä½¿ç”¨æ™‚ã®ã¿æœ‰åŠ¹)",4,6,6,2)
+
+//ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆè¨­å®š
+	nas.GUI.addStaticText(nas.Pref.tabPanel[3],"ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆè¨­å®š",0,9,2,1).justify="right";
+
+//nas.GUI.addStaticText(nas.Pref.tabPanel[3],"æ–°è¦ãƒ•ã‚¡ã‚¤ãƒ«ä½œæˆãƒ€ã‚¤ã‚¢ãƒ­ã‚°",1,9,2,1).justify="right";
+nas.Pref.tabPanel[3].selectDialog=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],"æ–°è¦ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆä½œæˆæ™‚ã«ã‚¢ãƒ‹ãƒ¡æ‹¡å¼µæ©Ÿèƒ½ã‚’ä½¿ã†",4,8,6,1)
+//ã‚¿ãƒƒãƒ—ç”»åƒé…ç½®æ™‚ã«ãƒ–ãƒ¬ãƒ³ãƒ‰ãƒ¢ãƒ¼ãƒ‰ã‚’å·®ã®çµ¶å¯¾å€¤ã«ã™ã‚‹
+nas.Pref.tabPanel[3].pegBlendMode=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],"ã‚¿ãƒƒãƒ—ç”»åƒé…ç½®æ™‚ã«å·®ã®çµ¶å¯¾å€¤ã«ã™ã‚‹",4,9,6,1)
+//ãƒ•ãƒ¬ãƒ¼ãƒ ç”»åƒé…ç½®æ™‚ã«ï¼’ï¼ï¼…é€éã«ã™ã‚‹
+nas.Pref.tabPanel[3].frameOpacity=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],"ãƒ•ãƒ¬ãƒ¼ãƒ ç”»åƒé…ç½®æ™‚ã«åŠé€æ˜ã«ã™ã‚‹",4,10,6,1)
+
+nas.Pref.tabPanel[3].init=function()
+{
+	nas.Pref.tabPanel[3].nlOpc.value=nas.axe.newLayerTpr;
+	nas.Pref.tabPanel[3].nlOpcValue.text=(nas.axe.onsOpc*100);
+	nas.Pref.tabPanel[3]["rb"+nas.axe.lyBgColor].value=true;
+	nas.Pref.tabPanel[3]["rbo"+nas.axe.ovlBgColor].value=true;
+	nas.Pref.tabPanel[3].focusInterlocking.value=nas.axe.focusMove;
+	nas.Pref.tabPanel[3].selectDialog.value=nas.axe.dmDialog;
+	nas.Pref.tabPanel[3].pegBlendMode.value=nas.axe.pegBlend;
+	nas.Pref.tabPanel[3].frameOpacity.value=nas.axe.frameOpc;
+}
+
+nas.Pref.tabPanel[3].init();
+
+
+//Yes No Cancel
+	nas.Pref.readButton=nas.GUI.addButton(nas.Pref,"èª­è¾¼",0,19,2,1);
+	nas.Pref.writeButton=nas.GUI.addButton(nas.Pref,"ä¿å­˜",2,19,2,1);
+	nas.Pref.clearButton=nas.GUI.addButton(nas.Pref,"æ¶ˆå»",4,19,2,1);
+	nas.Pref.closeButton=nas.GUI.addButton(nas.Pref,"close",6,19,3,1);	
+
+//=========================================================ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³è¨­å®š
+//ãƒ¡ã‚¤ãƒ³ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+//Tab[0]
+//nas_common
+	nas.Pref.tabPanel[0].Uname.onChange=function(){nas.CURRENTUSER=this.text};
+	nas.Pref.tabPanel[0].bResolution.onChange=function(){nas.RESOLUTION=this.text/2.54;this.text=nas.Dpi()};
+	nas.Pref.tabPanel[0].fRate.onChange=function(){if(! isNaN(this.text)){nas.FRATE=this.text;};this.text=nas.FRATE;};
+	nas.Pref.tabPanel[0].stLength.onChange=function(){var frames=nas.FCT2Frm(this.text);if(! isNaN(frames)){nas.SheetLength=frames};this.text=nas.Frm2FCT(nas.SheetLength,3);};
+
+//TitleDB
+	nas.Pref.tabPanel[0].TitleSelector.addEntry.onClick=function()
+	{
+		nas.workTitles.push(
+			this.parent.myTitle.text,
+			[
+				this.parent.myPrefix.text,
+				this.parent.myCode.text,
+				this.parent.linkIM.selected,
+				this.parent.linkOM.selected
+			]
+		);
+		this.parent.list.setOptions(nas.workTitles.names("all"),nas.workTitles.selected);
+		this.parent.list.check(nas.workTitles.selected);
+	};
+	nas.Pref.tabPanel[0].TitleSelector.delEntry.onClick=function()
+	{
+		if(this.parent.list.options.length==1) {alert("ã‚¨ãƒ³ãƒˆãƒªãŒ0ã«ãªã‚‹ã®ã§å‰Šé™¤ã§ãã¾ã›ã‚“ã€‚");return;}
+		if(confirm("é¸æŠã•ã‚ŒãŸã‚¨ãƒ³ãƒˆãƒªã‚’å‰Šé™¤ã—ã¾ã™ã€‚\nã‚ˆã‚ã—ã„ã§ã™ã‹?"))
+		{
+			nas.workTitles.del(this.parent.list.selected);
+			nas.workTitles.select();
+			this.parent.list.setOptions(nas.workTitles.names("all"),nas.workTitles.selected);
+			this.parent.list.check(nas.workTitles.selected);
+			this.parent.update();
+		}
+	};
+
+	nas.Pref.tabPanel[0].TitleSelector.chgEntry.onClick=function()
+	{
+		nas.workTitles.change(
+			this.parent.myTitle.text,
+			[
+				this.parent.myPrefix.text,
+				this.parent.myCode.text,
+				this.parent.linkIM.selected,
+				this.parent.linkOM.selected
+			],
+			this.parent.list.selected
+		);
+
+		this.parent.list.setOptions(nas.workTitles.names("all"),nas.workTitles.selected);
+		this.parent.list.check(nas.workTitles.selected);
+
+		this.parent.update();
+	};
+
+	nas.Pref.tabPanel[0].TitleSelector.myTitle.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[0].TitleSelector.myPrefix.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[0].TitleSelector.myCode.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[0].TitleSelector.linkIM.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[0].TitleSelector.linkOM.onChange=function(){this.parent.chgvalue("Name")};
+
+	nas.Pref.tabPanel[0].TitleSelector.chgvalue=function()
+	{
+		this.addEntry.enabled=true;
+		this.chgEntry.enabled=true;
+	return;
+	};
+
+	nas.Pref.tabPanel[0].TitleSelector.list.onChange=function()
+	{
+		if(this.selected==null)
+		{
+			this.check(nas.workTitles.selected);
+			return;
+		};
+		nas.workTitles.select(this.selected);
+		this.parent.update();
+	};
+//Tab[1]
+//IM DB
+	nas.Pref.tabPanel[1].MediaList.addEntry.onClick=function()
+	{
+		nas.inputMedias.push(
+			this.parent.imName.text,
+			[
+				this.parent.imWidth.text,
+				this.parent.imFrameRatio.text,
+				this.parent.imResolution.text,
+				this.parent.imFrameRate.text,
+				this.parent.imPegID.text,
+				this.parent.imPegX.text,
+				this.parent.imPegY.text,
+				this.parent.imPegR.text
+			]
+		);
+		this.parent.list.setOptions(nas.inputMedias.names("all"),nas.inputMedias.selected);
+		this.parent.list.check(nas.inputMedias.selected);		
+	};
+	nas.Pref.tabPanel[1].MediaList.delEntry.onClick=function()
+	{
+		if(this.parent.list.options.length==1) {alert("ã‚¨ãƒ³ãƒˆãƒªãŒ0ã«ãªã‚‹ã®ã§å‰Šé™¤ã§ãã¾ã›ã‚“ã€‚");return;}
+		if(confirm("é¸æŠã•ã‚ŒãŸã‚¨ãƒ³ãƒˆãƒªã‚’å‰Šé™¤ã—ã¾ã™ã€‚\nã‚ˆã‚ã—ã„ã§ã™ã‹?"))
+		{
+			nas.inputMedias.del(this.parent.list.selected);
+			this.parent.list.setOptions(nas.inputMedias.names("all"),nas.inputMedias.selected);
+			this.parent.list.check(nas.inputMedias.selected);
+			this.parent.reInit();
+		}
+	};
+
+	nas.Pref.tabPanel[1].MediaList.chgEntry.onClick=function()
+	{
+		nas.inputMedias.change(
+			this.parent.imName.text,
+			[
+				this.parent.imWidth.text,
+				this.parent.imFrameRatio.text,
+				this.parent.imResolution.text,
+				this.parent.imFrameRate.text,
+				this.parent.imPegID.text,
+				this.parent.imPegX.text,
+				this.parent.imPegY.text,
+				this.parent.imPegR.text
+			],
+			this.parent.list.selected
+		);
+		this.parent.list.setOptions(nas.inputMedias.names("all"),nas.inputMedias.selected);
+		this.parent.list.check(nas.inputMedias.selected);		
+
+		this.parent.update();
+	};
+	nas.Pref.tabPanel[1].MediaList.imName.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].MediaList.imWidth.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].MediaList.imFrameRatio.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].MediaList.imResolution.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].MediaList.imFrameRate.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].MediaList.imPegID.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].MediaList.imPegX.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].MediaList.imPegY.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].MediaList.imPegR.onChange=function(){this.parent.chgvalue("Name")};
+
+	nas.Pref.tabPanel[1].MediaList.chgvalue=function()
+	{
+		this.addEntry.enabled=true;
+		this.chgEntry.enabled=true;
+	return;
+	};
+
+	nas.Pref.tabPanel[1].MediaList.list.onChange=function()
+	{
+		if(this.selected==null)
+		{
+			this.check(nas.inputMedias.selected);
+			return;
+		};
+		nas.inputMedias.select(this.selected);
+		nas.registerMarks.select(nas.inputMedias.selectedRecord[5])
+		this.parent.update();
+	};
+//OM DB
+	nas.Pref.tabPanel[1].oMediaList.addEntry.onClick=function()
+	{
+		nas.outputMedias.push(
+			this.parent.omName.text,
+			[
+				this.parent.omWidth.text,
+				this.parent.omHeight.text,
+				this.parent.omPa.text,
+				this.parent.omFramerate.text
+			]
+		);
+		this.parent.list.setOptions(nas.outputMedias.names("all"),nas.outputMedias.selected);
+		this.parent.list.check(nas.outputMedias.selected);		
+	};
+	nas.Pref.tabPanel[1].oMediaList.delEntry.onClick=function()
+	{
+		if(this.parent.list.options.length==1) {alert("ã‚¨ãƒ³ãƒˆãƒªãŒ0ã«ãªã‚‹ã®ã§å‰Šé™¤ã§ãã¾ã›ã‚“ã€‚");return;}
+		if(confirm("é¸æŠã•ã‚ŒãŸã‚¨ãƒ³ãƒˆãƒªã‚’å‰Šé™¤ã—ã¾ã™ã€‚\nã‚ˆã‚ã—ã„ã§ã™ã‹?"))
+		{
+			nas.outputMedias.del(this.parent.list.selected);
+			this.parent.list.setOptions(nas.outputMedias.names("all"),nas.outputMedias.selected);
+			this.parent.list.check(nas.outputMedias.selected);
+			this.parent.reInit();
+		}
+	};
+
+	nas.Pref.tabPanel[1].oMediaList.chgEntry.onClick=function()
+	{
+		nas.outputMedias.change(
+			this.parent.omName.text,
+			[
+				this.parent.omWidth.text,
+				this.parent.omHeight.text,
+				this.parent.omPa.text,
+				this.parent.omFramerate.text
+			],
+			this.parent.list.selected
+		);
+
+		this.parent.list.setOptions(nas.outputMedias.names("all"),nas.outputMedias.selected);
+		this.parent.list.check(nas.outputMedias.selected);		
+
+		this.parent.update();
+	};
+
+	nas.Pref.tabPanel[1].oMediaList.omName.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].oMediaList.omWidth.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].oMediaList.omHeight.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].oMediaList.omPa.onChange=function(){this.parent.chgvalue("Name")};
+	nas.Pref.tabPanel[1].oMediaList.omFramerate.onChange=function(){this.parent.chgvalue("Name")};
+
+	nas.Pref.tabPanel[1].oMediaList.chgvalue=function()
+	{
+		this.addEntry.enabled=true;
+		this.chgEntry.enabled=true;
+	return;
+	};
+
+	nas.Pref.tabPanel[1].oMediaList.list.onChange=function()
+	{
+		if(this.selected==null)
+		{
+			this.check(nas.outputMedias.selected);
+			return;
+		};
+		nas.outputMedias.select(this.selected);
+		this.parent.update();
+	};
+//Tab[2]
+	nas.Pref.tabPanel[2].impFilt.onChange=function(){nas.importFilter=(this.text.match(/^\/.*\/[rgi]$/))?eval(this.text):new RegExp(this.text)};
+	nas.Pref.tabPanel[2].cellFilt.onChange=function(){nas.cellRegex=(this.text.match(/^\/.*\/[rgi]$/))?eval(this.text):new RegExp(this.text)};
+	nas.Pref.tabPanel[2].bgFilt.onChange=function(){nas.bgRegex=(this.text.match(/^\/.*\/[rgi]$/))?eval(this.text):new RegExp(this.text)};
+	nas.Pref.tabPanel[2].mgFilt.onChange=function(){nas.mgRegex=(this.text.match(/^\/.*\/[rgi]$/))?eval(this.text):new RegExp(this.text)};
+	nas.Pref.tabPanel[2].loFilt.onChange=function(){nas.loRegex=(this.text.match(/^\/.*\/[rgi]$/))?eval(this.text):new RegExp(this.text)};
+/*
+	nas.Pref.tabPanel[2].bgFld.onChange=function(){nas.ftgFolders["bg"]=(this.text.split(","))};
+	nas.Pref.tabPanel[2].paintFld.onChange=function(){nas.ftgFolders["paint"]=(this.text.split(","))};
+	nas.Pref.tabPanel[2].loFld.onChange=function(){nas.ftgFolders["lo"]=(this.text.split(","))};
+	nas.Pref.tabPanel[2].frameFld.onChange=function(){nas.ftgFolders["frame"]=(this.text.split(","))};
+	nas.Pref.tabPanel[2].etcFld.onChange=function(){nas.ftgFolders["etc"]=(this.text.split(","))};
+	nas.Pref.tabPanel[2].drwFld.onChange=function(){nas.ftgFolders["drawing"]=(this.text.split(","))};
+	nas.Pref.tabPanel[2].keyFld.onChange=function(){nas.ftgFolders["key"]=(this.text.split(","))};
+	nas.Pref.tabPanel[2].sndFld.onChange=function(){nas.ftgFolders["sound"]=(this.text.split(","))};
+	nas.Pref.tabPanel[2].othFld.onChange=function(){nas.ftgFolders["unknown"]=(this.text.split(","))};
+*/
+/*
+
+	nas.Pref.tabPanel[2].loAp.onClick=function(){nas.viewLayout.visible=(this.value)?false:true;}
+	nas.Pref.tabPanel[2].loMode.onChange=function(){
+		switch(this.selected)
+		{
+	case 0:nas.viewLayout.MODE=BlendingMode.NORMAL ;break;
+	case 1:nas.viewLayout.MODE=BlendingMode.MULTIPLY ;break;
+	case 2:nas.viewLayout.MODE=BlendingMode.LIGHTEN ;break;
+	case 3:nas.viewLayout.MODE=BlendingMode.DARKEN ;break;
+	case 4:nas.viewLayout.MODE=BlendingMode.DIFFERENCE ;break;
+	case 5:nas.viewLayout.MODE=BlendingMode.SILHOUETTE_LUMA ;break;
+	default :nas.viewLayout.MODE=BlendingMode.NORMAL ;
+		}
+	}
+nas.Pref.tabPanel[2].loOpa.onClick=function(){nas.viewLayout.RATIO=(this.value)?50:100;};
+nas.Pref.tabPanel[2].loGd.onClick=function(){nas.viewLayout.guideLayer=(this.value)?true:false;};
+//ã‚»ãƒ«ã‚¯ãƒªãƒƒãƒ—
+	nas.Pref.tabPanel[2].goClip.onClick=function(){nas.goClip=this.value;}
+	nas.Pref.tabPanel[2].killAlpha0.onClick=function(){nas.killAlpha=(this.value)?false:true;}
+	nas.Pref.tabPanel[2].killAlpha1.onClick=function(){nas.killAlpha=(this.value)?true:false;}
+	nas.Pref.tabPanel[2].goSms.onClick=function(){nas.goSmooth=this.value;};
+
+	nas.Pref.tabPanel[2].smsOpt0.onClick=function(){nas.cellOptions.select(0)};
+	nas.Pref.tabPanel[2].smsOpt1.onClick=function(){nas.cellOptions.select(1)};
+	nas.Pref.tabPanel[2].smsClip.onClick=function(){nas.smoothClip=this.value;}
+*/
+//tab[3]
+
+	nas.Pref.tabPanel[3].nlOpc.onClick=function(){nas.axe.newLayerTpr=this.value};
+	nas.Pref.tabPanel[3].nlOpcValue.onChange=function(){
+		var myNumber=new Number(this.text);
+		if((myNumber<=100)&&(myNumber>=0)){nas.axe.onsOpc=myNumber/100}else{this.text=(nas.axe.onsOpc*100);}
+	}
+	nas.Pref.tabPanel[3].chgColor=function(){
+	 for(var ix=0;ix<nas.axe.lyBgColors.length;ix++){
+	  if(nas.Pref.tabPanel[3]["rb"+ix].value){nas.axe.lyBgColor=ix;break;}
+	 }
+	 for(var ix=0;ix<nas.axe.ovlBgColors.length;ix++){
+	  if(nas.Pref.tabPanel[3]["rbo"+ix].value){nas.axe.ovlBgColor=ix;break;}
+	 }
+	};
+	for(var ix=0;ix<nas.axe.lyBgColors.length;ix++){
+	 nas.Pref.tabPanel[3]["rb"+ix].onClick=nas.Pref.tabPanel[3].chgColor
+	}
+	for(var ix=0;ix<nas.axe.ovlBgColors.length;ix++){
+	 nas.Pref.tabPanel[3]["rbo"+ix].onClick=nas.Pref.tabPanel[3].chgColor
+	}
+	nas.Pref.tabPanel[3].focusInterlocking.onClick=function(){nas.axe.focusMove=this.value;}
+	nas.Pref.tabPanel[3].selectDialog.onClick=function(){nas.axe.dmDialog=this.value;}
+	nas.Pref.tabPanel[3].pegBlendMode.onClick=function(){nas.axe.pegBlend=this.value;}
+	nas.Pref.tabPanel[3].frameOpacity.onClick=function(){nas.axe.frameOpc=this.value;}
+
+//Yes/No/Cacel
+	nas.Pref.readButton.onClick=function(){
+		var doAction=confirm("ä¿å­˜ä¸­ã®è¨­å®šã‚’èª­ã¿è¾¼ã¿ã¾ã™ã€‚ç¾åœ¨ã®è¨­å®šã¯ä¸Šæ›¸ãã•ã‚Œã¾ã™ã€‚"+nas.GUI.LineFeed+"å–ã‚Šæ¶ˆã—ã¯ã§ãã¾ã›ã‚“ã€‚ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ");
+		if(doAction){nas.readPrefarence();this.parent.init("all")};
+		};
+	nas.Pref.writeButton.onClick=function(){
+		var doAction=confirm("è¨­å®šã‚’["+nas.prefarenceFolder.fsName+"]ä»¥ä¸‹ã«ä¿å­˜ã—ã¾ã™ã€‚"+nas.GUI.LineFeed+"ä»¥å‰ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ä¸Šæ›¸ãã•ã‚Œã¾ã™ã€‚ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ");
+		if(doAction){nas.writePrefarence()}
+		};
+	nas.Pref.clearButton.onClick=function(){nas.cleraPrefarence();};
+	nas.Pref.closeButton.onClick=function(){nas.Pref.close();};
+//ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+	nas.Pref.init=function(opt)
+	{
+		if(!opt) opt="all";
+		switch(opt){
+		case	"0":
+			this.tabPanel[0].init();
+		break;
+		case	"1":;
+			this.tabPanel[1].init();
+		break;
+		case	"2":;
+			this.tabPanel[2].init();
+		break;
+		case	"3":;
+			this.tabPanel[3].init();
+		break;
+		default:
+			this.tabPanel[0].init();
+			this.tabPanel[1].init();
+			this.tabPanel[2].init();
+			this.tabPanel[3].init();
+		}
+	}
+
+
+//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æœ€çµ‚ä½ç½®ã‚’è¨˜éŒ²
+	nas.Pref.onMove=function(){
+nas.GUI.winOffset["Pref"] =[nas.Pref.bounds[0],nas.Pref.bounds[1]];
+	}
+
+//Start GUI
+nas.Pref.show();
+//
+}

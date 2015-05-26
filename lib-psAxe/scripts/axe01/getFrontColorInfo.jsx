@@ -1,5 +1,5 @@
-//Photoshop—pƒXƒNƒŠƒvƒg
-/*	‘OŒiF‚©‚çpsPaintŒİŠ·F’l‚ğæ“¾	*/
+//Photoshopç”¨ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
+/*	å‰æ™¯è‰²ã‹ã‚‰psPaintäº’æ›è‰²å€¤ã‚’å–å¾—	*/
 
 var r=app.foregroundColor.rgb.red;
 var g=app.foregroundColor.rgb.green;

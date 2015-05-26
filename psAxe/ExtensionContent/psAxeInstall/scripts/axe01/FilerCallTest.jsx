@@ -1,12 +1,12 @@
-/* ‚±‚ñ‚ÈŠÖ”‚©?
+/* ã“ã‚“ãªé–¢æ•°ã‹?
 	applyFilter(filterDescription,[[control,value]],dialog)
-ˆø”
-	filterDesctiotion	ƒtƒBƒ‹ƒ^‹Lq ƒJƒeƒSƒŠ+ƒtƒBƒ‹ƒ^–¼(•¶š—ñ)
-	control	ƒRƒ“ƒgƒ[ƒ‹‹Lq(•¶š—ñ)
-	value	ƒRƒ“ƒgƒ[ƒ‹‚Ì’l(”’l)
-	dialog	ƒ_ƒCƒAƒƒOƒ‚[ƒh(•¶š—ñ "ALL""ERROR""NO")[È—ª‰Â]
-–ß‚è’l
-	“Á‚É‚È‚µ(undefeined)
+å¼•æ•°
+	filterDesctiotion	ãƒ•ã‚£ãƒ«ã‚¿è¨˜è¿° ã‚«ãƒ†ã‚´ãƒª+ãƒ•ã‚£ãƒ«ã‚¿å(æ–‡å­—åˆ—)
+	control	ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«è¨˜è¿°(æ–‡å­—åˆ—)
+	value	ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã®å€¤(æ•°å€¤)
+	dialog	ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒ¢ãƒ¼ãƒ‰(æ–‡å­—åˆ— "ALL""ERROR""NO")[çœç•¥å¯]
+æˆ»ã‚Šå€¤
+	ç‰¹ã«ãªã—(undefeined)
  */
 applyFilter=function(fD,fVA,dMode){
 if (fVA instanceof Array){
@@ -24,7 +24,7 @@ if (! dMode.match(/(ALL|ERROR)/)){dMode="NO";};
 	executeAction( actionID, myDescription, myMode );
 }else{return false;};//
 }
-// ƒJƒ‰[’læ“¾
+// ã‚«ãƒ©ãƒ¼å€¤å–å¾—
 var r=app.foregroundColor.rgb.red;
 var g=app.foregroundColor.rgb.green;
 var b=app.foregroundColor.rgb.blue;

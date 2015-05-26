@@ -1,6 +1,6 @@
-//ƒgƒŒ[ƒ‰“à‚ÌÅ‚àã‚Ì•\¦ƒŒƒCƒ„‚ğƒAƒNƒeƒBƒu‚É‚·‚é
+//ãƒˆãƒ¬ãƒ¼ãƒ©å†…ã®æœ€ã‚‚ä¸Šã®è¡¨ç¤ºãƒ¬ã‚¤ãƒ¤ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
 if(app.documents.length){
-var myUndo="•\¦ƒŒƒCƒ„‚ğƒAƒNƒeƒBƒu";var myAction="";
+var myUndo="è¡¨ç¤ºãƒ¬ã‚¤ãƒ¤ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–";var myAction="";
 var myDocLayers=app.activeDocument.activeLayer.parent;
 myAction="for(var idx=0;idx<myDocLayers.layers.length;idx++){if(myDocLayers.layers[idx].visible){app.activeDocument.activeLayer=myDocLayers.layers[idx];break;}};";
 

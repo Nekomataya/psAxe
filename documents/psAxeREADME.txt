@@ -1,5 +1,6 @@
-﻿nas(u)PsAxe Photoshop Animation XPS Extensions ver 1.0 取り扱い説明書（超簡単版）
+nas(u)PsAxe Photoshop Animation XPS Extensions ver 1.0 取り扱い説明書（超簡単版）
 2014/11/28  ver 1.0.0
+2015/05/26  ver 1.0.1 バグフィックス版
 ________________
 
 

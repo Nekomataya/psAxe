@@ -1,11 +1,11 @@
-//ƒŒƒCƒ„‚ğƒZƒ“ƒ^ƒŠƒ“ƒO‚·‚éƒvƒƒVƒWƒƒ
+//ãƒ¬ã‚¤ãƒ¤ã‚’ã‚»ãƒ³ã‚¿ãƒªãƒ³ã‚°ã™ã‚‹ãƒ—ãƒ­ã‚·ã‚¸ãƒ£
 //
 var myLayer=app.activeDocument.activeLayer;
 if(true){
-//‰æ–Ê’†SÀ•W
+//ç”»é¢ä¸­å¿ƒåº§æ¨™
 var destPos=[app.activeDocument.width/2,app.activeDocument.height/2];
 }else{
-//ƒtƒŒ[ƒ€’†SÀ•W
+//ãƒ•ãƒ¬ãƒ¼ãƒ ä¸­å¿ƒåº§æ¨™
 if(app.activeDocument.layers.getByName("Frames")){
 	var myPegLayer=app.activeDocument.layers.getByName("Frames").artLayers.getByName("peg");
 	var myPegHeight=(myPegLayer.bounds[3]-myCutLayer.bounds[1]);
@@ -18,7 +18,7 @@ var destPos=[
 	(myPegHeight/2)+new UnitValue(nas.inputMedias.selectedRecord[7]+" mm")
 ]
 }
-//ƒZƒ“ƒ^ƒŠƒ“ƒO
+//ã‚»ãƒ³ã‚¿ãƒªãƒ³ã‚°
   myLayer.translate(
 	destPos[0]-((myLayer.bounds[2]-myLayer.bounds[0])/2+myLayer.bounds[0]),
 	destPos[1]-((myLayer.bounds[3]-myLayer.bounds[1])/2+myLayer.bounds[1])

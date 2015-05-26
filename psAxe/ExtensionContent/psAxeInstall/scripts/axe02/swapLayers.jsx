@@ -1,12 +1,12 @@
 /*
-	ƒAƒNƒeƒBƒuƒgƒŒ[ƒ‰[‚ÌÅãˆÊƒŒƒCƒ„‚ğ’¼‰º‚ÌƒŒƒCƒ„‚Æ“ü‚êŠ·‚¦‚é
+	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒˆãƒ¬ãƒ¼ãƒ©ãƒ¼ã®æœ€ä¸Šä½ãƒ¬ã‚¤ãƒ¤ã‚’ç›´ä¸‹ã®ãƒ¬ã‚¤ãƒ¤ã¨å…¥ã‚Œæ›ãˆã‚‹
 	swapLayers.jsx
-	ƒAƒNƒeƒBƒuƒŒƒCƒ„‚àŒğŠ·
+	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚¤ãƒ¤ã‚‚äº¤æ›
 // enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
+// #target photoshop
 */
  var myDocLayers=((app.activeDocument.activeLayer.parent.typename=="Document") && (app.activeDocument.activeLayer.typename=="LayerSet"))?app.activeDocument.activeLayer:app.activeDocument.activeLayer.parent;
-  var xLinks=(myDocLayers.xLinks)? myDocLayers.xLinks:[];//ƒvƒƒpƒeƒB‚ª‚È‚¢ê‡‚Í‰Šú’l‚Å
+  var xLinks=(myDocLayers.xLinks)? myDocLayers.xLinks:[];//ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒãªã„å ´åˆã¯åˆæœŸå€¤ã§
   var subMotionLayers=new Array();
  if((myDocLayers.typename!="Document")&&(xLinks.length)){
 	for(var ix=0;ix<xLinks.length;ix++){if(app.activeDocument.layers[xLinks[ix]]===myDocLayers){continue}
@@ -14,7 +14,7 @@
 	}
 }
 if(myDocLayers.layers.length>1){
-var myUndoStr="ã‰º“ü‚ê‘Ö‚¦";
+var myUndoStr="ä¸Šä¸‹å…¥ã‚Œæ›¿ãˆ";
 var myExecute="app.activeDocument.activeLayer=myDocLayers.layers[1];myDocLayers.layers[1].move(myDocLayers.layers[0],ElementPlacement.PLACEBEFORE);if(subMotionLayers.length){for(var lx=0;lx<subMotionLayers.length;lx++){if(subMotionLayers[lx].layers.length){subMotionLayers[lx].layers[1].move(subMotionLayers[lx].layers[0],ElementPlacement.PLACEBEFORE)}}}"
 if(app.activeDocument.suspendHistory){app.activeDocument.suspendHistory(myUndoStr,myExecute)}else{eval(myExecute)}
 };

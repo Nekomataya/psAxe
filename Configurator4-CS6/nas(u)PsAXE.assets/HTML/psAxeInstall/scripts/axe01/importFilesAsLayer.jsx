@@ -1,1 +1,554 @@
-/*	nas.axe.getLayers(targetFolder) */// enable double clicking from the Macintosh Finder or the Windows Explorer#target photoshop// in case we double clicked the file	app.bringToFront();//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İif($.fileName){//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";}else{//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";}var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñif(! app.nas){//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é	var nas = new Object();		nas.Version=new Object();		nas.isAdobe=true;		nas.axe=new Object();		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş/*	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj@config.js		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ*/includeLibs=[	nasLibFolderPath+"config.js",	nasLibFolderPath+"nas_common.js",	nasLibFolderPath+"nas_GUIlib.js",	nasLibFolderPath+"nas_psAxeLib.js",	nasLibFolderPath+"nas_prefarenceLib.js"];//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é	app.nas=nas;	bootFlag=true;}else{	//alert("object nas exists")	nas=app.nas;	bootFlag=false;};/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤*/includeLibs.push(nasLibFolderPath+"fakeAE.js" );	if(false){includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");includeLibs.push(nasLibFolderPath+"xpsio.js");includeLibs.push(nasLibFolderPath+"mapio.js");includeLibs.push(nasLibFolderPath+"lib_STS.js");includeLibs.push(nasLibFolderPath+"dataio.js");includeLibs.push(nasLibFolderPath+"io.js");includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");includeLibs.push(nasLibFolderPath+"xpsQueue.js");	}for(prop in includeLibs){	var myScriptFileName=includeLibs[prop];	if($.evalFile){	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é		$.evalFile(myScriptFileName);	}else{	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·		var scriptFile = new File(myScriptFileName);		if(scriptFile.exists){			scriptFile.open();			var myContent=scriptFile.read()			scriptFile.close();			eval(myContent);		}	}}//=====================================•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾if(bootFlag){nas.readPrefarence();nas.workTitles.select();}//=====================================//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p	var	myImportCount=0;	var	importFileList=new Array();//ŒŸõ[“x§ŒÀƒgƒ‰ƒbƒv—p•Ï”//Œ»İ‚Ì[“x‚ÍŠÖ”ŠO‚ÅŠÇ—§ŒÀ”‚ÍŒÅ’è’l	var	currentDepth=0;//‰Šú’l‚O    //ˆÈ‰º‚ÍUI‚Éo‚µ‚Ä‚à—Ç‚¢	var	controllingDepth=2;//ƒeƒXƒg—l‚É2’i@‰^—p‚Í5’i‚­‚ç‚¢‚É‚·‚é@	var	maxHandle=30;//ƒeƒXƒg—p‚É30 ‰^—p‚Í300‚­‚ç‚¢ ‚Å	var	maxFolders=30;//ƒtƒHƒ‹ƒ_ƒnƒ“ƒhƒ‹§ŒÀ@ˆê”Ê“I‚É‚Í15ƒŒƒCƒ„’ö“x‚ªlŠÔ‚ªŠ´Šo‚ÅˆÅ—œ‚Å‚«‚éãŒÀ//nas.axeAFC.importFilesAsLayer = function(targetFolder,option){//	if (! targetFolder) {	return false;}//	nas.GUI.currentFolder=targetFolder;//	Folder.current = nas.GUI.prevCurrentFolder;// ƒvƒƒWƒFƒNƒg‚ª‚È‚¯‚ê‚ÎAƒtƒ@ƒCƒ‹‚ğ“o˜^‚·‚éƒvƒƒWƒFƒNƒg‚ğV‹Kì¬‚·‚éB [23839]//ƒtƒ@ƒCƒ‹‚ğæ‚è‚ŞƒhƒLƒ…ƒƒ“ƒg‚ğì¬‚·‚éB¡–@‚ÍÅIw’è‚ÅŒÅ’è‚©@Å¬EÅ‘åE•½‹Ï‚ğ(option‚Å)‘I‘ğ//@lat,min,max.ave ƒtƒ@ƒCƒ‹‚ÉŠù‘¶‚Ìƒtƒ@ƒCƒ‹‚ğg—p‚·‚é‚æ‚¤‚É’²®@‚©‚Â@ƒIƒvƒVƒ‡ƒ“‚Í–‘O‚Éˆ—‚µ‚Ä‚¨‚­‚±‚Æ@ƒTƒCƒY‚Ì’²®‚ÍÅŒã//	var myDocument=app.documents.add(maxWidth+" px",maxHeight+" px",maxResolution+" dpi" ,myDocName);//	if (!app.project) {	app.newProject();}//	ƒtƒ@ƒCƒ‹ˆ—@ˆø”‚Ìƒtƒ@ƒCƒ‹‚ğƒtƒBƒ‹ƒ^ˆ—‚µ‚ÄƒCƒ“ƒ|[ƒgƒŠƒXƒg‚É’Ç‰Áì¬‚·‚éB@ƒŠƒXƒg‚ÍŒã‚Åƒ†[ƒU‚ª•ÒW‚Å‚«‚é‚æ‚¤‚É//	ˆø”‚Ìƒtƒ@ƒCƒ‹‚ğƒCƒ“ƒ|[ƒg‚·‚é(ƒgƒ‰ƒC‚ÅƒGƒ‰[ƒgƒ‰ƒbƒv‚ğ‚©‚¯‚Äˆ—‚ª~‚Ü‚ç‚È‚¢‚æ‚¤‚É‚µ‚Ä‚¢‚é‚İ‚½‚¢‚¾B)	function processFile (theFile) {//ƒgƒ‰ƒC‚¾‚¯‚¾‚Æ(ŠJ”­’†)Šë‚È‚¢‚Ì‚ÅA‚±‚±‚Å§ŒÀ‚ğˆê“x‚©‚¯‚éif(theFile.name.match(nas.importFilter)){importFileList.push(theFile);}else{return;}};//	ƒtƒHƒ‹ƒ_ˆ—	function processFolder(theFolder,myDepth)	{		if(myDepth > currentDepth){currentDepth= myDepth};//ƒJƒŒƒ“ƒg‚ğXV		if(currentDepth>controllingDepth){alert("===over depth ;"+currentDepth +"/"+ controllingDepth); return;};//‹­§“I‚É’†’f‚ÅOK@§ŒÀ‰ğœ‚Í•Ï”‚Å		var files = theFolder.getFiles(); //‘ÎÛƒtƒHƒ‹ƒ_‚Ìƒtƒ@ƒCƒ‹(ƒIƒuƒWƒFƒNƒg)‚ğ”z—ñ‚É‚Æ‚é		//ƒtƒ@ƒCƒ‹‚Æ‚µ‚ÄƒCƒ“ƒ|[ƒg‚Ü‚½‚ÍÄ‹Aˆ—		//otherwise, import the files and recurse				for (index in files) {//Go through the array and set each element to singleFile, then run the following			if (files[index] instanceof File) {					processFile (files[index]); //calls the processFile function above			}			if (files[index] instanceof Folder) {				  processFolder (files[index],myDepth+1); // recursion				}		}	}	//	processFolder(targetFolder);//Recursively examine that folder ƒtƒHƒ‹ƒ_‚ğÄ‹A‚ÅŒ@‚éƒˆ//æ“¾‚µ‚½ƒŠƒXƒg‚ğ•\¦//undoƒuƒƒbƒNI—¹//return;//}//ListBoxUIvar w=nas.GUI.newWindow("dialog","ƒtƒHƒ‹ƒ_‚ğŒŸõ‚µ‚Ä“Ç‚İ‚İX",6,13);w.msgBox=nas.GUI.addStaticText(w,"ƒtƒHƒ‹ƒ_‚ğŒŸõ‚µ‚Äƒtƒ@ƒCƒ‹‚ğƒŒƒCƒ„‚Æ‚µ‚Ä“Ç‚İ‚İ‚Ü‚·B" ,0,0,6,1)w.fileTargetName=nas.GUI.addEditText(w,"",0,1,6,1);w.fileList=nas.GUI.addListBoxO(w,[],null,0,2,4,7,{multiselect:true});//ƒ`ƒFƒbƒNƒRƒ“ƒgƒ[ƒ‹w.mkWS=nas.GUI.addCheckBox(w,"ƒtƒHƒ‹ƒ_‚²‚Æ‚ÉƒŒƒCƒ„ƒZƒbƒg‚ğì¬",0,9,4,1);	w.mkWS.value=true;w.rmOpt=nas.GUI.addCheckBox(w,"d•¡‚µ‚½ƒtƒ@ƒCƒ‹‚ğ“Ç‚Ü‚È‚¢",0,10,4,1);	w.rmOpt.value=true;w.mxSize=nas.GUI.addCheckBox(w,"ƒtƒ@ƒCƒ‹‚ÌÅ‘åƒTƒCƒY‚Å“Ç‚İ‚İ",0,11,4,1);	w.mxSize.value=true;w.rmWhite=nas.GUI.addCheckBox(w,"”’•”•ª‚ğíœ",0,12,4,1);	w.rmWhite.value=false;w.rdRegistor=nas.GUI.addCheckBox(w,"AddFrames",4,7,2,1);	w.rdRegistor.value=true;w.adLvl=nas.GUI.addCheckBox(w,"ƒŒƒxƒ‹•â³",4,8,2,1);	w.adLvl.value=false;//ƒ{ƒ^ƒ“ƒRƒ“ƒgƒ[ƒ‹w.FdBt=nas.GUI.addButton(w,"addFolder",4,2,2,1);w.FlBt=nas.GUI.addButton(w,"addFile",4,3,2,1);w.rmBt=nas.GUI.addButton(w,"remove",4,4,2,1);w.rstBt=nas.GUI.addButton(w,"clear",4,5,2,1);w.okBt=nas.GUI.addButton(w,"OK" ,4,11,2,1);w.cnBt=nas.GUI.addButton(w,"cancel" ,4,12,2,1);//w.fileList.update=function(){	this.removeAll();	for(var ix=0;ix<importFileList.length;ix++){		this.add("item","["+decodeURI(importFileList[ix].parent.name)+"] "+decodeURI(importFileList[ix].name));	}}//ƒ{ƒ^ƒ“ƒRƒ“ƒgƒ[ƒ‹w.FdBt.onClick=function(){//var myCurrentFolder=Folder.current; var myFolder=Folder.current.selectDlg ("“Ç‚İ‚ŞƒtƒHƒ‹ƒ_‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢"); if(myFolder){	Folder.current=myFolder;	//‘æˆêŠK‘w‚ÌƒtƒHƒ‹ƒ_”‚ª‘½‚·‚¬‚éê‡Œx‚·‚é	var files = myFolder.getFiles();	var currentFolders=0;	//w’èƒfƒBƒŒƒNƒgƒŠ‚ÌƒtƒHƒ‹ƒ_”‚ğ”‚¦‚é	for (index in files){if (files[index] instanceof Folder) {currentFolders++;}};		var checkStartFolder=true;if(!(myFolder.parent instanceof Folder)||(currentFolders>=maxFolders)){        checkStartFolder=confirm (            "ƒ‹[ƒg‚ªw’è‚³‚ê‚½‚©A“Ç‚İ‚İƒfƒBƒŒƒNƒgƒŠ‚ÌƒtƒHƒ‹ƒ_”‚ª‹K’è’l‚ğ’´‚¦‚Ä‚¢‚Ü‚·"+nas.GUI.LineFeed            +"ƒtƒHƒ‹ƒ_”:"+currentFolders+nas.GUI.LineFeed+"ƒtƒHƒ‹ƒ_:"+(myFolder.parent instanceof Folder)+":"+myFolder.fullName+nas.GUI.LineFeed            +"ˆ—‚ğ‘±s‚µ‚Ü‚·‚©H", "no", "!! ’ˆÓ !!"        );    }if(importFileList.length>=maxHandle){        checkFileCount=confirm (            "“ÇƒŠƒXƒg‘”‚ª‹K’è’l‚Ì"+maxHandle+"‚ğ’´‚¦‚Ä‚¢‚Ü‚·"+nas.GUI.LineFeed            +"mh:"+importFileList.length+"/"+maxHandle+nas.GUI.LineFeed            +"ˆ—‚ğ‘±s‚µ‚Ü‚·‚©H", "no", "!! ’ˆÓ !!"        );}    if(checkStartFolder){      currentDepth=0;//eŒÄ‚Ño‚µ‚²‚Æ‚ÉƒJƒŒƒ“ƒg‚ğƒŠƒZƒbƒg	 processFolder(myFolder,1);w.fileList.update();	 this.parent.fileTargetName.text=decodeURI(myFolder.name);	} };// alert(importFileList.length);}w.FlBt.onClick=function(){ var myFiles=File.openDialog("“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢","allFiles:*.*" ,true);//CS2‚ÌopenDialog‚Éƒ}ƒ‹ƒ`ƒZƒŒƒNƒg‚ª‚È‚¢‚Ì‚Å”z—ñ‚Å‚È‚­File‚ª‹A‚Á‚Ä‚­‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å’ˆÓ if(myFiles){	if(!(myFiles instanceof Array)){myFiles=[myFiles]}	for(var ix=0;ix<myFiles.length;ix++){		processFile(myFiles[ix]);	}  w.fileList.update(); };// alert(importFileList.length);			}w.rmBt.onClick=function(){	for(var ix=importFileList.length;ix>0;ix--){		if(this.parent.fileList.items[ix-1].selected){//			alert(ix-1)			importFileList.splice(ix-1,1);			this.parent.fileList.remove(ix-1);		}	}}w.rstBt.onClick=function(){	importFileList=new Array();	this.parent.fileList.removeAll();}w.okBt.onClick=function(){	if(importFileList.length<1){return;}	if(this.parent.fileTargetName.text.length<1){this.parent.fileTargetName.text=decodeURI(importFileList[0].parent.name)};	if(w.rmOpt.value){var importedList=new Array();};	var firstDoc=app.open(importFileList[0]);//Å‰‚Ìƒtƒ@ƒCƒ‹‚ğŠJ‚­			var maxWidth=firstDoc.width.as("px" );	var maxHeight=firstDoc.height.as("px" );	var maxResolution=firstDoc.resolution;	var myDocument=app.documents.add(		firstDoc.width,firstDoc.height,firstDoc.resolution,this.parent.fileTargetName.text,		NewDocumentMode.RGB,DocumentFill.TRANSPARENT,		1,BitsPerChannelType.EIGHT	);//‘æˆêƒhƒLƒ…ƒƒ“ƒg‚ÌƒRƒs[‚Å‹óƒtƒ@ƒCƒ‹‚ğì¬	var voidLayer=myDocument.layers[0];//ÅŒã‚ÉÌ‚Ä‚é‹óƒŒƒCƒ„	//“à—e‚ğ•¡»	for (ix=0;ix<importFileList.length;ix++){if(w.rmOpt.value){	var ex=false;	for(var fx=0;fx<importedList.length;fx++){if(importedList[fx].fsName==importFileList[ix].fsName){ex=true;break;}};	if(ex){continue};}	 var sourceDoc=(ix)? app.open(importFileList[ix]):firstDoc; if(sourceDoc){// ƒf[ƒ^‚ğT‚¦‚é		var currentWidth=sourceDoc.width.as("px");		var currentHeight=sourceDoc.height.as("px");		var currentResolution=sourceDoc.Reslution;		maxWidth=(maxWidth>currentWidth)?maxWidth:currentWidth;		maxHeight=(maxHeight>currentHeight)?maxHeight:currentHeight;		maxResolution=(maxResolution>currentResolution)?maxResolution:currentResolution;// ƒ\[ƒXƒhƒLƒ…ƒƒ“ƒg‚ğƒAƒNƒeƒBƒu‚É	app.activeDocument=sourceDoc;	var myLayerName=app.activeDocument.name;//// FAXŒnƒXƒLƒƒƒi‚Ìƒf[ƒ^‚Í0.5ŒÅ’è‚Ì‚±‚Æ‚ª‘½‚¢(FAXŒnTIFF)	if(app.activeDocument.pixelAspectRatio!=1)	{		app.activeDocument.pixelAspectRatio=1;	}// ƒhƒLƒ…ƒƒ“ƒg‚ª2’l‚¾‚Á‚½‚çƒOƒŒ[ƒXƒP[ƒ‹‚É•ÏŠ·(FAXŒnTIFF)	if(app.activeDocument.mode==DocumentMode.BITMAP)	{		app.activeDocument.changeMode(ChangeMode.GRAYSCALE);	}//	if(app.activeDocument.layers.length>1).activeDocument.flatten();//•¡”ƒŒƒCƒ„‚©‚à‚µ‚ê‚È‚¢‚Ì‚Å‚¢‚Á‚½‚ñ“‡	var targetDoc=app.activeDocument;	var tempDoc=targetDoc.duplicate(tempDoc,true);//•¡»‚ğg‚Á‚Äƒ}[ƒW//	app.activeDocument.mergeVisibleLayers();//‚È‚º‚©³í‚É“®ì‚µ‚È‚¢‚Ì‚ÅƒRƒƒ“ƒgƒAƒEƒg	app.activeDocument.artLayers[0].copy();//ƒŒƒCƒ„1‚ğƒRƒs[ var orgBounds=app.activeDocument.artLayers[0].bounds; var TL=[orgBounds[0].as("px"),orgBounds[1].as("px" )]; var BR=[orgBounds[2].as("px"),orgBounds[3].as("px" )]; var OC=[targetDoc.width.as("px")/2,targetDoc.height.as("px")/2]; var DC=[myDocument.width.as("px")/2,myDocument.height.as("px")/2]; var newTL=add(DC,sub(TL,OC)); var newBR=add(DC,sub(BR,OC));var mySelectRegion=[	newTL,	[newBR[0],newTL[1]],	newBR,	[newTL[0],newBR[1]]];/*var mySelectRegion=[	[orgBounds[0].as("px"),orgBounds[1].as("px")],	[orgBounds[2].as("px"),orgBounds[1].as("px")],	[orgBounds[2].as("px"),orgBounds[3].as("px")],	[orgBounds[0].as("px"),orgBounds[3].as("px")]];*/		if(myLayerName.match(/^(.*)\..+?$/i))		{			myLayerName=RegExp.$1;//Šg’£q‚ğ•¥‚¤	/* ‚±‚ê‚Í³Šm‚É‚ÍuÅ‰‚Ìƒhƒbƒg‚æ‚è‚à‘O‚Ì•¶š—ñ‚Ìæ“¾v‚È‚Ì‚Å’ˆÓ */		}//Šm”F//		myLayerName=prompt("ƒŒƒCƒ„–¼‚ğŠm”F",myLayerName);//	app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);	tempDoc.close(SaveOptions.DONOTSAVECHANGES);	targetDoc.close(SaveOptions.DONOTSAVECHANGES);	if(w.rmOpt.value){importedList.push(importFileList[ix]);}	app.activeDocument=myDocument;//•¡Êæ‚ğƒAƒNƒeƒBƒu‚É	app.activeDocument.selection.select(mySelectRegion,SelectionType.REPLACE);//ƒŠƒWƒ‡ƒ“‚ğ‘I‘ğ@ƒhƒLƒ…ƒƒ“ƒg’PˆÊ‚Å¶’[‚ªƒ}ƒbƒ`//	app.activeDocument.selection.selectAll();//ƒŠƒWƒ‡ƒ“‚ğ‘I‘ğ@ƒhƒLƒ…ƒƒ“ƒg‘S‘Ì	app.activeDocument.paste(true);//ƒŠƒWƒ‡ƒ“‚Éƒy[ƒXƒg// =======================================================ƒŒƒCƒ„ƒ}ƒXƒNíœvar id42 = charIDToTypeID( "Dlt " );    var desc9 = new ActionDescriptor();    var id43 = charIDToTypeID( "null" );        var ref6 = new ActionReference();        var id44 = charIDToTypeID( "Chnl" );        var id45 = charIDToTypeID( "Chnl" );        var id46 = charIDToTypeID( "Msk " );        ref6.putEnumerated( id44, id45, id46 );    desc9.putReference( id43, ref6 );executeAction( id42, desc9, DialogModes.NO );//ƒŒƒCƒ„ƒ}ƒXƒN‚ª‚Å‚«‚é‚Ì‚Å‚»‚ê‚ğíœ// =======================================================ƒIƒvƒVƒ‡ƒ“ƒXƒCƒbƒ`‚ª‚ ‚ê‚Î”’”²‚«if(w.rmWhite.value){/*	ƒAƒjƒƒZƒ‹—p@Whiteƒpƒ“ƒ`ƒAƒEƒg	ƒŒƒ^ƒXd—l‚ÅƒAƒ‹ƒtƒ@ƒ`ƒƒƒ“ƒlƒ‹‚Ì‚È‚¢‰æ‘œƒf[ƒ^‚©‚ç	”’([r,g,b]==[1.,1.,1.])•”•ª‚ğ‘I‘ğ‚µ‚Äíœ‚·‚éƒXƒNƒŠƒvƒg	Fˆæ‘I‘ğ‚ÅL==100.@‚Ì•”•ª‚ğ‘I‘ğ‚µ‚Ä@íœŒã‚É‘I‘ğ—Ìˆæ‚ğ‰ğœ‚µ‚Ä‚¢‚éB	ƒTƒXƒyƒ“ƒhƒqƒXƒgƒŠ‚ª‰Â”\‚Èê‡‚Ís‚¤*/// =======================================================select color Whitevar descSelect = new ActionDescriptor();var idFzns = charIDToTypeID( "Fzns" );descSelect.putInteger( idFzns, 0 );var idMnm = charIDToTypeID( "Mnm " );var desc9 = new ActionDescriptor();var idLmnc = charIDToTypeID( "Lmnc" );desc9.putDouble( idLmnc, 100.000000 );var idA = charIDToTypeID( "A   " );desc9.putDouble( idA, 0.000000 );var idB = charIDToTypeID( "B   " );desc9.putDouble( idB, 0.000000 );var idLbCl = charIDToTypeID( "LbCl" );descSelect.putObject( idMnm, idLbCl, desc9 );var idMxm = charIDToTypeID( "Mxm " );var desc10 = new ActionDescriptor();var idLmnc = charIDToTypeID( "Lmnc" );desc10.putDouble( idLmnc, 100.000000 );var idA = charIDToTypeID( "A   " );desc10.putDouble( idA, 0.000000 );var idB = charIDToTypeID( "B   " );desc10.putDouble( idB, 0.000000 );var idLbCl = charIDToTypeID( "LbCl" );descSelect.putObject( idMxm, idLbCl, desc10 );var idcolorModel = stringIDToTypeID( "colorModel" );descSelect.putInteger( idcolorModel, 0 );executeAction( charIDToTypeID( "ClrR" ), descSelect, DialogModes.NO );//==============@selection clear and deselect//ƒP[ƒX‚É‚æ‚Á‚Ä‚Í‘I‘ğ”ÍˆÍ‚ª‚È‚¢ê‡‚ª‚ ‚é‚Ì‚ÅA‚»‚Ìê‡‚Í‰½‚à‚µ‚È‚¢var mySelectionBounds=false;try{mySelectionBounds=app.activeDocument.selection.bounds;}catch(err){};if(mySelectionBounds){	app.activeDocument.selection.clear();	app.activeDocument.selection.deselect();}}	app.activeDocument.activeLayer.name=myLayerName;//ƒŒƒCƒ„‚Éƒtƒ@ƒCƒ‹–¼‚Å–¼‘O‚ğİ’è	if(w.mkWS.value){		var currentLayer=app.activeDocument.activeLayer;		var myFolderName=decodeURI(importFileList[ix].parent.name);		var destSet=false;		try{	destSet=app.activeDocument.layerSets.getByName(myFolderName);		}catch(err){			destSet=app.activeDocument.layerSets.add();			destSet.name=myFolderName;		}		currentLayer.move(destSet,ElementPlacement.PLACEATBEGINNING);//ãÏ‚İ	} }}//ƒIƒvƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎAƒŒƒWƒXƒ^‚Ì“Ç‚İ‚İ‚ğs‚¤if(w.rdRegistor.value){//ƒtƒŒ[ƒ€ƒZƒbƒg‚ÉƒŒƒWƒXƒ^‰æ‘œ‚ÆƒtƒŒ[ƒ€‚ğ“Ç‚İ‚İ(ƒtƒŒ[ƒ€ƒZƒbƒg‚ª‚È‚¢ê‡‚Íì¬)var myTargetSet=app.activeDocument;try{myTargetSet=app.activeDocument.layerSets["Frames"];}catch(err){  //ƒŒƒWƒXƒ^Ši”[—pƒtƒŒ[ƒ€ƒZƒbƒg‚ğì‚é  myTargetSet=app.activeDocument.layerSets.add();myTargetSet.name="Frames";};var currentUnitBase=app.preferences.rulerUnits;//T‚¦‚éapp.preferences.rulerUnits=Units.MM;//ƒŒƒWƒXƒ^  var myPegFile=new File(nasLibFolderPath+"resource/Pegs/"+nas.registerMarks.selectedRecord[1]);  var myPegLayer=nas.axeAFC.placeEps(myPegFile);//‚±‚ÌŠÖ”‚ª‹ÈÒ  myPegLayer.name="peg";//ã‹L‚ÌŠÖ”‚ÌÀsŒã‚ÉÅ‰‚ÉDOM‘€ì‚µ‚½ƒIƒuƒWƒFƒNƒg‚Íæ‚èÁ‚µ‚ğó‚¯‚Ä‚¢‚é/*ƒŠƒl[ƒ€‚ğ‚µ‚È‚©‚Á‚½ê‡‚ÍƒŒƒCƒ„‚Ì“Ç‚İ‚İ©‘Ì‚ªUNDO‚³‚ê‚Ä“Ç‚İ‚ñ‚¾‚Í‚¸‚ÌƒŒƒCƒ„‚ª‘r¸‚µ‚ÄƒGƒ‰[‚ª”­¶‚·‚é*/  myPegLayer.translate("0 mm",-1*myPegLayer.bounds[1]);//ã•Ó‚Ö‚Í‚Á‚Â‚¯//100ƒtƒŒ[ƒ€˜g‚ğ“Ç‚İ‚İ  var myFrameFile=new File(nasLibFolderPath+"resource/Frames/"	+nas.inputMedias.selectedRecord[1]+"mm"	+nas.inputMedias.selectedRecord[2].replace(/\//,"x")	+".eps"  );  var  myFrameLayer=nas.axeAFC.placeEps(myFrameFile);//ƒ|ƒCƒ“ƒg//ƒtƒŒ[ƒ€”z’u@¡“ú‚ÍƒZƒ“ƒ^ƒŠƒ“ƒO‚Ì‚İ‚Å¶‰E‚ÍƒpƒX 20110820  var myOffset=(((myFrameLayer.bounds[3]-myFrameLayer.bounds[1])/2)+myFrameLayer.bounds[1]).as("mm")-nas.inputMedias.selectedRecord[7];  myFrameLayer.name="frame";//‚±‚Ì‘€ì‚ªæ‚èÁ‚µ‘ÎÛƒ_ƒ~[  myFrameLayer.translate(new UnitValue("0 mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm")-myOffset)+" mm"));//ƒ^ƒbƒv‚©‚ç‚Ì‹——£‚ğ  //ƒtƒŒ[ƒ€Ši”[ƒŒƒCƒ„ƒZƒbƒg‚ª‚ ‚éê‡‚Ì‚İ‚»‚¿‚ç‚ÖˆÚ“®if(myTargetSet){    myFrameLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);    myPegLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);}  if(!bootFlag){    myPegLayer.name="peg";    myFrameLayer.name="frame";  }//ƒ‹[ƒ‰[ƒ†ƒjƒbƒg•œ‹Aapp.preferences.rulerUnits=currentUnitBase;//•œ‹A}//’²®ƒŒƒCƒ„‚ğì¬if(w.adLvl.value){// ======================================================= ’²®ƒŒƒCƒ„ì¬var idMk = charIDToTypeID( "Mk  " );    var desc1 = new ActionDescriptor();    var idnull = charIDToTypeID( "null" );        var ref1 = new ActionReference();        var idAdjL = charIDToTypeID( "AdjL" );        ref1.putClass( idAdjL );    desc1.putReference( idnull, ref1 );    var idUsng = charIDToTypeID( "Usng" );        var desc2 = new ActionDescriptor();        var idNm = charIDToTypeID( "Nm  " );        desc2.putString( idNm, "ƒŒƒxƒ‹•â³" );        var idType = charIDToTypeID( "Type" );            var desc3 = new ActionDescriptor();            var idpresetKind = stringIDToTypeID( "presetKind" );            var idpresetKindType = stringIDToTypeID( "presetKindType" );            var idpresetKindDefault = stringIDToTypeID( "presetKindDefault" );            desc3.putEnumerated( idpresetKind, idpresetKindType, idpresetKindDefault );        var idLvls = charIDToTypeID( "Lvls" );        desc2.putObject( idType, idLvls, desc3 );    var idAdjL = charIDToTypeID( "AdjL" );    desc1.putObject( idUsng, idAdjL, desc2 );executeAction( idMk, desc1, DialogModes.NO );// ======================================================= ƒ`ƒƒƒ“ƒlƒ‹o—Í‚ğ137-255//(ƒtƒ‹ƒŒƒ“ƒW‰æ‘œ‚ğƒgƒŒƒX—p‚Ìƒ_ƒCƒiƒ~ƒbƒNƒŒƒ“ƒW‚É)var idsetd = charIDToTypeID( "setd" );    var desc4 = new ActionDescriptor();    var idnull = charIDToTypeID( "null" );        var ref2 = new ActionReference();        var idAdjL = charIDToTypeID( "AdjL" );        var idOrdn = charIDToTypeID( "Ordn" );        var idTrgt = charIDToTypeID( "Trgt" );        ref2.putEnumerated( idAdjL, idOrdn, idTrgt );    desc4.putReference( idnull, ref2 );    var idT = charIDToTypeID( "T   " );        var desc5 = new ActionDescriptor();        var idpresetKind = stringIDToTypeID( "presetKind" );        var idpresetKindType = stringIDToTypeID( "presetKindType" );        var idpresetKindCustom = stringIDToTypeID( "presetKindCustom" );        desc5.putEnumerated( idpresetKind, idpresetKindType, idpresetKindCustom );        var idAdjs = charIDToTypeID( "Adjs" );            var list1 = new ActionList();                var desc6 = new ActionDescriptor();                var idChnl = charIDToTypeID( "Chnl" );                    var ref3 = new ActionReference();                    var idChnl = charIDToTypeID( "Chnl" );                    var idChnl = charIDToTypeID( "Chnl" );                    var idCmps = charIDToTypeID( "Cmps" );                    ref3.putEnumerated( idChnl, idChnl, idCmps );                desc6.putReference( idChnl, ref3 );                var idOtpt = charIDToTypeID( "Otpt" );                    var list2 = new ActionList();                    list2.putInteger( 137 );                    list2.putInteger( 255 );                desc6.putList( idOtpt, list2 );            var idLvlA = charIDToTypeID( "LvlA" );            list1.putObject( idLvlA, desc6 );        desc5.putList( idAdjs, list1 );    var idLvls = charIDToTypeID( "Lvls" );    desc4.putObject( idT, idLvls, desc5 );executeAction( idsetd, desc4, DialogModes.NO );}//Å‰‚ÌƒŒƒCƒ„‚Ü‚½‚Í”wŒiƒŒƒCƒ„‚ğÌ‚Ä‚é//	voidLayer.remove();‹ó‚Ì‘æˆêƒŒƒCƒ„‚É‘Î‚µ‚Äƒy[ƒXƒg‚·‚é‚ÆƒŒƒCƒ„©‘Ì‚ª’uŠ·‚³‚ê‚é‚Ì‚Å‚±‚ê•s—v//Å‘åƒIƒvƒVƒ‡ƒ“‚ª•t‚¢‚Ä‚¢‚½‚çAÅŒã‚ÉÅ‘åƒTƒCƒY‚ÉŠg‘å‚·‚éif(w.mxSize){	app.activeDocument.resizeCanvas(		new UnitValue(maxWidth+" px"),		new UnitValue(maxHeight+" px"),		AnchorPosition.TOPCENTER	)	app.activeDocument.resolution=maxResolution;//ƒ‚±‚ê‚Í‚ ‚Ü‚èˆÓ–¡‚È‚¢‚¯‚ÇˆóüƒTƒCƒY‚ªÅ¬‚É‚È‚é}if(false){//	ƒhƒLƒ…ƒƒ“ƒg‚ª144dpiˆÈŠO‚¾‚Á‚½‚ç144dpi‚ÉƒŠƒTƒ“ƒvƒ‹	if(app.activeDocument.resolution.toString()!="144 dpi")	{		app.activeDocument.resizeImage(this.width,this.height,144);	}}		this.parent.close();}//w.cnBt.onClick=function(){}w.show();
+/*	nas.axe.getLayers(targetFolder)
+ */
+// enable double clicking from the Macintosh Finder or the Windows Explorer
+// #target photoshop
+// in case we double clicked the file
+	app.bringToFront();
+//Photoshopç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+
+if($.fileName){
+//	CS3ä»¥é™ã¯ã€€$.fileNameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚‹ã®ã§ãƒ­ã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒªãƒ¼ã«ã§ãã‚‹
+	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
+}else{
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
+	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
+}
+var includeLibs=[nasLibFolderPath+"config.js"];//èª­ã¿è¾¼ã¿ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’æ ¼ç´ã™ã‚‹é…åˆ—
+
+if(! app.nas){
+//iclude nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«å¿…è¦ãªåŸºç¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã™ã‚‹
+	var nas = new Object();
+		nas.Version=new Object();
+		nas.isAdobe=true;
+		nas.axe=new Object();
+		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
+//	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ­ãƒ¼ãƒ‰ã€€CS2-5ç”¨
+//==================== ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ç™»éŒ²ã—ã¦äº‹å‰ã«èª­ã¿è¾¼ã‚€
+/*
+	includeLibsé…åˆ—ã«ç™»éŒ²ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’é †æ¬¡èª­ã¿è¾¼ã‚€ã€‚
+	ç™»éŒ²ã¯ãƒ‘ã‚¹ã§è¡Œã†ã€‚(Fileã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯ãªã„)
+	$.evalFile ãƒ¡ã‚½ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯ãã‚Œã‚’ä½¿ç”¨ã™ã‚‹ãŒCS2ä»¥å‰ã®ç’°å¢ƒã§ã¯global ã® evalé–¢æ•°ã§èª­ã¿è¾¼ã‚€
+
+ï¼ï¼ï¼ã€€ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒªã‚¹ãƒˆï¼ˆä»¥ä¸‹ã¯èª­ã¿è¾¼ã¿é †ä½ã«ä¸€å®šã®ä¾å­˜æ€§ãŒã‚ã‚‹ã®ã§æ³¨æ„ï¼‰
+ã€€config.js		ä¸€èˆ¬è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤æ›¸è¾¼ï¼‰ã“ã®ãƒ«ãƒ¼ãƒãƒ³å¤–ã§ã¯å‚ç…§ä¸èƒ½
+  nas_common.js		AEãƒ»HTMLå…±ç”¨ä¸€èˆ¬ã‚¢ãƒ‹ãƒ¡ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_GUIlib.js		Adobeç’°å¢ƒå…±ç”¨GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_psAxeLib.js	PSç”¨ç’°å¢ƒãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_prefarenceLib.js	Adobeç’°å¢ƒå…±ç”¨ãƒ‡ãƒ¼ã‚¿ä¿å­˜ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+
+  nasXpsStore.js	PSã»ã‹Adobeæ±ç”¨XpsStoreãƒ©ã‚¤ãƒ–ãƒ©ãƒª(AEç”¨ã¯ç‰¹æ®Š)
+  xpsio.js		æ±ç”¨Xpsãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  mapio.js		æ±ç”¨Mapãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  lib_STS.js		Adobeç’°å¢ƒå…±ç”¨STSãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  dataio.js		Xpsã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå…¥å‡ºåŠ›ãƒ©ã‚¤ãƒ–ãƒ©ãƒªï¼ˆã‚³ãƒ³ãƒãƒ¼ã‚¿éƒ¨ï¼‰
+  fakeAE.js		ä¸­é–“ç’°å¢ƒãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  io.js			ã‚Šã¾ã´ã‚“å…¥å‡ºåŠ›ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  psAnimationFrameClass.js	PSç”¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ“ä½œãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  xpsQueue.js		PSç”¨Xps-FrameAnimationé€£æºãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+*/
+includeLibs=[
+	nasLibFolderPath+"config.js",
+	nasLibFolderPath+"nas_common.js",
+	nasLibFolderPath+"nas_GUIlib.js",
+	nasLibFolderPath+"nas_psAxeLib.js",
+	nasLibFolderPath+"nas_prefarenceLib.js"
+];
+//=====================================ã€€Application Objectã«å‚ç…§ã‚’ã¤ã‘ã‚‹
+	app.nas=nas;
+	bootFlag=true;
+}else{
+	//alert("object nas exists")
+	nas=app.nas;
+	bootFlag=false;
+};
+
+/*	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+ã“ã“ã§å¿…è¦ãªãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ãƒªã‚¹ãƒˆã«åŠ ãˆã¦ã‹ã‚‰èª­ã¿è¾¼ã¿ã‚’è¡Œã†
+*/
+includeLibs.push(nasLibFolderPath+"fakeAE.js" );
+	if(false){
+includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
+includeLibs.push(nasLibFolderPath+"xpsio.js");
+includeLibs.push(nasLibFolderPath+"mapio.js");
+includeLibs.push(nasLibFolderPath+"lib_STS.js");
+includeLibs.push(nasLibFolderPath+"dataio.js");
+includeLibs.push(nasLibFolderPath+"io.js");
+includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
+includeLibs.push(nasLibFolderPath+"xpsQueue.js");
+	}
+for(prop in includeLibs){
+	var myScriptFileName=includeLibs[prop];
+	if($.evalFile){
+	//$.evalFile ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ãŒã‚ã‚Œã°å®Ÿè¡Œã™ã‚‹
+		$.evalFile(myScriptFileName);
+	}else{
+	//$.evalFile ãŒå­˜åœ¨ã—ãªã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯evalã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¸¡ã™
+		var scriptFile = new File(myScriptFileName);
+		if(scriptFile.exists){
+			scriptFile.open();
+			var myContent=scriptFile.read()
+			scriptFile.close();
+			eval(myContent);
+		}
+	}
+}
+//=====================================ä¿å­˜ã—ã¦ã‚ã‚‹ã‚«ã‚¹ã‚¿ãƒã‚¤ã‚ºæƒ…å ±ã‚’å–å¾—
+if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
+//=====================================
+//+++++++++++++++++++++++++++++++++ã“ã“ã¾ã§å…±ç”¨
+
+
+	var	myImportCount=0;
+	var	importFileList=new Array();
+//æ¤œç´¢æ·±åº¦åˆ¶é™ãƒˆãƒ©ãƒƒãƒ—ç”¨å¤‰æ•°
+//ç¾åœ¨ã®æ·±åº¦ã¯é–¢æ•°å¤–ã§ç®¡ç†åˆ¶é™æ•°ã¯å›ºå®šå€¤
+	var	currentDepth=0;//åˆæœŸå€¤ï¼
+    //ä»¥ä¸‹ã¯UIã«å‡ºã—ã¦ã‚‚è‰¯ã„
+	var	controllingDepth=2;//ãƒ†ã‚¹ãƒˆæ§˜ã«2æ®µã€€é‹ç”¨ã¯5æ®µãã‚‰ã„ã«ã™ã‚‹ã€€
+	var	maxHandle=30;//ãƒ†ã‚¹ãƒˆç”¨ã«30 é‹ç”¨ã¯300ãã‚‰ã„ ã§
+	var	maxFolders=30;//ãƒ•ã‚©ãƒ«ãƒ€ãƒãƒ³ãƒ‰ãƒ«åˆ¶é™ã€€ä¸€èˆ¬çš„ã«ã¯15ãƒ¬ã‚¤ãƒ¤ç¨‹åº¦ãŒäººé–“ãŒæ„Ÿè¦šã§é—‡æ¢¨ã§ãã‚‹ä¸Šé™
+//nas.axeAFC.importFilesAsLayer = function(targetFolder,option){
+//	if (! targetFolder) {	return false;}
+
+//	nas.GUI.currentFolder=targetFolder;
+//	Folder.current = nas.GUI.prevCurrentFolder;
+
+
+// ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆãŒãªã‘ã‚Œã°ã€ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç™»éŒ²ã™ã‚‹ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’æ–°è¦ä½œæˆã™ã‚‹ã€‚ [23839]
+//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å–ã‚Šè¾¼ã‚€ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’ä½œæˆã™ã‚‹ã€‚å¯¸æ³•ã¯æœ€çµ‚æŒ‡å®šã§å›ºå®šã‹ã€€æœ€å°ãƒ»æœ€å¤§ãƒ»å¹³å‡ã‚’(optionã§)é¸æŠ
+//ã€€lat,min,max.ave ãƒ•ã‚¡ã‚¤ãƒ«ã«æ—¢å­˜ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½¿ç”¨ã™ã‚‹ã‚ˆã†ã«èª¿æ•´ã€€ã‹ã¤ã€€ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã¯äº‹å‰ã«å‡¦ç†ã—ã¦ãŠãã“ã¨ã€€ã‚µã‚¤ã‚ºã®èª¿æ•´ã¯æœ€å¾Œ
+//	var myDocument=app.documents.add(maxWidth+" px",maxHeight+" px",maxResolution+" dpi" ,myDocName);
+
+//	if (!app.project) {	app.newProject();}
+
+//	ãƒ•ã‚¡ã‚¤ãƒ«å‡¦ç†ã€€å¼•æ•°ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ã‚£ãƒ«ã‚¿å‡¦ç†ã—ã¦ã‚¤ãƒ³ãƒãƒ¼ãƒˆãƒªã‚¹ãƒˆã«è¿½åŠ ä½œæˆã™ã‚‹ã€‚ã€€ãƒªã‚¹ãƒˆã¯å¾Œã§ãƒ¦ãƒ¼ã‚¶ãŒç·¨é›†ã§ãã‚‹ã‚ˆã†ã«
+//	å¼•æ•°ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚¤ãƒ³ãƒãƒ¼ãƒˆã™ã‚‹(ãƒˆãƒ©ã‚¤ã§ã‚¨ãƒ©ãƒ¼ãƒˆãƒ©ãƒƒãƒ—ã‚’ã‹ã‘ã¦å‡¦ç†ãŒæ­¢ã¾ã‚‰ãªã„ã‚ˆã†ã«ã—ã¦ã„ã‚‹ã¿ãŸã„ã ã€‚)
+	function processFile (theFile) {
+//ãƒˆãƒ©ã‚¤ã ã‘ã ã¨(é–‹ç™ºä¸­)å±ãªã„ã®ã§ã€ã“ã“ã§åˆ¶é™ã‚’ä¸€åº¦ã‹ã‘ã‚‹
+if(theFile.name.match(nas.importFilter)){importFileList.push(theFile);}else{return;}
+};
+//	ãƒ•ã‚©ãƒ«ãƒ€å‡¦ç†
+	function processFolder(theFolder,myDepth)
+	{
+		if(myDepth > currentDepth){currentDepth= myDepth};//ã‚«ãƒ¬ãƒ³ãƒˆã‚’æ›´æ–°
+		if(currentDepth>controllingDepth){alert("===over depth ;"+currentDepth +"/"+ controllingDepth); return;};//å¼·åˆ¶çš„ã«ä¸­æ–­ã§OKã€€åˆ¶é™è§£é™¤ã¯å¤‰æ•°ã§
+		var files = theFolder.getFiles(); //å¯¾è±¡ãƒ•ã‚©ãƒ«ãƒ€ã®ãƒ•ã‚¡ã‚¤ãƒ«(ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ)ã‚’é…åˆ—ã«ã¨ã‚‹
+		//ãƒ•ã‚¡ã‚¤ãƒ«ã¨ã—ã¦ã‚¤ãƒ³ãƒãƒ¼ãƒˆã¾ãŸã¯å†å¸°å‡¦ç†
+		//otherwise, import the files and recurse
+		
+		for (index in files) {
+//Go through the array and set each element to singleFile, then run the following
+			if (files[index] instanceof File) {
+					processFile (files[index]); //calls the processFile function above
+			}
+			if (files[index] instanceof Folder) {
+				  processFolder (files[index],myDepth+1); // recursion	
+			}
+		}
+	}
+	
+//	processFolder(targetFolder);
+//Recursively examine that folder ãƒ•ã‚©ãƒ«ãƒ€ã‚’å†å¸°ã§æ˜ã‚‹ãƒ¨
+//å–å¾—ã—ãŸãƒªã‚¹ãƒˆã‚’è¡¨ç¤º
+
+//undoãƒ–ãƒ­ãƒƒã‚¯çµ‚äº†
+//return;
+//}
+//ListBoxUI
+var w=nas.GUI.newWindow("dialog","ãƒ•ã‚©ãƒ«ãƒ€ã‚’æ¤œç´¢ã—ã¦èª­ã¿è¾¼ã¿X",6,13);
+
+w.msgBox=nas.GUI.addStaticText(w,"ãƒ•ã‚©ãƒ«ãƒ€ã‚’æ¤œç´¢ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ¬ã‚¤ãƒ¤ã¨ã—ã¦èª­ã¿è¾¼ã¿ã¾ã™ã€‚" ,0,0,6,1)
+
+w.fileTargetName=nas.GUI.addEditText(w,"",0,1,6,1);
+
+w.fileList=nas.GUI.addListBoxO(w,[],null,0,2,4,7,{multiselect:true});
+//ãƒã‚§ãƒƒã‚¯ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+w.mkWS=nas.GUI.addCheckBox(w,"ãƒ•ã‚©ãƒ«ãƒ€ã”ã¨ã«ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã‚’ä½œæˆ",0,9,4,1);
+	w.mkWS.value=true;
+w.rmOpt=nas.GUI.addCheckBox(w,"é‡è¤‡ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¾ãªã„",0,10,4,1);
+	w.rmOpt.value=true;
+w.mxSize=nas.GUI.addCheckBox(w,"ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ€å¤§ã‚µã‚¤ã‚ºã§èª­ã¿è¾¼ã¿",0,11,4,1);
+	w.mxSize.value=true;
+w.rmWhite=nas.GUI.addCheckBox(w,"ç™½éƒ¨åˆ†ã‚’å‰Šé™¤",0,12,4,1);
+	w.rmWhite.value=false;
+
+w.rdRegistor=nas.GUI.addCheckBox(w,"AddFrames",4,7,2,1);
+	w.rdRegistor.value=true;
+
+w.adLvl=nas.GUI.addCheckBox(w,"ãƒ¬ãƒ™ãƒ«è£œæ­£",4,8,2,1);
+	w.adLvl.value=false;
+
+//ãƒœã‚¿ãƒ³ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+w.FdBt=nas.GUI.addButton(w,"addFolder",4,2,2,1);
+w.FlBt=nas.GUI.addButton(w,"addFile",4,3,2,1);
+w.rmBt=nas.GUI.addButton(w,"remove",4,4,2,1);
+w.rstBt=nas.GUI.addButton(w,"clear",4,5,2,1);
+
+
+w.okBt=nas.GUI.addButton(w,"OK" ,4,11,2,1);
+w.cnBt=nas.GUI.addButton(w,"cancel" ,4,12,2,1);
+
+//
+w.fileList.update=function(){
+	this.removeAll();
+	for(var ix=0;ix<importFileList.length;ix++){
+		this.add("item","["+decodeURI(importFileList[ix].parent.name)+"] "+decodeURI(importFileList[ix].name));
+	}
+}
+
+
+//ãƒœã‚¿ãƒ³ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+w.FdBt.onClick=function(){
+//var myCurrentFolder=Folder.current;
+ var myFolder=Folder.current.selectDlg ("èª­ã¿è¾¼ã‚€ãƒ•ã‚©ãƒ«ãƒ€ã‚’æŒ‡å®šã—ã¦ãã ã•ã„");
+ if(myFolder){
+	Folder.current=myFolder;
+	//ç¬¬ä¸€éšå±¤ã®ãƒ•ã‚©ãƒ«ãƒ€æ•°ãŒå¤šã™ãã‚‹å ´åˆè­¦å‘Šã™ã‚‹
+	var files = myFolder.getFiles();
+	var currentFolders=0;
+	//æŒ‡å®šãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ãƒ•ã‚©ãƒ«ãƒ€æ•°ã‚’æ•°ãˆã‚‹
+	for (index in files){if (files[index] instanceof Folder) {currentFolders++;}};
+		var checkStartFolder=true;
+if(!(myFolder.parent instanceof Folder)||(currentFolders>=maxFolders)){
+        checkStartFolder=confirm (
+            "ãƒ«ãƒ¼ãƒˆãŒæŒ‡å®šã•ã‚ŒãŸã‹ã€èª­ã¿è¾¼ã¿ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ãƒ•ã‚©ãƒ«ãƒ€æ•°ãŒè¦å®šå€¤ã‚’è¶…ãˆã¦ã„ã¾ã™"+nas.GUI.LineFeed
+            +"ãƒ•ã‚©ãƒ«ãƒ€æ•°:"+currentFolders+nas.GUI.LineFeed+"ãƒ•ã‚©ãƒ«ãƒ€:"+(myFolder.parent instanceof Folder)+":"+myFolder.fullName+nas.GUI.LineFeed
+            +"å‡¦ç†ã‚’ç¶šè¡Œã—ã¾ã™ã‹ï¼Ÿ", "no", "!! æ³¨æ„ !!"
+        );
+    }
+if(importFileList.length>=maxHandle){
+        checkFileCount=confirm (
+            "èª­è¾¼ãƒªã‚¹ãƒˆç·æ•°ãŒè¦å®šå€¤ã®"+maxHandle+"ã‚’è¶…ãˆã¦ã„ã¾ã™"+nas.GUI.LineFeed
+            +"mh:"+importFileList.length+"/"+maxHandle+nas.GUI.LineFeed
+            +"å‡¦ç†ã‚’ç¶šè¡Œã—ã¾ã™ã‹ï¼Ÿ", "no", "!! æ³¨æ„ !!"
+        );
+}
+
+    if(checkStartFolder){
+      currentDepth=0;//è¦ªå‘¼ã³å‡ºã—ã”ã¨ã«ã‚«ãƒ¬ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
+	 processFolder(myFolder,1);w.fileList.update();
+	 this.parent.fileTargetName.text=decodeURI(myFolder.name);
+	}
+ };
+// alert(importFileList.length);
+}
+w.FlBt.onClick=function(){
+ var myFiles=File.openDialog("èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã—ã¦ãã ã•ã„","allFiles:*.*" ,true);
+//CS2ã®openDialogã«ãƒãƒ«ãƒã‚»ãƒ¬ã‚¯ãƒˆãŒãªã„ã®ã§é…åˆ—ã§ãªãFileãŒå¸°ã£ã¦ãã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§æ³¨æ„
+ if(myFiles){
+	if(!(myFiles instanceof Array)){myFiles=[myFiles]}
+	for(var ix=0;ix<myFiles.length;ix++){
+		processFile(myFiles[ix]);
+	}
+  w.fileList.update();
+ };
+// alert(importFileList.length);		
+	}
+w.rmBt.onClick=function(){
+	for(var ix=importFileList.length;ix>0;ix--){
+		if(this.parent.fileList.items[ix-1].selected){
+//			alert(ix-1)
+			importFileList.splice(ix-1,1);
+			this.parent.fileList.remove(ix-1);
+		}
+	}
+}
+w.rstBt.onClick=function(){
+	importFileList=new Array();
+	this.parent.fileList.removeAll();
+}
+
+
+w.okBt.onClick=function(){
+	if(importFileList.length<1){return;}
+	if(this.parent.fileTargetName.text.length<1){this.parent.fileTargetName.text=decodeURI(importFileList[0].parent.name)};
+	if(w.rmOpt.value){var importedList=new Array();};
+	var firstDoc=app.open(importFileList[0]);//æœ€åˆã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
+		
+	var maxWidth=firstDoc.width.as("px" );
+	var maxHeight=firstDoc.height.as("px" );
+	var maxResolution=firstDoc.resolution;
+	var myDocument=app.documents.add(
+		firstDoc.width,firstDoc.height,firstDoc.resolution,this.parent.fileTargetName.text,
+		NewDocumentMode.RGB,DocumentFill.TRANSPARENT,
+		1,BitsPerChannelType.EIGHT
+	);//ç¬¬ä¸€ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã®ã‚³ãƒ”ãƒ¼ã§ç©ºãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆ
+	var voidLayer=myDocument.layers[0];//æœ€å¾Œã«æ¨ã¦ã‚‹ç©ºãƒ¬ã‚¤ãƒ¤
+	//å†…å®¹ã‚’è¤‡è£½
+	
+for (ix=0;ix<importFileList.length;ix++){
+if(w.rmOpt.value){
+	var ex=false;
+	for(var fx=0;fx<importedList.length;fx++){if(importedList[fx].fsName==importFileList[ix].fsName){ex=true;break;}};
+	if(ex){continue};
+}
+	 var sourceDoc=(ix)? app.open(importFileList[ix]):firstDoc;
+ if(sourceDoc){
+// ãƒ‡ãƒ¼ã‚¿ã‚’æ§ãˆã‚‹
+		var currentWidth=sourceDoc.width.as("px");
+		var currentHeight=sourceDoc.height.as("px");
+		var currentResolution=sourceDoc.Reslution;
+		maxWidth=(maxWidth>currentWidth)?maxWidth:currentWidth;
+		maxHeight=(maxHeight>currentHeight)?maxHeight:currentHeight;
+		maxResolution=(maxResolution>currentResolution)?maxResolution:currentResolution;
+// ã‚½ãƒ¼ã‚¹ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«
+	app.activeDocument=sourceDoc;
+	var myLayerName=app.activeDocument.name;//
+// FAXç³»ã‚¹ã‚­ãƒ£ãƒŠã®ãƒ‡ãƒ¼ã‚¿ã¯0.5å›ºå®šã®ã“ã¨ãŒå¤šã„(FAXç³»TIFF)
+	if(app.activeDocument.pixelAspectRatio!=1)
+	{
+		app.activeDocument.pixelAspectRatio=1;
+	}
+// ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒ2å€¤ã ã£ãŸã‚‰ã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ã«å¤‰æ›(FAXç³»TIFF)
+	if(app.activeDocument.mode==DocumentMode.BITMAP)
+	{
+		app.activeDocument.changeMode(ChangeMode.GRAYSCALE);
+	}
+
+//	if(app.activeDocument.layers.length>1).activeDocument.flatten();//è¤‡æ•°ãƒ¬ã‚¤ãƒ¤ã‹ã‚‚ã—ã‚Œãªã„ã®ã§ã„ã£ãŸã‚“çµ±åˆ
+	var targetDoc=app.activeDocument;
+	var tempDoc=targetDoc.duplicate(tempDoc,true);//è¤‡è£½ã‚’ä½¿ã£ã¦ãƒãƒ¼ã‚¸
+//	app.activeDocument.mergeVisibleLayers();//ãªãœã‹æ­£å¸¸ã«å‹•ä½œã—ãªã„ã®ã§ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆ
+	app.activeDocument.artLayers[0].copy();//ãƒ¬ã‚¤ãƒ¤1ã‚’ã‚³ãƒ”ãƒ¼
+
+ var orgBounds=app.activeDocument.artLayers[0].bounds;
+ var TL=[orgBounds[0].as("px"),orgBounds[1].as("px" )];
+ var BR=[orgBounds[2].as("px"),orgBounds[3].as("px" )];
+ var OC=[targetDoc.width.as("px")/2,targetDoc.height.as("px")/2];
+ var DC=[myDocument.width.as("px")/2,myDocument.height.as("px")/2];
+ var newTL=add(DC,sub(TL,OC));
+ var newBR=add(DC,sub(BR,OC));
+var mySelectRegion=[
+	newTL,
+	[newBR[0],newTL[1]],
+	newBR,
+	[newTL[0],newBR[1]]
+];
+/*
+var mySelectRegion=[
+	[orgBounds[0].as("px"),orgBounds[1].as("px")],
+	[orgBounds[2].as("px"),orgBounds[1].as("px")],
+	[orgBounds[2].as("px"),orgBounds[3].as("px")],
+	[orgBounds[0].as("px"),orgBounds[3].as("px")]
+];
+*/
+		if(myLayerName.match(/^(.*)\..+?$/i))
+		{
+			myLayerName=RegExp.$1;//æ‹¡å¼µå­ã‚’æ‰•ã†
+	/* ã“ã‚Œã¯æ­£ç¢ºã«ã¯ã€Œæœ€åˆã®ãƒ‰ãƒƒãƒˆã‚ˆã‚Šã‚‚å‰ã®æ–‡å­—åˆ—ã®å–å¾—ã€ãªã®ã§æ³¨æ„ */
+		}
+//ç¢ºèª
+//		myLayerName=prompt("ãƒ¬ã‚¤ãƒ¤åã‚’ç¢ºèª",myLayerName);
+
+//	app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
+	tempDoc.close(SaveOptions.DONOTSAVECHANGES);
+	targetDoc.close(SaveOptions.DONOTSAVECHANGES);
+	if(w.rmOpt.value){importedList.push(importFileList[ix]);}
+	app.activeDocument=myDocument;//è¤‡å†™å…ˆã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«
+	app.activeDocument.selection.select(mySelectRegion,SelectionType.REPLACE);//ãƒªã‚¸ãƒ§ãƒ³ã‚’é¸æŠã€€ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆå˜ä½ã§å·¦ç«¯ãŒãƒãƒƒãƒ
+//	app.activeDocument.selection.selectAll();//ãƒªã‚¸ãƒ§ãƒ³ã‚’é¸æŠã€€ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆå…¨ä½“
+	app.activeDocument.paste(true);//ãƒªã‚¸ãƒ§ãƒ³ã«ãƒšãƒ¼ã‚¹ãƒˆ
+// =======================================================ãƒ¬ã‚¤ãƒ¤ãƒã‚¹ã‚¯å‰Šé™¤
+var id42 = charIDToTypeID( "Dlt " );
+    var desc9 = new ActionDescriptor();
+    var id43 = charIDToTypeID( "null" );
+        var ref6 = new ActionReference();
+        var id44 = charIDToTypeID( "Chnl" );
+        var id45 = charIDToTypeID( "Chnl" );
+        var id46 = charIDToTypeID( "Msk " );
+        ref6.putEnumerated( id44, id45, id46 );
+    desc9.putReference( id43, ref6 );
+executeAction( id42, desc9, DialogModes.NO );
+//ãƒ¬ã‚¤ãƒ¤ãƒã‚¹ã‚¯ãŒã§ãã‚‹ã®ã§ãã‚Œã‚’å‰Šé™¤
+// =======================================================ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚¹ã‚¤ãƒƒãƒãŒã‚ã‚Œã°ç™½æŠœã
+if(w.rmWhite.value){
+/*
+	ã‚¢ãƒ‹ãƒ¡ã‚»ãƒ«ç”¨ã€€Whiteãƒ‘ãƒ³ãƒã‚¢ã‚¦ãƒˆ
+	ãƒ¬ã‚¿ã‚¹ä»•æ§˜ã§ã‚¢ãƒ«ãƒ•ã‚¡ãƒãƒ£ãƒ³ãƒãƒ«ã®ãªã„ç”»åƒãƒ‡ãƒ¼ã‚¿ã‹ã‚‰
+	ç™½([r,g,b]==[1.,1.,1.])éƒ¨åˆ†ã‚’é¸æŠã—ã¦å‰Šé™¤ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
+	è‰²åŸŸé¸æŠã§L==100.ã€€ã®éƒ¨åˆ†ã‚’é¸æŠã—ã¦ã€€å‰Šé™¤å¾Œã«é¸æŠé ˜åŸŸã‚’è§£é™¤ã—ã¦ã„ã‚‹ã€‚
+	ã‚µã‚¹ãƒšãƒ³ãƒ‰ãƒ’ã‚¹ãƒˆãƒªãŒå¯èƒ½ãªå ´åˆã¯è¡Œã†
+*/
+
+// =======================================================select color White
+var descSelect = new ActionDescriptor();
+var idFzns = charIDToTypeID( "Fzns" );
+descSelect.putInteger( idFzns, 0 );
+var idMnm = charIDToTypeID( "Mnm " );
+var desc9 = new ActionDescriptor();
+var idLmnc = charIDToTypeID( "Lmnc" );
+desc9.putDouble( idLmnc, 100.000000 );
+var idA = charIDToTypeID( "A   " );
+desc9.putDouble( idA, 0.000000 );
+var idB = charIDToTypeID( "B   " );
+desc9.putDouble( idB, 0.000000 );
+var idLbCl = charIDToTypeID( "LbCl" );
+descSelect.putObject( idMnm, idLbCl, desc9 );
+var idMxm = charIDToTypeID( "Mxm " );
+var desc10 = new ActionDescriptor();
+var idLmnc = charIDToTypeID( "Lmnc" );
+desc10.putDouble( idLmnc, 100.000000 );
+var idA = charIDToTypeID( "A   " );
+desc10.putDouble( idA, 0.000000 );
+var idB = charIDToTypeID( "B   " );
+desc10.putDouble( idB, 0.000000 );
+var idLbCl = charIDToTypeID( "LbCl" );
+descSelect.putObject( idMxm, idLbCl, desc10 );
+var idcolorModel = stringIDToTypeID( "colorModel" );
+descSelect.putInteger( idcolorModel, 0 );
+executeAction( charIDToTypeID( "ClrR" ), descSelect, DialogModes.NO );
+//==============ã€€selection clear and deselect
+//ã‚±ãƒ¼ã‚¹ã«ã‚ˆã£ã¦ã¯é¸æŠç¯„å›²ãŒãªã„å ´åˆãŒã‚ã‚‹ã®ã§ã€ãã®å ´åˆã¯ä½•ã‚‚ã—ãªã„
+var mySelectionBounds=false;
+try{mySelectionBounds=app.activeDocument.selection.bounds;}catch(err){};
+if(mySelectionBounds){
+	app.activeDocument.selection.clear();
+	app.activeDocument.selection.deselect();
+}
+}
+
+	app.activeDocument.activeLayer.name=myLayerName;//ãƒ¬ã‚¤ãƒ¤ã«ãƒ•ã‚¡ã‚¤ãƒ«åã§åå‰ã‚’è¨­å®š
+	if(w.mkWS.value){
+		var currentLayer=app.activeDocument.activeLayer;
+		var myFolderName=decodeURI(importFileList[ix].parent.name);
+		var destSet=false;
+		try{	destSet=app.activeDocument.layerSets.getByName(myFolderName);
+		}catch(err){
+			destSet=app.activeDocument.layerSets.add();
+			destSet.name=myFolderName;
+		}
+		currentLayer.move(destSet,ElementPlacement.PLACEATBEGINNING);//ä¸Šç©ã¿
+	}
+ }
+}
+//ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãŒã‚ã‚Œã°ã€ãƒ¬ã‚¸ã‚¹ã‚¿ã®èª­ã¿è¾¼ã¿ã‚’è¡Œã†
+if(w.rdRegistor.value){
+//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆã«ãƒ¬ã‚¸ã‚¹ã‚¿ç”»åƒã¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’èª­ã¿è¾¼ã¿(ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆãŒãªã„å ´åˆã¯ä½œæˆ)
+
+var myTargetSet=app.activeDocument;
+
+try{myTargetSet=app.activeDocument.layerSets["Frames"];}catch(err){
+  //ãƒ¬ã‚¸ã‚¹ã‚¿æ ¼ç´ç”¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆã‚’ä½œã‚‹
+  myTargetSet=app.activeDocument.layerSets.add();myTargetSet.name="Frames";
+};
+var currentUnitBase=app.preferences.rulerUnits;//æ§ãˆã‚‹
+app.preferences.rulerUnits=Units.MM;
+
+//ãƒ¬ã‚¸ã‚¹ã‚¿
+  var myPegFile=new File(nasLibFolderPath+"resource/Pegs/"+nas.registerMarks.selectedRecord[1]);
+  var myPegLayer=nas.axeAFC.placeEps(myPegFile);//ã“ã®é–¢æ•°ãŒæ›²è€…
+  myPegLayer.name="peg";//ä¸Šè¨˜ã®é–¢æ•°ã®å®Ÿè¡Œå¾Œã«æœ€åˆã«DOMæ“ä½œã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯å–ã‚Šæ¶ˆã—ã‚’å—ã‘ã¦ã„ã‚‹
+/*ãƒªãƒãƒ¼ãƒ ã‚’ã—ãªã‹ã£ãŸå ´åˆã¯ãƒ¬ã‚¤ãƒ¤ã®èª­ã¿è¾¼ã¿è‡ªä½“ãŒUNDOã•ã‚Œã¦èª­ã¿è¾¼ã‚“ã ã¯ãšã®ãƒ¬ã‚¤ãƒ¤ãŒå–ªå¤±ã—ã¦ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã™ã‚‹*/
+  myPegLayer.translate("0 mm",-1*myPegLayer.bounds[1]);//ä¸Šè¾ºã¸ã¯ã£ã¤ã‘
+//100ãƒ•ãƒ¬ãƒ¼ãƒ æ ã‚’èª­ã¿è¾¼ã¿
+  var myFrameFile=new File(nasLibFolderPath+"resource/Frames/"
+	+nas.inputMedias.selectedRecord[1]+"mm"
+	+nas.inputMedias.selectedRecord[2].replace(/\//,"x")
+	+".eps"
+  );
+  var  myFrameLayer=nas.axeAFC.placeEps(myFrameFile);//ãƒã‚¤ãƒ³ãƒˆ
+//ãƒ•ãƒ¬ãƒ¼ãƒ é…ç½®ã€€ä»Šæ—¥ã¯ã‚»ãƒ³ã‚¿ãƒªãƒ³ã‚°ã®ã¿ã§å·¦å³ã¯ãƒ‘ã‚¹ 20110820
+  var myOffset=(((myFrameLayer.bounds[3]-myFrameLayer.bounds[1])/2)+myFrameLayer.bounds[1]).as("mm")-nas.inputMedias.selectedRecord[7];
+  myFrameLayer.name="frame";//ã“ã®æ“ä½œãŒå–ã‚Šæ¶ˆã—å¯¾è±¡ãƒ€ãƒŸãƒ¼
+  myFrameLayer.translate(new UnitValue("0 mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm")-myOffset)+" mm"));//ã‚¿ãƒƒãƒ—ã‹ã‚‰ã®è·é›¢ã‚’
+  //ãƒ•ãƒ¬ãƒ¼ãƒ æ ¼ç´ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆãŒã‚ã‚‹å ´åˆã®ã¿ãã¡ã‚‰ã¸ç§»å‹•
+if(myTargetSet){
+    myFrameLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);
+    myPegLayer.move(myTargetSet,ElementPlacement.PLACEATBEGINNING);
+}
+  if(!bootFlag){
+    myPegLayer.name="peg";
+    myFrameLayer.name="frame";
+  }
+//ãƒ«ãƒ¼ãƒ©ãƒ¼ãƒ¦ãƒ‹ãƒƒãƒˆå¾©å¸°
+app.preferences.rulerUnits=currentUnitBase;//å¾©å¸°
+}
+//èª¿æ•´ãƒ¬ã‚¤ãƒ¤ã‚’ä½œæˆ
+if(w.adLvl.value){
+// ======================================================= èª¿æ•´ãƒ¬ã‚¤ãƒ¤ä½œæˆ
+var idMk = charIDToTypeID( "Mk  " );
+    var desc1 = new ActionDescriptor();
+    var idnull = charIDToTypeID( "null" );
+        var ref1 = new ActionReference();
+        var idAdjL = charIDToTypeID( "AdjL" );
+        ref1.putClass( idAdjL );
+    desc1.putReference( idnull, ref1 );
+    var idUsng = charIDToTypeID( "Usng" );
+        var desc2 = new ActionDescriptor();
+        var idNm = charIDToTypeID( "Nm  " );
+        desc2.putString( idNm, "ãƒ¬ãƒ™ãƒ«è£œæ­£" );
+        var idType = charIDToTypeID( "Type" );
+            var desc3 = new ActionDescriptor();
+            var idpresetKind = stringIDToTypeID( "presetKind" );
+            var idpresetKindType = stringIDToTypeID( "presetKindType" );
+            var idpresetKindDefault = stringIDToTypeID( "presetKindDefault" );
+            desc3.putEnumerated( idpresetKind, idpresetKindType, idpresetKindDefault );
+        var idLvls = charIDToTypeID( "Lvls" );
+        desc2.putObject( idType, idLvls, desc3 );
+    var idAdjL = charIDToTypeID( "AdjL" );
+    desc1.putObject( idUsng, idAdjL, desc2 );
+executeAction( idMk, desc1, DialogModes.NO );
+
+// ======================================================= ãƒãƒ£ãƒ³ãƒãƒ«å‡ºåŠ›ã‚’137-255
+//(ãƒ•ãƒ«ãƒ¬ãƒ³ã‚¸ç”»åƒã‚’ãƒˆãƒ¬ã‚¹ç”¨ã®ãƒ€ã‚¤ãƒŠãƒŸãƒƒã‚¯ãƒ¬ãƒ³ã‚¸ã«)
+var idsetd = charIDToTypeID( "setd" );
+    var desc4 = new ActionDescriptor();
+    var idnull = charIDToTypeID( "null" );
+        var ref2 = new ActionReference();
+        var idAdjL = charIDToTypeID( "AdjL" );
+        var idOrdn = charIDToTypeID( "Ordn" );
+        var idTrgt = charIDToTypeID( "Trgt" );
+        ref2.putEnumerated( idAdjL, idOrdn, idTrgt );
+    desc4.putReference( idnull, ref2 );
+    var idT = charIDToTypeID( "T   " );
+        var desc5 = new ActionDescriptor();
+        var idpresetKind = stringIDToTypeID( "presetKind" );
+        var idpresetKindType = stringIDToTypeID( "presetKindType" );
+        var idpresetKindCustom = stringIDToTypeID( "presetKindCustom" );
+        desc5.putEnumerated( idpresetKind, idpresetKindType, idpresetKindCustom );
+        var idAdjs = charIDToTypeID( "Adjs" );
+            var list1 = new ActionList();
+                var desc6 = new ActionDescriptor();
+                var idChnl = charIDToTypeID( "Chnl" );
+                    var ref3 = new ActionReference();
+                    var idChnl = charIDToTypeID( "Chnl" );
+                    var idChnl = charIDToTypeID( "Chnl" );
+                    var idCmps = charIDToTypeID( "Cmps" );
+                    ref3.putEnumerated( idChnl, idChnl, idCmps );
+                desc6.putReference( idChnl, ref3 );
+                var idOtpt = charIDToTypeID( "Otpt" );
+                    var list2 = new ActionList();
+                    list2.putInteger( 137 );
+                    list2.putInteger( 255 );
+                desc6.putList( idOtpt, list2 );
+            var idLvlA = charIDToTypeID( "LvlA" );
+            list1.putObject( idLvlA, desc6 );
+        desc5.putList( idAdjs, list1 );
+    var idLvls = charIDToTypeID( "Lvls" );
+    desc4.putObject( idT, idLvls, desc5 );
+executeAction( idsetd, desc4, DialogModes.NO );
+}
+//æœ€åˆã®ãƒ¬ã‚¤ãƒ¤ã¾ãŸã¯èƒŒæ™¯ãƒ¬ã‚¤ãƒ¤ã‚’æ¨ã¦ã‚‹
+//	voidLayer.remove();ç©ºã®ç¬¬ä¸€ãƒ¬ã‚¤ãƒ¤ã«å¯¾ã—ã¦ãƒšãƒ¼ã‚¹ãƒˆã™ã‚‹ã¨ãƒ¬ã‚¤ãƒ¤è‡ªä½“ãŒç½®æ›ã•ã‚Œã‚‹ã®ã§ã“ã‚Œä¸è¦
+//æœ€å¤§ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãŒä»˜ã„ã¦ã„ãŸã‚‰ã€æœ€å¾Œã«æœ€å¤§ã‚µã‚¤ã‚ºã«æ‹¡å¤§ã™ã‚‹
+if(w.mxSize){
+	app.activeDocument.resizeCanvas(
+		new UnitValue(maxWidth+" px"),
+		new UnitValue(maxHeight+" px"),
+		AnchorPosition.TOPCENTER
+	)
+	app.activeDocument.resolution=maxResolution;//ï¼œã“ã‚Œã¯ã‚ã¾ã‚Šæ„å‘³ãªã„ã‘ã©å°åˆ·ã‚µã‚¤ã‚ºãŒæœ€å°ã«ãªã‚‹
+}
+if(false){
+//	ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒ144dpiä»¥å¤–ã ã£ãŸã‚‰144dpiã«ãƒªã‚µãƒ³ãƒ—ãƒ«
+	if(app.activeDocument.resolution.toString()!="144 dpi")
+	{
+		app.activeDocument.resizeImage(this.width,this.height,144);
+	}
+}
+	
+	this.parent.close();
+}
+//w.cnBt.onClick=function(){}
+
+w.show();

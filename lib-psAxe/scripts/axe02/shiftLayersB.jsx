@@ -1,20 +1,20 @@
-//shiftLyersB.jsx ƒŒƒCƒ„ƒZƒbƒg‚Ìƒƒ“ƒo[‚ğ‰º•ûŒüƒVƒtƒg‚·‚é
-	//‘I‘ğƒŒƒCƒ„æ“¾
+//shiftLyersB.jsx ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã®ãƒ¡ãƒ³ãƒãƒ¼ã‚’ä¸‹æ–¹å‘ã‚·ãƒ•ãƒˆã™ã‚‹
+	//é¸æŠãƒ¬ã‚¤ãƒ¤å–å¾—
 if(app.documents.length){
-var myUndo="‰ºƒVƒtƒg";varmyAction="";
+var myUndo="ä¸‹ã‚·ãƒ•ãƒˆ";varmyAction="";
 var myDocLayers=(
  (app.activeDocument.activeLayer.parent.typename=="Document") &&
  (app.activeDocument.activeLayer.typename=="LayerSet")
  )? app.activeDocument.activeLayer:app.activeDocument.activeLayer.parent;
  
-var xLinks=(myDocLayers.xLinks)? myDocLayers.xLinks:[];//ƒvƒƒpƒeƒB‚ª‚È‚¢ê‡‚Í‰Šú’l‚Å
+var xLinks=(myDocLayers.xLinks)? myDocLayers.xLinks:[];//ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒãªã„å ´åˆã¯åˆæœŸå€¤ã§
  var subMotionLayers=new Array();
  if((myDocLayers.typename!="Document")&&(xLinks.length)){
 	for(var ix=0;ix<xLinks.length;ix++){if(app.activeDocument.layers[xLinks[ix]]===myDocLayers){continue}
 		subMotionLayers.push(app.activeDocument.layers[xLinks[ix]])
 	}
 }
-//‘I‘ğƒŒƒCƒ„‚ª‘æˆêŠK‘w‚Å‚©‚ÂƒŒƒCƒ„ƒZƒbƒg‚¾‚Á‚½ê‡‚ÍƒtƒH[ƒ‹ƒ_ƒEƒ“‚µ‚Ä‘€ì‘ÎÛ‚ğˆêŠK‘w‰º‚°‚éi‚±‚Ì‘€ìƒ~ƒX‚Í—Ç‚­‚·‚é‚Ì‚Åƒgƒ‰ƒbƒv‚µ‚Ä‚¨‚­j@ƒtƒH[ƒ‹ƒ_ƒEƒ“‚ª“ü‚Á‚ÄƒŒƒCƒ„”0‚ÌƒgƒŒ[ƒ‰[‚ğ‘€ì‚·‚é‰Â”\«‚ªo‚½‚Ì‚Å‚³‚ç‚Éƒgƒ‰ƒbƒv
+//é¸æŠãƒ¬ã‚¤ãƒ¤ãŒç¬¬ä¸€éšå±¤ã§ã‹ã¤ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã ã£ãŸå ´åˆã¯ãƒ•ã‚©ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³ã—ã¦æ“ä½œå¯¾è±¡ã‚’ä¸€éšå±¤ä¸‹ã’ã‚‹ï¼ˆã“ã®æ“ä½œãƒŸã‚¹ã¯è‰¯ãã™ã‚‹ã®ã§ãƒˆãƒ©ãƒƒãƒ—ã—ã¦ãŠãï¼‰ã€€ãƒ•ã‚©ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³ãŒå…¥ã£ã¦ãƒ¬ã‚¤ãƒ¤æ•°0ã®ãƒˆãƒ¬ãƒ¼ãƒ©ãƒ¼ã‚’æ“ä½œã™ã‚‹å¯èƒ½æ€§ãŒå‡ºãŸã®ã§ã•ã‚‰ã«ãƒˆãƒ©ãƒƒãƒ—
 myAction="if(myDocLayers.layers.length>1){var mxId=myDocLayers.layers.length-1; app.activeDocument.activeLayer=myDocLayers.layers[mxId];myDocLayers.layers[mxId].move(myDocLayers.layers[0],ElementPlacement.PLACEBEFORE);if(subMotionLayers.length){for(var lx=0;lx<subMotionLayers.length;lx++){if(subMotionLayers[lx].layers.length){subMotionLayers[lx].layers[subMotionLayers[lx].layers.length-1].move(subMotionLayers[lx].layers[0],ElementPlacement.PLACEBEFORE);}}}}";
 if(app.activeDocument.suspendHistory){app.activeDocument.suspendHistory(myUndo,myAction)}else{eval(myAction)}
 }

@@ -3,7 +3,7 @@
  optional Frame & registermark
 */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
+// #target photoshop
 
 // in case we double clicked the file
 	app.bringToFront();
@@ -14,47 +14,47 @@ if(app.documents.length==0){
 //var strtRulerUnits = app.preferences.rulerUnits;
 //app.preferences.rulerUnits = Units.INCHES;
 
-//Photoshop—pƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
+//Photoshopç”¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
 
 if($.fileName){
-//	CS3ˆÈ~‚Í@$.fileNameƒIƒuƒWƒFƒNƒg‚ª‚ ‚é‚Ì‚ÅƒƒP[ƒVƒ‡ƒ“ƒtƒŠ[‚É‚Å‚«‚é
+//	CS3ä»¥é™ã¯ã€€$.fileNameã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚‹ã®ã§ãƒ­ã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒªãƒ¼ã«ã§ãã‚‹
 	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
 }else{
-//	$.fileName ƒIƒuƒWƒFƒNƒg‚ª‚È‚¢ê‡‚ÍƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğ‚«‚ß‚¤‚¿‚·‚é
+//	$.fileName ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãªã„å ´åˆã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’ãã‚ã†ã¡ã™ã‚‹
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
 }
-var includeLibs=[nasLibFolderPath+"config.js"];//“Ç‚İ‚İƒ‰ƒCƒuƒ‰ƒŠ‚ğŠi”[‚·‚é”z—ñ
+var includeLibs=[nasLibFolderPath+"config.js"];//èª­ã¿è¾¼ã¿ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’æ ¼ç´ã™ã‚‹é…åˆ—
 
 if(! app.nas){
-//iclude nasƒ‰ƒCƒuƒ‰ƒŠ‚É•K—v‚ÈŠî‘bƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚é
+//iclude nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«å¿…è¦ãªåŸºç¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã™ã‚‹
 	var nas = new Object();
 		nas.Version=new Object();
 		nas.isAdobe=true;
 		nas.axe=new Object();
 		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	ƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒ[ƒh@CS2-5—p
-//==================== ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“o˜^‚µ‚Ä–‘O‚É“Ç‚İ‚Ş
+//	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ­ãƒ¼ãƒ‰ã€€CS2-5ç”¨
+//==================== ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ç™»éŒ²ã—ã¦äº‹å‰ã«èª­ã¿è¾¼ã‚€
 /*
-	includeLibs”z—ñ‚É“o˜^‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğ‡Ÿ“Ç‚İ‚ŞB
-	“o˜^‚ÍƒpƒX‚Ås‚¤B(FileƒIƒuƒWƒFƒNƒg‚Å‚Í‚È‚¢)
-	$.evalFile ƒƒ\ƒbƒh‚ª‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğg—p‚·‚é‚ªCS2ˆÈ‘O‚ÌŠÂ‹«‚Å‚Íglobal ‚Ì evalŠÖ”‚Å“Ç‚İ‚Ş
+	includeLibsé…åˆ—ã«ç™»éŒ²ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’é †æ¬¡èª­ã¿è¾¼ã‚€ã€‚
+	ç™»éŒ²ã¯ãƒ‘ã‚¹ã§è¡Œã†ã€‚(Fileã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯ãªã„)
+	$.evalFile ãƒ¡ã‚½ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯ãã‚Œã‚’ä½¿ç”¨ã™ã‚‹ãŒCS2ä»¥å‰ã®ç’°å¢ƒã§ã¯global ã® evalé–¢æ•°ã§èª­ã¿è¾¼ã‚€
 
-@ƒ‰ƒCƒuƒ‰ƒŠƒŠƒXƒgiˆÈ‰º‚Í“Ç‚İ‚İ‡ˆÊ‚Éˆê’è‚ÌˆË‘¶«‚ª‚ ‚é‚Ì‚Å’ˆÓj
-@config.js		ˆê”Êİ’èƒtƒ@ƒCƒ‹iƒfƒtƒHƒ‹ƒg’l‘j‚±‚Ìƒ‹[ƒ`ƒ“ŠO‚Å‚ÍQÆ•s”\
-  nas_common.js		AEEHTML‹¤—pˆê”ÊƒAƒjƒƒ‰ƒCƒuƒ‰ƒŠ
-  nas_GUIlib.js		AdobeŠÂ‹«‹¤—pGUIƒ‰ƒCƒuƒ‰ƒŠ
-  nas_psAxeLib.js	PS—pŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  nas_prefarenceLib.js	AdobeŠÂ‹«‹¤—pƒf[ƒ^•Û‘¶ƒ‰ƒCƒuƒ‰ƒŠ
+ï¼ï¼ï¼ã€€ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒªã‚¹ãƒˆï¼ˆä»¥ä¸‹ã¯èª­ã¿è¾¼ã¿é †ä½ã«ä¸€å®šã®ä¾å­˜æ€§ãŒã‚ã‚‹ã®ã§æ³¨æ„ï¼‰
+ã€€config.js		ä¸€èˆ¬è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤æ›¸è¾¼ï¼‰ã“ã®ãƒ«ãƒ¼ãƒãƒ³å¤–ã§ã¯å‚ç…§ä¸èƒ½
+  nas_common.js		AEãƒ»HTMLå…±ç”¨ä¸€èˆ¬ã‚¢ãƒ‹ãƒ¡ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_GUIlib.js		Adobeç’°å¢ƒå…±ç”¨GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_psAxeLib.js	PSç”¨ç’°å¢ƒãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  nas_prefarenceLib.js	Adobeç’°å¢ƒå…±ç”¨ãƒ‡ãƒ¼ã‚¿ä¿å­˜ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 
-  nasXpsStore.js	PS‚Ù‚©Adobe”Ä—pXpsStoreƒ‰ƒCƒuƒ‰ƒŠ(AE—p‚Í“Áê)
-  xpsio.js		”Ä—pXpsƒ‰ƒCƒuƒ‰ƒŠ
-  mapio.js		”Ä—pMapƒ‰ƒCƒuƒ‰ƒŠ
-  lib_STS.js		AdobeŠÂ‹«‹¤—pSTSƒ‰ƒCƒuƒ‰ƒŠ
-  dataio.js		XpsƒIƒuƒWƒFƒNƒg“üo—Íƒ‰ƒCƒuƒ‰ƒŠiƒRƒ“ƒo[ƒ^•”j
-  fakeAE.js		’†ŠÔŠÂ‹«ƒ‰ƒCƒuƒ‰ƒŠ
-  io.js			‚è‚Ü‚Ò‚ñ“üo—Íƒ‰ƒCƒuƒ‰ƒŠ
-  psAnimationFrameClass.js	PS—pƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‘€ìƒ‰ƒCƒuƒ‰ƒŠ
-  xpsQueue.js		PS—pXps-FrameAnimation˜AŒgƒ‰ƒCƒuƒ‰ƒŠ
+  nasXpsStore.js	PSã»ã‹Adobeæ±ç”¨XpsStoreãƒ©ã‚¤ãƒ–ãƒ©ãƒª(AEç”¨ã¯ç‰¹æ®Š)
+  xpsio.js		æ±ç”¨Xpsãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  mapio.js		æ±ç”¨Mapãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  lib_STS.js		Adobeç’°å¢ƒå…±ç”¨STSãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  dataio.js		Xpsã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå…¥å‡ºåŠ›ãƒ©ã‚¤ãƒ–ãƒ©ãƒªï¼ˆã‚³ãƒ³ãƒãƒ¼ã‚¿éƒ¨ï¼‰
+  fakeAE.js		ä¸­é–“ç’°å¢ƒãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  io.js			ã‚Šã¾ã´ã‚“å…¥å‡ºåŠ›ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  psAnimationFrameClass.js	PSç”¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ“ä½œãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+  xpsQueue.js		PSç”¨Xps-FrameAnimationé€£æºãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 */
 includeLibs=[
 	nasLibFolderPath+ "config.js",
@@ -63,7 +63,7 @@ includeLibs=[
 	nasLibFolderPath+ "nas_psAxeLib.js",
 	nasLibFolderPath+ "nas_prefarenceLib.js"
 ];
-//=====================================@Application Object‚ÉQÆ‚ğ‚Â‚¯‚é
+//=====================================ã€€Application Objectã«å‚ç…§ã‚’ã¤ã‘ã‚‹
 	app.nas=nas;
 	bootFlag=true;
 }else{
@@ -72,8 +72,8 @@ includeLibs=[
 	bootFlag=false;
 };
 
-/*	ƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
-‚±‚±‚Å•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ğƒŠƒXƒg‚É‰Á‚¦‚Ä‚©‚ç“Ç‚İ‚İ‚ğs‚¤
+/*	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
+ã“ã“ã§å¿…è¦ãªãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ãƒªã‚¹ãƒˆã«åŠ ãˆã¦ã‹ã‚‰èª­ã¿è¾¼ã¿ã‚’è¡Œã†
 */
 
 includeLibs.push(nasLibFolderPath+"nas.XpsStore.js" );
@@ -90,10 +90,10 @@ includeLibs.push(nasLibFolderPath+"psCCfontFix.js");
 for(prop in includeLibs){
 	var myScriptFileName=includeLibs[prop];
 	if($.evalFile){
-	//$.evalFile ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ª‚ ‚ê‚ÎÀs‚·‚é
+	//$.evalFile ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ãŒã‚ã‚Œã°å®Ÿè¡Œã™ã‚‹
 		$.evalFile(myScriptFileName);
 	}else{
-	//$.evalFile ‚ª‘¶İ‚µ‚È‚¢ƒo[ƒWƒ‡ƒ“‚Å‚Íeval‚Éƒtƒ@ƒCƒ‹‚ğ“n‚·
+	//$.evalFile ãŒå­˜åœ¨ã—ãªã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯evalã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¸¡ã™
 		var scriptFile = new File(myScriptFileName);
 		if(scriptFile.exists){
 			scriptFile.open();
@@ -103,23 +103,23 @@ for(prop in includeLibs){
 		}
 	}
 }
-//=====================================•Û‘¶‚µ‚Ä‚ ‚éƒJƒXƒ^ƒ}ƒCƒYî•ñ‚ğæ“¾
+//=====================================ä¿å­˜ã—ã¦ã‚ã‚‹ã‚«ã‚¹ã‚¿ãƒã‚¤ã‚ºæƒ…å ±ã‚’å–å¾—
 if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
 //=====================================
-//+++++++++++++++++++++++++++++++++‚±‚±‚Ü‚Å‹¤—p
+//+++++++++++++++++++++++++++++++++ã“ã“ã¾ã§å…±ç”¨
 
-//ƒhƒLƒ…ƒƒ“ƒgî•ñ‚©‚çƒhƒLƒ…ƒƒ“ƒg–¼‚ğì¬‚·‚é
+//ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆæƒ…å ±ã‹ã‚‰ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆåã‚’ä½œæˆã™ã‚‹
 var currentName=nas.workTitles.bodys[nas.axe.dmCurrent[0]][2]+nas.Zf(nas.axe.dmCurrent[1],2)+ "c" +nas.Zf(nas.axe.dmCurrent[2],3);
 
 if(nas.axe.dmDialog){
-//ƒ_ƒCƒAƒƒO‚ğo—Í‚µ‚ÄƒhƒLƒ…ƒƒ“ƒg‚Ìw’èğŒ‚ğæ“¾
-	var w=nas.GUI.newWindow("dialog","Œ»İ‚ÌƒhƒLƒ…ƒƒ“ƒg‚Éƒ^ƒCƒgƒ‹ƒeƒLƒXƒg‚ğ’Ç‰Á",9,9,320,240);
+//ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’å‡ºåŠ›ã—ã¦ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã®æŒ‡å®šæ¡ä»¶ã‚’å–å¾—
+	var w=nas.GUI.newWindow("dialog","ç¾åœ¨ã®ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã«ã‚¿ã‚¤ãƒˆãƒ«ãƒ†ã‚­ã‚¹ãƒˆã‚’è¿½åŠ ",9,9,320,240);
 
- w.lb0 = nas.GUI.addStaticText(w,"ƒtƒ@ƒCƒ‹–¼",0,0,2,1);
+ w.lb0 = nas.GUI.addStaticText(w,"ãƒ•ã‚¡ã‚¤ãƒ«å",0,0,2,1);
 // w.fileName= nas.GUI.addEditText(w,nas.incrStr(currentName),2,0,5,1);
  w.fileName= nas.GUI.addEditText(w,currentName,2,0,5,1);
 
- w.lb1 = nas.GUI.addStaticText(w,"§ì#." ,0,1,2,.75);
+ w.lb1 = nas.GUI.addStaticText(w,"åˆ¶ä½œ#." ,0,1,2,.75);
  w.lb2 = nas.GUI.addStaticText(w,"CUT#." ,2.25,1,2,.75);
  w.lb3 = nas.GUI.addStaticText(w,"( TIME )" ,4.5,1,2,0.75);
 
@@ -137,46 +137,46 @@ if(nas.axe.dmDialog){
    w.frmInc= nas.GUI.addButton(w,"+6",5.8  ,2,.75,1);
    w.frmDec= nas.GUI.addButton(w,"-6",6.25,2,.75,1);
 
-@w.imPanel=nas.GUI.addPanel(w,"ƒtƒŒ[ƒ€",0,3,7,6); 
+ã€€w.imPanel=nas.GUI.addPanel(w,"ãƒ•ãƒ¬ãƒ¼ãƒ ",0,3,7,6); 
 
-w.imPanel.lb0 = nas.GUI.addStaticText(w.imPanel,"ƒ^ƒCƒgƒ‹:",0,0.5,2,1);
+w.imPanel.lb0 = nas.GUI.addStaticText(w.imPanel,"ã‚¿ã‚¤ãƒˆãƒ«:",0,0.5,2,1);
 w.imPanel.selectTT=nas.GUI.addComboBox(w.imPanel,nas.workTitles.names(0),nas.workTitles.selected,2,0.5,4,1)
 
-w.imPanel.lb1 = nas.GUI.addCheckBox(w.imPanel,":ƒtƒŒ[ƒ€",0,2,3,1);
+w.imPanel.lb1 = nas.GUI.addCheckBox(w.imPanel,":ãƒ•ãƒ¬ãƒ¼ãƒ ",0,2,3,1);
 w.imPanel.lb1.value=false;
 w.imPanel.selectIM=nas.GUI.addDropDownList(w.imPanel,nas.inputMedias.names(0),nas.workTitles.selectedRecord[3],3,2,4,1);
 
-w.imPanel.lb3 = nas.GUI.addCheckBox(w.imPanel,":ƒ^ƒbƒv",0,3,3,1);
+w.imPanel.lb3 = nas.GUI.addCheckBox(w.imPanel,":ã‚¿ãƒƒãƒ—",0,3,3,1);
 w.imPanel.lb3.value =false;
 w.imPanel.selectRM=nas.GUI.addDropDownList(w.imPanel,nas.registerMarks.names(0),nas.registerMarks.selected,3,3,4,1);
 
 //=========================
  w.okBt=nas.GUI.addButton(w,"OK",7,0,2,1);
- w.cnBt=nas.GUI.addButton(w,"ƒLƒƒƒ“ƒZƒ‹",7,1,2,1);
-//=============@ƒRƒ“ƒgƒ[ƒ‹ƒƒ\ƒbƒh
-//ƒ^ƒCƒgƒ‹ƒZƒŒƒNƒ^XV@ŠeƒRƒ“ƒgƒ[ƒ‹XV‚µ‚ÄƒhƒLƒ…ƒƒ“ƒg–¼‚ğì¬
+ w.cnBt=nas.GUI.addButton(w,"ã‚­ãƒ£ãƒ³ã‚»ãƒ«",7,1,2,1);
+//=============ã€€ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ãƒ¡ã‚½ãƒƒãƒ‰
+//ã‚¿ã‚¤ãƒˆãƒ«ã‚»ãƒ¬ã‚¯ã‚¿æ›´æ–°ã€€å„ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«æ›´æ–°ã—ã¦ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆåã‚’ä½œæˆ
 w.imPanel.selectTT.onChange=function(){
- nas.workTitles.select(this.selected);//‘I‘ğƒ^ƒCƒgƒ‹‚ğØ‚è‘Ö‚¦‚éH
+ nas.workTitles.select(this.selected);//é¸æŠã‚¿ã‚¤ãƒˆãƒ«ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ï¼Ÿ
  nas.axe.dmCurrent[0]=nas.workTitles.selected;
  this.parent.parent.fileName.update();
  this.parent.selectIM.items[nas.workTitles.selectedRecord[3]].selected=true;
 }
 
-//IMƒZƒŒƒNƒ^XV@ŠeƒRƒ“ƒgƒ[ƒ‹XV‚µ‚ÄƒhƒLƒ…ƒƒ“ƒg–¼‚ğì¬
+//IMã‚»ãƒ¬ã‚¯ã‚¿æ›´æ–°ã€€å„ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«æ›´æ–°ã—ã¦ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆåã‚’ä½œæˆ
 w.imPanel.selectIM.onChange=function(){
  nas.inputMedias.select(this.selection.index);
  nas.RESOLUTION=nas.inputMedias.selectedRecord[3]/2.540;//dpc
 }
-//ƒ^ƒbƒvƒZƒŒƒNƒ^XV
+//ã‚¿ãƒƒãƒ—ã‚»ãƒ¬ã‚¯ã‚¿æ›´æ–°
 w.imPanel.selectRM.onChange=function(){
  nas.registerMarks.select(this.selection.index);
 }
-//ƒtƒ@ƒCƒ‹–¼XViˆê•û’Ês‚Åj
+//ãƒ•ã‚¡ã‚¤ãƒ«åæ›´æ–°ï¼ˆä¸€æ–¹é€šè¡Œã§ï¼‰
 w.fileName.update=function(){
 var currentName=nas.workTitles.bodys[nas.axe.dmCurrent[0]][2]+this.parent.opusNumber.text+"c"+this.parent.cutNumber.text;
 this.text=currentName;
 }
-//’lã‰ºƒ{ƒ^ƒ“
+//å€¤ä¸Šä¸‹ãƒœã‚¿ãƒ³
 w.opusInc.onClick=function(){this.parent.opusNumber.text=nas.Zf(nas.incrStr(this.parent.opusNumber.text),2);this.parent.opusNumber.onChange();};
 w.opusDec.onClick=function(){this.parent.opusNumber.text=nas.Zf(nas.incrStr(this.parent.opusNumber.text,-1),2);this.parent.opusNumber.onChange();};
 w.cutInc.onClick=function(){this.parent.cutNumber.text=nas.Zf(nas.incrStr(this.parent.cutNumber.text),3);this.parent.cutNumber.onChange();};
@@ -186,108 +186,108 @@ w.secInc.onClick=function(){this.parent.timeText.text=nas.Frm2FCT(nas.FCT2Frm(th
 w.secDec.onClick=function(){this.parent.timeText.text=nas.Frm2FCT(nas.FCT2Frm(this.parent.timeText.text)-Number(nas.FRATE),3);};
 w.frmInc.onClick=function(){this.parent.timeText.text=nas.Frm2FCT(nas.FCT2Frm(this.parent.timeText.text)+6,3);};
 w.frmDec.onClick=function(){this.parent.timeText.text=nas.Frm2FCT(nas.FCT2Frm(this.parent.timeText.text)-6,3);};
-//opusNo.cutNoXV
+//opusNo.cutNoæ›´æ–°
 w.opusNumber.onChange=function(){this.parent.fileName.update();};
 w.cutNumber.onChange=function(){this.parent.fileName.update();};
 w.timeText.onChange=function(){this.text=nas.Frm2FCT(nas.FCT2Frm(this.text),3);};
 
 
-//=======================================ì¬
+//=======================================ä½œæˆ
  w.okBt.onClick=function(){
   var myName=w.fileName.text;
-//ƒIƒvƒVƒ‡ƒ“‚É‚µ‚½‚ª‚Á‚ÄƒhƒLƒ…ƒƒ“ƒg‚ğ®Œ`
+//ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã«ã—ãŸãŒã£ã¦ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’æ•´å½¢
 
-/*	 ‘¶İ‚µ‚È‚¢ê‡‚Ì‚İƒŒƒCƒ„ƒZƒbƒg"Frames"‚ğì¬	*/
+/*	 å­˜åœ¨ã—ãªã„å ´åˆã®ã¿ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆ"Frames"ã‚’ä½œæˆ	*/
 try {
 	var myFrameSet=app.activeDocument.layerSets.getByName("Frames")
 }catch(er){
 	var myFrameSet=app.activeDocument.layerSets.add();
 	myFrameSet.name="Frames";
 }
-//ˆÚ“®‚Ì•K—v‚ª‚ ‚ê‚Î[Frames]‚ğÅãˆÊ‚Ö
+//ç§»å‹•ã®å¿…è¦ãŒã‚ã‚Œã°[Frames]ã‚’æœ€ä¸Šä½ã¸
 if(app.activeDocument.layers.length >1){myFrameSet.move(app.activeDocument,ElementPlacement.PLACEATBEGINNING)};
 
-//ƒtƒŒ[ƒ€ƒZƒbƒg‚ÉƒŒƒWƒXƒ^‰æ‘œ‚ÆƒtƒŒ[ƒ€‚ğ“Ç‚İ‚İ(ƒ`ƒFƒbƒN‚ª‚È‚¯‚ê‚ÎƒXƒLƒbƒv)
-var currentUnitBase=app.preferences.rulerUnits;//T‚¦‚é
+//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆã«ãƒ¬ã‚¸ã‚¹ã‚¿ç”»åƒã¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’èª­ã¿è¾¼ã¿(ãƒã‚§ãƒƒã‚¯ãŒãªã‘ã‚Œã°ã‚¹ã‚­ãƒƒãƒ—)
+var currentUnitBase=app.preferences.rulerUnits;//æ§ãˆã‚‹
 app.preferences.rulerUnits=Units.MM;
 if(w.imPanel.lb3.value==true){
-//ƒŒƒWƒXƒ^
+//ãƒ¬ã‚¸ã‚¹ã‚¿
   var myPegFile=new File(nasLibFolderPath+"resource/Pegs/"+nas.registerMarks.selectedRecord[1]);
   myPegLayer=nas.axeAFC.placeEps(myPegFile);
-  myPegLayer.translate("0 px",-1*myPegLayer.bounds[1]);//ã•Ó‚Ö‚Í‚Á‚Â‚¯
+  myPegLayer.translate("0 px",-1*myPegLayer.bounds[1]);//ä¸Šè¾ºã¸ã¯ã£ã¤ã‘
   myPegLayer.name="peg";
   myPegLayer.move(myFrameSet,ElementPlacement.PLACEATEND);
 }else{
-//ƒ_ƒ~[‚Ìƒ^ƒbƒvƒŒƒCƒ„‚ğ‚Â‚¯‚ébounds‚ğ‚Á‚½‹óƒIƒuƒWƒFƒNƒg
-@var myPegLayer=new Object();
-@myPegLayer.bounds=[
+//ãƒ€ãƒŸãƒ¼ã®ã‚¿ãƒƒãƒ—ãƒ¬ã‚¤ãƒ¤ã‚’ã¤ã‘ã‚‹ï¼boundsã‚’æŒã£ãŸç©ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+ã€€var myPegLayer=new Object();
+ã€€myPegLayer.bounds=[
 		app.activeDocument.width*0.1,
 		new UnitValue("0mm"),
 		app.activeDocument.width*0.9,
 		new UnitValue("25mm")	
-@]
+ã€€]
 }
 if(w.imPanel.lb1.value==true){
-//100ƒtƒŒ[ƒ€˜g‚ğ“Ç‚İ‚İ
+//100ãƒ•ãƒ¬ãƒ¼ãƒ æ ã‚’èª­ã¿è¾¼ã¿
   var myFrameFile=new File(nasLibFolderPath+"resource/Frames/"
 	+nas.inputMedias.selectedRecord[1]+"mm"
 	+nas.inputMedias.selectedRecord[2].replace(/\//,"x")
 	+".eps"
   );
   myFrameLayer=nas.axeAFC.placeEps(myFrameFile);
-//ƒtƒŒ[ƒ€”z’u@¡“ú‚ÍƒZƒ“ƒ^ƒŠƒ“ƒO‚Ì‚İ‚Å¶‰E‚ÍƒpƒX 20110820
+//ãƒ•ãƒ¬ãƒ¼ãƒ é…ç½®ã€€ä»Šæ—¥ã¯ã‚»ãƒ³ã‚¿ãƒªãƒ³ã‚°ã®ã¿ã§å·¦å³ã¯ãƒ‘ã‚¹ 20110820
 var myOffset=(((myFrameLayer.bounds[3]-myFrameLayer.bounds[1])/2)+myFrameLayer.bounds[1]).as("mm")-nas.inputMedias.selectedRecord[7];
-  myFrameLayer.translate(new UnitValue("0 mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm")-myOffset)+" mm"));//ƒ^ƒbƒv‚©‚ç‚Ì‹——£‚ğ
+  myFrameLayer.translate(new UnitValue("0 mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm")-myOffset)+" mm"));//ã‚¿ãƒƒãƒ—ã‹ã‚‰ã®è·é›¢ã‚’
   myFrameLayer.name="frame";
 //
   myFrameLayer.move(myFrameSet,ElementPlacement.PLACEATEND);
 }
 if(true){
-//ŠeíƒeƒLƒXƒg‚ğ”z’u
-var myTextLayer=myFrameSet.artLayers.add();//ƒŒƒCƒ„’Ç‰Á
+//å„ç¨®ãƒ†ã‚­ã‚¹ãƒˆã‚’é…ç½®
+var myTextLayer=myFrameSet.artLayers.add();//ãƒ¬ã‚¤ãƒ¤è¿½åŠ 
 var myTextOffsetX=(((myTextLayer.bounds[2]-myTextLayer.bounds[0])/2)+myTextLayer.bounds[0]).as("mm");
 var myTextOffsetY=(((myTextLayer.bounds[3]-myTextLayer.bounds[1])/2)+myTextLayer.bounds[1]).as("mm");
-  myTextLayer.kind = LayerKind.TEXT;//ƒeƒLƒXƒgƒŒƒCƒ„‚É•ÏŠ·
+  myTextLayer.kind = LayerKind.TEXT;//ãƒ†ã‚­ã‚¹ãƒˆãƒ¬ã‚¤ãƒ¤ã«å¤‰æ›
   myTextLayer.textItem.contents = nas.workTitles.selectedRecord[1]+" #"+this.parent.opusNumber.text;
   myTextLayer.translate(
 	new UnitValue(((myPegLayer.bounds[0]-myTextLayer.bounds[0]).as("mm")+0)+" mm" ),
 	new UnitValue(((myPegLayer.bounds[3]-myTextLayer.bounds[1]).as("mm")+5)+" mm" )
-  );//ƒ^ƒbƒvˆÊ’u‚ğŠî€‚É’²®
-var myCutLayer=myFrameSet.artLayers.add();//ƒŒƒCƒ„’Ç‰Á
-  myCutLayer.kind = LayerKind.TEXT;//ƒeƒLƒXƒgƒŒƒCƒ„‚É•ÏŠ·
+  );//ã‚¿ãƒƒãƒ—ä½ç½®ã‚’åŸºæº–ã«èª¿æ•´
+var myCutLayer=myFrameSet.artLayers.add();//ãƒ¬ã‚¤ãƒ¤è¿½åŠ 
+  myCutLayer.kind = LayerKind.TEXT;//ãƒ†ã‚­ã‚¹ãƒˆãƒ¬ã‚¤ãƒ¤ã«å¤‰æ›
   myCutLayer.textItem.contents = "c# "+this.parent.cutNumber.text;
   myCutLayer.translate(
 	new UnitValue(((myPegLayer.bounds[0]-myCutLayer.bounds[0]).as("mm")+120)+" mm" ),
 	new UnitValue(((myPegLayer.bounds[3]-myCutLayer.bounds[1]).as("mm")+5)+" mm" )
-  );//ƒ^ƒbƒvˆÊ’u‚ğŠî€‚É’²®
-//  myCutLayer.translate(new UnitValue(120+" mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm"))+" mm"));//ƒ^ƒbƒv‚©‚ç‚Ì‹——£‚ğ
-var myTimeLayer=myFrameSet.artLayers.add();//ƒŒƒCƒ„’Ç‰Á
-  myTimeLayer.kind = LayerKind.TEXT;//ƒeƒLƒXƒgƒŒƒCƒ„‚É•ÏŠ·
+  );//ã‚¿ãƒƒãƒ—ä½ç½®ã‚’åŸºæº–ã«èª¿æ•´
+//  myCutLayer.translate(new UnitValue(120+" mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm"))+" mm"));//ã‚¿ãƒƒãƒ—ã‹ã‚‰ã®è·é›¢ã‚’
+var myTimeLayer=myFrameSet.artLayers.add();//ãƒ¬ã‚¤ãƒ¤è¿½åŠ 
+  myTimeLayer.kind = LayerKind.TEXT;//ãƒ†ã‚­ã‚¹ãƒˆãƒ¬ã‚¤ãƒ¤ã«å¤‰æ›
   myTimeLayer.textItem.contents = "( "+this.parent.timeText.text+" )" ;
   myTimeLayer.translate(
 	new UnitValue(((myPegLayer.bounds[0]-myTimeLayer.bounds[0]).as("mm")+200)+" mm"),
 	new UnitValue(((myPegLayer.bounds[3]-myTimeLayer.bounds[1]).as("mm")+5)+" mm")
-  );//ƒ^ƒbƒvˆÊ’u‚ğŠî€‚É’²®
-//  myTimeLayer.translate(new UnitValue("200 mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm"))+" mm"));//ƒ^ƒbƒv‚©‚ç‚Ì‹——£‚ğ
+  );//ã‚¿ãƒƒãƒ—ä½ç½®ã‚’åŸºæº–ã«èª¿æ•´
+//  myTimeLayer.translate(new UnitValue("200 mm"),new UnitValue(((myPegLayer.bounds[3]/2).as("mm"))+" mm"));//ã‚¿ãƒƒãƒ—ã‹ã‚‰ã®è·é›¢ã‚’
 
 	app.preferences.rulerUnits = Units.POINTS;
-  myTextLayer.textItem.size = 32;//32ƒ|
-  myCutLayer.textItem.size = 32;//32ƒ|
-  myTimeLayer.textItem.size = 24;//24ƒ|
+  myTextLayer.textItem.size = 32;//32ãƒ
+  myCutLayer.textItem.size = 32;//32ãƒ
+  myTimeLayer.textItem.size = 24;//24ãƒ
 
-	//ƒoƒO‚ª”­¶‚µ‚½ê‡w’èƒ|ƒCƒ“ƒg”‚ÆˆÙ‚È‚éƒf[ƒ^‚ª•Ô‚é‚Ì‚Å‚»‚ê‚ğ”»’è
+	//ãƒã‚°ãŒç™ºç”Ÿã—ãŸå ´åˆæŒ‡å®šãƒã‚¤ãƒ³ãƒˆæ•°ã¨ç•°ãªã‚‹ãƒ‡ãƒ¼ã‚¿ãŒè¿”ã‚‹ã®ã§ãã‚Œã‚’åˆ¤å®š
 if (Math.round(myTextLayer.textItem.size.as("point"))!=32){
-  nas.PSCCFontSizeFix.setFontSizePoints( myTextLayer, 32);//32ƒ|
-  nas.PSCCFontSizeFix.setFontSizePoints( myCutLayer, 32);//32ƒ|
-  nas.PSCCFontSizeFix.setFontSizePoints( myTimeLayer, 24);//24ƒ|
+  nas.PSCCFontSizeFix.setFontSizePoints( myTextLayer, 32);//32ãƒ
+  nas.PSCCFontSizeFix.setFontSizePoints( myCutLayer, 32);//32ãƒ
+  nas.PSCCFontSizeFix.setFontSizePoints( myTimeLayer, 24);//24ãƒ
 };
 
 }
-app.preferences.rulerUnits=currentUnitBase;//•œ‹A
+app.preferences.rulerUnits=currentUnitBase;//å¾©å¸°
 
 //	app.activeDocument.activeLayer=startupLayer;
 
-//nas.axe.dmCurrent XV
+//nas.axe.dmCurrent æ›´æ–°
 	nas.axe.dmCurrent=[nas.workTitles.selected,this.parent.opusNumber.text,this.parent.cutNumber.text,this.parent.timeText.text];
 if(bootFlag){nas.writePrefarence(["nas.axe","nas.RESOLUTION","nas.workTitles.selected","nas.registerMarks.selected" ]);}
 //alert(nas.axe.dmCurrent)

@@ -9,8 +9,8 @@
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
-			<Host Name="PHSP" Version="[14.0,20.9]" />
 			<Host Name="PHXS" Version="[14.0,20.9]" />
+			<Host Name="PHSP" Version="[14.0,20.9]" />
 		</HostList>
 		<LocaleList>
 			<Locale Code="en_US" />

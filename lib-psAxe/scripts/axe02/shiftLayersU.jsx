@@ -1,9 +1,9 @@
-//shiftLyersU.jsx ƒŒƒCƒ„ƒZƒbƒg‚Ìƒƒ“ƒo[‚ğã•ûŒüƒVƒtƒg‚·‚é
-	//‘I‘ğƒŒƒCƒ„æ“¾
+//shiftLyersU.jsx ãƒ¬ã‚¤ãƒ¤ã‚»ãƒƒãƒˆã®ãƒ¡ãƒ³ãƒãƒ¼ã‚’ä¸Šæ–¹å‘ã‚·ãƒ•ãƒˆã™ã‚‹
+	//é¸æŠãƒ¬ã‚¤ãƒ¤å–å¾—
  if(app.documents.length){
- var myUndo="ãƒVƒtƒg";var myAction="";
+ var myUndo="ä¸Šã‚·ãƒ•ãƒˆ";var myAction="";
  var myDocLayers=((app.activeDocument.activeLayer.parent.typename=="Document") && (app.activeDocument.activeLayer.typename=="LayerSet"))?app.activeDocument.activeLayer:app.activeDocument.activeLayer.parent;
- var xLinks=(myDocLayers.xLinks)? myDocLayers.xLinks:[];//ƒvƒƒpƒeƒB‚ª‚È‚¢ê‡‚Í‰Šú’l‚Å
+ var xLinks=(myDocLayers.xLinks)? myDocLayers.xLinks:[];//ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒãªã„å ´åˆã¯åˆæœŸå€¤ã§
  var subMotionLayers=new Array();
  if((myDocLayers.typename!="Document")&&(xLinks.length)){
 	for(var ix=0;ix<xLinks.length;ix++){if(app.activeDocument.layers[xLinks[ix]]===myDocLayers){continue}

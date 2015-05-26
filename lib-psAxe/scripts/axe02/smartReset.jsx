@@ -1,35 +1,35 @@
 /* smartReset.jsx
-	�X�}�[�g�I�u�W�F�N�g�����Z�b�g
-�菇
+	スマートオブジェクトをリセット
+手順
 
-1.�Ώۃ��C���I��
- �i����̓��[�U�ɂ��I��
-   �A�N�e�B�u���C�����X�}�[�g�I�u�W�F�N�g�łȂ��ꍇ�͂��̋@�\���̂𒆒f�j
-2.�u�R���e���c�̕ҏW�v�ŃI���W�i���̃��X�^��ʃE�C���h�E�ŕ\��
-3.�S�I���E�R�s�[�Ńo�b�t�@�ɂƂ�
-4.�ۑ������ɃE�C���h�E����ăN���A
-5.���̃h�L�������g�ɖ߂�Ώۃ��C�������X�^���C�Y
-6.�s�����x��0�ɂ���
-7.���C���̏�ɃR�s�[�o�b�t�@���e���y�[�X�g
-8.���̃��C���ƌ���
+1.対象レイヤ選択
+ （これはユーザによる選択
+   アクティブレイヤがスマートオブジェクトでない場合はこの機能自体を中断）
+2.「コンテンツの編集」でオリジナルのラスタを別ウインドウで表示
+3.全選択・コピーでバッファにとる
+4.保存せずにウインドウを閉じてクリア
+5.元のドキュメントに戻り対象レイヤをラスタライズ
+6.不透明度を0にして
+7.レイヤの上にコピーバッファ内容をペースト
+8.下のレイヤと結合
 */
-var myUndoStr="�X�}�[�g�I�u�W�F�N�g�����Z�b�g";
+var myUndoStr="スマートオブジェクトをリセット";
 var myExcute="";
-//=============== �R�[�h
+//=============== コード
 myExcute+="if(app.activeDocument.activeLayer.kind == LayerKind.SMARTOBJECT){";
-// =======================================================�R���e���c�̕ҏW
+// =======================================================コンテンツの編集
 myExcute+="var id72 = stringIDToTypeID(\"placedLayerEditContents\");var desc12 = new ActionDescriptor();executeAction( id72, desc12, DialogModes.NO );";
-// =======================================================���C���̃R�s�[
+// =======================================================レイヤのコピー
 myExcute+="app.activeDocument.activeLayer.copy();";
-// =======================================================�ۑ������ɕ���
+// =======================================================保存せずに閉じる
 myExcute+="app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);";
-// =======================================================���X�^���C�Y
+// =======================================================ラスタライズ
 myExcute+="app.activeDocument.activeLayer.rasterize(RasterizeType.ENTIRELAYER);";
-// =======================================================�s�����x0%
+// =======================================================不透明度0%
 myExcute+="app.activeDocument.activeLayer.opacity=0.0;";
-// =======================================================�y�[�X�g
+// =======================================================ペースト
 myExcute+="app.activeDocument.paste();";
-// =======================================================�}�[�W
+// =======================================================マージ
 myExcute+="app.activeDocument.activeLayer.merge();}";
 ErrStrs = {}; ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation"); try {
 	if(activeDocument.suspendHistory){

@@ -1,10 +1,10 @@
-//Configure Script Sample ƒŒƒCƒ„‚©‚çƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€‚ğì¬
-/*ƒAƒjƒƒpƒŒƒbƒgƒƒjƒ…[‚Ì‘I‘ğ‚É‚æ‚é‘€ìBƒhƒLƒ…ƒƒ“ƒg“à‚Ì‚·‚×‚Ä‚ÌArtLayer‚ªg—p‚³‚ê‚éB*/
+//Configure Script Sample ãƒ¬ã‚¤ãƒ¤ã‹ã‚‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ä½œæˆ
+/*ã‚¢ãƒ‹ãƒ¡ãƒ‘ãƒ¬ãƒƒãƒˆãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®é¸æŠã«ã‚ˆã‚‹æ“ä½œã€‚ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆå†…ã®ã™ã¹ã¦ã®ArtLayerãŒä½¿ç”¨ã•ã‚Œã‚‹ã€‚*/
 ErrStrs = {};
 ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation");
 
 try {
-// =======================================================ƒtƒŒ[ƒ€•¡»
+// =======================================================ãƒ•ãƒ¬ãƒ¼ãƒ è¤‡è£½
 var idDplc = charIDToTypeID( "Dplc" );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -15,11 +15,11 @@ var idDplc = charIDToTypeID( "Dplc" );
         ref.putEnumerated( idanimationFrameClass, idOrdn, idTrgt );
     desc.putReference( idnull, ref );
 executeAction( idDplc, desc, DialogModes.NO );
-// =======================================================ƒtƒŒ[ƒ€‘S‘I‘ğ
+// =======================================================ãƒ•ãƒ¬ãƒ¼ãƒ å…¨é¸æŠ
 var idanimationSelectAll = stringIDToTypeID( "animationSelectAll" );
     var desc = new ActionDescriptor();
 executeAction( idanimationSelectAll, desc, DialogModes.NO );
-// =======================================================‘I‘ğƒtƒŒ[ƒ€íœ
+// =======================================================é¸æŠãƒ•ãƒ¬ãƒ¼ãƒ å‰Šé™¤
 var idDlt = charIDToTypeID( "Dlt " );
     var desc = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );

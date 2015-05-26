@@ -3,7 +3,7 @@
  optional Frame & registermark
 */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
+// #target photoshop
 
 // in case we double clicked the file
 	app.bringToFront();

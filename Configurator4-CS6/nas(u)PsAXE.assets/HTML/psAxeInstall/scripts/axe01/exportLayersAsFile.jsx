@@ -1,32 +1,32 @@
 /*
     exportLayersAsFile.jsx
     
-    ���C����Ԃ��ʂ̃t�@�C���Ƃ��ĕۑ�����B
-    �I�v�V�����ŃO���[�v�t�H���_�̍쐬���s��
+    レイヤ状態を個別のファイルとして保存する。
+    オプションでグループフォルダの作成を行う
     
-�菇�Ƃ��ẮA
-	MAP�r���h���s��
-	�l�[���X�y�[�X���R���N�V�����ō쐬����
-	�V�X�e���t�H���_�ȉ��̃O���[�v�f�[�^�������\������XPS�𐶐�����B
-	�r���h����
-	�t���[�������C���ɓ�������
-	���C����1�_�Ât�@�C���ɂƂ��ĕۑ�����B
-	�I���W�i���h�L�������g��ۑ������ɕ���
-�Ƃ����̂��]�܂����A�v���[�`�����ǁA����͂��Ȃ�
-�R�[�f�B���O�Ɏ��Ԃ��������Ɂ@���쑬�x���x���̂��ۏ�t
-�}�b�v�r���h�̏ȗ��v���Z�X�ł��̂܂܏����o����������B
+手順としては、
+	MAPビルドを行う
+	ネームスペースをコレクションで作成する
+	システムフォルダ以下のグループデータを順次表示するXPSを生成する。
+	ビルドする
+	フレームをレイヤに統合する
+	レイヤを1点づつファイルにとって保存する。
+	オリジナルドキュメントを保存せずに閉じる
+というのが望ましいアプローチだけど、今回はやらない
+コーディングに時間がかかる上に　動作速度が遅いのも保障付
+マップビルドの省略プロセスでそのまま書き出しをかける。
 -----------
-���C��������t�@�C�������쐬����Ƃ��Ƀt�@�C���V�X�e���ŋ֎~����Ă��镶�����g���b�v����
-�A�j���r���h�ȊO�̍ŏI����́A�t�@�C���̕������Ƃ��ď����o�����s���d�l�ɕύX
+レイヤ名からファイル名を作成するときにファイルシステムで禁止されている文字をトラップする
+アニメビルド以外の最終操作は、ファイルの複製をとって書き出しを行う仕様に変更
 20111203
 
-�I�v�V�����Ƃ��ďo�͑O�ɃR�}���h���s���\�ɂ���B
-�X���[�W���O���ɕK�v�ȃR�}���h��optCode�ɒu���i�A�N�V�������s�@���̓t�B���^���s�R�[�h�Ȃǁj
-�s�v�ȏꍇ�́@false ��u���Ƃ��Ă�������
-�R�[�h�͕ۑ��̒��O�Ɏ��s����܂��B
+オプションとして出力前にコマンド実行を可能にする。
+スムージング等に必要なコマンドをoptCodeに置く（アクション実行　又はフィルタ実行コードなど）
+不要な場合は　false を置いといてください
+コードは保存の直前に実行されます。
 20120416
 
-CS6�ŃA�j���[�V����������������Ă��Ȃ���Ԃ����������̂ł��̑Ή��i�G���[��~�̉���j�R�[�h���Z��I�ɒǉ�
+CS6でアニメーションが初期化されていない状態が発生したのでその対応（エラー停止の回避）コードを算定的に追加
 20120617
 */
 var optCode=false;
@@ -39,7 +39,7 @@ optCode+="var idUsng = charIDToTypeID( \"Usng\" );";
 optCode+="desc4.putString( idUsng, \"OLM Smoother...\" );";
 optCode+="executeAction( idFltr, desc4 );";
 
-// ========================================�A�N�V�������s
+// ========================================アクション実行
 var aSetName="animationTools";
 var actionName="Smoother";
 
@@ -55,50 +55,50 @@ optCode+="    descAct.putReference( idnull, refAct );";
 optCode+="executeAction( idPly, descAct, DialogModes.NO );";
 */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
+// #target photoshop
 // in case we double clicked the file
 	app.bringToFront();
-//Photoshop�p���C�u�����ǂݍ���
+//Photoshop用ライブラリ読み込み
 
 if($.fileName){
-//	CS3�ȍ~�́@$.fileName�I�u�W�F�N�g������̂Ń��P�[�V�����t���[�ɂł���
+//	CS3以降は　$.fileNameオブジェクトがあるのでロケーションフリーにできる
 	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
 }else{
-//	$.fileName �I�u�W�F�N�g���Ȃ��ꍇ�̓C���X�g�[���p�X�����߂�������
+//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
 	var nasLibFolderPath = Folder.userData.fullName + "/"+ localize("$$$/nas/lib=nas/lib/");
 }
-var includeLibs=[nasLibFolderPath+"config.js"];//�ǂݍ��݃��C�u�������i�[����z��
+var includeLibs=[nasLibFolderPath+"config.js"];//読み込みライブラリを格納する配列
 
 if(! app.nas){
-//iclude nas���C�u�����ɕK�v�Ȋ�b�I�u�W�F�N�g���쐬����
+//iclude nasライブラリに必要な基礎オブジェクトを作成する
 	var nas = new Object();
 		nas.Version=new Object();
 		nas.isAdobe=true;
 		nas.axe=new Object();
 		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	���C�u�����̃��[�h�@CS2-5�p
-//==================== ���C�u������o�^���Ď��O�ɓǂݍ���
+//	ライブラリのロード　CS2-5用
+//==================== ライブラリを登録して事前に読み込む
 /*
-	includeLibs�z��ɓo�^���ꂽ�t�@�C���������ǂݍ��ށB
-	�o�^�̓p�X�ōs���B(File�I�u�W�F�N�g�ł͂Ȃ�)
-	$.evalFile ���\�b�h�����݂���ꍇ�͂�����g�p���邪CS2�ȑO�̊��ł�global �� eval�֐��œǂݍ���
+	includeLibs配列に登録されたファイルを順次読み込む。
+	登録はパスで行う。(Fileオブジェクトではない)
+	$.evalFile メソッドが存在する場合はそれを使用するがCS2以前の環境ではglobal の eval関数で読み込む
 
-�������@���C�u�������X�g�i�ȉ��͓ǂݍ��ݏ��ʂɈ��̈ˑ���������̂Œ��Ӂj
-�@config.js"		��ʐݒ�t�@�C���i�f�t�H���g�l�����j���̃��[�`���O�ł͎Q�ƕs�\
-  nas_common.js		AE�EHTML���p��ʃA�j�����C�u����
-  nas_GUIlib.js		Adobe�����pGUI���C�u����
-  nas_psAxeLib.js	PS�p�����C�u����
-  nas_prefarenceLib.js	Adobe�����p�f�[�^�ۑ����C�u����
+＝＝＝　ライブラリリスト（以下は読み込み順位に一定の依存性があるので注意）
+　config.js"		一般設定ファイル（デフォルト値書込）このルーチン外では参照不能
+  nas_common.js		AE・HTML共用一般アニメライブラリ
+  nas_GUIlib.js		Adobe環境共用GUIライブラリ
+  nas_psAxeLib.js	PS用環境ライブラリ
+  nas_prefarenceLib.js	Adobe環境共用データ保存ライブラリ
 
-  nasXpsStore.js	PS�ق�Adobe�ėpXpsStore���C�u����(AE�p�͓���)
-  xpsio.js		�ėpXps���C�u����
-  mapio.js		�ėpMap���C�u����
-  lib_STS.js		Adobe�����pSTS���C�u����
-  dataio.js		Xps�I�u�W�F�N�g���o�̓��C�u�����i�R���o�[�^���j
-  fakeAE.js		���Ԋ����C�u����
-  io.js			��܂҂���o�̓��C�u����
-  psAnimationFrameClass.js	PS�p�t���[���A�j���[�V�������색�C�u����
-  xpsQueue.js		PS�pXps-FrameAnimation�A�g���C�u����
+  nasXpsStore.js	PSほかAdobe汎用XpsStoreライブラリ(AE用は特殊)
+  xpsio.js		汎用Xpsライブラリ
+  mapio.js		汎用Mapライブラリ
+  lib_STS.js		Adobe環境共用STSライブラリ
+  dataio.js		Xpsオブジェクト入出力ライブラリ（コンバータ部）
+  fakeAE.js		中間環境ライブラリ
+  io.js			りまぴん入出力ライブラリ
+  psAnimationFrameClass.js	PS用フレームアニメーション操作ライブラリ
+  xpsQueue.js		PS用Xps-FrameAnimation連携ライブラリ
 */
 includeLibs=[
 	nasLibFolderPath+"config.js",
@@ -107,7 +107,7 @@ includeLibs=[
 	nasLibFolderPath+"nas_psAxeLib.js",
 	nasLibFolderPath+"nas_prefarenceLib.js"
 ];
-//=====================================�@Application Object�ɎQ�Ƃ�����
+//=====================================　Application Objectに参照をつける
 	app.nas=nas;
 	bootFlag=true;
 }else{
@@ -116,8 +116,8 @@ includeLibs=[
 	bootFlag=false;
 };
 
-/*	���C�u�����ǂݍ���
-�����ŕK�v�ȃ��C�u���������X�g�ɉ����Ă���ǂݍ��݂��s��
+/*	ライブラリ読み込み
+ここで必要なライブラリをリストに加えてから読み込みを行う
 */
 includeLibs.push(nasLibFolderPath+"fakeAE.js");
 includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
@@ -133,10 +133,10 @@ includeLibs.push(nasLibFolderPath+"xpsQueue.js");
 for(prop in includeLibs){
 	var myScriptFileName=includeLibs[prop];
 	if($.evalFile){
-	//$.evalFile �t�@���N�V����������Ύ��s����
+	//$.evalFile ファンクションがあれば実行する
 		$.evalFile(myScriptFileName);
 	}else{
-	//$.evalFile �����݂��Ȃ��o�[�W�����ł�eval�Ƀt�@�C����n��
+	//$.evalFile が存在しないバージョンではevalにファイルを渡す
 		var scriptFile = new File(myScriptFileName);
 		if(scriptFile.exists){
 			scriptFile.open();
@@ -146,20 +146,20 @@ for(prop in includeLibs){
 		}
 	}
 }
-//=====================================�ۑ����Ă���J�X�^�}�C�Y�����擾
+//=====================================保存してあるカスタマイズ情報を取得
 if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
 //=====================================
-//+++++++++++++++++++++++++++++++++�����܂ŋ��p
+//+++++++++++++++++++++++++++++++++ここまで共用
 var noSave=false;
-//-----------------------����J�n���ɖ��ۑ��̏ꍇ�x��
+//-----------------------操作開始時に未保存の場合警告
 if((app.documents.length)&&(! app.activeDocument.saved)){
     noSave=true;
-    noSave=confirm("�h�L�������g�͕ۑ�����Ă��܂���B�ۑ����܂����H");
-//��x���ۑ�����Ă��Ȃ��t�@�C���ɖ��O�����ĕۑ����郋�[�`�����K�v
-//�܂��͖����I�ɕۑ����ꂽ�t�@�C���݂̂������悤�Ƀg���b�v����
+    noSave=confirm("ドキュメントは保存されていません。保存しますか？");
+//一度も保存されていないファイルに名前をつけて保存するルーチンが必要
+//または明示的に保存されたファイルのみを扱うようにトラップする
     if(noSave){app.activeDocument.save();noSave=false;}
 }
-//-----------------------�ۑ����Ȃ��Ă�����͑��s
+//-----------------------保存しなくても操作は続行
 if((! noSave)&&(app.documents.length)&&(app.activeDocument.layers.length)){
 var exportFiles=new Object;
  exportFiles.targetDoc=app.activeDocument;
@@ -168,8 +168,8 @@ try{
     }catch(eRR){
  exportFiles.currentTargetFolder=Folder.current;
     }
-//����p�̈ꎞ�h�L�������g������Ă���
- exportFiles.tempDoc=app.activeDocument.duplicate("__exportTempDoc__");//�����ŃA�N�e�B�u�h�L�������g���؂�ւ��
+//操作用の一時ドキュメントを作っておく
+ exportFiles.tempDoc=app.activeDocument.duplicate("__exportTempDoc__");//ここでアクティブドキュメントが切り替わる
  if(nas.axeAFC.checkAnimationMode()!="frameAnimation"){
 	executeAction( stringIDToTypeID( "makeFrameAnimation" ), undefined, DialogModes.NO );
  };
@@ -185,24 +185,24 @@ try{
  exportFiles.outputListView=[];
 
 exportFiles.isMenber=function(myObject){
-    //�������肵�ă����o�����𔻒�
+    //引数判定してメンバ条件を判定
 	if(( myObject.typename=="ArtLayer")&&
 	    ((myObject.kind==LayerKind.NORMAL)||(myObject.kind==LayerKind.SMARTOBJECT))
     ){return true};
     return false;
 }
 exportFiles.refresh=function(){
-//���Z�b�g���̍Ď擾���܂ނ̂Ŕz���������
+//リセット時の再取得も含むので配列を初期化
 	 this.guideLayers.length=0;this.outputList.length=0;
  for (var ix=0;ix<this.tempDoc.layers.length;ix++){
 	if(this.tempDoc.layers[ix].name.match(/(frames?|peg|memo|system)/i)){
 	 this.guideLayers.push(this.tempDoc.layers[ix]);
 	 this.guideLayersA.push(this.targetDoc.layers[ix]);
 	 continue;
-	};//�t���[�����C���E���C���Z�b�g���X�L�b�v
-//================ArtLayer�@�Ńm�[�}���ƃX�}�[�g�I�u�W�F�N�g��I��
+	};//フレームレイヤ・レイヤセットをスキップ
+//================ArtLayer　でノーマルとスマートオブジェクトを選択
 	if(this.isMenber(this.tempDoc.layers[ix])){this.outputList.push(this.tempDoc.layers[ix]);this.outputListA.push(this.targetDoc.layers[ix]);continue;}
-//=================���C���Z�b�g�ł��A�z���Ƀ��C�����܂�ł���ꍇ�i�P�i�̂݌@���� ���C���Z�b�g�������o�[�ɂ���j
+//=================レイヤセットでかつ、配下にレイヤを含んでいる場合（１段のみ掘下げ レイヤセットもメンバーにする）
 	if((true)&&(this.tempDoc.layers[ix] instanceof LayerSet)&&(this.tempDoc.layers[ix].layers.length)){
 		for (var lx=0;lx<this.tempDoc.layers[ix].layers.length;lx++){
             this.outputList.push(this.tempDoc.layers[ix].layers[lx]);
@@ -210,8 +210,8 @@ exportFiles.refresh=function(){
             continue;
 		}
 	}
- };//�����o���W�I��
-//���X�g�ɓo�^
+ };//メンバ収集終了
+//リストに登録
 //	this.w.fileList.items
 }
 exportFiles.viewUpdate=function(){
@@ -219,7 +219,7 @@ exportFiles.viewUpdate=function(){
     if(this.byAFC){
         var myFrameCount=nas.axeAFC.countFrames();
         for(var fct=0;fct<myFrameCount;fct++){
-//=============�v���t�B�N�X�́A�^�[�Q�b�g����擾����
+//=============プレフィクスは、ターゲットから取得する
             this.outputListView.push(this.targetDoc.name.replace(/\.[^.]*$/,"")+nas.Zf(fct+1,3));
         }
     }else{
@@ -232,9 +232,9 @@ exportFiles.viewUpdate=function(){
       }
     }
 }
-//�C���f�b�N�X�ŗ^����ꂽ���C�����c���đ����\���ɂ���B
-//�I�v�V�����Ńt���[�����\��
-//�A�j���t���[���r���h�ƃZ�b�g�Ώۂ��قȂ�̂őΉ�
+//インデックスで与えられたレイヤを残して他を非表示にする。
+//オプションでフレームを非表示
+//アニメフレームビルドとセット対象が異なるので対応
  exportFiles.set=function(index){
 	 for(var ix=0;ix<this.guideLayers.length;ix++){
 	  this.guideLayers[ix].visible=(this.withRegister==false)?false:true;
@@ -243,7 +243,7 @@ exportFiles.viewUpdate=function(){
 	 this.outputList[ix].visible=(index==ix)?true:false;
 	}
  }
-//�A�j���t���[���r���h�p�̃^�[�Q�b�g����
+//アニメフレームビルド用のターゲット操作
  exportFiles.setA=function(index){
 	 for(var ix=0;ix<this.guideLayers.length;ix++){
 	  this.guideLayersA[ix].visible=(this.withRegister==false)?false:true;
@@ -280,86 +280,86 @@ exportFiles.export=function(){
             default:
                 mySaveOptions=new PhotoshopSaveOptions;
         }
-//=================================== ���ۂ̑��� ======================================//
-    var myTempDoc=this.tempDoc;//�Ώۃh�L�������g���^�[�Q�b�g�{�̂ɐݒ�
+//=================================== 実際の操作 ======================================//
+    var myTempDoc=this.tempDoc;//対象ドキュメントをターゲット本体に設定
 	app.activeDocument=myTempDoc;
          if(this.byAFC){
 //     var myFrameCount=nas.axeAFC.countFrames();
      var myFrameCount=this.outputList.length;
      for(var fidx=0;fidx<myFrameCount;fidx++){
-       //�A�j���t���[�����o�� ���݂̃t�@�C��������g���q���̂��������̂��v���t�B�b�N�X�ɂ��Ďw��t�H���_�����ɕۑ�
-                 nas.axeAFC.selectFrame(fidx+1);//�\���Z�b�g
+       //アニメフレームを出力 現在のファイル名から拡張子をのぞいたものをプレフィックスにして指定フォルダ直下に保存
+                 nas.axeAFC.selectFrame(fidx+1);//表示セット
                  var storeName=this.targetDoc.name.replace(/\.[^.]*$/,"")+nas.Zf(fidx+1,3)+this.opForms[this.opForm]
                  mySaveDocument=myTempDoc.duplicate (storeName, true)
          if(mySaveDocument){
-             app.activeDocument=mySaveDocument;nas.axeAFC.initFrames();//�A�j���t���[����������
-             mySaveDocument.layers[0].visible=true;//�\����������̂ŕ��A���Ă���             
+             app.activeDocument=mySaveDocument;nas.axeAFC.initFrames();//アニメフレームを初期化
+             mySaveDocument.layers[0].visible=true;//表示が消えるので復帰しておく             
              var mySaveFile=new File(myTargetFolder.fullName+"/"+mySaveDocument.name)
-         //�\�Ȃ�ۑ�����
+         //可能なら保存する
          try{
              mySaveDocument.saveAs(mySaveFile,mySaveOptions,true);
              }catch(eRR){alert(eRR)}
-             mySaveDocument.close(SaveOptions.DONOTSAVECHANGES);//����
+             mySaveDocument.close(SaveOptions.DONOTSAVECHANGES);//閉じる
              app.activeDocument =myTempDoc;
        }
    }
          }else{
     for(var fidx=0;fidx<this.outputList.length;fidx++){
-       //���C�������ǂ��Ďw��ɏ]���ăK�C�h���C���̂���Ȃ���I�����ďo��
+       //レイヤをたどって指定に従ってガイドレイヤのあるなしを選択して出力
                 if(this.mkFolder)
                 {
                    var folderName=this.outputList[fidx].parent.name.replace(/[\\\/\:\?\*\"\>\<\|]/g,"_");
                    myTargetFolder=new Folder(this.currentTargetFolder.fullName+"/"+folderName);
                 };
                 if(! myTargetFolder.exists){myTargetFolder.create();}
-                 this.set(fidx);//�\���Z�b�g
+                 this.set(fidx);//表示セット
                    var fileName=this.outputList[fidx].name.replace(/[\\\/\:\?\*\"\>\<\|]/g,"_");
                 mySaveDocument=myTempDoc.duplicate (fileName+this.opForms[this.opForm], true);
          if(mySaveDocument){
 /*
-	�P�ƃt�@�C���Ƃ��ĕۑ����邽�߂Ƀ��C���������s���B
-���̃h�L�������g�ɃA�j���t���[�����������ꍇ�i���Ȃ�̊m���ŗL��j
-psd�h�L�������g�ɑ��݂��Ȃ����C�����w���t���[����A�j���T���l�[���̃L���b�V�������̂ŉ����ƕs�s���ł���B
-�A�j���t���[�����폜���邽�߂ɏ��������s���B
-�P���ȏ������ł͑��t���[���̕\��Ԃ��Đ�����邽�߁A���Y���C������\���̂܂ܕۑ������ꍇ������̂ōĕ\�����s���B
+	単独ファイルとして保存するためにレイヤ統合を行う。
+元のドキュメントにアニメフレームがあった場合（かなりの確率で有る）
+psdドキュメントに存在しないレイヤを指すフレームやアニメサムネールのキャッシュがつくので何かと不都合である。
+アニメフレームを削除するために初期化を行う。
+単純な初期化では第一フレームの表状態が再生されるため、当該レイヤが非表示のまま保存される場合があるので再表示を行う。
 */
-             app.activeDocument=mySaveDocument;nas.axeAFC.initFrames();//�A�j���t���[����������
-             mySaveDocument.layers[0].visible=true;//�\����������̂ŕ��A���Ă���
+             app.activeDocument=mySaveDocument;nas.axeAFC.initFrames();//アニメフレームを初期化
+             mySaveDocument.layers[0].visible=true;//表示が消えるので復帰しておく
 	if(optCode){eval(optCode);};
              var mySaveFile=new File(myTargetFolder.fullName+"/"+mySaveDocument.name);
-         //�\�Ȃ�ۑ�����
+         //可能なら保存する
          try{
              mySaveDocument.saveAs(mySaveFile,mySaveOptions,true);
              }catch(eRR){alert(eRR)}
-             mySaveDocument.close(SaveOptions.DONOTSAVECHANGES);//����
+             mySaveDocument.close(SaveOptions.DONOTSAVECHANGES);//閉じる
              app.activeDocument =myTempDoc;
          }
     }
          }
-//             myTempDoc.close(SaveOptions.DONOTSAVECHANGES);//�ꎞ�t�@�C���Ȃ̂ŕۑ������ɕ���
+//             myTempDoc.close(SaveOptions.DONOTSAVECHANGES);//一時ファイルなので保存せずに閉じる
 /*
-    �e���|�����̂Ƃ���͈�l
-    �ҏW��̃f�[�^�\�����ڐA�\�Ȃ�������邱�Ƃɂ��ďh�� 2011/09/28
+    テンポラリのとり方は一考
+    編集後のデータ構造を移植可能なら実装することにして宿題 2011/09/28
     */
 }
 //==============================================UI
-exportFiles.w=nas.GUI.newWindow("dialog","���C�����t�@�C���Ƃ��ĕۑ�",6,12);
+exportFiles.w=nas.GUI.newWindow("dialog","レイヤをファイルとして保存",6,12);
 
-exportFiles.w.msgBox=nas.GUI.addStaticText(exportFiles.w,"���C�����t�@�C���Ƃ��ĕۑ����܂��B�ۑ�����w�肵�Ă��������B",0,0,6,1);
+exportFiles.w.msgBox=nas.GUI.addStaticText(exportFiles.w,"レイヤをファイルとして保存します。保存先を指定してください。",0,0,6,1);
 
 
 exportFiles.w.folderTargetName=nas.GUI.addEditText(exportFiles.w,exportFiles.currentTargetFolder.fsName,0,1,5,1);
-exportFiles.w.chgFolder=nas.GUI.addButton(exportFiles.w,"�ύX",5,1,1,1);
+exportFiles.w.chgFolder=nas.GUI.addButton(exportFiles.w,"変更",5,1,1,1);
 
 exportFiles.w.fileList=nas.GUI.addListBoxO(exportFiles.w,exportFiles.outputListView,null,0,2,4,7,{multiselect:true});
-//�`�F�b�N�R���g���[��
-exportFiles.w.mkSF=nas.GUI.addCheckBox(exportFiles.w,"�T�u�t�H���_�����",0,9,4,1);
+//チェックコントロール
+exportFiles.w.mkSF=nas.GUI.addCheckBox(exportFiles.w,"サブフォルダを作る",0,9,4,1);
 	exportFiles.w.mkSF.value=exportFiles.mkFolder;
-exportFiles.w.regOpt=nas.GUI.addCheckBox(exportFiles.w,"�^�b�v�ƃt���[����\������",0,10,4,1);
+exportFiles.w.regOpt=nas.GUI.addCheckBox(exportFiles.w,"タップとフレームを表示する",0,10,4,1);
 	exportFiles.w.regOpt.value=exportFiles.withRegister;
-exportFiles.w.afcOpt=nas.GUI.addCheckBox(exportFiles.w,"�A�j���t���[�����o�͂���",0,11,4,1);
+exportFiles.w.afcOpt=nas.GUI.addCheckBox(exportFiles.w,"アニメフレームを出力する",0,11,4,1);
 	exportFiles.w.afcOpt.value=exportFiles.byAFC;
-//�{�^���R���g���[��
+//ボタンコントロール
 exportFiles.w.ffLb=nas.GUI.addStaticText(exportFiles.w,"file format:",4,2,2,1);
 exportFiles.w.ffBt=nas.GUI.addDropDownList(exportFiles.w,exportFiles.opForms,exportFiles.opForm,4,3,2,1);
 //exportFiles.w.FlBt=nas.GUI.addButton(exportFiles.w,"addFile",4,3,2,1);
@@ -370,8 +370,8 @@ exportFiles.w.rstBt=nas.GUI.addButton(exportFiles.w,"reset",4,5,2,1);
 exportFiles.w.bdBt=nas.GUI.addButton(exportFiles.w,"makeAnimation",4,9,2,1);
 exportFiles.w.okBt=nas.GUI.addButton(exportFiles.w,"OK",4,10,2,1);
 exportFiles.w.cnBt=nas.GUI.addButton(exportFiles.w,"cancel",4,11,2,1);
-//==================================�R���g���[�����\�b�h
-//�ۑ��t�H���_�ύX
+//==================================コントロールメソッド
+//保存フォルダ変更
 exportFiles.w.chgFolder.onClick=function(){
     var newFolder=exportFiles.currentTargetFolder.selectDlg("select Save folder");
     if(newFolder){
@@ -379,9 +379,9 @@ exportFiles.w.chgFolder.onClick=function(){
         this.parent.folderTargetName.text=exportFiles.currentTargetFolder.fsName;
     }
 }
-//���X�g�ҏW�i�폜�j
+//リスト編集（削除）
 exportFiles.w.rmBt.onClick=function(){
-    //�I�����ꂽID�̃��C�����폜���ăA�b�v�f�[�g
+    //選択されたIDのレイヤを削除してアップデート
     if(this.parent.fileList.selection){
 var removeItemList=new Array();
 for(ecItem in this.parent.fileList.selection){removeItemList.push(this.parent.fileList.selection[ecItem].index);}
@@ -393,17 +393,17 @@ removeItemList.sort(function(a,b){return(b-a);});
     this.parent.fileList.update();
     }
  }
-//�t�H�[�}�b�g�I��
+//フォーマット選択
 exportFiles.w.ffBt.onChange=function(){
     exportFiles.opForm=this.selection.index;
 }
-//���X�g�����Z�b�g
+//リストをリセット
 exportFiles.w.rstBt.onClick=function(){
 	exportFiles.refresh();
 	exportFiles.viewUpdate();
     this.parent.fileList.update();
 }
-//�p�����[�^�ύX
+//パラメータ変更
 exportFiles.w.fileList.update=function(){
     this.removeAll();
     for(var lid=0;lid<exportFiles.outputListView.length;lid++){
@@ -414,14 +414,14 @@ exportFiles.w.fileList.update=function(){
 exportFiles.w.mkSF.onClick=function(){
     exportFiles.mkFolder=this.value;
       exportFiles.viewUpdate();
-      this.parent.fileList.update();//�N���A����
+      this.parent.fileList.update();//クリアして
       
 }
-//�^�b�v�o�̓I�v�V����
+//タップ出力オプション
 exportFiles.w.regOpt.onClick=function(){
     exportFiles.withRegister=this.value;
 }
-//�A�j���t���[���o�̓I�v�V����
+//アニメフレーム出力オプション
 exportFiles.w.afcOpt.onClick=function(){
       exportFiles.byAFC=this.value;
       if(this.value){
@@ -434,12 +434,12 @@ exportFiles.w.afcOpt.onClick=function(){
         this.parent.bdBt.enabled=true;
       }
       exportFiles.viewUpdate();
-      this.parent.fileList.update();//�N���A����
+      this.parent.fileList.update();//クリアして
 }
-//�A�j���t���[�����r���h����
+//アニメフレームをビルドする
 exportFiles.w.bdBt.onClick=function(){
-�@app.activeDocument=exportFiles.targetDoc;
- var UndoString="���C������A�j���t���[��";
+　app.activeDocument=exportFiles.targetDoc;
+ var UndoString="レイヤからアニメフレーム";
  var myExecute="nas.axeAFC.initFrames();for(var fix=0;fix<this.parent.fileList.items.length;fix++){if(fix>0){nas.axeAFC.dupulicateFrame();}exportFiles.setA(fix);};nas.axeAFC.reverseAnimationFrames();";
 
  if(app.activeDocument.suspendHistory){
@@ -456,7 +456,7 @@ exportFiles.w.okBt.onClick=function(){
  var UndoString="output";
  if(app.activeDocument.suspendHistory){
      app.activeDocument.suspendHistory(UndoString, "exportFiles.export();");
-          // =================== UNDO�o�b�t�@���g�p���ĕ��A
+          // =================== UNDOバッファを使用して復帰
 var id8 = charIDToTypeID( "slct" );
     var desc5 = new ActionDescriptor();
     var id9 = charIDToTypeID( "null" );
@@ -474,7 +474,7 @@ executeAction( id8, desc5, DialogModes.NO );
     exportFiles.tempDoc.close(SaveOptions.DONOTSAVECHANGES);
     this.parent.close();
 }
-//�L�����Z�����ďI��
+//キャンセルして終了
 exportFiles.w.cnBt.onClick=function(){
 	exportFiles.tempDoc.close(SaveOptions.DONOTSAVECHANGES);
 	this.parent.close();

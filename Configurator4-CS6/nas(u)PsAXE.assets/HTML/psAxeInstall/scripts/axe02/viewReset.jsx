@@ -1,4 +1,4 @@
-//ƒŒƒCƒ„ƒgƒŒ[ƒ‰“à‚ÌƒŒƒCƒ„‚ð‘S‚Ä100%•\Ž¦ó‘Ô‚ÉƒŠƒZƒbƒg‚·‚é
+//ãƒ¬ã‚¤ãƒ¤ãƒˆãƒ¬ãƒ¼ãƒ©å†…ã®ãƒ¬ã‚¤ãƒ¤ã‚’å…¨ã¦100%è¡¨ç¤ºçŠ¶æ…‹ã«ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 var myDocLayers=app.activeDocument.activeLayer.parent.layers;
 for(var idx=0;idx<myDocLayers.length;idx++){
 	if(myDocLayers[idx].opacity!=100.0){myDocLayers[idx].opacity=100.0}
