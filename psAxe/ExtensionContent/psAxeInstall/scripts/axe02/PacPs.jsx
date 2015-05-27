@@ -12,10 +12,6 @@ PacPs
 だいたいできてきた
 全部チャラにして最初の状態に戻れるようにバックアップを取得しておく
 */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-	app.bringToFront();
 
 	var exFlag=true;
 //そもそもドキュメントがなければ終了

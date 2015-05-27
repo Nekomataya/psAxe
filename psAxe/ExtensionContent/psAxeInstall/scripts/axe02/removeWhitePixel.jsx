@@ -5,10 +5,6 @@
 	色域選択でL==100.　の部分を選択して　削除後に選択領域を解除している。
 	サスペンドヒストリが可能な場合は行う
 */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
 
 var myExecute="";
 // =======================================================select color White

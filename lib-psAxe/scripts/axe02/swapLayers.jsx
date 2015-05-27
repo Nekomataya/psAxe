@@ -2,8 +2,6 @@
 	アクティブトレーラーの最上位レイヤを直下のレイヤと入れ換える
 	swapLayers.jsx
 	アクティブレイヤも交換
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
 */
  var myDocLayers=((app.activeDocument.activeLayer.parent.typename=="Document") && (app.activeDocument.activeLayer.typename=="LayerSet"))?app.activeDocument.activeLayer:app.activeDocument.activeLayer.parent;
   var xLinks=(myDocLayers.xLinks)? myDocLayers.xLinks:[];//プロパティがない場合は初期値で

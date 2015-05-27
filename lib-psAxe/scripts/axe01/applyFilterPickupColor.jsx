@@ -4,10 +4,6 @@
 
 	PBKが使用可能なら優先して使用
  */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
 
   if((app.documents.length)&&(app.activeDocument)&&(app.activeDocument.activeLayer)){
 
@@ -99,14 +95,7 @@ var idPbPl = charIDToTypeID( "PbPl" );//pbk識別文字列
 	}
 }
 // =======================================================
-//nasライブラリパスの取得
-if($.fileName){
-//	$.fileNameオブジェクトがあれば使用する
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-}
 
 /*
 applyPbk(nasLibFolderPath+"PixelBenderKernel/traceK.pbk",

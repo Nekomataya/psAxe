@@ -2,15 +2,15 @@
 
 <ExtensionManifest Version="4.0" ExtensionBundleId="info.nekomataya.remapingCEP" ExtensionBundleVersion="1.0.0"
 		ExtensionBundleName="remapingCEP" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Contact mailto="support@nekomataya.info"/>	<Abstract href="http://www.nekomataya.info/"/>	<ExtensionList>
+	<Author>
+		<![CDATA[kiyo@nekomataya.info]]>
+	</Author>	<Contact mailto="support@nekomataya.info"/>	<Legal href="http://www.nekomataya.info/"/>	<Abstract href="http://www.nekomataya.info/"/>	<ExtensionList>
 		<Extension Id="info.nekomataya.remapingCEP" Version="1.0" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
-			<Host Name="PHSP" Version="[14.0,20.9]" />
 			<Host Name="PHXS" Version="[14.0,20.9]" />
-			<Host Name="PPRO" Version="[7.0,7.9]" />
-			<Host Name="FLPR" Version="[13.1,14.0]" />
+			<Host Name="PHSP" Version="[14.0,20.9]" />
 		</HostList>
 		<LocaleList>
 			<Locale Code="All" />
@@ -22,6 +22,7 @@
 	</ExecutionEnvironment>
 	<DispatchInfoList>
 		<Extension Id="info.nekomataya.remapingCEP">
+
 			<DispatchInfo >
 				<Resources>
 				<MainPath>./index.html</MainPath>
@@ -35,8 +36,8 @@
 					<Menu>remapingCEP</Menu>
 					<Geometry>
 						<Size>
-							<Height>512</Height>
-							<Width>720</Width>
+							<Height>480</Height>
+							<Width>800</Width>
 						</Size>
 					</Geometry>
 				</UI>

@@ -1,21 +1,10 @@
 /* onsPref
 	透過プリファレンス
 */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-	app.bringToFront();
 
 //Photoshop用ライブラリ読み込み
-
-if($.fileName){
-//	CS3以降は　$.fileNameオブジェクトがあるのでロケーションフリーにできる
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
 	var nasLibFolderPath = Folder.userData.fullName + "/"+ localize("$$$/nas/lib=nas/lib/");
-}
-var includeLibs=[nasLibFolderPath+"config.js"];//読み込みライブラリを格納する配列
+	var includeLibs=[nasLibFolderPath+"config.js"];//読み込みライブラリを格納する配列
 
 if(! app.nas){
 //iclude nasライブラリに必要な基礎オブジェクトを作成する
@@ -45,7 +34,6 @@ if(! app.nas){
   dataio.js		Xpsオブジェクト入出力ライブラリ（コンバータ部）
   fakeAE.js		中間環境ライブラリ
   io.js			りまぴん入出力ライブラリ
-  psAnimationFrameClass.js	PS用フレームアニメーション操作ライブラリ
   xpsQueue.js		PS用Xps-FrameAnimation連携ライブラリ
 */
 includeLibs=[
@@ -76,7 +64,6 @@ includeLibs.push(nasLibFolderPath+"lib_STS.js");
 includeLibs.push(nasLibFolderPath+"dataio.js");
 includeLibs.push(nasLibFolderPath+"fakeAE.js");
 includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
 includeLibs.push(nasLibFolderPath+"xpsQueue.js");
 	};
 for(prop in includeLibs){

@@ -48,7 +48,6 @@ var nasLibFolderPath =  nas.baseLocation+"/lib/";
   io.js			りまぴん入出力ライブラリ
   nas_axeEventHandler.js	イベントハンドラ（拡張用）
 	nasLibFolderPath+"nas_axeEventHandler.js",
-  psAnimationFrameClass.js	PS用フレームアニメーション操作ライブラリ
   xpsQueue.js		PS用Xps-FrameAnimation連携ライブラリ
 */
 includeLibs=[
@@ -71,7 +70,6 @@ includeLibs.push(nasLibFolderPath+"lib_STS.js");//同上
 includeLibs.push(nasLibFolderPath+"dataio.js");//同上
 includeLibs.push(nasLibFolderPath+"fakeAE.js");//同上 AEエクスプレッション互換ライブラリ
 includeLibs.push(nasLibFolderPath+"io.js");//同上
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");//旧ライブラリ互換用ラッパ
 includeLibs.push(nasLibFolderPath+"xpsQueue.js");//シート適用関連ライブラリ
 includeLibs.push(nasLibFolderPath+"messages.js");//他言語化リソース
 includeLibs.push(nasLibFolderPath+"psCCfontFix.js");//フォントバグ対応コマンド

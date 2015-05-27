@@ -1,8 +1,3 @@
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
-
 /*
 	applyPbk(myPBK,knlName,[[control,value]],dialog)
 引数

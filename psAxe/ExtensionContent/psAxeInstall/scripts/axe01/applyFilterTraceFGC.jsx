@@ -9,10 +9,6 @@
 	実行に対しての処置
 	ps12以前の場合パラメータウインドウを表示させるべきか一考
  */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
 
   if((app.documents.length)&&(app.activeDocument)&&(app.activeDocument.activeLayer)){
 
@@ -106,14 +102,7 @@ var idPbPl = charIDToTypeID( "PbPl" );//pbk識別文字列
 	}
 }
 // =======================================================
-//nasライブラリパスの取得
-if($.fileName){
-//	$.fileNameオブジェクトがあれば使用する
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-}
 
 /*
 applyPbk(nasLibFolderPath+"PixelBenderKernel/traceK.pbk",

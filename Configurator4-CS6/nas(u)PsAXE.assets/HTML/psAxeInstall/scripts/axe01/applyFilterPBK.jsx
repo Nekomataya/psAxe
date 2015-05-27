@@ -4,10 +4,6 @@
 	2012.08.20
  */
 
-// スクリプトをダブルクリックで実行するためのおまじない。不要なら削除してね
-#target photoshop
-// 実行時にPotoshopを最前面にする。上の擬似命令を削除した場合はこの下も多分不要
-app.bringToFront();
 //ドキュメントがなかったりレイヤが選択されていなかったら実行しない
   if((app.documents.length)&&(app.activeDocument)&&(app.activeDocument.activeLayer)){
 

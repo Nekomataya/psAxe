@@ -3,20 +3,11 @@
     undo 設定を行わない。
     この機能はチューニングの余地が多すぎるのでまだ最適化しないで置いておく 2011/09/25
 */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
 //Photoshop用ライブラリ読み込み
 
-if($.fileName){
-//	CS3以降は　$.fileNameオブジェクトがあるのでロケーションフリーにできる
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-}
-var includeLibs=[nasLibFolderPath+"config.js"];//読み込みライブラリを格納する配列
+
+	var includeLibs=[nasLibFolderPath+"config.js"];//読み込みライブラリを格納する配列
 
 if(! app.nas){
 //iclude nasライブラリに必要な基礎オブジェクトを作成する
@@ -46,7 +37,6 @@ if(! app.nas){
   dataio.js		Xpsオブジェクト入出力ライブラリ（コンバータ部）
   fakeAE.js		中間環境ライブラリ
   io.js			りまぴん入出力ライブラリ
-  psAnimationFrameClass.js	PS用フレームアニメーション操作ライブラリ
   xpsQueue.js		PS用Xps-FrameAnimation連携ライブラリ
 */
 includeLibs=[
@@ -77,7 +67,6 @@ includeLibs.push(nasLibFolderPath+"lib_STS.js");
 includeLibs.push(nasLibFolderPath+"dataio.js");
 includeLibs.push(nasLibFolderPath+"fakeAE.js");
 includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
 includeLibs.push(nasLibFolderPath+"xpsQueue.js");
 
 for(prop in includeLibs){
@@ -183,13 +172,13 @@ for(var idx=0;idx<myTrCounts;idx++){
 		var myIndex=myQueue[0].index;
 		var myDuration=myQueue[0].duration/XPS.framerate;//継続フレームを時間に変換
 		myTarget.setView(myQueue[0]);
-		setDly(myDuration);
+		nas.axeAFC.setDly(myDuration);
 		//第二フレーム以降をループ設定
 		for(var idx=1;idx<myQueue.length;idx++){
-		 dupulicateFrame();//作る（フォーカス移動）
+		 nas.axeAFC.dupulicateFrame();//作る（フォーカス移動）
 		 myDuration=myQueue[idx].duration/XPS.framerate;//継続フレームを時間に変換
 		 myTarget.setView(myQueue[idx]);
-		 setDly(myDuration);
+		 nas.axeAFC.setDly(myDuration);
 		}
 	}else{alert("処理を中断しました")}
 

@@ -16,10 +16,6 @@ Axe 用改装
 	下段コマンドの読み込みと 上下段別々の保存が可能です。
 	AE CS3以降のパネル起動に対応しておりますので、パネル使用をおすすめします。
  */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
 
 	nas=app.nas;
 

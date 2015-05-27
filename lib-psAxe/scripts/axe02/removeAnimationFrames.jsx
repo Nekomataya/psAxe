@@ -1,13 +1,7 @@
 /*(アニメフレームの削除)
 	フレームアニメーションを初期化する
 */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
 //Photoshop用ライブラリ読み込み
-//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
-//	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
 	nas=app.nas;
 
 //+++++++++++++++++++++++++++++++++ここまで共用

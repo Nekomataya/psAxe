@@ -16,10 +16,6 @@
  起動初期化時に現在オープンされているドキュメントの同ロケーションにあるXPS(のみ)をオープンしてストアに格納することに
  初期状態でのアクティブドキュメントをセレクタ上でアクティブにする。
  */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-	app.bringToFront();
 
 //	モジュール情報設定
 var myFilename=("$RCSfile: easyXPSLink_Ps.jsx,v $").split(":")[1].split(",")[0];
@@ -28,14 +24,8 @@ var exFlag=true;
 var moduleName="easyXPS";//モジュール名で置き換えてください。
 //Photoshop用ライブラリ読み込み
 
-if($.fileName){
-//	CS3以降は　$.fileNameオブジェクトがあるのでロケーションフリーにできる
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-}
-var includeLibs=[nasLibFolderPath+"config.js"];//読み込みライブラリを格納する配列
+	var includeLibs=[nasLibFolderPath+"config.js"];//読み込みライブラリを格納する配列
 
 if(! app.nas){
 //iclude nasライブラリに必要な基礎オブジェクトを作成する
@@ -65,7 +55,6 @@ if(! app.nas){
   dataio.js		Xpsオブジェクト入出力ライブラリ（コンバータ部）
   fakeAE.js		中間環境ライブラリ
   io.js			りまぴん入出力ライブラリ
-  psAnimationFrameClass.js	PS用フレームアニメーション操作ライブラリ
   xpsQueue.js		PS用Xps-FrameAnimation連携ライブラリ
 */
 includeLibs=[
@@ -95,7 +84,6 @@ includeLibs.push(nasLibFolderPath+"lib_STS.js");
 includeLibs.push(nasLibFolderPath+"dataio.js");
 includeLibs.push(nasLibFolderPath+"fakeAE.js");
 includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
 includeLibs.push(nasLibFolderPath+"xpsQueue.js");
 
 for(prop in includeLibs){
@@ -355,24 +343,24 @@ function goLink()
 		//表示初期化
 		//アニメーションテーブル初期化
 		//アニメウィンドウを初期化する＞要するに全て消す
-		dupulicateFrame();//一個複製して最低２個のフレームにする（エラー回避）
-		selectFramesAll();//全選択
-		removeSelection();//削除
+		nas.axeAFC.dupulicateFrame();//一個複製して最低２個のフレームにする（エラー回避）
+		nas.axeAFC.selectFramesAll();//全選択
+		nas.axeAFC.removeSelection();//削除
 //==============================================================
 		//第一（キー）フレームを設定
 		var myIndex=myQF[0].index;
 		var myDuration=myQF[0].duration/XPS.framerate;//継続フレームを時間に変換
 		app.activeDocument.setView(myQF[0]);
-		setDly(myDuration);
+		nas.axeAFC.setDly(myDuration);
 		//第二フレーム以降をループ設定
 		for(var idx=1;idx<myQF.length;idx++){
-			dupulicateFrame();//作る（フォーカス移動）
+			nas.axeAFC.dupulicateFrame();//作る（フォーカス移動）
 		myDuration=myQF[idx].duration/XPS.framerate;//継続フレームを時間に変換
 		app.activeDocument.setView(myQF[idx]);
-		setDly(myDuration);
+		nas.axeAFC.setDly(myDuration);
 		}
 	//第一フレームへ移動
-	selectFrame(1);
+	nas.axeAFC.selectFrame(1);
 /*選択ドキュメントをライズする動作は、セレクタの変更時に処理済*/
 
 }

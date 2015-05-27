@@ -100,7 +100,7 @@ nas_Installer.myInstall=[
 ["mkdir","%USER%/lib/resource"],
 
 ["confirm","ライブラリの内容変更のため設定の一部を消去します。\nバックアップが必要な場合は中断して保存してください。\n継続しますか？"],
-["rm","%SOURCE%/lib/etc/nas.axe.json"],
+["rm","%USER%/lib/etc/nas.axe.json"],
 
 ["%SOURCE%/lib/resource/timeSheet6sA3.eps","%USER%/lib/resource/timeSheet6sA3.eps"],
 
@@ -186,7 +186,6 @@ nas_Installer.myInstall=[
 ["%SOURCE%/lib/nas.XpsStore.js" , "%USER%/lib/nas.XpsStore.js"],
 ["%SOURCE%/lib/nasLibInstall.js" , "%USER%/lib/nasLibInstall.js"],
 ["%SOURCE%/lib/newXps.jsx"       , "%USER%/lib/newXps.jsx"],
-["%SOURCE%/lib/psAnimationFrameClass.js" ," %USER%/lib/psAnimationFrameClass.js"],
 ["%SOURCE%/lib/psCCfontFix.js" , "%USER%/lib/psCCfontFix.js"],
 ["%SOURCE%/lib/xpsio.js"            , "%USER%/lib/xpsio.js"],
 ["%SOURCE%/lib/xpsQueue.js"     , "%USER%/lib/xpsQueue.js"],
@@ -367,7 +366,6 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/lib/resource/Frames/240mm22x16.eps"],
 ["rm","%USER%/lib/resource/Frames/254mm1.85x1.eps"],
 ["rm","%USER%/lib/resource/Frames/254mm16x9.eps"],
-["rm","%USER%/lib/resource/Frames/254mm16x9.eps"],
 ["rm","%USER%/lib/resource/Frames/260mm16x9.eps"],
 ["rm","%USER%/lib/resource/Frames/263mm16x9.eps"],
 ["rm","%USER%/lib/resource/Frames/264mm16x9.eps"],
@@ -434,7 +432,6 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/lib/nas.XpsStore.js"],
 ["rm","%USER%/lib/nasLibInstall.js"],
 ["rm","%USER%/lib/newXps.jsx"],
-["rm","%USER%/lib/psAnimationFrameClass.js"],
 ["rm","%USER%/lib/psCCfontFix.js"],
 ["rm","%USER%/lib/xpsio.js"],
 ["rm","%USER%/lib/xpsQueue.js"],

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ExtensionManifest Version="4.0" ExtensionBundleId="info.nekomataya.psAxeToolBar" ExtensionBundleVersion="1.0.0"
+<ExtensionManifest Version="4.0" ExtensionBundleId="info.nekomataya.psAxe.toolbar" ExtensionBundleVersion="1.1.0"
 		ExtensionBundleName="psAxeToolBar" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<ExtensionList>
-		<Extension Id="info.nekomataya.psAxeToolBar.toolbar" Version="1.0" />
+	<Author>
+		<![CDATA[kiyo@nekomataya.info]]>
+	</Author>	<Contact mailto="support@nekomataya.info"/>	<Legal href="http://www.nekomataya.info/psAxe/"/>	<Abstract href="http://www.nekomataya.info/psAxe/"/>	<ExtensionList>
+		<Extension Id="info.nekomataya.psAxe.toolbar" Version="1.1" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
-			<Host Name="PHSP" Version="[14.0,20.9]" />
 			<Host Name="PHXS" Version="[14.0,20.9]" />
+			<Host Name="PHSP" Version="[14.0,20.9]" />
 		</HostList>
 		<LocaleList>
 			<Locale Code="All" />
@@ -19,7 +21,7 @@
 		</RequiredRuntimeList>
 	</ExecutionEnvironment>
 	<DispatchInfoList>
-		<Extension Id="info.nekomataya.psAxeToolBar.toolbar">
+		<Extension Id="info.nekomataya.psAxe.toolbar">
 			<DispatchInfo >
 				<Resources>
 				<MainPath>./index.html</MainPath>
@@ -34,12 +36,13 @@
 					<Geometry>
 						<Size>
 							<Height>52</Height>
-							<Width>800</Width>
+							<Width>1282</Width>
 						</Size>
 					</Geometry>
 					<Icons>
 						<Icon Type="Normal">./res/psaxe.png</Icon>
-						<Icon Type="RollOver">./res/axe_h.png</Icon>
+						<Icon Type="RollOver">./res/psaxe_d.png</Icon>
+						<Icon Type="Disabled">./res/axe.png</Icon>
 						<Icon Type="DarkNormal">./res/axe_d.png</Icon>
 						<Icon Type="DarkRollOver">./res/axe_h.png</Icon>
 					</Icons>

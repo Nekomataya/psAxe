@@ -5,9 +5,9 @@
 	環境取得・設定など
 
 $Id: nasPsAxeInstall.jsx,v 1.6 2015/05/22 13:35:39 kiyo Exp $
- */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
 // #target photoshop
+ */
 //引数オブジェクトが存在しない場合仮のオブジェクトでエラーを回避する
 try{if(arguments[0]){;};}catch(ERR){var arguments=new Array();}
 //==================== ターゲットパスを取得しておく

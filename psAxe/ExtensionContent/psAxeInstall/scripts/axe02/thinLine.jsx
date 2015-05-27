@@ -6,10 +6,6 @@
 	psPaintプラグインがあらかじめインストールされていること
 	
 */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
-// in case we double clicked the file
-app.bringToFront();
 
 /*
 	ピクセルベンダーが、実行可能な場合はそちらを優先的に使用する。

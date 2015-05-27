@@ -1,0 +1,1742 @@
+%!PS-Aobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 1031 728
+%%TITLE: RefChart_noResolutionGage.eps
+%%Creater: kiyo
+%%Pages: 1
+% A4 A3 B4 サイズ兼用
+% 2015.02.04	Nekomataya/kiyo
+% タップ穴付きアニメーション用紙の線画をデジタイズする際
+% 取り込み環境をデータとして記録するためのリファレンスチャートです
+% 詳しい仕様及び使い方は http://www.nekomataya.info/teck_info/refChart/　を御覧ください
+% ラスタライズサイズに合わせて下のバウンディングボックスのいずれかを
+% 使用してください
+% 	A4横			%%BoundingBox: 0 0 841 593
+%	B4横			%%BoundingBox: 0 0 1031 728
+% 	A3横			%%BoundingBox: 0 0 1186 841
+% 	A3縦			%%BoundingBox: 0 0 841 1186
+%%EndComment
+
+% 単位換算(ここは、書き換えない様にして下さい)
+/cm	{28.3464 mul} def
+/mm	{2.83464 mul} def
+/in 	{72 mul} def
+% フレーム単位変換関数(ここは、書き換えない様にして下さい)
+/fl	{60 add 160 div BaseWidth mul} def
+/p2f	{160 mul BaseWidth div 60 sub} def
+
+% プリンタ調整用スケーリング
+% 計測した実際のプリンタの解像度を置いてサイズの微調整を行う
+%	1444. 1440. div 1444. 1440. div scale
+
+% 出力選択　A3L A3F B4L A4L 何れかの選択
+
+%	/myOutput	(A3L)	def
+%	/myOutput	(A3F)	def
+	/myOutput	(B4L)	def
+%	/myOutput	(A4L)	def
+
+% この下の値はカスタマイズ用の変数です
+% お好きな値に書き換えてご使用ください
+% 注意
+%	必ず {} の中だけを書き換える様に気をつけて下さい。
+%	大きさは cm (センチ) mm (ミリ) fl (フレーム) で、指定できます
+%	数値と単位の間には必ず空白を挟んで下さい。
+%	20 cm	<< OK
+%	120fl	<< だめ(エラーになります)
+%		単位記号無しだとポイント指定になります
+%			（1 ポイント = 1/72 インチ）
+% 表示色はIREレベルで指定します。カラーは今回サポートしていません
+% 印刷時の寸法(基準フレーム幅) を変更した場合は、バウンディングボックスの値も
+% 書き換えてください。
+% 詳しいカスタマイズの説明は、Readme.html をごらんください。
+% PictureMode
+% 印刷用
+	/PictureMode	(Print) def
+% 解像度チャートありなし
+	/noResolutionChart true def
+
+%	寸法関連
+%-------------------------------------------------------
+
+
+
+myOutput (A3F) eq {
+% 基準フレーム幅(A3 縦) 10 in
+	/BaseWidth {10 in} def
+% フレームの縦横比率
+% ReferenceChart 12 by 9
+	/AspectH {14} def	/AspectW {10} def
+% 用紙の幅
+	/PaperWidth {841} def
+% 用紙の高さ
+	/PaperHeight {1186} def
+% タップ中心からフレーム中心までの距離
+	/FrameOffset {8.0 in} def}{
+ myOutput (A3L) eq {
+% 基準フレーム幅(A3 横) 14 in
+	/BaseWidth {14 in} def
+% フレームの縦横比率
+% ReferenceChart 19 by 12 (A3L)
+	/AspectH {9} def	/AspectW {14} def
+% 用紙の幅 A3横
+	/PaperWidth {1186} def
+% 用紙の高さ
+	/PaperHeight {841} def
+% タップ中心からフレーム中心までの距離
+	/FrameOffset {6.0 in} def }{
+  myOutput (B4L) eq {
+% 基準フレーム幅(B4 横) 12 in
+	/BaseWidth {12 in} def
+% フレームの縦横比率
+% ReferenceChart 8 by 12 (B4)
+	/AspectH {8} def	/AspectW {12} def
+% 用紙の幅
+	/PaperWidth {1031} def
+% 用紙の高さ
+	/PaperHeight {728} def
+% タップ中心からフレーム中心までの距離
+	/FrameOffset {5.0 in} def
+  }{
+% 基準フレーム幅(A4 横) 10 in
+	/BaseWidth {10 in} def
+% フレームの縦横比率
+% ReferenceChart 6 by 10 (A4)
+	/AspectH {6} def	/AspectW {10} def
+% 用紙の幅
+	/PaperWidth {841} def
+% 用紙の高さ
+	/PaperHeight {593} def
+
+% タップ中心からフレーム中心までの距離
+	/FrameOffset {4.0 in} def
+
+  } ifelse
+ } ifelse
+} ifelse
+% 背景クロスハッチの寸法
+%	/BackgroundSpan {1 in} def
+	/BoXPitch {1 in} def
+% 周辺枠の幅
+	/BorderSpan {.75 in} def
+
+%% Scale
+	/ScaleLength {260 mm} def
+% メディア別ライン数
+%	画面縦方向のライン数を設定してください
+%	描画ラインのウェイトを決定する際に参照します
+%	ラスタライズの指定とは関係ありません。
+
+% DV		/MediaLines	{480} def
+% D1		/MediaLines	{486} def
+% HDTV(720p/i)	/MediaLines	{720} def
+% Hi-Vision(MUSE)
+	/MediaLines	{1080} def
+% 4K	/MediaLines	{3480} def
+%
+%
+%	表示情報関連
+%-------------------------------------------------------
+% レジスタマーク
+%	周辺余白とトンボを打ちます 無しの場合画面内のみ描画します
+
+% あり
+		/RegisterMark	true def
+% 無し		/RegisterMark	false def
+
+% センタタイトルロゴ
+%	ねこまたや ロゴ
+
+% あり		/Logo	true def
+% 無し
+		/Logo	false def
+
+
+% 信号関連
+% ---------------------------------------------------------
+% 解像度評価パターンのタイプ
+%	印刷原稿の際はステップ波タイプを推奨。
+
+% PictureMode (Print) eq { /Type (step) def }{ /Type (sin) def } ifelse
+
+% ステップ波	/Type	(step)	def
+%正弦波
+	/Type	(sin)	def
+% 印刷用　スポットゲイン調整
+	/spotGain {3} def
+% 信号レベル
+%	各レベルは輝度のIRE値で指定してください (単位不要)
+%	デバイスRGBに換算した際にデバイスの表示範囲を越えるデータの丸め込みは
+%	行っていません。
+%	インタプリタにはそのままのデータが渡されます。
+%	インタプリタ側での丸め込みをあてにしています。
+
+% 白/黒 レベル指定
+
+% 0/100
+	/WhitePoint {100} def	/BlackPoint {0} def
+% 0/75		/WhitePoint {75} def	/BlackPoint {0} def
+% 7.5/100		/WhitePoint {100} def	/BlackPoint {7.5} def
+% 7.5/75		/WhitePoint {75} def	/BlackPoint {7.5} def
+	
+% 背景色・主描画色
+
+% 白地に黒
+%	/BackDrop {WhitePoint} def	/DrawColor {BlackPoint} def
+	/BackDrop {WhitePoint} def	/DrawColor {75} def
+% 黒地に白	/BackDrop {BlackPoint} def	/DrawColor {WhitePoint} def
+
+% 中間調
+	/MidTone	{50} def
+	/IMTone		{WhitePoint BlackPoint sub .5 mul BlackPoint add} def
+% ---------------------------------------------------------
+% ビデオマッピングデータ
+%	以下のデータは、IRE値からデバイスRGBデータへの変換の基礎情報です。
+%	書き換える際は注意
+%	意味のわからない人は書き換えない様にしましょう。
+
+% ガンマ補正
+% 補正なし
+	/Gamma	{1.0} def
+% appleDV-FW 	/Gamma	{2.2 1.8 div} def
+% TEST 	/Gamma	{2.2 2.5 div} def
+
+% γ補正は上の様に {(NTSCのγ値) (ターゲットデバイスのγ値) div} と記述します。
+% 補正が不要な場合は {1.0}( = {2.2 2.2 div} )を記入してください。
+
+% マッピング
+% Default
+	/Map_0 {0} def /Map_100 {1} def
+% ITU-R601	/Map_0 {16 255 div} def /Map_100 {235 255 div} def
+
+% NTSC Setup7.5(PAR&others)	/Map_0 {7.5 100 7.5 sub div neg} def	/Map_100 {1} def
+
+% マッピング情報は、ご使用のデバイスが輝度情報をどのようにRGBデータから得るかを
+% 記述してください。詳しくは付属のReadMe.txtを
+
+% TEXT
+% Name 文字列は画面タイトルとして中央部に表示されます。
+% 表示に日本語は受け付けません。
+
+	/Name (ReferenceChart) def
+	/Comment (ver 0.6 beta) def
+
+% ------------------------------------------------------------
+% 標準的なカスタマイズはここまでです。
+% ここから下は変更しないで下さいね
+
+% IRE値からデバイスRGB値への換算
+/IRE2RGB	{
+% スタックにIREを１００分値で置く、戻り値はグレースケールをPS形式でスタックに
+	100 div Map_100 Map_0 sub mul Map_0 add
+	dup 0 gt { Gamma exp } {abs Gamma exp neg } ifelse
+
+} def
+
+% 描画パラメータ生成
+/FrameWidth {BaseWidth} def
+/Aspect {AspectH AspectW div} def
+/FrameHeight {FrameWidth Aspect mul} def
+
+% 用紙上端からタップ中心までの距離
+	/PegBarOffset {10 mm} def
+% フレーム上端から文字のベースラインまでの距離
+	/CBaseOffset {5 mm } def
+
+
+% タップ穴を表示するか否かまたはタップ位置をトンボで打つか、外形を描くか
+% 0:非表示/1:トンボ打ち/2:外形描画/3:黒で塗りつぶし/4:周辺黒-中白
+
+	/PegForm {2} def
+% タップマーカーの長さ
+	/TMLength {PaperWidth 2 div} def
+
+	/CBaseHeight {PaperHeight PegBarOffset sub FrameOffset sub FrameHeight 2 div add CBaseOffset add} def
+	/PegBaseHeight {PaperHeight PegBarOffset sub} def
+% 8ビット色値換算
+	/R {255 div} def
+	/G {255 div} def
+	/B {255 div} def
+% 空文字列作成
+	/nstr {8 string} def
+% センタリング表示
+	/Cshow { dup stringwidth pop
+		  2 div neg 0 rmoveto
+
+	PictureMode (Video) eq {
+	dup gsave
+true charpath
+
+IMTone IRE2RGB dup dup setrgbcolor
+1 setlinecap
+1 setlinejoin
+FrameHeight MediaLines div setlinewidth
+stroke
+	grestore 
+	} if
+		  show
+		} def
+
+%	解像度読み取り楔形描画
+% 呼び出し前に原点に移動してパラメタを置く事
+% 必要なデータと初期値
+% Lines	描画する楔の数(奇数で置く)
+	/Lines	{25} def
+% BoxH	描画する高さ(長さ)
+	/BoxH	{FrameHeight 4 div} def
+
+% /Settings	{1000} def
+
+% StartR	開始解像度(dpi)
+% EndR		終了解像度(dpi)
+% StNUM	表示番号の開始値
+% Pitch	表示番号のピッチ
+% EdNUM	表示番号の終了値
+
+	/Lines	{35} def
+	/StartR	{130} def
+	/EndR	{380} def
+	/StNUM	{150} def
+	/Pitch	{50} def
+	/EdNUM	{300} def
+
+% Lot	ローテーション
+	/Lot	{0} def
+% CharHeight	文字の高さ(1/12 in)
+	/CharHeight	{1 12 div in} def
+% cFlag		表示フラグ(暫定)
+	/cFlag	true def
+% ResArray=StartR EndR StNUM Pitch EdNUM Lot CharHeight Lines BoxH cFlag
+	/ResArray 10 array def
+StartR EndR StNUM Pitch EdNUM Lot CharHeight Lines BoxH cFlag ResArray astore
+
+	/CcrArray 9 array def
+StartR EndR StNUM Pitch EdNUM Lot CharHeight Lines BoxH  CcrArray astore
+
+%実際の関数は呼出し前にパラメータをスタックに置く
+%その際のデフォルト値がこちら(汎用性をあげる為??)
+
+%	四隅の小円
+% 小円の半径
+	/SqR	{.9 in} def
+% 小円の縁幅
+	/LineW	{.1 cm} def
+
+%	中央部解像度表示同心円
+% Ccr	:サークル半径
+% CcRes	:解像度
+% CcN	:同心円本数
+% CcL	:回転角度
+
+	/Ccr { 1 8 div in} def
+	/CcRes	{200} def
+	/CcN	{11} def
+	/CcL	{0} def
+
+%	中央部解像度表示同心円パラメタ配列
+% 半径 解像度 本数 回転角
+	/CcDp 4 array def
+% 半径 線幅 位相フラグ
+	/CXXa 3 array def
+% sin波形グラデーション用配列
+	/WaveForm 5 array def
+
+% hall drawing
+% レジストリ孔を描く
+%　直径 1/4 インチ
+/HallDraw
+{
+		PegForm 1 gt
+		{
+	 newpath
+	 0 0 9 0 360 arc
+
+	  PegForm 3 le{
+	PegForm 3 eq
+	{
+		 closepath
+		 0.3 setgray
+		 fill
+	}
+	{
+		 0 setgray
+		 stroke
+	} ifelse
+	  }{
+
+  0.9 cm -0.75 cm moveto
+ -0.9 cm -0.75 cm lineto
+ -0.9 cm 0.75 cm lineto
+  0.9 cm 0.75 cm lineto
+closepath 
+0.7 setgray fill
+	  }ifelse
+		}
+		{
+	PegForm 1 eq
+	{
+	.2 in CrossDraw
+	} if
+		} ifelse
+} def
+
+% slot drawing
+% サイドスロットを描く
+% 原点位置はスロットの中心
+% 幅 5/8 インチ ・ 高さ 1/8 インチ
+/SlotDraw
+{
+		PegForm 1 gt
+		{
+			newpath
+% 4.5pt =1/16in 45pt=5/8in
+%			 -20.25 4.50 moveto
+			 0 4.50 moveto
+			 22.5 4.5 22.5 -4.5 4.50 arct
+			 22.5 -4.5 -22.5 -4.5 4.50 arct
+			 -22.5 -4.5 -22.5 4.5 4.50 arct
+			 -22.5 4.5 0 4.50 4.50 arct
+			0 4.50 lineto
+
+	  PegForm 3 le{
+	PegForm 3 eq
+	{
+		closepath
+		0.3 setgray
+		fill
+	}
+	{
+		 0 setgray
+		 stroke
+	} ifelse
+	  }{
+%  40.50 0 rlineto
+  1.4 cm 0.75 cm moveto
+ -1.4 cm 0.75 cm lineto
+ -1.4 cm -0.75 cm lineto
+  1.4 cm -0.75 cm lineto
+closepath 0.7 setgray fill
+
+	  }ifelse
+		}
+		{
+	PegForm 1 eq
+	{
+	.5 in
+		dup 2 div neg 0 rmoveto
+		dup 0 rlineto
+		dup 9 div 0 exch rmoveto
+		dup 4.5 div 0 exch neg rlineto
+		dup neg 0 rlineto
+		dup 4.5 div 0 exch rlineto
+		 0 rlineto
+		0.02 cm setlinewidth
+		.0 setgray
+		stroke
+	} if
+		} ifelse
+} def
+
+
+% タップマーカーを描く
+% レジスタホール中心から135°,225°方向へ向かう直線
+% 長さは用紙長辺の　(1/2)*(√2)
+% 呼び出し前にタップ中心に移動を済ませておくこと
+/TMDraw
+{	newpath
+	TMLength neg dup moveto
+	TMLength dup rlineto TMLength dup neg rlineto
+	% closepath
+	0.01 cm setlinewidth
+	0 setgray stroke
+} def
+
+% 穴あけ用ガイド
+% 原点位置はホールの中心
+% 幅 238 mm ・ 高さ 1 インチ
+/DrawTappingGuide
+{
+119 mm neg 18 rmoveto
+0 72 neg rlineto
+238 mm 0 rmoveto
+0 72 rlineto
+
+0.02 cm setlinewidth
+.0 setgray
+
+stroke
+} def
+
+% タップを書く	呼出し前にペグホール中心に移動のこと
+
+/DrawPeg {
+% センタレジストリホール
+	gsave
+	currentpoint translate
+	HallDraw
+	grestore
+
+% タッピングガイド描画
+	gsave 
+		DrawTappingGuide
+	grestore
+
+% 左スロット
+	gsave
+	-288 0 rmoveto
+%		4インチ左へ
+	currentpoint translate
+	SlotDraw
+	grestore
+
+% 右スロット
+	gsave
+	288 0 rmoveto
+%		8インチ右へ
+	currentpoint translate
+	SlotDraw
+	grestore
+} def
+% レジスタマークを書く
+% 
+/DrawReg {
+	gsave
+
+/DRL {
+	gsave
+	rotate
+	.8 cm neg 0 rmoveto
+	.8 cm 0 rlineto
+	0 .8 cm rlineto
+	.03 cm setlinewidth
+	DrawColor IRE2RGB dup dup setrgbcolor
+	stroke
+	grestore
+} def
+
+FrameWidth 2 div neg FrameHeight 2 div moveto 0 DRL
+FrameWidth 2 div FrameHeight 2 div moveto 270 DRL
+FrameWidth 2 div neg FrameHeight 2 div neg moveto 90 DRL
+FrameWidth 2 div FrameHeight 2 div neg moveto 180 DRL
+
+	grestore
+} def
+
+% mainframe draw
+
+/DrawMainFrame {
+	FrameWidth 2 div neg FrameHeight 2 div neg moveto
+	FrameWidth 0 cm rlineto
+	0 cm FrameHeight rlineto
+	FrameWidth neg 0 cm rlineto
+	closepath
+	0.05 cm setlinewidth
+	MidTone IRE2RGB dup dup setrgbcolor
+	fill
+} def
+
+% マーカートライアングル
+/DrawTriangle {
+% スタックに高さと幅 角度
+%
+gsave	neg rotate
+	2 div exch neg 1 index exch rlineto
+	2 mul neg 0 rlineto
+	closepath
+	MidTone IRE2RGB dup dup setrgbcolor
+	fill	grestore
+} def
+
+% sin波状グラデーションライン
+/SinWave {
+% 呼び出す前にパラメタをスタックに置く
+% (開始座標x y (終了座標x y (位相キー値 180/黒側 or 0/白側
+% パラメータ用配列にストア
+		WaveForm astore
+%	ループでグラデーション描画(半サイクル5サンプル固定)
+0 1 2 { dup dup
+%	グラデーションカラーの計算
+		36 mul 18 add WaveForm 4 get add
+		sin 1 add 2 div WhitePoint BlackPoint sub mul BlackPoint add
+		spotGain mul
+		IRE2RGB dup dup setrgbcolor
+%	ループ毎の描画幅を計算
+		2 mul 5 sub MaxWidth mul 5 div abs /MaxW exch def
+		2 mul 5 sub MinWidth mul 5 div abs /MinW exch def
+%	配列から座標を取り出し描画開始点に移動
+		WaveForm 0 get WaveForm 1 get moveto
+%	開始描画幅の半分y座標を増加
+		MinW 2 div 0 rlineto
+%	描画終了点のy座標に終了描画幅の半分を足して移動
+		WaveForm 2 get MaxW 2 div add WaveForm 3 get lineto
+%	y座標を変えずにx座標を終了描画幅減少
+		MaxW neg 0 rlineto
+%	描画開始点x座標 開始描画幅の半分y座標を減少
+		WaveForm 0 get MinW 2 div sub WaveForm 1 get lineto
+	closepath
+	fill
+	} for
+} def
+
+/StepWave {
+% ステップ波風にするときの手続き
+% 呼出し形式はサイン波タイプと同じ
+% グラデーションのループはなし
+		WaveForm astore
+%	描画色の計算
+		WaveForm 4 get 90 add
+		sin 1 add 2 div WhitePoint BlackPoint sub mul BlackPoint add
+		IRE2RGB dup dup setrgbcolor
+%	配列から座標を取り出し描画開始点に移動 moveto
+		WaveForm 0 get WaveForm 1 get moveto
+%	開始描画幅の半分y座標を増加 rlineto
+		MinWidth 2 div 0 rlineto
+%	描画終了点のy座標に終了描画幅の半分を足して移動 lineto
+		WaveForm 2 get MaxWidth 2 div add WaveForm 3 get lineto
+%	y座標を変えずにx座標を終了描画幅減少 rlineto
+		MaxWidth neg 0 rlineto
+%	描画開始点x座標 開始描画幅の半分y座標を減少 lineto
+		WaveForm 0 get MinWidth 2 div sub WaveForm 1 get lineto
+	closepath
+	fill
+} def
+
+% 解像度読み取り楔形描画手続き
+% 呼出し前にスタックにパラメタを置く
+% プロシジャ側で配列を取る
+% StartR EndR StNUM Pitch EdNUM Lot CharHeight Lines BoxH cFlag ResArray astore
+/ResBox {
+% 初期化
+		ResArray astore
+	/MinWidth {72 ResArray 0 get div 1 div} def
+	/MaxWidth {72 ResArray 1 get div 1 div} def
+% 現状を保存01して原点をトランスレート
+	gsave
+	currentpoint translate
+
+% センタラインを描く
+% 配列をセットしてサブルーチン呼ぶ
+	0 ResArray 8 get 2 div 0 ResArray 8 get 2 div neg 180
+Type (sin) eq {	SinWave } { StepWave } ifelse
+PictureMode (Print) eq {
+	/Blank {WhitePoint} def
+} {
+	/Blank {WhitePoint BlackPoint sub 0.75 mul BlackPoint add} def
+} ifelse
+% 破線の切り抜きと文字表示 (New)
+	ResArray 2 get ResArray 3 get ResArray 4 get {
+
+%	表示用にスタックを複製(表示しなかった場合は必ず捨てる)
+	dup
+
+%	解像度から計算した高さへ移動
+	1 exch div 1 ResArray 1 get div sub
+	1 ResArray 0 get div 1 ResArray 1 get div sub  div
+	ResArray 8 get mul
+	ResArray 8 get 2 div sub
+	0 exch moveto
+% グラフィック状態保存02
+	gsave
+% 文字高さの1/3の高さで背景色のラインを描画
+	ResArray 6 get 3 div setlinewidth
+
+	 Blank IRE2RGB dup dup setrgbcolor
+
+	MinWidth 0 rmoveto
+	MinWidth 2 mul neg 0 rlineto
+	stroke
+% 座標を復帰02して文字を表示
+	grestore
+			false {
+%	文字打ち込み位置まで横移動
+%	MinWidth ResArray 7 get mul .5 mul 0 rmoveto
+	currentpoint exch pop 2 sqrt div dup moveto
+	BoxH 2 div 2 sqrt div dup BoxH 2 div sub rmoveto
+%	ローテーション?
+% グラフィック状態保存03
+	gsave
+	DrawColor IRE2RGB dup dup setrgbcolor
+	/Times-Roman findfont ResArray 6 get scalefont setfont
+	ResArray 6 get .5 mul ResArray 6 get .1 mul neg rmoveto
+% 複製値はここで消費
+
+ResArray 5 get 180 mod 0 eq {
+
+	ResArray 5 get 45 sub rotate
+		0 CharHeight .3 mul neg rmoveto
+		dup 100 mod 0 eq {
+			10 div cvi nstr cvs Cshow
+		} {
+			pop (_) Cshow
+		} ifelse
+} {
+	pop
+} ifelse
+%復帰03
+	grestore
+			} if
+% 元のルーチン
+			ResArray 9 get {
+%	文字打ち込み位置まで横移動
+	MinWidth ResArray 7 get mul .5 mul 0 rmoveto
+%	ローテーション?
+% グラフィック状態保存03
+	gsave
+	DrawColor IRE2RGB dup dup setrgbcolor
+	/Times-Roman findfont ResArray 6 get scalefont setfont
+	ResArray 6 get .5 mul ResArray 6 get .1 mul neg rmoveto
+% 複製値はここで消費
+
+ResArray 5 get 180 mod 0 eq {
+
+	ResArray 5 get rotate
+		0 CharHeight .3 mul neg rmoveto
+		dup 100 mod 0 eq {
+			10 div cvi nstr cvs Cshow
+		} {
+			pop (-) Cshow
+		} ifelse
+} {
+	pop
+} ifelse
+%復帰03
+	grestore
+			} { pop } ifelse
+	} for
+% 左側描画
+1 1 ResArray 7 get 1 sub 2 div 
+	{
+% スタックに座標とパラメタ積んで配列セット
+	dup MinWidth mul neg ResArray 8 get 2 div 
+	2 index MaxWidth mul neg ResArray 8 get 2 div neg 
+	4 index 180 mul 180 sub
+Type (sin) eq {	SinWave } { StepWave } ifelse
+	} for
+% 右側描画
+1 1 ResArray 7 get 1 sub 2 div 
+	{
+	dup MinWidth mul ResArray 8 get 2 div 
+	2 index MaxWidth mul ResArray 8 get 2 div neg 
+	4 index 180 mul 180 sub
+Type (sin) eq {	SinWave } { StepWave } ifelse
+	} for
+% 復帰01
+	grestore
+} def
+
+% 円形パタン用解像度読み取り楔数値表示手続き
+% 呼出し時点のカレントポイントをセンタに取る
+% 呼出し前にスタックにパラメタを置く
+% プロシジャ側で配列を取る
+% StartR EndR StNUM Pitch EdNUM Lot CharHeight MiniL BoxH
+/CcrChar {
+% 初期化
+		CcrArray astore
+	/MinWidth {72 CcrArray 0 get div 1 div} def
+	/MaxWidth {72 CcrArray 1 get div 1 div} def
+% 現状を保存して原点をトランスレート
+	gsave
+	CcrArray 5 get rotate
+%	currentpoint translate
+
+	CcrArray 2 get CcrArray 3 get CcrArray 4 get { dup
+
+% 解像度から計算した半径のガイドサークルを描画
+	dup 
+	1 exch div 1 CcrArray 1 get div sub
+	1 CcrArray 0 get div 1 CcrArray 1 get div sub  div
+	CcrArray 8 get mul SqR .1 mul add
+newpath
+	0 0 3 -1 roll 0 360 arc
+	DrawColor IRE2RGB dup dup setrgbcolor
+	stroke
+
+% 解像度から計算した高さへ移動
+	1 exch div 1 CcrArray 1 get div sub
+	1 CcrArray 0 get div 1 CcrArray 1 get div sub  div
+	CcrArray 8 get mul SqR .1 mul add
+	0 exch moveto
+	gsave
+	DrawColor 2 div IRE2RGB dup dup setrgbcolor
+	/Times-Roman findfont CcrArray 6 get scalefont setfont
+% 複製値はここで消費
+
+	CcrArray 5 get neg CcrArray 7 get add rotate
+	10 div cvi nstr cvs Cshow
+	grestore
+
+	} for
+	grestore
+} def
+
+%解像度表示同心円手続き
+%呼出し前にパラメタを置けぃ
+% Ccr CcRes CcN CcL 
+% グラデーション/ステップ兼用版
+/CcDraw {
+%	パラメタを配列に格納
+	CcDp astore
+% 現状保存
+	gsave
+	currentpoint translate
+% センタパッチ
+	newpath
+	0 0
+	CcDp 0 get 0 360 arc
+	BackDrop IRE2RGB dup dup setrgbcolor
+	fill
+Type (sin) eq {
+% 同心円ループ(サイン波状)
+% グラデーション付きの円を描く スタックに 半径,線幅,フラグを置く
+	1 1 CcDp 2 get { dup 1 sub
+	CcDp 0 get 72 CcDp 1 get div 2 div sub
+	exch 72 CcDp 1 get div mul sub 
+	exch 72 CcDp 1 get div exch
+
+	CXXa astore
+		0 1 2 { dup
+% 色決め
+	36 mul 18 add CXXa 2 get 180 mul add
+	sin 1 add 2 div WhitePoint BlackPoint sub mul BlackPoint add
+	spotGain mul
+	IRE2RGB dup dup setrgbcolor
+% 幅だし
+	CXXa 1 get
+	exch 2 mul 5 sub abs 5 div mul setlinewidth
+	
+	0 0 CXXa 0 get 0 360 arc
+	stroke
+		} for
+	} for
+} {
+% 同心円ループ1(ステップ波状)
+	1 1 CcDp 2 get { 1 sub dup
+	CcDp 0 get 72 CcDp 1 get div 2 div sub
+	exch 72 CcDp 1 get div mul sub 
+	0 exch 0 exch 0 360 arc
+%	色計算
+		180 mul 90 sub
+		sin 1 add 2 div WhitePoint BlackPoint sub mul BlackPoint add
+		IRE2RGB dup dup setrgbcolor
+%	線幅計算
+		72 CcDp 1 get div setlinewidth
+		stroke
+	} for
+} ifelse
+% 文字打ち込み
+	gsave CcDp 3 get neg rotate
+	CcDp 1 get 10 div
+	0 CharHeight .3 mul neg moveto
+	DrawColor IRE2RGB dup dup setrgbcolor
+	/Times-Roman findfont CharHeight scalefont setfont
+	cvi nstr cvs Cshow
+	grestore
+grestore
+%リストアして復帰
+}def
+
+% 小サークル描画手続き
+/DrawMini {
+
+	/MiniL exch def
+% パッチ・サークル・クリップ
+	SqR 0 moveto
+	0 0 SqR 0 360 arc
+	MidTone IRE2RGB dup dup setrgbcolor
+	fill
+
+	0 0 SqR LineW sub 0 360 arc
+	BackDrop IRE2RGB dup dup setrgbcolor
+	gsave
+	fill
+	grestore
+	gsave
+		clip
+%クリッピングパス内に解像度楔描画4つ
+
+
+
+newpath
+% 楔の諸元1
+false {
+	/StartR	{100} def
+	/EndR	{450} def
+	/Lines	{31} def
+	/StNUM	{150} def
+	/Pitch	{50} def
+	/EdNUM	{300} def
+} if
+/BoxH	{ SqR .9 mul} def
+%クリッピングパス内ゲージサークル
+
+%目盛り
+
+gsave
+%	0 SqR .6 mul moveto
+
+ StartR EndR StNUM Pitch EdNUM 45 CharHeight MiniL BoxH		CcrChar
+
+grestore
+
+false{
+gsave
+	0 0 SqR 2 div 0 360 arc
+	75 IRE2RGB dup dup setrgbcolor
+	stroke
+grestore
+} if
+% 0d
+gsave
+	0 SqR .55 mul moveto
+ StartR EndR StNUM Pitch EdNUM Lot MiniL add CharHeight Lines BoxH false	ResBox
+grestore
+
+%45d
+gsave
+	-45 rotate
+	0 SqR .55 mul moveto
+ StartR EndR StNUM Pitch EdNUM Lot MiniL add CharHeight Lines BoxH false	ResBox
+grestore
+%90d
+gsave
+	-90 rotate
+	0 SqR .55 mul moveto
+ StartR EndR StNUM Pitch EdNUM Lot MiniL add CharHeight Lines BoxH false	ResBox
+grestore
+
+%108d
+gsave
+	108 rotate
+	0 SqR .55 mul moveto
+ StartR EndR StNUM Pitch EdNUM Lot MiniL add CharHeight Lines BoxH false	ResBox
+grestore
+
+%162d
+gsave
+	162 rotate
+	0 SqR .55 mul moveto
+ StartR EndR StNUM Pitch EdNUM Lot MiniL add CharHeight Lines BoxH false	ResBox
+grestore
+
+	0 0 moveto
+	Ccr CcRes CcN CcL MiniL sub CcDraw
+
+	grestore
+} def
+
+%	クロス 描画
+%		スタックにクロスのサイズを置いてから呼び出す
+%		3 cm CrossDraw
+/CrossDraw
+{
+	dup 2 div neg 0 rmoveto
+	dup 0 rlineto
+	dup 2 div neg 0 rmoveto
+	dup 2 div 0 exch rmoveto
+	0 exch neg rlineto
+		0.02 cm setlinewidth
+		.0 setgray
+		stroke
+} def
+
+% たらたらとロゴの打ち込み
+% フラグで消せます。
+/DrawLogo {
+	
+% 横方向ロゴ 暫定判 400  × 117
+	gsave
+
+0 setgray
+/m {moveto} def
+/c {curveto} def
+/C {curveto} def
+/L {lineto} def
+% センタリング
+
+200 neg 58 neg moveto
+	currentpoint translate
+
+% ね のアナ
+74.57074 11.70369 m
+79.40693 12.39704 85.79679 17.34151 90.73616 24.69458 C
+90.38948 24.88450 90.03855 25.07357 89.68195 25.26094 c
+78.79663 30.97814 65.38876 24.17131 65.77030 20.15263 c
+66.04299 17.28028 67.18620 16.80208 68.57943 15.12567 C
+70.84715 13.11931 72.16214 11.40321 74.57074 11.70369 C
+% ね
+95.75915 34.51209 m
+97.29468 38.68328 98.25902 43.21616 98.34973 47.92592 c
+98.71398 66.81515 85.46598 75.92315 75.86787 76.13348 c
+68.11030 76.30356 51.25039 66.51893 39.96283 57.01720 C
+39.95660 56.54523 39.95150 56.07213 39.95150 55.59477 c
+39.94781 30.36161 46.89156 13.78346 47.98006 11.48031 c
+49.06857 9.17717 49.52381 8.23181 46.82920 5.92498 c
+44.13458 3.61814 42.22573 1.81304 39.23348 0.43200 c
+36.24123 -0.94904 36.24123 1.81304 35.78088 3.88460 c
+35.35030 5.82208 29.68611 24.46951 29.33093 45.89348 C
+20.83266 34.82277 12.63827 19.48677 11.88624 15.38334 c
+11.02394 10.67839 9.69335 11.83266 7.30403 13.18847 c
+4.91471 14.54428 2.45282 18.15902 1.87625 21.58072 c
+1.29969 25.00243 -0.05386 26.22954 5.23219 29.52170 C
+7.81512 32.23304 9.11254 33.91172 11.82274 37.91452 c
+14.53294 41.91732 17.18249 46.50066 22.73414 54.95811 c
+24.93865 58.31660 27.48019 61.91802 29.89984 65.20734 C
+29.98970 66.90189 30.08665 68.59361 30.18954 70.27285 C
+26.80101 68.17351 23.27499 66.10961 20.91685 64.53751 c
+16.26860 61.43868 13.71061 60.43011 11.90296 65.07836 C
+10.24328 68.76312 9.47565 76.47959 9.67011 79.78620 C
+11.37005 78.41594 12.81883 75.09203 21.04923 78.04233 c
+24.25294 79.19065 27.68655 80.68139 31.02576 82.23987 C
+31.99521 94.66441 33.06557 104.44592 33.37398 105.74504 c
+33.92872 108.08192 32.05644 107.61591 29.56620 107.69272 C
+31.37896 109.75861 40.26161 113.97118 44.47729 113.75972 c
+48.69298 113.54825 53.63320 112.78885 51.28384 105.61096 c
+50.19874 102.29556 47.69972 96.75354 45.32372 89.26441 C
+47.00636 90.07257 48.30775 90.64687 49.07310 90.85266 c
+52.43244 91.75663 55.59222 87.37965 53.14054 84.78454 c
+51.66312 83.22066 46.44539 77.71323 41.09754 71.14762 C
+40.89997 69.80712 40.72365 68.43458 40.57172 67.03172 C
+49.94844 76.38094 63.76337 88.54299 75.07276 88.72243 c
+91.33937 88.98066 108.84501 81.75458 109.11487 57.99713 c
+109.23335 47.55628 106.94608 38.89446 103.63380 31.85858 C
+103.92860 31.70636 104.20724 31.55159 104.46520 31.39398 c
+109.11373 28.55310 116.08583 24.93808 116.34406 20.80630 c
+116.60230 16.67452 116.86054 11.50980 115.31112 7.89449 c
+113.76170 4.27918 113.50346 2.72976 110.14639 7.63625 c
+107.60882 11.34510 103.43282 16.25046 96.84397 20.89389 C
+94.11647 17.43307 91.30054 14.67014 88.81710 12.55691 c
+84.00416 8.46085 77.18910 5.25203 72.60661 6.74419 C
+69.01228 7.91433 65.20280 10.47742 64.24072 11.26176 c
+61.98746 13.09805 58.14992 16.28929 58.17997 19.77307 c
+58.19499 21.50079 59.12702 26.76983 64.62028 30.29924 c
+69.30283 33.30737 75.16233 35.79704 82.53411 36.04224 c
+86.14261 36.16214 91.20302 35.56630 95.75915 34.51209 C
+
+% こ
+119.84910 70.70003 m
+119.93783 73.26340 128.89956 79.21304 138.65357 79.24025 c
+148.40759 79.26746 157.76872 73.83742 161.71455 67.42545 c
+165.66038 61.01348 164.16709 57.48378 161.93622 57.44013 c
+159.70535 57.39647 156.43672 57.44098 152.10794 57.28932 c
+147.77915 57.13767 144.62192 56.12287 140.68828 52.77487 C
+140.62649 55.12365 143.73666 59.99074 146.36268 61.72384 C
+143.32904 64.13272 140.33027 66.37294 135.62164 68.40283 c
+130.68850 70.52910 123.58602 71.14507 119.84910 70.70003 C
+% 下側
+119.88822 31.15729 m
+121.20094 27.40394 124.33011 20.16283 136.62539 18.32428 c
+148.92066 16.48573 156.69071 18.17093 159.39638 14.70274 c
+162.10205 11.23455 164.89417 7.13906 166.58646 5.15140 c
+168.27874 3.16375 166.42488 1.27701 159.94205 0.79200 c
+153.45921 0.30699 138.20202 1.78243 131.44337 5.85836 c
+124.68472 9.93430 121.23184 13.51786 119.50668 19.55339 c
+118.19452 24.14438 118.48592 29.67024 119.88822 31.15729 C
+
+% ま のアナ
+184.46485 7.86983 m
+196.35874 9.28970 200.63339 17.52180 201.59603 26.85657 C
+191.78079 27.37162 179.90532 25.44633 175.16069 19.38898 c
+173.59625 17.39169 174.58838 14.25402 176.14261 11.64189 C
+178.34485 9.40620 181.48535 7.53165 184.46740 7.87493 C
+184.46485 7.86983 L
+% ま 本体
+201.59036 36.64148 m
+201.16063 41.67071 200.20989 46.45502 199.39181 50.12334 C
+197.06542 49.90961 194.57036 49.70381 191.65776 49.49972 c
+181.31272 48.77433 175.33644 49.74491 173.44573 50.79827 c
+171.55502 51.85162 170.20545 55.84337 169.08548 58.02605 c
+168.40828 59.34529 168.02901 62.57764 167.99329 63.64431 C
+168.32721 63.03543 171.50769 62.01553 176.52784 60.71159 c
+180.46006 59.69027 190.00035 59.41928 197.42230 60.03581 C
+196.18980 67.08869 193.78318 79.15294 193.14567 83.79553 C
+188.44753 82.17723 183.87014 80.31317 181.54630 79.15124 c
+177.27165 77.01392 176.39235 76.64939 174.26920 77.74157 c
+172.14605 78.83376 167.22340 85.21824 166.10258 87.40120 c
+165.42510 88.72129 164.51263 90.81383 164.47691 91.88050 C
+164.81083 91.27162 168.27137 90.14060 172.70391 89.99546 c
+176.26337 89.87896 186.13672 91.77817 192.18784 93.29754 C
+191.46926 100.11713 190.98992 103.83307 191.22803 105.33146 c
+191.66485 108.08220 190.56246 108.21798 188.07222 108.29480 C
+189.88498 110.36069 197.04359 115.46277 201.25928 115.25131 c
+205.47496 115.03984 212.07118 113.71578 208.42299 105.91200 c
+207.48161 103.89827 206.94529 101.03074 206.71172 97.57928 C
+211.95723 99.01020 217.52589 100.30677 220.34466 100.30677 c
+225.60576 100.30677 225.65452 99.44277 227.20564 96.99335 c
+228.75676 94.54394 231.17754 88.89052 231.17669 87.20674 c
+231.17584 85.52296 231.24444 83.13959 227.46302 84.94809 c
+224.17427 86.52104 213.56107 87.49672 206.74148 87.07521 C
+207.14939 79.42082 208.23420 70.66006 209.41795 62.30976 C
+215.31090 63.92438 221.40397 66.06028 224.16860 67.47137 c
+227.99225 69.42274 229.90620 67.22702 232.40891 65.30655 c
+234.91162 63.38608 236.75924 62.50620 239.62422 60.82639 c
+242.48920 59.14658 239.23757 56.34652 234.61398 55.05449 c
+229.99039 53.76246 228.89339 52.96932 217.99332 51.97465 c
+215.57452 51.75383 213.44202 51.54435 211.47420 51.34479 C
+212.44791 46.76117 213.54548 41.19761 214.04806 35.48353 C
+217.37282 34.96876 220.64655 34.28476 223.60592 33.42047 c
+232.43584 30.84180 240.60217 26.98243 241.28872 23.05587 c
+241.97528 19.12932 241.67622 14.30476 239.81017 9.10431 c
+237.94413 3.90387 235.57890 4.24063 232.26888 9.14315 c
+229.07820 13.86879 222.23395 20.57726 214.06337 24.27449 C
+213.21014 16.23883 210.12151 9.01928 202.61452 5.11512 c
+197.00872 2.19969 186.08485 0.20494 181.50945 1.71553 c
+177.59962 3.00643 173.87745 5.38526 170.88265 8.19496 c
+163.54573 15.07833 164.09962 18.89320 165.90898 23.39433 c
+166.81493 25.64844 168.83688 27.93090 174.32872 31.45833 c
+179.00929 34.46504 188.32677 36.22876 195.69146 36.60435 c
+197.45603 36.69420 199.45276 36.70724 201.59036 36.64148 C
+
+% た
+248.83625 109.71496 m
+248.83625 109.71496 248.98082 113.22879 252.39005 113.95587 c
+255.79928 114.68296 263.39811 113.26876 265.00819 110.15972 c
+266.61827 107.05068 266.41928 104.29030 265.93427 97.47694 c
+265.89175 96.88139 265.83846 96.24132 265.77751 95.56328 C
+268.77742 96.30680 271.57465 96.84255 273.24000 96.83320 c
+275.97061 96.81789 278.84069 95.41644 280.10098 93.94611 c
+281.36126 92.47578 283.47704 92.21981 283.64117 89.51216 c
+283.80529 86.80450 283.41298 85.57540 280.03805 85.29591 c
+276.66312 85.01641 271.60129 84.45317 265.00224 83.43780 c
+264.77376 83.40265 264.54444 83.36665 264.31597 83.32951 C
+263.64019 78.50409 262.85187 73.55169 262.11005 69.54265 c
+260.54419 61.08151 256.74860 50.86573 254.09254 47.20989 C
+255.60567 48.35424 256.78857 49.47704 258.91909 51.48539 c
+261.04961 53.49373 261.80277 53.46652 259.42167 50.31666 c
+257.04057 47.16680 252.79767 39.28110 251.12211 35.83361 c
+249.44655 32.38611 247.48724 32.89635 244.27644 33.96614 c
+241.06564 35.03594 238.06261 36.11282 236.55231 37.28863 c
+235.04202 38.46444 231.71187 39.61644 236.36523 43.41997 c
+241.01858 47.22350 251.48863 64.78951 252.85011 75.42709 c
+253.05902 77.05984 253.20501 78.92561 253.30025 80.91950 C
+251.22728 80.37666 249.40176 79.86217 247.97310 79.46986 c
+244.16816 78.42472 240.38589 76.63465 239.68602 77.30646 c
+238.98614 77.97827 236.78674 79.27880 236.03102 81.66813 c
+235.44879 83.50980 234.64375 86.29455 234.83962 90.16526 C
+236.05710 88.02567 238.31093 87.14041 242.09178 87.77055 c
+244.47997 88.16854 249.11745 89.96995 253.40060 91.60157 C
+253.22769 99.80532 252.58054 107.39112 252.08646 108.62646 C
+251.54986 110.32214 248.83625 109.71496 248.83625 109.71496 c
+% 下
+265.77978 47.97156 m
+268.48488 45.61030 272.56337 41.27329 283.43991 41.45216 c
+294.31672 41.63102 298.67669 45.34044 300.92287 43.59515 c
+303.16932 41.84986 307.40372 37.73169 308.58945 35.84636 c
+309.77518 33.96132 305.79987 30.38145 300.92712 29.47805 c
+296.05408 28.57465 285.83291 29.43723 280.18772 31.25537 c
+274.54252 33.07323 269.08072 38.52085 267.87657 40.57483 c
+267.05197 41.98195 265.35373 44.90022 265.77978 47.97156 C
+% 上
+270.19672 64.83430 m
+269.59124 66.42028 275.80847 73.45389 284.29228 77.20469 c
+292.77638 80.95578 300.37351 80.86706 305.51584 78.49559 c
+310.65817 76.12413 310.60998 75.37181 310.25112 72.70214 c
+309.89225 70.03276 304.92113 68.59361 301.20576 67.14680 c
+297.49068 65.70028 295.77373 64.46409 291.98211 62.31317 C
+292.45351 63.84898 295.02567 66.05688 295.50671 66.58611 C
+292.67575 68.23984 289.31726 68.53691 284.53861 68.09471 c
+279.70583 67.64769 273.33128 66.53452 270.19672 64.83430 C
+
+% や
+298.73565 59.80195 m
+298.73565 59.80195 300.00813 57.25644 304.11099 60.20022 c
+306.39487 61.83893 314.37865 66.73918 322.49395 71.34378 C
+319.61509 86.83512 317.74507 100.31329 317.71531 101.90098 c
+317.66995 104.30249 315.97285 103.38463 313.54214 102.83839 C
+314.78287 105.29093 322.33550 111.58413 326.47096 112.42970 c
+330.60643 113.27556 335.57981 113.77134 335.09339 106.23430 c
+334.76712 101.17899 332.72050 90.83594 333.30501 77.19931 C
+335.65153 78.38787 337.72762 79.36157 339.32494 79.98690 c
+344.32384 81.94394 352.81984 85.51361 362.38139 87.21213 C
+362.98375 90.00879 363.02315 92.53361 363.34602 97.37603 c
+363.71792 102.95717 363.65499 105.24699 363.43729 107.80583 C
+363.52233 110.38195 359.71654 110.85676 359.71654 110.85676 c
+361.03890 113.22680 367.21928 115.96082 370.70731 115.31594 c
+374.19506 114.67106 378.39515 113.53606 378.52101 108.95641 c
+378.62277 105.25975 374.82321 94.67943 369.59726 88.07357 C
+374.33537 88.34428 379.18006 87.99647 383.86687 86.64945 c
+392.64406 84.12661 399.77575 78.04233 400.30923 70.01717 c
+400.78573 62.84891 399.93534 58.13433 395.90277 50.46973 c
+394.56850 47.93329 389.56791 42.24983 389.56791 42.24983 c
+389.56791 42.24983 387.15449 41.59162 384.52167 41.37222 c
+381.88885 41.15282 373.77099 42.18180 369.60236 42.90803 c
+365.43373 43.63427 369.38296 44.66324 372.67398 45.97965 c
+375.96501 47.29606 392.85099 57.43701 392.85213 68.99131 c
+392.85326 80.54561 373.92945 79.22494 360.24463 73.85896 c
+353.04803 71.03707 343.13244 65.96759 335.10246 61.59855 C
+335.51320 59.43713 336.00302 57.22668 336.58271 54.97200 c
+342.86712 30.53395 356.11257 17.16576 357.74079 15.20674 c
+359.36872 13.24772 359.56743 11.48939 357.53272 8.58387 c
+355.49802 5.67836 352.66535 3.21506 349.87294 1.37055 c
+347.08025 -0.47367 346.39172 1.96243 345.42964 3.85398 c
+344.46756 5.74526 333.18794 24.64696 327.60170 47.27594 c
+326.88765 50.16813 326.19543 53.17483 325.53099 56.22293 C
+323.25732 54.89603 321.74022 53.95720 321.35613 53.64992 c
+319.66980 52.30006 313.72072 47.38762 312.75553 45.51732 c
+311.79033 43.64702 308.12598 44.94869 305.51499 47.10614 c
+302.90400 49.26359 300.50589 52.06365 299.50356 54.11877 C
+298.56019 56.24674 298.73565 59.80195 298.73565 59.80195 c
+% バックフリンジ
+	gsave
+		closepath
+		1 setgray
+		1 setlinecap
+		1 setlinejoin
+		12 setlinewidth
+		stroke
+	grestore
+% リブ
+		0 setgray
+		fill
+grestore
+% ロゴ終わり
+} def
+
+% スケール描画
+/DrawScale
+
+{ newpath
+ ScaleLength 2 div neg 0 cm moveto
+ ScaleLength 0 rlineto
+
+ .3 mm setlinewidth
+ 0 setgray
+ stroke
+
+ newpath
+ ScaleLength 2 div neg .1 cm ScaleLength 2 div
+{ 0 moveto
+ 0 .35 cm rlineto } for
+ .1 mm setlinewidth
+ 0 setgray
+ stroke
+
+ newpath
+ ScaleLength 2 div neg .5 cm ScaleLength 2 div
+{ 0 moveto
+ 0 .5 cm rlineto } for
+ .15 mm setlinewidth
+ 0 setgray
+ stroke
+
+ newpath
+ ScaleLength 2 div neg 1 cm ScaleLength 2 div .1 add
+{ 0 moveto
+ 0 .7 cm rlineto } for
+ .3 mm setlinewidth
+ 0 setgray
+ stroke
+
+} def
+
+%%EndProlog
+
+%本体描画
+
+% レジスター枠
+RegisterMark {
+
+% タップ孔描画
+ newpath
+	PaperWidth 2 div PegBaseHeight moveto
+
+
+%		タップ中心へ移動
+ DrawPeg
+gsave
+%		パターン中心へ移動
+ PaperWidth 2 div PegBaseHeight FrameOffset sub moveto
+
+ 	currentpoint translate
+DrawReg
+grestore
+% 文字ベースライン出して・カレントポイントをセンターへ
+gsave
+
+	PaperWidth 2 div CBaseHeight moveto
+
+%コメント表示
+gsave
+
+/Times-Roman findfont .35 cm scalefont setfont
+
+-10 cm -0.15 cm rmoveto
+
+	BaseWidth nstr cvs show
+( point width Reference Chart for pencil drawing dizitize / ) show
+	AspectH nstr cvs show
+(:) show
+	AspectW nstr cvs show
+( / ) show
+	StNUM nstr cvs show
+( - ) show
+	EdNUM nstr cvs show
+( dpi / Gamma ) show
+	Gamma nstr cvs show
+( / ) show
+	Comment show
+ ( / 2015 Nekomataya) show
+grestore
+
+%タイトル表示
+
+% 左センタ
+	PaperWidth FrameWidth sub 2 div .5 cm sub PaperHeight 2 div moveto
+90 rotate
+gsave
+
+/Times-Roman findfont .5 cm scalefont setfont
+
+ 0 cm -.2 cm rmoveto
+
+Name Cshow
+
+grestore
+
+
+gsave
+-1.75 cm 0.12 cm rmoveto
+3.7 cm 0 cm rlineto
+0.015 cm setlinewidth
+stroke
+
+grestore
+% カンパニーロゴ
+% newpath
+gsave
+0 cm .7 cm rmoveto
+	.25 dup scale
+	currentpoint translate
+
+DrawLogo
+grestore
+
+grestore
+} if
+% フルフレームペイント
+ newpath
+ PaperWidth 2 div PegBaseHeight FrameOffset sub moveto
+	gsave
+	currentpoint translate
+	DrawMainFrame
+	grestore
+
+% 周辺枠表示
+% Paint BackDrop
+	gsave
+	currentpoint translate
+	FrameWidth BorderSpan sub 2 div neg FrameHeight BorderSpan sub 2 div moveto
+	FrameWidth BorderSpan sub 0  rlineto
+	0 FrameHeight BorderSpan sub neg rlineto
+	FrameWidth BorderSpan sub neg 0 rlineto
+	0 FrameHeight BorderSpan sub rlineto
+	closepath
+	MidTone BackDrop add 2 div IRE2RGB dup dup setrgbcolor
+	fill
+	grestore
+% フレーム目盛りハッチング 1
+/DrawDia	{
+	BorderSpan 8 div neg BorderSpan 2 div neg rlineto
+	BorderSpan 8 div neg BorderSpan 4 div neg rlineto
+	BorderSpan 8 div neg BorderSpan 4 div     rlineto
+	BorderSpan 8 div neg BorderSpan 2 div     rlineto
+
+	0 BorderSpan neg rlineto
+
+	BorderSpan 8 div BorderSpan 2 div     rlineto
+	BorderSpan 8 div BorderSpan 4 div     rlineto
+	BorderSpan 8 div BorderSpan 4 div neg rlineto
+	BorderSpan 8 div BorderSpan 2 div neg rlineto
+} def
+	gsave
+
+	FrameWidth 2 div 0 rmoveto
+	currentpoint translate
+gsave
+	0 BorderSpan 2 div rmoveto
+		DrawDia
+	closepath
+	MidTone BackDrop add 2 div IRE2RGB dup dup setrgbcolor
+	fill
+grestore
+	BorderSpan 2 div neg BorderSpan 2 div rmoveto
+		DrawDia
+	closepath
+	MidTone IRE2RGB dup dup setrgbcolor
+	fill
+
+	grestore
+	gsave
+
+	FrameWidth 2 div neg 0 rmoveto
+	180 rotate
+	currentpoint translate
+gsave
+	0 BorderSpan 2 div rmoveto
+		DrawDia
+	closepath
+	MidTone BackDrop add 2 div IRE2RGB dup dup setrgbcolor
+	fill
+grestore
+
+	BorderSpan 2 div neg BorderSpan 2 div rmoveto
+		DrawDia
+	closepath
+	MidTone IRE2RGB dup dup setrgbcolor
+	fill
+
+	grestore
+% の2
+/DrawDia	{
+	BorderSpan 2 div neg BorderSpan 8 div neg rlineto
+	BorderSpan 4 div neg BorderSpan 8 div neg rlineto
+	BorderSpan 4 div     BorderSpan 8 div neg rlineto
+	BorderSpan 2 div     BorderSpan 8 div neg rlineto
+
+	BorderSpan neg 0 rlineto
+
+	BorderSpan 2 div     BorderSpan 8 div rlineto
+	BorderSpan 4 div     BorderSpan 8 div rlineto
+	BorderSpan 4 div neg BorderSpan 8 div rlineto
+	BorderSpan 2 div neg BorderSpan 8 div rlineto
+} def
+	gsave
+
+	0 FrameHeight 2 div rmoveto
+	currentpoint translate
+gsave
+	BorderSpan 2 div 0 rmoveto
+		DrawDia
+	closepath
+	MidTone BackDrop add 2 div IRE2RGB dup dup setrgbcolor
+	fill
+grestore
+	BorderSpan 2 div BorderSpan 2 div neg rmoveto
+		DrawDia
+	closepath
+	MidTone IRE2RGB dup dup setrgbcolor
+	fill
+
+	grestore
+	gsave
+
+	0 FrameHeight 2 div neg rmoveto
+	180 rotate
+	currentpoint translate
+gsave
+	BorderSpan 2 div 0 rmoveto
+		DrawDia
+	closepath
+	MidTone BackDrop add 2 div IRE2RGB dup dup setrgbcolor
+	fill
+grestore
+	BorderSpan 2 div BorderSpan 2 div neg rmoveto
+		DrawDia
+	closepath
+	MidTone IRE2RGB dup dup setrgbcolor
+	fill
+
+	grestore
+
+% フレーム表示
+	gsave
+	currentpoint translate
+	FrameWidth BorderSpan 2 mul sub 2 div neg FrameHeight BorderSpan 2 mul sub 2 div rmoveto
+	FrameWidth BorderSpan 2 mul sub 0  rlineto
+	0 FrameHeight BorderSpan 2 mul sub neg rlineto
+	FrameWidth BorderSpan 2 mul sub neg 0 rlineto
+	0 FrameHeight BorderSpan 2 mul sub rlineto
+	closepath
+	clip
+	BackDrop IRE2RGB dup dup setrgbcolor
+	fill
+%	grestore
+% ベースパターン
+%		gsave
+%	currentpoint translate
+false {
+	FrameWidth BorderSpan 2 mul sub 2 div neg FrameHeight BorderSpan 2 mul sub 2 div rmoveto
+	FrameWidth BorderSpan 2 mul sub 0  rlineto
+	0 FrameHeight BorderSpan 2 mul sub neg rlineto
+	FrameWidth BorderSpan 2 mul sub neg 0 rlineto
+	0 FrameHeight BorderSpan 2 mul sub rlineto
+	closepath
+		clip
+} if
+%odd
+true {
+	FrameHeight 2 div BoXPitch 2 div sub neg BoXPitch 2 mul FrameHeight 2 div BoXPitch 1 mul sub {
+
+	FrameWidth 2 div BoXPitch .5 mul sub BoXPitch 2 mul neg FrameWidth 2 div neg {
+		exch dup 3 -1 roll exch moveto
+		BoXPitch 0 rlineto
+		0 BoXPitch rlineto
+		BoXPitch neg 0 rlineto
+		closepath
+	90 IRE2RGB dup dup setrgbcolor
+		fill
+	} for
+	} for
+} if
+%even
+true {
+	FrameHeight 2 div BoXPitch 1.5 mul sub neg BoXPitch 2 mul FrameHeight 2 div BoXPitch sub {
+
+	FrameWidth 2 div BoXPitch 1.5 mul sub BoXPitch 2 mul neg FrameWidth 2 div neg {
+		exch dup 3 -1 roll exch moveto
+		BoXPitch 0 rlineto
+		0 BoXPitch rlineto
+		BoXPitch neg 0 rlineto
+		closepath
+	90 IRE2RGB dup dup setrgbcolor
+		fill
+	} for
+	} for
+} if
+	grestore
+
+% ハッチングパターン
+		gsave
+	currentpoint translate
+%	DrawColor IRE2RGB dup dup setrgbcolor
+	75 IRE2RGB dup dup setrgbcolor
+
+	FrameHeight MediaLines div 2 mul setlinewidth
+% 垂直ライン
+
+false {
+% センタ
+
+newpath
+	0 FrameHeight 2 div neg moveto
+	0 FrameHeight rlineto
+	stroke
+%左
+	0 BoXPitch neg FrameWidth 2 div neg {
+	FrameHeight 2 div neg moveto
+	0 FrameHeight rlineto
+	stroke
+	} for
+
+%右
+	0 BoXPitch FrameWidth 2 div {
+	FrameHeight 2 div neg moveto
+	0 FrameHeight rlineto
+PictureMode (Video) eq {
+	gsave 
+	IMTone IRE2RGB dup dup setrgbcolor
+	FrameHeight MediaLines div 4 mul setlinewidth
+	stroke
+	grestore
+} if
+	stroke
+	} for
+} if
+false {
+% 水平ライン
+% センタ
+	FrameWidth 2 div neg 0 moveto
+	FrameWidth 0 rlineto
+	stroke
+% 上
+	0 BoXPitch FrameHeight 2 div {
+	FrameWidth 2 div neg exch moveto
+	FrameWidth 0 rlineto
+	stroke
+	} for
+
+% 下
+	0 BoXPitch neg FrameHeight 2 div neg {
+	FrameWidth 2 div neg exch moveto
+	FrameWidth 0 rlineto
+	stroke
+	} for
+} if
+		grestore
+
+% 中央ポイントを保存して座標系をリセット
+	gsave
+	currentpoint translate
+noResolutionChart {
+% 隅っこの小円
+% SqR	:小円半径
+% LineW	:リブの太さ
+	gsave
+	currentpoint translate
+
+SqR LineW Ccr CcN CcRes CcL
+
+%	小円配置右上
+
+	FrameWidth 2 div 1 in sub
+	FrameHeight 2 div 1 in sub moveto
+		gsave
+		currentpoint translate
+		0 DrawMini
+		grestore
+%	小円配置右下
+	FrameWidth 2 div 1 in sub
+	FrameHeight 2 div 1 in sub neg  moveto
+		gsave
+		-90 rotate
+		currentpoint translate
+		90 DrawMini
+		grestore
+%	小円配置左下
+	FrameWidth 2 div 1 in sub neg 
+	FrameHeight 2 div 1 in sub neg moveto
+	gsave
+	180 rotate
+	currentpoint translate
+	-180 DrawMini
+	grestore
+%	小円配置左上
+	FrameWidth 2 div 1 in sub neg 
+	FrameHeight 2 div 1 in sub  moveto
+	gsave
+	90 rotate
+	currentpoint translate
+	-90 DrawMini
+	grestore
+	grestore
+}if
+
+% グレースケール
+		gsave
+%/ChipHeight	{FrameHeight 6 div .9 mul 3 div} def
+%/ChipWidth	{FrameHeight 6 div .9 mul 3 div} def
+/ChipHeight	{5 12 div in} def
+/ChipWidth	{5 12 div in} def
+
+%	ChipWidth 5.5 mul neg FrameHeight .28 mul rmoveto
+%	ChipWidth 5.5 mul neg 1.5 in ChipHeight 2 div sub rmoveto
+	ChipWidth 5.5 mul neg FrameHeight 2 div 1.75 in sub  rmoveto
+	currentpoint translate
+	0 0 moveto
+	0 1 10 {
+		ChipWidth 1 add 0 rlineto
+		0 ChipHeight rlineto
+		ChipWidth 1 add neg 0 rlineto
+		0 ChipHeight neg rlineto
+		closepath
+
+	dup 10 mul IRE2RGB dup dup
+
+		setrgbcolor
+		fill
+		1 add ChipWidth mul 0 moveto
+	} for
+
+% グレースケールを囲む
+	0 0 moveto
+	ChipWidth 11 mul 0 rlineto
+	0 ChipHeight rlineto
+	ChipWidth 11 mul neg 0 rlineto
+	0 ChipHeight neg rlineto
+	closepath
+
+	FrameHeight MediaLines div 2 mul setlinewidth
+	MidTone IRE2RGB dup dup setrgbcolor
+	stroke
+
+		grestore
+% 三角マーカー表示
+		gsave
+	currentpoint translate
+%	右
+	FrameWidth BorderSpan sub 2 div BoXPitch rmoveto
+	18 18 90 DrawTriangle
+	0 BoXPitch 2 mul neg rmoveto
+	18 18 90 DrawTriangle
+%	左
+	FrameWidth BorderSpan sub 2 div neg BoXPitch moveto
+	18 18 270 DrawTriangle
+	0 BoXPitch 2 mul neg rmoveto
+	18 18 270 DrawTriangle
+%	上
+	BoXPitch 3 mul neg FrameHeight BorderSpan sub 2 div moveto
+	18 18 0 DrawTriangle
+	BoXPitch 6 mul 0 rmoveto
+	18 18 0 DrawTriangle
+%	下
+	BoXPitch 3 mul FrameHeight BorderSpan sub 2 div neg moveto
+	18 18 180 DrawTriangle
+	BoXPitch 6 mul neg 0 rmoveto
+	18 18 180 DrawTriangle
+		grestore
+
+% タップマーカー描画
+	% フレーム範囲でクリップ
+	gsave
+	currentpoint translate
+	FrameWidth 2 div neg FrameHeight 2 div rmoveto
+	FrameWidth  0  rlineto
+	0 FrameHeight neg rlineto
+	FrameWidth neg 0 rlineto
+	0 FrameHeight rlineto
+	closepath
+	clip
+	0 FrameOffset moveto
+	currentpoint translate
+	TMDraw
+	grestore
+
+% 画面内ロゴ
+Logo {
+		gsave
+%	0 FrameHeight .325 mul neg rmoveto
+	0 1.5 in neg rmoveto
+	currentpoint translate
+	.5 dup scale
+	DrawLogo
+		grestore
+}if
+false {
+		gsave
+%	0 FrameHeight .325 mul neg rmoveto
+	0 1.5 in 0.75 cm add neg rmoveto
+	currentpoint translate
+
+	gsave
+WhitePoint IRE2RGB dup dup setrgbcolor
+/Times-Roman findfont 1.5 cm scalefont setfont
+	Name
+		dup stringwidth pop
+		2 div neg 0 rmoveto
+		true charpath
+1 setlinecap
+1 setlinejoin
+6 setlinewidth
+stroke
+	grestore
+
+BlackPoint IRE2RGB dup dup setrgbcolor
+/Times-Roman findfont 1.5 cm scalefont setfont
+	Name Cshow
+		grestore
+} if
+%　パターン下端へ移動　スケール描画
+gsave
+	0 FrameHeight 2 div 1.0 cm add neg moveto
+	/ScaleLength {FrameWidth 1 cm div ceiling cm} def
+	currentpoint translate
+
+	DrawScale
+grestore
+%　パターン右端へ移動　スケール描画
+gsave
+	FrameWidth 2 div 1.0 cm add 0 moveto
+	90 rotate
+	/ScaleLength {FrameHeight 1 cm div ceiling cm} def
+	currentpoint translate
+
+	DrawScale
+grestore
+%　%%%%%%%%%%%%%
+% debag
+% 100 100 moveto
+% 0 setgray
+% /Times-Roman findfont 1 cm scalefont setfont
+% 2 2 exp nstr cvs Cshow
+
+
+showpage
+%%Trailer

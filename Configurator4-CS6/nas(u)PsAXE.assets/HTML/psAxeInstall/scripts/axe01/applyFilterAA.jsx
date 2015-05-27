@@ -29,12 +29,6 @@ http://www.olm.co.jp/rd/technology/tools/?lang=ja
 
 */
 
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-// ダブルクリック実行した場合にphotoshopをターゲットにする
-#target photoshop
-// in case we double clicked the file
-// 前面に出す
-app.bringToFront();
 
   if((app.documents.length)&&(app.activeDocument)&&(app.activeDocument.activeLayer)){
 /*
@@ -113,16 +107,10 @@ alert("pixelBenderKernel not exists or wrong id");
 	}
 }
 // =======================================================
-//nasライブラリパスの取得
-if($.fileName){
-//	$.fileNameオブジェクトがあれば使用する
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
 	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-}
+
 //applyPbk(nasLibFolderPath+"PixelBenderKernel/SmartAA.pbk","SmartAA",[],myDialogModes);
-applyPbk(nasLibFolderPath+"PixelBenderKernel/MLAA.pbg","MLAA",[],myDialogModes);
+	applyPbk(nasLibFolderPath+"PixelBenderKernel/MLAA.pbg","MLAA",[],myDialogModes);
 
 
 }else{
