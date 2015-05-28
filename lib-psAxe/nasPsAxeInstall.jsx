@@ -4,7 +4,7 @@
 	インストール先
 	環境取得・設定など
 
-$Id: nasPsAxeInstall.jsx,v 1.6 2014/11/28  kiyo Exp $
+$Id: nasPsAxeInstall.jsx,v 1.6 2015/05/27  kiyo Exp $
  */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
  #target photoshop

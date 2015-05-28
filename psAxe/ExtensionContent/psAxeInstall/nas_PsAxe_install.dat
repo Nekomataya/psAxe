@@ -1,45 +1,45 @@
 //(nas_PsAxe_installer_data03)
-/*===========================	����̓C���X�g�[���ݒ�t�@�C��	===============================*/
-//���s�ڂ̃V�O�l�`���́A�C���X�g�[���ɋL�q���ꂽ�ϐ��ƈ�v����K�v������̂ŁA���� ���ꂪ�f�[�^�̎��ʎq�ƂȂ�܂��B�C��
+/*===========================	これはインストール設定ファイル	===============================*/
+//第一行目のシグネチャは、インストーラに記述された変数と一致する必要があるので、注意 これがデータの識別子となります。任意
 /*
-	�C���X�g�[�����L�q����ɂ͂��̃t�@�C�������������܂��B
+	インストールを記述するにはこのファイルを書き直します。
 	
 $id:$
 */
-//								**�C���X�g�[���[�������
+//								**インストーラー動作条件
 
-//�A�v���P�[�V�������z��A�v���őz��o�[�W�����ł��鎖
-nas_Installer.locale="ja_JP";//����c���̔���͂ǂ����ȒP����Ȃ�����
-//�C���X�g�[���p�b�P�[�W���̂ƃo�[�W����
-nas_Installer.pkgName    ="nas_animation_Tools";//package����(������)�C���X�g�[���ς݂̏��t�@�C�����ɂ���̂Ńt�@�C�����g�p�\�ȃp�b�P�[�W���ɂ��Ƃ��Ă��炳���B
-nas_Installer.pkgVersion ="2.6.0";//�o�[�W�����ԍ��̓h�b�g��؂�3�u���b�N�̐��l������� Beta 9
+//アプリケーションが想定アプリで想定バージョンである事
+nas_Installer.locale="ja_JP";//限定…この判定はどうも簡単じゃなさそう
+//インストールパッケージ名称とバージョン
+nas_Installer.pkgName    ="nas_animation_Tools";//package名称(文字列)インストール済みの情報ファイル名にするのでファイル名使用可能なパッケージ名にしといてくらさい。
+nas_Installer.pkgVersion ="2.6.0";//バージョン番号はドット区切り3ブロックの数値文字列で Beta 9
 
 /*
 
-�p�b�P�[�W���C���X�g�[���ς݂̏ꍇ�́A
-�o�[�W�����̐V���ɂ�����炸���b�Z�[�W��񎦂��ďI��
-�Ƃ������ɍ��̂Ƃ��낵�Ă���
+パッケージがインストール済みの場合は、
+バージョンの新旧にかかわらずメッセージを提示して終了
+という事に今のところしておく
 
-Photoshop CC/CC2014 �̂��߂�pixelBender�֘A��Icons�֘A���폜
-�b��I��100�t�@�C���𒴂��郉�C�u�����𕪊����Ċi�[
+Photoshop CC/CC2014 のためにpixelBender関連とIcons関連を削除
+暫定的に100ファイルを超えるライブラリを分割して格納
 2014.10.27
 
-�V�K�̃t�@�C����ǉ��@11.26
+新規のファイルを追加　11.26
 */
 
-//�u���ւ���̃p�X�𕶎���Őݒ肵�Ă�������
+//置き替え先のパスを文字列で設定してください
 
-nas_Installer.replacePath.nas=app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas";	//%NAS% �V�o�[�W����2011 ����̓^�[�Q�b�g�p�X�� ������ɕύX�@�������@plugin �V�X�e�����j���[�ɏo���X�N���v�g�͕�
-//�@Ps�p�̃��C�u������X�N���v�g�͂�����ŁAAE�p�͕ς�炸AE�v���O�����t�H���_�̃X�N���v�g���P�[�V�����ɃC���X�g�[������B
-//�@�R�[�h�͉\�Ȍ��苤�L�@�^�[�Q�b�g�ݒ�����Ă������ق����悳��
+nas_Installer.replacePath.nas=app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas";	//%NAS% 新バージョン2011 からはターゲットパスを こちらに変更　ただし　plugin システムメニューに出すスクリプトは別
+//　Ps用のライブラリやスクリプトはこちらで、AE用は変わらずAEプログラムフォルダのスクリプトロケーションにインストールする。
+//　コードは可能な限り共有　ターゲット設定もしておいたほうがよさげ
 // localize("$$$/BenderSig/App/ScriptingSupport/InstalledScripts=Adobe/Adobe Photoshop CS4/Presets/Scripts") + "/"
 //app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas"
 nas_Installer.replacePath.install=Folder.userData.fullName+"/nas";//%INSTALL%
-//nas_Installer.replacePath.startup+"/�v���Z�b�g/�X�N���v�g/nas";	
-//%INSTALL%�C���X�g�[����͕K�{(�A���C���X�g�[������u������)�W����NAS�t�H���_��OK
-nas_Installer.replacePath.user=Folder.userData.fullName+"/nas";//"�������D���ȕ�����ɒu�������Ďg���Ă�������";//%USER% ���[�U�w��\
+//nas_Installer.replacePath.startup+"/プリセット/スクリプト/nas";	
+//%INSTALL%インストール先は必須(アンインストール情報を置くため)標準でNASフォルダでOK
+nas_Installer.replacePath.user=Folder.userData.fullName+"/nas";//"ここを好きな文字列に置き換えて使ってください";//%USER% ユーザ指定可能
 
-//=================================�ȉ��ɃA�v���P�[�V�����E�o�[�W�����̐����𐳋K�\���ŋL�q
+//=================================以下にアプリケーション・バージョンの制限を正規表現で記述
 
 nas_Installer.myAppRegExp=new RegExp("^Adobe\\ Photoshop$");//application.name
 /*
@@ -48,58 +48,58 @@ Adobe AfterEffects
 Extend Toolkit
 Adobe Bridge
 
-�Ȃǂ� "app.name"�ŎQ�Ƃ���镶����𐳋K�\���Ńt�B���^����B
+などの "app.name"で参照される文字列を正規表現でフィルタする。
 */
 nas_Installer.myVersionRegExp=new RegExp("^(15|14|13|12|11|10|9)\\.[012]\\..+$");//version.name
 /*
-�o�[�V�����ԍ��𐳋K�\���Ńt�B���^
+バーション番号を正規表現でフィルタ
  */
 
 
-//�C���X�g�[���A�N�V�����̃��X�g��z�� nas_Installer.myInstall �ɋL�q
+//インストールアクションのリストを配列 nas_Installer.myInstall に記述
 /*
-1 �v�f�� 1 ���R�[�h(=�R�}���h)
-�z��v�f�͂��ׂĔz��
-�R�}���h�z�� ��0�ԗv�f���R�}���h������Ƃ���1�ԗv�f�ȍ~�������Ƃ��Ď��s
-�ȉ��̃R�}���h���g�p�\
-["mkdir"	,����	]	�p�X������(�u������)
-["rmdir"	,����	]	�p�X������(�u������)
-[   "cd"	,����	]	�p�X������(�u������)
-[   "cp"	,����,����]	�p�X������(�u������)
-[   "mv"	,����,����]	�p�X������(�u������)
-[   "rm"	,����	]	�p�X������(�u������)
-[Function	,����	]	�����͕�����
-[ "�p�X"	,"�p�X"	]	�P���Ƀt�@�C���p�X������ӂ��� �O�҂���҂փR�s�[
-["confirm"	,����	]	�m�F�p���b�Z�[�W(���f�@�\�t)
-["shutdown"]	�����Ȃ�	�A�v���P�[�V�������I������B
-����Ƃ����[�v���K�v�Ȃ�΂Ƃ肠�����͒��ڏ����܂��傤�B
+1 要素が 1 レコード(=コマンド)
+配列要素はすべて配列
+コマンド配列 の0番要素をコマンド文字列として1番要素以降を引数として実行
+以下のコマンドが使用可能
+["mkdir"	,引数	]	パス文字列(置換あり)
+["rmdir"	,引数	]	パス文字列(置換あり)
+[   "cd"	,引数	]	パス文字列(置換あり)
+[   "cp"	,引数,引数]	パス文字列(置換あり)
+[   "mv"	,引数,引数]	パス文字列(置換あり)
+[   "rm"	,引数	]	パス文字列(置換あり)
+[Function	,引数	]	引数は文字列
+[ "パス"	,"パス"	]	単純にファイルパス文字列ふたつ 前者を後者へコピー
+["confirm"	,引数	]	確認用メッセージ(中断機能付)
+["shutdown"]	引数なし	アプリケーションを終了する。
+分岐とかループが必要ならばとりあえずは直接書きましょう。
 
-�p�X������̓C���X�g�[������_�ɑ��΃p�X�ŋL�q
-�R�}���h�̓C���f�b�N�X�̎Ⴂ���Ɏ��s�����
-���݂��Ȃ��f�B���N�g���ւ̕����͂����Ȃ�Ȃ��B�G���[���L�^
-�f�B���N�g���̍폜�́A�J���̏ꍇ�̂ݐ���(���̂܂�Folder.remove()�����s)�B
-�֐���P�ƂŒu����1�ԗv�f�������Ɏ��s
+パス文字列はインストーラを基点に相対パスで記述
+コマンドはインデックスの若い順に実行される
+存在しないディレクトリへの複製はおこなわない。エラーを記録
+ディレクトリの削除は、カラの場合のみ成功(そのままFolder.remove()を実行)。
+関数を単独で置くと1番要素を引数に実行
 
 
 */
-//install�菇��uninstall�菇�͓�����O�����ǕʂȂ̂Œ���
+//install手順とuninstall手順は当たり前だけど別なので注意
 /*
 
-	���̃t�@�C���́APhotoshop���^�[�Q�b�g��Mac�̂݃o�[�W�����ŕ��򂵂Ă��܂��B
+	このファイルは、PhotoshopをターゲットにMacのみバージョンで分岐しています。
 
-�e���̃C���X�g�[���ƃA���C���X�g�[���菇���L�q���Ă��̃t�@�C���̖����Ŏ��s�p�̃o�b�t�@�֓��Y����
-�菇���C���X�g�[�����܂��B
+各環境のインストールとアンインストール手順を記述してこのファイルの末尾で実行用のバッファへ当該環境の
+手順をインストールします。
 
 */
-//Mac/Windows�ق� �ΏۑS�o�[�W�����p
+//Mac/Windowsほか 対象全バージョン用
 
 nas_Installer.myInstall=[
-["confirm","nasPsAXE�p�b�P�[�W ���C���X�g�[�����܂��B\n �J���Ă���h�L�������g�͕��Ă����������ǂ��Ǝv���܂��B\n�͂��߂ėǂ��ł���?"],
+["confirm","nasPsAXEパッケージ をインストールします。\n 開いているドキュメントは閉じておいた方が良いと思います。\nはじめて良いですか?"],
 ["mkdir","%USER%"],
 ["mkdir","%USER%/lib"],
 ["mkdir","%USER%/lib/resource"],
 
-["confirm","���C�u�����̓��e�ύX�̂��ߐݒ�̈ꕔ���������܂��B\n�o�b�N�A�b�v���K�v�ȏꍇ�͒��f���ĕۑ����Ă��������B\n�p�����܂����H"],
+["confirm","ライブラリの内容変更のため設定の一部を消去します。\nバックアップが必要な場合は中断して保存してください。\n継続しますか？"],
 ["rm","%SOURCE%/lib/etc/nas.axe.json"],
 
 ["%SOURCE%/lib/resource/timeSheet6sA3.eps","%USER%/lib/resource/timeSheet6sA3.eps"],
@@ -174,7 +174,7 @@ nas_Installer.myInstall=[
 
 
 
-["confirm","nas���C�u�����p�b�P�[�W���C���X�g�[���ł����Ǝv���܂��B\n������PsAxe���C���X�g�[�����܂��B"],
+["confirm","nasライブラリパッケージをインストールできたと思います。\n続けてPsAxeをインストールします。"],
 
 ["mkdir","%USER%/scripts"],
 ["%SOURCE%/scripts/mkFrame.jsx","%USER%/scripts/mkFrame.jsx"],
@@ -296,11 +296,11 @@ nas_Installer.myInstall=[
 
 ["%SOURCE%/nasPsAxeInstall.jsx","%USER%/nasPsAxeInstall.jsx"],
 ["%SOURCE%/nas_PsAxe_install.dat","%USER%/nas_PsAxe_install.dat"],
-["confirm","�r���ŃG���[�����܂薳�����PsAxe�p�b�P�[�W���C���X�g�[���ł����Ǝv���܂��B\n�O�ׂ̈�Photoshop���ċN�������ق������S�ł�"]
+["confirm","途中でエラーがあまり無ければPsAxeパッケージをインストールできたと思います。\n念の為にPhotoshopを再起動したほうが安全です"]
 ];
 
 nas_Installer.myUnInstall=[
-["confirm","nas���C�u�������A���C���X�g�[�����܂��B\n���C�u�����Ɉˑ�����X�N���v�g�͍��邩���m��܂���B\n�ǂ��ł���?"],
+["confirm","nasライブラリをアンインストールします。\nライブラリに依存するスクリプトは困るかも知れません。\n良いですか?"],
 
 ["rm","%USER%/lib/resource/timeSheet6sA3.eps"],
 
@@ -489,7 +489,7 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/nasPsAxeInstall.jsx"],
 ["rm","%USER%/nas_PsAxe_install.dat"],
 
-[nas_Installer.showMsg,"�A���C���X�g�[���ł����Ǝv���܂��B\n�����K�v�Ȃ�ēx�C���X�g�[�����Ă݂Ă��������B"]
+[nas_Installer.showMsg,"アンインストールできたと思います。\nもし必要なら再度インストールしてみてください。"]
 ];
 /*
 
@@ -505,18 +505,18 @@ nas_Installer.myUnInstall=[
 ["rmdir","%USER%/lib/resource/Pegs"],
 ["rmdir","%USER%"],
 */
-/*===========================	����̓C���X�g�[���ݒ�t�@�C��	===============================*/
+/*===========================	これはインストール設定ファイル	===============================*/
 /*
-	���̃t�@�C���́AAdobe Script �̃\�[�X�t�@�C���ł��B
-	�������������_�ŃC���X�g�[������eval����Ċe�p�b�P�[�W�ʂ̏���ݒ肵�܂��B
-	���̃t�@�C�����ňȉ��̃v���p�e�B�̐ݒ肪�I�����Ă��鎖
+	このファイルは、Adobe Script のソースファイルです。
+	環境が整った時点でインストーラ内でevalされて各パッケージ別の情報を設定します。
+	このファイル内で以下のプロパティの設定が終了している事
 
-	nas_Installer.replacePath.nas	nas�̃C���X�g�[����
-	nas_Installer.replacePath.install	�p�b�P�[�W�̃C���X�g�[����
-	nas_Installer.replacePath.user	�u���p���[�U�p�X(�C��)
+	nas_Installer.replacePath.nas	nasのインストール先
+	nas_Installer.replacePath.install	パッケージのインストール先
+	nas_Installer.replacePath.user	置換用ユーザパス(任意)
 
-	nas_Installer.myInstall	�C���X�g�[���菇
-	nas_Installer.myUnInstall	�A���C���X�g�[���菇
+	nas_Installer.myInstall	インストール手順
+	nas_Installer.myUnInstall	アンインストール手順
 
-		�����́c�R�����g�ǂ�ł�
+		書式は…コメント読んでね
  */

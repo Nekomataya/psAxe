@@ -29,8 +29,8 @@
 </button><button id="FcsTp" class=qwd onClick='doAxeScript("activateTopLayer")'title="表示レイヤにフォーカス">▲
 </button>
 <br>
-         <button id="lnDup" class=qwd onClick='doScript("if(app.documents.length){app.activeDocument.activeLayer.duplicate()}")' title="レイヤ複製">◇◇
-</button><button id="lnDel" class=qwd onClick='doScript("if((app.documents.length)&&(app.activeDocument.layers.length>1)){app.activeDocument.activeLayer.remove()}")' title="レイヤ削除">[DEL]
+         <button id="lnInc" class=qwd onClick='doAxeScript("layerNameInc")' title="ラベル番号増">(＋＋)
+</button><button id="lnDec" class=qwd onClick='doAxeScript("layerNameDec")' title="ラベル番号減">(－－)
 </button><button id="lyADD" class=qwd onClick='doAxeScript("addOvlLayer" )' title="修正レイヤ">◆＋
 </button><button id="lyADD" class=qwd onClick='doAxeScript("addNewLayer" )' title="新規レイヤ">＋◇
 </button>
@@ -172,7 +172,7 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
 <button class=fsp onClick='javascript:document.getElementById("LNMhandle").style.display=(document.getElementById("LNMhandle").style.display=="none")?"inline":"none";' title="管理メニュー">レイヤラベルエディタ</button><br>
 <div id=LNMhandle style="display:none">
 	<button class=owd style="width:18px;" onclick="var newValue=getCurrentLabel(document.getElementById('myLabel').value);" title="get label from current layer"
-	>⇒</button><input type=text id=myLabel class=hw style="text-align:center;background-color:#eeeeee;width:150px;" value="LO"
+	>⇒</button><input type=text id=myLabel class=hw style="text-align:center;background-color:#eeeeee;width:108px;" value="LO"
 	onChange="setLabel(this.value,false);"
 	><select id=LLSelector name=LLSelector class=owd style="width:20px;height:20px;" onChange="document.getElementById('myLabel').value+=this.value;">
 <option>LO</option>
@@ -192,26 +192,15 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
 <option>原画</option>
 <option>動画</option>
 </select
-><br>
-     <button class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"selection");' title="set Label"
->Label</button><button class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"")' title="set　layerName"
->Name</button><button class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"auto");' title="set　Label to Layers"
+><button class=owd style="width:18px;" onClick='setLabel(document.getElementById("myLabel").value,"selection");' title="set Label"
+>L</button><button class=qwd onClick='setLabel(document.getElementById("myLabel").value,"")' title="set　layerName"
+>Name</button><br>
+
+           <button class=qwd style="height:16px;" onClick='setLabel("+","add");' title="layer name add +"
+>add+</button><button class=qwd style="height:16px;" onClick='setLabel("+","remove");' title="remove +"
+>rmv+</button><button class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"auto");' title="set　Label to Layers"
 >bulk</button><button class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"swap");' title="set　Label to selected layers"
 >apply</button>
-
-<br>
-
-     <button class=qwd style="height:16px;" onClick='setLabel("+","add");' title="layer name add +"
->add+</button><button class=qwd style="height:16px;" onClick='setLabel("+","remove");' title="remove +"
->rmv+</button><button class=qwd style="height:16px;" onClick='doAxeScript("layerNameInc")' title="label number ++"
->( ++ )</button><button class=qwd style="height:16px;" onClick='doAxeScript("layerNameDec")' title="label number --"
->( -- )</button>
-<br>
-         <button class=hwd style="height:16px;" "onClick='doAxeScript("PacPs")' title="レイヤ名一括変更">［PacPs］
-</button><button class=hwd style="height:16px;" onClick='doAxeScript("ezFlip")' title="レイヤ名変更パネル">レイヤ名変更
-</button>
-
-
 <!--  -->
 <br>
 </div>
@@ -239,6 +228,10 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
 <br>
          <button class=hw onClick='doAxeScript("groupingSelectedLayers")' title="選択レイヤをグループに">レイヤセット化
 </button><button class=hw onClick='doAxeScript("numberingLayers")' title="セット内を連番">連番
+</button>
+<br>
+         <button class=hw onClick='doAxeScript("PacPs")' title="レイヤ名一括変更">［PacPs］
+</button><button class=hw onClick='doAxeScript("ezFlip")' title="レイヤ名変更パネル">レイヤ名変更
 </button>
 <br></div>
 <button class=fsp onClick='javascript:document.getElementById("TRChandle").style.display=(document.getElementById("TRChandle").style.display=="none")?"inline":"none";' title="彩色補助ツール">トレース/ペイント</button><br>
