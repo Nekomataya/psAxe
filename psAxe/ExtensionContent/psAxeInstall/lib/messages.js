@@ -14,6 +14,8 @@
 	if( typeof localize===undefined ){localize=nas.localize;}
 //
 nas.uiMsg={};
+ nas.uiMsg.Abort		={en:"Abort"		,ja:"中断"};
+ nas.uiMsg.aborted		={en:"process aborted."		,ja:"処理を中断しました"};
  nas.uiMsg.Preference		={en:"Preference"		,ja:"各種設定"};
  nas.uiMsg.Medias		={en:"Medias"			,ja:"メディア設定"};
  nas.uiMsg.Common		={en:"Common"			,ja:"一般環境"};
@@ -63,6 +65,8 @@ nas.uiMsg={};
  nas.uiMsg.overlayBgColor	={en:"bgColor of overlay"	,ja:"修正レイヤの背景色"};
  nas.uiMsg.previewControl	={en:"preview Control"		,ja:"プレビューコントロール"};
  nas.uiMsg.Documents		={en:"Documents"		,ja:"ドキュメント設定"};
+ nas.uiMsg.Import			={en:"Import"			,ja:"読出"};
+ nas.uiMsg.Export			={en:"Export"			,ja:"書出"};
  nas.uiMsg.Load			={en:"Load"			,ja:"読込"};
  nas.uiMsg.Save			={en:"Save"			,ja:"保存"};
  nas.uiMsg.Destruction		={en:"Destruction"		,ja:"破棄"};

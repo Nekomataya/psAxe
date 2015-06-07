@@ -45,8 +45,8 @@ var myScene=""	;
 var myCut="C# "	;
 			//カット番号
 
-var myName="testUser";//system.userName	;//---作業ユーザ名	*cookie[2]
-
+var myName=(function(){var myName=(Folder.desktop.parent.fsName).replace(/[\/\\]/g,",").split(",");myName=myName[myName.length-1];return myName})();//---作業ユーザ名	*cookie[2]
+//var myName="your name";
 var NameCheck=true	;
 	// NameCheckを有効にすると起動時に名前を入力するプロンプトがでます。
 	// 名前は保存できます。

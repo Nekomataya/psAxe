@@ -1,532 +1,1 @@
-/*
-	å½AEç’°å¢ƒåˆæœŸåŒ–é–¢æ•° å®šç¾©
-
-ã‚³ãƒ³ãƒã‚¸ã‚·ãƒ§ãƒ³ã¯ãƒ¬ã‚¤ãƒ¤ã‚’è¦ç´ ã«æŒã¤é…åˆ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-ãƒ¬ã‚¤ãƒ¤ã¯ã€è¤‡æ•°ã®ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‚’è¦ç´ ã«æŒã¤é…åˆ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã¯ã€ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’è¦ç´ ã«æŒã¤é…åˆ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã® åŸºæœ¬ãƒ‡ãƒ¼ã‚¿æ§‹é€ ã¯[frame,value]ã®é…åˆ—ã€‚
-
-valueã¯ã€ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã®ç¨®åˆ¥ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã—ãŸãŒã£ã¦å¤‰åŒ–ã™ã‚‹å€¤ã®é…åˆ—ã€‚
-å€¤ãŒå˜é …é…åˆ—ã®å ´åˆã€ã‚¹ã‚«ãƒ©å¤‰æ•°ã¨ã—ã¦ä½¿ãˆã‚‹ã‚ˆã†ã«ã—ã¦ãŠãã€‚
-
-ä»¥ä¸‹ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
-value ã®æ§‹é€ ã€ä¾‹ã®ã‚ã‚Œ?
-
-name(=id) è­˜åˆ¥å
-valueAtTime(){ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’è£œå®Œã—ãŸå€¤ã‚’è¿”ã™ãƒ¡ã‚½ãƒƒãƒ‰}
-timeLineClass	ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ç¨®åˆ¥ ã‚¸ã‚ªãƒ¡ãƒˆãƒªãƒ»ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ»ãƒªãƒãƒƒãƒ—ãªã©ãªã©
-
-
-
-ä»¥ä¸‹ãƒ¬ã‚¤ãƒ¤ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
-
-width	ãƒ¬ã‚¤ãƒ¤ã‚½ãƒ¼ã‚¹å¹…
-height	ãƒ¬ã‚¤ãƒ¤ã‚½ãƒ¼ã‚¹é«˜ã•
-pixelAspectRatio	ã‚½ãƒ¼ã‚¹ã®ç¸¦æ¨ªæ¯”
- inPoint	INç‚¹
-outPoint	OUTç‚¹
-
- footage	ãƒ•ãƒ¼ãƒ†ãƒ¼ã‚¸ID
-
-duration(){ç¾ç¶™ç¶šæ™‚é–“ã‚’å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰(w)}
-name(id)	è­˜åˆ¥å
-orderId	é‡ã­åˆã‚ã›å„ªå…ˆé †ä½
-
-ä»¥ä¸‹ã‚³ãƒ³ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
-name(id)	è­˜åˆ¥å­
-unitsOfSecond	ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ
-compPixelAspectRatio	ã‚³ãƒ³ãƒã®ãƒ”ã‚¯ã‚»ãƒ«ç¸¦æ¨ªæ¯”
-
-
-*/
-/*
-	ãƒ™ã‚¯ãƒˆãƒ«æ¼”ç®—é–¢æ•°ç¾¤
-*/
-//ãƒ™ã‚¯ãƒˆãƒ«æ¼”ç®—äº‹å‰å‡¦ç†
-//	ä¸ãˆã‚‰ã‚ŒãŸãƒ™ã‚¯ãƒˆãƒ«ã®æ¬¡æ•°ã‚’å¤šã„ã‚‚ã®ã«æƒãˆã¦ä¸è¶³åˆ†ã«0ã‚’åŠ ãˆã¦è¿”ã™
-function preformvector(vec1,vec2)
-{
-//å˜é …ã‚¹ã‚«ãƒ©ã ã£ãŸå ´åˆã€è¦ç´ æ•°1ã®é…åˆ—ã«å¤‰æ›ã—ã¦ãŠãã€‚
-	if (typeof(vec1)=="number") {vec1=[vec1];}
-	if (typeof(vec2)=="number") {vec2=[vec2];}
-//ãƒ™ã‚¯ãƒˆãƒ«ã®æ¬¡æ•°ã‚’æ±‚ã‚ã‚‹ äºŒæ¬¡å…ƒã‹ä¸‰æ¬¡å…ƒã‹å››æ¬¡å…ƒã‹
-	var difD = (vec1.length - vec2.length);
-	var vecD = (vec1.length > vec2.length)? vec1.length:vec2.length;//å¤šã„æ–¹
-//ç‰‡æ–¹ãŒä¸è¶³ã™ã‚‹å ´åˆã¯0ã§è£œã†
-	if (difD > 0) {
-		for (var idx = 0 ; idx > difD; idx --){
-			vec2 = vec2.concat([0]);
-		}
-	}
-	if (difD < 0) {
-		for (var idx = 0 ; idx < difD; idx ++){
-			vec1 = vec1.concat([0]);
-		}
-	}
-	return [vec1,vec2,vecD];
-}
-//	ãƒ™ã‚¯ãƒˆãƒ«å’Œã‚’è¿”ã™ã€‚
-function add(vec1,vec2) {
-
-	vec1=preformvector(vec1,vec2)[0];
-	vec2=preformvector(vec1,vec2)[1];
-	vecD=preformvector(vec1,vec2)[2];
-
-	var vec3 = new Array(vecD);
-
-//å’Œã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
-	for (idx = 0;idx < vecD ; idx ++) {
-		 vec3[idx] = vec1[idx] + vec2[idx];
-	}
-return vec3;
-}
-//ãƒ™ã‚¯ãƒˆãƒ«å·®ã‚’è¿”ã™
-function sub(vec1,vec2) {
-
-	vec1=preformvector(vec1,vec2)[0];
-	vec2=preformvector(vec1,vec2)[1];
-	vecD=preformvector(vec1,vec2)[2];
-
-	var vec3 = new Array(vecD);
-
-//å·®ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
-	for (idx = 0;idx < vecD ; idx ++) {
-		 vec3[idx] = vec1[idx] - vec2[idx];
-	}
-return vec3;
-}
-
-//ãƒ™ã‚¯ãƒˆãƒ«ç©ã‚’è¿”ã™
-function mul(vec,amount) {
-
-	if (typeof(vec)=="number") vec=[vec];
-//ãƒ™ã‚¯ãƒˆãƒ«ã®æ¬¡æ•°ã‚’æ±‚ã‚ã‚‹ äºŒæ¬¡å…ƒã‹ä¸‰æ¬¡å…ƒã‹å››æ¬¡å…ƒã‹
-	var vecD = (vec.length);
-	var vecNew = new Array(vecD);
-//ç©ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
-for (idx = 0;idx < vecD ; idx ++) {
- vecNew[idx] = vec[idx] * amount;
-}
-return vecNew;
-}
-
-//ãƒ™ã‚¯ãƒˆãƒ«å•†ã‚’è¿”ã™
-function div(vec,amount) {
-	if (typeof(vec)=="number") {vec=[vec];}
-//ãƒ™ã‚¯ãƒˆãƒ«ã®æ¬¡æ•°ã‚’æ±‚ã‚ã‚‹ äºŒæ¬¡å…ƒã‹ä¸‰æ¬¡å…ƒã‹å››æ¬¡å…ƒã‹
-	var vecD = (vec.length);
-	var vecNew = new Array(vecD);
-//å•†ã‚’æ±‚ã‚ã¦è¿”ã™ã€‚
-	for (idx = 0;idx < vecD ; idx ++) {
- vecNew[idx] = vec[idx] / amount;
-}
-return vecNew;
-}
-
-
-//ãƒ™ã‚¯ãƒˆãƒ«ã‚¯ãƒ©ãƒ³ãƒ—
-function clamp(vec, limit1, limit2) {
-		var max=limit1;var min=limit2;
-	if (limit1 < limit2){
-		max=limit2;min=limit1;
-}
-	if (typeof(vec)=="number") {vec=[vec];}
-//ãƒ™ã‚¯ãƒˆãƒ«ã®æ¬¡æ•°ã‚’æ±‚ã‚ã‚‹ äºŒæ¬¡å…ƒã‹ä¸‰æ¬¡å…ƒã‹å››æ¬¡å…ƒã‹
-	var vecD = (vec.length);
-	var vecNew = new Array(vecD);
-//è¦ç´ ã”ã¨ã«å€¤ã‚’ã‚¯ãƒ©ãƒ³ãƒ—ã—ã¦è¿”ã™ã€‚
-for (idx = 0;idx < vecD ; idx ++) {
-	if (vec[idx] >= min && vec[idx] <= max){
-		vecNew[idx] = vec[idx];
-	}else {
-		vecNew = (vec[idx] >= min )?vecNew.concat([max]):vecNew = vecNew.concat([min]);
-	}
-}
-return vecNew;
-}
-
-//å†…ç©
-function dot(vec1,vec2) {
-
-	vec1=preformvector(vec1,vec2)[0];
-	vec2=preformvector(vec1,vec2)[1];
-	vecD=preformvector(vec1,vec2)[2];
-
-//	var vec3 = new Array(vecD);
-
-	var Result = 0;
-//è¦ç´ ã”ã¨ã«ç©ç®—ã€‚
-	for (idx = 0;idx < vecD ; idx ++) {
-		Result= Result + (vec1[idx] * vec2[idx])
-	}
-	return Result;
-}
-//å¤–ç©
-//AEã®ä»•æ§˜ã«åˆã‚ã›ã¦2æ¬¡å…ƒã¨3æ¬¡å…ƒã®å€¤ã®ã¿ã‚’è¨ˆç®—ã™ã‚‹
-//
-function cross(vec1, vec2) {
-
-
-	vec1=preformvector(vec1,vec2)[0];
-	vec2=preformvector(vec1,vec2)[1];
-	vecD=preformvector(vec1,vec2)[2];
-
-//	var vec3 = new Array(vecD);
-
-	var Result = 0;
-//2æ¬¡å…ƒã‹3æ¬¡å…ƒã§åˆ†å²
-	switch (vecD) {
-case 2:
-//2æ¬¡å…ƒã®æ™‚ã¯å¤–ç©ã‚’æ±‚ã‚ã‚‹ãŸã‚zåº§æ¨™å€¤ã«0ã‚’è£œã£ã¦ã‚„ã‚‹ã€‚(breakãªã—)
-			vec1 = vec1.concat([0]);
-			vec2 = vec2.concat([0]);
-case 3:
-	Result = [	vec1[1] * vec2[2] -  vec1[2] * vec2[1],
-			vec1[2] * vec2[0] -  vec1[0] * vec2[2],
-			vec1[0] * vec2[1] -  vec1[1] * vec2[0]	];
-	break;
-default:
-	Result="2æ¬¡å…ƒã‹3æ¬¡å…ƒã®å€¤ã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚"	;	
-	}
-return Result;
-}
-
-function length(vec) {
-//å¼•æ•°ãŒã„ãã¤ã‹ã‚’æ±‚ã‚ã‚‹
-	if (arguments.length==2){
-		if (	typeof(arguments[0])=="number" &&
-			typeof(arguments[1])=="number")
-		{
-			vec=[arguments[0],argments[1]];
-		}else{
-	if(	typeof(arguments[0][0])=="number" &&
-		typeof(arguments[0][1])=="number" &&
-		typeof(arguments[1][0])=="number" &&
-		typeof(arguments[1][1])=="number" )
-	{
-		vec=sub(arguments[0],arguments[1]);
-	}else{
-		return "é…åˆ—ã‚’å…¥åŠ›ã—ã¾ã—ã‚‡ã†";
-	}
-		}
-	}
-//
-//ãƒ™ã‚¯ãƒˆãƒ«ã®æ¬¡æ•°ã‚’æ±‚ã‚ã‚‹ äºŒæ¬¡å…ƒã‹ä¸‰æ¬¡å…ƒã‹å››æ¬¡å…ƒã‹
-	var vecD = (vec.length);
-	if (isNaN(vecD)) { return;  }
-	var Length;
-//é•·ã•ã‚’æ±‚ã‚ã‚‹
-switch (vecD) {
-case 1:	Length = vec[0];break;
-case 2:
-case 3:
-	Length = Math.pow(Math.pow(vec[0],2) + Math.pow(vec[1],2),.5);
-		if (vecD > 2) {
-	for (idx = 2 ; idx < vecD ; idx ++) {
-		Length = Math.pow(Math.pow(Length,2) + Math.pow(vec[idx],2),.5);
-	}
-		};break;
-default:	return "2æ¬¡å…ƒã¾ãŸã¯3æ¬¡å…ƒã®å€¤ã‚’å…¥åŠ›ã—ã¾ã—ã‚‡ã†";
-}
-return Length;
-}
-
-function normalize(vec) {return div(vec,length(vec));}
-
-//ãƒ™ã‚¯ãƒˆãƒ«æ¼”ç®—é–¢æ•°ãŠã—ã¾ã„
-
-//AEã€€ExpressionOtherMath äº’æ› è§’åº¦<>ãƒ©ã‚¸ã‚¢ãƒ³å¤‰æ›é–¢æ•°
-//æ¡åˆ‡ã‚‰ãªã„ã»ã†ãŒè‰¯ã„ã‹ã‚‚ã€é‹ç”¨ã—ã¦ã¿ã¦åˆ¤æ–­ã—ã¾ã—ã‚‡ã† 2006/06/23
-function degreesToRadians(degrees)
-{
-	return Math.floor((degrees/180.)*Math.PI*100000000)/100000000;
-}
-function radiansToDegrees(radians)
-{
-	return Math.floor(180. * (radians/Math.PI)* 100000)/100000;
-}
-
-//AEã®å‹•ä½œã‚’æ¨¡å€£ã™ã‚‹ãŸã‚ã«è¨­å®šã™ã‚‹å½ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å®šç¾©
-//å®šç¾©ã«ä½¿ç”¨ã™ã‚‹é–¢æ•°
-//
-//ã‚¯ãƒ©ã‚¹ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—ã®è¤‡è£½
-//	ã“ã®é–¢æ•°ã§ã€å¼•ãç¶™ããŸã„ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å–å¾—
-//  function inherit(subClass, superClass) {
-//        for (var prop in superClass.prototype) {
-//            subClass.prototype[prop] = superClass.prototype[prop];
-//        }
-//    }
-//
-
-
-
-/*	åˆæˆã‚­ãƒ£ãƒªã‚¢ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè¨­å®š
-	ã‚­ãƒ£ãƒªã‚¢ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå˜ä½“ã¯ä½¿ç”¨ã—ãªã„ãŒã€
-	åº§æ¨™ç³»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åŸºç¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãªã‚‹ã€‚
-	åº§æ¨™ç³»ã®åŸºæœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã¯ã“ã“ã‹ã‚‰å–å¾—ã™ã‚‹ã€‚
-	åˆæˆãƒãƒƒãƒ•ã‚¡ã®ãŸãã„ã¯ã€ã‚³ãƒ¬!
-*/
-function Carrier()
-{
-//this.prototype.contructor=Array;
-	this.width		=	0	;
-	this.height		=	0	;
-	this.pixelAspect	=	1	;
-	this.frameRate		=	1	;
-	this.duration		=	0	;
-}
-//	new Carrier();
-// Carrier.prototype.constructor = Array;
-//	ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—ãƒ¡ã‚½ãƒƒãƒ‰
-	Carrier.prototype.setFrameRate	=
-	function(rate){
-		if(! rate)
-		{rate=this.frameRate;}else{this.frameRate=rate;};
-		this.frameDuration=1/rate;
-	return rate;
-	};
-	Carrier.prototype.setFrameDuration	=
-	function(duration){
-		if(! duration)
-		{duration=this.frameDuration;}else{this.frameDuration=duration;};
-		this.frameRate=1/duration;
-	return duration;
-	};
-	Carrier.prototype.setGeometry	=
-	function(w,h,a){
-		if(w){this.width	=w;}
-		if(h){this.height	=h;}
-		if(a){this.pixelAspect	=a;}
-	return [w,h,a];
-	};
-/*	ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ è¨­å®š
-	ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã®æ¬¡å…ƒã‚’ä¸ãˆã¦åˆæœŸåŒ–ã™ã‚‹ã€‚
-	ä¸€ã¤ã®ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã¯ã€ä»¥ä¸‹ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’æŒã¤
-	æ™‚é–“,		//ç©ç®—ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã§
-	[å€¤],		//ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã—ãŸãŒã£ã¦å¤šæ¬¡å…ƒ
-	[[å€¤ã®åˆ¶å¾¡å¤‰æ•°1],[2]],//å€¤ã¨åŒæ¬¡å…ƒã§ã€äºŒã¤ä¸€çµ„
-	[[ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã®åˆ¶å¾¡å¤‰æ•°1],[2]],//äºŒæ¬¡å…ƒã€äºŒã¤ä¸€çµ„
-	ã‚­ãƒ¼ã‚¢ãƒˆãƒªãƒ“ãƒ¥ãƒ¼ãƒˆ,//AEç”¨ã‚­ãƒ¼è£œå®Œãƒ•ãƒ©ã‚°
-*/
-function KeyFrame(f,v,vCp,tCp,kAtrib)
-{
-	if(!f){	f =0	}
-		this.frame =f	;
-	if(!v){	v=null	}
-		this.value=v	;
-	if(!vCp){ vCp=[1/3,2/3]	}
-		this.valueCp=vCp	;
-	if(!tCp){ tCp=[[1/3,2/3],[1/3,2/3]]	}
-			this.timingCp=tCp	;//AEäº’æ›ãªã‚‰1æ¬¡å…ƒã§
-	if(!kAtrib){ kAtrib=["stop","linear","time_fix"]	}
-			this.keyAtrib=kAtrib	;
-/*
-ã‚­ãƒ¼ã‚¢ãƒˆãƒªãƒ“ãƒ¥ãƒ¼ãƒˆã¯ã€ç¾åœ¨ã¯AEäº’æ›ã‚’æ¨™æ¦œã—ã¦ãŠãã€‚å¾Œã§å†è€ƒ
-[ã‚¿ã‚¤ãƒŸãƒ³ã‚°è£œå®Œ,å€¤è£œå®Œ,å€¤ã®æ™‚é–“è£œå®Œ(ãƒ­ãƒ¼ãƒ“ãƒ³ã‚°)]
-*/
-
-}
-//	new KeyFrame();
-
-//	ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³è¨­å®š
-function TimeLine(atrib)
-{	this.name = atrib	}
-//	new TimeLine();
-	TimeLine.prototype= new Array();
-	TimeLine.prototype.constructor=TimeLine;
-/*
-ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã¯AEã®å ´åˆã ã¨ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ãƒ‡ãƒ¼ã‚¿ã®ãƒˆãƒ¬ãƒ¼ãƒ©ã¨è¨€ã†è¦³ç‚¹ã§Propertyã«ç›¸å½“ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-ã²ã¨ã¤ã®ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã¯ãã‚Œãã‚Œã®å±æ€§ã¨ã¨ã‚‚ã«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å¯èƒ½ãªãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ä¿æŒã™ã‚‹ã€‚
-ãŸã ã—ã€ãã“ã«ã¯ç”»åƒã¯å­˜åœ¨ã—ãªã„ã€€ç”»åƒã®é…ä¸‹ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã¨ã—ã¦ã§ã¯ãªãç”»åƒã®ä¸Šä½ã«ä½ç½®ã™ã‚‹ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯ã®
-ãƒœãƒ¼ãƒ‰ã¨ã—ã¦ã¨ã‚‰ãˆã‚‹ã¹ãã§ã‚ã‚‹ã“ã¨ã ã‚ˆ
-*/
-/*	TimeLine.setKeyFrame(myKeyFrame)
-å¼•æ•°	ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-æˆ»å€¤	ç™»éŒ²ã—ãŸã‚­ãƒ¼ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
-
-ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã®ãƒ¡ã‚½ãƒƒãƒ‰
-ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã«ç™»éŒ²ã™ã‚‹ã€‚
-ã™ã§ã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã†ã¡ã€åŒã˜frameå€¤ã‚’æŒã¤ã‚‚ã®ãŒã‚ã‚Œã°ä¸Šæ›¸ãã™ã‚‹
-ãã‚Œä»¥å¤–ã¯æ–°è¦ç™»éŒ²ã™ã‚‹ã€‚ã“ã®ã¾ã¾ã ã¨é †ä¸åŒã«ãªã‚‹ã®ã§å¾Œã§æ›¸ãæ›ãˆè¦
-ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ãªç™»éŒ²æ–¹å¼ã¨ã—ã¦ã¯TimeLine.push(KeyFrame)ã‚’ä½¿ç”¨ã—ã¦ã‚‚è‰¯ã„
-ãŸã ã—é‡è¤‡ã®æ¤œæŸ»ãŒã§ããªã„ã®ã§æ–°è¦ã«ä¸€æ‹¬ã§ç™»éŒ²ã™ã‚‹éš›ã®ã¿æ¨å¥¨
-ã€€ã“ã®è¾ºã¯ã‚‚ã£ã¨æ´—ç·´ã—ãªã„ã¨å±ãªã„ã­ã€€ï¼’ï¼ï¼ï¼™
-*/
-TimeLine.prototype.setKeyFrame=	function (myKeyFrame){
-	for (var id=0;id<this.length;id++)
-	{
-		nas.otome.writeConsole(myKeyFrame.frame+"<>"+this[id].frame);
-		if(myKeyFrame.frame==this[id].frame)
-		{
-			this[id]=myKeyFrame;
-			return id;
-		}
-	}
-	this.push(KeyFrame);
-	return this.length-1
-};
-//valueAtTime()
-//AEäº’æ›?ã‹ã‚‚ã—ã‚Œãªã„?ã“ã“ã§ã¯äº’æ›ãªã—! t ã¯ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã§ä¸ãˆã‚‹ã“ã¨
-function valueAtTime_(t){
-	if(t <= this[0].frame){return this[0].value}
-	if(t >= this[this.length-1].frame){return this[this.length-1].value}
-		for(id=1;id<this.length;id ++)
-		{
-	if(t == this[id].frame){return this[id].value}
-	if(t <  this[id].frame){//æ‰€å±ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒåˆ¤æ˜ã—ãŸã®ã§è¨ˆç®—ã—ã¦è¿”ã™
-//
-
-if (this[id].keyAtrib[0]=="stop"){
-//ã‚­ãƒ¼è£œå®ŒãŒåœæ­¢ã®æ™‚ã¯ã€è£œå®Œè¨ˆç®—ãªã—ã€‚å‰æ–¹ã‚­ãƒ¼ã®å€¤ã§è¿”ã™ã€‚
-	return this[id-1].value;
-}else{
-		var Vstart	=this[id-1].value;
-		var Vcp1	=this[id-1].valueCp[0];
-		var Vcp2	=this[id-1].valueCp[1];
-		var Vend	=this[id].value;
-
-		var Tstart	=this[id-1].frame;
-		var Tcp1	=this[id-1].timingCp[0];
-		var Tcp2	=this[id-1].timingCp[1];
-		var Tend	=this[id].frame;
-
-//å€¤ãŒæãã‚¢ãƒ¼ã‚¯ã®å…¨é•·ã‚’æ±‚ã‚ã‚‹
-		var HallArk=nas.bezierL(Vstart,Vcp1,Vcp2,Vend);
-//æŒ‡å®šæ™‚é–“ã‹ã‚‰ã‚¿ã‚¤ãƒŸãƒ³ã‚°ä¿‚æ•°ã‚’æ±‚ã‚ã‚‹
-		var Now=(t-Tstart)/(Tend - Tstart);
-//æ™‚é–“ã‹ã‚‰ 2æ¬¡å…ƒ(æ™‚é–“ãƒ»æ¯”ç‡)åŠ©å¤‰æ•°ã‚’æ±‚ã‚ã‚‹ã€‚
-		var Tvt= nas.bezierA(Tcp1[0],Tcp1[1],Now);
-//æ±‚ã‚ãŸåŠ©å¤‰æ•°ã§ã‚¿ã‚¤ãƒŸãƒ³ã‚°ä¿‚æ•°ã‚’å‡ºã™
-		var Tvv= nas.bezierA(0,Tcp2[0],Tcp2[1],1,Tvt);
-//ä¿‚æ•°ã‹ã‚‰å€¤ã‚’æ±‚ã‚ã‚‹ã€‚
-	Tt=Tvv;//ä»®åŠ©å¤‰æ•°(åˆæœŸå€¤)
-	Tmax=1;
-	Tmin=0;
-	var preLength	=0;//å§‹ç‚¹ã‹ã‚‰ã®ã‚¢ãƒ¼ã‚¯é•·
-	var postLength	=0;//çµ‚ç‚¹ã¾ã§ã®ã‚¢ãƒ¼ã‚¯é•·
-	var TtT	=0;//ãƒ†ã‚¹ãƒˆã§å¾—ã‚‰ã‚Œã‚‹æ¯”ç‡
-
-do{
-	preLength	=nas.bezierL(Vstart,Vcp1,Vcp2,Vend,0,Tt);
-	postLength	=nas.bezierL(Vstart,Vcp1,Vcp2,Vend,Tt,1);
-	TtT	=preLength/(preLength+postLength);
-		if(Tvv<preLength/(preLength+postLength))
-		{
-			Tmin=Tt;//ä¸‹é™å€¤ã‚’ç¾åœ¨å€¤ã«
-			Tt=(Tmax+Tt)/2;//æ–°ãƒ†ã‚¹ãƒˆå€¤ã‚’è¨­å®š
-		}else{
-			Tmax=Tt;//ä¸Šé™å€¤ã‚’ç¾åœ¨å€¤ã«
-			Tt=(Tmin+Tt)/2;//æ–°ãƒ†ã‚¹ãƒˆå€¤ã‚’è¨­å®š
-		}
-} while(TtT/Tvv>0.9999999 && TtT/Tvv<1.0000001);//ç²¾åº¦ç¢ºèª
-	//ãã®å¾—ã‚‰ã‚ŒãŸåŠ©å¤‰æ•°ã‚’ä½¿ã£ã¦å€¤ã‚’è¿”ã™ã€‚å€¤ã®æ¬¡å…ƒæ•°ã§ãƒ«ãƒ¼ãƒ—
-	var Result=new Array(Vstart.length);
-	for(i=0;i<Vstart.length;i++)
-	{Result[i]=nas.bezier(Vstart[i],Vcp1[i],Vcp2[i],Vend[i],Tt)}
-	return Result;
-}	}	}
-
-}
-
-/*	ãƒ¬ã‚¤ãƒ¤è¨­å®š
-ãƒ¬ã‚¤ãƒ¤ã®ãƒ¡ãƒ³ãƒã¯ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³
-ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ä»¥ä¸‹ã®ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ãŒã‚ã‚‹ã€‚
-ã‚¿ã‚¤ãƒ ãƒªãƒãƒƒãƒ—**
-ã‚¢ãƒ³ã‚«ãƒ¼ãƒã‚¤ãƒ³ãƒˆ
-ä½ç½®
-å›è»¢
-ä¸é€æ˜åº¦
-ã‚«ãƒ©ã‚»ãƒ«**
-ãƒ¯ã‚¤ãƒ—
-ã‚¨ã‚¯ã‚¹ãƒ—ãƒ¬ãƒƒã‚·ãƒ§ãƒ³
-	**å°ã¯ã€ã‚Šã¾ã´ã‚“ã®ã¿
-*/
-function FakeLayer()
-{
-
-	this.width		=	640	;
-	this.height		=	480	;
-	this.pixelAspect	=	1	;
-	this.frameRate		=	24	;
-	this.duration		=	0	;
-	this.activeFrame	=	0	;
-//
-		this.inPoint	=	0	;
-		this.outPoint	= this.duration	;
-//ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãªã®ã§å¾Œã‹ã‚‰åˆæœŸåŒ–?ã‚Šã¾ã´ã‚“ã§ã¯ç‰¹ã«åˆæœŸåŒ–ã—ãªã„ã€‚
-this.init= function(){
-
-this.timeRemap	= new TimeLine("timeRemap");
-	this.timeRemap.push(new KeyFrame(0,"blank"));
-this.anchorPoint = new TimeLine("anchorPoint");
-	this.anchorPoint.push(new KeyFrame(0,[this.width/2,this.height/2,0])) ;
-this.position = new TimeLine("position");
-	this.positiont.push(new KeyFrame(0,[thisComp.width/2,thisComp.heigth/2,0])) ;
-this.rotation = new TimeLine("rotation");
-	this.rotation.push(new KeyFrame(0,[0,0,0])) ;
-this.opacity = new TimeLine("opacity");
-	this.opacity.push(new KayFrame(0,100)) ;
-}
-
-};
-//	new FakeLayer();
-	FakeLayer.prototype=new Carrier();
-	FakeLayer.prototype.constructor=FakeLayer;
-//		inherit(FakeLayer,Carrier);//Carrierã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å–å¾—
-
-FakeLayer.prototype.setClip=function(ip,op){
-	if (ip && ip>=0 && ip<=duration) this.inPoint=ip;
-	if (op && op>=0 && op<=duration) this.outPoint=op;
-return [ip,op];
-};
-/*
-FakeLayer.prototype.=function(){
-};
-FakeLayer.prototype.=function(){
-};
-FakeLayer.prototype.=function(){
-};
-*/
-//	ã‚³ãƒ³ãƒã‚¸ã‚·ãƒ§ãƒ³è¨­å®š
-//	ã‚³ãƒ³ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
-/*
-function FakeComposition()
-{
-	this.width		=	640	;
-	this.height		=	480	;
-	this.pixelAspect	=	1	;
-	this.frameRate		=	24	;
-	this.duration		=	0	;
-};
-*/
-function FakeComposition(w,h,a,l,f)
-{
-	this.layers=new Array();
-		if (! w)	w	=640	;
-		if (! h)	h	=480	;
-		if (! a)	a	=1	;
-		if (! l)	l	=6	;
-		if (! f)	f	=24	;
-	this.width	=w	;//å¹…(ãƒãƒƒãƒ•ã‚¡å¹…ãƒ»px)
-	this.height	=h	;//é«˜ã•(ãƒãƒƒãƒ•ã‚¡é«˜ã•ãƒ»px)
-	this.pixelAspect=a	;//ãƒ”ã‚¯ã‚»ãƒ«ç¸¦æ¨ªæ¯”
-	this.duration	=l	;//é•·ã•(ç¶™ç¶šæ™‚é–“ãƒ»ç§’)
-	this.framerate	=f	;//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ(fps)
-};
-//	ãƒ€ãƒŸãƒ¼åˆæœŸåŒ–
-//	new FakeComposition();
-	FakeComposition.prototype=new Carrier();
-	FakeComposition.prototype.constructor=FakeComposition;
-	
-//		inherit(FakeComposition,Carrier);//Carrierã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å–å¾—
-//		inherit(FakeComposition,Array);//é…åˆ—ã¨ã—ã¦ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å–å¾—
-
-//	ãƒ¡ã‚½ãƒƒãƒ‰è¨­å®š
-function frame_duration_(){return 1/this.framerate;}
-
-FakeComposition.prototype.frameDuration	=frame_duration_	;
-FakeComposition.prototype.frame_duration	=frame_duration_	;
-
-
-
-
+/*	‹UAEŠÂ‹«‰Šú‰»ŠÖ” ’è‹`ƒRƒ“ƒ|ƒWƒVƒ‡ƒ“‚ÍƒŒƒCƒ„‚ğ—v‘f‚É‚Â”z—ñƒIƒuƒWƒFƒNƒgƒŒƒCƒ„‚ÍA•¡”‚Ìƒ^ƒCƒ€ƒ‰ƒCƒ“‚ğ—v‘f‚É‚Â”z—ñƒIƒuƒWƒFƒNƒgƒ^ƒCƒ€ƒ‰ƒCƒ“‚ÍAƒL[ƒtƒŒ[ƒ€‚ğ—v‘f‚É‚Â”z—ñƒIƒuƒWƒFƒNƒgƒ^ƒCƒ€ƒ‰ƒCƒ“‚Ì Šî–{ƒf[ƒ^\‘¢‚Í[frame,value]‚Ì”z—ñBvalue‚ÍAƒ^ƒCƒ€ƒ‰ƒCƒ“‚Ìí•ÊƒvƒƒpƒeƒB‚É‚µ‚½‚ª‚Á‚Ä•Ï‰»‚·‚é’l‚Ì”z—ñB’l‚ª’P€”z—ñ‚Ìê‡AƒXƒJƒ‰•Ï”‚Æ‚µ‚Äg‚¦‚é‚æ‚¤‚É‚µ‚Ä‚¨‚­BˆÈ‰ºƒ^ƒCƒ€ƒ‰ƒCƒ“‚ÌƒvƒƒpƒeƒBvalue ‚Ì\‘¢A—á‚Ì‚ ‚ê?name(=id) ¯•Ê–¼valueAtTime(){ƒL[ƒtƒŒ[ƒ€‚ğ•âŠ®‚µ‚½’l‚ğ•Ô‚·ƒƒ\ƒbƒh}timeLineClass	ƒ^ƒCƒ€ƒ‰ƒCƒ“í•Ê ƒWƒIƒƒgƒŠEƒGƒtƒFƒNƒgEƒŠƒ}ƒbƒv‚È‚Ç‚È‚ÇˆÈ‰ºƒŒƒCƒ„‚ÌƒvƒƒpƒeƒBwidth	ƒŒƒCƒ„ƒ\[ƒX•height	ƒŒƒCƒ„ƒ\[ƒX‚‚³pixelAspectRatio	ƒ\[ƒX‚Ìc‰¡”ä inPoint	IN“_outPoint	OUT“_ footage	ƒt[ƒe[ƒWIDduration(){Œ»Œp‘±ŠÔ‚ğæ“¾‚·‚éƒƒ\ƒbƒh(w)}name(id)	¯•Ê–¼orderId	d‚Ë‡‚í‚¹—Dæ‡ˆÊˆÈ‰ºƒRƒ“ƒ|ƒWƒVƒ‡ƒ“‚ÌƒvƒƒpƒeƒBname(id)	¯•ÊqunitsOfSecond	ƒtƒŒ[ƒ€ƒŒ[ƒgcompPixelAspectRatio	ƒRƒ“ƒ|‚ÌƒsƒNƒZƒ‹c‰¡”ä*//*	ƒxƒNƒgƒ‹‰‰ZŠÖ”ŒQ*///ƒxƒNƒgƒ‹‰‰Z–‘Oˆ—//	—^‚¦‚ç‚ê‚½ƒxƒNƒgƒ‹‚ÌŸ”‚ğ‘½‚¢‚à‚Ì‚É‘µ‚¦‚Ä•s‘«•ª‚É0‚ğ‰Á‚¦‚Ä•Ô‚·function preformvector(vec1,vec2){//’P€ƒXƒJƒ‰‚¾‚Á‚½ê‡A—v‘f”1‚Ì”z—ñ‚É•ÏŠ·‚µ‚Ä‚¨‚­B	if (typeof(vec1)=="number") {vec1=[vec1];}	if (typeof(vec2)=="number") {vec2=[vec2];}//ƒxƒNƒgƒ‹‚ÌŸ”‚ğ‹‚ß‚é “ñŸŒ³‚©OŸŒ³‚©lŸŒ³‚©	var difD = (vec1.length - vec2.length);	var vecD = (vec1.length > vec2.length)? vec1.length:vec2.length;//‘½‚¢•û//•Ğ•û‚ª•s‘«‚·‚éê‡‚Í0‚Å•â‚¤	if (difD > 0) {		for (var idx = 0 ; idx > difD; idx --){			vec2 = vec2.concat([0]);		}	}	if (difD < 0) {		for (var idx = 0 ; idx < difD; idx ++){			vec1 = vec1.concat([0]);		}	}	return [vec1,vec2,vecD];}//	ƒxƒNƒgƒ‹˜a‚ğ•Ô‚·Bfunction add(vec1,vec2) {	vec1=preformvector(vec1,vec2)[0];	vec2=preformvector(vec1,vec2)[1];	vecD=preformvector(vec1,vec2)[2];	var vec3 = new Array(vecD);//˜a‚ğ‹‚ß‚Ä•Ô‚·B	for (idx = 0;idx < vecD ; idx ++) {		 vec3[idx] = vec1[idx] + vec2[idx];	}return vec3;}//ƒxƒNƒgƒ‹·‚ğ•Ô‚·function sub(vec1,vec2) {	vec1=preformvector(vec1,vec2)[0];	vec2=preformvector(vec1,vec2)[1];	vecD=preformvector(vec1,vec2)[2];	var vec3 = new Array(vecD);//·‚ğ‹‚ß‚Ä•Ô‚·B	for (idx = 0;idx < vecD ; idx ++) {		 vec3[idx] = vec1[idx] - vec2[idx];	}return vec3;}//ƒxƒNƒgƒ‹Ï‚ğ•Ô‚·function mul(vec,amount) {	if (typeof(vec)=="number") vec=[vec];//ƒxƒNƒgƒ‹‚ÌŸ”‚ğ‹‚ß‚é “ñŸŒ³‚©OŸŒ³‚©lŸŒ³‚©	var vecD = (vec.length);	var vecNew = new Array(vecD);//Ï‚ğ‹‚ß‚Ä•Ô‚·Bfor (idx = 0;idx < vecD ; idx ++) { vecNew[idx] = vec[idx] * amount;}return vecNew;}//ƒxƒNƒgƒ‹¤‚ğ•Ô‚·function div(vec,amount) {	if (typeof(vec)=="number") {vec=[vec];}//ƒxƒNƒgƒ‹‚ÌŸ”‚ğ‹‚ß‚é “ñŸŒ³‚©OŸŒ³‚©lŸŒ³‚©	var vecD = (vec.length);	var vecNew = new Array(vecD);//¤‚ğ‹‚ß‚Ä•Ô‚·B	for (idx = 0;idx < vecD ; idx ++) { vecNew[idx] = vec[idx] / amount;}return vecNew;}//ƒxƒNƒgƒ‹ƒNƒ‰ƒ“ƒvfunction clamp(vec, limit1, limit2) {		var max=limit1;var min=limit2;	if (limit1 < limit2){		max=limit2;min=limit1;}	if (typeof(vec)=="number") {vec=[vec];}//ƒxƒNƒgƒ‹‚ÌŸ”‚ğ‹‚ß‚é “ñŸŒ³‚©OŸŒ³‚©lŸŒ³‚©	var vecD = (vec.length);	var vecNew = new Array(vecD);//—v‘f‚²‚Æ‚É’l‚ğƒNƒ‰ƒ“ƒv‚µ‚Ä•Ô‚·Bfor (idx = 0;idx < vecD ; idx ++) {	if (vec[idx] >= min && vec[idx] <= max){		vecNew[idx] = vec[idx];	}else {		vecNew = (vec[idx] >= min )?vecNew.concat([max]):vecNew = vecNew.concat([min]);	}}return vecNew;}//“àÏfunction dot(vec1,vec2) {	vec1=preformvector(vec1,vec2)[0];	vec2=preformvector(vec1,vec2)[1];	vecD=preformvector(vec1,vec2)[2];//	var vec3 = new Array(vecD);	var Result = 0;//—v‘f‚²‚Æ‚ÉÏZB	for (idx = 0;idx < vecD ; idx ++) {		Result= Result + (vec1[idx] * vec2[idx])	}	return Result;}//ŠOÏ//AE‚Ìd—l‚É‡‚í‚¹‚Ä2ŸŒ³‚Æ3ŸŒ³‚Ì’l‚Ì‚İ‚ğŒvZ‚·‚é//function cross(vec1, vec2) {	vec1=preformvector(vec1,vec2)[0];	vec2=preformvector(vec1,vec2)[1];	vecD=preformvector(vec1,vec2)[2];//	var vec3 = new Array(vecD);	var Result = 0;//2ŸŒ³‚©3ŸŒ³‚Å•ªŠò	switch (vecD) {case 2://2ŸŒ³‚Ì‚ÍŠOÏ‚ğ‹‚ß‚é‚½‚ßzÀ•W’l‚É0‚ğ•â‚Á‚Ä‚â‚éB(break‚È‚µ)			vec1 = vec1.concat([0]);			vec2 = vec2.concat([0]);case 3:	Result = [	vec1[1] * vec2[2] -  vec1[2] * vec2[1],			vec1[2] * vec2[0] -  vec1[0] * vec2[2],			vec1[0] * vec2[1] -  vec1[1] * vec2[0]	];	break;default:	Result="2ŸŒ³‚©3ŸŒ³‚Ì’l‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·B"	;		}return Result;}function length(vec) {//ˆø”‚ª‚¢‚­‚Â‚©‚ğ‹‚ß‚é	if (arguments.length==2){		if (	typeof(arguments[0])=="number" &&			typeof(arguments[1])=="number")		{			vec=[arguments[0],argments[1]];		}else{	if(	typeof(arguments[0][0])=="number" &&		typeof(arguments[0][1])=="number" &&		typeof(arguments[1][0])=="number" &&		typeof(arguments[1][1])=="number" )	{		vec=sub(arguments[0],arguments[1]);	}else{		return "”z—ñ‚ğ“ü—Í‚µ‚Ü‚µ‚å‚¤";	}		}	}////ƒxƒNƒgƒ‹‚ÌŸ”‚ğ‹‚ß‚é “ñŸŒ³‚©OŸŒ³‚©lŸŒ³‚©	var vecD = (vec.length);	if (isNaN(vecD)) { return;  }	var Length;//’·‚³‚ğ‹‚ß‚éswitch (vecD) {case 1:	Length = vec[0];break;case 2:case 3:	Length = Math.pow(Math.pow(vec[0],2) + Math.pow(vec[1],2),.5);		if (vecD > 2) {	for (idx = 2 ; idx < vecD ; idx ++) {		Length = Math.pow(Math.pow(Length,2) + Math.pow(vec[idx],2),.5);	}		};break;default:	return "2ŸŒ³‚Ü‚½‚Í3ŸŒ³‚Ì’l‚ğ“ü—Í‚µ‚Ü‚µ‚å‚¤";}return Length;}function normalize(vec) {return div(vec,length(vec));}//ƒxƒNƒgƒ‹‰‰ZŠÖ”‚¨‚µ‚Ü‚¢//AE@ExpressionOtherMath ŒİŠ· Šp“x<>ƒ‰ƒWƒAƒ“•ÏŠ·ŠÖ”//Œ…Ø‚ç‚È‚¢‚Ù‚¤‚ª—Ç‚¢‚©‚àA‰^—p‚µ‚Ä‚İ‚Ä”»’f‚µ‚Ü‚µ‚å‚¤ 2006/06/23function degreesToRadians(degrees){	return Math.floor((degrees/180.)*Math.PI*100000000)/100000000;}function radiansToDegrees(radians){	return Math.floor(180. * (radians/Math.PI)* 100000)/100000;}//AE‚Ì“®ì‚ğ–Í•í‚·‚é‚½‚ß‚Éİ’è‚·‚é‹UƒIƒuƒWƒFƒNƒg‚Ì’è‹`//’è‹`‚Ég—p‚·‚éŠÖ”////ƒNƒ‰ƒXƒvƒƒgƒ^ƒCƒv‚Ì•¡»//	‚±‚ÌŠÖ”‚ÅAˆø‚«Œp‚¬‚½‚¢ƒvƒƒgƒ^ƒCƒvƒvƒƒpƒeƒB‚ğæ“¾//  function inherit(subClass, superClass) {//        for (var prop in superClass.prototype) {//            subClass.prototype[prop] = superClass.prototype[prop];//        }//    }///*	‡¬ƒLƒƒƒŠƒAƒIƒuƒWƒFƒNƒgİ’è	ƒLƒƒƒŠƒAƒIƒuƒWƒFƒNƒg’P‘Ì‚Íg—p‚µ‚È‚¢‚ªA	À•WŒnƒIƒuƒWƒFƒNƒg‚ÌŠî‘bƒIƒuƒWƒFƒNƒg‚É‚È‚éB	À•WŒn‚ÌŠî–{ƒƒ\ƒbƒh‚Í‚±‚±‚©‚çæ“¾‚·‚éB	‡¬ƒoƒbƒtƒ@‚Ì‚½‚®‚¢‚ÍAƒRƒŒ!*/function Carrier(){//this.prototype.contructor=Array;	this.width		=	0	;	this.height		=	0	;	this.pixelAspect	=	1	;	this.frameRate		=	1	;	this.duration		=	0	;}//	new Carrier();// Carrier.prototype.constructor = Array;//	ƒvƒƒgƒ^ƒCƒvƒƒ\ƒbƒh	Carrier.prototype.setFrameRate	=	function(rate){		if(! rate)		{rate=this.frameRate;}else{this.frameRate=rate;};		this.frameDuration=1/rate;	return rate;	};	Carrier.prototype.setFrameDuration	=	function(duration){		if(! duration)		{duration=this.frameDuration;}else{this.frameDuration=duration;};		this.frameRate=1/duration;	return duration;	};	Carrier.prototype.setGeometry	=	function(w,h,a){		if(w){this.width	=w;}		if(h){this.height	=h;}		if(a){this.pixelAspect	=a;}	return [w,h,a];	};/*	ƒL[ƒtƒŒ[ƒ€İ’è	ƒL[ƒtƒŒ[ƒ€‚ÌŸŒ³‚ğ—^‚¦‚Ä‰Šú‰»‚·‚éB	ˆê‚Â‚ÌƒL[ƒtƒŒ[ƒ€‚ÍAˆÈ‰º‚ÌƒvƒƒpƒeƒB‚ğ‚Â	ŠÔ,		//ÏZƒtƒŒ[ƒ€”‚Å	[’l],		//ƒ^ƒCƒ€ƒ‰ƒCƒ“‚ÌƒvƒƒpƒeƒB‚É‚µ‚½‚ª‚Á‚Ä‘½ŸŒ³	[[’l‚Ì§Œä•Ï”1],[2]],//’l‚Æ“¯ŸŒ³‚ÅA“ñ‚Âˆê‘g	[[ƒ^ƒCƒ~ƒ“ƒO‚Ì§Œä•Ï”1],[2]],//“ñŸŒ³A“ñ‚Âˆê‘g	ƒL[ƒAƒgƒŠƒrƒ…[ƒg,//AE—pƒL[•âŠ®ƒtƒ‰ƒO*/function KeyFrame(f,v,vCp,tCp,kAtrib){	if(!f){	f =0	}		this.frame =f	;	if(!v){	v=null	}		this.value=v	;	if(!vCp){ vCp=[1/3,2/3]	}		this.valueCp=vCp	;	if(!tCp){ tCp=[[1/3,2/3],[1/3,2/3]]	}			this.timingCp=tCp	;//AEŒİŠ·‚È‚ç1ŸŒ³‚Å	if(!kAtrib){ kAtrib=["stop","linear","time_fix"]	}			this.keyAtrib=kAtrib	;/*ƒL[ƒAƒgƒŠƒrƒ…[ƒg‚ÍAŒ»İ‚ÍAEŒİŠ·‚ğ•WÔ‚µ‚Ä‚¨‚­BŒã‚ÅÄl[ƒ^ƒCƒ~ƒ“ƒO•âŠ®,’l•âŠ®,’l‚ÌŠÔ•âŠ®(ƒ[ƒrƒ“ƒO)]*/}//	new KeyFrame();//	ƒ^ƒCƒ€ƒ‰ƒCƒ“İ’èfunction TimeLine(atrib){	this.name = atrib	}//	new TimeLine();	TimeLine.prototype= new Array();	TimeLine.prototype.constructor=TimeLine;/*ƒ^ƒCƒ€ƒ‰ƒCƒ“‚ÍAE‚Ìê‡‚¾‚Æƒ^ƒCƒ€ƒ‰ƒCƒ“ƒf[ƒ^‚ÌƒgƒŒ[ƒ‰‚ÆŒ¾‚¤ŠÏ“_‚ÅProperty‚É‘Š“–‚·‚éƒIƒuƒWƒFƒNƒg‚Ğ‚Æ‚Â‚Ìƒ^ƒCƒ€ƒ‰ƒCƒ“‚Í‚»‚ê‚¼‚ê‚Ì‘®«‚Æ‚Æ‚à‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‰Â”\‚ÈƒvƒƒpƒeƒB‚ğ•Û‚·‚éB‚½‚¾‚µA‚»‚±‚É‚Í‰æ‘œ‚Í‘¶İ‚µ‚È‚¢@‰æ‘œ‚Ì”z‰º‚ÌƒvƒƒpƒeƒB‚Æ‚µ‚Ä‚Å‚Í‚È‚­‰æ‘œ‚ÌãˆÊ‚ÉˆÊ’u‚·‚éƒlƒbƒgƒ[ƒN‚Ìƒ{[ƒh‚Æ‚µ‚Ä‚Æ‚ç‚¦‚é‚×‚«‚Å‚ ‚é‚±‚Æ‚¾‚æ*//*	TimeLine.setKeyFrame(myKeyFrame)ˆø”	ƒL[ƒtƒŒ[ƒ€ƒIƒuƒWƒFƒNƒg–ß’l	“o˜^‚µ‚½ƒL[‚ÌƒCƒ“ƒfƒbƒNƒXƒ^ƒCƒ€ƒ‰ƒCƒ“‚Ìƒƒ\ƒbƒhƒL[ƒtƒŒ[ƒ€‚ğƒ^ƒCƒ€ƒ‰ƒCƒ“‚É“o˜^‚·‚éB‚·‚Å‚É“o˜^‚³‚ê‚Ä‚¢‚éƒL[ƒtƒŒ[ƒ€‚Ì‚¤‚¿A“¯‚¶frame’l‚ğ‚Â‚à‚Ì‚ª‚ ‚ê‚Îã‘‚«‚·‚é‚»‚êˆÈŠO‚ÍV‹K“o˜^‚·‚éB‚±‚Ì‚Ü‚Ü‚¾‚Æ‡•s“¯‚É‚È‚é‚Ì‚ÅŒã‚Å‘‚«Š·‚¦—vƒvƒŠƒ~ƒeƒBƒu‚È“o˜^•û®‚Æ‚µ‚Ä‚ÍTimeLine.push(KeyFrame)‚ğg—p‚µ‚Ä‚à—Ç‚¢‚½‚¾‚µd•¡‚ÌŒŸ¸‚ª‚Å‚«‚È‚¢‚Ì‚ÅV‹K‚ÉˆêŠ‡‚Å“o˜^‚·‚éÛ‚Ì‚İ„§@‚±‚Ì•Ó‚Í‚à‚Á‚Æô—û‚µ‚È‚¢‚ÆŠë‚È‚¢‚Ë@‚Q‚O‚O‚X*/TimeLine.prototype.setKeyFrame=	function (myKeyFrame){	for (var id=0;id<this.length;id++)	{		nas.otome.writeConsole(myKeyFrame.frame+"<>"+this[id].frame);		if(myKeyFrame.frame==this[id].frame)		{			this[id]=myKeyFrame;			return id;		}	}	this.push(KeyFrame);	return this.length-1};//valueAtTime()//AEŒİŠ·?‚©‚à‚µ‚ê‚È‚¢?‚±‚±‚Å‚ÍŒİŠ·‚È‚µ! t ‚ÍƒtƒŒ[ƒ€”‚Å—^‚¦‚é‚±‚Æfunction valueAtTime_(t){	if(t <= this[0].frame){return this[0].value}	if(t >= this[this.length-1].frame){return this[this.length-1].value}		for(id=1;id<this.length;id ++)		{	if(t == this[id].frame){return this[id].value}	if(t <  this[id].frame){//Š‘®ƒL[ƒtƒŒ[ƒ€‚ª”»–¾‚µ‚½‚Ì‚ÅŒvZ‚µ‚Ä•Ô‚·//if (this[id].keyAtrib[0]=="stop"){//ƒL[•âŠ®‚ª’â~‚Ì‚ÍA•âŠ®ŒvZ‚È‚µB‘O•ûƒL[‚Ì’l‚Å•Ô‚·B	return this[id-1].value;}else{		var Vstart	=this[id-1].value;		var Vcp1	=this[id-1].valueCp[0];		var Vcp2	=this[id-1].valueCp[1];		var Vend	=this[id].value;		var Tstart	=this[id-1].frame;		var Tcp1	=this[id-1].timingCp[0];		var Tcp2	=this[id-1].timingCp[1];		var Tend	=this[id].frame;//’l‚ª•`‚­ƒA[ƒN‚Ì‘S’·‚ğ‹‚ß‚é		var HallArk=nas.bezierL(Vstart,Vcp1,Vcp2,Vend);//w’èŠÔ‚©‚çƒ^ƒCƒ~ƒ“ƒOŒW”‚ğ‹‚ß‚é		var Now=(t-Tstart)/(Tend - Tstart);//ŠÔ‚©‚ç 2ŸŒ³(ŠÔE”ä—¦)••Ï”‚ğ‹‚ß‚éB		var Tvt= nas.bezierA(Tcp1[0],Tcp1[1],Now);//‹‚ß‚½••Ï”‚Åƒ^ƒCƒ~ƒ“ƒOŒW”‚ğo‚·		var Tvv= nas.bezierA(0,Tcp2[0],Tcp2[1],1,Tvt);//ŒW”‚©‚ç’l‚ğ‹‚ß‚éB	Tt=Tvv;//‰¼••Ï”(‰Šú’l)	Tmax=1;	Tmin=0;	var preLength	=0;//n“_‚©‚ç‚ÌƒA[ƒN’·	var postLength	=0;//I“_‚Ü‚Å‚ÌƒA[ƒN’·	var TtT	=0;//ƒeƒXƒg‚Å“¾‚ç‚ê‚é”ä—¦do{	preLength	=nas.bezierL(Vstart,Vcp1,Vcp2,Vend,0,Tt);	postLength	=nas.bezierL(Vstart,Vcp1,Vcp2,Vend,Tt,1);	TtT	=preLength/(preLength+postLength);		if(Tvv<preLength/(preLength+postLength))		{			Tmin=Tt;//‰ºŒÀ’l‚ğŒ»İ’l‚É			Tt=(Tmax+Tt)/2;//VƒeƒXƒg’l‚ğİ’è		}else{			Tmax=Tt;//ãŒÀ’l‚ğŒ»İ’l‚É			Tt=(Tmin+Tt)/2;//VƒeƒXƒg’l‚ğİ’è		}} while(TtT/Tvv>0.9999999 && TtT/Tvv<1.0000001);//¸“xŠm”F	//‚»‚Ì“¾‚ç‚ê‚½••Ï”‚ğg‚Á‚Ä’l‚ğ•Ô‚·B’l‚ÌŸŒ³”‚Åƒ‹[ƒv	var Result=new Array(Vstart.length);	for(i=0;i<Vstart.length;i++)	{Result[i]=nas.bezier(Vstart[i],Vcp1[i],Vcp2[i],Vend[i],Tt)}	return Result;}	}	}}/*	ƒŒƒCƒ„İ’èƒŒƒCƒ„‚Ìƒƒ“ƒo‚Íƒ^ƒCƒ€ƒ‰ƒCƒ“ƒfƒtƒHƒ‹ƒg‚ÅˆÈ‰º‚Ìƒ^ƒCƒ€ƒ‰ƒCƒ“‚ª‚ ‚éBƒ^ƒCƒ€ƒŠƒ}ƒbƒv**ƒAƒ“ƒJ[ƒ|ƒCƒ“ƒgˆÊ’u‰ñ“]•s“§–¾“xƒJƒ‰ƒZƒ‹**ƒƒCƒvƒGƒNƒXƒvƒŒƒbƒVƒ‡ƒ“	**ˆó‚ÍA‚è‚Ü‚Ò‚ñ‚Ì‚İ*/function FakeLayer(){	this.width		=	640	;	this.height		=	480	;	this.pixelAspect	=	1	;	this.frameRate		=	24	;	this.duration		=	0	;	this.activeFrame	=	0	;//		this.inPoint	=	0	;		this.outPoint	= this.duration	;//ƒ^ƒCƒ€ƒ‰ƒCƒ“ƒvƒƒpƒeƒB‚È‚Ì‚ÅŒã‚©‚ç‰Šú‰»?‚è‚Ü‚Ò‚ñ‚Å‚Í“Á‚É‰Šú‰»‚µ‚È‚¢Bthis.init= function(){this.timeRemap	= new TimeLine("timeRemap");	this.timeRemap.push(new KeyFrame(0,"blank"));this.anchorPoint = new TimeLine("anchorPoint");	this.anchorPoint.push(new KeyFrame(0,[this.width/2,this.height/2,0])) ;this.position = new TimeLine("position");	this.positiont.push(new KeyFrame(0,[thisComp.width/2,thisComp.heigth/2,0])) ;this.rotation = new TimeLine("rotation");	this.rotation.push(new KeyFrame(0,[0,0,0])) ;this.opacity = new TimeLine("opacity");	this.opacity.push(new KayFrame(0,100)) ;}};//	new FakeLayer();	FakeLayer.prototype=new Carrier();	FakeLayer.prototype.constructor=FakeLayer;//		inherit(FakeLayer,Carrier);//Carrier‚Ìƒƒ\ƒbƒh‚ğæ“¾FakeLayer.prototype.setClip=function(ip,op){	if (ip && ip>=0 && ip<=duration) this.inPoint=ip;	if (op && op>=0 && op<=duration) this.outPoint=op;return [ip,op];};/*FakeLayer.prototype.=function(){};FakeLayer.prototype.=function(){};FakeLayer.prototype.=function(){};*///	ƒRƒ“ƒ|ƒWƒVƒ‡ƒ“İ’è//	ƒRƒ“ƒ|ƒWƒVƒ‡ƒ“ƒRƒ“ƒXƒgƒ‰ƒNƒ^/*function FakeComposition(){	this.width		=	640	;	this.height		=	480	;	this.pixelAspect	=	1	;	this.frameRate		=	24	;	this.duration		=	0	;};*/function FakeComposition(w,h,a,l,f){	this.layers=new Array();		if (! w)	w	=640	;		if (! h)	h	=480	;		if (! a)	a	=1	;		if (! l)	l	=6	;		if (! f)	f	=24	;	this.width	=w	;//•(ƒoƒbƒtƒ@•Epx)	this.height	=h	;//‚‚³(ƒoƒbƒtƒ@‚‚³Epx)	this.pixelAspect=a	;//ƒsƒNƒZƒ‹c‰¡”ä	this.duration	=l	;//’·‚³(Œp‘±ŠÔE•b)	this.framerate	=f	;//ƒtƒŒ[ƒ€ƒŒ[ƒg(fps)};//	ƒ_ƒ~[‰Šú‰»//	new FakeComposition();	FakeComposition.prototype=new Carrier();	FakeComposition.prototype.constructor=FakeComposition;	//		inherit(FakeComposition,Carrier);//Carrier‚Ìƒƒ\ƒbƒh‚ğæ“¾//		inherit(FakeComposition,Array);//”z—ñ‚Æ‚µ‚Ä‚Ìƒƒ\ƒbƒh‚ğæ“¾//	ƒƒ\ƒbƒhİ’èfunction frame_duration_(){return 1/this.framerate;}FakeComposition.prototype.frameDuration	=frame_duration_	;FakeComposition.prototype.frame_duration	=frame_duration_	;

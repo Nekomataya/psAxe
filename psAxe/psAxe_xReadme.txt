@@ -1,4 +1,4 @@
-psAxe 1.1.0 ƒ^ƒCƒ€ƒ‰ƒCƒ“‘Î‰ž‹@”\ŽŽŒ±	2015.05.25
+psAxe 1.1.2 ƒ^ƒCƒ€ƒ‰ƒCƒ“‘Î‰ž‹@”\ŽŽŒ±	2015.06.07
 
 
 psAxe‚ÌŽŸŠúŽŽŒ±ƒo[ƒWƒ‡ƒ“‚Å‚·
@@ -20,6 +20,12 @@ Photoshop–{‘Ì‚ÅƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‚ðƒrƒfƒIƒ^ƒCƒ€ƒ‰ƒCƒ“‚Ö•ÏŠ·‚·‚é‚ÆAƒ^ƒCƒ€ƒ‰ƒ
 ì‰æ—p‚Æ‚µ‚Ä‚Íˆµ‚¢‚É‚­‚¢‚à‚Ì‚Æ‚È‚è‚Ü‚·B
 psAxe‚ÌƒRƒ“ƒo[ƒgƒXƒNƒŠƒvƒg‚Å‚ÍAˆê’UƒVƒXƒeƒ€‚Å•ÏŠ·‚µ‚½ƒ^ƒCƒ€ƒ‰ƒCƒ“‚Ì•s“§–¾“x‚ÌƒL[‚ð‘–¸‚µ‚Ä‚±‚ê‚ðƒ^ƒCƒ€ƒ‰ƒCƒ“‚ÌIN/OUT‚Ö•ÏŠ·‚µ‚Ü‚·B
 ‚Ü‚½ApsAxe‚ÆƒrƒfƒIƒ^ƒCƒ€ƒ‰ƒCƒ“‚ÌƒtƒŒ[ƒ€ƒŒ[ƒg‚ðˆê’v‚³‚¹‚Äo—ˆ‚éŒÀ‚èƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“Žž“_‚ÌŽw’èƒRƒ}”‚ðÄŒ»‚·‚é‚æ‚¤‚É•ÏŠ·‚ðs‚¢‚Ü‚·B
+
+ƒ^ƒCƒ€ƒV[ƒg‚ð“K—p‚µ‚½ó‘Ô‚ÌƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‚ðƒ^ƒCƒ€ƒ‰ƒCƒ“‚ÌIN/OUT‚É•ÏŠ·‚·‚éÛ‚ÉƒŒƒCƒ„[‚Ì•¡»‚ðs‚Á‚Ä‚¢‚Ü‚µ‚½‚ªA
+•\Ž¦‰ñ”•ª‚Ì•¡»‚ðs‚¤‚Ær‚¾‚µ‚¢”‚Ì•¡»‚ª‚Å‚«‚ÄƒP[ƒX‚É‚æ‚Á‚Ä‚Í•s•Ö‚Å‚·B
+•ÏŠ·Žž‚É•ÏŠ·•ûŽ®‚ðŽw’è‰Â”\‚Èƒpƒlƒ‹‚ð•\Ž¦‚·‚é‚æ‚¤‚É•ÏX‚³‚ê‚Ü‚µ‚½@06/07
+
+
 
 	ƒrƒfƒIƒ^ƒCƒ€ƒ‰ƒCƒ“ƒ‚[ƒh‚ÅƒRƒ}”Žw’è
 ƒtƒŒ[ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“ƒ‚[ƒh‚Æ“¯—l‚ÉAƒ{ƒ^ƒ“‚Åƒ^ƒCƒ€ƒ‰ƒCƒ“‚Ì’·‚³‚ðŽw’è‰Â”\‚Å‚·B
@@ -93,5 +99,5 @@ WEBã‚ÌƒAƒhƒŒƒX‚ðŽQÆ‚µ‚Ä‚¢‚Ü‚·‚Ì‚ÅƒAƒbƒvƒOƒŒ[ƒh‚Í•s’èŠú‚És‚í‚ê‚Ü‚·
 1.0.0‚ÌƒhƒLƒ…ƒƒ“ƒg‚ð‚²ŽQÆ‚­‚¾‚³‚¢
 
 
-2015.05.25	Nekomataya/kiyo http://www.nekomataya.info/ mailto:support@nekomataya.info
+2015.06.07	Nekomataya/kiyo http://www.nekomataya.info/ mailto:support@nekomataya.info
 

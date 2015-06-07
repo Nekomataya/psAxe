@@ -1,11 +1,14 @@
-// psAxe include function
+﻿// psAxe include function
 function getApplicationResult(arg) {return eval(arg)}
 
 if(typeof app.nas =="undefined"){
 var myInstallFolder=Folder.userData.fullName+"/nas";
 //すでに１回以上インストールされている場合は選択的にインストール・アンインストールを行う
  if(!(File(myInstallFolder).exists)||!(File(myInstallFolder+"/lib/nas_psAxeLib.js").exists)){
-alert("インストールは完了していません\nパネルの左上の斧アイコンでインストールを完了して下さい")
+alert(localize({
+    en:"Installation is not complete.\nPlease complete the installation in the upper left corner of the ax icon of panel",
+    ja:"インストールは完了していません\nパネルの左上の斧アイコンでインストールを完了して下さい"
+ }));
 
 //$.evalFile("psAxe/scripts/psAxeSplash.jsx");
 

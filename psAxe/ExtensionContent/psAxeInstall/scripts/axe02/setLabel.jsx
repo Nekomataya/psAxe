@@ -166,9 +166,9 @@ var myTargetLayers=getSelectedLayers();//現在の選択レイヤを取得　た
 break;
 case "auto":
 var myTargetLayers=[];
-	  if(app.activeDocument.activeLayer.parent instanceof Document){
+	  if(app.activeDocument.activeLayer.parent.typename == "Document"){
 		//第一階層
-		if ((app.activeDocument.activeLayer instanceof LayerSet)&&(app.activeDocument.activeLayer.layers.length)){
+		if ((app.activeDocument.activeLayer.typename == "LayerSet")&&(app.activeDocument.activeLayer.layers.length)){
 			//第一階層のレイヤセットで内包レイヤがある
 		  for(var idx=0;idx<app.activeDocument.activeLayer.layers.length;idx++){
 			myTargetLayers.push(app.activeDocument.activeLayer.layers[idx]);
@@ -193,7 +193,7 @@ if(myTargetLayers.length){
 
 //実処理
    for (var ix=0;ix<myTargetLayers.length;ix++){
-if ((myTargetLayers[ix].typename=="LayerSet")&&(myTargetLayers[ix].parent instanceof Document)){
+if ((myTargetLayers[ix].typename=="LayerSet")&&(myTargetLayers[ix].parent.typename == "Document")){
         if(myTargetLayers[ix].name!=myLabel){myTargetLayers[ix].name=myLabel};
 }else{
        var spLt=(myLabel.match(/\d$/))?"-":"";

@@ -4,95 +4,22 @@
     この機能はチューニングの余地が多すぎるのでまだ最適化しないで置いておく 2011/09/25
 */
 //Photoshop用ライブラリ読み込み
-
-	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-
-	var includeLibs=[nasLibFolderPath+"config.js"];//読み込みライブラリを格納する配列
-
-if(! app.nas){
-//iclude nasライブラリに必要な基礎オブジェクトを作成する
-	var nas = new Object();
-		nas.Version=new Object();
-		nas.isAdobe=true;
-		nas.axe=new Object();
-		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	ライブラリのロード　CS2-5用
-//==================== ライブラリを登録して事前に読み込む
-/*
-	includeLibs配列に登録されたファイルを順次読み込む。
-	登録はパスで行う。(Fileオブジェクトではない)
-	$.evalFile メソッドが存在する場合はそれを使用するがCS2以前の環境ではglobal の eval関数で読み込む
-
-＝＝＝　ライブラリリスト（以下は読み込み順位に一定の依存性があるので注意）
-　config.js"		一般設定ファイル（デフォルト値書込）このルーチン外では参照不能
-  nas_common.js		AE・HTML共用一般アニメライブラリ
-  nas_GUIlib.js		Adobe環境共用GUIライブラリ
-  nas_psAxeLib.js	PS用環境ライブラリ
-  nas_prefarenceLib.js	Adobe環境共用データ保存ライブラリ
-
-  nasXpsStore.js	PSほかAdobe汎用XpsStoreライブラリ(AE用は特殊)
-  xpsio.js		汎用Xpsライブラリ
-  mapio.js		汎用Mapライブラリ
-  lib_STS.js		Adobe環境共用STSライブラリ
-  dataio.js		Xpsオブジェクト入出力ライブラリ（コンバータ部）
-  fakeAE.js		中間環境ライブラリ
-  io.js			りまぴん入出力ライブラリ
-  xpsQueue.js		PS用Xps-FrameAnimation連携ライブラリ
-*/
-includeLibs=[
-	nasLibFolderPath+"config.js",
-	nasLibFolderPath+"nas_common.js",
-	nasLibFolderPath+"nas_GUIlib.js",
-	nasLibFolderPath+"nas_psAxeLib.js",
-	nasLibFolderPath+"nas_prefarenceLib.js"
-];
-//=====================================　Application Objectに参照をつける
-	app.nas=nas;
-	bootFlag=true;
+if(typeof app.nas =="undefined"){
+   var myLibLoader=new File(Folder.userData.fullName+"/nas/lib/Photoshop_Startup.jsx");
+   $.evalFile(myLibLoader);
 }else{
-	//alert("object nas exists")
-	nas=app.nas;
-includeLibs.push(nasLibFolderPath+"config.js");//configのみ加えて参照可能に
-	bootFlag=false;
-};
-
-/*	ライブラリ読み込み
-ここで必要なライブラリをリストに加えてから読み込みを行う
-*/
-
-includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
-includeLibs.push(nasLibFolderPath+"xpsio.js");
-includeLibs.push(nasLibFolderPath+"mapio.js");
-includeLibs.push(nasLibFolderPath+"lib_STS.js");
-includeLibs.push(nasLibFolderPath+"dataio.js");
-includeLibs.push(nasLibFolderPath+"fakeAE.js");
-includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"xpsQueue.js");
-
-for(prop in includeLibs){
-	var myScriptFileName=includeLibs[prop];
-	if($.evalFile){
-	//$.evalFile ファンクションがあれば実行する
-		$.evalFile(myScriptFileName);
-	}else{
-	//$.evalFile が存在しないバージョンではevalにファイルを渡す
-		var scriptFile = new File(myScriptFileName);
-		if(scriptFile.exists){
-			scriptFile.open();
-			var myContent=scriptFile.read()
-			scriptFile.close();
-			eval(myContent);
-		}
-	}
+   nas=app.nas;
 }
-//=====================================保存してあるカスタマイズ情報を取得
-if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
-//=====================================
 //+++++++++++++++++++++++++++++++++ここまで共用
+//======制御オブジェクト/言語リソース
+var aplXps=new Object
+	aplXps.uiMsg={};
+
 //動作抑制オブジェクト
 	var XPS=new Xps();
 //	nas.XPSStore=new XpsStore();
 
+//動作チェック用タイムカウントオブジェクト
 var myTimeCount=new Object();
 	myTimeCount.start=new Date().getTime();
 	myTimeCount.current=0;
@@ -150,6 +77,8 @@ for(var idx=0;idx<myTrCounts;idx++){
 	第二階層のLayerSetまたはArtLayerを選択していた場合は当該タイムラインの適用を行う
 	シートがない場合の動作は同じ。
 	myTRsを再構成することで実装?
+	制御パネルを表示してユーザ設定を促すように変更　2015/06/06
+	同じスクリプトでタイムラインモード対応の処理をする
 */
 
 
@@ -175,12 +104,12 @@ for(var idx=0;idx<myTrCounts;idx++){
 		nas.axeAFC.setDly(myDuration);
 		//第二フレーム以降をループ設定
 		for(var idx=1;idx<myQueue.length;idx++){
-		 nas.axeAFC.dupulicateFrame();//作る（フォーカス移動）
+		 nas.axeAFC.duplicateFrame();//作る（フォーカス移動）
 		 myDuration=myQueue[idx].duration/XPS.framerate;//継続フレームを時間に変換
 		 myTarget.setView(myQueue[idx]);
 		 nas.axeAFC.setDly(myDuration);
 		}
-	}else{alert("処理を中断しました")}
+	}else{alert(localize(nas.uiMsg.aborted))};//処理中断
 
 }else{
 	//ターゲットのXPSが存在しないので、現状のドキュメントに従う（と思われる）XPSをカラで生成して保存する
@@ -198,7 +127,8 @@ for(var idx=0;idx<myTrCounts;idx++){
 		XPS.layers[lix].sizeY=myTarget.layers[mx-lix-1].bounds[3].as("px")-myTarget.layers[mx-lix-1].bounds[1].as("px");
 		XPS.layers[lix].lot=(myTarget.layers[mx-lix-1].layers)?myTarget.layers[mx-lix-1].layers.length:1;
 	}
-	if(confirm("タイムシートがありません。新規に作成して編集しますか？")){
+//"タイムシートがありません。新規に作成して編集しますか？"
+	if(confirm(nas.uiMsg.dm015)){
 	var fileSaveResult=editXpsProp(XPS);
 //	alert(fileSaveResult);
 		if((fileSaveResult)&&(myXpsFile.exists)){myXpsFile.execute()};
@@ -216,6 +146,6 @@ for(var idx=0;idx<myTrCounts;idx++){
 		myTimeCount.check("applyXPS");
 		if (dbg){alert(myTimeCount.datas.toSource())};
 }else{
-	alert ("ドキュメントをpsd形式で保存してください。") 
+	alert (localize(nas.uiMsg.savePsdPlease));//ドキュメントをpsd形式で保存してください。 
 }
 //alert(XPS.toString())

@@ -24,7 +24,7 @@ var myRootCount=app.activeDocument.layers.length;
 
 		//第二フレーム以降を表示を切り替えつつアニメフレームに登録
 		for(var idx=1;idx<myLayers.length;idx++){
-			nas.axeAFC.dupulicateFrame();//作る（フォーカス移動）
+			nas.axeAFC.duplicateFrame();//作る（フォーカス移動）
 
 if(myRootCount<app.activeDocument.layers.length){
 //ルート第一レイヤを捨ててモードを切り替える

@@ -1,222 +1,1 @@
-/*
-	æ–°è¦Xpsä¿å­˜ã®ãŸã‚ã®é–¢æ•°
-	é–¢æ•°ã®å‹•ä½œã«å¿…è¦ãªãƒ¡ãƒ‡ã‚£ã‚¢ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã¯ nas_psAxeLib.js ã«ç§»å‹•æ¸ˆã¿
-*/
-
-//==================================================================main
-
-//=========================ä»¥ä¸Šã¯å‹•ä½œç¢ºèªç”¨ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
-function editXpsProp(myXps){
-	var myStatus=false;
-/*(ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ç·¨é›†)
-	Xps.editProp
-	ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤ºã—ã¦ç·¨é›†ã‚’ä¿ƒã™
-	æˆ»ã‚Šå€¤ã¯ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£èª¿æ•´ã•ã‚ŒãŸXps
-*/
-	var myTarget=app.activeDocument;
-	if(!(myTarget.name.match(/\.psd$/i))){return false}
-	var w=nas.GUI.newWindow("dialog","æ–°è¦ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆ",8,17);
-	w.Xps=new Xps();
-	w.Xps.readIN(myXps.toString());
-//
-	w.lb=nas.GUI.addStaticText(w,"æ–°è¦ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆã‚’ä½œæˆã—ã¾ã™",0,0,8,1);
-// hederTools
-/*
-	w.tbt1=nas.GUI.addButton(w,"ä¿å­˜ã—ã¦é–‰ã˜ã‚‹",0,1,2,1);
-	w.tbt2=nas.GUI.addButton(w,"æ›´æ–°",2,1,2,1);
-	w.tbt3=nas.GUI.addButton(w,"ãƒªã‚»ãƒƒãƒˆ",4,1,2,1);
-	w.tbt4=nas.GUI.addButton(w,"é–‰ã˜ã‚‹",6,1,2,1);
-*/
-// MapData
-	w.mpLb=nas.GUI.addStaticText(w,"MapData",0,2,2,1);
-	w.mpEt=nas.GUI.addEditText(w,myXps.mapFile,2,2,6,1);
-	w.mpEt.enabled=false;
-// title	
-	w.OTLb=nas.GUI.addStaticText(w,"Title",0,3,2,1);
-	w.tlEt=nas.GUI.addComboBox(w,nas.workTitles.names(0),nas.workTitles.selected,2,3,6,1);
-	w.tlEt.set(myXps.title);
-// subtitle
-	w.stLb=nas.GUI.addStaticText(w,"sub-Title",0,4,2,1);
-	w.stEt=nas.GUI.addComboBox(w,["sub-TITLE","(æœªå®š)","---"],0,2,4,6,1);
-	w.stEt.set(myXps.subtitle);
-// Opus	
-	w.opLb=nas.GUI.addStaticText(w,"OPUS",0,5,2,1);
-	w.opEt=nas.GUI.addEditText(w,myXps.opus,2,5,2,1);
-// scenr/cut
-	w.scLb=nas.GUI.addStaticText(w,"S-C",0,6,2,1);
-	w.scEt=nas.GUI.addEditText(w,myXps.scene,2,6,3,1);
-	w.cnEt=nas.GUI.addEditText(w,myXps.cut,5,6,3,1);
-// layers
-	w.lyLb=nas.GUI.addStaticText(w,"sheet Layers",0,7,2,1);
-	w.lyLot=nas.GUI.addEditText(w,myXps.layers.length,2,7,1,1);
-	var myNames=new Array;
-	for (id=0;id<myXps.layers.length;id++){myNames.push(myXps.layers[id]["name"])}
-	w.lyLbls=nas.GUI.addEditText(w,myNames.join(","),3,7,5,1);
-	
-	w.lyLot.onChanging=function(){
-	
-		var myCount=parseInt(this.text);
-		if(myCount<=0){myCount=1}
-		this.text=myCount;
-		if(myCount>=26){
-		
-			if(! confirm("æ­¢ã‚ãªã„ã‘ã©â€¦ãã‚“ãªã«ãƒ¬ã‚¤ãƒ¤ãŒå¤šã„ã¨ãƒ„ãƒ©ã‚¤ã‚ˆ\nãƒ¬ã‚¤ãƒ¤åã‚’è‡ªå‹•ã§ã¤ã‘ã‚‹ã®ã¯ã€ŒZã€ã¾ã§ãªã®ã§\nãã®å…ˆã¯è‡ªåˆ†ã§ã¤ã‘ã¦ã­ã€‚")){return;}
-		}
-		var myLabels=new Array();
-		var oldLabels=this.parent.lyLbls.text.split(",");
-		for(var i=0;i<myCount;i++){
-			if(i<oldLabels.length){
-				myLabels.push(oldLabels[i]);
-			}else{
-				myLabels.push((i<26)?"ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(i):i.toString())
-			}
-		}
-		this.parent.lyLbls.text=myLabels.join(",");
-	}
-	w.lyLbls.onChanging=function(){
-		var myLabels=this.text.split(",");
-		this.parent.lyLot.text=myLabels.length;
-	}
-// time framerate trin trout
-	w.tmLb=nas.GUI.addStaticText(w,"time/framrate",0,8,2,1);
-
-	w.tlEt=nas.GUI.addEditText(w,nas.Frm2FCT(myXps.time(),3),2,8,2,1);
-	w.frEt=nas.GUI.addEditText(w,myXps.framerate,4,8,1,1);
-	w.frDl=nas.GUI.addDropDownList(w,["=CUSTOM=","FILM","NTSC","NTSC-DF","PAL","WEB"],1,5,8,3,1);
-	w.frDl.values=["custom","24","30","29.97","25","15"];//ãƒ©ãƒ™ãƒ«å¯¾ç…§é…åˆ—
-	
-	w.tlEt.onChanging=function(){if(isNaN(nas.FCT2Frm(this.text))){this.text=nas.Frm2FCT(myXps.time(),3)}}
-
-//é…åˆ—ã«asearchãƒ¡ã‚½ãƒƒãƒ‰ã‚’ä»˜åŠ  Array.aserch(ã‚»ã‚¯ã‚·ãƒ§ãƒ³,ã‚­ãƒ¼) result;index or -1 (not found)
-
-w.frDl.values.asearch =function(name){
-	for (var n=0;n<this.length;n++){if(this[n]==name){return n}};
-	return -1;
-}
-
-	w.frEt.onChanging=function(){
-		var ix=this.parent.frDl.values.asearch(this.text);
-		if(ix<=0){this.parent.frDl.items[0].selected=true;}else{this.parent.frDl.items[ix].selected=true;}
-	}
-	w.frDl.onChange=function(){if(this.selection.index>0){this.parent.frEt.text=this.values[this.selection.index]}}
-//	w.frDl.set(myXps.rate)
-// trin/trout
-	w.tiLb=nas.GUI.addStaticText(w,"trin",2,9,3,1);
-	w.toLb=nas.GUI.addStaticText(w,"trout",5,9,3,1);
-
-	w.trLb=nas.GUI.addEditText(w,myXps.trin[1],2,10,1.5,1);
-	w.trEt=nas.GUI.addEditText(w,nas.Frm2FCT(myXps.trin[0],3),3.5,10,1.5,1);
-
-	w.toLb=nas.GUI.addEditText(w,myXps.trout[1],5,10,1.5,1);
-	w.toEt=nas.GUI.addEditText(w,nas.Frm2FCT(myXps.trout[0],3),6.5,10,1.5,1);
-
-	w.trEt.onChanging=function(){if(isNaN(nas.FCT2Frm(this.text))){this.text=nas.Frm2FCT(myXps.trin[0],3)}};
-	w.toEt.onChanging=function(){if(isNaN(nas.FCT2Frm(this.text))){this.text=nas.Frm2FCT(myXps.trout[0],3)}};
-// acount/user
-	w.cuLb=nas.GUI.addStaticText(w,"createUser",0,11,2,1);
-	w.cutmEt=nas.GUI.addStaticText(w,myXps.create_time,2,11,2.5,1);
-	w.cunmEt=nas.GUI.addEditText(w,myXps.create_user,4.5,11,3.5,1);
-// acount/user
-	w.uuLb=nas.GUI.addStaticText(w,"updateUser",0,12,2,1);
-	w.uutmEt=nas.GUI.addStaticText(w,myXps.update_time,2,12,2.5,1);
-	w.uunmEt=nas.GUI.addStaticText(w,myXps.update_user,4.5,12,3.5,1);
-// memo
-	w.mmLb=nas.GUI.addStaticText(w,"MEMO.",0,13,2,1);
-	w.mmEt=nas.GUI.addEditText(w,myXps.memo,2,13,6,2.5);
-
-//OK/ã‚­ãƒ£ãƒ³ã‚»ãƒ«
-w.okbt=nas.GUI.addButton(w,"OK",2,16,3,1);
-w.okbt.onClick=function(){if(checkProp()){myStatus=true;this.parent.close();}else{return false}}
-w.cnbt=nas.GUI.addButton(w,"Cancel",5,16,3,1);
-w.cnbt.onClick=function(){myStatus=false;this.parent.close();}
-//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã‚’æ¤œæŸ»ã—ã¦ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’æ›´æ–°ã™ã‚‹
-checkProp=function(){
-//	ç¾åœ¨ã®æ™‚é–“ã‹ã‚‰ã‚«ãƒƒãƒˆç¶™ç¶šæ™‚é–“ã‚’ä¸€æ™‚çš„ã«ç”Ÿæˆ
-//	framerate?
-	var duration=(
-nas.FCT2Frm(w.trEt.text)+
-nas.FCT2Frm(w.toEt.text))/2+
-nas.FCT2Frm(w.tlEt.text);
-	var oldduration=myXps.duration();
-	var durationChange=(duration != oldduration)? true : false ;
-//	ãƒ¬ã‚¤ãƒ¤æ•°ã®å¤‰æ›´ã‚’ä¸€æ™‚å¤‰æ•°ã«å–å¾—
-	var newWidth=(w.lyLot.text*1)+2;//æ–°å¹…
-	var oldWidth=myXps.xpsBody.length;//ã‚‚ã¨ã®é•·ã•ã‚’æ§ãˆã‚‹
-	var widthChange =(newWidth != oldWidth)?true:false;
-	if((durationChange)||(widthChange)){
-		myXps.init(w.lyLot.text*1,duration)
-	}
-//	æ–°è¦ä½œæˆãªã®ã§ç´°ã‹ã„ãƒã‚§ãƒƒã‚¯ã¯ä¸è¦
-//	å®Ÿéš›ã®ãƒ‡ãƒ¼ã‚¿æ›´æ–°
-//å€¤ã®å¤‰æ›ä¸è¦ãªãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ã¾ã¨ã‚ã¦æ›´æ–°
-// MapData	å¤‰æ›´ç¦æ­¢
-//	w.mpEt.text
-// title	ãƒ¦ãƒ¼ã‚¶ã®æŒ‡å®šãƒ‡ãƒ¼ã‚¿ã«å¤‰æ›´
-	myXps.title	=w.tlEt.value;
-// subtitle
-	myXps.subtitle	=w.stEt.value;
-// Opus	
-	myXps.opus	=w.opLb.text;
-// scenr/cut
-	myXps.scene	=w.scEt.text;
-	myXps.cut	=w.cnEt.text;
-//ã€€ã‚¿ã‚¤ãƒ ã‚¹ã‚¿ãƒ³ãƒ—ã¯ç·¨é›†ä¸èƒ½ã«ã—ã¦ãŠãã€€ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã¯æ–°è¦ä½œæˆãªã®ã§createUserã®ã¿ç·¨é›†å¯èƒ½
-// acount/CreateUser
-	myXps.create_time=new Date().toNASString();
-	myXps.create_user	=w.cunmEt.text;
-// acount/UpdateUser
-	myXps.update_time=new Date().toNASString();
-	myXps.update_user=w.uunmEt.text;
-// memo
-	myXps.memo	=w.mmEt.text;
-
-//trin trout
-	myXps.trin	=[nas.FCT2Frm(w.trEt.text),w.trLb.text];
-	myXps.trout	=[nas.FCT2Frm(w.toEt.text),w.toLb.text];
-//ãƒ¬ã‚¤ãƒ¤åè»¢è¨˜
-	var myLyNames=w.lyLbls.text.split(",");
-	var mx=myTarget.layers.length;
-	for(var lix=0;lix<myLyNames.length;lix++){
-		myXps.layers[lix].name=myLyNames[lix];
-		if(lix<mx){
-			myXps.layers[lix].sizeX=myTarget.layers[mx-lix-1].bounds[2].as("px")-myTarget.layers[mx-lix-1].bounds[0].as("px");
-			myXps.layers[lix].sizeY=myTarget.layers[mx-lix-1].bounds[3].as("px")-myTarget.layers[mx-lix-1].bounds[1].as("px");
-			myXps.layers[lix].lot=(myTarget.layers[mx-lix-1].layers)?myTarget.layers[mx-lix-1].layers.length:1;
-		}
-	}
-// å®Ÿéš›ã«ä¿å­˜ã™ã‚‹
-/* ã“ã‚Œã¯ãƒ•ã‚¡ã‚¤ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’ã ã—ã¦ç¢ºèª
-	ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã¨åˆ¥ã®é…ç½®ã«ä¿å­˜ã‚‚å¯èƒ½ã ãŒ
-	ãã®å ´åˆã¯ãƒªãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ãŒåˆ‡ã‚Œã‚‹ã“ã¨ã‚’è­¦å‘Šã™ã‚‹ã“ã¨
-*/
-var myXpsFile=new File([myTarget.fullName.path,myTarget.fullName.name.replace(/\.psd/,".xps")].join("/"));
-var isWindows=($.os.indexOf("Win")==-1)? false:true;
-if(isWindows)
-{
-	var mySavefile = myXpsFile.saveDlg("ãƒ•ã‚¡ã‚¤ãƒ«ã®ä¿å­˜å ´æ‰€ã‚’å¤‰æ›´ã™ã‚‹ã¨ãƒ‡ãƒ¼ã‚¿ã®é©ç”¨ãŒã§ããªã„ã“ã¨ãŒã‚ã‚Šã¾ã™","nasXPSheet(*.xps):*.XPS");
-}else{
-	var mySavefile = myXpsFile.saveDlg("ãƒ•ã‚¡ã‚¤ãƒ«ã®ä¿å­˜å ´æ‰€ã‚’å¤‰æ›´ã™ã‚‹ã¨ãƒ‡ãƒ¼ã‚¿ã®é©ç”¨ãŒã§ããªã„ã“ã¨ãŒã‚ã‚Šã¾ã™","");
-}
-if(! mySavefile){return false};//ã‚­ãƒ£ãƒ³ã‚»ãƒ«
-if(mySavefile.exists)
-{
-if(! confirm("åŒåã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒã™ã§ã«ã‚ã‚Šã¾ã™.\nä¸Šæ›¸ãã—ã¦ã‚ˆã‚ã—ã„ã§ã™ã‹?")){return false;};
-}
-//alert(myXps.toString());
-if (mySavefile && mySavefile.name.match(/^[a-z_\-\#0-9]+\.xps$/i)){
-var myOpenfile = new File(mySavefile.fsName);
-	myOpenfile.encoding="utf8";
-	myOpenfile.open("w");
-	myOpenfile.write(myXps.toString());
-//	myOpenfile.write(nas.easyXPS.sheetView.text);
-	myOpenfile.close();
-	myStatus=true;
-}
-	return true;
-}
-//çµ‚äº†æ™‚ã«å¼•æ•°è¿”ã™
-//w.onClose=function(){myStatus=false;}
-w.show();
-//var myXps=new Xps();
-return myStatus;
-}
+/*	V‹KXps•Û‘¶‚Ì‚½‚ß‚ÌŠÖ”	ŠÖ”‚Ì“®ì‚É•K—v‚ÈƒƒfƒBƒAƒ‰ƒCƒuƒ‰ƒŠ‚Í nas_psAxeLib.js ‚ÉˆÚ“®Ï‚İ*///==================================================================main//=========================ˆÈã‚Í“®ìŠm”F—p‚Ìƒ‰ƒCƒuƒ‰ƒŠƒ[ƒfƒBƒ“ƒOfunction editXpsProp(myXps){	var myStatus=false;/*(ƒvƒƒpƒeƒB•ÒW)	Xps.editProp	ƒ^ƒCƒ€ƒV[ƒgƒvƒƒpƒeƒBƒ_ƒCƒAƒƒO‚ğ•\¦‚µ‚Ä•ÒW‚ğ‘£‚·	–ß‚è’l‚ÍƒvƒƒpƒeƒB’²®‚³‚ê‚½Xps*/	var myTarget=app.activeDocument;	if(!(myTarget.name.match(/\.psd$/i))){return false}	var w=nas.GUI.newWindow("dialog","V‹Kƒ^ƒCƒ€ƒV[ƒg",8,17);	w.Xps=new Xps();	w.Xps.readIN(myXps.toString());//	w.lb=nas.GUI.addStaticText(w,"V‹Kƒ^ƒCƒ€ƒV[ƒg‚ğì¬‚µ‚Ü‚·",0,0,8,1);// hederTools/*	w.tbt1=nas.GUI.addButton(w,"•Û‘¶‚µ‚Ä•Â‚¶‚é",0,1,2,1);	w.tbt2=nas.GUI.addButton(w,"XV",2,1,2,1);	w.tbt3=nas.GUI.addButton(w,"ƒŠƒZƒbƒg",4,1,2,1);	w.tbt4=nas.GUI.addButton(w,"•Â‚¶‚é",6,1,2,1);*/// MapData	w.mpLb=nas.GUI.addStaticText(w,"MapData",0,2,2,1);	w.mpEt=nas.GUI.addEditText(w,myXps.mapFile,2,2,6,1);	w.mpEt.enabled=false;// title		w.OTLb=nas.GUI.addStaticText(w,"Title",0,3,2,1);	w.tlEt=nas.GUI.addComboBox(w,nas.workTitles.names(0),nas.workTitles.selected,2,3,6,1);	w.tlEt.set(myXps.title);// subtitle	w.stLb=nas.GUI.addStaticText(w,"sub-Title",0,4,2,1);	w.stEt=nas.GUI.addComboBox(w,["sub-TITLE","(–¢’è)","---"],0,2,4,6,1);	w.stEt.set(myXps.subtitle);// Opus		w.opLb=nas.GUI.addStaticText(w,"OPUS",0,5,2,1);	w.opEt=nas.GUI.addEditText(w,myXps.opus,2,5,2,1);// scenr/cut	w.scLb=nas.GUI.addStaticText(w,"S-C",0,6,2,1);	w.scEt=nas.GUI.addEditText(w,myXps.scene,2,6,3,1);	w.cnEt=nas.GUI.addEditText(w,myXps.cut,5,6,3,1);// layers	w.lyLb=nas.GUI.addStaticText(w,"sheet Layers",0,7,2,1);	w.lyLot=nas.GUI.addEditText(w,myXps.layers.length,2,7,1,1);	var myNames=new Array;	for (id=0;id<myXps.layers.length;id++){myNames.push(myXps.layers[id]["name"])}	w.lyLbls=nas.GUI.addEditText(w,myNames.join(","),3,7,5,1);		w.lyLot.onChanging=function(){			var myCount=parseInt(this.text);		if(myCount<=0){myCount=1}		this.text=myCount;		if(myCount>=26){					if(! confirm("~‚ß‚È‚¢‚¯‚Çc‚»‚ñ‚È‚ÉƒŒƒCƒ„‚ª‘½‚¢‚Æƒcƒ‰ƒC‚æ\nƒŒƒCƒ„–¼‚ğ©“®‚Å‚Â‚¯‚é‚Ì‚ÍuZv‚Ü‚Å‚È‚Ì‚Å\n‚»‚Ìæ‚Í©•ª‚Å‚Â‚¯‚Ä‚ËB")){return;}		}		var myLabels=new Array();		var oldLabels=this.parent.lyLbls.text.split(",");		for(var i=0;i<myCount;i++){			if(i<oldLabels.length){				myLabels.push(oldLabels[i]);			}else{				myLabels.push((i<26)?"ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(i):i.toString())			}		}		this.parent.lyLbls.text=myLabels.join(",");	}	w.lyLbls.onChanging=function(){		var myLabels=this.text.split(",");		this.parent.lyLot.text=myLabels.length;	}// time framerate trin trout	w.tmLb=nas.GUI.addStaticText(w,"time/framrate",0,8,2,1);	w.tlEt=nas.GUI.addEditText(w,nas.Frm2FCT(myXps.time(),3),2,8,2,1);	w.frEt=nas.GUI.addEditText(w,myXps.framerate,4,8,1,1);	w.frDl=nas.GUI.addDropDownList(w,["=CUSTOM=","FILM","NTSC","NTSC-DF","PAL","WEB"],1,5,8,3,1);	w.frDl.values=["custom","24","30","29.97","25","15"];//ƒ‰ƒxƒ‹‘ÎÆ”z—ñ		w.tlEt.onChanging=function(){if(isNaN(nas.FCT2Frm(this.text))){this.text=nas.Frm2FCT(myXps.time(),3)}}//”z—ñ‚Éasearchƒƒ\ƒbƒh‚ğ•t‰Á Array.aserch(ƒZƒNƒVƒ‡ƒ“,ƒL[) result;index or -1 (not found)w.frDl.values.asearch =function(name){	for (var n=0;n<this.length;n++){if(this[n]==name){return n}};	return -1;}	w.frEt.onChanging=function(){		var ix=this.parent.frDl.values.asearch(this.text);		if(ix<=0){this.parent.frDl.items[0].selected=true;}else{this.parent.frDl.items[ix].selected=true;}	}	w.frDl.onChange=function(){if(this.selection.index>0){this.parent.frEt.text=this.values[this.selection.index]}}//	w.frDl.set(myXps.rate)// trin/trout	w.tiLb=nas.GUI.addStaticText(w,"trin",2,9,3,1);	w.toLb=nas.GUI.addStaticText(w,"trout",5,9,3,1);	w.trLb=nas.GUI.addEditText(w,myXps.trin[1],2,10,1.5,1);	w.trEt=nas.GUI.addEditText(w,nas.Frm2FCT(myXps.trin[0],3),3.5,10,1.5,1);	w.toLb=nas.GUI.addEditText(w,myXps.trout[1],5,10,1.5,1);	w.toEt=nas.GUI.addEditText(w,nas.Frm2FCT(myXps.trout[0],3),6.5,10,1.5,1);	w.trEt.onChanging=function(){if(isNaN(nas.FCT2Frm(this.text))){this.text=nas.Frm2FCT(myXps.trin[0],3)}};	w.toEt.onChanging=function(){if(isNaN(nas.FCT2Frm(this.text))){this.text=nas.Frm2FCT(myXps.trout[0],3)}};// acount/user	w.cuLb=nas.GUI.addStaticText(w,"createUser",0,11,2,1);	w.cutmEt=nas.GUI.addStaticText(w,myXps.create_time,2,11,2.5,1);	w.cunmEt=nas.GUI.addEditText(w,myXps.create_user,4.5,11,3.5,1);// acount/user	w.uuLb=nas.GUI.addStaticText(w,"updateUser",0,12,2,1);	w.uutmEt=nas.GUI.addStaticText(w,myXps.update_time,2,12,2.5,1);	w.uunmEt=nas.GUI.addStaticText(w,myXps.update_user,4.5,12,3.5,1);// memo	w.mmLb=nas.GUI.addStaticText(w,"MEMO.",0,13,2,1);	w.mmEt=nas.GUI.addEditText(w,myXps.memo,2,13,6,2.5);//OK/ƒLƒƒƒ“ƒZƒ‹w.okbt=nas.GUI.addButton(w,"OK",2,16,3,1);w.okbt.onClick=function(){if(checkProp()){myStatus=true;this.parent.close();}else{return false}}w.cnbt=nas.GUI.addButton(w,"Cancel",5,16,3,1);w.cnbt.onClick=function(){myStatus=false;this.parent.close();}//ƒRƒ“ƒgƒ[ƒ‹‚ğŒŸ¸‚µ‚Äƒ^[ƒQƒbƒg‚ÌƒvƒƒpƒeƒB‚ğXV‚·‚écheckProp=function(){//	Œ»İ‚ÌŠÔ‚©‚çƒJƒbƒgŒp‘±ŠÔ‚ğˆê“I‚É¶¬//	framerate?	var duration=(nas.FCT2Frm(w.trEt.text)+nas.FCT2Frm(w.toEt.text))/2+nas.FCT2Frm(w.tlEt.text);	var oldduration=myXps.duration();	var durationChange=(duration != oldduration)? true : false ;//	ƒŒƒCƒ„”‚Ì•ÏX‚ğˆê•Ï”‚Éæ“¾	var newWidth=(w.lyLot.text*1)+2;//V•	var oldWidth=myXps.xpsBody.length;//‚à‚Æ‚Ì’·‚³‚ğT‚¦‚é	var widthChange =(newWidth != oldWidth)?true:false;	if((durationChange)||(widthChange)){		myXps.init(w.lyLot.text*1,duration)	}//	V‹Kì¬‚È‚Ì‚Å×‚©‚¢ƒ`ƒFƒbƒN‚Í•s—v//	ÀÛ‚Ìƒf[ƒ^XV//’l‚Ì•ÏŠ·•s—v‚Èƒpƒ‰ƒ[ƒ^‚ğ‚Ü‚Æ‚ß‚ÄXV// MapData	•ÏX‹Ö~//	w.mpEt.text// title	ƒ†[ƒU‚Ìw’èƒf[ƒ^‚É•ÏX	myXps.title	=w.tlEt.value;// subtitle	myXps.subtitle	=w.stEt.value;// Opus		myXps.opus	=w.opLb.text;// scenr/cut	myXps.scene	=w.scEt.text;	myXps.cut	=w.cnEt.text;//@ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv‚Í•ÒW•s”\‚É‚µ‚Ä‚¨‚­@‚±‚ÌƒXƒNƒŠƒvƒg‚ÍV‹Kì¬‚È‚Ì‚ÅcreateUser‚Ì‚İ•ÒW‰Â”\// acount/CreateUser	myXps.create_time=new Date().toNASString();	myXps.create_user	=w.cunmEt.text;// acount/UpdateUser	myXps.update_time=new Date().toNASString();	myXps.update_user=w.uunmEt.text;// memo	myXps.memo	=w.mmEt.text;//trin trout	myXps.trin	=[nas.FCT2Frm(w.trEt.text),w.trLb.text];	myXps.trout	=[nas.FCT2Frm(w.toEt.text),w.toLb.text];//ƒŒƒCƒ„–¼“]‹L	var myLyNames=w.lyLbls.text.split(",");	var mx=myTarget.layers.length;	for(var lix=0;lix<myLyNames.length;lix++){		myXps.layers[lix].name=myLyNames[lix];		if(lix<mx){			myXps.layers[lix].sizeX=myTarget.layers[mx-lix-1].bounds[2].as("px")-myTarget.layers[mx-lix-1].bounds[0].as("px");			myXps.layers[lix].sizeY=myTarget.layers[mx-lix-1].bounds[3].as("px")-myTarget.layers[mx-lix-1].bounds[1].as("px");			myXps.layers[lix].lot=(myTarget.layers[mx-lix-1].layers)?myTarget.layers[mx-lix-1].layers.length:1;		}	}// ÀÛ‚É•Û‘¶‚·‚é/* ‚±‚ê‚Íƒtƒ@ƒCƒ‹ƒ_ƒCƒAƒƒO‚ğ‚¾‚µ‚ÄŠm”F	ƒhƒLƒ…ƒƒ“ƒg‚Æ•Ê‚Ì”z’u‚É•Û‘¶‚à‰Â”\‚¾‚ª	‚»‚Ìê‡‚ÍƒŠƒŒ[ƒVƒ‡ƒ“‚ªØ‚ê‚é‚±‚Æ‚ğŒx‚·‚é‚±‚Æ*/var myXpsFile=new File([myTarget.fullName.path,myTarget.fullName.name.replace(/\.psd/,".xps")].join("/"));var isWindows=($.os.indexOf("Win")==-1)? false:true;if(isWindows){	var mySavefile = myXpsFile.saveDlg("ƒtƒ@ƒCƒ‹‚Ì•Û‘¶êŠ‚ğ•ÏX‚·‚é‚Æƒf[ƒ^‚Ì“K—p‚ª‚Å‚«‚È‚¢‚±‚Æ‚ª‚ ‚è‚Ü‚·","nasXPSheet(*.xps):*.XPS");}else{	var mySavefile = myXpsFile.saveDlg("ƒtƒ@ƒCƒ‹‚Ì•Û‘¶êŠ‚ğ•ÏX‚·‚é‚Æƒf[ƒ^‚Ì“K—p‚ª‚Å‚«‚È‚¢‚±‚Æ‚ª‚ ‚è‚Ü‚·","");}if(! mySavefile){return false};//ƒLƒƒƒ“ƒZƒ‹if(mySavefile.exists){if(! confirm("“¯–¼‚Ìƒtƒ@ƒCƒ‹‚ª‚·‚Å‚É‚ ‚è‚Ü‚·.\nã‘‚«‚µ‚Ä‚æ‚ë‚µ‚¢‚Å‚·‚©?")){return false;};}//alert(myXps.toString());if (mySavefile && mySavefile.name.match(/^[a-z_\-\#0-9]+\.xps$/i)){var myOpenfile = new File(mySavefile.fsName);	myOpenfile.encoding="utf8";	myOpenfile.open("w");	myOpenfile.write(myXps.toString());//	myOpenfile.write(nas.easyXPS.sheetView.text);	myOpenfile.close();	myStatus=true;}	return true;}//I—¹‚Éˆø”•Ô‚·//w.onClose=function(){myStatus=false;}w.show();//var myXps=new Xps();return myStatus;}

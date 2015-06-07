@@ -1,441 +1,1 @@
-/*
-	Adobeã‚¹ã‚¯ãƒªãƒ—ãƒˆã§å®Ÿè¡Œã™ã‚‹ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©
-	ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆ¤åˆ¥
-	ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ˆ
-	ç’°å¢ƒå–å¾—ãƒ»è¨­å®šãªã©
-
-$version
- */
-var thisFileName="nasLibInstall.js";//è­˜åˆ¥ç”¨è‡ªå·±ãƒ•ã‚¡ã‚¤ãƒ«å
-var thisDataFileName="nas_lib_install.dat";//ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«åè­˜åˆ¥ç”¨ åŒãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ã¿
-var thisPackageSign="//(nas_lib_installer_data)";//ãƒ‡ãƒ¼ã‚¿ã®ç¬¬ä¸€è¡Œç›®ã‚’ã™ã¹ã¦ã€‚ã“ã‚ŒãŒä¸€è‡´ã—ãªã„ã¨å‹•ä½œçµ‚äº†
-//	nasãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’å‰æã¨ã—ãªã„ã€å˜ç‹¬ã§å‹•ä½œã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ã‚ã‚‹ã€‚
-
-
-try{
-//app ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã‚ã‚Œã°AdobeScriptç’°å¢ƒã¨åˆ¤æ–­ã™ã‚‹ã€‚ã‚¨ãƒ©ãƒ¼ãŒã§ã‚Œã°ã€ãŸã¶ã‚“HTMLãƒ–ãƒ©ã‚¦ã‚¶ã£ã¦ã“ã¨ã§
-if(app){;};}catch(ERR){	abortProcess("Adobeç’°å¢ƒã‹ã‚‰èµ·å‹•ã—ã¦ãã ã•ã„ã€‚");}
-
-var nas_Installer=new Object();//
-
-	nas_Installer.myInstall=new Object();//ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ‰‹é †æœ¬ä½“æ ¼ç´ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-	nas_Installer.debug=false;
-	nas_Installer.job="install";//"install" or "uninstall"
-	nas_Installer.isShutdown=false;//shutdown Flag
-	nas_Installer.installLog=new Array();//actionLog
-		nas_Installer.pushLog=function(myString){this.installLog.push(myString);};
-		//	ãƒ­ã‚°ãƒ—ãƒƒã‚·ãƒ¥â€¦ã‚ã¨ã§ãƒ­ã‚°ã®æ§‹é€ å¤‰ãˆã‚‹ã‹ã‚‚â€¦
-		nas_Installer.pushLog("startup Install:"+new Date().toString());
-
-	nas_Installer.replacePath=new Object();//ãƒªãƒ—ãƒ¬ãƒ¼ã‚¹ç”¨ãƒ‘ã‚¹ã®ãƒˆãƒ¬ãƒ¼ãƒ©
-
-//ç°¡æ˜“è­˜åˆ¥
-var isWindows=($.os.match(/windows/i))?true:false;//windowsãƒ•ãƒ©ã‚°
-if(isWindows){
-	nas_Installer.replacePath.startup=Folder.startup.path+"/"+Folder.startup.name;	///c/Program%20Files/Adobe/Adobe%20Photoshop%20CS5.1/Presets/Scripts for Windows
-}else{
-	switch(app.version.split(".")[0])
-	{
-case	"7":
-case	"8":
-nas_Installer.replacePath.startup=Folder.startup.path.split("/").slice(0,Folder.startup.path.split("/").length-3).join("/");///c/Program%20Files/Adobe/Adobe%20Photoshop%20CS5.1/Presets/Scripts forMacCS
-break;
-default:
-nas_Installer.replacePath.startup=Folder.startup.path.split("/").slice(0,Folder.startup.path.split("/").length-2).join("/");///c/Program%20Files/Adobe/Adobe%20Photoshop%20CS5.1/Presets/Scripts forMacCS
-	};
-};
-
-//ç°¡æ˜“GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’æ­è¼‰ã™ã‚‹ã€‚
-var LineFeed=(isWindows)?"\x0d\x0a":"\x0d";//æ”¹è¡Œã‚³ãƒ¼ãƒ‰è¨­å®š
-
-// GUI Setup
-//ç°¡æ˜“GUIãƒ©ã‚¤ãƒ–ãƒ©ãƒª
-	var leftMargin=12;
-	var rightMargin=24;
-	var topMargin=2;
-	var bottomMargin=24;
-	var leftPadding=8;
-	var rightPadding=8;
-	var topPadding=2;
-	var bottomPadding=2;
-	var colUnit=120;
-	var lineUnit=24;
-	var quartsOffset=(isWindows)? 0:4;
-function nasGrid(col,line,width,height){
-	left=(col*colUnit)+leftMargin+leftPadding;
-	top=(line*lineUnit)+topMargin+topPadding;
-	right=left+width-rightPadding;
-	bottom=(height <= lineUnit)?top+height-bottomPadding-quartsOffset:top+height-bottomPadding;
-		return [left,top,right,bottom];
-}
-//ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³åˆ¥ã‚·ãƒ£ãƒƒãƒˆãƒ€ã‚¦ãƒ³ãƒ¡ã‚½ãƒƒãƒ‰
-applicationShutdown =function(){
-	switch(app.name){
-case	"Adobe AfterEffects":app.quit();
-break;
-case	"Adobe Photoshop":executeAction( charIDToTypeID("quit"), undefined, DialogModes.NO );
-break;
-default:
-	alert("ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’çµ‚äº†ã—ã¦ãã ã•ã„");
-	}
-}
-//ã‚¤ãƒ³ã‚¹ãƒˆãƒ©ãƒ¼ã®ä½ç½®ã‚’æŒ‡å®š
-
-var checkNG=true;
-var installerFile=new File("./"+thisFileName);//ã‚«ãƒ¬ãƒ³ãƒˆã«ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©ã‚’è¨­å®šã—ã¦ã‚ã‚‹ã‹ã©ã†ã‹ç¢ºèª
-
-	if(nas_Installer.debug){alert(installerFile.fsName);}
-
-while(checkNG){
-	if((! installerFile.exists)||(installerFile.name!=thisFileName)){
-		installerFile=File.openDialog("ç¾åœ¨å®Ÿè¡Œã—ã¦ã„ã‚‹ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©ãƒ¼ã‚’æŒ‡å®šã—ã¦ãã ã•ã„ã€‚",Folder.current);
-	}
-	if((installerFile)&&(installerFile.name==thisFileName)){
-//åŒéšå±¤ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«è¨­å®šã‚’ç¢ºèª
-		var checkFolder=new Folder(new File(installerFile).path);
-		var checkFiles=checkFolder.getFiles();
-		for(var idx=0;idx<checkFiles.length;idx++){
-			if(checkFiles[idx].name==thisDataFileName){
-	myCheckFile=new File(checkFiles[idx].fsName);
-	myCheckFile.open("r");
-	var magickNumber=myCheckFile.readln(1);
-	myCheckFile.close();
-				if(magickNumber==thisPackageSign){
-		checkNG=false;
-		Folder.current=checkFolder;
-
-		nas_Installer.replacePath.source=Folder.current.path+"/"+Folder.current.name;
-
-		break;
-		
-				}
-			};
-		};
-	}
-}
-
-
-/*
-Photoshop	ãƒ‘ã‚¹ã®å–å¾—/ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®è¨­å®šã€‚
-ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ã®ã«
-"//@include"ã‚’ã¤ã‹ã„ãŸã„ãŒã€ãã®å ´åˆã¯ã€ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆè‡ªä½“ã‚’æ”¹å¤‰ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
-åˆ¥ã®ãƒ­ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã—ãŸæ–¹ãŒè‰¯ã„ã‹ã‚‚ã€‚
-
-
-æ–¹æ³•ã¯åŸºæœ¬çš„ã«ãµãŸã¤
-
-includeã«ç›¸å½“ã™ã‚‹æ©Ÿèƒ½ã‚’è‡ªå‰ã§æ›¸ãã€‚
-å‚ç…§ç”¨ã®å¤‰æ•°ã‚„ã€ãã®ã‚ãŸã‚ŠãŒå……å®Ÿã—ã¦ã„ã‚Œã°ã€æœ‰ç”¨æ€§å¤§ãã„
-ã“ã‚ŒãŒãªã„ã¨çµå±€ã‚ªãƒ¼ãƒãƒ¼ãƒ˜ãƒƒãƒ‰ãŒã§ã‹ããªã‚‹ã®ã§ãƒ€ãƒ¡ã½ã„ã€‚
-è¦èª¿æŸ»
-
-includeæ–‡ã‚’å«ã‚€éƒ¨åˆ†ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ™‚ã«ç”Ÿæˆã—ã¦ã‚¹ã‚¯ãƒªãƒ—ãƒˆå†’é ­ã«åŸ‹ã‚è¾¼ã‚€ã€‚
-ç’°å¢ƒãŒå¤‰ã‚ã£ãŸã‚‰å†ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã ã‘ã©ã€ã‚ªãƒ¼ãƒãƒ¼ãƒ˜ãƒƒãƒ‰ã¯å°ã•ã„
-ã‚½ãƒ¼ã‚¹å†…ã§includeæ“¬ä¼¼å‘½ä»¤ã®ã‚ã‚‹éƒ¨åˆ†ã¯ã€ãƒ‘ã‚¹ã®ç½®æ›ã‚’ãŠã“ãªã†ã€‚
-%STARUP%	Folder.startup.path+nameã¨ç½®æ›
-/c/Program%20Files/Adobe/Adobe%20Photoshop%20CS5.1/Presets/Scripts/nas		nasãƒ•ã‚©ãƒ«ãƒ€ã®ãƒ‘ã‚¹ã¨ç½®æ›
-~/AppData/Roaming/nas	ãƒ¦ãƒ¼ã‚¶æŒ‡å®šã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ˆã®ãƒ‘ã‚¹ã¨ç½®æ›
-/f/psScripts/PsAXE	ãƒ¦ãƒ¼ã‚¶æŒ‡å®šã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ƒã®ãƒ‘ã‚¹ã¨ç½®æ›
-~/AppData/Roaming/nas		è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«å†…ã®ãƒ¦ãƒ¼ã‚¶ãƒ‘ã‚¹ã¨ç½®æ›
-
- */
-
-/*
-	ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©å†…ã§ä½¿ç”¨ã™ã‚‹é–¢æ•°-ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©ã‚¯ãƒ©ã‚¹ã®ãƒ¡ã‚½ãƒƒãƒ‰
- */
-//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡ºåŠ›
-nas_Installer.showMsg	=function(msg){alert(msg);};
-//ãƒ—ãƒ­ã‚»ã‚¹ä¸­æ–­ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
-nas_Installer.abortProcess	=function(msg){
-	alert("ãã‚ƒãƒ¼! ãªã‚“ã‹æƒ³å®šå¤–ã®ã“ã¨ãŒèµ·ããŸãƒ¨\n=================\n"+msg+"\n======================\nä¸Šã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ã­ã“ã¾ãŸã‚„ã¾ã§ãŠçŸ¥ã‚‰ã›ãã ã•ã‚‹ã¨ã€ãªã‚“ã¨ã‹ãªã‚‹ã‹ã‚‚çŸ¥ã‚Œã¾ã›ã‚“ã€‚\nãƒ€ãƒ¡ãªã‚‰ã‚ãã‚‰ã‚ã¦ãƒãƒ§");
-	this.pushLog("æƒ³å®šå¤–ã‚¨ãƒ©ãƒ¼ :"+msg);
-
-return false;
-}
-//ãƒ‘ã‚¹ã®ç½®æ›
-nas_Installer.pathReplace=function(myString)
-{
-		myString = myString.replace(/\%STARTUP\%/g,this.replacePath.startup);
-		myString = myString.replace(/\%NAS\%/g,this.replacePath.nas);
-		myString = myString.replace(/\%INSTALL\%/g,this.replacePath.install);
-		myString = myString.replace(/\%SOURCE\%/g,this.replacePath.source);
-		myString = myString.replace(/\%USER\%/g,this.replacePath.user);
-return myString;
-}
-//ç½®æ›ã¤ããƒ•ã‚¡ã‚¤ãƒ«è¤‡å†™
-nas_Installer.copyScriptWithReplace= function(readfile,writefile)
-{
-	if (readfile.exists && readfile.name.match(/\.jsx?$/i)){
-		var myOpenfile = new File(readfile.fsName);
-		myOpenfile.open("r");
-		myContent = myOpenfile.read();
-//alert(myContent);
-		if (writefile && writefile.name.match(/\.jsx?$/i)){
-			var myWritefile = new File(writefile.fsName);
-			myWritefile.open("w");
-			myWritefile.write(this.pathReplace(myContent));
-			myWritefile.close();
-		}else{	return false
-		}
-this.pushLog("copy scriptfile with repalacement ok:" +readfile.fsName +" > "+writefile.fsName);
-		return true;
-	}else {
-this.pushLog("copy scriptfile with repalacement miss:" +readfile.fsName +" > "+writefile.fsName);
-		return false;
-	};
-}
-
-nas_Installer.doInstall=function(actionFlag)
-{
-	if(actionFlag=="uninstall"){
-		this.myInstall=this.myUnInstall;
-		this.installLog.push("change mode Uninstall.")
-	}
-//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é †ã«ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’å®Ÿè¡Œ ã„ã¾ã¯åˆ†å²ã‚‚ãƒ«ãƒ¼ãƒ—ã‚‚ãªã„ã‹ã‚‰ã­ã€‚(2008/02/05)
-//ãã‚“ãªå‹•ä½œãŒæ¬²ã—ã‘ã‚Šã‚ƒfunctionã«ç›´æ¥æ›¸ããªãƒ¨
-
-	for(var idx=0;idx<this.myInstall.length;idx++){
-
-		var myAction="NOP";
-if(this.myInstall[idx][0] instanceof Function)
-{
-	myAction="doFunction"
-}else{
-	switch(this.myInstall[idx][0])
-	{
-case	"mkdir":	myAction="makeFolder";
-break;
-case	"rmdir":	myAction="removeFolder";
-break;
-case	"cd":	myAction="changeDir";
-break;
-case	"confirm":	myAction="confirm";
-break;
-case	"shutdown":	myAction="shutdown";
-break;
-case	"cp":	myAction="copyFile";
-break;
-case	"mv":	myAction="renameFile";
-break;
-case	"rm":	myAction="deleteFile";
-break;
-case	"clearAll":	myAction="clearSelfFiles";
-break;
-default	:
-		if(this.myInstall[idx].length=2){ myAction="copyFile";};
-	}
-}
-		switch(myAction){
-case	"confirm":	if(! confirm(this.pathReplace(this.myInstall[idx][1]))){return false;};
-break;
-case	"shutdown":	nas_Installer.isShutdown=true;return false;
-break;
-case	"makeFolder":
-		var targetDir=new Folder(this.pathReplace(this.myInstall[idx][1]));
-		if(! targetDir.exists){
-			if(this.debug){
-				alert(targetDir.fsName+" ã‚’ä½œã£ãŸæ°—åˆ†");
-			}else{
-				try{targetDir.create();}catch(err){this.abortProcess(myAction+":\n"+err);return false;};
-			}
-			this.pushLog(myAction+" : "+targetDir.fsName);
-		}else{
-			this.showMsg("ãƒ•ã‚©ãƒ«ãƒ€ "+targetDir.fsName+" ãŒã™ã§ã«ã‚ã‚‹ã£ã½ã„ã®ã§ãƒ‘ã‚¹");
-			this.pushLog(myAction+" : "+targetDir.fsName +"allready exists");
-		}
-break;
-case	"removeFolder":
-		var targetDir=new Folder(this.pathReplace(this.myInstall[idx][1]));
-		if(targetDir.exists){
-			if(this.debug){
-				if(targetDir.getFiles().length!=0){
-					this.showMsg("ãƒ•ã‚©ãƒ«ãƒ€ãŒç©ºã§ãªã„ã‘ã© "+targetDir.fsName+" ã‚’å‰Šé™¤ã—ãŸæ°—åˆ†");
-				}else{
-					this.showMsg(targetDir.fsName+" ã‚’å‰Šé™¤ã—ãŸæ°—åˆ†");
-				}
-			}else{
-//ãƒ•ã‚©ãƒ«ãƒ€ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ç¢ºèª
-				if(targetDir.getFiles().length!=0)
-				{
-					this.abortProcess(myAction+":\nãƒ•ã‚©ãƒ«ãƒ€ãŒç©ºã§ãªã„æ§˜");return false;
-				}else{
-					try{targetDir.remove();}catch(err){this.abortProcess(myAction+":\n"+err);return false;};
-				}
-			}
-			this.pushLog(myAction+" : "+targetDir.fsName);
-		}else{
-			this.showMsg("ãƒ•ã‚©ãƒ«ãƒ€ "+targetDir.fsName+" ã¯ç„¡ã„æ§˜");
-			this.pushLog(myAction+" : "+targetDir.fsName +"cannot remove");
-		}
-break;
-case	"changeDir":
-		if(! this.myInstall[idx][1]){
-			Folder.current=new Folder(this.replacePath.source);//ã‚½ãƒ¼ã‚¹ãƒ•ã‚©ãƒ«ãƒ€ã«æˆ»ã‚‹
-		}else{
-			Folder.current=new Folder(this.myInstall[idx][1]);
-		};
-		this.pushLog(myAction+" : "+Folder.current.fsName);
-break;
-case	"copyFile":
-		if(this.myInstall[idx][0]=="cp"){
-			var destFile	=new File(this.pathReplace(this.myInstall[idx][1]));
-			var targetFile	=new File(this.pathReplace(this.myInstall[idx][2]));
-		}else{
-			var destFile	=new File(this.pathReplace(this.myInstall[idx][0]));
-			var targetFile	=new File(this.pathReplace(this.myInstall[idx][1]));
-		}
-		if((destFile.exists)&&(! targetFile.exists)){
-if(destFile.name.match(/\.jsx?$/)){
-			this.pushLog(myAction);
-			this.pushLog("file copy with WordReplace :");
-//include ç½®æ›ã‚³ãƒ”ãƒ¼
-			if(this.debug){
-				alert(destFile.fsName+" ã‚’ "+targetFile.fsName+" ã«ç½®æ›ã‚³ãƒ”ãƒ¼ã—ãŸæ°—åˆ†");
-			}else{
-				try{
-					if(! this.copyScriptWithReplace(destFile,targetFile)){this.abortProcess(myAction+":\n"+err);return false;};
-				
-					}catch(err){this.abortProcess(myAction+":\n"+err);return false;}
-			}
-}else{
-//å˜ç´”ãƒ•ã‚¡ã‚¤ãƒ«ã‚³ãƒ”ãƒ¼
-			if(this.debug){
-				alert(destFile.fsName+" ã‚’ "+targetFile.fsName+" ã«ã‚³ãƒ”ãƒ¼ã—ãŸæ°—åˆ†");
-			}else{
-				try{	destFile.copy(targetFile)}catch(err){this.abortProcess(myAction+":\n"+err);return false;};
-			}
-			this.pushLog("file copy :"+destFile.fsName+" > "+targetFile.fsName);
-}
-		}else{this.showMsg("ãƒ•ã‚¡ã‚¤ãƒ«\n"+destFile.fsName+" : "+targetFile.fsName+"\nã‚’ç¢ºèªã—ã¾ã—ã‚‡ã†ã€‚");}
-break;
-case	"renameFile":
-		var destFile	=new File(this.pathReplace(this.myInstall[idx][1]));
-		var targetFile	=new File(this.pathReplace(this.myInstall[idx][2]));
-
-		if((destFile.exists)&&(! targetFile.exists)){
-//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚³ãƒ”ãƒ¼ã—ã¦å…ƒãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¶ˆå»
-			if(this.debug){
-				alert(destFile.fsName+" ã‚’ "+targetFile.fsName+" ã«ç§»å‹•ã—ãŸæ°—åˆ†");
-			}else{
-				//Adobeã‚¹ã‚¯ãƒªãƒ—ãƒˆã«moveãƒ¡ã‚½ãƒƒãƒ‰ã¯ç„¡ã„ã®ã§ã€copy + remove ã«ã™ã‚‹ã€‚
-				try{	if(destFile.copy(targetFile)){destFile.remove();};
-				}catch(err){this.abortProcess(myAction+":\n"+err);return false;};
-			}
-			this.pushLog(myAction+" :"+destFile.fsName+" > "+targetFile.fsName);
-		}else{
-			this.showMsg("ãƒ•ã‚¡ã‚¤ãƒ«\n"+destFile.fsName+" : "+targetFile.fsName+"\nã‚’ç¢ºèªã—ã¾ã—ã‚‡ã†ã€‚");
-			this.pushLog(myAction+" : (error) "+destFile.fsName+" > "+targetFile.fsName);
-		}
-break;
-case	"deleteFile":
-		var targetFile	=new File(this.pathReplace(this.myInstall[idx][1]));
-
-		if(targetFile.exists){
-			if(this.debug){
-				alert(targetFile.fsName+" ã‚’å‰Šé™¤ã—ãŸæ°—åˆ†");
-			}else{
-				try{
-					targetFile.remove();				
-				}catch(err){this.abortProcess(myAction+":\n"+err);return false;}
-			}
-			this.pushLog(myAction+" : "+targetFile.fsName);
-		}else{
-			alert(targetFile.fsName+" ã¯ç„¡ã„æ§˜");
-			this.pushLog(myAction+" : "+targetFile.fsName +"is not exists.");
-		}
-break;
-case	"doFunction":
-		try{
-			var myResult=(this.myInstall[idx][0](this.myInstall[idx][1]));
-			if(! myResult){return false;}
-			this.pushLog("do userFunction");
-		}catch(err){this.abortProcess(myAction+":\n"+err);return false;};
-break;
-default:
-		this.abortProcess(myAction+":\n"+this.myInstall[idx].toString());return false;
-
-		}
-	}
-//ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¨ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¯ã€å®Ÿè¡Œã™ã‚‹ã‚³ãƒãƒ³ãƒ‰é…åˆ—ãŒç•°ãªã‚‹ã ã‘ã§åŒã˜é–¢æ•°ã§å‡¦ç†ã•ã‚Œã‚‹
-return true;
-}
-
-//==================ã“ã“ã§è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§å®Ÿè¡Œ
-//	alert(decodeURI(Folder.current.name));
-myOpenFile=new File(thisDataFileName);
-	myOpenFile.open("r");
-	var setting=myOpenFile.read();
-	myOpenFile.close();
-if(setting){
-	eval(setting);
-//	ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®è¨€èªç’°å¢ƒã‚’å–å¾—localeä¸€æœ¬ã˜ã‚ƒãƒ€ãƒ¡ãƒ¼
-/*
-app.locale PhotoshopCS2ä»¥é™
-app.language AfterEffect6.5ä»¥é™(6.0ã‚‚ã„ã‘ã‚‹ã‹ã‚‚?)
-PhotoshopCS 7 ã®è¨€èªç’°å¢ƒå–å¾—æ–¹æ³•ãŒä»Šã®ã¨ã“ã‚ä¸æ˜
-JPã®ç¢ºèªã ã‘ãªã‚‰Folder.startupã®å†…å®¹ã‚’è¦‹ã‚‹æ‰‹ã¯ã‚ã‚‹ã‘ã©ãã‚“ãªã‚‚ã‚“æ›¸ããŸããªã„ã€‚
-ã²ã¨ã¾ãšç„¡è¦–ã—ã¦é€²ã‚ã‚‹ã“ã¨ã«
-*/
-
-//================================================================(syetemCheck)
-if(!(app.name.match(nas_Installer.myAppRegExp)) || !(app.version.match(nas_Installer.myVersionRegExp)))
-{
-	var stopInstall=true;
-}else{
-	var stopInstall=false;
-};
-//====================================================================(install)
-
-	if(stopInstall){
-//ä¸­æ–­è¡¨ç¤º
-	var msg="\n=====================\nã“ã®ç’°å¢ƒã§ã¯ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã§ããªã„ã‚ˆã†ã§ã™ã€‚\nã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’ç¢ºèªã—ã¦ã‹ã‚‰å†åº¦å®Ÿè¡Œã—ã¦ã¿ã¦ãã ã•ã„ã€‚"
-
-	alert(app.name+" / "+app.version+msg);
-	}else{
-
-//ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ˆã®å­˜åœ¨ã‚’ç¢ºèªã—ã¦ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ¸ˆãªã‚‰ã°ã€ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ¢ãƒ¼ãƒ‰ã«ã™ã‚‹ã€‚
-myInstallLocation=new Folder(nas_Installer.replacePath.install);
-myInstallDataFile=new File(nas_Installer.replacePath.install+"/"+thisDataFileName);
-//	ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã¨ã‚½ãƒ¼ã‚¹ãƒ‘ã‚¹ãŒä¸€è‡´ã—ã¦ã„ãŸã‚‰ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãªã®ã§ãƒ¦ãƒ¼ã‚¶ã«ç¢ºèª
-
-//ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ˆã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åãŒ
-	if((myInstallLocation.exists)&&(myInstallDataFile.exists)){nas_Installer.job="uninstall";}
-
-
-
-//å®Ÿéš›ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å‡¦ç†
-switch(nas_Installer.job){
-case	"uninstall":
-	myResult=nas_Installer.doInstall("uninstall");break;
-case	"install":
-default	:
-	myResult=nas_Installer.doInstall("install");break;
-}
-	if(! myResult){nas_Installer.pushLog("aborted");}
-	}
-}else{
-	nas_Installer.abortProcess("ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«è¨­å®šãŒãªã„ã£ã½ã„â€¦");
-};
-if(nas_Installer.isShutdown){nas_Installer.pushLog("user select shutdown Application")}
-
-	nas_Installer.pushLog("log close :"+new Date().toString());
-	if(myInstallLocation.exists){
-//		ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«çµ‚äº†æ™‚ã¯ã€ãƒ•ã‚©ãƒ«ãƒ€ã‚ã‚Š
-		var myLogFile=new File(nas_Installer.replacePath.install+"/install.log");
-	}else{
-//		ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã®éš›ã¯ãƒ•ã‚©ãƒ«ãƒ€ãŒãªã„ã®ã§ã‚½ãƒ¼ã‚¹ãƒ‘ã‚¹ã«ä¿å­˜
-		var myLogFile=new File(nas_Installer.replacePath.source+"/install.log");
-	}
-		if(new Folder(myLogFile.path).exists){
-			myLogFile.open("w");
-			for (var idx=0;idx<nas_Installer.installLog.length;idx++){
-				myLogFile.writeln(nas_Installer.installLog[idx].toString());
-			}
-			myLogFile.close();
-		}
-//ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ˆã«(ä¸Šæ›¸ãã§?)æ®‹ã—ã¦çµ‚äº†
-//ã‚·ãƒ£ãƒƒãƒˆãƒ€ã‚¦ãƒ³ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°ã‚·ãƒ£ãƒƒãƒˆãƒ€ã‚¦ãƒ³ã—ã¦çµ‚äº†
-	if(nas_Installer.isShutdown){
-			applicationShutdown();
-	};
-
+/*	AdobeƒXƒNƒŠƒvƒg‚ÅÀs‚·‚éƒCƒ“ƒXƒg[ƒ‰	ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì”»•Ê	ƒCƒ“ƒXƒg[ƒ‹æ	ŠÂ‹«æ“¾Eİ’è‚È‚Ç$version */var thisFileName="nasLibInstall.js";//¯•Ê—p©ŒÈƒtƒ@ƒCƒ‹–¼var thisDataFileName="nas_lib_install.dat";//ƒf[ƒ^ƒtƒ@ƒCƒ‹–¼¯•Ê—p “¯ƒfƒBƒŒƒNƒgƒŠ‚Ì‚İvar thisPackageSign="//(nas_lib_installer_data)";//ƒf[ƒ^‚Ì‘æˆês–Ú‚ğ‚·‚×‚ÄB‚±‚ê‚ªˆê’v‚µ‚È‚¢‚Æ“®ìI—¹//	nasƒ‰ƒCƒuƒ‰ƒŠ‚ğ‘O’ñ‚Æ‚µ‚È‚¢A’P“Æ‚Å“®ì‚·‚éƒXƒNƒŠƒvƒg‚Å‚ ‚éBtry{//app ƒIƒuƒWƒFƒNƒg‚ª‚ ‚ê‚ÎAdobeScriptŠÂ‹«‚Æ”»’f‚·‚éBƒGƒ‰[‚ª‚Å‚ê‚ÎA‚½‚Ô‚ñHTMLƒuƒ‰ƒEƒU‚Á‚Ä‚±‚Æ‚Åif(app){;};}catch(ERR){	abortProcess("AdobeŠÂ‹«‚©‚ç‹N“®‚µ‚Ä‚­‚¾‚³‚¢B");}var nas_Installer=new Object();//	nas_Installer.myInstall=new Object();//ƒCƒ“ƒXƒg[ƒ‹è‡–{‘ÌŠi”[ƒIƒuƒWƒFƒNƒg	nas_Installer.debug=false;	nas_Installer.job="install";//"install" or "uninstall"	nas_Installer.isShutdown=false;//shutdown Flag	nas_Installer.installLog=new Array();//actionLog		nas_Installer.pushLog=function(myString){this.installLog.push(myString);};		//	ƒƒOƒvƒbƒVƒ…c‚ ‚Æ‚ÅƒƒO‚Ì\‘¢•Ï‚¦‚é‚©‚àc		nas_Installer.pushLog("startup Install:"+new Date().toString());	nas_Installer.replacePath=new Object();//ƒŠƒvƒŒ[ƒX—pƒpƒX‚ÌƒgƒŒ[ƒ‰//ŠÈˆÕ¯•Êvar isWindows=($.os.match(/windows/i))?true:false;//windowsƒtƒ‰ƒOif(isWindows){	nas_Installer.replacePath.startup=Folder.startup.path+"/"+Folder.startup.name;	///c/Program%20Files/Adobe/Adobe%20Photoshop%20CS5.1/Presets/Scripts for Windows}else{	switch(app.version.split(".")[0])	{case	"7":case	"8":nas_Installer.replacePath.startup=Folder.startup.path.split("/").slice(0,Folder.startup.path.split("/").length-3).join("/");///c/Program%20Files/Adobe/Adobe%20Photoshop%20CS5.1/Presets/Scripts forMacCSbreak;default:nas_Installer.replacePath.startup=Folder.startup.path.split("/").slice(0,Folder.startup.path.split("/").length-2).join("/");///c/Program%20Files/Adobe/Adobe%20Photoshop%20CS5.1/Presets/Scripts forMacCS	};};//ŠÈˆÕGUIƒ‰ƒCƒuƒ‰ƒŠ‚ğ“‹Ú‚·‚éBvar LineFeed=(isWindows)?"\x0d\x0a":"\x0d";//‰üsƒR[ƒhİ’è// GUI Setup//ŠÈˆÕGUIƒ‰ƒCƒuƒ‰ƒŠ	var leftMargin=12;	var rightMargin=24;	var topMargin=2;	var bottomMargin=24;	var leftPadding=8;	var rightPadding=8;	var topPadding=2;	var bottomPadding=2;	var colUnit=120;	var lineUnit=24;	var quartsOffset=(isWindows)? 0:4;function nasGrid(col,line,width,height){	left=(col*colUnit)+leftMargin+leftPadding;	top=(line*lineUnit)+topMargin+topPadding;	right=left+width-rightPadding;	bottom=(height <= lineUnit)?top+height-bottomPadding-quartsOffset:top+height-bottomPadding;		return [left,top,right,bottom];}//ƒAƒvƒŠƒP[ƒVƒ‡ƒ“•ÊƒVƒƒƒbƒgƒ_ƒEƒ“ƒƒ\ƒbƒhapplicationShutdown =function(){	switch(app.name){case	"Adobe AfterEffects":app.quit();break;case	"Adobe Photoshop":executeAction( charIDToTypeID("quit"), undefined, DialogModes.NO );break;default:	alert("ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğI—¹‚µ‚Ä‚­‚¾‚³‚¢");	}}//ƒCƒ“ƒXƒgƒ‰[‚ÌˆÊ’u‚ğw’èvar checkNG=true;var installerFile=new File("./"+thisFileName);//ƒJƒŒƒ“ƒg‚ÉƒCƒ“ƒXƒg[ƒ‰‚ğİ’è‚µ‚Ä‚ ‚é‚©‚Ç‚¤‚©Šm”F	if(nas_Installer.debug){alert(installerFile.fsName);}while(checkNG){	if((! installerFile.exists)||(installerFile.name!=thisFileName)){		installerFile=File.openDialog("Œ»İÀs‚µ‚Ä‚¢‚éƒCƒ“ƒXƒg[ƒ‰[‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B",Folder.current);	}	if((installerFile)&&(installerFile.name==thisFileName)){//“¯ŠK‘w‚ÌƒCƒ“ƒXƒg[ƒ‹İ’è‚ğŠm”F		var checkFolder=new Folder(new File(installerFile).path);		var checkFiles=checkFolder.getFiles();		for(var idx=0;idx<checkFiles.length;idx++){			if(checkFiles[idx].name==thisDataFileName){	myCheckFile=new File(checkFiles[idx].fsName);	myCheckFile.open("r");	var magickNumber=myCheckFile.readln(1);	myCheckFile.close();				if(magickNumber==thisPackageSign){		checkNG=false;		Folder.current=checkFolder;		nas_Installer.replacePath.source=Folder.current.path+"/"+Folder.current.name;		break;						}			};		};	}}/*Photoshop	ƒpƒX‚Ìæ“¾/ƒ‰ƒCƒuƒ‰ƒŠ‚Ìİ’èBƒ‰ƒCƒuƒ‰ƒŠ‚ğƒ[ƒh‚·‚é‚Ì‚É"//@include"‚ğ‚Â‚©‚¢‚½‚¢‚ªA‚»‚Ìê‡‚ÍAƒCƒ“ƒXƒg[ƒ‹‚·‚éƒXƒNƒŠƒvƒg©‘Ì‚ğ‰ü•Ï‚·‚é•K—v‚ª‚ ‚éB•Ê‚Ìƒ[ƒh‚ğg—p‚µ‚½•û‚ª—Ç‚¢‚©‚àB•û–@‚ÍŠî–{“I‚É‚Ó‚½‚Âinclude‚É‘Š“–‚·‚é‹@”\‚ğ©‘O‚Å‘‚­BQÆ—p‚Ì•Ï”‚âA‚»‚Ì‚ ‚½‚è‚ª[À‚µ‚Ä‚¢‚ê‚ÎA—L—p«‘å‚«‚¢‚±‚ê‚ª‚È‚¢‚ÆŒ‹‹ÇƒI[ƒo[ƒwƒbƒh‚ª‚Å‚©‚­‚È‚é‚Ì‚Åƒ_ƒ‚Û‚¢B—v’²¸include•¶‚ğŠÜ‚Ş•”•ª‚ğƒCƒ“ƒXƒg[ƒ‹‚É¶¬‚µ‚ÄƒXƒNƒŠƒvƒg–`“ª‚É–„‚ß‚ŞBŠÂ‹«‚ª•Ï‚í‚Á‚½‚çÄƒCƒ“ƒXƒg[ƒ‹‚¾‚¯‚ÇAƒI[ƒo[ƒwƒbƒh‚Í¬‚³‚¢ƒ\[ƒX“à‚Åinclude‹[—–½—ß‚Ì‚ ‚é•”•ª‚ÍAƒpƒX‚Ì’uŠ·‚ğ‚¨‚±‚È‚¤B%STARUP%	Folder.startup.path+name‚Æ’uŠ·/c/Program%20Files/Adobe/Adobe%20Photoshop%20CS5.1/Presets/Scripts/nas		nasƒtƒHƒ‹ƒ_‚ÌƒpƒX‚Æ’uŠ·~/AppData/Roaming/nas	ƒ†[ƒUw’è‚ÌƒCƒ“ƒXƒg[ƒ‹æ‚ÌƒpƒX‚Æ’uŠ·/f/psScripts/PsAXE	ƒ†[ƒUw’è‚ÌƒCƒ“ƒXƒg[ƒ‹Œ³‚ÌƒpƒX‚Æ’uŠ·~/AppData/Roaming/nas		İ’èƒtƒ@ƒCƒ‹“à‚Ìƒ†[ƒUƒpƒX‚Æ’uŠ· *//*	ƒCƒ“ƒXƒg[ƒ‰“à‚Åg—p‚·‚éŠÖ”-ƒCƒ“ƒXƒg[ƒ‰ƒNƒ‰ƒX‚Ìƒƒ\ƒbƒh *///ƒƒbƒZ[ƒWo—Ínas_Installer.showMsg	=function(msg){alert(msg);};//ƒvƒƒZƒX’†’fƒƒbƒZ[ƒWnas_Installer.abortProcess	=function(msg){	alert("‚¬‚á[! ‚È‚ñ‚©‘z’èŠO‚Ì‚±‚Æ‚ª‹N‚«‚½ƒˆ\n=================\n"+msg+"\n======================\nã‚ÌƒƒbƒZ[ƒW‚ğ‚Ë‚±‚Ü‚½‚â‚Ü‚Å‚¨’m‚ç‚¹‚­‚¾‚³‚é‚ÆA‚È‚ñ‚Æ‚©‚È‚é‚©‚à’m‚ê‚Ü‚¹‚ñB\nƒ_ƒ‚È‚ç‚ ‚«‚ç‚ß‚Äƒ`ƒ‡");	this.pushLog("‘z’èŠOƒGƒ‰[ :"+msg);return false;}//ƒpƒX‚Ì’uŠ·nas_Installer.pathReplace=function(myString){		myString = myString.replace(/\%STARTUP\%/g,this.replacePath.startup);		myString = myString.replace(/\%NAS\%/g,this.replacePath.nas);		myString = myString.replace(/\%INSTALL\%/g,this.replacePath.install);		myString = myString.replace(/\%SOURCE\%/g,this.replacePath.source);		myString = myString.replace(/\%USER\%/g,this.replacePath.user);return myString;}//’uŠ·‚Â‚«ƒtƒ@ƒCƒ‹•¡Ênas_Installer.copyScriptWithReplace= function(readfile,writefile){	if (readfile.exists && readfile.name.match(/\.jsx?$/i)){		var myOpenfile = new File(readfile.fsName);		myOpenfile.open("r");		myContent = myOpenfile.read();//alert(myContent);		if (writefile && writefile.name.match(/\.jsx?$/i)){			var myWritefile = new File(writefile.fsName);			myWritefile.open("w");			myWritefile.write(this.pathReplace(myContent));			myWritefile.close();		}else{	return false		}this.pushLog("copy scriptfile with repalacement ok:" +readfile.fsName +" > "+writefile.fsName);		return true;	}else {this.pushLog("copy scriptfile with repalacement miss:" +readfile.fsName +" > "+writefile.fsName);		return false;	};}nas_Installer.doInstall=function(actionFlag){	if(actionFlag=="uninstall"){		this.myInstall=this.myUnInstall;		this.installLog.push("change mode Uninstall.")	}//ƒCƒ“ƒfƒbƒNƒX‡‚ÉƒCƒ“ƒXƒg[ƒ‹‚ğÀs ‚¢‚Ü‚Í•ªŠò‚àƒ‹[ƒv‚à‚È‚¢‚©‚ç‚ËB(2008/02/05)//‚»‚ñ‚È“®ì‚ª—~‚µ‚¯‚è‚áfunction‚É’¼Ú‘‚«‚Èƒˆ	for(var idx=0;idx<this.myInstall.length;idx++){		var myAction="NOP";if(this.myInstall[idx][0] instanceof Function){	myAction="doFunction"}else{	switch(this.myInstall[idx][0])	{case	"mkdir":	myAction="makeFolder";break;case	"rmdir":	myAction="removeFolder";break;case	"cd":	myAction="changeDir";break;case	"confirm":	myAction="confirm";break;case	"shutdown":	myAction="shutdown";break;case	"cp":	myAction="copyFile";break;case	"mv":	myAction="renameFile";break;case	"rm":	myAction="deleteFile";break;case	"clearAll":	myAction="clearSelfFiles";break;default	:		if(this.myInstall[idx].length=2){ myAction="copyFile";};	}}		switch(myAction){case	"confirm":	if(! confirm(this.pathReplace(this.myInstall[idx][1]))){return false;};break;case	"shutdown":	nas_Installer.isShutdown=true;return false;break;case	"makeFolder":		var targetDir=new Folder(this.pathReplace(this.myInstall[idx][1]));		if(! targetDir.exists){			if(this.debug){				alert(targetDir.fsName+" ‚ğì‚Á‚½‹C•ª");			}else{				try{targetDir.create();}catch(err){this.abortProcess(myAction+":\n"+err);return false;};			}			this.pushLog(myAction+" : "+targetDir.fsName);		}else{			this.showMsg("ƒtƒHƒ‹ƒ_ "+targetDir.fsName+" ‚ª‚·‚Å‚É‚ ‚é‚Á‚Û‚¢‚Ì‚ÅƒpƒX");			this.pushLog(myAction+" : "+targetDir.fsName +"allready exists");		}break;case	"removeFolder":		var targetDir=new Folder(this.pathReplace(this.myInstall[idx][1]));		if(targetDir.exists){			if(this.debug){				if(targetDir.getFiles().length!=0){					this.showMsg("ƒtƒHƒ‹ƒ_‚ª‹ó‚Å‚È‚¢‚¯‚Ç "+targetDir.fsName+" ‚ğíœ‚µ‚½‹C•ª");				}else{					this.showMsg(targetDir.fsName+" ‚ğíœ‚µ‚½‹C•ª");				}			}else{//ƒtƒHƒ‹ƒ_ƒRƒ“ƒeƒ“ƒcŠm”F				if(targetDir.getFiles().length!=0)				{					this.abortProcess(myAction+":\nƒtƒHƒ‹ƒ_‚ª‹ó‚Å‚È‚¢—l");return false;				}else{					try{targetDir.remove();}catch(err){this.abortProcess(myAction+":\n"+err);return false;};				}			}			this.pushLog(myAction+" : "+targetDir.fsName);		}else{			this.showMsg("ƒtƒHƒ‹ƒ_ "+targetDir.fsName+" ‚Í–³‚¢—l");			this.pushLog(myAction+" : "+targetDir.fsName +"cannot remove");		}break;case	"changeDir":		if(! this.myInstall[idx][1]){			Folder.current=new Folder(this.replacePath.source);//ƒ\[ƒXƒtƒHƒ‹ƒ_‚É–ß‚é		}else{			Folder.current=new Folder(this.myInstall[idx][1]);		};		this.pushLog(myAction+" : "+Folder.current.fsName);break;case	"copyFile":		if(this.myInstall[idx][0]=="cp"){			var destFile	=new File(this.pathReplace(this.myInstall[idx][1]));			var targetFile	=new File(this.pathReplace(this.myInstall[idx][2]));		}else{			var destFile	=new File(this.pathReplace(this.myInstall[idx][0]));			var targetFile	=new File(this.pathReplace(this.myInstall[idx][1]));		}		if((destFile.exists)&&(! targetFile.exists)){if(destFile.name.match(/\.jsx?$/)){			this.pushLog(myAction);			this.pushLog("file copy with WordReplace :");//include ’uŠ·ƒRƒs[			if(this.debug){				alert(destFile.fsName+" ‚ğ "+targetFile.fsName+" ‚É’uŠ·ƒRƒs[‚µ‚½‹C•ª");			}else{				try{					if(! this.copyScriptWithReplace(destFile,targetFile)){this.abortProcess(myAction+":\n"+err);return false;};									}catch(err){this.abortProcess(myAction+":\n"+err);return false;}			}}else{//’Pƒƒtƒ@ƒCƒ‹ƒRƒs[			if(this.debug){				alert(destFile.fsName+" ‚ğ "+targetFile.fsName+" ‚ÉƒRƒs[‚µ‚½‹C•ª");			}else{				try{	destFile.copy(targetFile)}catch(err){this.abortProcess(myAction+":\n"+err);return false;};			}			this.pushLog("file copy :"+destFile.fsName+" > "+targetFile.fsName);}		}else{this.showMsg("ƒtƒ@ƒCƒ‹\n"+destFile.fsName+" : "+targetFile.fsName+"\n‚ğŠm”F‚µ‚Ü‚µ‚å‚¤B");}break;case	"renameFile":		var destFile	=new File(this.pathReplace(this.myInstall[idx][1]));		var targetFile	=new File(this.pathReplace(this.myInstall[idx][2]));		if((destFile.exists)&&(! targetFile.exists)){//ƒtƒ@ƒCƒ‹‚ğƒRƒs[‚µ‚ÄŒ³ƒtƒ@ƒCƒ‹‚ğÁ‹			if(this.debug){				alert(destFile.fsName+" ‚ğ "+targetFile.fsName+" ‚ÉˆÚ“®‚µ‚½‹C•ª");			}else{				//AdobeƒXƒNƒŠƒvƒg‚Émoveƒƒ\ƒbƒh‚Í–³‚¢‚Ì‚ÅAcopy + remove ‚É‚·‚éB				try{	if(destFile.copy(targetFile)){destFile.remove();};				}catch(err){this.abortProcess(myAction+":\n"+err);return false;};			}			this.pushLog(myAction+" :"+destFile.fsName+" > "+targetFile.fsName);		}else{			this.showMsg("ƒtƒ@ƒCƒ‹\n"+destFile.fsName+" : "+targetFile.fsName+"\n‚ğŠm”F‚µ‚Ü‚µ‚å‚¤B");			this.pushLog(myAction+" : (error) "+destFile.fsName+" > "+targetFile.fsName);		}break;case	"deleteFile":		var targetFile	=new File(this.pathReplace(this.myInstall[idx][1]));		if(targetFile.exists){			if(this.debug){				alert(targetFile.fsName+" ‚ğíœ‚µ‚½‹C•ª");			}else{				try{					targetFile.remove();								}catch(err){this.abortProcess(myAction+":\n"+err);return false;}			}			this.pushLog(myAction+" : "+targetFile.fsName);		}else{			alert(targetFile.fsName+" ‚Í–³‚¢—l");			this.pushLog(myAction+" : "+targetFile.fsName +"is not exists.");		}break;case	"doFunction":		try{			var myResult=(this.myInstall[idx][0](this.myInstall[idx][1]));			if(! myResult){return false;}			this.pushLog("do userFunction");		}catch(err){this.abortProcess(myAction+":\n"+err);return false;};break;default:		this.abortProcess(myAction+":\n"+this.myInstall[idx].toString());return false;		}	}//ƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚ÆƒCƒ“ƒXƒg[ƒ‹‚ÍAÀs‚·‚éƒRƒ}ƒ“ƒh”z—ñ‚ªˆÙ‚È‚é‚¾‚¯‚Å“¯‚¶ŠÖ”‚Åˆ—‚³‚ê‚éreturn true;}//==================‚±‚±‚Åİ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ñ‚ÅÀs//	alert(decodeURI(Folder.current.name));myOpenFile=new File(thisDataFileName);	myOpenFile.open("r");	var setting=myOpenFile.read();	myOpenFile.close();if(setting){	eval(setting);//	ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ÌŒ¾ŒêŠÂ‹«‚ğæ“¾localeˆê–{‚¶‚áƒ_ƒ[/*app.locale PhotoshopCS2ˆÈ~app.language AfterEffect6.5ˆÈ~(6.0‚à‚¢‚¯‚é‚©‚à?)PhotoshopCS 7 ‚ÌŒ¾ŒêŠÂ‹«æ“¾•û–@‚ª¡‚Ì‚Æ‚±‚ë•s–¾JP‚ÌŠm”F‚¾‚¯‚È‚çFolder.startup‚Ì“à—e‚ğŒ©‚éè‚Í‚ ‚é‚¯‚Ç‚»‚ñ‚È‚à‚ñ‘‚«‚½‚­‚È‚¢B‚Ğ‚Æ‚Ü‚¸–³‹‚µ‚Äi‚ß‚é‚±‚Æ‚É*///================================================================(syetemCheck)if(!(app.name.match(nas_Installer.myAppRegExp)) || !(app.version.match(nas_Installer.myVersionRegExp))){	var stopInstall=true;}else{	var stopInstall=false;};//====================================================================(install)	if(stopInstall){//’†’f•\¦	var msg="\n=====================\n‚±‚ÌŠÂ‹«‚Å‚ÍƒCƒ“ƒXƒg[ƒ‹‚Å‚«‚È‚¢‚æ‚¤‚Å‚·B\nƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚âƒo[ƒWƒ‡ƒ“‚ğŠm”F‚µ‚Ä‚©‚çÄ“xÀs‚µ‚Ä‚İ‚Ä‚­‚¾‚³‚¢B"	alert(app.name+" / "+app.version+msg);	}else{//ƒCƒ“ƒXƒg[ƒ‹æ‚Ì‘¶İ‚ğŠm”F‚µ‚ÄƒCƒ“ƒXƒg[ƒ‹Ï‚È‚ç‚ÎAƒAƒ“ƒCƒ“ƒXƒg[ƒ‹ƒ‚[ƒh‚É‚·‚éBmyInstallLocation=new Folder(nas_Installer.replacePath.install);myInstallDataFile=new File(nas_Installer.replacePath.install+"/"+thisDataFileName);//	ƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚Æƒ\[ƒXƒpƒX‚ªˆê’v‚µ‚Ä‚¢‚½‚çƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚È‚Ì‚Åƒ†[ƒU‚ÉŠm”F//ƒCƒ“ƒXƒg[ƒ‹æ‚ÌƒpƒbƒP[ƒW–¼‚ª	if((myInstallLocation.exists)&&(myInstallDataFile.exists)){nas_Installer.job="uninstall";}//ÀÛ‚ÌƒCƒ“ƒXƒg[ƒ‹ˆ—switch(nas_Installer.job){case	"uninstall":	myResult=nas_Installer.doInstall("uninstall");break;case	"install":default	:	myResult=nas_Installer.doInstall("install");break;}	if(! myResult){nas_Installer.pushLog("aborted");}	}}else{	nas_Installer.abortProcess("ƒCƒ“ƒXƒg[ƒ‹İ’è‚ª‚È‚¢‚Á‚Û‚¢c");};if(nas_Installer.isShutdown){nas_Installer.pushLog("user select shutdown Application")}	nas_Installer.pushLog("log close :"+new Date().toString());	if(myInstallLocation.exists){//		ƒCƒ“ƒXƒg[ƒ‹I—¹‚ÍAƒtƒHƒ‹ƒ_‚ ‚è		var myLogFile=new File(nas_Installer.replacePath.install+"/install.log");	}else{//		ƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚ÌÛ‚ÍƒtƒHƒ‹ƒ_‚ª‚È‚¢‚Ì‚Åƒ\[ƒXƒpƒX‚É•Û‘¶		var myLogFile=new File(nas_Installer.replacePath.source+"/install.log");	}		if(new Folder(myLogFile.path).exists){			myLogFile.open("w");			for (var idx=0;idx<nas_Installer.installLog.length;idx++){				myLogFile.writeln(nas_Installer.installLog[idx].toString());			}			myLogFile.close();		}//ƒƒOƒtƒ@ƒCƒ‹‚ğƒCƒ“ƒXƒg[ƒ‹æ‚É(ã‘‚«‚Å?)c‚µ‚ÄI—¹//ƒVƒƒƒbƒgƒ_ƒEƒ“ƒtƒ‰ƒO‚ª‚ ‚ê‚ÎƒVƒƒƒbƒgƒ_ƒEƒ“‚µ‚ÄI—¹	if(nas_Installer.isShutdown){			applicationShutdown();	};

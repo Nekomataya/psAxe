@@ -6,6 +6,7 @@
  *	nas.GUI.Grid(left,top,width,height)::returns [bounds-Array]
  *	パネル動作に対応開始 2007/08/09
  *	パレットに最小化機能作成 2007/08/21
+ *	CS6以降の対応mac の表記ズレの修正　2015/05/29
  */
  myFilename=("$RCSfile: nas_GUIlib.js,v $").split(":")[1].split(",")[0];
  myFilerevision=("$Revision: 1.3 $").split(":")[1].split("$")[0];
@@ -1124,8 +1125,9 @@ nas.GUI.setTabPanel = function (Parent,TabNames,left,top,width,height)
 	var startLeft=width-(btw*TabNames.length);
 	for (var n=0 ; n < TabNames.length ; n++){
 
-		Parent.tabSelector[n]=nas.GUI.addButton(Parent,TabNames[n],startLeft+(btw*n),top,btw,0.8);
-//		Parent.tabSelector[n]=nas.GUI.addButton(Parent,TabNames[n],1+left+(btw*n),top,btw,1);
+//		Parent.tabSelector[n]=nas.GUI.addButton(Parent,TabNames[n],startLeft+(btw*n),top,btw,0.8);
+		Parent.tabSelector[n]=nas.GUI.addButton(Parent,TabNames[n],startLeft+(btw*n),top,btw,1);
+		//		Parent.tabSelector[n]=nas.GUI.addButton(Parent,TabNames[n],1+left+(btw*n),top,btw,1);
 		Parent.tabSelector[n].id=n;
 		Parent.tabSelector[n].onClick=function(){
 	this.parent.selectTab(this.id);

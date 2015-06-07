@@ -112,7 +112,7 @@ if(myXpsFile.exists){
 	var myDuration=nas.FRATE*3;//frames初期値３秒
 	var myFps=nas.FRATE;
 //	(Framesフォルダをシートに入れるか否かを参照すること)
-	var myTimelineCount=((true)&&(myTarget.layers[0].name=="Frames")&&(myTarget.layers[0] instanceof LayerSet))?
+	var myTimelineCount=((true)&&(myTarget.layers[0].name=="Frames")&&(myTarget.layers[0].typename == "LayerSet"))?
 		myTarget.layers.length-1:myTarget.layers.length;
 	XPS.init(myTimelineCount,myDuration);
 	XPS.mapFile="./"+myTarget.fullName.name;

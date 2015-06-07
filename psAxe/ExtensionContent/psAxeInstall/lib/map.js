@@ -1,38 +1,1 @@
-//ç°¡æ˜“ãƒžãƒƒãƒ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-
-psMapElement=function(myParentGroup,myName,myLayer)
-{
-	this.parent=myParentGroup;
-	this.name=myName;
-	this.body=myLayer;
-	this.index=this.parent.elements.length;
-}
-psMapGroup=function(myMap,nameLabel,lot,myLayer)
-{
-	this.parent=myMap;
-	this.body=myLayer;
-	if(! nameLabel){nameLabel="";};//æ˜Žç¤ºçš„ã«
-	this.name=nameLabel;
-	if(!lot){lot=0;};//æœ€ä½Ž0æžš
-	this.elements=new Array();//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆãƒˆãƒ¬ãƒ¼ãƒ©
-	if(lot){for(var idx=lot-1;idx>=0;idx--){this.elements.push(new psMapElement(this,this.body.layers[idx].name,this.body.layers[idx] ) )}}
-}
-
-var myPsMap=new Object();
-	myPsMap.body=app.activeDocument;
-	myPsMap.groups=new Array;//mapãƒˆãƒ¬ãƒ¼ãƒ©
-//ãƒˆãƒ¬ãƒ¼ãƒ©ã«ã‚°ãƒ«ãƒ¼ãƒ—ã‚’ç™»éŒ²ã€€ã‚°ãƒ«ãƒ¼ãƒ—è‡ªèº«ãŒã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆã‚’ç™»éŒ²ã™ã‚‹
-for(var gIdx=myPsMap.body.layers.length-1;gIdx>=0;gIdx--){
-	myPsMap.groups.push( new psMapGroup( myPsMap,myPsMap.body.layers[gIdx].name,myPsMap.body.layers[gIdx].layers.length,myPsMap.body.layers[gIdx] ) );
-}
-
-
-//myPsMap.groups[2].elements[0].body.visible=true;
-
-for(var gidx=0;gidx<myPsMap.body.layers.length;gidx++){
-	for(var eidx=0;eidx<myPsMap.groups[gidx].elements.length;eidx++){
-		var myLayer=myPsMap.groups[gidx].elements[eidx].body;
-		var myName=[myPsMap.groups[gidx].body.name,eidx+1].join("-")
-			if(myLayer.name!=myName){myLayer.name=myName}
-		}	
-	}
+//ŠÈˆÕƒ}ƒbƒvƒIƒuƒWƒFƒNƒgpsMapElement=function(myParentGroup,myName,myLayer){	this.parent=myParentGroup;	this.name=myName;	this.body=myLayer;	this.index=this.parent.elements.length;}psMapGroup=function(myMap,nameLabel,lot,myLayer){	this.parent=myMap;	this.body=myLayer;	if(! nameLabel){nameLabel="";};//–¾Ž¦“I‚É	this.name=nameLabel;	if(!lot){lot=0;};//Å’á0–‡	this.elements=new Array();//ƒGƒŒƒƒ“ƒgƒgƒŒ[ƒ‰	if(lot){for(var idx=lot-1;idx>=0;idx--){this.elements.push(new psMapElement(this,this.body.layers[idx].name,this.body.layers[idx] ) )}}}var myPsMap=new Object();	myPsMap.body=app.activeDocument;	myPsMap.groups=new Array;//mapƒgƒŒ[ƒ‰//ƒgƒŒ[ƒ‰‚ÉƒOƒ‹[ƒv‚ð“o˜^@ƒOƒ‹[ƒvŽ©g‚ªƒGƒŒƒƒ“ƒg‚ð“o˜^‚·‚éfor(var gIdx=myPsMap.body.layers.length-1;gIdx>=0;gIdx--){	myPsMap.groups.push( new psMapGroup( myPsMap,myPsMap.body.layers[gIdx].name,myPsMap.body.layers[gIdx].layers.length,myPsMap.body.layers[gIdx] ) );}//myPsMap.groups[2].elements[0].body.visible=true;for(var gidx=0;gidx<myPsMap.body.layers.length;gidx++){	for(var eidx=0;eidx<myPsMap.groups[gidx].elements.length;eidx++){		var myLayer=myPsMap.groups[gidx].elements[eidx].body;		var myName=[myPsMap.groups[gidx].body.name,eidx+1].join("-")			if(myLayer.name!=myName){myLayer.name=myName}		}		}

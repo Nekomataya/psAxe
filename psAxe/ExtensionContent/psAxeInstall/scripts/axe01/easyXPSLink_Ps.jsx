@@ -343,7 +343,7 @@ function goLink()
 		//表示初期化
 		//アニメーションテーブル初期化
 		//アニメウィンドウを初期化する＞要するに全て消す
-		nas.axeAFC.dupulicateFrame();//一個複製して最低２個のフレームにする（エラー回避）
+		nas.axeAFC.duplicateFrame();//一個複製して最低２個のフレームにする（エラー回避）
 		nas.axeAFC.selectFramesAll();//全選択
 		nas.axeAFC.removeSelection();//削除
 //==============================================================
@@ -354,7 +354,7 @@ function goLink()
 		nas.axeAFC.setDly(myDuration);
 		//第二フレーム以降をループ設定
 		for(var idx=1;idx<myQF.length;idx++){
-			nas.axeAFC.dupulicateFrame();//作る（フォーカス移動）
+			nas.axeAFC.duplicateFrame();//作る（フォーカス移動）
 		myDuration=myQF[idx].duration/XPS.framerate;//継続フレームを時間に変換
 		app.activeDocument.setView(myQF[idx]);
 		nas.axeAFC.setDly(myDuration);

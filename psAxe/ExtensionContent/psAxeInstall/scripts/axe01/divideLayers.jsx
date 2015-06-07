@@ -22,7 +22,7 @@ layerSort= function(targetCol,revFlag){
 //	並び替え対象を設定
 	var myTarget=targetCol;
 //	引数がレイヤコレクションでなかった場合、キャンセル
-	if(!(targetCol instanceof Layers)){return false;};
+	if(targetCol.typename != "Layers"){return false;};
 //	引数なければ下から正順
 	if(! revFlag) revFlag=false;//
 //	並び替え対称のレイヤが1つしかない場合は、並び替え不能なのでキャンセル
@@ -63,7 +63,7 @@ layerReverse= function(targetCol){
 //	並び替え対象を設定
 	var myTarget=targetCol;
 //	引数がレイヤコレクションでなかった場合、キャンセル
-	if(!(targetCol instanceof Layers)){return false;};
+	if(targetCol.typename != "Layers"){return false;};
 //	並び替え対称のレイヤが1つしかない場合は、並び替え不能なのでキャンセル
 	if(myTarget.length<=1){return false;};
 

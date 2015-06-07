@@ -28,7 +28,7 @@
 if(nas){
 nas.PSCCFontSizeFix = {
 };
-nas.getRootDocument = function(myLayer){var result=myLayer.parent;while (!(result instanceof Document)){result=result.parent};return result;};
+nas.getRootDocument = function(myLayer){var result=myLayer.parent;while (result.typename != "Document"){result=result.parent};return result;};
 
 nas.setActive=function(myLayer){app.activeDocument=nas.getRootDocument(myLayer);app.activeDocument.activeLayer=myLayer;}
 

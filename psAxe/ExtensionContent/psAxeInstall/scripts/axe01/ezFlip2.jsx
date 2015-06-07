@@ -153,7 +153,7 @@ var idsetd = charIDToTypeID( "setd" );
     desc.putObject( idT, idanimationFrameClass, desc2 );
 executeAction( idsetd, desc, DialogModes.NO );
 }
-dupulicateFrame=function(){
+duplicateFrame=function(){
 // =======================================================フレーム複製
 var idDplc = charIDToTypeID( "Dplc" );
     var desc = new ActionDescriptor();
@@ -259,7 +259,7 @@ var myEasyFlip=new Object();
 		//表示初期化
 		//アニメーションテーブル初期化
 		//アニメウィンドウを初期化する＞要するに全て消す
-		dupulicateFrame();//一個複製して最低２個のフレームにする（エラー回避）
+		duplicateFrame();//一個複製して最低２個のフレームにする（エラー回避）
 		selectFramesAll();//全選択
 		removeSelection();//削除
 //==============================================================
@@ -272,7 +272,7 @@ var myEasyFlip=new Object();
 		this.targetLayers[this.playList[this.playList.length-1]].visible=true;//第一フレーム表示
 		//第二フレーム以降を表示を切り替えつつアニメフレームに登録
 		for(var idx=this.playList.length-1;idx>0;idx--){
-			dupulicateFrame();//作る（フォーカス移動）
+			duplicateFrame();//作る（フォーカス移動）
 //			alert(this.playList[idx]);
 			this.targetLayers[this.playList[idx]].visible=false;
 			this.targetLayers[this.playList[idx-1]].visible=true;

@@ -114,7 +114,7 @@ exportFiles.refresh=function(){
 //================ArtLayer　でノーマルとスマートオブジェクトを選択
 	if(this.isMenber(this.tempDoc.layers[ix])){this.outputList.push(this.tempDoc.layers[ix]);this.outputListA.push(this.targetDoc.layers[ix]);continue;}
 //=================レイヤセットでかつ、配下にレイヤを含んでいる場合（１段のみ掘下げ レイヤセットもメンバーにする）
-	if((true)&&(this.tempDoc.layers[ix] instanceof LayerSet)&&(this.tempDoc.layers[ix].layers.length)){
+	if((true)&&(this.tempDoc.layers[ix].typename == "LayerSet")&&(this.tempDoc.layers[ix].layers.length)){
 		for (var lx=0;lx<this.tempDoc.layers[ix].layers.length;lx++){
             this.outputList.push(this.tempDoc.layers[ix].layers[lx]);
             this.outputListA.push(this.targetDoc.layers[ix].layers[lx]);
@@ -135,7 +135,7 @@ exportFiles.viewUpdate=function(){
         }
     }else{
       for(fl in this.outputList){
-	    if((! this.mkFolder)||(this.outputList[fl].parent instanceof Document)){
+	    if((! this.mkFolder)||(this.outputList[fl].parent.typename == "Document")){
 		this.outputListView.push(this.outputList[fl].name.replace(/[\\\/\:\?\*\"\>\<\|]/g,"_"));
 	    }else{
 		this.outputListView.push(("[ "+this.outputList[fl].parent.name +" ] "+this.outputList[fl].name).replace(/[\\\/\:\?\*\"\>\<\|]/g,"_"));
@@ -351,7 +351,7 @@ exportFiles.w.afcOpt.onClick=function(){
 exportFiles.w.bdBt.onClick=function(){
 　app.activeDocument=exportFiles.targetDoc;
  var UndoString="レイヤからアニメフレーム";
- var myExecute="nas.axeAFC.initFrames();for(var fix=0;fix<this.parent.fileList.items.length;fix++){if(fix>0){nas.axeAFC.dupulicateFrame();}exportFiles.setA(fix);};nas.axeAFC.reverseAnimationFrames();";
+ var myExecute="nas.axeAFC.initFrames();for(var fix=0;fix<this.parent.fileList.items.length;fix++){if(fix>0){nas.axeAFC.duplicateFrame();}exportFiles.setA(fix);};nas.axeAFC.reverseAnimationFrames();";
 
  if(app.activeDocument.suspendHistory){
      app.activeDocument.suspendHistory(UndoString,myExecute);

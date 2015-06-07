@@ -4,7 +4,7 @@
 
 layerReverse= function(targetCol){
 	var myTarget=targetCol;
-	if(!(targetCol instanceof Layers)){return false;};
+	if(targetCol.typename != "Layers"){return false;};
 	if(myTarget.length<=1){return false;};
 	var sortOrder=new Array();
 	for (idx=0;idx<myTarget.length;idx++){

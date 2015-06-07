@@ -105,9 +105,9 @@
 </div>
 <!-- ================================================================= -->
 <!-- プレビューコントロール -->
-<button class=fsp onClick='javascript:syncProp();document.getElementById("FRMhandle").style.display=(document.getElementById("FRMhandle").style.display=="none")?"inline":"none";' title="フレームアニメーション/タイムライン操作">Preview/Timeline</button><br>
+<button class=fsp onClick='javascript:document.getElementById("FRMhandle").style.display=(document.getElementById("FRMhandle").style.display=="none")?"inline":"none";syncProp();' title="フレームアニメーション/タイムライン操作">Preview/Timeline</button><br>
 <div id=FRMhandle style="display:inline">
-<button id="convertAFT" class=fw onClick='doAxeScript("convertPsAxeAnimation");syncProp();' style="width:189px;">フレーム<>タイムライン
+<button id="convertAFT" class=fw onClick='syncProp(doAxeScript("convertPsAxeAnimation"));' style="width:189px;">フレーム<>タイムライン
 </button><button id="vtFocus" class=qw style="width:26px;background-color:#558888;"
  onClick='if(this.innerHTML=="f"){this.innerHTML="✓";doScript("nas.axe.focusMove=false;");}else{this.innerHTML="f";doScript("nas.axe.focusMove=true;");};doScript("nas.writePrefarence(\"nas.axe\")");'  title="フォーカス">✓
 </button>
