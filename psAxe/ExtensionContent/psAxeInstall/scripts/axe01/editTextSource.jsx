@@ -128,4 +128,6 @@ w.show();
 //w.watch("onOpen",function(){alert(w.onOpen);w.unwatch("onOpen");});
 
 //whle(true){}
-	}else{alert("無い");}
+	}else{
+ 		alert(localize(nas.uiMsg.noTarget));//"対象アイテムがありません"
+	}

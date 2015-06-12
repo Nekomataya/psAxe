@@ -271,13 +271,13 @@ clipInt=function(){
 	}
 };
 //	Window
-var w=nas.GUI.newWindow("dialog","色指定チップを作る",3,6);
+var w=nas.GUI.newWindow("dialog",localize({en:"make color chip",ja:"色指定チップを作る"}),3,6);
 //	TEXT
- w.tx1	=nas.GUI.addEditText(w,"(名称未定)",0,0,3,1);
+ w.tx1	=nas.GUI.addEditText(w,localize({en:"(Untitled)",ja:"(名称未定)"}),0,0,3,1);
 
  w.lb1	=nas.GUI.addStaticText  (w ,"BOX" ,0 ,1 ,1.5 ,1).justify="right";
 	w.tx2	=nas.GUI.addEditText(w,boxNum,1.5,1,1,1);
-	w.lb1u	=nas.GUI.addStaticText  (w ,"個" ,2.5 ,1 ,0.5 ,1);
+	w.lb1u	=nas.GUI.addStaticText  (w ,localize({en:"boxes",ja:"個"}) ,2.5 ,1 ,0.5 ,1);
 	w.tx2.baseValue=boxNum;w.tx2.onChange=clipInt;
 
  w.lb2	=nas.GUI.addStaticText  (w ,"width" ,0 ,2 ,1.5 ,1).justify="right";
@@ -290,7 +290,7 @@ var w=nas.GUI.newWindow("dialog","色指定チップを作る",3,6);
 	w.lb3u	=nas.GUI.addStaticText  (w ,"cm" ,2.5 ,3 ,0.5 ,1);
 	w.tx4.baseValue=boxHeight;w.tx4.onChange=clipNum;
 
- w.cb1 =nas.GUI.addCheckBox (w,"仮色反転",1,4,2,1);
+ w.cb1 =nas.GUI.addCheckBox (w,localize({en:"inverted temporarily color",ja:"仮色反転"}),1,4,2,1);
 	w.cb1.value=colorReverse;
 	w.cb1.onClick=function(){
 		colorReverse=this.value;

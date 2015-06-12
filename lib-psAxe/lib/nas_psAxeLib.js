@@ -75,10 +75,14 @@ if(isWindows){
 //	ドキュメントマネージャ関連
 	nas.axe.dmDialog=true;//新規ファイルダイアログをカスタムするか否か
 	nas.axe.dmCurrent=[0,0,0,0];//最後に操作したドキュメント情報[タイトルDBid,opusNo.,cutNo.,time]
-    //ドキュメント・シート等の新規作成時に参照・更新する値
+//ドキュメント・シート等の新規作成時に参照・更新する値
     	nas.axe.pegAlignment="N";//    タップ画像配置　N:上　S:下???? どう扱うか考えとく
     	nas.axe.pegBlend=true;//    タップ画像を差の絶対値にする
 	nas.axe.frameOpc=true;//    フレーム画像を不透明度２０％にする
+//アニメーションモードコンバートオプション
+	nas.axe.mcDuplicateLayers=false;	//タイムライン変換時にレイヤの複製を許可する
+	nas.axe.mcUseOpacityKeyAll=false;	//タイムライン変換時に全て不透明度キーを使う
+	nas.axe.mcOpt2Vis=false;		//アニメフレーム変換時に不透明度を可視プロパティに変換する
 //================================================================以下は作業タイトルDB
 
 //インポートフィルタ
@@ -263,7 +267,7 @@ nas.axeAFC.setDly=function(myTime){
 executeAction( charIDToTypeID( "setd" ), desc, DialogModes.NO );
 }
 // =======================================================選択フレーム複製
-nas.axeAFC.dupulicateFrame=function(){
+nas.axeAFC.duplicateFrame=function(){
     var desc = new ActionDescriptor();
         var ref = new ActionReference();
         ref.putEnumerated( stringIDToTypeID( "animationFrameClass" ), charIDToTypeID( "Ordn" ), charIDToTypeID( "Trgt" ) );
@@ -384,7 +388,7 @@ nas.axeAFC.goFrame=function(kwd){
 : nas.axeCMC.getItemByLid(idx,myTrailer) レイヤIDを指定してオブジェクトを指定
 : nas.axeCMC.getAllItems(myTrailer) トレーラー配下の全アイテムを配列で取得
 : nas.axeCMC.selectItemsById(idie:Array) アイテムIDを指定して選択
-: nas.axeCMC.undo() undo
+: nas.axeCMC.undo(undoCount) undo回数を指定してUNDO
 : nas.axeCMC.evalA(undoString,codeChip) undoグループでコード片を実行
 : nas.axeCMC._isBlocked() レイヤが操作可能か判定
 : nas.axeCMC._isVideoGroup() ビデオグループ判定
@@ -769,19 +773,23 @@ nas.axeCMC.selectItemsById=function(idx){
    }   
 }
 // =================== UNDOバッファを使用して復帰
-/*　nas.axeCMC.undo()
-引数:なし
-戻値:アクションディスクリプタ　またはエラーイベント
-	undo実行
+/*　nas.axeCMC.undo(undoCount)
+引数: undoCount undoする回数
+戻値:成功したundo回数
+	指定回数のundo実行　指定のない場合は1回のみ
 	これよりはヒストリをさかのぼって消去の方が良いか？
 */
-nas.axeCMC.undo=function(){
+nas.axeCMC.undo=function(undoCount){
+	if(typeof undoCount=="undefined"){undoCount=1;}
+	var resultCount=0;
       var descUndo = new ActionDescriptor();
       var ref = new ActionReference();
       ref.putEnumerated(charIDToTypeID( "HstS" ) ,charIDToTypeID( "Ordn" ) ,charIDToTypeID( "Prvs" ) );
       descUndo.putReference( charIDToTypeID( "null" ), ref );
-try{var myResult=executeAction(charIDToTypeID( "slct" ), descUndo, DialogModes.NO )}catch(e){return e};
-	return myResult;
+     for (var doUndo=0;doUndo<undoCount;doUndo++){
+try{var myResult=executeAction(charIDToTypeID( "slct" ), descUndo, DialogModes.NO );resultCount++;}catch(e){};
+     }
+	return resultCount;
 }
 //=======================　undo保留を判定してコードを実行　CMCへ
 /*nas.axeCMC.evalA(undoString,codeChip)
@@ -813,12 +821,9 @@ nas.axeCMC._isBlocked=function(myLayer){
      var errornumber = 1;
      var myGray = new SolidColor();myGray.rgb.red=127;myGray.rgb.green=127;myGray.rgb.blue=127;
     try{
-	app.activeDocument.suspendHistory(
-	"check",
-	"app.activeDocument.selection.fill(myGray,ColorBlendMode.OVERLAY,100,true);"
-	);
+//	app.activeDocument.suspendHistory("check","app.activeDocument.selection.fill(myGray,ColorBlendMode.OVERLAY,100,true);");
+	app.activeDocument.selection.fill(myGray,ColorBlendMode.OVERLAY,100,true);
 //ここがエラー発生ポイント
-
 // ===========================成功時のみチェック操作ヒストリの削除
  //   var desc = new ActionDescriptor();
 //    var ref = new ActionReference();
@@ -866,6 +871,7 @@ nas.axeCMC._isVideoGroup=function(){
 //    nas.axeCMC.execWithReference("timelineGoToFirstFrame");
 //	スタートトリミング
 	app.activeDocument.suspendHistory("----",myEx);
+//	eval(myEx);
 	try{
    var desc = new ActionDescriptor();
    var ref  = new ActionReference();                 
@@ -1389,7 +1395,7 @@ var idSwitch = stringIDToTypeID( kwd );
         var idTrack = stringIDToTypeID( "opacityTrack" );//opacityTrack,sheetPositionTrack,styleTrack
         refSwitch.putEnumerated( stringIDToTypeID( "animationTrack" ), stringIDToTypeID( "stdTrackID" ), idTrack );
     descSwitch.putReference( charIDToTypeID( "null" ), refSwitch );
-executeAction( idSwitch, descSwitch, DialogModes.NO );
+return executeAction( idSwitch, descSwitch, DialogModes.NO );
 }
 // =================================アニメーションキーフレーム追加・削除
 /*nas.axeVTC.switchKeyFrame (kwd)
@@ -1404,14 +1410,13 @@ var idSwitch = charIDToTypeID( kwd );
         var idTrack = stringIDToTypeID( "opacityTrack" );//opacityTrack,sheetPositionTrack,styleTrack
         ref.putEnumerated( stringIDToTypeID( "animationTrack" ), stringIDToTypeID( "stdTrackID" ), idTrack );
     desc.putReference( charIDToTypeID( "null" ), ref );
-return 
-executeAction( idSwitch, desc, DialogModes.NO );
+return executeAction( idSwitch, desc, DialogModes.NO );
 }
 // =======================================キー補間法の設定
 /*nas.axeVTC.switchKeyInterp(kwd)
 引数:キーワード　"hold" "Lnr "
 戻値:
-キーが選択状態である必要性あり ヘッド位置であるだけでは条件不足　要注意
+キーが選択状態である必要性あり ヘッド位置である必要は無い
 */
 nas.axeVTC.switchKeyInterp = function(kwd){
     var desc = new ActionDescriptor();
@@ -1421,7 +1426,7 @@ nas.axeVTC.switchKeyInterp = function(kwd){
     desc.putReference( charIDToTypeID( "null" ), ref );
     var idInterp = (kwd=="Lnr ")?charIDToTypeID("Lnr "):stringIDToTypeID("hold");
     desc.putEnumerated( charIDToTypeID( "T   " ), stringIDToTypeID( "animInterpStyle" ), idInterp );
-executeAction( charIDToTypeID( "setd" ), desc, DialogModes.NO );
+return executeAction( charIDToTypeID( "setd" ), desc, DialogModes.NO );
 }
 // ===============================アクティブレイヤ指定時間位置のキーを選択
 /*nas.axeVTC.selectAnimationKeyAtPlayhead(selectionAdd,frame,keyKind)
@@ -1429,11 +1434,12 @@ executeAction( charIDToTypeID( "setd" ), desc, DialogModes.NO );
 戻値:
 指定がない場合は、追加なし　カレント位置　不透明度キーを操作
 後ほど複数選択等の操作を記録すること
+このメソッドは時間位置が完全に一致しない限り選択できないのでフレームレート変換直後は無効なケースが多々ある
 */
 nas.axeVTC.selectAnimationKeyAt= function(selectionAdd,atFrame,keyKind){
 	if(! selectionAdd){selectionAdd=false;};
-	if(atFrame === undefined){atFrame=this.getCurrentFrame();}
-	if(! keyKind){keyKind="opacityTrack";}
+	if(typeof atFrame == "undefined"){atFrame=this.getCurrentFrame();}
+	if(typeof keyKind == "undefined"){keyKind="opacityTrack";}
     var desc = new ActionDescriptor();
             var ref = new ActionReference();
         ref.putClass( stringIDToTypeID( "animationKey" ) );

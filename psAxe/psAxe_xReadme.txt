@@ -1,4 +1,4 @@
-psAxe 1.1.2 タイムライン対応機能試験	2015.06.07
+psAxe 1.1.3 タイムライン対応機能試験	2015.06.13
 
 
 psAxeの次期試験バージョンです
@@ -99,5 +99,5 @@ WEB上のアドレスを参照していますのでアップグレードは不定期に行われます
 1.0.0のドキュメントをご参照ください
 
 
-2015.06.07	Nekomataya/kiyo http://www.nekomataya.info/ mailto:support@nekomataya.info
+2015.06.13	Nekomataya/kiyo http://www.nekomataya.info/ mailto:support@nekomataya.info
 

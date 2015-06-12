@@ -1,1051 +1,1 @@
-/*
- *	nas ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ä¸€èˆ¬ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
- *	AEç­‰ã®Adobe Script ç’°å¢ƒã§ä½¿ç”¨å¯èƒ½ãªé–¢æ•°ãŠã‚ˆã³ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ã‚µãƒãƒ¼ãƒˆã—ã¾ã™
- *
- *
- *	$Id: nas_common.js,v 1.3 2012/02/05 23:31:36 kiyo Exp $
- */
- myFilename=("$RCSfile: nas_common.js,v $").split(":")[1].split(",")[0];
- myFilerevision=("$Revision: 1.3 $").split(":")[1].split("$")[0];
-
-// ============ å‹•ä½œãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ ã‚’åˆ¤åˆ¥ã—ã¦ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ åˆ¥ã®åˆæœŸåŒ–ã‚’è¡Œã†
-
-try{
-	if(app){
-	//Adobe Scripts 
-	nas.isAdobe=true;
-	nas.Version["common"]="common:"+myFilename+" :"+myFilerevision;
-		try{
-	if(app.isProfessionalVersion){app.name="Adobe AfterEffects";}
-		}catch(ERR){
-	;
-		};
-	}else{
-	nas.isAdobe=false;
-	};
-}catch(ERR){
-var	nas	=new Object();
-	nas.isAdobe=false;
-	nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");//(Folder.current.name=="Startup")? new Folder("../nas/"):Folder.current;
-	var MSIE	= navigator.userAgent.indexOf("MSIE")!=-1; 
-	var Safari	= navigator.userAgent.indexOf("Safari")!=-1;
-	var Firefox	= navigator.userAgent.indexOf("Firefox")!=-1;
-};
-
-	xUI=false;//xUIã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯HTMLãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«ãŠã‘ã‚‹UIç®¡ç†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãªã®ã§HTMLç’°å¢ƒå¤–ã§ã¯falseã§åˆæœŸåŒ–ã—ã¦åˆ¤å®šã™ã‚‹
-	//HTMLç’°å¢ƒä¸‹ã§ã‚ã£ã¦ã‚‚ä¾å­˜æ©Ÿèƒ½ãŒåˆæœŸåŒ–å®Œäº†å‰ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ã“ã¨ã‚’æŠ‘åˆ¶ã™ã‚‹ãŸã‚ã«falseã§ã‚ã‚‰ã‹ã˜ã‚åˆæœŸåŒ–ã™ã‚‹ã®ã‚’æ¨™æº–ãƒ¡ã‚½ãƒƒãƒ‰ã¨ã™ã‚‹
-
-/*
-nas_common.js
-å…±ç”¨å¯èƒ½ã‚¹ã‚¯ãƒªãƒ—ãƒˆéƒ¨åˆ†
-
---- ãŠã“ã¨ã‚ã‚Š
-ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®è‘—ä½œæ¨©ã¯ã€Œã­ã“ã¾ãŸã‚„ã€ã«ã‚ã‚Šã¾ã™ã€‚
-
-ã‚ãªãŸã¯ã€ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ã“ã®è‘—ä½œæ¨©è¡¨ç¤ºã‚’æ”¹å¤‰ã—ãªã„ã‹ãã‚Š
-è‡ªç”±ã«ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ä½¿ç”¨ãƒ»è¤‡è£½ãƒ»å†é…å¸ƒãªã©ã‚’è¡Œã†ã“ã¨ãŒã§ãã¾ã™ã€‚
-
-ã‚ãªãŸã¯ã€ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’è‡ªå·±ã®ç›®çš„ã«ã—ãŸãŒã£ã¦æ”¹é€ ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚
-ãã®å ´åˆã€ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’æ”¹é€ ã—ãŸã‚‚ã®ã§ã‚ã‚‹ã“ã¨ã‚’æ˜è¨˜ã—ã¦ã€ã“ã®è‘—ä½œæ¨©è¡¨ç¤ºã‚’
-æ·»ä»˜ã™ã‚‹ã‚ˆã†ã«åŠªã‚ã¦ãã ã•ã„ã€‚
-
-ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ä½¿ã†ã‚‚ä½¿ã‚ãªã„ã‚‚ã‚ãªãŸã®è‡ªç”±ãªã®ã§ã™ã€‚
-
-ä½œè€…ã¯ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ä½¿ç”¨ã—ãŸã“ã¨ã«ã‚ˆã£ã¦èµ·ããŸã„ã‹ãªã‚‹
-ä¸åˆ©ç›Šã«å¯¾ã—ã¦ã‚‚è²¬ä»»ã‚’è² ã„ã¾ã›ã‚“ã€‚
-ã‚ãªãŸã¯ã€ã‚ãªãŸã®åˆ¤æ–­ã¨è²¬ä»»ã«ãŠã„ã¦ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ä½¿ç”¨ã™ã‚‹ã®ã§ã™ã€‚
-
-ãªã‚“ã‹ã€å›°ã£ãŸã“ã¨ãŒã‚ã£ãŸã‚‰ä»¥ä¸‹ã§é€£çµ¡ã—ã¦ã‚‚ã‚‰ãˆã‚‹ã¨ä½•ã¨ã‹ãªã‚‹ã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚
-http://www.nekomataya.info/
-mailto:kiyo@nekomataya.info
-
-ãã‚“ãªæ„Ÿã˜ã§ã™ã€‚
-
-è¿½ä¼¸
-ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯ã€æ±ç”¨ã®ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ç¾¤ã§ã™ã€‚
-çµ„ã¿è¾¼ã¿ã§ã¤ã‹ãˆã‚‹ã‹ã©ã†ã‹ã¯ä½œè€…ã®ä½œæ¥­æ™‚é–“ã¨ã‚»ãƒ³ã‚¹ã«å·¦å³ã•ã‚Œã¾ã™ã€‚
-nasæ±ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ãƒ¡ã‚½ãƒƒãƒ‰ã§æ§‹æˆã™ã‚‹ã“ã¨ã«æ±ºå®šã€‚
-å‘¼ã³å‡ºã—ã‹ãŸãŒå¤‰ã‚ã‚‹ã®ã§ã“ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ä»¥é™äº’æ›æ€§ç„¡ã—ã€‚
-*/
-/*
-=======	ç¾åœ¨ã®ãƒ¡ã‚½ãƒƒãƒ‰ä¸€è¦§ ======= 2011/02/15
-
-nas.dt2sc(zè·é›¢)
-	zè»¸è·é›¢(ãƒ”ã‚¯ã‚»ãƒ«)ã‹ã‚‰ã‚¹ã‚±ãƒ¼ãƒ«ã‚’æ±‚ã‚ã‚‹
-
-nas.sc2dt(ã‚¹ã‚±ãƒ¼ãƒ«)
-	ã‚¹ã‚±ãƒ¼ãƒ«ã‹ã‚‰zè»¸è·é›¢ã‚’æ±‚ã‚ã‚‹ã€‚
-
-nas.fl2fr(æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ )
-	æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰ãƒ¬ã‚¿ã‚¹æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ã€‚
-
-nas.fr2fl(ãƒ¬ã‚¿ã‚¹æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ )
-	ãƒ¬ã‚¿ã‚¹ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ã€‚
-
-nas.fl2sc(æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ )
-	æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰ã‚¹ã‚±ãƒ¼ãƒ«ã‚’æ±‚ã‚ã‚‹ã€‚
-nas.fr2sc(ãƒ¬ã‚¿ã‚¹æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ )
-	ãƒ¬ã‚¿ã‚¹æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰ã‚¹ã‚±ãƒ¼ãƒ«ã‚’æ±‚ã‚ã‚‹ã€‚
-nas.sc2fl(ã‚¹ã‚±ãƒ¼ãƒ«)
-	ã‚¹ã‚±ãƒ¼ãƒ«ã‹ã‚‰æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ã€‚
-nas.sc2fr(ã‚¹ã‚±ãƒ¼ãƒ«)
-	ã‚¹ã‚±ãƒ¼ãƒ«ã‹ã‚‰ãƒ¬ã‚¿ã‚¹æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ã€‚
-nas.kac(é–‹å§‹å¯¸æ³•,çµ‚äº†å¯¸æ³•,åŠ©å¤‰æ•°)
-	é–‹å§‹å¯¸æ³•ãƒ»çµ‚äº†å¯¸æ³•ã¨åŠ©å¤‰æ•°ã‚’ä¸ãˆã¦ã€å¯¾å¿œã™ã‚‹å¯¸æ³•ã‚’æ±‚ã‚ã‚‹ã€‚
-nas.cak(é–‹å§‹å¯¸æ³•,çµ‚äº†å¯¸æ³•,æ‹¡å¤§ç‡)
-	é–‹å§‹å¯¸æ³•ãƒ»çµ‚äº†å¯¸æ³•ã¨ä»»æ„å¯¸æ³•ã‚’ä¸ãˆã¦ã€å¯¸æ³•ã«å¯¾å¿œã™ã‚‹åŠ©å¤‰æ•°ã‚’æ±‚ã‚ã‚‹ã€‚
-
-nas.Zf(æ•°å€¤,æ¡æ•°)
-	æ•°å€¤ã‚’æŒ‡å®šæ¡æ•°ã®ã‚¼ãƒ­ã§åŸ‹ã‚ã‚‹ã€‚
-
-nas.ms2fr(ãƒŸãƒªç§’æ•°)
-	ãƒŸãƒªç§’æ•°ã‹ã‚‰ã€ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’æ±‚ã‚ã‚‹ã€‚
-nas.fr2ms(ãƒ•ãƒ¬ãƒ¼ãƒ æ•°)
-	ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‹ã‚‰ã€ãƒŸãƒªç§’æ•°ã‚’æ±‚ã‚ã‚‹ã€‚
-nas.ms2FCT(ãƒŸãƒªç§’æ•°,ã‚«ã‚¦ãƒ³ã‚¿ã‚¿ã‚¤ãƒ—,ã‚ªãƒªã‚¸ãƒãƒ¼ã‚·ãƒ§ãƒ³[,ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ])
-	ãƒŸãƒªç§’æ•°ã‹ã‚‰ã€ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—ã¸ã®å¤‰æ›ã€‚
-	ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã‚¿ã‚¤ãƒ—ãƒ»ã‚ªãƒªã‚¸ãƒãƒ¼ã‚·ãƒ§ãƒ³ãƒ»ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã‚’æŒ‡å®š
-nas.FCT2ms(ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—)
-	ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—ã‹ã‚‰ã€ãƒŸãƒªç§’æ•°ã¸ã®å¤‰æ›ã€‚
-nas.Frm2FCT(ãƒ•ãƒ¬ãƒ¼ãƒ æ•°,ã‚«ã‚¦ãƒ³ã‚¿ã‚¿ã‚¤ãƒ—,ã‚ªãƒªã‚¸ãƒãƒ¼ã‚·ãƒ§ãƒ³[,ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ])
-	ãƒ•ãƒ¬ãƒ¼ãƒ æ•°(0ã‚ªãƒªã‚¸ãƒ³)ã‹ã‚‰ã€ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—ã¸ã®å¤‰æ›
-	ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã‚¿ã‚¤ãƒ—ãƒ»ã‚ªãƒªã‚¸ãƒãƒ¼ã‚·ãƒ§ãƒ³ãƒ»ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã‚’æŒ‡å®š
-nas.FCT2Frm(ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—[,ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ])
-	ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—ã‹ã‚‰ã€ãƒ•ãƒ¬ãƒ¼ãƒ æ•°(0ã‚ªãƒªã‚¸ãƒ³)ã¸ã®å¤‰æ›
-	ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆçœç•¥å¯èƒ½
-nas.docodeUnit(å…¥åŠ›å€¤,å¤‰æ›å˜ä½)
-	å…¥åŠ›å€¤ã®å˜ä½ã‚’å¤‰æ›ã—ãŸæ•°å€¤ã‚’æˆ»ã™(mm,cm,px,pt,in)
-
-==== è‰²å½©é–¢é€£(webç”¨)
-nas.colorStr2Ary(ã‚«ãƒ©ãƒ¼æ–‡å­—åˆ—)
-	WEBè‰²æŒ‡å®šç”¨ã®æ–‡å­—åˆ—ã‚’3æ¬¡å…ƒã®é…åˆ—ã«ã—ã¦è¿”ã™
-nas.colorAry2Str([é…åˆ—])
-	é…åˆ—ã§ä¸ãˆã‚‰ã‚ŒãŸRGBå€¤ã‚’16é€²æ–‡å­—åˆ—ã§è¿”ã™ã€‚
-==== ãƒ™ã‚¯ãƒˆãƒ«é–¢é€£
-nas.vec2ams(ãƒ™ã‚¯ãƒˆãƒ«,[ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ])
-	ä¸ãˆã‚‰ã‚ŒãŸãƒ™ã‚¯ãƒˆãƒ«ã®æ–¹ä½è§’ã‚’è¿”ã™ã€‚æ–‡å­—ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚‚å¯
-==== è¡Œåˆ—è¨ˆç®—
-è¡Œåˆ—æ¼”ç®—é–¢æ•°ã®è¡Œåˆ—ã¯é…åˆ—ã®çµ„ã¿åˆã‚ã›ã§ãªãã€è¦ç´ ã®ã‚¹ãƒˆãƒªãƒ¼ãƒ æ–‡å­—åˆ—ã§ã‚ã‚‹ã€‚
-
-nas.showMatrix(ãƒ©ãƒ™ãƒ«,è¡Œåˆ—æ–‡å­—åˆ—,è¡Œæ•°,åˆ—æ•°)
-	ä¸ãˆã‚‰ã‚ŒãŸè¡Œåˆ—æ–‡å­—åˆ—ã«æ”¹è¡Œã‚’åŠ ãˆã¦æ–‡å­—åˆ—ã§è¿”ã™ã€‚
-nas.mDeterminant(è¡Œåˆ—æ–‡å­—åˆ—)
-	è¡Œåˆ—å¼(å’Œ)ã‚’è¿”ã™ã€‚
-nas.multiMatrix(è¡Œåˆ—æ–‡å­—åˆ—1,è¡Œåˆ—æ–‡å­—åˆ—2)
-	è¡Œåˆ—ç©ã‚’æ±‚ã‚ã‚‹ã€‚
-nas.mInverse(è¡Œåˆ—æ–‡å­—åˆ—)
-	é€†è¡Œåˆ—ã‚’æ±‚ã‚ã‚‹ã€‚
-nas.transMatrix(è¡Œåˆ—æ–‡å­—åˆ—)
-	è¡Œåˆ—ã‚’è»¢ç½®ã™ã‚‹ã€‚
-
-==== æ–‡å­—åˆ—æ“ä½œ(Stringã‚¯ãƒ©ã‚¹ã«ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹ã‹ã‚‚çŸ¥ã‚Œãªã„ã®ã§æš«å®š)
-nas.biteCount(æ–‡å­—åˆ—)
-	æ–‡å­—åˆ—ã®ãƒã‚¤ãƒˆæ•°ã‚’è¿”ã™ã€‚
-nas.biteClip(æ–‡å­—åˆ—,åˆ¶é™ãƒã‚¤ãƒˆæ•°)
-	æ–‡å­—åˆ—ã‚’æŒ‡å®šãƒã‚¤ãƒˆæ•°ä»¥ä¸‹ã«ã‚¯ãƒªãƒƒãƒ—
-nas.incrStr(æ–‡å­—åˆ—)
-	æ–‡å­—åˆ—ã®æœ«å°¾ã®ç•ªå·éƒ¨åˆ†ã‚’ï¼‘ãã‚Šä¸Šã’ã¦è¿”ã™
-==== ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£æ“ä½œ
-nas.propCount(ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ,ãƒªã‚¹ãƒˆã‚¹ã‚¤ãƒƒãƒ)
-	ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹
-	ãƒªã‚¹ãƒˆã‚¹ã‚¤ãƒƒãƒã§ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£åã®é…åˆ—ã‚’è¿”ã™
-==== å˜ä½æ›ç®—
-nas.decodeUnit(å…¥åŠ›å€¤,å¤‰æ›å˜ä½)
-	å˜ä½ã¤ãã®æ–‡å­—åˆ—å€¤ã‚’æ•°å€¤ã«ã—ã¦è¿”ã™ãƒ¡ã‚½ãƒƒãƒ‰
-	å˜ä½ã¯ã€€mm cm in pt px
-	
-========	æ—¢å­˜ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
-		"yy/mm/dd hh:mm:ss" å½¢å¼ã‚’æ‹¡å¼µ
-Date.toNASString()
-	;returns String
-Date.setNASString("yy/mm/dd hh:mm:ss")
-	; returns object
- */
-
-/*===========================================
- *	nas Object base property
- *
- *
- */
-//ã‚«ãƒ¬ãƒ³ãƒˆãƒ¦ãƒ¼ã‚¶æ–‡å­—åˆ—
-	nas.CURRENTUSER=myName;	//ã“ã“ã§å‚ç…§ã—ã¦ã€ä»¥é™ã¯ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚’ä½¿ç”¨ã—ãªã„ã‚ˆã†ã«ã™ã‚‹2011/08/17
-//æ™‚é–“é–¢é€£è¨­å®š
-	nas.ccrate = 1000 ;	//æœ€å°‘è¨ˆæ¸¬å˜ä½(javascriptã§ã¯ãƒŸãƒªç§’å›ºå®š)
-	nas.MODE = "clock" ;	//è¡¨ç¤ºã®åˆæœŸãƒ¢ãƒ¼ãƒ‰(æ™‚è¨ˆ)
-	nas.ClockOption = 12 ;	//æ™‚è¨ˆã®åˆæœŸãƒ¢ãƒ¼ãƒ‰ (12æ™‚åˆ¶)
-	nas.STATUS = "stop" ;
-//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ	ã“ã“ã®ä¸¦ã³ã§ãƒ«ãƒ¼ãƒ—ã™ã‚‹ 100fps 24FPS 30NDF 30DF 25FPS
-	nas.RATEs = ["100fps","24FPS","30NDF","30DF","25FPS"];
-	nas.RATE = "24FPS" ;
-
-//åŸºæº–å¤‰æ•°
-//åå‰ä»˜ã‘è¦å‰‡ã¯ã€ä»¥ä¸‹ã«æº–ãšã‚‹
-//ã‚¹ã‚¯ãƒªãƒ—ãƒˆä¸Šã®å¤‰æ•°åã¯ã€å¤§æ–‡å­—ã®ã¿
-//ãƒ•ã‚©ãƒ¼ãƒ ä¸Šã®åŒåã®ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆã¯ å°æ–‡å­—ã§ç¶´ã‚Šåˆã‚ã¦ å¤§æ–‡å­—ã§ç¶´ã‚Šçµ‚ã‚ã‚‹è¨˜æ³•ã§
-//è¤‡åˆå˜èªã¯ã€å‰ç½®èªã‚’å°æ–‡å­—ã€å¾Œç½®èªã‚’å¤§æ–‡å­—
-//ã‚µãƒ³ãƒ—ãƒ«åŸºæº–å€¤
-	nas.FRATE = 24;//ã‚µãƒ³ãƒ—ãƒ«ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ(ãƒ•ãƒ¬ãƒ¼ãƒ ç¶™ç¶šæ™‚é–“ã«ç½®ãæ›ãˆã‚‹ã‹ä¸€è€ƒ)
-	nas.RESOLUTION = 144. / 2.540 ;//ã‚µãƒ³ãƒ—ãƒ«è§£åƒåº¦ppc(dpc)
-	nas.LENGTH = 225. ;//ã‚µãƒ³ãƒ—ãƒ«åŸºæº–å¯¸æ³•(mm)
-	nas.ASPECT = 16/9 ;//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¢ã‚¹ãƒšã‚¯ãƒˆï¼ˆå‚è€ƒå€¤ã€€æ¨ªï¼ç¸¦ï¼‰
-	nas.PIXELASPECT = 1 ;//ãƒ”ã‚¯ã‚»ãƒ«ã‚¢ã‚¹ãƒšã‚¯ãƒˆï¼ˆå‚è€ƒå€¤ã€€æ¨ªï¼ç¸¦ï¼‰
-	nas.FRAME_L=100 ;//ã‚µãƒ³ãƒ—ãƒ«åŸºæº–ãƒ•ãƒ¬ãƒ¼ãƒ (fl)
-
-//FCTã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹é–¢é€£
-//	nas.SheetLength = SheetLength*nas.FRATE;//ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆç¶™ç¶šæ™‚é–“ ãƒ•ãƒ¬ãƒ¼ãƒ /æš
-	nas.SheetLength = SheetLength;//ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆç¶™ç¶šæ™‚é–“ ç§’/æš
-/*
-	FCTã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã‚’ãƒ‰ãƒ­ãƒƒãƒ—ãƒ•ãƒ¬ãƒ¼ãƒ å¯¾å¿œã¨ã™ã‚‹
-	åŸºæœ¬çš„ãªãƒ‰ãƒ­ãƒƒãƒ—ãƒ¡ã‚½ãƒƒãƒ‰ã¯ã‚«ã‚¦ãƒ³ãƒˆæ¯æ•°ã‚’ Math.ceil(nas.FRATE)ã¨ã—ã¦
-	èª¤å·®ãŒè“„ç©æ¬¡ç¬¬ç§’ã®æœ«å°¾ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ãƒ‰ãƒ­ãƒƒãƒ—ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹äº‹ã§è¡Œã†ã€‚
-	nas.SheetLengthã¯å®Ÿéš›ã®æ¶ˆåŒ–ãƒ•ãƒ¬ãƒ¼ãƒ ã¨ã¨ã‚‰ãˆã‚‹ã¨æšæ•°ã”ã¨ã®ä¸å®šå€¤ã¨ãªã‚‹ã®ã§
-	ç§’æ•°ã§ç½®ã„ã¦ä¸€å®šå€¤ã‚’å¾—ã‚‹ã“ã¨ã«ã™ã‚‹(ä»•æ§˜å¤‰æ›´)
-*/
-//Frame of Location ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ (traditional)
-//åŸºæº–å€¤ã¯è¨ˆç®—ãƒ¬ã‚¿ã‚¹ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’åŸºæº–ã«ã—ãŸã»ã†ãŒè¨ˆç®—å›æ•°ãŒã„ãã‚‰ã‹æ¸›ã‚Šãã†?
-	nas.SCALE = 1;//ã‚µãƒ³ãƒ—ãƒ«æ‹¡å¤§æ¯”ç‡(å®Ÿæ•°)
-
-// for AEkey
-/*
- *	ã‚³ãƒ³ãƒæƒ…å ±
- *	è¨ˆç®—ã«å¿…è¦ãªæƒ…å ±ã¯ã€ã‚³ãƒ³ãƒã‚’åˆ‡ã‚Šæ›ãˆã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§å†åˆæœŸåŒ–ã™ã‚‹?
- *	ã¾ãŸã¯ã€æ‰‹å‹•ã§åˆæœŸåŒ–ãƒˆãƒªã‚¬ã‚’æ‰“ã¤ã‹?
- */
-//ã‚³ãƒ³ãƒã‚¸ã‚·ãƒ§ãƒ³ï¼“ï¼¤ã‚«ãƒ¡ãƒ©æƒ…å ±
-	nas.FOCUS_D = 50; //ãƒ¬ãƒ³ã‚ºç„¦ç‚¹è·é›¢ (mm)
-	nas.FILM_W = 36;//FILM Width (mm)
-	nas.FILM_H = 24;//FILM Height(mm)
-	nas.IMAGE_CR = function(){return Math.sqrt(Math.pow(this.FILM_W,2)+Math.pow(this.FILM_H,2))};//ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚µãƒ¼ã‚¯ãƒ«ç›´å¾„(mm)
-//ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚µãƒ¼ã‚¯ãƒ«ç›´å¾„(mm)
-//ã‚³ãƒ³ãƒã‚¸ã‚·ãƒ§ãƒ³è¨­å®š
-	nas.COMP_W = 720;//comp Width (px);
-	nas.COMP_H = 486;//comp Height(px);
-	nas.COMP_A = 0.9;//comp Aspect(W/H);
-
-	nas.COMP_D = function(){return Math.sqrt(Math.pow(this.COMP_W * this.COMP_A,2)+ Math.pow(this.COMP_H,2));};
-	nas.CAMERA_D = function(){return (this.COMP_D() * this.FOCUS_D)/ this.IMAGE_CR();};
-
-
-//ãƒ¬ã‚¤ãƒ¤ãƒ»ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸è¨­å®š
-//ä»Šã®ã¨ã“ã‚ã‚­ãƒ¼ã«æ·»ä»˜ã™ã‚‹ã ã‘ã®å€¤(å¤‰æ›ã«ã¯ç„¡é–¢ä¿‚)
-	nas.SRC_W = 720;//source Width (px);
-	nas.SRC_H = 486;//source Height(px);
-	nas.SRC_A = 0.9;//source Aspect(W/H);
-//AE-Key data å‡ºåŠ›é–¢é€£ã®å¤‰æ•°(åˆæœŸå€¤)
-	nas.AE_Ver = "6.0";// 4.0/5.0/6.0
-	nas.KEY_STYLE = "withTime";//or "valueOnly"
-	nas.KEY_TYPE = "Scale";// or "Position"
-
-//å­å¤‰æ•° è¦ªå¤‰æ•°ã‹ã‚‰å°ã‹ã‚Œã‚‹è¡¨ç¤ºãƒ‡ãƒ¼ã‚¿(ã¾ãŸã¯æ´¾ç”Ÿãƒ‡ãƒ¼ã‚¿)
-//å¤‰æ•°åã¯ã€å¤§æ–‡å­—ã§ã¯ã˜ã¾ã‚Š å¾Œã‚ã¯å°æ–‡å­—ã®ã¿
-//ãƒ•ã‚©ãƒ¼ãƒ ä¸Šã®åŒåã®inputã¯æ¥µåŠ›å¤§æ–‡å­—ã®ã¿ã§è¡¨è¨˜
-//RESOLUTION æ´¾ç”Ÿå¤‰æ•° ãƒ©ãƒ ãƒ€é–¢æ•°è©¦é¨“
-	nas.Dpi = function(){return this.RESOLUTION * 2.540;} ;
-	nas.Dpc = function(){return this.RESOLUTION;} ;
-//FRAME_L æ´¾ç”Ÿå¤‰æ•°
-	nas.FRAMEl = function(){this.FRAME_L;};
-	nas.FRAMEr = function(){this.fl2fr(this.FRAME_L);};
-
-//ã“ã“ã¾ã§ã¯ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
-/*
-Dateã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«toNASStringå½¢å¼å‡¦ç†ã‚’ä¹—ã›ã‚‹
-*/
-Date.prototype.toNASString = function()
-{
-	var	h=this.getHours();
-	var	m=this.getMinutes();
-	var	s=this.getSeconds();
-	var	yy=this.getFullYear();
-	var	mm=this.getMonth()+1;
-	var	dd=this.getDate();
-	var Result=yy+"/"+mm+"/"+dd+"\ "+h+"\:"+m+"\:"+s ;
-return Result;
-};
-//
-//
-Date.prototype.setNASString = function(nasString)
-{
-	var	yy=nasString.split("\ ")[0].split("/")[0];
-	var	mm=nasString.split("\ ")[0].split("/")[1]-1;
-	var	dd=nasString.split("\ ")[0].split("/")[2];
-	var	h=nasString.split("\ ")[1].split(":")[0];
-	var	m=nasString.split("\ ")[1].split(":")[1];
-	var	s=nasString.split("\ ")[1].split(":")[2];
-		this.setYear(yy);
-		this.setMonth(mm);
-		this.setDate(dd);
-		this.setHours(h);
-		this.setMinutes(m);
-		this.setSeconds(s);
-
-return this;
-};
-
-/*
-	nas å…±é€šãƒ©ã‚¤ãƒ–ãƒ©ãƒª
-æ•°å­¦é–¢é€£ã¨ã‹æ˜ åƒé–¢é€£ã®æˆ»ã‚Šå€¤ã®ã‚ã‚‹é–¢æ•°ç¾¤
-(ãƒ¡ã‚½ãƒƒãƒ‰ã§)
-*/
-//
-/*	è·é›¢é–¢é€£æ›ç®—é–¢æ•°
-dt2sc(Zè»¸ä½ç½®)	æˆ»ã‚Šå€¤:ä½ç½®ã«ç›¸å½“ã™ã‚‹æ‹¡å¤§æ¯”ç‡
-sc2dt(æ‹¡å¤§æ¯”ç‡)	æˆ»ã‚Šå€¤:æ¯”ç‡ã«ç›¸å½“ã™ã‚‹AEã®Zè»¸ä½ç½®
-	åŒæ–¹ã€ã¨ã‚‚ã«ã‚³ãƒ³ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ä¾å­˜
-*/
-nas.dt2sc = function(dt){return (this.CAMERA_D()/((1 * dt) + this.CAMERA_D()))};
-//
-nas.sc2dt = function(sc) {return ((this.CAMERA_D()/(1 * sc))-this.CAMERA_D())};
-//
-
-/*	ãƒ•ãƒ¬ãƒ¼ãƒ é–¢é€£æ›ç®—é–¢æ•° ä¸€ã€…æ›¸ã„ã¦ã‚‚é–“é•ãˆãã†ãªã®ã§ã¾ã¨ã‚ã¦ãŠãã€‚
-fl ã¯ã€æ—§æ¥ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ»ã‚¹ã‚¿ãƒ³ãƒ€ãƒ¼ãƒ‰å€¤100
-fr ã¯ã€ãƒ¬ã‚¿ã‚¹æ’®å½±ãƒ•ãƒ¬ãƒ¼ãƒ (è¦æ¤œè¨¼)ãƒ»åŒã‚¹ã‚¿ãƒ³ãƒ€ãƒ¼ãƒ‰å€¤100
-sc ã¯ã€å€ç‡
-FRAME_Lã¯ã€åŸºç¤æƒ…å ±ã¨ã—ã¦åŸºæº–ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’flå€¤ã§ä¸ãˆã‚‹ã“ã¨
-*/
-nas.fl2fr = function(fl){return ((fl * 1 + 60)/1.60)};
-//
-nas.fr2fl = function(fr){return ((fr * 1.60)-60)};
-	//
-/*
-*/
-nas.fl2sc = function (fl){return ((160*((this.FRAME_L * 1)+60))/(160*((fl*1)+60)))};
-//
-nas.fr2sc = function(fr){return (this.fl2sc(this.fr2fl(fr)))};
-//
-nas.sc2fl = function(sc){return ((((160 * (this.FRAME_L + 60))/(sc * 1))/160) - 60)};
-//
-nas.sc2fr = function(sc){return (this.fl2fr(this.sc2fl(sc)))};
-
-// æ‹¡å¤§ç‡å¤‰æ›é–¢æ•°
-// kac(åŸºæº–é‡,ç›®æ¨™é‡,åŠ©å¤‰æ•°)
-// æˆ»ã‚Šå€¤ã¯ åºå¤‰æ•°ã«å¯¾å¿œã™ã‚‹å¯¸æ³•
-
-nas.kac	= function(StartSize,EndSize,timingValue) {
-if (timingValue == 0 || timingValue == 1){
-	if (timingValue == 0) {resultS = StartSize};
-	if (timingValue == 1) {resultS = EndSize};
-} else {
-/*
-æ±‚ã‚ã‚‹å¯¸æ³•ã¯
-
-ã¾ãšé–‹å§‹å¯¸æ³•ã‚’1ã¨ã—ã¦çµ‚äº†å¯¸æ³•ã®é–‹å§‹å¯¸æ³•ã«å¯¾ã™ã‚‹æ¯”ç‡ã‚’æ±‚ã‚ã‚‹
-	EndSize/StartSize
-è·é›¢è©•ä¾¡ä¿‚æ•°ã¨ã—ã¦ æ¯”ã®é€†æ•°ã‚’é–‹å§‹ç‚¹ã¨çµ‚äº†ç‚¹ã§æ±‚ã‚ã‚‹ã€‚
-é–‹å§‹ç‚¹è·é›¢è©•ä¾¡ä¿‚æ•° 1/1 = 1
-çµ‚äº†ç‚¹è·é›¢è©•ä¾¡ä¿‚æ•° 1/(EndSize/StartSize) = StartSize/EndSize
-
-ä¸ãˆã‚‰ã‚ŒãŸåŠ©å¤‰æ•°ã«å¯¾å¿œã™ã‚‹è·é›¢è©•ä¾¡ä¿‚æ•°ã‚’æ±‚ã‚ã‚‹ã€‚
-((çµ‚äº†ç‚¹è·é›¢è©•ä¾¡ä¿‚æ•° - é–‹å§‹ç‚¹è·é›¢è©•ä¾¡ä¿‚æ•°) * åºå¤‰æ•°) + é–‹å§‹ç‚¹è·é›¢è©•ä¾¡ä¿‚æ•°
-= (((StartSize/EndSize) - 1) * timingValue) + 1
-è©•ä¾¡ä¿‚æ•°ã®é€†æ•°ã‚’ã¨ã£ã¦æ¯”ç‡ã‚’å¾—ã‚‹
-æ¯”ç‡ã‚’é–‹å§‹å¯¸æ³•ã«æ›ã‘ã‚‹
-é–‹å§‹å¯¸æ³• * è·é›¢è©•ä¾¡ä¿‚æ•°
-= StartSize / ((((Startsize/EndSize) - 1) * timingValue) + 1)
-*/
-//	resultS = (1-(timingValue)*(1-(StartSize/EndSize)));
-resultS = StartSize / ((((StartSize/EndSize) - 1) * timingValue) + 1);
-
-};
-return (resultS);
-};
-//
-//kacã®é€†é–¢æ•°
-//cak(åŸºæº–é‡,ç›®æ¨™é‡,ä»»æ„å¯¸æ³•)
-//æˆ»ã‚Šå€¤ã¯åŠ©å¤‰æ•°ã‚’æœ€å¤§ç²¾åº¦ã§
-
-nas.cak	= function(StartSize,EndSize,TargetSize) {
-/*
-	ã¾ã æ›¸ã„ã¦ãªã„ã‚ˆ('o')
-*/
-var resultT=0;
-	if (TargetSize==StartSize) {resultT=0}else{
-	if (TargetSize==EndSize) {resultT=1}else{
-resultT=(((1/TargetSize)-(1/StartSize))/((1/EndSize)-(1/StartSize)))
-
-	}};
-return (resultT);
-};
-
-//
-// ã‚¼ãƒ­åŸ‹ã‚ ZERROfilling
-nas.Zf = function(N,f) {
-var prefix="";
-if (N < 0) {N=Math.abs(N);prefix="-"};
-if (String(N).length < f) {
-	return prefix + ('00000000' + String(N)).slice(String(N).length + 8 - f , String(N).length + 8);
-} else {return String(N);}
-};
-//
-//æ™‚é–“ãƒ•ãƒ¬ãƒ¼ãƒ å¤‰æ›
-nas.ms2fr = function(ms){return (Math.floor(this.FRATE*(ms/1000)))};//ãƒŸãƒªç§’ã‹ã‚‰ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã€€å®Ÿæ™‚é–“åˆ‡æ¨ã¦æ•´æ•°ãƒ•ãƒ¬ãƒ¼ãƒ 
-//
-nas.fr2ms = function(frm){return (1000*frm/this.FRATE)};//ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰ãƒŸãƒªç§’ã€€æµ®å‹•å°‘æ•°
-//
-nas.ms2FCT = function(ms,type,ostF,fpsC){
-	if(! type){type=0};
-	if(! ostF){ostF=0};
-	if(! fpsC){fpsC = this.FRATE};
-	if(type>5){fpsC=29.97*(type-5)};//type 6 7ã®æ™‚ã«ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆå¼·åˆ¶
-	var myFrms=Math.round((ms*fpsC)/1000);
-	return this.Frm2FCT(myFrms,type,ostF,fpsC);
-}
-//
-nas.FCT2ms = function(fct){return 1000*(this.FCT2Frm(fct))/this.FRATE};
-//
-//ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—ç”Ÿæˆ
-/*
-	ãƒ‰ãƒ­ãƒƒãƒ—å¯¾å¿œç‰ˆ 2010/11/04
-	SMPTE ãƒ‰ãƒ­ãƒƒãƒ—30å¯¾å¿œ 2010/11/05
-	ãƒ¢ãƒ¼ãƒ‰æŒ‡å®š type6
-
-	30DF 60DF ã®ã¿ã‚’ã‚µãƒãƒ¼ãƒˆã®äºˆå®š ã©ã¡ã‚‰ã®ãƒ¢ãƒ¼ãƒ‰ã‚‚0ã‚ªãƒªã‚¸ãƒ³
-	æŒ‡å®šãƒ¢ãƒ¼ãƒ‰ã¨ã—ã¦type6(30df)/7(60df)ã‚’ä¸ãˆã‚‹
-	type7ã¯30DFäº’æ›ãªã®ã§30DFã¨åŒã˜ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§4ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ‰ãƒ­ãƒƒãƒ—ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹
-*/
-nas.Frm2FCT = function(frames,type,ostF,fpsC) {
-if(!type){type=0}
-if(!fpsC){fpsC=this.FRATE}
-if((type==6)||(type==7)){
-/*	SMPTE 30DF/type6 60DF/type7*/
-var dF=2589408;var hF=107892;var dmF=17982;var lmFd=1798;var lmFc=1800;var sF=30;var dropF=2;
-if(type==7){dF=dF*2;hF=hF*2;dmF=dmF*2;lmFd=lmFd*2;lmFc=lmFc*2;sF=sF*2;dropF=dropF*2;}
-
-var FR=(frames<0)? dF+(frames%dF):frames;//è² æ•°ã¯24hã®è£œæ•°åŒ–ã—ã¦è§£æ±º
-var h=0;var m=0;var s=0;var f=0;
-	h =Math.floor((FR / hF) % 24);//SMPTE TCã¯24æ™‚ãƒ«ãƒ¼ãƒ—
-//		mã‚’10åˆ†å˜ä½ã§ã‚¯ãƒªãƒƒãƒ—ã™ã‚‹ã¨è¨ˆç®—ãŒå˜ç´”åŒ–ã•ã‚Œã‚‹
-	var fRh = FR % hF;//æœªå‡¦ç†ãƒ•ãƒ¬ãƒ¼ãƒ 
-	var md =Math.floor(fRh/dmF);//10åˆ†å˜ä½
-	var mu =((fRh % dmF)<lmFc)? 0 : Math.floor(((fRh % dmF)-lmFc) / lmFd)+1;//10åˆ†ä»¥ä¸‹ã®åˆ†æ•°
-	m  = (md*10) + mu;//åŠ ç®—ã—ã¦åˆ†æ•°
-	fRm = fRh -(dmF*md)-(lmFd*mu);//
-	fRm -= (mu==0)? 0 : dropF;//æ­£åˆ†ã¾ã§å‡¦ç†ã‚’çµ‚ãˆãŸæ®‹ãƒ•ãƒ¬ãƒ¼ãƒ 
-	s = (mu == 0)? Math.floor(fRm/sF):Math.floor((fRm+dropF)/sF);//ç§’æ•°ãƒ»ä¾‹å¤–ã‚’é™¤ããƒ‰ãƒ­ãƒƒãƒ—2ãƒ•ãƒ¬è£œå„Ÿ
-	fRs = ((mu == 0)||(s == 0))? fRm - (s * sF):fRm - (s * sF) + dropF;
-	f=((mu==0)||(s!=0))? fRs:fRs+dropF;
- return nas.Zf((h%24),2)+":"+nas.Zf(m,2)+":"+nas.Zf(s,2)+";"+nas.Zf(f,2);
-}else{
-/*	é€šå¸¸ã®TCã‚’ä½œæˆ	*/
-var negative_flag = false;
-if (frames < 0) {frames = Math.abs(frames);negative_flag=true;};
-	if (ostF == 1) {
-		PostFix = ' _';
-	} else {
-		ostF = 0;
-		PostFix = ' .';
-	};
-//
-//	default	00000
-//	type 2	0:00:00
-//	type 3	000 + 00
-//	type 4	p 0 / 0 + 00
-//	type 5	p 0 / + 000
-//		type 6	00:00:00;00
-//		type 7	00:00:00;00
-//
-var m = Math.floor((frames + ostF) / (fpsC * 60));
- var s = Math.floor((frames + ostF) / fpsC);
-  var SrM = s % 60;
-   var p = Math.floor(s / this.SheetLength ) + 1;//SheetLengthç§’æ•°ã§è¨ˆç®—
-    var FrS = Math.floor(frames-(s * fpsC))+ostF;//ç§’å˜ä½ç«¯æ•°ãƒ•ãƒ¬ãƒ¼ãƒ 
-     var FrP = Math.floor(frames-(((p-1)*this.SheetLength) * fpsC))+ostF;//ãƒšãƒ¼ã‚¸
-      var SrP = s-((p-1)*this.SheetLength);//ãƒšãƒ¼ã‚¸å˜ä½ç«¯æ•° ç§’
-
-switch (type) {
-case 5: Counter ='p ' + this.Zf(p,1) + ' / + ' + this.Zf(FrP,3) + PostFix ;break;
-case 4: Counter ='p ' + this.Zf(p,1) + ' / ' + SrP +' + ' + this.Zf(FrS,2)+ PostFix ;break;
-case 3: Counter =this.Zf(s,1) + ' + ' + this.Zf(FrS,2) + PostFix ;break;
-case 2: Counter =this.Zf(m,1) + ':' + this.Zf(SrM,2) + ':' + this.Zf(FrS,2) + PostFix ;break;
-default: Counter =this.Zf(frames + ostF ,4) + PostFix ;
-};
-if (negative_flag) {Counter="-( " + Counter +" )"};
- return Counter;
-}
-};
-
-/*
-nas.FCT2Frm(Fct,fpsC)
-å¼•æ•° :ã‚¿ã‚¤ãƒ ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—[,ã‚«ã‚¦ãƒ³ã‚¿ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ]
-æˆ»å€¤ :ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-
-ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—ã‹ã‚‰0ã‚¹ã‚¿ãƒ¼ãƒˆã®ãƒ•ãƒ¬ãƒ¼ãƒ å€¤ã‚’è¿”ã™
-ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—ã¨èªè­˜ã§ããªã‹ã£ãŸå ´åˆã¯'å…ƒã®æ–‡å­—åˆ—'ã‚’è¿”ã™[ä»•æ§˜å¤‰æ›´]
-ãƒ‰ãƒ­ãƒƒãƒ—ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæŒ‡å®šã•ã‚ŒãŸå ´åˆã¯ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æˆ»ã•ãšä¸Šè¨˜ã«æº–ãšã‚‹
-
-ã‚¿ã‚¤ãƒ ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—ã¯Frm2FCT()ã®æ–‡å­—åˆ—ã‚’å…¨ã¦èªè­˜ã—ã¦è§£æ±ºã™ã‚‹
-è² æ•°å¯¾å¿œ
-ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®æŒ‡å®šãŒå¯èƒ½ãªã‚ˆã†ã«æ‹¡å¼µ(2010/11/06)
-æŒ‡å®šãŒãªã„å ´åˆã€€nas.RATE ã‚’å‚ç…§ã™ã‚‹
-ã‚«ã‚¦ãƒ³ã‚¿æ–‡å­—åˆ—ã«ãƒšãƒ¼ã‚¸æŒ‡å®šãŒã‚ã‚‹å ´åˆã¯ã€€nas.SheetLengthã€€ã‚’å‚ç…§ã™ã‚‹
-ã“ã®å¤‰æ•°ã®ä¸€æ™‚æŒ‡å®šã¯ã§ããªã„ã®ã§ã€ã‚·ã‚¹ãƒ†ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ç›´æ¥æ›¸ãç›´ã™å¿…è¦ãŒã‚ã‚‹
-
-SMPTEãƒ‰ãƒ­ãƒƒãƒ—ã‚’æ‹¡å¼µ(2010.11.05)
-TCæ–‡å­—åˆ—åˆ¤å®š ã‚­ãƒ¼ã¯
-ã€€æœ€çµ‚ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ãŒ";"ã§ã‚ã‚‹ã‹å¦ã‹
-ã€€æ–‡å­—åˆ—æœ«å°¾ã®ã‚ªãƒªã‚¸ãƒãƒ¼ã‚·ãƒ§ãƒ³æŒ‡å®šã¯ã‚ã£ã¦ã‚‚ã‚ˆã„ãŒç„¡åŠ¹ï¼ˆå…¨ã¦0ã‚ªãƒªã‚¸ãƒ³ï¼‰
-ã€€ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã¯30DF 60DFã§ã¯å¼·åˆ¶æŒ‡å®šãŒè¡Œã‚ã‚ŒãŸã‚‚ã®ã¨ã™ã‚‹ã€‚
-ã€€ä¸­é–“ã®45fpsã‚’é–¾å€¤ã¨ã—ã¦nas.FRATEãŒãã‚Œä»¥ä¸‹ã®å ´åˆã¯30DF
-ã€€ãã‚Œä»¥ä¸Šã®å ´åˆã¯60DFã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’è¿”ã™
-ã€€æœ¬æ¥60DFã¯SMPTEã®è¦æ ¼å¤–ãªã®ã§æ‰±ã„ã«æ³¨æ„ã™ã‚‹ã“ã¨
-*/
-nas.FCT2Frm = function(Fct,fpsC)
-{
-	if(!fpsC){ fpsC = this.FRATE};
-	fct = Fct.toString();
-	var negative_flag=1;
-//è² æ•°è¡¨ç¤ºãŒã‚ã‚‹å ´åˆãƒã‚¬ãƒ†ã‚£ãƒ–ãƒ¢ãƒ¼ãƒ‰ã«é·ç§»
-   if (fct.match(/^\-\(([^\(\)]*)\)$/)){
-	fct=RegExp.$1;
-	negative_flag=-1;
-   }
-//ç©ºç™½ã‚’å…¨å‰Šé™¤
-	fct = fct.replace(/\s/g,'');
-//æ–‡å­—åˆ—ã®æœ€æœŸã®æ–‡å­—ã‚’è©•ä¾¡ã—ã¦ã‚ªãƒªã‚¸ãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚’å–å¾—
-	if (fct.charAt(fct.length - 1)=='_') {
-		ostF = 1;
-		PostFix = '_';
-	} else {
-		ostF = 0;
-		PostFix = '.';
-	};
-
-//æ–‡å­—åˆ—ã®æœ€æœŸã®æ–‡å­—ãŒãƒã‚¹ãƒˆãƒ•ã‚£ãƒƒã‚¯ã‚¹ãªã‚‰åˆ‡ã‚Šæ¨ã¦
-//	alert(fct.charAt(fct.length - 1)+" : "+PostFix);
-	if (fct.charAt(fct.length - 1)==PostFix) {
-		fct = fct.slice(0,-1);
-	};
-//åˆæœŸåˆ¤å®šã§ã€€SMPTE-DFã‚’åˆ†é›¢
-	if(fct.match(/^([0-9]+:){0,2}[0-9]+;[0-9]+$/)){
-//SMPTE hh:mm:ss;ff
-		fct=fct.replace(/;/g,":");//ã‚»ãƒŸã‚³ãƒ­ãƒ³ã‚’ç½®æ›
-		fpsC=(fpsC<45)?29.97:59.94;//SMPTEãƒ‰ãƒ­ãƒƒãƒ—ãŒæŒ‡å®šã•ã‚ŒãŸã®ã§å¼·åˆ¶çš„ã«ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆèª¿æ•´
-		ostF=0;PostFix="";
-
-//ä¸€æ™‚ä¿‚æ•°è¨­å®š
-var dF=2589408;var hF=107892;var dmF=17982;var lmFd=1798;var lmFc=1800;var sF=30;var dropF=2;
-if(fpsC>=45){dF=dF*2;hF=hF*2;dmF=dmF*2;lmFd=lmFd*2;lmFc=lmFc*2;sF=sF*2;dropF=4;};//60DF
-//TCã‚’ã‚¹ãƒ—ãƒªãƒƒãƒˆã—ã¦é…åˆ—ã«å…¥ã‚Œã‚‹
-		tmpTC=new Array();
-		tmpTC=fct.split(":");
-		var h=0;var m=0;var s=0;var k=0;
-//
-		switch (tmpTC.length) {
-case 4:	 h=tmpTC[tmpTC.length - 4]*1;
-case 3:	  m=tmpTC[tmpTC.length - 3]*1;
-case 2:	   s=tmpTC[tmpTC.length - 2]*1;
-case 1:	    f=tmpTC[tmpTC.length - 1]*1;
-		};
-//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ‰ãƒ­ãƒƒãƒ—åˆ¤å®š
-if(((m%10)>0)&&(s==0)&&(f<dropF)){return null};//ãƒ‰ãƒ­ãƒƒãƒ—ãƒ•ãƒ¬ãƒ¼ãƒ ã¯ãƒŒãƒ«æˆ»ã—
-
-	var FR  = h * hF;//æ™‚
-	FR += Math.floor(m / 10) * dmF  ;//ï¼‹10åˆ†å˜ä½ã§åŠ ç®—
-	FR += (m % 10) * lmFd;//ã²ã¨ã‘ãŸåˆ†ä¹—ç®—
-	FR += ((m % 10)>0)? dropF : 0;//1åˆ†ä»¥ä¸Šãªã‚‰èª­ã¿é£›ã°ã•ãªã‹ã£ãŸãƒ•ãƒ¬ãƒ¼ãƒ ã‚’åŠ ç®—
-	FR += s * sF;//ç§’æ•°ä¹—ç®—
-	FR -= (((m % 10)>0)&&(s>0))? dropF : 0;//00 10 20 30 40 50 åˆ†ã®ä¾‹å¤–ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ¸›ç®—ã—ã¦è§£æ±º
-	FR += f;//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’åŠ ç®—
-	FR -= (((m % 10)>0)&&(s==0)&&(f>=dropF))? dropF:0;//ä¾‹å¤–ãƒ‰ãƒ­ãƒƒãƒ—ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ¸›ç®—
-//ã“ã“ã§å­˜åœ¨ã—ãªã„ã¯ãšã® ãƒ‰ãƒ­ãƒƒãƒ—ã•ã‚ŒãŸãƒ•ãƒ¬ãƒ¼ãƒ ã¯æ¸›ç®—å¯¾è±¡å¤–ã«ã—ã¦å¾Œã‚ã«é€ã‚‹
-
-	return FR*negative_flag;
-	}else{
-//æ¨™æº–å‡¦ç†(ãƒ‰ãƒ­ãƒƒãƒ—å«ã‚€)
-//	if (fct.match(/[0-9\:\p\/\+]/)) {return fct}
-// ãƒ­ãƒ¼ã‚«ãƒ«å¤‰æ•°åˆæœŸåŒ–
-	var p=1;
-	 var h=0;
-	  var m=0;
-	   var s=0;
-	    var k=0;
-//	type 1	00000 ãƒ‰ãƒ­ãƒƒãƒ—ã¯å­˜åœ¨ã—ãªã„
-	if (fct.match(/^[0-9]+$/)) {
-		k=fct;
-	} else {
-//	type 2	0:00:00ã€€å°‘æ•°ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®éš›ã«ãƒ‰ãƒ­ãƒƒãƒ—ç™ºç”Ÿ
-	if (fct.match(/^([0-9]+:){1,3}[0-9]+$/)) {
-//TCãªã®ã§ã‚¹ãƒ—ãƒªãƒƒãƒˆã—ã¦é…åˆ—ã«å…¥ã‚Œã‚‹
-		tmpTC=new Array();
-		tmpTC=fct.split(":");
-		switch (tmpTC.length) {
-case 4:	 h=tmpTC[tmpTC.length - 4];
-case 3:	  m=tmpTC[tmpTC.length - 3];
-case 2:	   s=tmpTC[tmpTC.length - 2];
-case 1:	    k=tmpTC[tmpTC.length - 1];
-		};
-	} else {
-//	type 3	000 + 00
-	if (fct.match(/^[0-9]+\+[0-9]+$/)) {
-		s=fct.substring(0,fct.search(/\+/));
-		 k=fct.substr(fct.search(/\+/)+1);
-	} else {
-//	type 4	p 0 / 0 + 00
-	if (fct.match(/^p[0-9]+\/[0-9]+\+[0-9]+$/)) {
-		p=fct.slice(1,fct.search(/\x2F/));
-		 s=fct.substring(fct.search(/\x2F/)+1,fct.search(/\+/));
-		  k=fct.substr(fct.search(/\+/)+1);
-	} else {
-//	type 5	p 0 / + 000
-	if (fct.match(/^p[0-9]+\/\+[0-9]+$/)) {
-		p=fct.slice(1,fct.search(/\x2F/));
-		  k=fct.substr(fct.search(/\+/)+1);
-	} else {
-// ãƒ€ãƒ¡ãƒ€ãƒ¡
-	return fct;
-		}}}}};
-// æ•°å€¤åŒ–ã—ã¦å…¨åŠ ç®—
- p=parseInt(p,10);
-  h=parseInt(h,10);
-   m=parseInt(m,10);
-     s=parseInt(s,10);
-      k=parseInt(k,10);
-/*
-	ã‚¿ã‚¤ãƒ ã‚³ãƒ¼ãƒ‰çš„ã«ã¯ã™ã¹ã¦æ•´æ•°ã§ã‚ã‚‹ã“ã¨ãŒå¿…é ˆ
-	ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆãŒå°‘æ•°ç‚¹ä»¥ä¸‹ã®å€¤ã‚’å«ã‚€å ´åˆã¯ã™ã¹ã¦åˆ‡ã‚Šä¸Šã’ã¦ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’å¾—ã‚‹
-	â†’ (1+10.5)ã¯(1+11)ã«ã‚ãŸã‚‹
-*/
-var	Seconds=(p-1) * this.SheetLength + h * (60 * 60) + m * (60) + s;
-var	Frames= Math.ceil(( Seconds * fpsC ) + k )- ostF;
-//ãƒŠãƒãƒ¥ãƒ©ãƒ«ãƒ‰ãƒ­ãƒƒãƒ—ãƒ•ãƒ¬ãƒ¼ãƒ ã®åˆ¤å®š ãƒ•ãƒ¬ãƒ¼ãƒ ç¶™ç¶šæ™‚é–“ã®æœ«å°¾ãŒç§’å¢ƒç•Œã‚’ã¾ãŸãŒã£ãŸå ´åˆã‚’ãƒ‰ãƒ­ãƒƒãƒ—ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹
-//é€£ç¶šã—ã¦ãƒ•ãƒ¬ãƒ¼ãƒ ãŒãƒ‰ãƒ­ãƒƒãƒ—ã™ã‚‹ã“ã¨ã¯ã‚ã‚Šãˆãªã„ã®ã§ã“ã®ã‚ˆã†ã«åˆ¤å®š
-//æ•´æ•°ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆæ™‚ã«å®Ÿè¡Œã•ã‚Œã¦ã„ãŸã®ã§ã€ãƒˆãƒ©ãƒƒãƒ—ã™ã‚‹ã€€2012ã€€0205
-
-	if (((fpsC % 1)!= 0)&&(Math.floor(Frames/fpsC) != (Seconds))){
-		return null
-	};
-//{alert ("drop :"+Frames+" >> "+(Frames)/fpsC+":"+Seconds)};
-//ã“ã®åˆ¤å®šã®ãŸã‚é›»å“ã®è¨ˆç®—å¼ã«ä½¿ç”¨ã™ã‚‹ã¨ãã®ãƒˆãƒ©ãƒƒãƒ—ãŒç™ºç”Ÿã™ã‚‹ã®ã§æ³¨æ„(2010/11/06)
-	 return Frames*negative_flag;
-	}
-};
-/* 
-	ãŠé“å…·ç®±æ±ç”¨ãƒ‡ãƒ¼ã‚¿æ“ä½œé–¢æ•°ç¾¤
-
-
-//ãŠé“å…·ç®±æ±ç”¨ãƒ‡ãƒ¼ã‚¿æ“ä½œé–¢æ•°ç¾¤ã‚ªãƒ¯ãƒª
-
-
-/*	corveto é–¢é€£ã®é–¢æ•°
-		ãªã‚“ã‹ã¾ã ã¤ã‚‰ãã†ã ãŒã¨ã‚Šã‚ãˆãšè¨­å®šã—ã¦ãŠã
-*/
-// ãƒ™ã‚¸ã‚§ã®ä¸€æ¬¡å¼
-nas.bezier = function(SP, CP1, CP2, EP, T) {
-//ã“ã®å¼ã¯å®šç¾©ã©ãŠã‚Šã®å¼
-
-	var Ax = EP - SP - (3 * (CP2 - CP1));
-	var Bx = 3 * (CP2 - (2 * CP1) + SP);
-	var Cx = 3 * (CP1 - SP);
-    
-	var Result = (Ax * Math.pow(T,3)) + (Bx * Math.pow(T,2)) + (Cx * T) + SP;
-    
-	return Result;
-};
-//
-// ä¸€æ¬¡ãƒ™ã‚¸ã‚§ã®é€†é–¢æ•° ä¿‚æ•°ã¨å€¤ã‹ã‚‰åºå¤‰æ•°tã‚’ã‚‚ã¨ã‚ã‚‹
-/*
-ã“ã®é–¢æ•°ã¯ç¯„å›²ã‚’é™å®šã—ã¦ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’æ±‚ã‚ã‚‹é–¢æ•°ã¨ã—ã¦ç”Ÿã‹ã—
-SP=0  EP=1*/
-nas.bezierA = function(CP1, CP2, Vl) 
-{
-/*
-åˆ¶å¾¡ç‚¹ã®ç¯„å›²ã‚’0-1ã«é™å®šã—ã¦å€¤ã®å¢—åŠ å‚¾å‘ã‚’ç¶­æŒã™ã‚‹ã“ã¨ã§ã€å€¤ã«å¯¾ã™ã‚‹åŠ©å¤‰æ•°ã‚’æ±ºå®šã™ã‚‹ã“é–¢æ•°ã€‚ä¸€èˆ¬å€¤ã‚’æ±‚ã‚ã‚‹é–¢æ•°ã§ã¯ã‚ã‚Šã¾ã›ã‚“ã®ã§ã”æ³¨æ„ãã ã•ã„ã€‚
-*/
-	if ( Vl > 1 || CP1 > 1 || CP2 > 1 || Vl < 0 || CP1 < 0 || CP2 < 0) {
-		return "rangeover";
-	};
-	var Ck = 0;
-	if (Vl == 0) {var t = 0} else {if (Vl == 1) {var t = 1} else {
-//åˆæœŸåŒ–
-//åŠ©å¤‰æ•°ã®åˆæœŸå€¤ã‚’å€¤ã«ã¨ã‚‹
-	t = Vl ;//ãƒ†ã‚¹ãƒˆç”¨ä»®å€¤
-//æ±‚ã‚ãŸåŠ©å¤‰æ•°ã§ãƒ†ã‚¹ãƒˆå€¤ã‚’ã¨ã‚‹
-//åŠ©å¤‰æ•°ãŒ
-	var TESTv = this.bezier(0, CP1, CP2, 1, t);//åˆæœŸãƒ†ã‚¹ãƒˆå€¤
-	var UPv = 1;	//ä¸Šé™å€¤
-	var DOWNv = 0;	//ä¸‹é™å€¤
-	do {
-if ( TESTv < Vl ) { DOWNv = t }else {UPv = t};
-//	ãƒ†ã‚¹ãƒˆå€¤ã«ã‚ˆã£ã¦ä¸Šé™ã¾ãŸã¯ä¸‹é™ã‚’å…¥ã‚Œæ›ãˆ
-	t = (DOWNv + UPv) / 2;
-	Ck = Ck + 1;//ãƒã‚§ãƒƒã‚¯å›æ•°(ãƒ‡ãƒãƒƒã‚¯ç”¨)
-TESTv = this.bezier(0, CP1, CP2, 1, t);
-	} while (TESTv / Vl < 0.999999999 || TESTv / Vl > 1.0000000001)
-//ãƒ†ã‚¹ãƒˆå€¤ãŒç›®æ¨™å€¤ã«ãŸã„ã—ã¦ååˆ†ãªç²¾åº¦ã«ãªã‚‹ã¾ã§ãƒ«ãƒ¼ãƒ—(ç²¾åº¦èª¿æ•´å¾…ã¡ 05/01)
-}};
-t = Math.round(t*100000000)/100000000;
-//
-	if (dbg) dbg_info.notice="loop-count is "+Ct;
-//ãƒ‡ãƒãƒƒã‚°ãƒ¡ãƒ¢ã«ã‚«ã‚¦ãƒ³ã‚¿ã®å€¤ã‚’å…¥ã‚Œã‚‹
-var Result = t;//åŠ©å¤‰æ•°
-return Result;
-};
-
-//
-//
-/*	ä¸€èˆ¬å¼ï¾ï¾ï½¼ï¾ï½ªã®å¼§ã®é•·ã•ã‚’æ±‚ã‚ã‚‹
-å¼•æ•°ã¯
-bezierL(é–‹å§‹å€¤,åˆ¶å¾¡ç‚¹1,åˆ¶å¾¡ç‚¹2,çµ‚äº†å€¤[[,é–‹å§‹åŠ©å¤‰æ•°,çµ‚äº†åŠ©å¤‰æ•°],åˆ†å‰²æ•°])
-åˆ†å‰²æ•°ãŒçœç•¥ã•ã‚ŒãŸå ´åˆã¯	10
-é–‹å§‹ãƒ»çµ‚äº†åŠ©å¤‰æ•°ãŒçœç•¥ã•ã‚ŒãŸå ´åˆã¯	0-1
-*/
-nas.bezierL = function(SP,CP1,CP2,EP,sT,eT,Slice)
-{
-	if (! SP)	SP=0;
-	if (! EP)	EP=1;
-	if (! CP1)	CP1=0;
-	if (! CP2)	CP2=1;
-
-	if (! Slice)	Slice=10;
-	if (! sT)	sT=0;
-	if (! eT)	eT=1;
-
-//AEã®ä»•æ§˜ã«åˆã‚ã›ã¦ å˜é …ã€2æ¬¡å…ƒ3æ¬¡å…ƒã®ã¿ã‚’æ‰±ã†
-//æ¬¡å…ƒæ•°å–å¾—
-	var Dim=(typeof(SP)=="number")? 1:SP.length;
-
-	var Ltable=new Array(Slice);//åˆ†å‰²é•·ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œã‚‹
-
-	for (i=0;i<Slice;i++)
-	{
-switch(Dim){
-case	1:
-		Ltable[i]=Math.abs(
-			this.bezier(SP,CP1,CP2,EP,sT+(eT-sT)*(i/Slice))-
-			this.bezier(SP,CP1,CP2,EP,sT+(eT-sT)*((i+1)/Slice))
-		);
-	break;
-case	2:
-var p1x=this.bezier(SP[0],CP1[0],CP2[0],EP[0],sT+(eT-sT)*(i/Slice));
-var p1y=this.bezier(SP[1],CP1[1],CP2[1],EP[1],sT+(eT-sT)*(i/Slice));
-
-var p2x=this.bezier(SP[0],CP1[0],CP2[0],EP[0],sT+(eT-sT)*((i+1)/Slice));
-var p2y=this.bezier(SP[1],CP1[1],CP2[1],EP[1],sT+(eT-sT)*((i+1)/Slice));
-alert([p1x,p1y],[p2x,p2y]);
-
-Ltable[i]=length(sub([p1x,p1y],[p2x,p2y]));
-	break;
-case	3:
-var p1x=this.bezier(SP[0],CP1[0],CP2[0],EP[0],sT+(eT-sT)*(i/Slice));
-var p1y=this.bezier(SP[1],CP1[1],CP2[1],EP[1],sT+(eT-sT)*(i/Slice));
-var p1z=this.bezier(SP[2],CP1[2],CP2[2],EP[2],sT+(eT-sT)*(i/Slice));
-
-var p2x=this.bezier(SP[0],CP1[0],CP2[0],EP[0],sT+(eT-sT)*((i+1)/Slice));
-var p2y=this.bezier(SP[1],CP1[1],CP2[1],EP[1],sT+(eT-sT)*((i+1)/Slice));
-var p2z=this.bezier(SP[2],CP1[2],CP2[2],EP[2],sT+(eT-sT)*((i+1)/Slice));
-Ltable[i]=length(sub([p1x,p1y,p1z],[p2x,p2y,p2z]));
-	break;
-default	:	return false;
-}
-	};
-
-	var T=0;
-	for(n in Ltable){T +=Ltable[n]}
-
-return T;
-};
-//
-//æš«å®šè‰²å½©é–¢é€£é–¢æ•°
-nas.colorStr2Ary=function(colorString)
-{
-var Cr=.5;var Cg=.5;var Cb=.5;
-	if (colorString.match(/^\#[0-9abcdef]+/i)){
-Cr=eval("0x"+colorString.substr(1,2)+" /255");
-Cg=eval("0x"+colorString.substr(3,2)+" /255");
-Cb=eval("0x"+colorString.substr(5,2)+" /255");
-	return [Cr,Cg,Cb];
-	};
-	if (colorString.match(/^rgb\([\d]*\%?[\s\,]+[\d]*\%?[\s\,]+[\d]*\%?\)$/)){
-	var myColor =eval(
-colorString.replace( /rgb\(/, "\[").replace( /\)/ig, "\]").replace( /\%/g, "\*2.55")
-);
-	return div(myColor,255);
-	};
-	return [Cr,Cg,Cb];
-};
-
-//	WEBè‰²æŒ‡å®šç”¨ã®æ–‡å­—åˆ—ã‚’3æ¬¡å…ƒã®é…åˆ—ã«ã—ã¦è¿”ã™
-
-
-nas.colorAry2Str=function (colorArray)
-{
-var Sr=((colorArray[0]*255) >=16)?
-	Math.round(colorArray[0]*255).toString(16):
-	"0"+Math.round(colorArray[0]*255).toString(16);
-var Sg=((colorArray[1]*255) >=16)?
-	Math.round(colorArray[1]*255).toString(16):
-	"0"+Math.round(colorArray[1]*255).toString(16);
-var Sb=((colorArray[2]*255) >=16)?
-	Math.round(colorArray[2]*255).toString(16):
-	"0"+Math.round(colorArray[2]*255).toString(16);
-return "#"+Sr+Sg+Sb;
-};
-
-
-//é…åˆ—å½¢å¼ã®ã‚«ãƒ©ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’16é€²æ–‡å­—åˆ—ã§è¿”ã™
-
-/* ######################## è¡Œåˆ—è¨ˆç®—é–¢æ•°ç¾¤ */
- 
-//  è¡Œåˆ—è¡¨ç¤º(ç‰¹è¨­ãƒ‡ãƒãƒƒã‚°è¡¨ç¤º)
-nas.showMatrix	= function(Name,Matrix,L,C)
-{
-//  è¡¨ç¤ºå è¡Œåˆ—ãƒªã‚¹ãƒˆ è¡Œæ•° åˆ—æ•°
-var Result	=Name +"\n";
-
-for(i=0;i<L;i++) {
-	for(j=0;j<C;j++){
-//	puts -nonewline [format \t%\ 4.4f [lindex ${Matrix} [expr ${i} * ${C} + ${j}]]]
-	Result +="\t"+Matrix.split(",")[i*C+j] ; 
-	};
-Result += "\n";
-};
-alert(Result);
-return;
-};
-//  è¡Œåˆ—è¡¨ç¤ºçµ‚ã‚ã‚Š
-//  è¡Œåˆ—å¼è¨ˆç®—(2ã¾ãŸã¯3ã®æ­£æ–¹è¡Œåˆ—ã®ã¿)
-nas.mDeterminant = function (Matrix)
-{
-if (Matrix.split(",").length!=4 && Matrix.split(",").length!=9) {	return null;}//ã²ã¨ã¾ãšãƒŒãƒ«è¿”ã™ï¼Ÿ
-if (Matrix.split(",").length==4) {
-//var Result [expr [lindex ${Matrix} 0] * [lindex ${Matrix} 3] - [lindex ${Matrix} 1] * [lindex ${Matrix} 2]]
-//2Ã—ï¼’ã®æ­£æ–¹è¡Œåˆ—å¼
-var Result = Matrix.split(",")[0]*Matrix.split(",")[3] -Matrix.split(",")[1]*Matrix.split(",")[2];
-} else {
-//3Ã—ï¼“ã®æ­£æ–¹è¡Œåˆ—
-var Result=0;
-Result+=(1*Matrix.split(",")[0])*(1*Matrix.split(",")[4])*(1*Matrix.split(",")[8]);
-Result+=(1*Matrix.split(",")[1])*(1*Matrix.split(",")[5])*(1*Matrix.split(",")[6]);
-Result+=(1*Matrix.split(",")[2])*(1*Matrix.split(",")[3])*(1*Matrix.split(",")[7]);
-Result-=(1*Matrix.split(",")[0])*(1*Matrix.split(",")[5])*(1*Matrix.split(",")[7]);
-Result-=(1*Matrix.split(",")[1])*(1*Matrix.split(",")[3])*(1*Matrix.split(",")[8]);
-Result-=(1*Matrix.split(",")[2])*(1*Matrix.split(",")[4])*(1*Matrix.split(",")[6]);
-};
-return Result;
-};
-//  è¡Œåˆ—å¼è¨ˆç®—çµ‚ã‚ã‚Š
-
-//  è¡Œåˆ—ã®ç©ç®—
-nas.multiMatrix	= function(M1,M2)
-{
-//  M1 ã¯ã€3Ã—3ã®è¡Œåˆ— M2ã¯ã€3Ã—? ã®è¡Œåˆ—ã§ãªãã¦ã¯ãªã‚‰ãªã„
-//  ãã‚Œä»¥å¤–ã®å ´åˆã¯ã€3Ã—3 ã®å˜ä½è¡Œåˆ—ã‚’è¿”ã™
-	if(M1.split(",").length != 9  || M2.split(",").length % 3 !=0){
-		return "1,0,0,0,1,0,0,0,1";
-	};
-//  å¿œç­”è¡Œåˆ—åˆæœŸåŒ–
-var multiprideMatrix =new Array();
-//  è¡Œåˆ—ã®æ¬¡æ•°ã‚’è¨­å®š
-	var D1C =3;//
-	var D1L =3;//
-	var D2C =Math.floor(M2.split(",").length / D1L);
-	var D2L =D1C;
-for (Mi=0;Mi<D1L;Mi++){
-	for (Mj=0;Mj<D2C;Mj++){
-	var X =0;
-		for (count=0;count<D1C;count++){
-X= X+M1.split(",")[Mi * D1C +count ] * M2.split(",")[Mj % D2C +D2C * count ] ;
-		}
-	multiprideMatrix.push(X);
-	}
-};
-return multiprideMatrix.toString();
-};
-//  è¡Œåˆ—ã®ç©ç®—çµ‚ã‚ã‚Š
-//  é€†è¡Œåˆ—ç”Ÿæˆ
-//2æ¬¡ã¾ãŸã¯3æ¬¡ã®æ­£æ–¹è¡Œåˆ—ã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ï¼ˆ4æ¬¡ã¨5æ¬¡ã®æ‹¡å¼µã¯å¿…è¦ã‹ï¼Ÿï¼‰
-nas.mInverse	= function(Matrix)
-{
-if(Matrix.split(",").length!=4 && Matrix.split(",").length!=9 && Matrix.split(",").length!=16 ){return null;};
-//  é€†è¡Œåˆ—åˆæœŸåŒ–
-var InversedMatrix = new Array();
-//  è¡Œåˆ—ã®æ¬¡æ•°ã‚’å–å¾—
-	var D = Math.sqrt(Matrix.split(",").length);// expr int(sqrt ([llength ${Matrix}]))]
-// 	ä½™å› æ•°ç”Ÿæˆ
-for (j=0;j<D;j++){
-for (i=0;i<D;i++){
-var Cm = new Array();
-	for (Cj=0;Cj<D;Cj++){
-	for (Ci=0;Ci<D;Ci++){
-	if ((Cj-j)==0){
-		continue;
-	} else{
-		if((Ci-i)==0) {
-			continue;
-		} else {
-			Cm.push(Matrix.split(",")[Cj*D+Ci]);
-		}
-	}
-	}
-	}
-InversedMatrix.push(this.mDeterminant(Cm.toString()) * Math.pow(-1,i + j) / this.mDeterminant(Matrix))
-}
-}
-return this.transMatrix(InversedMatrix.toString());
-};
-//  é€†è¡Œåˆ—ç”Ÿæˆçµ‚ã‚ã‚Š
-//  è¡Œåˆ—ã®è»¢ç½®
-nas.transMatrix	= function(Matrix)
-{
-if(Matrix.split(",").length!=4 && Matrix.split(",").length!=9 && Matrix.split(",").length!=16 ){return null;}
-//  è»¢ç½®é…åˆ—ã®åˆæœŸåŒ–
-var tranposedMatrix =new Array();
-//  è¡Œåˆ—ã®æ¬¡æ•°ã‚’å–å¾—
-	var D =Math.sqrt(Matrix.split(",").length);
-//  è»¢ç½®
-for(j=0;j<D;j++){
-	for(i=0;i<D;i++){
-	tranposedMatrix.push( Matrix.split(",")[i* D+j]);
-	}
-};
-return tranposedMatrix.toString();
-};
-//  è¡Œåˆ—ã®è»¢ç½®çµ‚ã‚ã‚Š
-// ######################## è¡Œåˆ—é–¢æ•°ç¾¤çµ‚ã‚ã‚Š
-
-//	å›è»¢è§’é–¢é€£
-
-//azimuthï¼ˆã‚¢ã‚¸ãƒã‚¹ï¼‰ã¯åœ°å›³ãƒ»æµ·å›³ç­‰ã§ä½¿ç”¨ã™ã‚‹æ–¹ä½è§’ã€‚
-//ã“ã“ã§ã¯æ™‚è¨ˆã®12æ™‚æ–¹å‘(åŒ—=N)ã‚’0åº¦ã¨ã—ã¦æ™‚è¨ˆå›ã‚Šæ–¹å‘ã« 1å‘¨360Â°ã®å˜ä½ç³»ã¨ã—ã¾ã™ã€‚
-//æ–¹ä½è§’ã®æ¦‚å¿µã¯ã€€AEã«ã¯å­˜åœ¨ã—ãªã„
-nas.deg2azi=function(degrees)
-{//å‚¾æ–œè§’ã‹ã‚‰æ–¹ä½ã¸
-	return (-1*degrees+90);
-}
-nas.azi2deg=function(azimuth)
-{//æ–¹ä½ã‹ã‚‰å‚¾æ–œè§’ã¸
-	return (-1*(azimuth-90))
-}
-
-// 2æ¬¡å…ƒã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’ä¸ãˆã¦æ–¹ä½è§’ã‚’æ±‚ã‚ã‚‹ã€‚é•·ã•ã‚’åŠ ãˆã‚‹ã¹ãã‹ï¼Ÿ
-//å¼•æ•°formã¯æˆ»ã—å€¤ã®å½¢å¼ã‚’æŒ‡å®šã€‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯æ–¹ä½è§’
-function vec2deg(Vector,form)
-{
- 	if (Vector.length!=2){return false};
- 	if (!form){form="degrees"};
- 	var x=Vector[0];var y=Vector[1];
-	var	myRadians=(y==0)?0:Math.atan(y/x);
- 	if (x<0){myRadians+=Math.PI};
-	switch(form)
-	{
-		case		"redians":var result=myRadians;
-		break;	
-		case		"degrees":var result = Math.floor(180. * (myRadians/Math.PI)* 10000)/10000;//degrees;
-		break;	
-		case		"azimuth":
-		default	:
-				var result = nas.deg2azi(radiansToDegrees(myRadians));
-		break;	
-	} 	
-	return result;
-}
-/*	æš«å®šæ–‡å­—åˆ—æ“ä½œãƒ¡ã‚½ãƒƒãƒ‰	*/
-//ãƒã‚¤ãƒˆæ•°ã‚’è¿”ã™ã€‚
-//å®Ÿè£…ã«ã‚ˆã£ã¦ã¯å†…éƒ¨ã‚³ãƒ¼ãƒ‰ãŒé•ã†ã®ã§ãƒãƒ«ãƒãƒã‚¤ãƒˆéƒ¨åˆ†ã®ãƒã‚¤ãƒˆæ•°ã¯åŒã˜ã¨ã¯é™ã‚‰ãªã„ã€‚
-nas.biteCount	=function(myString){
-if(! myString){myString="";};
-	var btCount=0;
-	for (cid=0;cid<myString.length;cid++){
-		cXV=myString.charCodeAt(cid);
-		while(cXV>0){btCount++;cXV=Math.floor(cXV/256);}
-	}
-	return btCount;
-}
-
-
-//æ–‡å­—åˆ—ã®ãƒã‚¤ãƒˆæ•°ã‚’å‹˜å®šã—ã¦ã€æŒ‡å®šãƒã‚¤ãƒˆä»¥ä¸‹ã®æ–‡å­—åˆ—ã«åŒºåˆ‡ã£ã¦è¿”ã™ã€‚
-//AEã®ãƒ©ãƒ™ãƒ«31ãƒã‚¤ãƒˆåˆ¶é™ç”¨ãªã®ã§ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯ 31
-nas.biteClip	=function(myString,count){
-if(! myString){myString="";};
-	if(! count){count=31};
-	var btCount=0;
-	for (cid=0;cid<myString.length;cid++){
-		cXV=myString.charCodeAt(cid);
-		while(cXV>0){btCount++;cXV=Math.floor(cXV/256);}
-		if (btCount>count){return myString.slice(0,cid);}
-	}
-	return myString;//æŠœã‘ãŸã‚‰å…¨éƒ¨è¿”ã™
-};
-/* nas.incrStr(myString,Step,Opt)
-å¼•æ•°ã€€ä»»æ„æ–‡å­—åˆ—
-æˆ»å€¤	æ–‡å­—åˆ—ã®æœ«å°¾ã®ç•ªå·éƒ¨åˆ†ã‚’ã‚¹ãƒ†ãƒƒãƒ—æ•°ãã‚Šä¸Šã’ã¦è¿”ã™
-	ã‚¹ãƒ†ãƒƒãƒ—ã«è² ã®æ•°ã‚’ä¸ãˆã‚‹ã¨æ¸›ç®— æˆ»ã‚Šå€¤ãŒ0è² ã®æ•°ã®å ´åˆã¯å…ƒã®æ–‡å­—åˆ—ã‚’æˆ»ã™
-	ï¼‘ï¼é€²æ•°å€¤ã®ã¿ã‚µãƒãƒ¼ãƒˆ
-	æ•°å­—ã®æœ«å°¾ã«ã‚µãƒ–ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¡¨è¨˜ã¨ã—ã¦[a-z]ã®
-	postfixãŒã‚ã£ã¦ã‚‚ãã‚Œã‚’åˆ‡ã‚Šæ¨ã¦ã¦è©•ä¾¡ã™ã‚‹ã®ã§ã¡ã‚‡ã£ã¨ã ã‘ä¾¿åˆ©
-	ç•ªå·ãŒãªã‘ã‚Œã°ãã®ã¾ã¾æˆ»ã™
-	ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§postfixã‚’ä»˜ã‘ã¦æˆ»ã™
-*/
-
-nas.incrStr=function(myString,myStep,myOpt){
-	if(! myOpt){myOpt=false};//if true with postFix
-	if(isNaN(myStep)){myStep=1};
-	if(myString.match(/^(.*[^\d])?(\d+)([^0-9]*)$/i)){
-		var myPreFix=RegExp.$1;
-		var myNumber=RegExp.$2;
-		var myPstFix=(myOpt)?RegExp.$3:"";
-		var newNum=((parseInt(myNumber,10)+myStep)>0)?nas.Zf(parseInt(myNumber,10)+myStep,myNumber.length):myNumber;
-	return myPreFix+newNum+myPstFix;
-	}
-	return myString;
-}
-/*	nas.propCount(myObject,option)
-å¼•æ•°:	ä»»æ„ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ,ãƒªã‚¹ãƒˆã‚¹ã‚¤ãƒƒãƒ
-æˆ»å€¤	ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚‚ã¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®æ•°
-
-å˜ç´”ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç·æ•°ã‚’è¿”ã™
-å‰Šé™¤ã•ã‚ŒãŸãŒå‚ç…§ãŒæ®‹ã£ã¦ã„ã‚‹ãŸã‚ã«ç„¡åŠ¹ã«ãªã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¤œæŸ»ã™ã‚‹ãŸã‚ã«ä½œæˆ
-ãŸã ã—ãã‚Œä»¥å¤–ã®ç”¨é€”ã§ä½¿ç”¨ã§ããªã„ã‚ã‘ã§ã¯ãªã„
-ãƒªã‚¹ãƒˆã‚¹ã‚¤ãƒƒãƒã‚’å…¥ã‚Œã‚‹ã¨ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’é…åˆ—ã§è¿”ã™
-*/
-nas.propCount=function(myObject,myOption)
-{
-	if(! myObject){return false;}
-	if(myOption){var resultArray=new Array();}
-	var myResult=0;
-		for(prp in myObject){
-			myResult++;
-	if(myOption){resultArray.push(prp)}
-			}
-	if(myOption){
-		return resultArray;
-	}else{	
-		return myResult;
-	}
-}
-/*	å˜ä½ã¤ãã®æ–‡å­—åˆ—å€¤ã‚’æ•°å€¤ã«ã—ã¦è¿”ã™ãƒ¡ã‚½ãƒƒãƒ‰
-
-	nas.decodeUnit(å…¥åŠ›å€¤,å¤‰æ›å˜ä½)
-
-	è§£é‡ˆã§ãã‚‹å˜ä½ã¯ mm cm pt px in
-	æˆ»ã—å€¤ã®å˜ä½ã‚‚åŒã˜ã
-	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å˜ä½ã¯å…¥ã‚Šã‚‚æˆ»ã—ã‚‚ pt
-*/
-nas.decodeUnit=function(myValue,resultUnit){
-	if((myValue!=undefined)&&(myValue.match(/^([0-9]+)\s?(mm|cm|pt|px|in)?$/i))){
-		var baseValue=RegExp.$1*1;
-		var myUnit=RegExp.$2;
-	}else{
-		return false;
-	}
-	if(!(resultUnit.match(/^(mm|cm|pt|px|in)?$/i))){resultUnit="";}
-//ã™ã¹ã¦ptã«å¤‰æ›
-	switch(myUnit){
-case	"in":myValue=72*baseValue;break;
-case	"px":myValue=72*baseValue/this.Dpi();break;
-case	"cm":myValue=72*baseValue/2.54;break;
-case	"mm":myValue=72*baseValue/25.4;break;
-case	"pt":
-default	:myValue=baseValue;
-	}
-	switch(resultUnit){
-case	"in":myResult=myValue/72;break;
-case	"px":myResult=this.Dpi()*myValue/72;break;
-case	"cm":myResult=2.54*(myValue/72);break;
-case	"mm":myResult=25.4*(myValue/72);break;
-case	"pt":
-default	:myResult=myValue;
-	}
-return myResult;
-};
-
+/* *	nas ƒAƒjƒ[ƒVƒ‡ƒ“ˆê”Êƒ‰ƒCƒuƒ‰ƒŠ *	AE“™‚ÌAdobe Script ŠÂ‹«‚Åg—p‰Â”\‚ÈŠÖ”‚¨‚æ‚ÑƒvƒƒpƒeƒB‚ğƒTƒ|[ƒg‚µ‚Ü‚· * * *	$Id: nas_common.js,v 1.3 2012/02/05 23:31:36 kiyo Exp $ */ myFilename=("$RCSfile: nas_common.js,v $").split(":")[1].split(",")[0]; myFilerevision=("$Revision: 1.3 $").split(":")[1].split("$")[0];// ============ “®ìƒvƒ‰ƒbƒgƒtƒH[ƒ€‚ğ”»•Ê‚µ‚Äƒvƒ‰ƒbƒgƒtƒH[ƒ€•Ê‚Ì‰Šú‰»‚ğs‚¤try{	if(app){	//Adobe Scripts 	nas.isAdobe=true;	nas.Version["common"]="common:"+myFilename+" :"+myFilerevision;		try{	if(app.isProfessionalVersion){app.name="Adobe AfterEffects";}		}catch(ERR){	;		};	}else{	nas.isAdobe=false;	};}catch(ERR){var	nas	=new Object();	nas.isAdobe=false;	nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");//(Folder.current.name=="Startup")? new Folder("../nas/"):Folder.current;	var MSIE	= navigator.userAgent.indexOf("MSIE")!=-1; 	var Safari	= navigator.userAgent.indexOf("Safari")!=-1;	var Firefox	= navigator.userAgent.indexOf("Firefox")!=-1;};	xUI=false;//xUIƒIƒuƒWƒFƒNƒg‚ÍHTMLƒ‰ƒCƒuƒ‰ƒŠ‚É‚¨‚¯‚éUIŠÇ—ƒIƒuƒWƒFƒNƒg‚È‚Ì‚ÅHTMLŠÂ‹«ŠO‚Å‚Ífalse‚Å‰Šú‰»‚µ‚Ä”»’è‚·‚é	//HTMLŠÂ‹«‰º‚Å‚ ‚Á‚Ä‚àˆË‘¶‹@”\‚ª‰Šú‰»Š®—¹‘O‚ÉƒAƒNƒZƒX‚·‚é‚±‚Æ‚ğ—}§‚·‚é‚½‚ß‚Éfalse‚Å‚ ‚ç‚©‚¶‚ß‰Šú‰»‚·‚é‚Ì‚ğ•W€ƒƒ\ƒbƒh‚Æ‚·‚é/*nas_common.js‹¤—p‰Â”\ƒXƒNƒŠƒvƒg•”•ª--- ‚¨‚±‚Æ‚í‚è‚±‚ÌƒvƒƒOƒ‰ƒ€‚Ì’˜ìŒ ‚Íu‚Ë‚±‚Ü‚½‚âv‚É‚ ‚è‚Ü‚·B‚ ‚È‚½‚ÍA‚±‚ÌƒvƒƒOƒ‰ƒ€‚Ì‚±‚Ì’˜ìŒ •\¦‚ğ‰ü•Ï‚µ‚È‚¢‚©‚¬‚è©—R‚ÉƒvƒƒOƒ‰ƒ€‚Ìg—pE•¡»EÄ”z•z‚È‚Ç‚ğs‚¤‚±‚Æ‚ª‚Å‚«‚Ü‚·B‚ ‚È‚½‚ÍA‚±‚ÌƒvƒƒOƒ‰ƒ€‚ğ©ŒÈ‚Ì–Ú“I‚É‚µ‚½‚ª‚Á‚Ä‰ü‘¢‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B‚»‚Ìê‡A‚±‚ÌƒvƒƒOƒ‰ƒ€‚ğ‰ü‘¢‚µ‚½‚à‚Ì‚Å‚ ‚é‚±‚Æ‚ğ–¾‹L‚µ‚ÄA‚±‚Ì’˜ìŒ •\¦‚ğ“Y•t‚·‚é‚æ‚¤‚É“w‚ß‚Ä‚­‚¾‚³‚¢B‚±‚ÌƒvƒƒOƒ‰ƒ€‚ğg‚¤‚àg‚í‚È‚¢‚à‚ ‚È‚½‚Ì©—R‚È‚Ì‚Å‚·BìÒ‚Í‚±‚ÌƒvƒƒOƒ‰ƒ€‚ğg—p‚µ‚½‚±‚Æ‚É‚æ‚Á‚Ä‹N‚«‚½‚¢‚©‚È‚é•s—˜‰v‚É‘Î‚µ‚Ä‚àÓ”C‚ğ•‰‚¢‚Ü‚¹‚ñB‚ ‚È‚½‚ÍA‚ ‚È‚½‚Ì”»’f‚ÆÓ”C‚É‚¨‚¢‚Ä‚±‚ÌƒvƒƒOƒ‰ƒ€‚ğg—p‚·‚é‚Ì‚Å‚·B‚È‚ñ‚©A¢‚Á‚½‚±‚Æ‚ª‚ ‚Á‚½‚çˆÈ‰º‚Å˜A—‚µ‚Ä‚à‚ç‚¦‚é‚Æ‰½‚Æ‚©‚È‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñBhttp://www.nekomataya.info/mailto:kiyo@nekomataya.info‚»‚ñ‚ÈŠ´‚¶‚Å‚·B’ÇL‚±‚ÌƒvƒƒOƒ‰ƒ€‚ÍA”Ä—p‚Ìƒ‚ƒWƒ…[ƒ‹ŒQ‚Å‚·B‘g‚İ‚İ‚Å‚Â‚©‚¦‚é‚©‚Ç‚¤‚©‚ÍìÒ‚Ìì‹ÆŠÔ‚ÆƒZƒ“ƒX‚É¶‰E‚³‚ê‚Ü‚·Bnas”Ä—pƒIƒuƒWƒFƒNƒg‚Æƒƒ\ƒbƒh‚Å\¬‚·‚é‚±‚Æ‚ÉŒˆ’èBŒÄ‚Ño‚µ‚©‚½‚ª•Ï‚í‚é‚Ì‚Å‚±‚Ìƒo[ƒWƒ‡ƒ“ˆÈ~ŒİŠ·«–³‚µB*//*=======	Œ»İ‚Ìƒƒ\ƒbƒhˆê—— ======= 2011/02/15nas.dt2sc(z‹——£)	z²‹——£(ƒsƒNƒZƒ‹)‚©‚çƒXƒP[ƒ‹‚ğ‹‚ß‚énas.sc2dt(ƒXƒP[ƒ‹)	ƒXƒP[ƒ‹‚©‚çz²‹——£‚ğ‹‚ß‚éBnas.fl2fr(B‰eƒtƒŒ[ƒ€)	B‰eƒtƒŒ[ƒ€‚©‚çƒŒƒ^ƒXB‰eƒtƒŒ[ƒ€‚ğ‹‚ß‚éBnas.fr2fl(ƒŒƒ^ƒXB‰eƒtƒŒ[ƒ€)	ƒŒƒ^ƒXƒtƒŒ[ƒ€‚©‚çB‰eƒtƒŒ[ƒ€‚ğ‹‚ß‚éBnas.fl2sc(B‰eƒtƒŒ[ƒ€)	B‰eƒtƒŒ[ƒ€‚©‚çƒXƒP[ƒ‹‚ğ‹‚ß‚éBnas.fr2sc(ƒŒƒ^ƒXB‰eƒtƒŒ[ƒ€)	ƒŒƒ^ƒXB‰eƒtƒŒ[ƒ€‚©‚çƒXƒP[ƒ‹‚ğ‹‚ß‚éBnas.sc2fl(ƒXƒP[ƒ‹)	ƒXƒP[ƒ‹‚©‚çB‰eƒtƒŒ[ƒ€‚ğ‹‚ß‚éBnas.sc2fr(ƒXƒP[ƒ‹)	ƒXƒP[ƒ‹‚©‚çƒŒƒ^ƒXB‰eƒtƒŒ[ƒ€‚ğ‹‚ß‚éBnas.kac(ŠJn¡–@,I—¹¡–@,••Ï”)	ŠJn¡–@EI—¹¡–@‚Æ••Ï”‚ğ—^‚¦‚ÄA‘Î‰‚·‚é¡–@‚ğ‹‚ß‚éBnas.cak(ŠJn¡–@,I—¹¡–@,Šg‘å—¦)	ŠJn¡–@EI—¹¡–@‚Æ”CˆÓ¡–@‚ğ—^‚¦‚ÄA¡–@‚É‘Î‰‚·‚é••Ï”‚ğ‹‚ß‚éBnas.Zf(”’l,Œ…”)	”’l‚ğw’èŒ…”‚Ìƒ[ƒ‚Å–„‚ß‚éBnas.ms2fr(ƒ~ƒŠ•b”)	ƒ~ƒŠ•b”‚©‚çAƒtƒŒ[ƒ€”‚ğ‹‚ß‚éBnas.fr2ms(ƒtƒŒ[ƒ€”)	ƒtƒŒ[ƒ€”‚©‚çAƒ~ƒŠ•b”‚ğ‹‚ß‚éBnas.ms2FCT(ƒ~ƒŠ•b”,ƒJƒEƒ“ƒ^ƒ^ƒCƒv,ƒIƒŠƒWƒl[ƒVƒ‡ƒ“[,ƒtƒŒ[ƒ€ƒŒ[ƒg])	ƒ~ƒŠ•b”‚©‚çAƒJƒEƒ“ƒ^•¶š—ñ‚Ö‚Ì•ÏŠ·B	ƒJƒEƒ“ƒ^[ƒ^ƒCƒvEƒIƒŠƒWƒl[ƒVƒ‡ƒ“EƒtƒŒ[ƒ€ƒŒ[ƒg‚ğw’ènas.FCT2ms(ƒJƒEƒ“ƒ^•¶š—ñ)	ƒJƒEƒ“ƒ^•¶š—ñ‚©‚çAƒ~ƒŠ•b”‚Ö‚Ì•ÏŠ·Bnas.Frm2FCT(ƒtƒŒ[ƒ€”,ƒJƒEƒ“ƒ^ƒ^ƒCƒv,ƒIƒŠƒWƒl[ƒVƒ‡ƒ“[,ƒtƒŒ[ƒ€ƒŒ[ƒg])	ƒtƒŒ[ƒ€”(0ƒIƒŠƒWƒ“)‚©‚çAƒJƒEƒ“ƒ^•¶š—ñ‚Ö‚Ì•ÏŠ·	ƒJƒEƒ“ƒ^[ƒ^ƒCƒvEƒIƒŠƒWƒl[ƒVƒ‡ƒ“EƒtƒŒ[ƒ€ƒŒ[ƒg‚ğw’ènas.FCT2Frm(ƒJƒEƒ“ƒ^•¶š—ñ[,ƒtƒŒ[ƒ€ƒŒ[ƒg])	ƒJƒEƒ“ƒ^•¶š—ñ‚©‚çAƒtƒŒ[ƒ€”(0ƒIƒŠƒWƒ“)‚Ö‚Ì•ÏŠ·	ƒtƒŒ[ƒ€ƒŒ[ƒgÈ—ª‰Â”\nas.docodeUnit(“ü—Í’l,•ÏŠ·’PˆÊ)	“ü—Í’l‚Ì’PˆÊ‚ğ•ÏŠ·‚µ‚½”’l‚ğ–ß‚·(mm,cm,px,pt,in)==== FÊŠÖ˜A(web—p)nas.colorStr2Ary(ƒJƒ‰[•¶š—ñ)	WEBFw’è—p‚Ì•¶š—ñ‚ğ3ŸŒ³‚Ì”z—ñ‚É‚µ‚Ä•Ô‚·nas.colorAry2Str([”z—ñ])	”z—ñ‚Å—^‚¦‚ç‚ê‚½RGB’l‚ğ16i•¶š—ñ‚Å•Ô‚·B==== ƒxƒNƒgƒ‹ŠÖ˜Anas.vec2ams(ƒxƒNƒgƒ‹,[ƒtƒH[ƒ}ƒbƒg])	—^‚¦‚ç‚ê‚½ƒxƒNƒgƒ‹‚Ì•ûˆÊŠp‚ğ•Ô‚·B•¶šƒtƒH[ƒ}ƒbƒg‚à‰Â==== s—ñŒvZs—ñ‰‰ZŠÖ”‚Ìs—ñ‚Í”z—ñ‚Ì‘g‚İ‡‚í‚¹‚Å‚È‚­A—v‘f‚ÌƒXƒgƒŠ[ƒ€•¶š—ñ‚Å‚ ‚éBnas.showMatrix(ƒ‰ƒxƒ‹,s—ñ•¶š—ñ,s”,—ñ”)	—^‚¦‚ç‚ê‚½s—ñ•¶š—ñ‚É‰üs‚ğ‰Á‚¦‚Ä•¶š—ñ‚Å•Ô‚·Bnas.mDeterminant(s—ñ•¶š—ñ)	s—ñ®(˜a)‚ğ•Ô‚·Bnas.multiMatrix(s—ñ•¶š—ñ1,s—ñ•¶š—ñ2)	s—ñÏ‚ğ‹‚ß‚éBnas.mInverse(s—ñ•¶š—ñ)	‹ts—ñ‚ğ‹‚ß‚éBnas.transMatrix(s—ñ•¶š—ñ)	s—ñ‚ğ“]’u‚·‚éB==== •¶š—ñ‘€ì(StringƒNƒ‰ƒX‚ÉƒI[ƒo[ƒ‰ƒCƒh‚·‚é‚©‚à’m‚ê‚È‚¢‚Ì‚Åb’è)nas.biteCount(•¶š—ñ)	•¶š—ñ‚ÌƒoƒCƒg”‚ğ•Ô‚·Bnas.biteClip(•¶š—ñ,§ŒÀƒoƒCƒg”)	•¶š—ñ‚ğw’èƒoƒCƒg”ˆÈ‰º‚ÉƒNƒŠƒbƒvnas.incrStr(•¶š—ñ)	•¶š—ñ‚Ì––”ö‚Ì”Ô†•”•ª‚ğ‚P‚­‚èã‚°‚Ä•Ô‚·==== ƒvƒƒpƒeƒB‘€ìnas.propCount(ƒIƒuƒWƒFƒNƒg,ƒŠƒXƒgƒXƒCƒbƒ`)	ƒIƒuƒWƒFƒNƒg‚ÌƒvƒƒpƒeƒB‚ğƒJƒEƒ“ƒg‚·‚é	ƒŠƒXƒgƒXƒCƒbƒ`‚ÅƒvƒƒpƒeƒB–¼‚Ì”z—ñ‚ğ•Ô‚·==== ’PˆÊŠ·Znas.decodeUnit(“ü—Í’l,•ÏŠ·’PˆÊ)	’PˆÊ‚Â‚«‚Ì•¶š—ñ’l‚ğ”’l‚É‚µ‚Ä•Ô‚·ƒƒ\ƒbƒh	’PˆÊ‚Í@mm cm in pt px	========	Šù‘¶ƒIƒuƒWƒFƒNƒg‚ÉƒI[ƒo[ƒ‰ƒCƒh‚·‚éƒƒ\ƒbƒh		"yy/mm/dd hh:mm:ss" Œ`®‚ğŠg’£Date.toNASString()	;returns StringDate.setNASString("yy/mm/dd hh:mm:ss")	; returns object *//*=========================================== *	nas Object base property * * *///ƒJƒŒƒ“ƒgƒ†[ƒU•¶š—ñ	nas.CURRENTUSER=myName;	//‚±‚±‚ÅQÆ‚µ‚ÄAˆÈ~‚ÍƒOƒ[ƒoƒ‹‚ğg—p‚µ‚È‚¢‚æ‚¤‚É‚·‚é2011/08/17//ŠÔŠÖ˜Aİ’è	nas.ccrate = 1000 ;	//Å­Œv‘ª’PˆÊ(javascript‚Å‚Íƒ~ƒŠ•bŒÅ’è)	nas.MODE = "clock" ;	//•\¦‚Ì‰Šúƒ‚[ƒh(Œv)	nas.ClockOption = 12 ;	//Œv‚Ì‰Šúƒ‚[ƒh (12§)	nas.STATUS = "stop" ;//ƒtƒŒ[ƒ€ƒŒ[ƒg	‚±‚±‚Ì•À‚Ñ‚Åƒ‹[ƒv‚·‚é 100fps 24FPS 30NDF 30DF 25FPS	nas.RATEs = ["100fps","24FPS","30NDF","30DF","25FPS"];	nas.RATE = "24FPS" ;//Šî€•Ï”//–¼‘O•t‚¯‹K‘¥‚ÍAˆÈ‰º‚É€‚¸‚é//ƒXƒNƒŠƒvƒgã‚Ì•Ï”–¼‚ÍA‘å•¶š‚Ì‚İ//ƒtƒH[ƒ€ã‚Ì“¯–¼‚ÌƒGƒŒƒƒ“ƒg‚Í ¬•¶š‚Å’Ô‚è‰‚ß‚Ä ‘å•¶š‚Å’Ô‚èI‚í‚é‹L–@‚Å//•¡‡’PŒê‚ÍA‘O’uŒê‚ğ¬•¶šAŒã’uŒê‚ğ‘å•¶š//ƒTƒ“ƒvƒ‹Šî€’l	nas.FRATE = 24;//ƒTƒ“ƒvƒ‹ƒtƒŒ[ƒ€ƒŒ[ƒg(ƒtƒŒ[ƒ€Œp‘±ŠÔ‚É’u‚«Š·‚¦‚é‚©ˆêl)	nas.RESOLUTION = 144. / 2.540 ;//ƒTƒ“ƒvƒ‹‰ğ‘œ“xppc(dpc)	nas.LENGTH = 225. ;//ƒTƒ“ƒvƒ‹Šî€¡–@(mm)	nas.ASPECT = 16/9 ;//ƒtƒŒ[ƒ€ƒAƒXƒyƒNƒgiQl’l@‰¡^cj	nas.PIXELASPECT = 1 ;//ƒsƒNƒZƒ‹ƒAƒXƒyƒNƒgiQl’l@‰¡^cj	nas.FRAME_L=100 ;//ƒTƒ“ƒvƒ‹Šî€ƒtƒŒ[ƒ€(fl)//FCTƒCƒ“ƒ^[ƒtƒF[ƒXŠÖ˜A//	nas.SheetLength = SheetLength*nas.FRATE;//ƒ^ƒCƒ€ƒV[ƒgŒp‘±ŠÔ ƒtƒŒ[ƒ€/–‡	nas.SheetLength = SheetLength;//ƒ^ƒCƒ€ƒV[ƒgŒp‘±ŠÔ •b/–‡/*	FCTƒCƒ“ƒ^[ƒtƒF[ƒX‚ğƒhƒƒbƒvƒtƒŒ[ƒ€‘Î‰‚Æ‚·‚é	Šî–{“I‚Èƒhƒƒbƒvƒƒ\ƒbƒh‚ÍƒJƒEƒ“ƒg•ê”‚ğ Math.ceil(nas.FRATE)‚Æ‚µ‚Ä	Œë·‚ª’~ÏŸ‘æ•b‚Ì––”öƒtƒŒ[ƒ€‚ğƒhƒƒbƒvƒJƒEƒ“ƒg‚·‚é–‚Ås‚¤B	nas.SheetLength‚ÍÀÛ‚ÌÁ‰»ƒtƒŒ[ƒ€‚Æ‚Æ‚ç‚¦‚é‚Æ–‡”‚²‚Æ‚Ì•s’è’l‚Æ‚È‚é‚Ì‚Å	•b”‚Å’u‚¢‚Äˆê’è’l‚ğ“¾‚é‚±‚Æ‚É‚·‚é(d—l•ÏX)*///Frame of Location ƒAƒjƒ[ƒVƒ‡ƒ“B‰eƒtƒŒ[ƒ€(traditional)//Šî€’l‚ÍŒvZƒŒƒ^ƒXƒtƒŒ[ƒ€‚ğŠî€‚É‚µ‚½‚Ù‚¤‚ªŒvZ‰ñ”‚ª‚¢‚­‚ç‚©Œ¸‚è‚»‚¤?	nas.SCALE = 1;//ƒTƒ“ƒvƒ‹Šg‘å”ä—¦(À”)// for AEkey/* *	ƒRƒ“ƒ|î•ñ *	ŒvZ‚É•K—v‚Èî•ñ‚ÍAƒRƒ“ƒ|‚ğØ‚èŠ·‚¦‚éƒ^ƒCƒ~ƒ“ƒO‚ÅÄ‰Šú‰»‚·‚é? *	‚Ü‚½‚ÍAè“®‚Å‰Šú‰»ƒgƒŠƒK‚ğ‘Å‚Â‚©? *///ƒRƒ“ƒ|ƒWƒVƒ‡ƒ“‚R‚cƒJƒƒ‰î•ñ	nas.FOCUS_D = 50; //ƒŒƒ“ƒYÅ“_‹——£ (mm)	nas.FILM_W = 36;//FILM Width (mm)	nas.FILM_H = 24;//FILM Height(mm)	nas.IMAGE_CR = function(){return Math.sqrt(Math.pow(this.FILM_W,2)+Math.pow(this.FILM_H,2))};//ƒCƒ[ƒWƒT[ƒNƒ‹’¼Œa(mm)//ƒCƒ[ƒWƒT[ƒNƒ‹’¼Œa(mm)//ƒRƒ“ƒ|ƒWƒVƒ‡ƒ“İ’è	nas.COMP_W = 720;//comp Width (px);	nas.COMP_H = 486;//comp Height(px);	nas.COMP_A = 0.9;//comp Aspect(W/H);	nas.COMP_D = function(){return Math.sqrt(Math.pow(this.COMP_W * this.COMP_A,2)+ Math.pow(this.COMP_H,2));};	nas.CAMERA_D = function(){return (this.COMP_D() * this.FOCUS_D)/ this.IMAGE_CR();};//ƒŒƒCƒ„Eƒtƒbƒe[ƒWİ’è//¡‚Ì‚Æ‚±‚ëƒL[‚É“Y•t‚·‚é‚¾‚¯‚Ì’l(•ÏŠ·‚É‚Í–³ŠÖŒW)	nas.SRC_W = 720;//source Width (px);	nas.SRC_H = 486;//source Height(px);	nas.SRC_A = 0.9;//source Aspect(W/H);//AE-Key data o—ÍŠÖ˜A‚Ì•Ï”(‰Šú’l)	nas.AE_Ver = "6.0";// 4.0/5.0/6.0	nas.KEY_STYLE = "withTime";//or "valueOnly"	nas.KEY_TYPE = "Scale";// or "Position"//q•Ï” e•Ï”‚©‚ç“±‚©‚ê‚é•\¦ƒf[ƒ^(‚Ü‚½‚Í”h¶ƒf[ƒ^)//•Ï”–¼‚ÍA‘å•¶š‚Å‚Í‚¶‚Ü‚è Œã‚ë‚Í¬•¶š‚Ì‚İ//ƒtƒH[ƒ€ã‚Ì“¯–¼‚Ìinput‚Í‹É—Í‘å•¶š‚Ì‚İ‚Å•\‹L//RESOLUTION ”h¶•Ï” ƒ‰ƒ€ƒ_ŠÖ”Œ±	nas.Dpi = function(){return this.RESOLUTION * 2.540;} ;	nas.Dpc = function(){return this.RESOLUTION;} ;//FRAME_L ”h¶•Ï”	nas.FRAMEl = function(){this.FRAME_L;};	nas.FRAMEr = function(){this.fl2fr(this.FRAME_L);};//‚±‚±‚Ü‚Å‚ÍƒvƒƒpƒeƒB/*DateƒIƒuƒWƒFƒNƒg‚ÉtoNASStringŒ`®ˆ—‚ğæ‚¹‚é*/Date.prototype.toNASString = function(){	var	h=this.getHours();	var	m=this.getMinutes();	var	s=this.getSeconds();	var	yy=this.getFullYear();	var	mm=this.getMonth()+1;	var	dd=this.getDate();	var Result=yy+"/"+mm+"/"+dd+"\ "+h+"\:"+m+"\:"+s ;return Result;};////Date.prototype.setNASString = function(nasString){	var	yy=nasString.split("\ ")[0].split("/")[0];	var	mm=nasString.split("\ ")[0].split("/")[1]-1;	var	dd=nasString.split("\ ")[0].split("/")[2];	var	h=nasString.split("\ ")[1].split(":")[0];	var	m=nasString.split("\ ")[1].split(":")[1];	var	s=nasString.split("\ ")[1].split(":")[2];		this.setYear(yy);		this.setMonth(mm);		this.setDate(dd);		this.setHours(h);		this.setMinutes(m);		this.setSeconds(s);return this;};/*	nas ‹¤’Êƒ‰ƒCƒuƒ‰ƒŠ”ŠwŠÖ˜A‚Æ‚©‰f‘œŠÖ˜A‚Ì–ß‚è’l‚Ì‚ ‚éŠÖ”ŒQ(ƒƒ\ƒbƒh‚Å)*////*	‹——£ŠÖ˜AŠ·ZŠÖ”dt2sc(Z²ˆÊ’u)	–ß‚è’l:ˆÊ’u‚É‘Š“–‚·‚éŠg‘å”ä—¦sc2dt(Šg‘å”ä—¦)	–ß‚è’l:”ä—¦‚É‘Š“–‚·‚éAE‚ÌZ²ˆÊ’u	‘o•ûA‚Æ‚à‚ÉƒRƒ“ƒ|ƒWƒVƒ‡ƒ“‚ÌƒvƒƒpƒeƒB‚ÉˆË‘¶*/nas.dt2sc = function(dt){return (this.CAMERA_D()/((1 * dt) + this.CAMERA_D()))};//nas.sc2dt = function(sc) {return ((this.CAMERA_D()/(1 * sc))-this.CAMERA_D())};///*	ƒtƒŒ[ƒ€ŠÖ˜AŠ·ZŠÖ” ˆêX‘‚¢‚Ä‚àŠÔˆá‚¦‚»‚¤‚È‚Ì‚Å‚Ü‚Æ‚ß‚Ä‚¨‚­Bfl ‚ÍA‹Œ—ˆ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“B‰eƒtƒŒ[ƒ€EƒXƒ^ƒ“ƒ_[ƒh’l100fr ‚ÍAƒŒƒ^ƒXB‰eƒtƒŒ[ƒ€(—vŒŸØ)E“¯ƒXƒ^ƒ“ƒ_[ƒh’l100sc ‚ÍA”{—¦FRAME_L‚ÍAŠî‘bî•ñ‚Æ‚µ‚ÄŠî€ƒtƒŒ[ƒ€”‚ğfl’l‚Å—^‚¦‚é‚±‚Æ*/nas.fl2fr = function(fl){return ((fl * 1 + 60)/1.60)};//nas.fr2fl = function(fr){return ((fr * 1.60)-60)};	///**/nas.fl2sc = function (fl){return ((160*((this.FRAME_L * 1)+60))/(160*((fl*1)+60)))};//nas.fr2sc = function(fr){return (this.fl2sc(this.fr2fl(fr)))};//nas.sc2fl = function(sc){return ((((160 * (this.FRAME_L + 60))/(sc * 1))/160) - 60)};//nas.sc2fr = function(sc){return (this.fl2fr(this.sc2fl(sc)))};// Šg‘å—¦•ÏŠ·ŠÖ”// kac(Šî€—Ê,–Ú•W—Ê,••Ï”)// –ß‚è’l‚Í ˜•Ï”‚É‘Î‰‚·‚é¡–@nas.kac	= function(StartSize,EndSize,timingValue) {if (timingValue == 0 || timingValue == 1){	if (timingValue == 0) {resultS = StartSize};	if (timingValue == 1) {resultS = EndSize};} else {/*‹‚ß‚é¡–@‚Í‚Ü‚¸ŠJn¡–@‚ğ1‚Æ‚µ‚ÄI—¹¡–@‚ÌŠJn¡–@‚É‘Î‚·‚é”ä—¦‚ğ‹‚ß‚é	EndSize/StartSize‹——£•]‰¿ŒW”‚Æ‚µ‚Ä ”ä‚Ì‹t”‚ğŠJn“_‚ÆI—¹“_‚Å‹‚ß‚éBŠJn“_‹——£•]‰¿ŒW” 1/1 = 1I—¹“_‹——£•]‰¿ŒW” 1/(EndSize/StartSize) = StartSize/EndSize—^‚¦‚ç‚ê‚½••Ï”‚É‘Î‰‚·‚é‹——£•]‰¿ŒW”‚ğ‹‚ß‚éB((I—¹“_‹——£•]‰¿ŒW” - ŠJn“_‹——£•]‰¿ŒW”) * ˜•Ï”) + ŠJn“_‹——£•]‰¿ŒW”= (((StartSize/EndSize) - 1) * timingValue) + 1•]‰¿ŒW”‚Ì‹t”‚ğ‚Æ‚Á‚Ä”ä—¦‚ğ“¾‚é”ä—¦‚ğŠJn¡–@‚ÉŠ|‚¯‚éŠJn¡–@ * ‹——£•]‰¿ŒW”= StartSize / ((((Startsize/EndSize) - 1) * timingValue) + 1)*///	resultS = (1-(timingValue)*(1-(StartSize/EndSize)));resultS = StartSize / ((((StartSize/EndSize) - 1) * timingValue) + 1);};return (resultS);};////kac‚Ì‹tŠÖ”//cak(Šî€—Ê,–Ú•W—Ê,”CˆÓ¡–@)//–ß‚è’l‚Í••Ï”‚ğÅ‘å¸“x‚Ånas.cak	= function(StartSize,EndSize,TargetSize) {/*	‚Ü‚¾‘‚¢‚Ä‚È‚¢‚æ('o')*/var resultT=0;	if (TargetSize==StartSize) {resultT=0}else{	if (TargetSize==EndSize) {resultT=1}else{resultT=(((1/TargetSize)-(1/StartSize))/((1/EndSize)-(1/StartSize)))	}};return (resultT);};//// ƒ[ƒ–„‚ß ZERROfillingnas.Zf = function(N,f) {var prefix="";if (N < 0) {N=Math.abs(N);prefix="-"};if (String(N).length < f) {	return prefix + ('00000000' + String(N)).slice(String(N).length + 8 - f , String(N).length + 8);} else {return String(N);}};////ŠÔƒtƒŒ[ƒ€•ÏŠ·nas.ms2fr = function(ms){return (Math.floor(this.FRATE*(ms/1000)))};//ƒ~ƒŠ•b‚©‚çƒtƒŒ[ƒ€”@ÀŠÔØÌ‚Ä®”ƒtƒŒ[ƒ€//nas.fr2ms = function(frm){return (1000*frm/this.FRATE)};//ƒtƒŒ[ƒ€‚©‚çƒ~ƒŠ•b@•‚“®­”//nas.ms2FCT = function(ms,type,ostF,fpsC){	if(! type){type=0};	if(! ostF){ostF=0};	if(! fpsC){fpsC = this.FRATE};	if(type>5){fpsC=29.97*(type-5)};//type 6 7‚Ì‚ÉƒtƒŒ[ƒ€ƒŒ[ƒg‹­§	var myFrms=Math.round((ms*fpsC)/1000);	return this.Frm2FCT(myFrms,type,ostF,fpsC);}//nas.FCT2ms = function(fct){return 1000*(this.FCT2Frm(fct))/this.FRATE};////ƒJƒEƒ“ƒ^•¶š—ñ¶¬/*	ƒhƒƒbƒv‘Î‰”Å 2010/11/04	SMPTE ƒhƒƒbƒv30‘Î‰ 2010/11/05	ƒ‚[ƒhw’è type6	30DF 60DF ‚Ì‚İ‚ğƒTƒ|[ƒg‚Ì—\’è ‚Ç‚¿‚ç‚Ìƒ‚[ƒh‚à0ƒIƒŠƒWƒ“	w’èƒ‚[ƒh‚Æ‚µ‚Ätype6(30df)/7(60df)‚ğ—^‚¦‚é	type7‚Í30DFŒİŠ·‚È‚Ì‚Å30DF‚Æ“¯‚¶ƒ^ƒCƒ~ƒ“ƒO‚Å4ƒtƒŒ[ƒ€ƒhƒƒbƒvƒJƒEƒ“ƒg‚·‚é*/nas.Frm2FCT = function(frames,type,ostF,fpsC) {if(!type){type=0}if(!fpsC){fpsC=this.FRATE}if((type==6)||(type==7)){/*	SMPTE 30DF/type6 60DF/type7*/var dF=2589408;var hF=107892;var dmF=17982;var lmFd=1798;var lmFc=1800;var sF=30;var dropF=2;if(type==7){dF=dF*2;hF=hF*2;dmF=dmF*2;lmFd=lmFd*2;lmFc=lmFc*2;sF=sF*2;dropF=dropF*2;}var FR=(frames<0)? dF+(frames%dF):frames;//•‰”‚Í24h‚Ì•â”‰»‚µ‚Ä‰ğŒˆvar h=0;var m=0;var s=0;var f=0;	h =Math.floor((FR / hF) % 24);//SMPTE TC‚Í24ƒ‹[ƒv//		m‚ğ10•ª’PˆÊ‚ÅƒNƒŠƒbƒv‚·‚é‚ÆŒvZ‚ª’Pƒ‰»‚³‚ê‚é	var fRh = FR % hF;//–¢ˆ—ƒtƒŒ[ƒ€	var md =Math.floor(fRh/dmF);//10•ª’PˆÊ	var mu =((fRh % dmF)<lmFc)? 0 : Math.floor(((fRh % dmF)-lmFc) / lmFd)+1;//10•ªˆÈ‰º‚Ì•ª”	m  = (md*10) + mu;//‰ÁZ‚µ‚Ä•ª”	fRm = fRh -(dmF*md)-(lmFd*mu);//	fRm -= (mu==0)? 0 : dropF;//³•ª‚Ü‚Åˆ—‚ğI‚¦‚½cƒtƒŒ[ƒ€	s = (mu == 0)? Math.floor(fRm/sF):Math.floor((fRm+dropF)/sF);//•b”E—áŠO‚ğœ‚«ƒhƒƒbƒv2ƒtƒŒ•â	fRs = ((mu == 0)||(s == 0))? fRm - (s * sF):fRm - (s * sF) + dropF;	f=((mu==0)||(s!=0))? fRs:fRs+dropF; return nas.Zf((h%24),2)+":"+nas.Zf(m,2)+":"+nas.Zf(s,2)+";"+nas.Zf(f,2);}else{/*	’Êí‚ÌTC‚ğì¬	*/var negative_flag = false;if (frames < 0) {frames = Math.abs(frames);negative_flag=true;};	if (ostF == 1) {		PostFix = ' _';	} else {		ostF = 0;		PostFix = ' .';	};////	default	00000//	type 2	0:00:00//	type 3	000 + 00//	type 4	p 0 / 0 + 00//	type 5	p 0 / + 000//		type 6	00:00:00;00//		type 7	00:00:00;00//var m = Math.floor((frames + ostF) / (fpsC * 60)); var s = Math.floor((frames + ostF) / fpsC);  var SrM = s % 60;   var p = Math.floor(s / this.SheetLength ) + 1;//SheetLength•b”‚ÅŒvZ    var FrS = Math.floor(frames-(s * fpsC))+ostF;//•b’PˆÊ’[”ƒtƒŒ[ƒ€     var FrP = Math.floor(frames-(((p-1)*this.SheetLength) * fpsC))+ostF;//ƒy[ƒW      var SrP = s-((p-1)*this.SheetLength);//ƒy[ƒW’PˆÊ’[” •bswitch (type) {case 5: Counter ='p ' + this.Zf(p,1) + ' / + ' + this.Zf(FrP,3) + PostFix ;break;case 4: Counter ='p ' + this.Zf(p,1) + ' / ' + SrP +' + ' + this.Zf(FrS,2)+ PostFix ;break;case 3: Counter =this.Zf(s,1) + ' + ' + this.Zf(FrS,2) + PostFix ;break;case 2: Counter =this.Zf(m,1) + ':' + this.Zf(SrM,2) + ':' + this.Zf(FrS,2) + PostFix ;break;default: Counter =this.Zf(frames + ostF ,4) + PostFix ;};if (negative_flag) {Counter="-( " + Counter +" )"}; return Counter;}};/*nas.FCT2Frm(Fct,fpsC)ˆø” :ƒ^ƒCƒ€ƒJƒEƒ“ƒ^•¶š—ñ[,ƒJƒEƒ“ƒ^ƒtƒŒ[ƒ€ƒŒ[ƒg]–ß’l :ƒtƒŒ[ƒ€”ƒJƒEƒ“ƒ^•¶š‚©‚ç0ƒXƒ^[ƒg‚ÌƒtƒŒ[ƒ€’l‚ğ•Ô‚·ƒJƒEƒ“ƒ^•¶š—ñ‚Æ”F¯‚Å‚«‚È‚©‚Á‚½ê‡‚Í'Œ³‚Ì•¶š—ñ'‚ğ•Ô‚·[d—l•ÏX]ƒhƒƒbƒvƒtƒŒ[ƒ€‚ªw’è‚³‚ê‚½ê‡‚ÍƒtƒŒ[ƒ€‚ğ–ß‚³‚¸ã‹L‚É€‚¸‚éƒ^ƒCƒ€ƒJƒEƒ“ƒ^•¶š—ñ‚ÍFrm2FCT()‚Ì•¶š—ñ‚ğ‘S‚Ä”F¯‚µ‚Ä‰ğŒˆ‚·‚é•‰”‘Î‰ƒtƒŒ[ƒ€ƒŒ[ƒg‚Ìw’è‚ª‰Â”\‚È‚æ‚¤‚ÉŠg’£(2010/11/06)w’è‚ª‚È‚¢ê‡@nas.RATE ‚ğQÆ‚·‚éƒJƒEƒ“ƒ^•¶š—ñ‚Éƒy[ƒWw’è‚ª‚ ‚éê‡‚Í@nas.SheetLength@‚ğQÆ‚·‚é‚±‚Ì•Ï”‚Ìˆêw’è‚Í‚Å‚«‚È‚¢‚Ì‚ÅAƒVƒXƒeƒ€ƒvƒƒpƒeƒB‚ğ’¼Ú‘‚«’¼‚·•K—v‚ª‚ ‚éSMPTEƒhƒƒbƒv‚ğŠg’£(2010.11.05)TC•¶š—ñ”»’è ƒL[‚Í@ÅIƒZƒpƒŒ[ƒ^‚ª";"‚Å‚ ‚é‚©”Û‚©@•¶š—ñ––”ö‚ÌƒIƒŠƒWƒl[ƒVƒ‡ƒ“w’è‚Í‚ ‚Á‚Ä‚à‚æ‚¢‚ª–³Œøi‘S‚Ä0ƒIƒŠƒWƒ“j@ƒtƒŒ[ƒ€ƒŒ[ƒg‚Í30DF 60DF‚Å‚Í‹­§w’è‚ªs‚í‚ê‚½‚à‚Ì‚Æ‚·‚éB@’†ŠÔ‚Ì45fps‚ğè‡’l‚Æ‚µ‚Änas.FRATE‚ª‚»‚êˆÈ‰º‚Ìê‡‚Í30DF@‚»‚êˆÈã‚Ìê‡‚Í60DF‚ÌƒtƒŒ[ƒ€”‚ğ•Ô‚·@–{—ˆ60DF‚ÍSMPTE‚Ì‹KŠiŠO‚È‚Ì‚Åˆµ‚¢‚É’ˆÓ‚·‚é‚±‚Æ*/nas.FCT2Frm = function(Fct,fpsC){	if(!fpsC){ fpsC = this.FRATE};	fct = Fct.toString();	var negative_flag=1;//•‰”•\¦‚ª‚ ‚éê‡ƒlƒKƒeƒBƒuƒ‚[ƒh‚É‘JˆÚ   if (fct.match(/^\-\(([^\(\)]*)\)$/)){	fct=RegExp.$1;	negative_flag=-1;   }//‹ó”’‚ğ‘Síœ	fct = fct.replace(/\s/g,'');//•¶š—ñ‚ÌÅŠú‚Ì•¶š‚ğ•]‰¿‚µ‚ÄƒIƒŠƒWƒl[ƒVƒ‡ƒ“‚ğæ“¾	if (fct.charAt(fct.length - 1)=='_') {		ostF = 1;		PostFix = '_';	} else {		ostF = 0;		PostFix = '.';	};//•¶š—ñ‚ÌÅŠú‚Ì•¶š‚ªƒ|ƒXƒgƒtƒBƒbƒNƒX‚È‚çØ‚èÌ‚Ä//	alert(fct.charAt(fct.length - 1)+" : "+PostFix);	if (fct.charAt(fct.length - 1)==PostFix) {		fct = fct.slice(0,-1);	};//‰Šú”»’è‚Å@SMPTE-DF‚ğ•ª—£	if(fct.match(/^([0-9]+:){0,2}[0-9]+;[0-9]+$/)){//SMPTE hh:mm:ss;ff		fct=fct.replace(/;/g,":");//ƒZƒ~ƒRƒƒ“‚ğ’uŠ·		fpsC=(fpsC<45)?29.97:59.94;//SMPTEƒhƒƒbƒv‚ªw’è‚³‚ê‚½‚Ì‚Å‹­§“I‚ÉƒtƒŒ[ƒ€ƒŒ[ƒg’²®		ostF=0;PostFix="";//ˆêŒW”İ’èvar dF=2589408;var hF=107892;var dmF=17982;var lmFd=1798;var lmFc=1800;var sF=30;var dropF=2;if(fpsC>=45){dF=dF*2;hF=hF*2;dmF=dmF*2;lmFd=lmFd*2;lmFc=lmFc*2;sF=sF*2;dropF=4;};//60DF//TC‚ğƒXƒvƒŠƒbƒg‚µ‚Ä”z—ñ‚É“ü‚ê‚é		tmpTC=new Array();		tmpTC=fct.split(":");		var h=0;var m=0;var s=0;var k=0;//		switch (tmpTC.length) {case 4:	 h=tmpTC[tmpTC.length - 4]*1;case 3:	  m=tmpTC[tmpTC.length - 3]*1;case 2:	   s=tmpTC[tmpTC.length - 2]*1;case 1:	    f=tmpTC[tmpTC.length - 1]*1;		};//ƒtƒŒ[ƒ€ƒhƒƒbƒv”»’èif(((m%10)>0)&&(s==0)&&(f<dropF)){return null};//ƒhƒƒbƒvƒtƒŒ[ƒ€‚Íƒkƒ‹–ß‚µ	var FR  = h * hF;//	FR += Math.floor(m / 10) * dmF  ;//{10•ª’PˆÊ‚Å‰ÁZ	FR += (m % 10) * lmFd;//‚Ğ‚Æ‚¯‚½•ªæZ	FR += ((m % 10)>0)? dropF : 0;//1•ªˆÈã‚È‚ç“Ç‚İ”ò‚Î‚³‚È‚©‚Á‚½ƒtƒŒ[ƒ€‚ğ‰ÁZ	FR += s * sF;//•b”æZ	FR -= (((m % 10)>0)&&(s>0))? dropF : 0;//00 10 20 30 40 50 •ª‚Ì—áŠOƒtƒŒ[ƒ€‚ğŒ¸Z‚µ‚Ä‰ğŒˆ	FR += f;//ƒtƒŒ[ƒ€‚ğ‰ÁZ	FR -= (((m % 10)>0)&&(s==0)&&(f>=dropF))? dropF:0;//—áŠOƒhƒƒbƒvƒtƒŒ[ƒ€‚ğŒ¸Z//‚±‚±‚Å‘¶İ‚µ‚È‚¢‚Í‚¸‚Ì ƒhƒƒbƒv‚³‚ê‚½ƒtƒŒ[ƒ€‚ÍŒ¸Z‘ÎÛŠO‚É‚µ‚ÄŒã‚ë‚É‘—‚é	return FR*negative_flag;	}else{//•W€ˆ—(ƒhƒƒbƒvŠÜ‚Ş)//	if (fct.match(/[0-9\:\p\/\+]/)) {return fct}// ƒ[ƒJƒ‹•Ï”‰Šú‰»	var p=1;	 var h=0;	  var m=0;	   var s=0;	    var k=0;//	type 1	00000 ƒhƒƒbƒv‚Í‘¶İ‚µ‚È‚¢	if (fct.match(/^[0-9]+$/)) {		k=fct;	} else {//	type 2	0:00:00@­”ƒtƒŒ[ƒ€ƒŒ[ƒg‚ÌÛ‚Éƒhƒƒbƒv”­¶	if (fct.match(/^([0-9]+:){1,3}[0-9]+$/)) {//TC‚È‚Ì‚ÅƒXƒvƒŠƒbƒg‚µ‚Ä”z—ñ‚É“ü‚ê‚é		tmpTC=new Array();		tmpTC=fct.split(":");		switch (tmpTC.length) {case 4:	 h=tmpTC[tmpTC.length - 4];case 3:	  m=tmpTC[tmpTC.length - 3];case 2:	   s=tmpTC[tmpTC.length - 2];case 1:	    k=tmpTC[tmpTC.length - 1];		};	} else {//	type 3	000 + 00	if (fct.match(/^[0-9]+\+[0-9]+$/)) {		s=fct.substring(0,fct.search(/\+/));		 k=fct.substr(fct.search(/\+/)+1);	} else {//	type 4	p 0 / 0 + 00	if (fct.match(/^p[0-9]+\/[0-9]+\+[0-9]+$/)) {		p=fct.slice(1,fct.search(/\x2F/));		 s=fct.substring(fct.search(/\x2F/)+1,fct.search(/\+/));		  k=fct.substr(fct.search(/\+/)+1);	} else {//	type 5	p 0 / + 000	if (fct.match(/^p[0-9]+\/\+[0-9]+$/)) {		p=fct.slice(1,fct.search(/\x2F/));		  k=fct.substr(fct.search(/\+/)+1);	} else {// ƒ_ƒƒ_ƒ	return fct;		}}}}};// ”’l‰»‚µ‚Ä‘S‰ÁZ p=parseInt(p,10);  h=parseInt(h,10);   m=parseInt(m,10);     s=parseInt(s,10);      k=parseInt(k,10);/*	ƒ^ƒCƒ€ƒR[ƒh“I‚É‚Í‚·‚×‚Ä®”‚Å‚ ‚é‚±‚Æ‚ª•K{	ƒtƒŒ[ƒ€ƒŒ[ƒg‚ª­”“_ˆÈ‰º‚Ì’l‚ğŠÜ‚Şê‡‚Í‚·‚×‚ÄØ‚èã‚°‚ÄƒtƒŒ[ƒ€‚ğ“¾‚é	¨ (1+10.5)‚Í(1+11)‚É‚ ‚½‚é*/var	Seconds=(p-1) * this.SheetLength + h * (60 * 60) + m * (60) + s;var	Frames= Math.ceil(( Seconds * fpsC ) + k )- ostF;//ƒiƒ`ƒ…ƒ‰ƒ‹ƒhƒƒbƒvƒtƒŒ[ƒ€‚Ì”»’è ƒtƒŒ[ƒ€Œp‘±ŠÔ‚Ì––”ö‚ª•b‹«ŠE‚ğ‚Ü‚½‚ª‚Á‚½ê‡‚ğƒhƒƒbƒvƒJƒEƒ“ƒg‚·‚é//˜A‘±‚µ‚ÄƒtƒŒ[ƒ€‚ªƒhƒƒbƒv‚·‚é‚±‚Æ‚Í‚ ‚è‚¦‚È‚¢‚Ì‚Å‚±‚Ì‚æ‚¤‚É”»’è//®”ƒtƒŒ[ƒ€ƒŒ[ƒg‚ÉÀs‚³‚ê‚Ä‚¢‚½‚Ì‚ÅAƒgƒ‰ƒbƒv‚·‚é@2012@0205	if (((fpsC % 1)!= 0)&&(Math.floor(Frames/fpsC) != (Seconds))){		return null	};//{alert ("drop :"+Frames+" >> "+(Frames)/fpsC+":"+Seconds)};//‚±‚Ì”»’è‚Ì‚½‚ß“d‘ì‚ÌŒvZ®‚Ég—p‚·‚é‚Æ‚«‚Ìƒgƒ‰ƒbƒv‚ª”­¶‚·‚é‚Ì‚Å’ˆÓ(2010/11/06)	 return Frames*negative_flag;	}};/* 	‚¨“¹‹ï” ”Ä—pƒf[ƒ^‘€ìŠÖ”ŒQ//‚¨“¹‹ï” ”Ä—pƒf[ƒ^‘€ìŠÖ”ŒQƒIƒƒŠ/*	corveto ŠÖ˜A‚ÌŠÖ”		‚È‚ñ‚©‚Ü‚¾‚Â‚ç‚»‚¤‚¾‚ª‚Æ‚è‚ ‚¦‚¸İ’è‚µ‚Ä‚¨‚­*/// ƒxƒWƒF‚ÌˆêŸ®nas.bezier = function(SP, CP1, CP2, EP, T) {//‚±‚Ì®‚Í’è‹`‚Ç‚¨‚è‚Ì®	var Ax = EP - SP - (3 * (CP2 - CP1));	var Bx = 3 * (CP2 - (2 * CP1) + SP);	var Cx = 3 * (CP1 - SP);    	var Result = (Ax * Math.pow(T,3)) + (Bx * Math.pow(T,2)) + (Cx * T) + SP;    	return Result;};//// ˆêŸƒxƒWƒF‚Ì‹tŠÖ” ŒW”‚Æ’l‚©‚ç˜•Ï”t‚ğ‚à‚Æ‚ß‚é/*‚±‚ÌŠÖ”‚Í”ÍˆÍ‚ğŒÀ’è‚µ‚Äƒ^ƒCƒ~ƒ“ƒO‚ğ‹‚ß‚éŠÖ”‚Æ‚µ‚Ä¶‚©‚µSP=0  EP=1*/nas.bezierA = function(CP1, CP2, Vl) {/*§Œä“_‚Ì”ÍˆÍ‚ğ0-1‚ÉŒÀ’è‚µ‚Ä’l‚Ì‘‰ÁŒXŒü‚ğˆÛ‚·‚é‚±‚Æ‚ÅA’l‚É‘Î‚·‚é••Ï”‚ğŒˆ’è‚·‚é‚±ŠÖ”Bˆê”Ê’l‚ğ‹‚ß‚éŠÖ”‚Å‚Í‚ ‚è‚Ü‚¹‚ñ‚Ì‚Å‚²’ˆÓ‚­‚¾‚³‚¢B*/	if ( Vl > 1 || CP1 > 1 || CP2 > 1 || Vl < 0 || CP1 < 0 || CP2 < 0) {		return "rangeover";	};	var Ck = 0;	if (Vl == 0) {var t = 0} else {if (Vl == 1) {var t = 1} else {//‰Šú‰»//••Ï”‚Ì‰Šú’l‚ğ’l‚É‚Æ‚é	t = Vl ;//ƒeƒXƒg—p‰¼’l//‹‚ß‚½••Ï”‚ÅƒeƒXƒg’l‚ğ‚Æ‚é//••Ï”‚ª	var TESTv = this.bezier(0, CP1, CP2, 1, t);//‰ŠúƒeƒXƒg’l	var UPv = 1;	//ãŒÀ’l	var DOWNv = 0;	//‰ºŒÀ’l	do {if ( TESTv < Vl ) { DOWNv = t }else {UPv = t};//	ƒeƒXƒg’l‚É‚æ‚Á‚ÄãŒÀ‚Ü‚½‚Í‰ºŒÀ‚ğ“ü‚êŠ·‚¦	t = (DOWNv + UPv) / 2;	Ck = Ck + 1;//ƒ`ƒFƒbƒN‰ñ”(ƒfƒoƒbƒN—p)TESTv = this.bezier(0, CP1, CP2, 1, t);	} while (TESTv / Vl < 0.999999999 || TESTv / Vl > 1.0000000001)//ƒeƒXƒg’l‚ª–Ú•W’l‚É‚½‚¢‚µ‚Ä\•ª‚È¸“x‚É‚È‚é‚Ü‚Åƒ‹[ƒv(¸“x’²®‘Ò‚¿ 05/01)}};t = Math.round(t*100000000)/100000000;//	if (dbg) dbg_info.notice="loop-count is "+Ct;//ƒfƒoƒbƒOƒƒ‚‚ÉƒJƒEƒ“ƒ^‚Ì’l‚ğ“ü‚ê‚évar Result = t;//••Ï”return Result;};/////*	ˆê”Ê®ÍŞ¼Şª‚ÌŒÊ‚Ì’·‚³‚ğ‹‚ß‚éˆø”‚ÍbezierL(ŠJn’l,§Œä“_1,§Œä“_2,I—¹’l[[,ŠJn••Ï”,I—¹••Ï”],•ªŠ„”])•ªŠ„”‚ªÈ—ª‚³‚ê‚½ê‡‚Í	10ŠJnEI—¹••Ï”‚ªÈ—ª‚³‚ê‚½ê‡‚Í	0-1*/nas.bezierL = function(SP,CP1,CP2,EP,sT,eT,Slice){	if (! SP)	SP=0;	if (! EP)	EP=1;	if (! CP1)	CP1=0;	if (! CP2)	CP2=1;	if (! Slice)	Slice=10;	if (! sT)	sT=0;	if (! eT)	eT=1;//AE‚Ìd—l‚É‡‚í‚¹‚Ä ’P€A2ŸŒ³3ŸŒ³‚Ì‚İ‚ğˆµ‚¤//ŸŒ³”æ“¾	var Dim=(typeof(SP)=="number")? 1:SP.length;	var Ltable=new Array(Slice);//•ªŠ„’·ƒe[ƒuƒ‹‚ğì‚é	for (i=0;i<Slice;i++)	{switch(Dim){case	1:		Ltable[i]=Math.abs(			this.bezier(SP,CP1,CP2,EP,sT+(eT-sT)*(i/Slice))-			this.bezier(SP,CP1,CP2,EP,sT+(eT-sT)*((i+1)/Slice))		);	break;case	2:var p1x=this.bezier(SP[0],CP1[0],CP2[0],EP[0],sT+(eT-sT)*(i/Slice));var p1y=this.bezier(SP[1],CP1[1],CP2[1],EP[1],sT+(eT-sT)*(i/Slice));var p2x=this.bezier(SP[0],CP1[0],CP2[0],EP[0],sT+(eT-sT)*((i+1)/Slice));var p2y=this.bezier(SP[1],CP1[1],CP2[1],EP[1],sT+(eT-sT)*((i+1)/Slice));alert([p1x,p1y],[p2x,p2y]);Ltable[i]=length(sub([p1x,p1y],[p2x,p2y]));	break;case	3:var p1x=this.bezier(SP[0],CP1[0],CP2[0],EP[0],sT+(eT-sT)*(i/Slice));var p1y=this.bezier(SP[1],CP1[1],CP2[1],EP[1],sT+(eT-sT)*(i/Slice));var p1z=this.bezier(SP[2],CP1[2],CP2[2],EP[2],sT+(eT-sT)*(i/Slice));var p2x=this.bezier(SP[0],CP1[0],CP2[0],EP[0],sT+(eT-sT)*((i+1)/Slice));var p2y=this.bezier(SP[1],CP1[1],CP2[1],EP[1],sT+(eT-sT)*((i+1)/Slice));var p2z=this.bezier(SP[2],CP1[2],CP2[2],EP[2],sT+(eT-sT)*((i+1)/Slice));Ltable[i]=length(sub([p1x,p1y,p1z],[p2x,p2y,p2z]));	break;default	:	return false;}	};	var T=0;	for(n in Ltable){T +=Ltable[n]}return T;};////b’èFÊŠÖ˜AŠÖ”nas.colorStr2Ary=function(colorString){var Cr=.5;var Cg=.5;var Cb=.5;	if (colorString.match(/^\#[0-9abcdef]+/i)){Cr=eval("0x"+colorString.substr(1,2)+" /255");Cg=eval("0x"+colorString.substr(3,2)+" /255");Cb=eval("0x"+colorString.substr(5,2)+" /255");	return [Cr,Cg,Cb];	};	if (colorString.match(/^rgb\([\d]*\%?[\s\,]+[\d]*\%?[\s\,]+[\d]*\%?\)$/)){	var myColor =eval(colorString.replace( /rgb\(/, "\[").replace( /\)/ig, "\]").replace( /\%/g, "\*2.55"));	return div(myColor,255);	};	return [Cr,Cg,Cb];};//	WEBFw’è—p‚Ì•¶š—ñ‚ğ3ŸŒ³‚Ì”z—ñ‚É‚µ‚Ä•Ô‚·nas.colorAry2Str=function (colorArray){var Sr=((colorArray[0]*255) >=16)?	Math.round(colorArray[0]*255).toString(16):	"0"+Math.round(colorArray[0]*255).toString(16);var Sg=((colorArray[1]*255) >=16)?	Math.round(colorArray[1]*255).toString(16):	"0"+Math.round(colorArray[1]*255).toString(16);var Sb=((colorArray[2]*255) >=16)?	Math.round(colorArray[2]*255).toString(16):	"0"+Math.round(colorArray[2]*255).toString(16);return "#"+Sr+Sg+Sb;};//”z—ñŒ`®‚ÌƒJƒ‰[ƒf[ƒ^‚ğ16i•¶š—ñ‚Å•Ô‚·/* ######################## s—ñŒvZŠÖ”ŒQ */ //  s—ñ•\¦(“ÁİƒfƒoƒbƒO•\¦)nas.showMatrix	= function(Name,Matrix,L,C){//  •\¦–¼ s—ñƒŠƒXƒg s” —ñ”var Result	=Name +"\n";for(i=0;i<L;i++) {	for(j=0;j<C;j++){//	puts -nonewline [format \t%\ 4.4f [lindex ${Matrix} [expr ${i} * ${C} + ${j}]]]	Result +="\t"+Matrix.split(",")[i*C+j] ; 	};Result += "\n";};alert(Result);return;};//  s—ñ•\¦I‚í‚è//  s—ñ®ŒvZ(2‚Ü‚½‚Í3‚Ì³•ûs—ñ‚Ì‚İ)nas.mDeterminant = function (Matrix){if (Matrix.split(",").length!=4 && Matrix.split(",").length!=9) {	return null;}//‚Ğ‚Æ‚Ü‚¸ƒkƒ‹•Ô‚·Hif (Matrix.split(",").length==4) {//var Result [expr [lindex ${Matrix} 0] * [lindex ${Matrix} 3] - [lindex ${Matrix} 1] * [lindex ${Matrix} 2]]//2~‚Q‚Ì³•ûs—ñ®var Result = Matrix.split(",")[0]*Matrix.split(",")[3] -Matrix.split(",")[1]*Matrix.split(",")[2];} else {//3~‚R‚Ì³•ûs—ñvar Result=0;Result+=(1*Matrix.split(",")[0])*(1*Matrix.split(",")[4])*(1*Matrix.split(",")[8]);Result+=(1*Matrix.split(",")[1])*(1*Matrix.split(",")[5])*(1*Matrix.split(",")[6]);Result+=(1*Matrix.split(",")[2])*(1*Matrix.split(",")[3])*(1*Matrix.split(",")[7]);Result-=(1*Matrix.split(",")[0])*(1*Matrix.split(",")[5])*(1*Matrix.split(",")[7]);Result-=(1*Matrix.split(",")[1])*(1*Matrix.split(",")[3])*(1*Matrix.split(",")[8]);Result-=(1*Matrix.split(",")[2])*(1*Matrix.split(",")[4])*(1*Matrix.split(",")[6]);};return Result;};//  s—ñ®ŒvZI‚í‚è//  s—ñ‚ÌÏZnas.multiMatrix	= function(M1,M2){//  M1 ‚ÍA3~3‚Ìs—ñ M2‚ÍA3~? ‚Ìs—ñ‚Å‚È‚­‚Ä‚Í‚È‚ç‚È‚¢//  ‚»‚êˆÈŠO‚Ìê‡‚ÍA3~3 ‚Ì’PˆÊs—ñ‚ğ•Ô‚·	if(M1.split(",").length != 9  || M2.split(",").length % 3 !=0){		return "1,0,0,0,1,0,0,0,1";	};//  ‰“šs—ñ‰Šú‰»var multiprideMatrix =new Array();//  s—ñ‚ÌŸ”‚ğİ’è	var D1C =3;//	var D1L =3;//	var D2C =Math.floor(M2.split(",").length / D1L);	var D2L =D1C;for (Mi=0;Mi<D1L;Mi++){	for (Mj=0;Mj<D2C;Mj++){	var X =0;		for (count=0;count<D1C;count++){X= X+M1.split(",")[Mi * D1C +count ] * M2.split(",")[Mj % D2C +D2C * count ] ;		}	multiprideMatrix.push(X);	}};return multiprideMatrix.toString();};//  s—ñ‚ÌÏZI‚í‚è//  ‹ts—ñ¶¬//2Ÿ‚Ü‚½‚Í3Ÿ‚Ì³•ûs—ñ‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·Bi4Ÿ‚Æ5Ÿ‚ÌŠg’£‚Í•K—v‚©Hjnas.mInverse	= function(Matrix){if(Matrix.split(",").length!=4 && Matrix.split(",").length!=9 && Matrix.split(",").length!=16 ){return null;};//  ‹ts—ñ‰Šú‰»var InversedMatrix = new Array();//  s—ñ‚ÌŸ”‚ğæ“¾	var D = Math.sqrt(Matrix.split(",").length);// expr int(sqrt ([llength ${Matrix}]))]// 	—]ˆö”¶¬for (j=0;j<D;j++){for (i=0;i<D;i++){var Cm = new Array();	for (Cj=0;Cj<D;Cj++){	for (Ci=0;Ci<D;Ci++){	if ((Cj-j)==0){		continue;	} else{		if((Ci-i)==0) {			continue;		} else {			Cm.push(Matrix.split(",")[Cj*D+Ci]);		}	}	}	}InversedMatrix.push(this.mDeterminant(Cm.toString()) * Math.pow(-1,i + j) / this.mDeterminant(Matrix))}}return this.transMatrix(InversedMatrix.toString());};//  ‹ts—ñ¶¬I‚í‚è//  s—ñ‚Ì“]’unas.transMatrix	= function(Matrix){if(Matrix.split(",").length!=4 && Matrix.split(",").length!=9 && Matrix.split(",").length!=16 ){return null;}//  “]’u”z—ñ‚Ì‰Šú‰»var tranposedMatrix =new Array();//  s—ñ‚ÌŸ”‚ğæ“¾	var D =Math.sqrt(Matrix.split(",").length);//  “]’ufor(j=0;j<D;j++){	for(i=0;i<D;i++){	tranposedMatrix.push( Matrix.split(",")[i* D+j]);	}};return tranposedMatrix.toString();};//  s—ñ‚Ì“]’uI‚í‚è// ######################## s—ñŠÖ”ŒQI‚í‚è//	‰ñ“]ŠpŠÖ˜A//azimuthiƒAƒWƒ}ƒXj‚Í’n}EŠC}“™‚Åg—p‚·‚é•ûˆÊŠpB//‚±‚±‚Å‚ÍŒv‚Ì12•ûŒü(–k=N)‚ğ0“x‚Æ‚µ‚ÄŒv‰ñ‚è•ûŒü‚É 1ü360‹‚Ì’PˆÊŒn‚Æ‚µ‚Ü‚·B//•ûˆÊŠp‚ÌŠT”O‚Í@AE‚É‚Í‘¶İ‚µ‚È‚¢nas.deg2azi=function(degrees){//ŒXÎŠp‚©‚ç•ûˆÊ‚Ö	return (-1*degrees+90);}nas.azi2deg=function(azimuth){//•ûˆÊ‚©‚çŒXÎŠp‚Ö	return (-1*(azimuth-90))}// 2ŸŒ³‚ÌƒxƒNƒgƒ‹‚ğ—^‚¦‚Ä•ûˆÊŠp‚ğ‹‚ß‚éB’·‚³‚ğ‰Á‚¦‚é‚×‚«‚©H//ˆø”form‚Í–ß‚µ’l‚ÌŒ`®‚ğw’èBƒfƒtƒHƒ‹ƒg‚Í•ûˆÊŠpfunction vec2deg(Vector,form){ 	if (Vector.length!=2){return false}; 	if (!form){form="degrees"}; 	var x=Vector[0];var y=Vector[1];	var	myRadians=(y==0)?0:Math.atan(y/x); 	if (x<0){myRadians+=Math.PI};	switch(form)	{		case		"redians":var result=myRadians;		break;			case		"degrees":var result = Math.floor(180. * (myRadians/Math.PI)* 10000)/10000;//degrees;		break;			case		"azimuth":		default	:				var result = nas.deg2azi(radiansToDegrees(myRadians));		break;		} 		return result;}/*	b’è•¶š—ñ‘€ìƒƒ\ƒbƒh	*///ƒoƒCƒg”‚ğ•Ô‚·B//À‘•‚É‚æ‚Á‚Ä‚Í“à•”ƒR[ƒh‚ªˆá‚¤‚Ì‚Åƒ}ƒ‹ƒ`ƒoƒCƒg•”•ª‚ÌƒoƒCƒg”‚Í“¯‚¶‚Æ‚ÍŒÀ‚ç‚È‚¢Bnas.biteCount	=function(myString){if(! myString){myString="";};	var btCount=0;	for (cid=0;cid<myString.length;cid++){		cXV=myString.charCodeAt(cid);		while(cXV>0){btCount++;cXV=Math.floor(cXV/256);}	}	return btCount;}//•¶š—ñ‚ÌƒoƒCƒg”‚ğŠ¨’è‚µ‚ÄAw’èƒoƒCƒgˆÈ‰º‚Ì•¶š—ñ‚É‹æØ‚Á‚Ä•Ô‚·B//AE‚Ìƒ‰ƒxƒ‹31ƒoƒCƒg§ŒÀ—p‚È‚Ì‚ÅAƒfƒtƒHƒ‹ƒg‚Í 31nas.biteClip	=function(myString,count){if(! myString){myString="";};	if(! count){count=31};	var btCount=0;	for (cid=0;cid<myString.length;cid++){		cXV=myString.charCodeAt(cid);		while(cXV>0){btCount++;cXV=Math.floor(cXV/256);}		if (btCount>count){return myString.slice(0,cid);}	}	return myString;//”²‚¯‚½‚ç‘S•”•Ô‚·};/* nas.incrStr(myString,Step,Opt)ˆø”@”CˆÓ•¶š—ñ–ß’l	•¶š—ñ‚Ì––”ö‚Ì”Ô†•”•ª‚ğƒXƒeƒbƒv”‚­‚èã‚°‚Ä•Ô‚·	ƒXƒeƒbƒv‚É•‰‚Ì”‚ğ—^‚¦‚é‚ÆŒ¸Z –ß‚è’l‚ª0•‰‚Ì”‚Ìê‡‚ÍŒ³‚Ì•¶š—ñ‚ğ–ß‚·	‚P‚Oi”’l‚Ì‚İƒTƒ|[ƒg	”š‚Ì––”ö‚ÉƒTƒuƒo[ƒWƒ‡ƒ“•\‹L‚Æ‚µ‚Ä[a-z]‚Ì	postfix‚ª‚ ‚Á‚Ä‚à‚»‚ê‚ğØ‚èÌ‚Ä‚Ä•]‰¿‚·‚é‚Ì‚Å‚¿‚å‚Á‚Æ‚¾‚¯•Ö—˜	”Ô†‚ª‚È‚¯‚ê‚Î‚»‚Ì‚Ü‚Ü–ß‚·	ƒIƒvƒVƒ‡ƒ“‚Åpostfix‚ğ•t‚¯‚Ä–ß‚·*/nas.incrStr=function(myString,myStep,myOpt){	if(! myOpt){myOpt=false};//if true with postFix	if(isNaN(myStep)){myStep=1};	if(myString.match(/^(.*[^\d])?(\d+)([^0-9]*)$/i)){		var myPreFix=RegExp.$1;		var myNumber=RegExp.$2;		var myPstFix=(myOpt)?RegExp.$3:"";		var newNum=((parseInt(myNumber,10)+myStep)>0)?nas.Zf(parseInt(myNumber,10)+myStep,myNumber.length):myNumber;	return myPreFix+newNum+myPstFix;	}	return myString;}/*	nas.propCount(myObject,option)ˆø”:	”CˆÓ‚ÌƒIƒuƒWƒFƒNƒg,ƒŠƒXƒgƒXƒCƒbƒ`–ß’l	ƒIƒuƒWƒFƒNƒg‚Ì‚à‚ÂƒvƒƒpƒeƒB‚Ì”’Pƒ‚ÉƒIƒuƒWƒFƒNƒg‚Ì‘”‚ğ•Ô‚·íœ‚³‚ê‚½‚ªQÆ‚ªc‚Á‚Ä‚¢‚é‚½‚ß‚É–³Œø‚É‚È‚Á‚½ƒIƒuƒWƒFƒNƒg‚ğŒŸ¸‚·‚é‚½‚ß‚Éì¬‚½‚¾‚µ‚»‚êˆÈŠO‚Ì—p“r‚Åg—p‚Å‚«‚È‚¢‚í‚¯‚Å‚Í‚È‚¢ƒŠƒXƒgƒXƒCƒbƒ`‚ğ“ü‚ê‚é‚ÆƒvƒƒpƒeƒB‚ğ”z—ñ‚Å•Ô‚·*/nas.propCount=function(myObject,myOption){	if(! myObject){return false;}	if(myOption){var resultArray=new Array();}	var myResult=0;		for(prp in myObject){			myResult++;	if(myOption){resultArray.push(prp)}			}	if(myOption){		return resultArray;	}else{			return myResult;	}}/*	’PˆÊ‚Â‚«‚Ì•¶š—ñ’l‚ğ”’l‚É‚µ‚Ä•Ô‚·ƒƒ\ƒbƒh	nas.decodeUnit(“ü—Í’l,•ÏŠ·’PˆÊ)	‰ğß‚Å‚«‚é’PˆÊ‚Í mm cm pt px in	–ß‚µ’l‚Ì’PˆÊ‚à“¯‚¶‚­	ƒfƒtƒHƒ‹ƒg‚Ì’PˆÊ‚Í“ü‚è‚à–ß‚µ‚à pt*/nas.decodeUnit=function(myValue,resultUnit){	if((myValue!=undefined)&&(myValue.match(/^([0-9]+)\s?(mm|cm|pt|px|in)?$/i))){		var baseValue=RegExp.$1*1;		var myUnit=RegExp.$2;	}else{		return false;	}	if(!(resultUnit.match(/^(mm|cm|pt|px|in)?$/i))){resultUnit="";}//‚·‚×‚Äpt‚É•ÏŠ·	switch(myUnit){case	"in":myValue=72*baseValue;break;case	"px":myValue=72*baseValue/this.Dpi();break;case	"cm":myValue=72*baseValue/2.54;break;case	"mm":myValue=72*baseValue/25.4;break;case	"pt":default	:myValue=baseValue;	}	switch(resultUnit){case	"in":myResult=myValue/72;break;case	"px":myResult=this.Dpi()*myValue/72;break;case	"cm":myResult=2.54*(myValue/72);break;case	"mm":myResult=25.4*(myValue/72);break;case	"pt":default	:myResult=myValue;	}return myResult;};

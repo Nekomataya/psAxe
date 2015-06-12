@@ -1,104 +1,1 @@
-/*			STS2XPS(myOpenFile)
- *		STSãƒ•ã‚¡ã‚¤ãƒ«ã‚’XPSäº’æ›ãƒ†ã‚­ã‚¹ãƒˆã«ã‚³ãƒ³ãƒãƒ¼ãƒˆã™ã‚‹
- *		å¼•æ•°	STSãƒ‡ãƒ¼ã‚¿ã‚’ãƒã‚¤ãƒ³ãƒˆã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
- *		æ‹¡å¼µå­ã¯ sts/STS ã®ã¿ã€‚
- *		ãƒ˜ãƒƒãƒ€æ¤œæŸ»ã‚ã‚Šã€‚ãƒ•ã‚¡ã‚¤ãƒ«ã®ç ´æã¯æ¤œæŸ»ãªã—
- *		è¦ ä¹™å¥³ãƒã‚¤ãƒŠãƒªæ‹¡å¼µ
- *		å…¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é…åˆ—ã«ã¨ã‚‰ãªã„æ–¹ãŒè‰¯ã„ã‹ã‚‚â€¦
- */
-function STS2XPS(myOpenFile)
-{
-//è­˜åˆ¥æ–‡å­—åˆ—ä½ç½®ã‚’ç¢ºèªã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆåˆ¤å®š
-	myOpenFile.open("r");
-	checkVer=myOpenFile.read(18);
-	myOpenFile.close();
-if (! checkVer.match(/^\x11ShiraheiTimeSheet$/)){ return false;};
-
-//ã‚ªãƒ¼ãƒ—ãƒ³ã—ã¦é…åˆ—ã«ã¨ã‚‹
-	myOpenFile.open("r");
-	mySTS=myOpenFile.getBin();
-	myOpenFile.close();
-//STSãƒ‡ãƒ¼ã‚¿ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåŒ–ã™ã‚‹
-	mySTS.file=myOpenFile;//å‚ç…§å¯èƒ½ãªã‚ˆã†ã«ã‚ªãƒªã‚¸ãƒŠãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ï½Œã«ã¶ã‚‰ä¸‹ã’ã‚‹
-	mySTS.frameDuration	=mySTS[19]*1+mySTS[20]*256;
-					//ãƒ•ãƒ¬ãƒ¼ãƒ ç¶™ç¶šæ•°
-	mySTS.layerCount	=mySTS[18]*1;
-					//ãƒ¬ã‚¤ãƒ¤æ•°
-	mySTS.dataLength	=2;
-					//1ãƒ•ãƒ¬ãƒ¼ãƒ ã‚ãŸã‚Šã®ãƒ‡ãƒ¼ã‚¿é•·2ãƒã‚¤ãƒˆæ•´æ•°
-	mySTS.body=function(layerID,frameID)
-	{
-		//2bite/1data : offset 23bite : IDã¯0ã‚ªãƒªã‚¸ãƒ³ ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’è¨ˆç®—ã—ã¦å€¤ã‚’æˆ»ã™ãƒ¡ã‚½ãƒƒãƒ‰
-		var myAddress= (layerID)*(this.frameDuration*this.dataLength)+(frameID*this.dataLength)+23;
-		return this[myAddress]+this[myAddress+1]*256;
-	}
-//ãƒ©ãƒ™ãƒ«å–å¾—ã¯ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ã§(S-JIS)*å¤§ä¸ˆå¤«ã‹ãª?
-	mySTS.layerLabel	=new Array(mySTS.layerCount);//ãƒ©ãƒ™ãƒ«é…åˆ—
-	var labelDataLength	=new Array(mySTS.layerCount);//ãƒ©ãƒ™ãƒ«ãƒ‡ãƒ¼ã‚¿é•·é…åˆ—
-//ãƒ©ãƒ™ãƒ«ã®ä½ç½®ã¨é•·ã•ã‚’å–å¾—
-//		ãƒ©ãƒ™ãƒ«0ã®ã‚·ãƒ¼ã‚¯ä½ç½®
-	var labelOffset=mySTS.layerCount*(mySTS.frameDuration*mySTS.dataLength)+23;
-//		ãƒ©ãƒ™ãƒ«é•·(ãƒã‚¤ãƒˆæ•°)
-	labelDataLength[0]=mySTS[labelOffset];
-//open
-	myOpenFile.open("r");
-	myOpenFile.encoding="CP932";
-//	æœ€åˆã®ãƒ©ãƒ™ãƒ«ã‚’å–å¾—
-	myOpenFile.seek(labelOffset+1,0);
-	mySTS.layerLabel[0]=myOpenFile.read(labelDataLength[0]);
-	for(idx=1;idx<mySTS.layerCount;idx++)
-	{
-		labelOffset=labelOffset+mySTS.layerLabel[idx-1].length + 1;//æ–°ã‚¢ãƒ‰ãƒ¬ã‚¹
-		labelDataLength[idx]=mySTS[labelOffset];//ãƒ©ãƒ™ãƒ«é•·(ãƒã‚¤ãƒˆæ•°)
-		myOpenFile.seek(labelOffset+1,0);//ã‚·ãƒ¼ã‚¯
-		mySTS.layerLabel[idx]=myOpenFile.read(labelDataLength[idx]);//å–å¾—
-	}
-//close
-	myOpenFile.close();
-//XPSäº’æ›ã‚¹ãƒˆãƒªãƒ¼ãƒ ã«å¤‰æ›
-mySTS.toSrcString = function()
-{
-	var resultStream="nasTIME-SHEET 0.4";
-	resultStream	+=nas.GUI.LineFeed;
-	resultStream	+="#ShiraheiTimeSheet";
-	resultStream	+=nas.GUI.LineFeed;
-	resultStream	+="##TITLE="+nas.workTitles.selectedName;
-	resultStream	+=nas.GUI.LineFeed;
-	resultStream	+="##CUT="+this.file.name.replace(/\.[^\.]+$/,"");
-	resultStream	+=nas.GUI.LineFeed;
-	resultStream	+="##TIME="+nas.Frm2FCT(this.frameDuration,3,0);
-	resultStream	+=nas.GUI.LineFeed;
-	resultStream	+="##TRIN=0+00.,\x22\x22";
-	resultStream	+=nas.GUI.LineFeed;
-	resultStream	+="##TROUT=0+00.,\x22\x22";
-	resultStream	+=nas.GUI.LineFeed;
-//	ãƒ©ãƒ™ãƒ«é…ç½®
-	resultStream	+="[CELL\tN\t";
-	for(idx=0;idx<this.layerCount;idx++)
-	{	resultStream	+=this.layerLabel[idx]+"\t";};
-	resultStream	+="]";
-	resultStream	+=nas.GUI.LineFeed;
-	
-	for(frm=0;frm<this.frameDuration;frm++)
-	{
-		resultStream	+="\t\t";
-		for(idx=0;idx<this.layerCount;idx++)
-		{
-			if(frm==0)
-			{
-				var currentValue=this.body(idx,frm);
-			}else{
-				var currentValue=(this.body(idx,frm)==this.body(idx,(frm-1)))?"-":this.body(idx,frm);
-			}
-			resultStream	+=(currentValue===0)?"X\t":currentValue+"\t";
-		}
-		resultStream	+=nas.GUI.LineFeed;
-	}
-	resultStream	+="[END]";
-	resultStream	+=nas.GUI.LineFeed;
-	resultStream	+="Convert from STS"
-	return resultStream;
-}
-return mySTS.toSrcString();
-}
-//end converter
+/*			STS2XPS(myOpenFile) *		STSƒtƒ@ƒCƒ‹‚ğXPSŒİŠ·ƒeƒLƒXƒg‚ÉƒRƒ“ƒo[ƒg‚·‚é *		ˆø”	STSƒf[ƒ^‚ğƒ|ƒCƒ“ƒg‚·‚éƒtƒ@ƒCƒ‹ƒIƒuƒWƒFƒNƒg *		Šg’£q‚Í sts/STS ‚Ì‚İB *		ƒwƒbƒ_ŒŸ¸‚ ‚èBƒtƒ@ƒCƒ‹‚Ì”j‘¹‚ÍŒŸ¸‚È‚µ *		—v ‰³—ƒoƒCƒiƒŠŠg’£ *		‘Sƒtƒ@ƒCƒ‹‚ğ”z—ñ‚É‚Æ‚ç‚È‚¢•û‚ª—Ç‚¢‚©‚àc */function STS2XPS(myOpenFile){//¯•Ê•¶š—ñˆÊ’u‚ğŠm”F‚µ‚Äƒtƒ@ƒCƒ‹ƒtƒH[ƒ}ƒbƒg”»’è	myOpenFile.open("r");	checkVer=myOpenFile.read(18);	myOpenFile.close();if (! checkVer.match(/^\x11ShiraheiTimeSheet$/)){ return false;};//ƒI[ƒvƒ“‚µ‚Ä”z—ñ‚É‚Æ‚é	myOpenFile.open("r");	mySTS=myOpenFile.getBin();	myOpenFile.close();//STSƒf[ƒ^‚ğƒIƒuƒWƒFƒNƒg‰»‚·‚é	mySTS.file=myOpenFile;//QÆ‰Â”\‚È‚æ‚¤‚ÉƒIƒŠƒWƒiƒ‹‚Ìƒtƒ@ƒCƒ‹‚ğƒvƒƒpƒeƒB‚Œ‚É‚Ô‚ç‰º‚°‚é	mySTS.frameDuration	=mySTS[19]*1+mySTS[20]*256;					//ƒtƒŒ[ƒ€Œp‘±”	mySTS.layerCount	=mySTS[18]*1;					//ƒŒƒCƒ„”	mySTS.dataLength	=2;					//1ƒtƒŒ[ƒ€‚ ‚½‚è‚Ìƒf[ƒ^’·2ƒoƒCƒg®”	mySTS.body=function(layerID,frameID)	{		//2bite/1data : offset 23bite : ID‚Í0ƒIƒŠƒWƒ“ ƒAƒhƒŒƒX‚ğŒvZ‚µ‚Ä’l‚ğ–ß‚·ƒƒ\ƒbƒh		var myAddress= (layerID)*(this.frameDuration*this.dataLength)+(frameID*this.dataLength)+23;		return this[myAddress]+this[myAddress+1]*256;	}//ƒ‰ƒxƒ‹æ“¾‚Íƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚Å(S-JIS)*‘åä•v‚©‚È?	mySTS.layerLabel	=new Array(mySTS.layerCount);//ƒ‰ƒxƒ‹”z—ñ	var labelDataLength	=new Array(mySTS.layerCount);//ƒ‰ƒxƒ‹ƒf[ƒ^’·”z—ñ//ƒ‰ƒxƒ‹‚ÌˆÊ’u‚Æ’·‚³‚ğæ“¾//		ƒ‰ƒxƒ‹0‚ÌƒV[ƒNˆÊ’u	var labelOffset=mySTS.layerCount*(mySTS.frameDuration*mySTS.dataLength)+23;//		ƒ‰ƒxƒ‹’·(ƒoƒCƒg”)	labelDataLength[0]=mySTS[labelOffset];//open	myOpenFile.open("r");	myOpenFile.encoding="CP932";//	Å‰‚Ìƒ‰ƒxƒ‹‚ğæ“¾	myOpenFile.seek(labelOffset+1,0);	mySTS.layerLabel[0]=myOpenFile.read(labelDataLength[0]);	for(idx=1;idx<mySTS.layerCount;idx++)	{		labelOffset=labelOffset+mySTS.layerLabel[idx-1].length + 1;//VƒAƒhƒŒƒX		labelDataLength[idx]=mySTS[labelOffset];//ƒ‰ƒxƒ‹’·(ƒoƒCƒg”)		myOpenFile.seek(labelOffset+1,0);//ƒV[ƒN		mySTS.layerLabel[idx]=myOpenFile.read(labelDataLength[idx]);//æ“¾	}//close	myOpenFile.close();//XPSŒİŠ·ƒXƒgƒŠ[ƒ€‚É•ÏŠ·mySTS.toSrcString = function(){	var resultStream="nasTIME-SHEET 0.4";	resultStream	+=nas.GUI.LineFeed;	resultStream	+="#ShiraheiTimeSheet";	resultStream	+=nas.GUI.LineFeed;	resultStream	+="##TITLE="+nas.workTitles.selectedName;	resultStream	+=nas.GUI.LineFeed;	resultStream	+="##CUT="+this.file.name.replace(/\.[^\.]+$/,"");	resultStream	+=nas.GUI.LineFeed;	resultStream	+="##TIME="+nas.Frm2FCT(this.frameDuration,3,0);	resultStream	+=nas.GUI.LineFeed;	resultStream	+="##TRIN=0+00.,\x22\x22";	resultStream	+=nas.GUI.LineFeed;	resultStream	+="##TROUT=0+00.,\x22\x22";	resultStream	+=nas.GUI.LineFeed;//	ƒ‰ƒxƒ‹”z’u	resultStream	+="[CELL\tN\t";	for(idx=0;idx<this.layerCount;idx++)	{	resultStream	+=this.layerLabel[idx]+"\t";};	resultStream	+="]";	resultStream	+=nas.GUI.LineFeed;		for(frm=0;frm<this.frameDuration;frm++)	{		resultStream	+="\t\t";		for(idx=0;idx<this.layerCount;idx++)		{			if(frm==0)			{				var currentValue=this.body(idx,frm);			}else{				var currentValue=(this.body(idx,frm)==this.body(idx,(frm-1)))?"-":this.body(idx,frm);			}			resultStream	+=(currentValue===0)?"X\t":currentValue+"\t";		}		resultStream	+=nas.GUI.LineFeed;	}	resultStream	+="[END]";	resultStream	+=nas.GUI.LineFeed;	resultStream	+="Convert from STS"	return resultStream;}return mySTS.toSrcString();}//end converter

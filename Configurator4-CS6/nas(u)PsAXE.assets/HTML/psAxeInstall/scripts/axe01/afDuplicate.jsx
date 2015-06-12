@@ -6,7 +6,7 @@
 var myUndoStr=localize(nas.uiMsg["duplicateAnimationFrame"]);
 var myExcute="";
 //=============== コード
-myExcute+="nas.axeAFC.dupulicateFrame();";
+myExcute+="nas.axeAFC.duplicateFrame();";
 //=================================　Execute width Undo
 ErrStrs = {}; ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation"); try {
 	if(activeDocument.suspendHistory){

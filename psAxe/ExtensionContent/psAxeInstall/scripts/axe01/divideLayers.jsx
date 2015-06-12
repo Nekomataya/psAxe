@@ -45,7 +45,7 @@ layerSort= function(targetCol,revFlag){
 //並び替えた配列から同名レイヤのチェック
 	for (idx=1;idx<sortOrder.length;idx++){
 		if(sortOrder[idx-1]==sortOrder[idx]){
-			alert("同名のレイヤがあります。\n二つ目以降のレイヤは並び替えの対象になりません。");
+			alert(nas.uiMsg.dm015);//"同名のレイヤがあります。\n二つ目以降のレイヤは並び替えの対象になりません。"
 			break;
 		}
 	}
@@ -283,7 +283,8 @@ return true;
 //	
 //alert(activeDocument.name);
 if(app.documents.length){
-var myUndo="レイヤ仕分け";var myAction="classify(activeDocument.activeLayer.parent)";
+var myUndo=localize(nas.uiMsg.layerClassify);//"レイヤ仕分け"
+var myAction="classify(activeDocument.activeLayer.parent)";
 
 
 if(app.activeDocument.suspendHistory){app.activeDocument.suspendHistory(myUndo,myAction)}else{evel(myAction)}

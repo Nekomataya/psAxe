@@ -12,7 +12,7 @@
 	}
 }
 if(myDocLayers.layers.length>1){
-var myUndoStr="上下入れ替え";
+var myUndoStr=localize({en:"swap layers",ja:"上下入れ替え"});
 var myExecute="app.activeDocument.activeLayer=myDocLayers.layers[1];myDocLayers.layers[1].move(myDocLayers.layers[0],ElementPlacement.PLACEBEFORE);if(subMotionLayers.length){for(var lx=0;lx<subMotionLayers.length;lx++){if(subMotionLayers[lx].layers.length){subMotionLayers[lx].layers[1].move(subMotionLayers[lx].layers[0],ElementPlacement.PLACEBEFORE)}}}"
 if(app.activeDocument.suspendHistory){app.activeDocument.suspendHistory(myUndoStr,myExecute)}else{eval(myExecute)}
 };

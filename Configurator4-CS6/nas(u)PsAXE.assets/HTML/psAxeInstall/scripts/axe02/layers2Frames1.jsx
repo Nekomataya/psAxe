@@ -32,7 +32,7 @@ if((app.activeDocument.activeLayer.parent.typename=="Document") && (app.activeDo
 var myRootCount=app.activeDocument.layers.length;
 		//第二フレーム以降を表示を切り替えつつアニメフレームに登録
 		for(var idx=myLayers.length-1;idx>0;idx--){
-			nas.axeAFC.dupulicateFrame();//作る（フォーカス移動）
+			nas.axeAFC.duplicateFrame();//作る（フォーカス移動）
 if(myRootCount<app.activeDocument.layers.length){
 //ルート第一レイヤを捨ててモードを切り替える
  app.activeDocument.layers[0].remove();

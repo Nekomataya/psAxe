@@ -36,8 +36,8 @@ promptのほうがコーディング早そう…
  desc194.putReference( id1031, ref153 );
  executeAction( id1030, desc194, DialogModes.ALL ); 
 */
-
-var newName=prompt("レイヤ名を確認してください。",myLayers.name,"change Name?");
+//"レイヤ名を確認してください。"
+var newName=prompt(localize(nas.uiMsg.confirmLayerName),myLayers.name,"change Name?");
 
 if((newName!=myName)&&(newName)&&(newName.length)){myLayers.name=newName};
 

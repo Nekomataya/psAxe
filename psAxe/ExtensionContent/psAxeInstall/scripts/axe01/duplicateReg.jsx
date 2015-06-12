@@ -67,7 +67,7 @@ return resultLayers;
 myAction="for (var ix=0;ix<myLayers.length;ix ++){if((myLayers[ix].kind==LayerKind.NORMAL)&&(myLayers[ix]!==myTempalte)){var myLayerOpc=myLayers[ix].opacity;if (myLayerOpc<100){myLayers[ix].opacity=100.0;};var myPegLayer=myTempalte.duplicate(myLayers[ix],ElementPlacement.PLACEBEFORE);var newLayer=myPegLayer.merge();newLayer.opacity=myLayerOpc;}};"
 if(app.activeDocument.suspendHistory){app.activeDocument.suspendHistory(myUndo,myAction)}else{evel(myAction)}
 	}else{
-	alert("no peg(register) layer found!\nタップ（トンボ）レイヤを取得できませんでした。\n");
+	alert(localize({en:"no peg(register) layer found!",ja:"タップ（トンボ）レイヤを取得できませんでした"}));
 	}
 }else{
     alert("no Documents")

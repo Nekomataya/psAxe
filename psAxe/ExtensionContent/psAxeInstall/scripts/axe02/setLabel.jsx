@@ -17,6 +17,7 @@ myLabel=arguments[0];
 myLabelOpt=arguments[1];
 }catch(er){}
 if(myLabel !== void(0)){
+
 	var getSelectedLayers=function(){ 
 		//限定動作　背景レイヤが含まれているときにはエラーだけどとりあえず無視 選択レイヤがない場合もエラーだけどそれも無視
 //--------------------------------------レイヤからグループ
@@ -107,45 +108,15 @@ function addSelect(lyNm)
     executeAction( idSlct, slctDescriptor, DialogModes.NO );
 }
 
-	if(! app.nas){
-//iclude nasライブラリに必要な基礎オブジェクトを作成する
-	var nas = new Object();
-		nas.Version=new Object();
-		nas.isAdobe=true;
-//	ライブラリのロード
-//==================== ライブラリを登録して事前に読み込む
-/*
-	includeLibs配列に登録されたファイルを順次読み込む。
-	登録はパスで行う。(Fileオブジェクトではない)
-	$.evalFile メソッドが存在する場合はそれを使用するがCS2以前の環境ではglobal の eval関数で読み込む
-*/
-if($.fileName){
-//	CS3以降は　$.fileNameオブジェクトがあるのでロケーションフリーにできる
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
+//Photoshop用ライブラリ読み込み
+if(typeof app.nas =="undefined"){
+   var myLibLoader=new File(Folder.userData.fullName+"/nas/lib/Photoshop_Startup.jsx");
+   $.evalFile(myLibLoader);
 }else{
-//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
-	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
+   nas=app.nas;
 }
-var includeLibs=[nasLibFolderPath+"config.js",nasLibFolderPath+"nas_common.js"];
-for(prop in includeLibs){
-	var myScriptFileName=includeLibs[prop];
-	if($.evalFile){
-	//$.evalFile ファンクションがあれば実行する
-		$.evalFile(myScriptFileName);
-	}else{
-	//$.evalFile が存在しないバージョンではevalにファイルを渡す
-		var scriptFile = new File(myScriptFileName);
-		if(scriptFile.exists){
-			scriptFile.open();
-			var myContent=scriptFile.read()
-			scriptFile.close();
-			eval(myContent);
-		}
-	}
-}
-	}else{
-	nas=app.nas;
-	}
+//+++++++++++++++++++++++++++++++++ここまで共用
+
 
 // var allLayers=getAllLayers(app.activeDocument.layers);
 //復帰用インデックスを振るために空で実行する意味が消失したようです　IDがレイヤ構成の見た目と一致せずに不定になっているのでアウト
@@ -162,7 +133,13 @@ for(prop in includeLibs){
  */
 switch(myLabelOpt){
 case "selection":
-var myTargetLayers=getSelectedLayers();//現在の選択レイヤを取得　ただし同一トレーラー内のレイヤのみが取得可能
+//var myTargetLayers=getSelectedLayers();//現在の選択レイヤを取得　ただし同一トレーラー内のレイヤのみが取得可能
+try{
+var myTargetLayers=nas.axeCMC.getItemsById(nas.axeCMC.getSelectedItemId());
+//新ライブラリによる取得。背景・レイヤセットも取れる背景のみの場合はやはり失敗
+}catch(er){
+var myTargetLayers=[];
+}
 break;
 case "auto":
 var myTargetLayers=[];

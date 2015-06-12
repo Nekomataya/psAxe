@@ -1,4 +1,4 @@
-﻿/*(各種設定)
+/*(各種設定)
  *	nasPsPref.jsx
  *
  *	プリファレンスパネル まだまだ変わるよ 暫定版
@@ -210,23 +210,33 @@ nas.Pref.tabPanel[0].init();
 		nas.GUI.addEditText(this,nas.inputMedias.selectedName,1,1.5,3,1);
 	this.imWidth=
 		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[1],4,1.5,1,1);
+	this.imWidthLB=
+		nas.GUI.addStaticText(this,"mm/W",5,1.5,1,1);
 
 
 	this.imFrameRatio=
-		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[2],5,1.5,1,1);
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[2],6,1.5,1,1);
+	this.imFrameRatioLB=
+		nas.GUI.addStaticText(this,"aspect",7,1.5,1,1);
 	this.imResolution=
-		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[3],6,1.5,1,1);
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[3],1,2.5,1,1);
+	this.imResolutionLB=
+		nas.GUI.addStaticText(this,"(dpi)",1.8,2.5,1,1);
 	this.imFrameRate=
-		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[4],7,1.5,1,1);
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[4],2.5,2.5,1,1);
+	this.imFrameRateLB=
+		nas.GUI.addStaticText(this,"(fps)",3.3,2.5,1,1);
 
+	this.imPegIDLB=
+		nas.GUI.addStaticText(this,"peg-Info",4,2.5,1.2,1);
 	this.imPegID=
-		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[5],4,2.5,1,1);
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[5],5,2.5,0.7,1);
 	this.imPegX=
-		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[6],5,2.5,1,1);
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[6],5.6,2.5,1,1);
 	this.imPegY=
-		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[7],6,2.5,1,1);
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[7],6.4,2.5,1,1);
 	this.imPegR=
-		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[8],7,2.5,1,1);
+		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[8],7.2,2.5,1,1);
 
 //データ操作コントロール localize(nas.uiMsg[""])
 	this.addEntry=
@@ -302,15 +312,23 @@ nas.Pref.tabPanel[1].MediaList.update = function()
 		nas.GUI.addEditText(this,nas.outputMedias.selectedName,1,1.5,3,1);
 	this.omWidth=
 		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[1],4,1.5,1,1);
+	this.omWidthLB=
+		nas.GUI.addStaticText(this,"x",5,1.5,0.5,1);
 
 
 	this.omHeight=
-		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[2],5,1.5,1,1);
+		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[2],5.5,1.5,1,1);
+	this.omHeightLB=
+		nas.GUI.addStaticText(this,"(px)",6.5,1.5,2,1);
+	this.omPaLB=
+		nas.GUI.addStaticText(this,"aspect",5,2.5,1,1);
 	this.omPa=
-		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[3],6,1.5,1,1);
+		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[3],4,2.5,1,1);
 
 	this.omFramerate=
-		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[4],7,1.5,1,1);
+		nas.GUI.addEditText(this,nas.outputMedias.selectedRecord[4],6,2.5,1,1);
+	this.omFramerateLB=
+		nas.GUI.addStaticText(this,"(fps)",7,2.5,1,1);
 
 //データ操作コントロール
 	this.addEntry=
@@ -584,10 +602,12 @@ nas.Pref.tabPanel[3].init();
 
 
 //Yes No Cancel
-	nas.Pref.readButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Load"]),0,19,2,1);//"読込"
-	nas.Pref.writeButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Save"]),2,19,2,1);//"保存"
-	nas.Pref.clearButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Destruction"]),4,19,2,1);//"消去"
-	nas.Pref.closeButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Close"]),6,19,3,1);//"close"	
+	nas.Pref.importButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Import"]),0,19,1,1);//"インポート"
+	nas.Pref.exportButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Export"]),1,19,1,1);//"エクスポート"
+	nas.Pref.readButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Load"]),2,19,2,1);//"読込"
+	nas.Pref.writeButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Save"]),4,19,2,1);//"保存"
+	nas.Pref.clearButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Destruction"]),6,19,1,1);//"破棄"
+	nas.Pref.closeButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Close"]),7,19,2,1);//"close"	
 
 //=========================================================コントロールファンクション設定
 //メインコントロール
@@ -963,6 +983,8 @@ if(doCopy){
 //ショートカットの設定は、選択時に実行
 
 //Yes/No/Cacel
+	nas.Pref.importButton.onClick=function(){nas.importPrefarence();this.parent.init("all");};
+	nas.Pref.exportButton.onClick=function(){nas.exportPrefarence();};
 	nas.Pref.readButton.onClick=function(){
 		var doAction=confirm("保存中の設定を読み込みます。現在の設定は上書きされます。"+nas.GUI.LineFeed+"取り消しはできません。よろしいですか？");
 		if(doAction){nas.readPrefarence();this.parent.init("all")};

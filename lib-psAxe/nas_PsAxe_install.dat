@@ -1,4 +1,4 @@
-//(nas_PsAxe_installer_data04)
+//(nas_PsAxe_installer_data06)
 /*===========================	これはインストール設定ファイル	===============================*/
 //第一行目のシグネチャは、インストーラに記述された変数と一致する必要があるので、注意 これがデータの識別子となります。任意
 /*
@@ -12,7 +12,7 @@ $id:$
 nas_Installer.locale="ja_JP";//限定…この判定はどうも簡単じゃなさそう
 //インストールパッケージ名称とバージョン
 nas_Installer.pkgName    ="nas_animation_Tools";//package名称(文字列)インストール済みの情報ファイル名にするのでファイル名使用可能なパッケージ名にしといてくらさい。
-nas_Installer.pkgVersion ="2.7.0";//バージョン番号はドット区切り3ブロックの数値文字列で
+nas_Installer.pkgVersion ="2.9.0";//バージョン番号はドット区切り3ブロックの数値文字列で
 
 /*
 
@@ -25,6 +25,10 @@ Photoshop CC/CC2014 のためにpixelBender関連とIcons関連を削除
 2014.10.27
 
 新規のファイルを追加　11.26
+
+多言語化処理開始
+現在メッセージは{en:,ja:}のみ
+
 */
 
 //置き替え先のパスを文字列で設定してください
@@ -94,12 +98,18 @@ nas_Installer.myVersionRegExp=new RegExp("^(15|14|13|12|11|10|9)\\.[012]\\..+$")
 //Mac/Windowsほか 対象全バージョン用
 
 nas_Installer.myInstall=[
-["confirm","nasPsAXEパッケージ をインストールします。\n 開いているドキュメントは閉じておいた方が良いと思います。\nはじめて良いですか?"],
+["confirm",localize({
+en:"starting Install package nasPsAxe \n documents that are currently open, we recommend to close.\nis good to start?",
+ja:"nasPsAXEパッケージ をインストールします。\n 開いているドキュメントは閉じておいた方が良いと思います。\nはじめて良いですか?"
+})],
 ["mkdir","%USER%"],
 ["mkdir","%USER%/lib"],
 ["mkdir","%USER%/lib/resource"],
 
-["confirm","ライブラリの内容変更のため設定の一部を消去します。\nバックアップが必要な場合は中断して保存してください。\n継続しますか？"],
+["confirm",localize({
+en:"Clear some of the settings for the content change of the library.\nIf the backup is needed, please save the interruption.\nDo you want to continue?",
+ja:"ライブラリの内容変更のため設定の一部を消去します。\nバックアップが必要な場合は中断して保存してください。\n継続しますか？"
+})],
 ["rm","%USER%/lib/etc/nas.axe.json"],
 
 ["%SOURCE%/lib/resource/timeSheet6sA3.eps","%USER%/lib/resource/timeSheet6sA3.eps"],
@@ -176,6 +186,7 @@ nas_Installer.myInstall=[
 ["%SOURCE%/lib/lib_STS.js" , "%USER%/lib/lib_STS.js"],
 ["%SOURCE%/lib/map.js"     , "%USER%/lib/map.js"],
 ["%SOURCE%/lib/mapio.js"  , "%USER%/lib/mapio.js"],
+["%SOURCE%/lib/nas_locale.js"  , "%USER%/lib/nas_locale.js"],
 ["%SOURCE%/lib/messages.js"  , "%USER%/lib/messages.js"],
 ["%SOURCE%/lib/nas_axeEventHandler.js" , "%USER%/lib/nas_axeEventHandler.js"],
 ["%SOURCE%/lib/nas_common.js" , "%USER%/lib/nas_common.js"],
@@ -185,12 +196,17 @@ nas_Installer.myInstall=[
 ["%SOURCE%/lib/nas_psAxeLib.js" , "%USER%/lib/nas_psAxeLib.js"],
 ["%SOURCE%/lib/nas.XpsStore.js" , "%USER%/lib/nas.XpsStore.js"],
 ["%SOURCE%/lib/nasLibInstall.js" , "%USER%/lib/nasLibInstall.js"],
-["%SOURCE%/lib/newXps.jsx"       , "%USER%/lib/newXps.jsx"],
 ["%SOURCE%/lib/psCCfontFix.js" , "%USER%/lib/psCCfontFix.js"],
 ["%SOURCE%/lib/xpsio.js"            , "%USER%/lib/xpsio.js"],
 ["%SOURCE%/lib/xpsQueue.js"     , "%USER%/lib/xpsQueue.js"],
+["%SOURCE%/lib/additionalLodaer.jsx"  , "%USER%/lib/additionalLodaer.jsx"],
+["%SOURCE%/lib/Photoshop_Startup.jsx"  , "%USER%/lib/Photoshop_Startup.jsx"],
+["%SOURCE%/lib/newXps.jsx"       , "%USER%/lib/newXps.jsx"],
 
-["confirm","nasライブラリパッケージをインストールできたと思います。\n続けてPsAxeをインストールします。"],
+["confirm",localize({
+en:"nas library package has been installed.\nInstall the PsAxe Continuing.",
+ja:"nasライブラリパッケージをインストールできたと思います。\n続けてPsAxeをインストールします。"
+})],
 
 ["mkdir","%USER%/scripts"],
 ["%SOURCE%/scripts/mkFrame.jsx" , "%USER%/scripts/mkFrame.jsx"],
@@ -345,11 +361,17 @@ nas_Installer.myInstall=[
 
 ["%SOURCE%/nasPsAxeInstall.jsx","%USER%/nasPsAxeInstall.jsx"],
 ["%SOURCE%/nas_PsAxe_install.dat","%USER%/nas_PsAxe_install.dat"],
-["confirm","途中でエラーがあまり無ければPsAxeパッケージをインストールできたと思います。\n念の為にPhotoshopを再起動したほうが安全です"]
+["confirm",localize({
+en:"",
+ja:"途中でエラーがあまり無ければPsAxeパッケージをインストールできたと思います。\n念の為にPhotoshopを再起動したほうが安全です"
+})]
 ];
 
 nas_Installer.myUnInstall=[
-["confirm","nasライブラリをアンインストールします。\nライブラリに依存するスクリプトは困るかも知れません。\n良いですか?"],
+["confirm",localize({
+en:"Uninstall nas library.\nNo MAY be troubled scripts that depend on the library.\nIs it ok?",
+ja:"nasライブラリをアンインストールします。\nライブラリに依存するスクリプトは困るかも知れません。\n良いですか?"
+})],
 
 ["rm","%USER%/lib/resource/timeSheet6sA3.eps"],
 
@@ -422,6 +444,7 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/lib/lib_STS.js"],
 ["rm","%USER%/lib/map.js"],
 ["rm","%USER%/lib/mapio.js"],
+["rm","%USER%/lib/nas_locale.js"],
 ["rm","%USER%/lib/messages.js"],
 ["rm","%USER%/lib/nas_axeEventHandler.js"],
 ["rm","%USER%/lib/nas_common.js"],
@@ -431,10 +454,12 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/lib/nas_psAxeLib.js"],
 ["rm","%USER%/lib/nas.XpsStore.js"],
 ["rm","%USER%/lib/nasLibInstall.js"],
-["rm","%USER%/lib/newXps.jsx"],
 ["rm","%USER%/lib/psCCfontFix.js"],
 ["rm","%USER%/lib/xpsio.js"],
 ["rm","%USER%/lib/xpsQueue.js"],
+["rm", "%USER%/lib/additionalLodaer.jsx"],
+["rm", "%USER%/lib/Photoshop_Startup.jsx"],
+["rm", "%USER%/lib/newXps.jsx"],
 
 ["rm","%USER%/scripts/axe/activateKey.jsx"],
 ["rm","%USER%/scripts/axe/activateTopLayer.jsx"],
@@ -588,7 +613,10 @@ nas_Installer.myUnInstall=[
 ["rm","%USER%/nasPsAxeInstall.jsx"],
 ["rm","%USER%/nas_PsAxe_install.dat"],
 
-[nas_Installer.showMsg,"アンインストールできたと思います。\nもし必要なら再度インストールしてみてください。"]
+[nas_Installer.showMsg,localize({
+en:"I think that it can be uninstalled.\nPlease try to install again, if necessary.",
+ja:"アンインストールできたと思います。\nもし必要なら再度インストールしてみてください。"
+})]
 ];
 /*
 

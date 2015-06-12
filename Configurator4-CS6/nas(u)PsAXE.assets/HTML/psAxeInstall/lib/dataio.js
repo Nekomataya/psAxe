@@ -1,1307 +1,1 @@
-/*
-	XPS ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åˆæœŸåŒ–
-	AEKeyãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
-		ãƒ¡ã‚½ãƒƒãƒ‰ã‹?ãã‚Œã¨ã‚‚é–¢æ•°ã‹?
-	2005/03/20
- */
-/*
-çµå±€ã¯ã€XPSã®ãƒ¡ã‚½ãƒƒãƒ‰ãŒã‚ˆã‹ã‚ã†ã¨æ€ã†ã®ã§ã‚ã£ãŸã‚ˆã€‚
-ã§ã‚‚ã€å‡ºåŠ›éƒ¨åˆ†ã¯åˆ†ã‘ãªã„ã¨æ±ç”¨æ€§ãŒä¸‹ãŒã‚Šãã†ã ã‚ˆã­ã€ã¨
-AEKey èª­ã¿å–ã‚Šéƒ¨åˆ†è¿½åŠ ä½•ã¨ã‹å‹•ã 05/04/26
-AEKey ã‚¤ãƒ­ã‚¤ãƒ­è£œæ­£ ãŠãŠã‹ãŸå¤§ä¸ˆå¤«ãã†? 12/11 æ¬¡ã¯6.5å¯¾å¿œã ã‘ã©ãƒ¼â€¦
-AEKey bTimeLine å‚ç…§é•ã„ ãƒã‚°ä¿®æ­£ 1/31
-AERemap/T-Sheetèª­ã¿è¾¼ã¿éƒ¨åˆ†ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚° ã§ã‚‚ æ³¥ç¸„ 5/12
- */
-/*
-	ssUnit(UpS)
-	ã‚µãƒ–ãƒ¦ãƒ‹ãƒƒãƒˆé•·ã‚’è‡ªå‹•è¨­å®šã—ã¦æˆ»ã™
-	å¼•æ•° UpS ã¯ã€Units Per Secondãƒ»ç§’ã‚ãŸã‚Šã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•° ã¾ãŸã¯ ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰
-	æˆ»ã‚Šå€¤ã¯ã€ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã«ã—ãŸãŒã£ã¦è‡ªå‹•è¨­å®šã•ã‚Œã‚‹ã‚µãƒ–ãƒ¦ãƒ‹ãƒƒãƒˆã®é•·ã•
-	ã‚µãƒ–ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ã®å€¤ã¨ã¯åˆ¥ã€‚
- */
-function ssUnit(UpS){
-if (isNaN(UpS))
-{
-	switch (UpS)
-	{
-	case "NTSC"	:	return 6;break;
-	case "PAL"	:	return 5;break;
-	case "drop"	:	return 6;break;
-	default	:	return UpS;
-	}
-}else{
-	UpS=Math.round(UpS);//	ãƒ‰ãƒ­ãƒƒãƒ—ãƒ•ãƒ¬ãƒ¼ãƒ ç³»ã®å‡¦ç½®ãƒ»ã©ã®ã¿ã¡æ•´æ•°ã§ãªã„ã¨ã‚¤ãƒ¤ã ã‘ã©ã€æš«å®šã§
-	for (ssu=4;ssu>1;ssu--){if(UpS%ssu==0)return UpS/ssu;}
-	return UpS;
-}
-//	4ã‹ã‚‰1ã¸é †ã«ç´„æ•°ã‚’ã‚ãŸã‚‹ã€‚ãƒãƒƒãƒã—ãŸæ™‚ç‚¹ã§è¿”ã™ã€‚
-//	ã™ã¹ã¦å¤±æ•—ã—ãŸå ´åˆã¯ã€å…ƒã®æ•°å€¤ã‚’è¿”ã™ã€‚
-}
-/*
-	ckBlank(timeLine)
-	åˆ¶å¾¡ãƒ¬ã‚¤ãƒ¤(ç¾åœ¨ã‚«ãƒ©ã‚»ãƒ«åˆ¶å¾¡ã®ã¿)ã®åˆ¤å®š
-	åˆ¤å®šã™ã‚‹timelineã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä¸ãˆã‚‹ã€‚
-	ã™ã¹ã¦ã®å€¤ãŒ 0 || 100 	ãªã‚‰ã°ã‚«ãƒ©ã‚»ãƒ«ãƒ¬ã‚¤ãƒ¤ã§ã‚ã‚‹ã¨åˆ¤å®š
-
-	ç¾åœ¨ã¯ãƒ–ãƒ¼ãƒªã‚¢ãƒ³ã§è¿”ã—ã¦ã„ã‚‹ãŒã€è¦èª¿æ•´ã‹?
- */
-function ckBlank(timeLine){
-	for(xid=0;xid<timeLine.length;xid ++){
-	if(timeLine[xid].value[0]%100 != 0){return false}
-	}
-return true;
-}
-
-//
-var thisComp=null;
-var thisLayer=null;
-var thisTimeLine=null;
-//ã¡ã‚‡ã£ã¨ãƒã‚¤ãƒ³ã‚¿
-/*
-	readIN_(datastream)
-	
- */
-function readIN_(datastream)
-{
-alert("Started Read IN Data");
-//ãƒ©ã‚¤ãƒ³ã§åˆ†å‰²ã—ã¦é…åˆ—ã«å–ã‚Šè¾¼ã¿
-	var SrcData=new Array();
-	SrcData=datastream.split("\n");
-		var AEK=true;//AEKey read-formatTestFlag
-//ãƒ‡ãƒ¼ã‚¿ã‚¹ãƒˆãƒªãƒ¼ãƒ åˆ¤åˆ¥ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
-	SrcData.startLine	=0;//ãƒ‡ãƒ¼ã‚¿é–‹å§‹è¡Œ
-	SrcData.dataClass	="XPS";
-//ãƒ‡ãƒ¼ã‚¿ç¨®åˆ¥(XPS/AEKey/TSX/AERemap/TSheet/STS)
-
-//ã‚½ãƒ¼ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
-	SrcData.layerHeader	=0;//ãƒ¬ã‚¤ãƒ¤ãƒ˜ãƒƒãƒ€é–‹å§‹è¡Œ
-	SrcData.layerProps	=0;//ãƒ¬ã‚¤ãƒ¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚¨ãƒ³ãƒˆãƒªæ•°
-	SrcData.layerCount	=0;//ãƒ¬ã‚¤ãƒ¤æ•°
-	SrcData.layers= new Array();//ãƒ¬ã‚¤ãƒ¤æƒ…å ±ãƒˆãƒ¬ãƒ¼ãƒ©ãƒ¼
-	SrcData.layerBodyEnd	=0;//ãƒ¬ã‚¤ãƒ¤æƒ…å ±çµ‚äº†è¡Œ
-	SrcData.frameCount	=0;//èª­ã¿å–ã‚Šãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-//ç¬¬ä¸€ãƒ‘ã‚¹
-//å†’é ­ãƒ©ã‚¤ãƒ³ãŒè­˜åˆ¥ã‚³ãƒ¼ãƒ‰ã¾ãŸã¯ç©ºè¡Œã§ãªã‹ã£ãŸå ´åˆã¯ã€ã•ã‚ˆã†ãªã‚‰å¾¡å…ã­
-//IEã®ãƒ‡ãƒ¼ã‚¿ã®æ¤œè¨¼ã‚‚ã“ã“ã§ã‚„ã£ã¨ã„ãŸã»ã†ãŒè‰¯ã„?
-	for (l=0;l<SrcData.length;l++)
-	{
-		if(SrcData[l].match(/^\s*$/))
-		{
-			continue;
-		}else{
-
-		if(MSIE){
-	var choped=SrcData[l].charCodeAt(SrcData[l].length-1);
-	if(choped<=32)
-	SrcData[l] = SrcData[l].slice(0,-1);
-		}
-		//ãªãœã ã‹ãƒŠã‚¾ãªãœã«ä¸€æ–‡å­—å¤šã„ã®ã‹?
-
-/*
-	ã©ã†ã—ã¾ã—ã‚‡ã£ãŸã‚‰ã€ã©ãƒ¼ã—ã¾ã—ã‚‡ ã¾ã æ€æ¡ˆä¸­ ã‚·ã‚¢ãƒ³ã¯èµ¤ã®è£œè‰²ã§ã™ã€‚
-*/
-if(SrcData[l].match(/^nasTIME-SHEET\ 0\.[1-4]$/))
-{
-	SrcData.startLine =l;//ãƒ‡ãƒ¼ã‚¿é–‹å§‹è¡Œ
-	break;
-}else{
-	if(SrcData[l].match(/^Adobe\ After\ Effects\x20([456]\.[05])\ Keyframe\ Data$/))
-	{
-		SrcData.dataClass ="AEKey";//ãƒ‡ãƒ¼ã‚¿ç¨®åˆ¥
-		SrcData.startLine =l;//ãƒ‡ãƒ¼ã‚¿é–‹å§‹è¡Œ
-		break;
-	}else{
-		if(SrcData[l].match(/^#TimeSheetGrid\x20SheetData$/))
-		{
-		SrcData.dataClass ="AERemap";//ãƒ‡ãƒ¼ã‚¿ç¨®åˆ¥(.ard)
-alert("look AERemep");
-		SrcData.startLine =l;//ãƒ‡ãƒ¼ã‚¿é–‹å§‹è¡Œ
-		break;
-		}else{
-			if(SrcData[l].match(/^\x22([^\x09]+\x09){25}[^\x09]+$/))
-			{
-				SrcData.dataClass ="TSheet";//ãƒ‡ãƒ¼ã‚¿ç¨®åˆ¥(.tsh)
-				SrcData.startLine =0;//ãƒ‡ãƒ¼ã‚¿é–‹å§‹è¡Œ
-				break;
-			}else{
-				if(TSXEx)
-				{
-					SrcData.dataClass ="TSX";//ãƒ‡ãƒ¼ã‚¿ç¨®åˆ¥
-					SrcData.startLine =0;//ãƒ‡ãƒ¼ã‚¿é–‹å§‹è¡Œ(TSXã¯0å›ºå®š)
-					break;
-				}else{
-
-//	alert("ã©ã†ã‚‚ã™ã¿ã¾ã›ã‚“ã€‚ã“ã®ãƒ‡ãƒ¼ã‚¿ã¯èª­ã‚ãªã„ã¿ãŸã„ãƒ€\n"+SrcData[l]);
-	this.ErorCord=0;
-	this.ErorMsg="ã©ã†ã‚‚ã™ã¿ã¾ã›ã‚“ã€‚ã“ã®ãƒ‡ãƒ¼ã‚¿ã¯èª­ã‚ãªã„ã¿ãŸã„ãƒ€\n"+SrcData[l];
-		return false;
-				}
-			}
-		}
-	}
-}
-		}
-	}
-//ç¬¬ä¸€ãƒ‘ã‚¹ãŠã—ã¾ã„ã€‚ãªã‚“ã«ã‚‚ãƒ‡ãƒ¼ã‚¿ãŒç„¡ã‹ã£ãŸã‚‰ã‚µãƒ¨ãƒŠãƒ©
-	if(SrcData.startLine==0 && SrcData.length==l){
-	this.ErorCord=0;
-	this.ErorMsg="èª­ã¿å–ã‚‹ãƒ‡ãƒ¼ã‚¿ãŒãªã„ã®ã§ã™ã€‚";
-//		xUI.riseSW("data_");//å­ä¾›ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ä¾å­˜ã—ã¨ã‚‹ ãƒ¨ã‚¯ãƒŠã‚¤
-		return false;
-	}
-//##å¤‰æ•°åã¨ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£åã®å¯¾ç…§ãƒ†ãƒ¼ãƒ–ãƒ«//
-	var varNames=[
-"MAPPING_FILE",
-"TITLE",
-"SUB_TITLE",
-"OPUS",
-"SCENE",
-"CUT",
-"TIME",
-"TRIN",
-"TROUT",
-"FRAME_RATE",
-"CREATE_USER",
-"UPDATE_USER",
-"CREATE_TIME",
-"UPDATE_TIME"
-	];
-	var propNames=[
-"mapfile",
-"title",
-"subtitle",
-"opus",
-"scene",
-"cut",
-"time",
-"trin",
-"trout",
-"framerate",
-"create_user",
-"update_user",
-"create_time",
-"update_time"
-	];
-	var props =new Array(varNames.length);
-for (i=0;i<varNames.length;i++){props[varNames[i]]=propNames[i];};
-
-if (SrcData.dataClass=="XPS"){
-//	ãƒ‡ãƒ¼ã‚¿èµ°æŸ»ç¬¬äºŒãƒ‘ã‚¹(XPS)
-	for(line=SrcData.startLine;line<SrcData.length;line++){
-			//å‰ç½®éƒ¨åˆ†ã‚’èª­ã¿è¾¼ã¿ã¤ã¤ã€æœ¬ä½“æƒ…å ±ã®ç¢ºèª
-		if(MSIE){
-	var choped=SrcData[line].charCodeAt(SrcData[line].length-1);
-	if(choped<=32)
-	SrcData[line] = SrcData[line].slice(0,-1);
-		}
-		//ãªãœã ã‹ãƒŠã‚¾ãªãœã«ä¸€æ–‡å­—å¤šã„ã®ã‹?
-//			ã‚·ãƒ¼ãƒˆãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ãƒãƒƒãƒ
-		if(SrcData[line].match(/^\#\#([A-Z].*)=(.*)$/))
-		{
-			nAme=RegExp.$1;vAlue=RegExp.$2;
-//	æ™‚é–“é–¢é€£ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å…ˆè¡Œã—ã¦è©•ä¾¡ã€‚
-//	èª­ã¿å–ã£ãŸãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã¨æŒ‡å®šæ™‚é–“ã®é•·ã„ã»ã†ã§ã‚·ãƒ¼ãƒˆã‚’åˆæœŸåŒ–ã™ã‚‹ã€‚
-//		æ™‚é–“ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£æ¬ è½æ™‚ã®ãŸã‚ã«åˆæœŸå€¤è¨­å®š
-//	SrcData.time	=thisComp.duration*thisComp.frameRate;//èª­ã¿å–ã‚Š
-//	SrcData.trin	=[this.trin[0],this.trin[1]];
-//	SrcData.trout	=[this.trout[0],this.trout[1]];
-//		SrcData.time="6+0";
-		SrcData.trin=[0,""];
-		SrcData.trout=[0,""];
-switch (nAme)
-{
-case	"TRIN":			;//ãƒˆãƒ©ãƒ³ã‚·ãƒƒãƒˆã‚¤ãƒ³
-case	"TROUT":		;//ãƒˆãƒ©ãƒ³ã‚·ãƒƒãƒˆã‚¢ã‚¦ãƒˆ
-		var tm=nas.FCT2Frm(vAlue.split(",")[0]);
-		if(isNaN(tm)){tm=0};
-		var nm=vAlue.split(",")[1];
-		if(! nm){nm=prpName};
-			  SrcData[props[nAme]]=[tm,nm];
-			break	;
-case	"TIME":			;//ã‚«ãƒƒãƒˆå°º
-		var tm=nas.FCT2Frm(vAlue);
-		if(isNaN(tm)){tm=0}
-			  SrcData[props[nAme]]=tm;
-
-			break	;
-default:				;//æ™‚é–“é–¢é€£ä»¥å¤–
-			SrcData[props[nAme]]=vAlue;
-//					åˆ¤å®šã—ãŸå€¤ã‚’ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã§æ§ãˆã‚‹
-}
-		}
-
-//			ãƒ¬ã‚¤ãƒ¤ãƒ˜ãƒƒãƒ€ã¾ãŸã¯çµ‚äº†è­˜åˆ¥ã«ãƒãƒƒãƒ
-		if(SrcData[line].match(/^\[(([a-zA-Z]+)\t?.*)\]$/))
-		{
-//ã‚·ãƒ¼ãƒˆçµ‚ã‚ã£ã¦ã„ãŸã‚‰ãƒ¡ãƒ¢ã‚’å–ã‚Šè¾¼ã‚“ã§çµ‚äº†
-			if(SrcData[line].match(/\[END\]/))
-			{
-//	ã‚·ãƒ¼ãƒˆãƒœãƒ‡ã‚£çµ‚äº†ãƒ©ã‚¤ãƒ³æ§ãˆ
-				SrcData.layerBodyEnd=line;
-				SrcData["memo"]='';
-				for(li=line+1;li<SrcData.length;li++)
-				{SrcData["memo"]+=SrcData[li]+"\n"}
-
-					break ;
-			}else{
-//å„ãƒ¬ã‚¤ãƒ¤ã®æƒ…å ±ã‚’å–å¾—
-//	ãƒ¬ã‚¤ãƒ¤ãƒ˜ãƒƒãƒ€ã®é–‹å§‹è¡Œã‚’è¨˜éŒ²
-				if(SrcData.layerHeader==0)
-					{SrcData.layerHeader=line};
-//	ãƒ­ãƒƒãƒˆã‚’è¨˜éŒ²(æœ€å¤§ã®è¡Œã‚’æ¡ã‚‹)
-				var LayerCount =
-				SrcData[line].split("\t").length-3;
-				SrcData.layerCount=
-				(SrcData.layerCount<LayerCount)?
-				LayerCount	:	SrcData.layerCount;
-//	ã‚¨ãƒ³ãƒˆãƒªæ•°ã‚’è¨˜éŒ²
-				SrcData.layerProps++;
-			}
-		}else{
-//	ã‚·ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿æœ¬ä½“ã®è¡Œæ•°ã‚’åŠ ç®—
-	if(! SrcData[line].match(/^\#.*$/))
-	{
-		SrcData.frameCount++;	//èª­ã¿å–ã‚Šãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-	}
-		}
-	}
-};
-//	ãƒ‡ãƒ¼ã‚¿èµ°æŸ»ç¬¬äºŒãƒ‘ã‚¹(AEKey)
-
-if (SrcData.dataClass=="AEKey"){
-
-
-//	ä»®ã«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹ã‚³ãƒ³ãƒã‚’åˆæœŸåŒ–
-		thisComp= new FakeComposition();
-		thisComp.maxFrame=0;//ã‚­ãƒ¼ã®æœ€å¤§æ™‚é–“ã‚’å–å¾—ã™ã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’åˆæœŸåŒ–
-		ly_id	=0;//ãƒ¬ã‚¤ãƒ¤IDåˆæœŸåŒ–
-		tl_id	=0;//ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³IDåˆæœŸåŒ–
-		kf_id	=0;//ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ IDåˆæœŸåŒ– ã„ã‚‰ãªã„ã‹?
-
-//		ç¬¬äºŒãƒ‘ã‚¹é–‹å§‹
-//	ãƒ‡ãƒ¼ã‚¿ã‚’ã‚¹ã‚­ãƒ£ãƒ³ã—ã¦ã‚³ãƒ³ãƒ(ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ)ã«æ ¼ç´
-	for(line=SrcData.startLine;line<SrcData.length;line++)
-	{
-			// ã‚­ãƒ¼ãƒ‡ãƒ¼ã‚¿ã«å«ã¾ã‚Œã‚‹ãƒ¬ã‚¤ãƒ¤æƒ…å ±ã®å–å¾—
-		if(MSIE){
-	var choped=SrcData[line].charCodeAt(SrcData[line].length-1);
-	if(choped<=32) SrcData[line] = SrcData[line].slice(0,-1);
-		}
-		//ãƒ‡ãƒ¼ã‚¿å‰å‡¦ç†ãƒ»ãªãœã ã‹ãƒŠã‚¾ã€ãªãœã«ä¸€æ–‡å­—å¤šã„ã®ã‹?
-
-//ç©ºç™½è¡Œã®ã‚¹ã‚­ãƒƒãƒ—
-	if(SrcData[line]=='') continue;
-
-//ä¸€ç•ªã‚¨ãƒ³ãƒˆãƒªã®å¤šã„ãƒ‡ãƒ¼ã‚¿è¡Œã‚’æœ€åˆã«å‡¦ç†
-	if( SrcData[line].match(/^\t.*/) )
-	{
-//if(dbg) dbgPut("\tDATALINEs\nLayer No."+ly_id+" TimeLineID :"+tl_id+ " "+line+":"+SrcData[line]);
-		var SrcLine = SrcData[line].split("\t");
-
-		if(SrcLine[1]=="Frame") continue;//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚¿ã‚¤ãƒˆãƒ«è¡Œã‚¹ã‚­ãƒƒãƒ—
-
-		if (tl_id==0){ //ãƒ¬ã‚¤ãƒ¤å†…ã§ä¸€åº¦ã‚‚ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‚’å‡¦ç†ã—ã¦ã„ãªã„ã€‚
-//if(dbg) dbgPut(SrcLine);
-
-//ãƒ¬ã‚¤ãƒ¤ãƒ˜ãƒƒãƒ€ãªã®ã§ãƒ¬ã‚¤ãƒ¤ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’æ¤œè¨¼ã—ã¦ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ç™»éŒ²
-switch (SrcLine[1])
-{
-case	"Units\ Per\ Second"	:			;//ã‚³ãƒ³ãƒãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ
-	thisComp.frameRate	= SrcLine[2]		; break;
-	//ã“ã®éƒ¨åˆ†ã‚’ã“ã®ã¾ã¾æ”¾ç½®ã™ã‚‹ã¨ã‚³ãƒ³ãƒã®ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆãŒã€æœ€å¾Œã®ãƒ¬ã‚¤ãƒ¤ã§æ±ºå®šã•ã‚Œã‚‹ã®ã§æ³¨æ„ã€‚
-
-case	"Source\ Width"	:				;//ãƒ¬ã‚¤ãƒ¤ã‚½ãƒ¼ã‚¹å¹…
-	thisLayer.width	= SrcLine[2]	; break;
-case	"Source\ Height"	:			;//ãƒ¬ã‚¤ãƒ¤ã‚½ãƒ¼ã‚¹é«˜ã•
-	thisLayer.height	= SrcLine[2]	; break;
-case	"Source\ Pixel\ Aspect\ Ratio"	:		;//ã‚½ãƒ¼ã‚¹ã®ç¸¦æ¨ªæ¯”
-	thisLayer.pixelAspect	= SrcLine[2]	; break;
-case	"Comp\ Pixel\ Aspect\ Ratio"	:		;//ã‚³ãƒ³ãƒã®ç¸¦æ¨ªæ¯”
-	thisComp.pixelAspect	= SrcLine[2]		; break;
-default:				;//æ™‚é–“é–¢é€£ä»¥å¤–
-	thisLayer[SrcLine[1]]	= SrcLine[2]	; break;
-//	åˆ¤å®šã—ãŸå€¤ã‚’ãƒ¬ã‚¤ãƒ¤ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«æ§ãˆã‚‹ã€‚
-}
-		}else{
-//ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ãƒ‡ãƒ¼ã‚¿ãªã®ã§ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã«ç™»éŒ²
-//if(dbg) dbgPut("timelinedata line No."+line+":"+SrcData[line]);
-	frame=SrcLine[1]*1;
-		if(frame > thisComp.maxFrame) thisComp.maxFrame=frame;
-		//	ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã®æœ€å¤§æ™‚é–“ã‚’è¨˜éŒ²
-	value=SrcLine.slice(2,SrcLine.length-1);
-//	value=SrcLine.slice(2);
-
-//	ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã®æœ€å¤§å€¤ã‚’æ§ãˆã‚‹ 999999 ã¯äºˆç´„å€¤ãªã®ã§ãƒ‘ã‚¹
-//	å®Ÿéš›å•é¡Œã“ã“ã§æ§ãˆãŸæ–¹ãŒè‰¯ã„ã®ã‹ã“ã‚Œã¯?
-//	if (thisTimeLine.maxValue<value && value < 999999)
-//	thisTimeLine.maxValue=value;
-
-//result=thisTimeLine.push(new KeyFrame(frame,value));
-//thisComp.layers[ly_id][tl_id][kf_id] = new KeyFrame(frame,value);
-//kf_id ++;
-//result=thisComp.layers[ly_id][tl_id].setKeyFrame(new KeyFrame(frame,value));
-
-	thisComp.layers[ly_id][tl_id].push(new KeyFrame(frame,value));
-	result=thisComp.layers[ly_id][tl_id].length;
-
-//	if(dbg) dbgPut(">>set "+thisComp.layers[ly_id][tl_id].name+
-//	" frame:"+frame+"  to value:"+value+"<<"+result+
-//	"::and maxFrame is :" + thisComp.maxFrame);
-
-//if(dbg) dbgPut(">>> "+ thisComp.layers[ly_id][tl_id][kf_id].frame +"<<<");
-		}
-
-	continue;//æ¬¡ã®åˆ¤å®šã¯ã€å½“ç„¶ãƒ‘ã‚¹ã—ã¦æ¬¡ã®è¡Œã‚’å‡¦ç†
-	};
-
-//ãƒ¬ã‚¤ãƒ¤é–‹å§‹åˆ¤å®š
-	if(SrcData[line].match(/^Adobe\ After\ Effects\x20([456]\.[015])\ Keyframe\ Data$/)){
-//if(dbg) dbgPut("\n\nNew Layer INIT "+l+":"+SrcData[line]);
-		//ãƒ¬ã‚¤ãƒ¤ä½œæˆ
-		thisComp.layers[ly_id]=new FakeLayer();
-//		thisComp.layers[ly_id].init();
-		thisLayer=thisComp.layers[ly_id];//ãƒã‚¤ãƒ³ã‚¿è¨­å®š
-
-		continue;
-	}
-//		ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³é–‹å§‹åˆ¤å®šã¾ãŸã¯ã€ãƒ¬ã‚¤ãƒ¤çµ‚äº†
-	if( SrcData[line].match(/^[\S]/))
-	{
-//ã€€ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³çµ‚äº†å‡¦ç†ãŒã‚ã‚Œã°ã“ã“ã«
-// ãƒ¬ã‚¤ãƒ¤çµ‚äº†å‡¦ç†
-//if(dbg)	dbgPut(line+" : "+SrcData[line]);
-		if(SrcData[line].match(/^End\ of\ Keyframe\ Data$/))
-		{
-//			thisComp.setFrameDuration()
-			ly_id ++ ;tl_id	=0;kf_id=0;
-		//ãƒ¬ã‚¤ãƒ¤IDã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆãƒ»ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³IDåˆæœŸåŒ–
-		}else{
-
-//	æœ€ä¸Šä½éšå±¤ã¯ãƒ‡ãƒ¼ã‚¿ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ãªã®ã§èª­ã¿å–ã‚Šå¯¾è±¡ã‚’åˆ‡ã‚Šæ›ãˆ	//	ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‚’åˆ¤å®šã—ã¦ä½œæˆ
-
-
-//	if(! SrcData[line].match(/^\s*$/)){}
-
-//æ–°è¦ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³è¨­å®š
-
-	SrcLine=SrcData[line].split("\t");
-
-switch (SrcLine[0])
-{
-case	"Time\ Remap":	tl_id="timeRemap";
-	break;
-case	"Anchor\ Point":	tl_id="anchorPoint";
-	break;
-case	"Position":	tl_id="position";
-	break;
-case	"Scale":	tl_id="scale";
-	break;
-case	"Rotation":	tl_id="rotation";
-	break;
-case	"Opacity":	tl_id="opacity";
-	break;
-case	"å¤‰æ›çµ‚äº†":	tl_id="wipe";//AE 4.0-5.5 wipe/ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³
-	break;
-case "ã‚¹ãƒ©ã‚¤ãƒ€":	tl_id="slider";//AE 4.0-5.5 ã‚¹ãƒ©ã‚¤ãƒ€åˆ¶å¾¡
-	break;
-case	"Effects":	//AE 6.5 (6.0? è¦ç¢ºèª) ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ˜ãƒƒãƒ€ã‚µãƒ–åˆ¤å®šãŒå¿…è¦
-	switch (SrcLine[1].slice("\ ")[0])
-	{
-	case "å¤‰æ›çµ‚äº†":	tl_id="wipe";break;
-	case "ã‚¹ãƒ©ã‚¤ãƒ€åˆ¶å¾¡":	tl_id="slider";break;
-//	case "":	tl_id="";break;
-//	case "":	tl_id="";break;
-//	case "":	tl_id="";break;
-	defaulet:	tlid=SrcLine[1];
-	}
-	break;
-default:
-	tlid=SrcLine[0];
-}
-
-//	if(! thisComp.layers[ly_id][tl_id]){thisComp.layers[ly_id][tl_id]= new TimeLine(tl_id)}else{if(dbg) dbgPut(tl_id)}
-
-	if(! thisComp.layers[ly_id][tl_id])
-	{
-		thisComp.layers[ly_id][tl_id]= new Array();
-		thisComp.layers[ly_id][tl_id].name=[tl_id];
-		thisComp.layers[ly_id][tl_id].maxValue=0;
-		thisComp.layers[ly_id][tl_id].valueAtTime=valueAtTime_;
-	};//else{	if(dbg) dbgPut(tl_id + " is exist")	}
-//			ãªã‘ã‚Œã°ä½œã‚‹ï¼ã™ã§ã«ã‚ã‚‹ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ãªã‚‰ã‚¹ã‚­ãƒƒãƒ—
-		thisTimeLine=thisComp.layers[ly_id][tl_id];
-//		if(dbg) dbgPut("set TIMELINE :"+ly_id+":"+tl_id);
-		continue;
-		}
-	continue;
-	}
-
-
-	}
-//		all_AEfake();
-//	ã‚­ãƒ¼ã®èª­ã¿è¾¼ã¿ãŒçµ‚ã‚ã£ãŸã®ã§ã‚­ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’è§£æ
-//ã‚­ãƒ¼ã®æœ€å¾Œã®ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ã¿ã¦ã€ã‚«ãƒƒãƒˆã®ç¶™ç¶šæ™‚é–“ã‚’å‰²ã‚Šå‡ºã™ã€‚
-	thisComp.duration=
-	nas.FCT2ms(
-		ssUnit(thisComp.frameRate)*
-		Math.ceil(thisComp.maxFrame/ssUnit(thisComp.frameRate))
-	)/1000;//æœ€å°å˜ä½ã¯ã‚­ãƒªã®è‰¯ã„ã¨ã“ã‚ã§è¨­å®š
-//
-//ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¦ã‚¿ã‚¤ãƒŸãƒ³ã‚°æƒ…å ±ã‚’æŠ½å‡º
-//ãƒ¬ã‚¤ãƒ¤ã§ãƒ«ãƒ¼ãƒ—
-for (lyr in thisComp.layers){
-/*
-	ã‚³ãƒ³ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ãƒ¬ã‚¤ãƒ¤æƒ…å ±ã‚’èª­ã‚“ã§ã€å¤‰æ›ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’åˆ¤å®šã™ã‚‹
-	ç¾åœ¨èªè­˜ã—ã¦èª­ã¿å–ã‚‹ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³
-timeRemap	ã‚¿ã‚¤ãƒŸãƒ³ã‚°æƒ…å ±æœ‰ã‚Š
-	slider	ã‚¿ã‚¤ãƒŸãƒ³ã‚°æƒ…å ±ã®å¯èƒ½æ€§æœ‰ã‚Š
-opacity	ã‚¿ã‚¤ãƒŸãƒ³ã‚°æƒ…å ±ã®å¯èƒ½æ€§æœ‰ã‚Š
-wipe	ã‚¿ã‚¤ãƒŸãƒ³ã‚°æƒ…å ±ã®å¯èƒ½æ€§æœ‰ã‚Š
-**ã‚«ãƒ¡ãƒ©ãƒ¯ãƒ¼ã‚¯åˆ¤å®šã¯ã€ç¾åœ¨ãªã— å¸¸ã«false
-
-*/
-//ã‚½ãƒ¼ã‚¹ãƒ‡ãƒ¼ã‚¿ç”¨æƒ…å ±ãƒˆãƒ¬ãƒ¼ãƒ©
-		SrcData.layers[lyr]=new Object();
-
-//ã€€åˆæœŸåŒ–
-	SrcData.layers[lyr].haveTimingData	=false;
-	SrcData.layers[lyr].haveCameraWork	=false;
-
-//ãƒ¡ã‚½ãƒƒãƒ‰ãƒ»ä½ç½®ã‚’ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã«è¨­å®š
-	SrcData.layers[lyr].blmtd=xUI.blmtd;
-	SrcData.layers[lyr].blpos=xUI.blpos;
-	SrcData.layers[lyr].blmtd="wipe";
-	SrcData.layers[lyr].blpos="first";
-	SrcData.layers[lyr].lot="=AUTO=";
-		//ä»®ã®ãƒ–ãƒ©ãƒ³ã‚¯ãƒ¬ã‚¤ãƒ¤
-		SrcData.layers[lyr].bTimeLine=false;
-		SrcData.layers[lyr].tBlank=false;
-//ãƒªãƒãƒƒãƒ—ã¯ã‚ã‚‹?
-	if (thisComp.layers[lyr].timeRemap)
-	{
-		SrcData.layers[lyr].haveTimingData	=true;
-
-//ã‚«ãƒ©ã‚»ãƒ«åˆ¶å¾¡ãƒ¬ã‚¤ãƒ¤ã¯ã‚ã‚‹ã‹
-if (thisComp.layers[lyr].opacity){
-		if(ckBlank(thisComp.layers[lyr].opacity)){
-	SrcData.layers[lyr].blmtd="opacity";
-	SrcData.layers[lyr].blpos="end";
-		//ä»®ã®ãƒ–ãƒ©ãƒ³ã‚¯ãƒ¬ã‚¤ãƒ¤
-		SrcData.layers[lyr].bTimeLine=thisComp.layers[lyr].opacity;
-		SrcData.layers[lyr].tBlank=0;
-//alert("hasBlankOpacity");
-		}
-}else{
-if (thisComp.layers[lyr].wipe){
-		if(ckBlank(thisComp.layers[lyr].wipe)){
-	SrcData.layers[lyr].blmtd="wipe";
-	SrcData.layers[lyr].blpos="end";
-		//ä»®ã®ãƒ–ãƒ©ãƒ³ã‚¯ãƒ¬ã‚¤ãƒ¤
-		SrcData.layers[lyr].bTimeLine=thisComp.layers[lyr].wipe;
-		SrcData.layers[lyr].tBlank=100;
-//alert("hasBlankWipe");
-		}
-}
-}
-//ã‚­ãƒ¼ã‚’å…¨æ•°æ¤œæŸ»
-	var isExpression=false	;//ã‚¨ã‚¯ã‚¹ãƒ—ãƒ¬ãƒƒã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚°
-	var MaxValue=0	;//æœ€å¤§å€¤ã‚’æ§ãˆã‚‹å¤‰æ•°
-	var blAP=false	;//ã‚«ãƒ©ã‚»ãƒ«å‡ºç¾ãƒ•ãƒ©ã‚°
-	var tmpBlank=(SrcData.layers[lyr].blmtd=="opacity")? 0 : 100 ;//ä»®ã®ãƒ–ãƒ©ãƒ³ã‚¯å€¤
-for (kid=0;kid<thisComp.layers[lyr].timeRemap.length;kid++){
-	if(thisComp.layers[lyr].timeRemap[kid].value[0] >= 999999){
-		isExpression=true;
-		blAP=true;
-	};//ã“ã‚ŒãŒæœ€å„ªå…ˆ(æœ€å¾Œã«åˆ¤å®šã—ã¦ä¸Šæ›¸ã)
-//æœ€å¤§å€¤ã‚’å–å¾—
-	if(	MaxValue< 1 * thisComp.layers[lyr].timeRemap[kid].value[0] &&
-		1 * thisComp.layers[lyr].timeRemap[kid].value[0] < 999999)
-	{
-	MaxValue=1*thisComp.layers[lyr].timeRemap[kid].value[0];
-
-//æœ€å¤§å€¤ãŒæ›´æ–°ã•ã‚ŒãŸã‚‰ã‚­ãƒ¼ã«å¯¾å¿œã™ã‚‹ã‚«ãƒ©ã‚»ãƒ«åˆ¶å¾¡ã‚’ãƒã‚§ãƒƒã‚¯
-		if(SrcData.layers[lyr].bTimeLine){
-//åˆ¶å¾¡ãƒ©ã‚¤ãƒ³ã‚ã‚‹ã‹
-//ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã®ä½ç½®ã«ãƒ–ãƒ©ãƒ³ã‚¯æŒ‡å®šãŒã‚ã‚Œã°ã€ãã“ã‚’ãƒ–ãƒ©ãƒ³ã‚¯å€¤ã«è¨­å®š
-if(SrcData.layers[lyr].bTimeLine.valueAtTime(thisComp.layers[lyr].timeRemap[kid].frame)==SrcData.layers[lyr].tBlank){
-	blAP=true;//ã‚«ãƒ©ã‚»ãƒ«å‡ºç¾
-}
-		}
-
-	}
-}
-	if(isExpression){
-		SrcData.layers[lyr].blmtd="expression2";
-		SrcData.layers[lyr].blpos="end";
-	}
-
-	SrcData.layers[lyr].maxValue=MaxValue;
-
-//	ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆå–ã‚Šå‡ºã—
-var FrameDuration=(thisComp.layers[lyr].frameDuration)?
-	thisComp.layers[lyr].frameDuration :
-	thisComp.frameDuration();
-//	ã‚»ãƒ«æšæ•°æ¨å®š
-switch(SrcData.layers[lyr].blpos){
-case "end":
-	SrcData.layers[lyr].lot=(blAP)?
-		Math.floor(MaxValue/FrameDuration):
-		Math.floor(MaxValue/FrameDuration)+1	;//end
-	if(isExpression && blAP)	SrcData.layers[lyr].lot++;
-//		SrcData.layers[lyr].hasBlank=blAP;
-	break;
-case "first":
-	SrcData.layers[lyr].lot=
-		Math.floor(MaxValue/FrameDuration);//first
-	break;
-case "none":
-default:
-//	SrcData.layers[lyr].lot="=AUTO=";//end && MaxValue==0
-}
-	}else{
-//	ã‚¹ãƒ©ã‚¤ãƒ€åˆ¶å¾¡ã¯ã‚ã‚‹?
-		if (thisComp.layers[lyr].slider)
-		{
-/*	ã‚¹ãƒ©ã‚¤ãƒ€=ã‚¨ã‚¯ã‚¹ãƒ—ãƒ¬ãƒƒã‚·ãƒ§ãƒ³ã®å¯èƒ½æ€§æœ‰ã‚Š
-ã‚¨ã‚¯ã‚¹ãƒ—ãƒ¬ãƒƒã‚·ãƒ§ãƒ³ã ã¨ã™ã‚‹ã¨expression1ãªã®ã§ã€
-åŒä¸€ãƒ¬ã‚¤ãƒ¤ã«ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ãŒäºŒã¤ä»¥ä¸Šã‚ã£ã¦ã¯ãªã‚‰ãªã„ã‚‚ã®ã¨ã™ã‚‹ã€‚
-ãŒã€äºŒã¤ç›®ä»¥é™ã®ã‚¹ãƒ©ã‚¤ãƒ€ã¯ã€ç¾åœ¨æ­£å¸¸ã«èª­ã‚ãªã„ã€‚æ··ã–ã‚‹
-
-ãã®ã†ã¡ä½•ã¨ã‹ã™ã‚‹
-*/
-//ã‚­ãƒ¼ã‚’å…¨æ¤œæŸ»ã™ã‚‹ã€‚
-	var MaxValue=0;
-	var isTiming=true;
-for (kid=0;kid<thisComp.layers[lyr].slider.length;kid++){
-//	æ•´æ•°ã‹
-	if(thisComp.layers[lyr].slider[kid].value[0] %1 != 0) {isTiming=false;break;}
-
-//æœ€å¤§å€¤ã‚’å–å¾—
-	if(MaxValue<1*thisComp.layers[lyr].slider[kid].value[0])
-	{MaxValue=thisComp.layers[lyr].slider[kid].value[0]}
-}
-//ã™ã¹ã¦æ•´æ•°å€¤ãªã‚‰ã°ä¸€å¿œã‚¨ã‚¯ã‚¹ãƒ—ãƒ¬ãƒƒã‚·ãƒ§ãƒ³ã«ã‚ˆã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã¨èªè­˜
-if (isTiming){
-	SrcData.layers[lyr].haveTimingData	=true;		
-	SrcData.layers[lyr].blmtd="expression1";
-	SrcData.layers[lyr].blpos="first";
-	SrcData.layers[lyr].lot=MaxValue;
-	SrcData.layers[lyr].maxValue=MaxValue;
-}
-//			
-		}
-	}
-//ä¸¡æ–¹ã®åˆ¤å®šã‚’æŠœã‘ãŸãªã‚‰ã‚¿ã‚¤ãƒŸãƒ³ã‚°æƒ…å ±ãŒãªã„ã®ã§ã“ã®ãƒ¬ã‚¤ãƒ¤ã¯ãŸã ã®ç©ºãƒ¬ã‚¤ãƒ¤
-
-/*
-//	ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã ã¨æ€ã‚ã‚Œã‚‹å ´åˆã¯ãƒ•ãƒ©ã‚°ç«‹ã¦ã‚‹ã€‚
-//case	"slider":
-//case	"timeRemap":	;break;
-//ã‚­ãƒ¼ã‚’å…¨æ•°æ¤œæŸ»ã™ã‚‹ã€‚
-//åˆ¶å¾¡ãƒ¬ã‚¤ãƒ¤ãŒä»˜å±ã—ã¦ã„ãŸã‚‰ãã¡ã‚‰ã‚’å„ªå…ˆã•ã›ã‚‹ã€‚
-//åˆ¶å¾¡ãƒ¬ã‚¤ãƒ¤ã®å€¤ã¨ãƒªãƒãƒƒãƒ—ã®å€¤ã‚’æ¯”è¼ƒã—ã¦ã‚«ãƒ©ã‚»ãƒ«ãƒ¡ã‚½ãƒƒãƒ‰ã¨ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’å‡ºã™
-
-//ã‚¿ã‚¤ãƒ ãƒªãƒãƒƒãƒ—ã¨ã‚¹ãƒ©ã‚¤ãƒ€ã®æ™‚ã®ã¿ã®åˆ¤å®š
-//å€¤ã®æœ€å¤§é‡ã‚’æ§ãˆã‚‹
-if(SrcData.layers[ly_id].maxValue<value) SrcData.layers[ly_id].maxValue= value;
-
-//ã‚¹ãƒ©ã‚¤ãƒ€ã‹ã¤æ•´æ•°ä»¥å¤–ã®å€¤ãŒã‚ã‚‹ã¨ãã¯å‰Šé™¤ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
-if(tl_id=="slider" && value%1 != 0) SrcData.layers[ly_id].isExpression=false;
-
-//ã‚¿ã‚¤ãƒ ãƒªãƒãƒƒãƒ—ã§ã‹ã¤å€¤ã«"999999"ãŒã‚ã‚‹å ´åˆã¯ãƒ¡ã‚½ãƒƒãƒ‰ã‚’exp2ã«
-if(tlid=="timeRemap" && value==999999) SrcData.leyers[ly_id].blmtd="exp2";
-
-*/
-
-}
-//	è§£æã—ãŸãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®è»¢è¨˜
-	if(AEK){
-//		æš«å®šå‡¦ç†ã ã‘ã©ç¾åœ¨ã®ã‚«ãƒƒãƒˆã®æƒ…å ±ã§åŸ‹ã‚ã‚‹ã“ã¨ã«ã™ã‚‹?
-SrcData.mapfile	="(no file)";
-SrcData.title	=this.title;
-SrcData.subtitle=this.subtitle;
-SrcData.opus	=this.opus;
-SrcData.scene	=this.scene;
-SrcData.cut	=this.cut;
-SrcData.create_user	=this.create_user;
-SrcData.update_user	=this.update_user;
-SrcData.create_time	=this.create_time;
-SrcData.update_time	=this.update_time;
-SrcData.framerate	=thisComp.frameRate;
-SrcData.layerCount	=thisComp.layers.length;
-SrcData.memo	=this.memo;
-SrcData.time	=thisComp.duration*thisComp.frameRate;//èª­ã¿å–ã‚Š
-SrcData.trin	=[this.trin[0],this.trin[1]];
-SrcData.trout	=[this.trout[0],this.trout[1]];
-	}else{
-SrcData.mapfile	="(no file)";
-SrcData.title	="";
-SrcData.subtitle="";
-SrcData.opus	="";
-SrcData.scene	="";
-SrcData.cut	="";
-SrcData.create_user	="";
-SrcData.update_user	="";
-SrcData.create_time	="";
-SrcData.update_time	="";
-SrcData.framerate	=thisComp.frameRate;
-SrcData.layerCount	=thisComp.layers.length;
-SrcData.memo	="";
-SrcData.time	=thisComp.duration*thisComp.frameRate;//èª­ã¿å–ã‚Š
-SrcData.trin	=[0,"trin"];
-SrcData.trout	=[0,"trout"];//ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰ã¯èª­ã¾ãªã„(ãƒ¦ãƒ¼ã‚¶ãŒå¾Œã§æŒ‡å®š)
-	}
-//	SrcData.frameCount	=;
-//	SrcData.	="";
-//	SrcData.	="";
-//	SrcData.	="";	
-//	SrcData.	="";
-
-
-/*
-	ã‚¿ã‚¤ãƒ ãƒªãƒãƒƒãƒ—ã¨ã‚¹ãƒ©ã‚¤ãƒ€åˆ¶å¾¡ã®ä¸¡æ–¹ãŒãªã„å ´åˆã¯ã€
-	ãƒ¬ã‚¤ãƒ¤ã¯ã€Œcameraworkã€(ä¿ç•™)
-	ã‚¹ãƒ©ã‚¤ãƒ€åˆ¶å¾¡ãŒã‚ã£ã¦ã€ã‹ã¤ãƒ‡ãƒ¼ã‚¿ã‚¨ãƒ³ãƒˆãƒªãƒ¼ãŒã™ã¹ã¦æ•´æ•°ã®å ´åˆã¯ã€
-	exp1 ãã‚Œä»¥å¤–ã¯ã‚¹ãƒ©ã‚¤ãƒ€åˆ¶å¾¡ã‚’ç ´æ£„
-	ã‚¹ãƒ©ã‚¤ãƒ€åˆ¶å¾¡ã¨ã‚¿ã‚¤ãƒ ãƒªãƒãƒƒãƒ—ãŒä¸¡æ–¹ã‚ã‚‹å ´åˆã¯ã‚¿ã‚¤ãƒ ãƒªãƒãƒƒãƒ—å„ªå…ˆ
-
-	
-*/
-
-};
-//ãƒ‡ãƒ¼ã‚¿èµ°æŸ»ç¬¬äºŒãƒ‘ã‚¹(.ard)
-if(SrcData.dataClass=="AERemap")
-{
-alert("AER");
-//ãƒ‡ãƒ¼ã‚¿çŠ¶æ…‹è¨­å®š Param > Names
-var dataStatus="";	//èª­ã¿è¾¼ã¿ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
-var LayerCount=0;	//ãƒ¬ã‚¤ãƒ¤æ•°ãˆ(ç¢ºèªç”¨)
-	for(line=SrcData.startLine;line<SrcData.length;line++){
-			//å‰ç½®éƒ¨åˆ†ã‚’èª­ã¿è¾¼ã¿ã¤ã¤ã€æœ¬ä½“æƒ…å ±ã®ç¢ºèª
-		if(MSIE){
-	var choped=SrcData[line].charCodeAt(SrcData[line].length-1);
-	if(choped<=32)
-	SrcData[line] = SrcData[line].slice(0,-1);
-		}
-		//ãªãœã ã‹ãƒŠã‚¾ãªãœã«ä¸€æ–‡å­—å¤šã„ã®ã‹?
-//			ã‚·ãƒ¼ãƒˆãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ãƒãƒƒãƒ
-//ç©ºè¡Œã‚¹ã‚­ãƒƒãƒ—ã¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å¤‰æ›´
-	if(SrcData[line]=="")
-	{
-		continue
-	}else{
-		var myLineData=SrcData[line].split("\t");
-		switch(myLineData[0])
-		{
-			case "*CommentStart":;
-			case "*CommentEnd":dataStatus="Skip";continue;break;
-			case "*ParamStart":dataStatus="Param";continue;break;
-			case "*MapData":;
-			case "*MapNumber":;
-			case "*ChildLayer":dataStatus="Skip";continue;break;
-			case "*CellName":dataStatus="Names";continue;SrcData.layerHeader=line;break;
-			case "*CellDataStart":;
-			case "*Cell":;
-			case "*End":;
-			derfault	:dataStatus="end";break;
-		}
-	};
-//	ç¬¬äºŒãƒ‘ã‚¹çµ‚äº†
-
-if(dataStatus=="end") {break;}
-//	èª­ã¿ã¨ã°ã—ãƒ‡ãƒ¼ã‚¿ãªã®ã§ã‚¹ã‚­ãƒƒãƒ—
-if(dataStatus=="Skip") {continue;}
-//	ãƒ‡ãƒ¼ã‚¿ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãŒParamã®å‡¦ç†
-if(dataStatus=="Param")
-{
-//	var ARDValue=SrcData[line].split[1];
-	switch(myLineData[0])
-	{
-		case "LayerCount":	SrcData.layerCount=myLineData[1]*1;
-					break;
-		case "FrameCount":	SrcData.time=myLineData[1]*1;
-					break;
-		case "CmpFps"	:	SrcData.framerate=myLineData[1];
-					break;
-		case "SrcWidth":	;//NOP
-		case "SrcHeight":	;//NOP
-		case "PageFrame":	;//NOP
-		case "SrcAspect":	;//NOP
-		case "EmptyCell":	;//NOP
-		default	:		break;//NOP
-
-	}
-}
-//ãƒ¬ã‚¤ãƒ¤ã‚«ã‚¦ãƒ³ãƒˆç¢ºèª
-if(dataStatus=="Names" && myLineData[0].match(/^[0-9]+$/))
-{
-	LayerCount++;
-	if (LayerCount>SrcData.layerCount){SrcData.layerCount=LayerCount;};//ãƒ¬ã‚¤ãƒ¤æ•°ç¢ºèª
-}
-	};
-
-//	ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®è¨­å®š
-SrcData.mapfile	="(no file)";
-SrcData.title	=myTitle;
-SrcData.subtitle=mySubTitle;
-SrcData.opus	=myOpus;
-SrcData.scene	="";
-SrcData.cut	="";
-SrcData.create_user	=myName;
-SrcData.update_user	=myName;
-SrcData.create_time	="";
-SrcData.update_time	="";
-
-SrcData.memo	="AERemap convert";
-
-//SrcData.framerate	="";
-
-SrcData.trin	=[0,"trin"];
-SrcData.trout	=[0,"trout"];
-//	SrcData.frameCount	=;
-//	SrcData.	="";
-//	SrcData.	="";
-//	SrcData.	="";	
-//	SrcData.	="";
-
-};
-//ãƒ‡ãƒ¼ã‚¿èµ°æŸ»ç¬¬äºŒãƒ‘ã‚¹(.tsh)
-if(SrcData.dataClass=="TSheet")
-{
-//ãƒ¬ã‚¤ãƒ¤ã‚«ã‚¦ãƒ³ãƒˆæœ€å¤§å€¤/ãƒ•ãƒ¬ãƒ¼ãƒ ç·æ•° æ§ãˆã‚‹
-SrcData.time=SrcData.length-3;//ãƒ©ãƒ™ãƒ«è¡Œãƒã‚§ãƒƒã‚¯è¡Œçµ‚äº†è¡Œã‚’å‰Šé™¤
-var LayerCount=0;
-	for(line=2;line<SrcData.length-2;line++)
-	{
-		for(col=SrcData[line].split("\t").length-1;col>=0;col--)
-		{
-			if(SrcData[line].split("\t")[col])
-			{
-			LayerCount=col+1;
-				SrcData.layerCount=(LayerCount>SrcData.layerCount)?
-				LayerCount : SrcData.layerCount;
-				break;
-			}
-		}
-	}
-//ä½•ã‚‰ã‹ã®æ‰‹é•ã„ã§å…¨ã‚«ãƒ©ã®ã‚·ãƒ¼ãƒˆã‚’èª­ã¿è¾¼ã‚“ã å ´åˆã®å‡¦ç½®
-if(LayerCount<=0)
-{
-	SrcData.layerCount=SheetLayers;//æ¨™æº–å€¤ã§åˆæœŸåŒ–
-//	return false;ã‚¨ãƒ©ãƒ¼è¿”ã—ã¦ä¸­æ­¢
-}
-//	ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®è¨­å®š
-SrcData.mapfile	="(no file)";
-SrcData.title	=myTitle;
-SrcData.subtitle=mySubTitle;
-SrcData.opus	=myOpus;
-SrcData.scene	="";
-SrcData.cut	="";
-SrcData.create_user	=myName;
-SrcData.update_user	=myName;
-SrcData.create_time	="";
-SrcData.update_time	="";
-
-SrcData.memo	="T-Sheet convert";
-
-SrcData.framerate	=24;//T-Sheetã¯24fpså°‚ç”¨
-
-SrcData.trin	=[0,"trin"];
-SrcData.trout	=[0,"trout"];
-//	SrcData.frameCount	=;
-//	SrcData.	="";
-//	SrcData.	="";
-//	SrcData.	="";	
-//	SrcData.	="";
-};
-
-//ãƒ‡ãƒ¼ã‚¿èµ°æŸ»ç¬¬äºŒãƒ‘ã‚¹(TSX)
-if(TSXEx && SrcData.dataClass=="TSX"){
-	SrcData.time		=	0;//åˆæœŸåŒ–
-	var LayerDuration	=	0;
-	SrcData.layerCount	=	0;//åˆæœŸåŒ–
-	var LayerCount		=	0;
-
-	for(line=SrcData.startLine;line<SrcData.length;line++){
-			//æœ¬ä½“æƒ…å ±ã®ç¢ºèª
-	//ãƒ¬ã‚¤ãƒ¤ã‚«ã‚¦ãƒ³ãƒˆãƒ»å„ãƒ¬ã‚¤ãƒ¤ã®ç¶™ç¶šæ™‚é–“ã‚«ã‚¦ãƒ³ãƒˆ
-	//ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆã®é•·ã•ã¯æœ€é•·ã®ãƒ¬ã‚¤ãƒ¤ã‚’ä½¿ç”¨
-	//ã‚·ãƒ¼ãƒˆã®ç¶™ç¶šã¯ã‚µãƒãƒ¼ãƒˆ=(ç›´å¾Œã®ãƒ¬ã‚¤ãƒ¤ã¨é€£çµ)
-	//ç©ºç™½è¡Œã¯ã™ã¹ã¦ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆ
-	//é–‹å§‹è¡ŒãŠã‚ˆã³èª­ã¿è¾¼ã¿åœæ­¢è¡Œã®ç›´å¾Œã®è¡Œã®ã¿æƒ…å ±è¡Œã¨ã—ã¦ä½¿ç”¨
-	//	ç¬¬äºŒãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’
-	//ç¶™ç¶šæ™‚é–“ã«åŠ ç®—ã•ã‚Œãªã„ãƒ‡ãƒ¼ã‚¿	/^[\/eE].*$/
-	if(SrcData[line].match(/^[\/eE].*$/)){
-		if(LayerCount!=SrcData.layerCount){
-			SrcData.layers[LayerCount].duration=LayerDuration;
-			LayerDuration=0;
-			LayerCount++;
-		}
-		//è¨˜è¿°çµ‚äº†ãƒ»ç¶™ç¶šæ™‚é–“åŠ ç®—ãƒªã‚»ãƒƒãƒˆãƒ»ãƒ¬ã‚¤ãƒ¤åŠ ç®—
-	}else{
-//if(!SrcData[line].match(/^[\/eE].*$/)){}
-		if(LayerCount==SrcData.layerCount){
-			SrcData.layerCount++;
-			SrcData.layers[LayerCount]= new Object();
-SrcData.layers[LayerCount].blmtd	="file";
-SrcData.layers[LayerCount].blpos	="first";
-SrcData.layers[LayerCount].lot		="=AUTO=";
-		}
-		LayerDuration++;
-		if(SrcData.time<LayerDuration) {SrcData.time= LayerDuration;}
-	}
-	//æœ‰åŠ¹ãªå‹•ç”»ç•ªå·ãƒ‡ãƒ¼ã‚¿(å˜ç‹¬)	/^[1-9][0-9]*\s?.*$/
-	//æœ‰åŠ¹ãªå‹•ç”»ç•ªå·ãƒ‡ãƒ¼ã‚¿(ç¹°è¿”)	/^[+rR]?\[?[1-9][\,]\]?
-	//
-	//
-	//
-	}
-//	ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®è¨­å®š
-SrcData.mapfile	="(no file)";
-SrcData.title	=myTitle;
-SrcData.subtitle=mySubTitle;
-SrcData.opus	=myOpus;
-SrcData.scene	="";
-SrcData.cut	="";
-SrcData.create_user	=myName;
-SrcData.update_user	=myName;
-SrcData.create_time	="";
-SrcData.update_time	="";
-
-SrcData.memo	="TSXreadTEST";
-
-SrcData.framerate	="";
-
-SrcData.trin	=[0,"trin"];
-SrcData.trout	=[0,"trout"];
-//	SrcData.frameCount	=;
-//	SrcData.	="";
-//	SrcData.	="";
-//	SrcData.	="";	
-//	SrcData.	="";
-};
-//
-//	ç¬¬äºŒãƒ‘ã‚¹çµ‚äº†ãƒ»èª­ã¿å–ã£ãŸæƒ…å ±ã§XPSã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å†åˆæœŸåŒ–(å…±é€š)
-	SrcData.duration=
-	Math.ceil(SrcData.time+(SrcData.trin[0]+SrcData.trout[0])/2);
-//		ãƒˆãƒ©ãƒ³ã‚·ãƒƒãƒˆæ™‚é–“ã®å‡¦ç†ã¯è¦å†è€ƒã€‚ç¾çŠ¶ã¯åˆ‡ã‚Šä¸Šã’
-	var SheetDuration=(SrcData.duration>(SrcData.frameCount-1))?
-	SrcData.duration : (SrcData.frameCount-1)	;//å¤§ãã„ã»ã†
-if(false){
-/*	------ ã¨ã‚Šã‚ãˆãšã€è­¦å‘Šéƒ¨åˆ†ã‚’å‰Šé™¤ ----
- *** å‹•ä½œãƒ•ãƒ©ã‚°ã§ãƒ‡ãƒ¼ã‚¿ç¨®åˆ¥ã ã‘åˆ¤å®šã—ã¦è¿”ã™ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’ä»˜ã‘ã¦ã‚‚è‰¯ã„ã‹ã‚‚
- */
-//		ã“ã“ã‹ã‚‰å¾Œæˆ»ã‚Šä¸å¯ãªã®ã§è­¦å‘Šã‚’å‡ºã™ã¹ãã‹ã‚‚ã­
-if (SrcData.dataClass.match(/(XPS|AERemap|TSheet)/) ){
-
-//	èª­ã¿è¾¼ã¿ç¢ºèª(XPS)
-if(! confirm("ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿ã‚’è¡Œã„ã¾ã™ã€‚\nèª­ã¿è¾¼ã¿ã‚’è¡Œã†ã¨ä»¥å‰ã®ç·¨é›†å†…å®¹ã¯æ¶ˆå»ã•ã‚Œã¾ã™ã€‚\nã“ã®æ“ä½œã¯ã€å–ã‚Šæ¶ˆã—ã§ãã¾ã›ã‚“ã€‚\n\n----- ã‚ˆã‚ã—ã„ã§ã™ã‹?"))
-	return false;
-}
-
-if (SrcData.dataClass=="AEKey"){
-
-//	èª­ã¿è¾¼ã¿ç¢ºèª(AEKey)
-//ã“ã“ã¯ã€å¾Œã‹ã‚‰ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚»ãƒ¬ã‚¯ã‚¿ã«å¤‰æ›´ã™ã‚‹ã“ã¨ã€‚
-	if (AEK)
-	{
-var msg="AEKeyãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿ã‚’è¡Œã„ã¾ã™ã€‚\nãƒ‡ãƒ¼ã‚¿ã¯ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã«æŒ¿å…¥ã•ã‚Œã¾ã™ã€‚\n\n----- ã‚ˆã‚ã—ã„ã§ã™ã‹?";
-	}else{
-var msg="AEKeyãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿ã‚’è¡Œã„ã¾ã™ã€‚\nèª­ã¿è¾¼ã¿ã‚’è¡Œã†ã¨ä»¥å‰ã®ç·¨é›†å†…å®¹ã¯æ¶ˆå»ã•ã‚Œã¾ã™ã€‚\nã“ã®æ“ä½œã¯ã€å–ã‚Šæ¶ˆã—ã§ãã¾ã›ã‚“ã€‚\n\n----- ã‚ˆã‚ã—ã„ã§ã™ã‹?";
-	}
-
-if(! confirm(msg))
-{
-	return false;
-}else{
-//	SrcData.blank_offset=0;// 0 or 1
-//	SrcData.key_shift=false;
-
-}
-}
-
-if (SrcData.dataClass=="TSX"){
-
-//	èª­ã¿è¾¼ã¿ç¢ºèª(TSX)
-if(! confirm("TSXãƒ‡ãƒ¼ã‚¿ã¨ã—ã¦èª­ã¿è¾¼ã¿ã‚’è¡Œã„ã¾ã™ã€‚\nèª­ã¿è¾¼ã¿ã‚’è¡Œã†ã¨ä»¥å‰ã®ç·¨é›†å†…å®¹ã¯æ¶ˆå»ã•ã‚Œã¾ã™ã€‚\nã“ã®æ“ä½œã¯ã€å–ã‚Šæ¶ˆã—ã§ãã¾ã›ã‚“ã€‚\n\n----- ã‚ˆã‚ã—ã„ã§ã™ã‹?"))
-	return false;
-};
-// ---- æš«å®šçš„ã«ã‚¹ã‚­ãƒƒãƒ— -----
-}
-//	///////////////////////
-//	if(dbg) dbgPut("count/duration:"+SrcData.layerCount+":"+SheetDuration);
-	if(SrcData.dataClass!="AEKey" || (! AEK)) this.init(SrcData.layerCount,SheetDuration);//å†åˆæœŸåŒ–
-//	///////////////////////
-if (SrcData.dataClass!="AEKey" || (! AEK)){
-//	ç¬¬äºŒãƒ‘ã‚¹ã§èª­ã¿å–ã£ãŸãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’XPSã«è»¢è¨˜
-	for(id=0;id<propNames.length;id++)
-	{
-		prpName=propNames[id];
-		if(SrcData[prpName] && prpName!="time")
-		{
-			this[prpName]=SrcData[prpName];
-//					ã‚¿ã‚¤ãƒ ä»¥å¤–ã¯ãã®ã¾ã¾è»¢è¨˜
-		}
-	}
-
-//	èª­ã¿å–ã‚Šãƒ‡ãƒ¼ã‚¿ã‚’èª¿ã¹ã¦å¾—ãŸã‚­ãƒ¼ãƒ¡ã‚½ãƒƒãƒ‰ã¨ãƒ–ãƒ©ãƒ³ã‚¯ä½ç½®ã‚’è»¢è¨˜
-for (lyr in SrcData.layers)
-{
-this.layers[lyr].blmtd	=SrcData.layers[lyr].blmtd;
-this.layers[lyr].blpos	=SrcData.layers[lyr].blpos;
-this.layers[lyr].lot	=SrcData.layers[lyr].lot;
-}
-
-	if(SrcData["memo"]) this["memo"]=SrcData["memo"];//memoãŒã‚ã‚Œã°è»¢è¨˜
-}
-
-// ///// å„ã‚¨ãƒ³ãƒˆãƒªã®ãƒ¬ã‚¤ãƒ¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã¨ã‚·ãƒ¼ãƒˆæœ¬ä½“æƒ…å ±ã‚’å–å¾—(ç¬¬ä¸‰ãƒ‘ã‚¹)
-if (SrcData.dataClass=="XPS"){
-		var frame_id=0;//èª­ã¿å–ã‚Šãƒ•ãƒ¬ãƒ¼ãƒ åˆæœŸåŒ–
-
-	for(line=SrcData.layerHeader;line<SrcData.layerBodyEnd;line++)
-	{
-//è§’æ‹¬å¼§ã§é–‹å§‹ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã¯ãƒ¬ã‚¤ãƒ¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
-		if(SrcData[line].match(/^\[(([a-zA-Z]+)\t.*)\]$/))
-		{
-				var layerProps= RegExp.$1.split("\t");
-				var layerPropName=RegExp.$2;
-					if(layerPropName=="CELL"){layerPropName="name"};
-//	ã“ã‚Œ(CELL)ã ã‘ã‚·ãƒ¼ãƒˆè¡¨è¨˜ã¨ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£åãŒä¸€è‡´ã—ã¦ã„ãªã„ã®ã§ç½®æ› ä¸€è‡´ãŒå°‘ãªã„å ´åˆã¯ãƒ†ãƒ¼ãƒ–ãƒ«ãŒå¿…è¦ã«ãªã‚‹
-	for (c=0;c<SrcData.layerCount;c++)
-	{	this["layers"][c][layerPropName]=layerProps[c+2]	}
-		}else{
-//ã»ã‹ã‚³ãƒ¡ãƒ³ãƒˆä»¥å¤–ã¯ã™ã¹ã¦ã‚·ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿
-			if(!SrcData[line].match(/^\#.*$/))
-			{
-myLineAry=(SrcData[line].match(/\t/))? SrcData[line].split("\t"):SrcData[line].replace(/[\;\:\,]/g,"\t").split("\t");
-	for (col=1;col<=(SrcData.layerCount+2);col++){
-//ã‚·ãƒ¼ãƒˆæœ¬ä½“ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
-		this.xpsBody[col-1][frame_id]=
-			(myLineAry[col]!=undefined)?
-			myLineAry[col].replace(/(^\s*|\s*$)/,""):"";
-	}
-		frame_id++;
-			}
-
-		}
-	}
-}
-//
-if (SrcData.dataClass=="AEKey"){
-//èª­ã¿å‡ºã—ãŸAEã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰æƒ…å ±ã‚’å†æ§‹æˆã™ã‚‹
-	var preValue='';//ç›´å‰ã®å€¤ã‚’æ§ãˆã¦ãŠãå¤‰æ•°
-if(AEK)	{
-//	var AETransStream=new String();//ãƒªã‚¶ãƒ«ãƒˆæ–‡å­—åˆ—ã®åˆæœŸåŒ–
-	var AETransStream="";//ãƒªã‚¶ãƒ«ãƒˆæ–‡å­—åˆ—ã®åˆæœŸåŒ–
-	var AETransArray=new Array(SrcData.layerCount);//
-	for(layer=0;layer<SrcData.layerCount;layer++){
-		AETransArray[layer]=new Array();
-	}
-}
-
-for(layer=0;layer<SrcData.layerCount;layer++){
-//ãƒ¬ã‚¤ãƒ¤æ•°å›ã™
-
-	timingTL=(SrcData.layers[layer].blmtd=="expression1")? "slider":"timeRemap";//	ã‚¿ã‚¤ãƒŸãƒ³ã‚°ä¿æŒã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã‚’blmtdã§å¤‰æ›´
-
-
-	BlankValue	=(SrcData.layers[layer].blpos=="first")?
-		0	:	(SrcData.layers[layer].lot + 1);
-//	ãƒ¬ã‚¤ãƒ¤ã”ã¨ã®ãƒ–ãƒ©ãƒ³ã‚¯å€¤ã‚’å‡ºã™ã€‚999999ã¯ã€ãƒ‘ã‚¹
-
-	for(kid=0; kid < thisComp.layers[layer][timingTL].length ;kid++)
-	{
-//ã‚¿ã‚¤ãƒŸãƒ³ã‚°ä¿æŒã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ã®ã‚­ãƒ¼æ•°ã§è»¢é€
-		if (preValue != thisComp.layers[layer][timingTL][kid].value[0])
-		{
-	frame=thisComp.layers[layer][timingTL][kid].frame;
-
-//ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã®å­˜åœ¨ã™ã‚‹ã‚³ãƒã®ã¿æ™‚é–“å€¤ã‹ã‚‰ã‚»ãƒ«ç•ªå·ã‚’å–ã‚Šå‡ºã—ã¦è»¢é€
-
-	if(xUI.timeShift){
-var diffStep = (Math.abs(thisComp.layers[layer][timingTL][kid].value[0] % thisComp.frameDuration()))/thisComp.frameDuration();
-timeShift=(diffStep < 0.1)? thisComp.frameDuration()*0.5 : 0;
-	}else{
-timeShift=0;
-	};
-	blank_offset =(SrcData.layers[layer].blpos=="first")? 0 : 1;
-
-//ã‚ã‚‰ã‹ã˜ã‚ã‚»ãƒ«ç•ªå·ã‚’è¨ˆç®—
-		cellNo=(timingTL=="timeRemap")?
-Math.floor((thisComp.layers[layer][timingTL][kid].value[0]*1+timeShift)/thisComp.frameDuration())+blank_offset:
-thisComp.layers[layer][timingTL][kid].value[0];
-	if (SrcData.layers[layer].blpos=="first"){
-		if(cellNo == BlankValue)	{cellNo="X"}
-	}else{
-		if(cellNo >= BlankValue)	{cellNo="X"}
-	}
-
-//	ç„¡æ¡ä»¶ãƒ–ãƒ©ãƒ³ã‚¯
-if(
-	thisComp.layers[layer][timingTL][kid].value[0]==999999 ||
-	thisComp.layers[layer][timingTL][kid].value[0]< 0
-){cellNo="X"};
-if(SrcData.layers[layer].bTimeLine){
-	if(SrcData.layers[layer].bTimeLine.valueAtTime(frame)==SrcData.layers[layer].tBlank){cellNo="X"};
-};
-//if(dbg) dbgPut(thisComp.layers[layer][timingTL][kid].value);
-
-		if(! AEK){
-	this.xpsBody[layer+1][frame]=cellNo;
-		}else{
-	AETransArray[layer].push(cellNo.toString());
-	if(kid < thisComp.layers[layer][timingTL].length -1)
-	{
-		var currentframe = thisComp.layers[layer][timingTL][kid].frame;
-		var nextframe = thisComp.layers[layer][timingTL][kid+1].frame;
-		for(fr=currentframe+1;fr<nextframe;fr++){
-			AETransArray[layer].push("");
-		}
-	}
-		}
-	}else{
-			AETransArray[layer].push("");
-	};
-	preValue=thisComp.layers[layer][timingTL][kid].value[0];
-	};
-	preValue='';//1ãƒ¬ã‚¤ãƒ¤çµ‚ã‚ã£ãŸã‚‰å†åº¦åˆæœŸåŒ–
-}
-//================================
-	if(AEK)	{
-//		xUI.put(AETransStream);
-//	ãƒ‡ãƒ¼ã‚¿é…åˆ—ã®æ•°ã‚’æ¯”è¼ƒã—ã¦æœ€ã‚‚å¤§ããªã‚‚ã®ã«åˆã‚ã›ã‚‹
-		var MaxLength=0;
-		for(layer=0;layer<SrcData.layerCount;layer++)
-		{
-	MaxLength=(MaxLength<AETransArray[layer].length)?
-	AETransArray[layer].length:MaxLength;
-		}
-		for(layer=0;layer<SrcData.layerCount;layer++)
-		{
-	AETransArray[layer].length=MaxLength;
-	AETransStream+=AETransArray[layer].join(",");
-	if(layer<SrcData.layerCount-1)AETransStream+="\n";
-		};
-//	dbgPut(AETransStream);
-	xUI.Select=[1,0];
-	xUI.put(AETransStream);
-//		return false;
-		return true;
-	}
-}
-//AE-Remap
-if(SrcData.dataClass=="AERemap")
-{
-//ãƒ‡ãƒ¼ã‚¿çŠ¶æ…‹è¨­å®š Param > Names
-var dataStatus="";	//èª­ã¿è¾¼ã¿ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
-var LayerCount="";	//ãƒ¬ã‚¤ãƒ¤ã‚«ã‚¦ãƒ³ã‚¿
-	for(line=SrcData.startLine;line<SrcData.length;line++){
-//ç©ºè¡Œã‚¹ã‚­ãƒƒãƒ—ã¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å¤‰æ›´
-	if(SrcData[line]=="")
-	{
-		continue
-	}else{
-		var myLineData=SrcData[line].split("\t");
-		switch(myLineData[0])
-		{
-		case "*ParamStart":dataStatus="Param";continue;break;
-		case "*CellName":dataStatus="Names";continue;SrcData.layerHeader=line;break;
-		case "*CellDataStart":dataStatus="SheetBody";break;
-		case "*Cell":LayerCount=myLineData[1]*1;break;
-		case "*End":;
-		derfault	:dataStatus="end";break;
-		}
-	};
-//	ç¬¬äºŒãƒ‘ã‚¹çµ‚äº†
-if(dataStatus=="end") {break;}
-//	ãƒ‡ãƒ¼ã‚¿ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãŒParamã®å‡¦ç†
-if(dataStatus=="Param") continue;//skip
-//	ã‚·ãƒ¼ãƒˆãƒœãƒ‡ã‚£å–ã‚Šè¾¼ã¿
-if(dataStatus=="SheetBody" && myLineData[0].match(/^[0-9]+$/))
-{
-	this.xpsBody[LayerCount+1][(myLineData[0]*1)-1]=(myLineData[1]==0)?
-	"X":myLineData[1].toString();
-	continue;
-}
-//ãƒ¬ã‚¤ãƒ¤ãƒ©ãƒ™ãƒ«å–å¾—
-if(dataStatus=="Names" && myLineData[0].match(/^[0-9]+$/))
-{
-	this.xpsBody["layers"][myLineData[0]]["name"]=myLineData[1];
-}
-	};
-};
-//T-Sheet
-if (SrcData.dataClass=="TSheet")
-{
-	var frame_id=0;//èª­ã¿å–ã‚Šãƒ•ãƒ¬ãƒ¼ãƒ åˆæœŸåŒ–
-
-//ç¬¬ä¸€ãƒ¬ã‚³ãƒ¼ãƒ‰ã‹ã‚‰ãƒ¬ã‚¤ãƒ¤åå–å¾—
-	var LayerLabels=SrcData[0].split("\t").slice(0,SrcData.layerCount);
-	LayerLabels[0]=LayerLabels[0].replace(/^\x22/,"");
-
-	for (c=0;c<SrcData.layerCount;c++)
-	{	this.xpsBody["layers"][c]["name"]=LayerLabels[c];	};
-//ã‚·ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿èª­ã¿å–ã‚Š
-	for(line=2;line<SrcData.length-1;line++)
-	{
-
-//ã™ã¹ã¦ã‚·ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿
-myLineAry=(SrcData[line].match(/\t/))? SrcData[line].split("\t"):SrcData[line].replace(/[\;\:\,]/g,"\t").split("\t");
-
-		for (col=0;col<=SrcData.layerCount;col++){
-//ã‚·ãƒ¼ãƒˆæœ¬ä½“ãƒ‡ãƒ¼ã‚¿ã®å–å¾—(ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¯ãªã„ã®ã§ãƒˆã°ã—ã¦æ‹¾ã†)
-			this.xpsBody[col+1][frame_id]=(myLineAry[col]!=undefined)?
-				myLineAry[col].replace(/(^0$)/,"X"):"";
-		}
-		frame_id++;
-	}
-};
-//TSX
-if(TSXEx && SrcData.dataClass=="TSX"){
-//ã‚«ã‚¦ãƒ³ã‚¿åˆæœŸåŒ–
-	SrcData.time		=	0;//åˆæœŸåŒ–
-	var LayerTime		=	0;
-	SrcData.layerCount	=	0;//åˆæœŸåŒ–
-	LayerCount		=	0;
-	var RepeatBuf=new Array();
-	var repIdx=0;
-//	var readCountLine	=	0;
-//	var readCountLayer	=	0;
-//æœ¬ä½“ãƒ‡ãƒ¼ã‚¿èª­ã¿å–ã‚Š
-	for(line=SrcData.startLine;line<SrcData.length;line++){
-
-	if(SrcData[line].match(/^[\/eE].*$/)){
-		if(LayerCount!=SrcData.layerCount){
-			LayerTime=0;
-			LayerCount++;
-		}
-		//è¨˜è¿°çµ‚äº†ãƒ»ç¶™ç¶šæ™‚é–“åŠ ç®—ãƒªã‚»ãƒƒãƒˆãƒ»ãƒ¬ã‚¤ãƒ¤åŠ ç®—
-	}else{
-		if(LayerCount==SrcData.layerCount){
-			if(RepeatBuf.length){RepeatBuf.length=0;repIdx=0;}
-			SrcData.layerCount++;
-		}
-		body_data=SrcData[line].replace(/^([^\#]*)(\-\-|\#).*$/,"$1");
-if(body_data.match(/^[1-9][0-9]*$/)){
-	if(RepeatBuf.length){RepeatBuf.length=0;repIdx=0;}
-	this.xpsBody[LayerCount+1][LayerTime]=body_data;
-}else{
-	if(body_data==""){
-		if(RepeatBuf.length){
-			this.xpsBody[LayerCount+1][LayerTime]=RepeatBuf[repIdx%RepeatBuf.length];repIdx++;
-		}else{
-			this.xpsBody[LayerCount+1][LayerTime]=body_data;
-		}
-	}else{
-		RepeatBuf=TSX_expdList(body_data);repIdx=0;
-		this.xpsBody[LayerCount+1][LayerTime]=RepeatBuf[repIdx];repIdx++;
-	}
-
-}
-		LayerTime++;
-		if(SrcData.time<LayerDuration) {SrcData.time= LayerDuration;}
-	}
-
-	}
-}
-	return false;
-// ///// èª­ã¿å–ã£ãŸãƒ‡ãƒ¼ã‚¿ã‚’æ¤œæŸ»ã™ã‚‹(ãƒ‡ãƒ¼ã‚¿æ¤œæŸ»ã¯åˆ¥ã®ãƒ¡ã‚½ãƒƒãƒ‰ã«ã—ã‚!??)
-/*
-//	ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€ç¾åœ¨ã‚µãƒãƒ¼ãƒˆç„¡ã—
-//		ã‚µãƒãƒ¼ãƒˆé–‹å§‹æ™‚æœŸæœªå®š
-//ã“ã®æƒ…å ±ã¯ã€ä»–ã®æƒ…å ±ä»¥å‰ã«åˆ¤å®šã—ã¦ã€ãƒãƒƒãƒ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”ŸæˆãŒå¿…è¦ã€‚
-//ãƒãƒƒãƒ—æœªè¨­å®šçŠ¶æ…‹ã§ã¯ã€ä»£ç”¨ãƒãƒƒãƒ—ã‚’ä½œæˆã—ã¦ä½¿ç”¨ã€‚
-//ä»£ç”¨ãƒãƒƒãƒ—ã¯ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§å­˜åœ¨ã€‚
-<<
-	ç¾åœ¨ã¯ã€ä»£ç”¨MAPã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å…ˆè¡Œã—ã¦ä½œæˆã—ã¦ã‚ã‚‹ãŒã€
-	æœ¬æ¥ã®ãƒãƒƒãƒ—ãŒç¢ºå®šã™ã‚‹ã®ã¯ã“ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ãªã®ã§ã€æ³¨æ„!
->>
-*/
-if(false){
-//MAPPING_FILE=(no file)//å€¤ã¯æœªè¨­å®šæ™‚ã®äºˆç´„å€¤?nullã§åˆæœŸåŒ–ã™ã¹ãã‹?
-			if(! this.mapfile) this.mapfile='(no file)';
-
-//ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ãŒæœªè¨­å®šãªã‚‰ã°ã€ä»£ç”¨ãƒãƒƒãƒ—ã‚’ä½¿ç”¨
-//ã“ã®åˆ¤å®šã¯ã‚ã¾ã‚Šã«é›‘ãªã®ã§å¾Œã§ãªã‚“ã¨ã‹ã™ã‚Œ
-if(false){
-	if(this.mapfile=='(no file)')
-	{
-		MapObj=new Map();	//ã¨ã‚Šã‚ãˆãšæ—¢å­˜ã®ãƒ€ãƒŸãƒ¼ãƒãƒƒãƒ—ã‚’ä»£å…¥ã—ã¦ãŠãã€‚
-	}
-}
-//ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§ãƒãƒƒãƒ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’åˆæœŸåŒ–
-	//	ãã®ã†ã¡ã­ã€ä»Šã¯ã¾ã ãªã„
-//æ—¥ä»˜é–¢é€£
-
-//åˆ¶ä½œæ—¥ä»˜ã¨åˆ¶ä½œè€…ãŒç„¡ã„å ´åˆã¯ã€ç©ºç™½ã§åˆæœŸåŒ–?ç„¡è¦–ã—ãŸã»ã†ãŒè‰¯ã„ã‹ã‚‚
-//CREATE_USER=''
-//CREATE_TIME=''
-			if(! this.create_time) this.create_time='';
-			if(! this.create_user) this.create_user='';
-//æœ€çµ‚æ›´æ–°æ—¥ä»˜ã¨æœ€çµ‚æ›´æ–°è€…ãŒç„¡ã„å ´åˆã¯ã€ç©ºç™½ã§åˆæœŸåŒ–?
-//(ã“ã‚Œã¯ã€ã©ã®ã¿ã¡ä¿å­˜æ™‚ã«ç¾åœ¨ã®ãƒ‡ãƒ¼ã‚¿ã§ä¸Šæ›¸ã)
-//UPDATE_USER=''
-//UPDATE_TIME=''
-			if(! this.update_time) this.update_time='';
-			if(! this.update_user) this.update_user='';
-//
-//FRAME_RATE=24//
-//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆèª­ã¿å–ã‚Œã¦ãªã‘ã‚Œã°ã€ç¾åœ¨ã®å€¤ã§åˆæœŸåŒ–(çµ„ã¿è¾¼ã¿æ³¨æ„)
-			if(! this.framerate)
-			{	this.framerate=nas.FRATE;
-			}else{
-				nas.FRATE=this.framerate;
-			}
-//ãƒˆãƒ©ãƒ³ã‚·ãƒƒãƒˆå±•é–‹ã—ã¦ãŠã
-//TRIN=(æ™‚é–“æ–‡å­—åˆ—),(ãƒˆãƒ©ãƒ³ã‚·ãƒƒãƒˆç¨®åˆ¥)
-if(! this.trin){this.trin=[0,"trin"]
-}else{
-			time=nas.FCT2Frm(this.trin.split(",")[0]);
-			if(isNaN(time)){time=0};
-		name=(this.trin.split(",")[1])?this.trin.split(",")[1]:"trin";
-			  this.trin=[time,name];
-}
-//TROUT=(æ™‚é–“æ–‡å­—åˆ—),(ãƒˆãƒ©ãƒ³ã‚·ãƒƒãƒˆç¨®åˆ¥)
-if(! this.trout){this.trout=[0,"trout"];
-}else{
-			time=nas.FCT2Frm(this.trout.split(",")[0]);
-			if(isNaN(time)){time=0};
-		name=(this.trout.split(",")[1])?this.trout.split(",")[1]:"trout";
-			  this.trout=[time,name];
-}
-//TIMEã‚‚ä¸€å¿œå–ã‚Šè¾¼ã‚“ã§ãŠãã€‚
-//å®Ÿéš›ã®ãƒ‡ãƒ¼ã‚¿ã®ç¶™ç¶šæ™‚é–“ã¨ã“ã®æƒ…å ±ã®ã€Œé•·ã„ã»ã†ã€ã‚’æ¡ã‚‹
-//TIME=(æ™‚é–“æ–‡å­—åˆ—)
-			this.time=nas.FCT2Frm(this.time);
-			if(isNaN(this.time)){this.time=0}
-
-//ä½œå“ãƒ‡ãƒ¼ã‚¿
-//æƒ…å ±ãŒç„¡ã„å ´åˆã¯ã€ç©ºç™½ã§åˆæœŸåŒ–ã€‚ãƒãƒƒãƒ—ã‚’ã¿ã‚‹ã‚ˆã†ã«ãªã£ãŸã‚‰ã€‚
-//ãƒãƒƒãƒ—ã®æƒ…å ±ã‚’å‚ç…§
-//æœ€çµ‚ä½œæ¥­æƒ…å ±(ã‚¯ãƒƒã‚­ãƒ¼)ã‚’å‚ç…§
-//ãƒ¦ãƒ¼ã‚¶è¨­å®šã«ã‚ˆã‚‹ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚’å‚ç…§ ãªã©ã‹ã‚‰é¸æŠ
-
-
-//TITLE=(æœªè¨­å®šã¨ã‹ã®ã»ã†ãŒè‰¯ã„ã‹ã‚‚)
-			if(! this.title) this.title='';
-//SUB_TITLE=(æœªè¨­å®šã¨ã‹ã®ã»ã†ãŒè‰¯ã„ã‹ã‚‚)
-			if(! this.subtitle) this.subtitle='';
-//OPUS=()
-			if(! this.opus) this.opus='';
-//SCENE=()
-			if(! this.scene) this.scene='';
-//CUT=()
-			if(! this.cut) this.cut='';
-
-//ã‚·ãƒ¼ãƒ³?ãƒ»ã‚«ãƒƒãƒˆç•ªå·ã¯æœ€çµ‚çŠ¶æ…‹ã§ã‚‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯ç©ºç™½ã«ã€‚ç´›ã‚‰ã‚ã—ã„ã‹ã‚‰ã€‚
-
-}
-
-return true;
-//return this;
-};
-//
-//XPS.readIN	=	readIN_	;
-//
-
+/*	XPS ƒtƒ@ƒCƒ‹‚©‚ç ƒIƒuƒWƒFƒNƒg‚Ì‰Šú‰»	AEKeyƒf[ƒ^“Ç‚İ‚İ		ƒƒ\ƒbƒh‚©?‚»‚ê‚Æ‚àŠÖ”‚©?	2005/03/20 *//*Œ‹‹Ç‚ÍAXPS‚Ìƒƒ\ƒbƒh‚ª‚æ‚©‚ë‚¤‚Æv‚¤‚Ì‚Å‚ ‚Á‚½‚æB‚Å‚àAo—Í•”•ª‚Í•ª‚¯‚È‚¢‚Æ”Ä—p«‚ª‰º‚ª‚è‚»‚¤‚¾‚æ‚ËA‚ÆAEKey “Ç‚İæ‚è•”•ª’Ç‰Á‰½‚Æ‚©“®‚­ 05/04/26AEKey ƒCƒƒCƒ•â³ ‚¨‚¨‚©‚½‘åä•v‚»‚¤? 12/11 Ÿ‚Í6.5‘Î‰‚¾‚¯‚Ç[cAEKey bTimeLine QÆˆá‚¢ ƒoƒOC³ 1/31AERemap/T-Sheet“Ç‚İ‚İ•”•ªƒR[ƒfƒBƒ“ƒO ‚Å‚à “D“ê 5/12 *//*	ssUnit(UpS)	ƒTƒuƒ†ƒjƒbƒg’·‚ğ©“®İ’è‚µ‚Ä–ß‚·	ˆø” UpS ‚ÍAUnits Per SecondE•b‚ ‚½‚è‚ÌƒtƒŒ[ƒ€” ‚Ü‚½‚Í ƒL[ƒ[ƒh	–ß‚è’l‚ÍAƒtƒŒ[ƒ€ƒŒ[ƒg‚É‚µ‚½‚ª‚Á‚Ä©“®İ’è‚³‚ê‚éƒTƒuƒ†ƒjƒbƒg‚Ì’·‚³	ƒTƒuƒZƒpƒŒ[ƒ^‚Ì’l‚Æ‚Í•ÊB */function ssUnit(UpS){if (isNaN(UpS)){	switch (UpS)	{	case "NTSC"	:	return 6;break;	case "PAL"	:	return 5;break;	case "drop"	:	return 6;break;	default	:	return UpS;	}}else{	UpS=Math.round(UpS);//	ƒhƒƒbƒvƒtƒŒ[ƒ€Œn‚Ìˆ’uE‚Ç‚Ì‚İ‚¿®”‚Å‚È‚¢‚ÆƒCƒ„‚¾‚¯‚ÇAb’è‚Å	for (ssu=4;ssu>1;ssu--){if(UpS%ssu==0)return UpS/ssu;}	return UpS;}//	4‚©‚ç1‚Ö‡‚É–ñ”‚ğ‚ ‚½‚éBƒ}ƒbƒ`‚µ‚½“_‚Å•Ô‚·B//	‚·‚×‚Ä¸”s‚µ‚½ê‡‚ÍAŒ³‚Ì”’l‚ğ•Ô‚·B}/*	ckBlank(timeLine)	§ŒäƒŒƒCƒ„(Œ»İƒJƒ‰ƒZƒ‹§Œä‚Ì‚İ)‚Ì”»’è	”»’è‚·‚étimelineƒIƒuƒWƒFƒNƒg‚ğ—^‚¦‚éB	‚·‚×‚Ä‚Ì’l‚ª 0 || 100 	‚È‚ç‚ÎƒJƒ‰ƒZƒ‹ƒŒƒCƒ„‚Å‚ ‚é‚Æ”»’è	Œ»İ‚Íƒu[ƒŠƒAƒ“‚Å•Ô‚µ‚Ä‚¢‚é‚ªA—v’²®‚©? */function ckBlank(timeLine){	for(xid=0;xid<timeLine.length;xid ++){	if(timeLine[xid].value[0]%100 != 0){return false}	}return true;}//var thisComp=null;var thisLayer=null;var thisTimeLine=null;//‚¿‚å‚Á‚Æƒ|ƒCƒ“ƒ^/*	readIN_(datastream)	 */function readIN_(datastream){alert("Started Read IN Data");//ƒ‰ƒCƒ“‚Å•ªŠ„‚µ‚Ä”z—ñ‚Éæ‚è‚İ	var SrcData=new Array();	SrcData=datastream.split("\n");		var AEK=true;//AEKey read-formatTestFlag//ƒf[ƒ^ƒXƒgƒŠ[ƒ€”»•ÊƒvƒƒpƒeƒB	SrcData.startLine	=0;//ƒf[ƒ^ŠJns	SrcData.dataClass	="XPS";//ƒf[ƒ^í•Ê(XPS/AEKey/TSX/AERemap/TSheet/STS)//ƒ\[ƒXƒf[ƒ^‚ÌƒvƒƒpƒeƒB	SrcData.layerHeader	=0;//ƒŒƒCƒ„ƒwƒbƒ_ŠJns	SrcData.layerProps	=0;//ƒŒƒCƒ„ƒvƒƒpƒeƒBƒGƒ“ƒgƒŠ”	SrcData.layerCount	=0;//ƒŒƒCƒ„”	SrcData.layers= new Array();//ƒŒƒCƒ„î•ñƒgƒŒ[ƒ‰[	SrcData.layerBodyEnd	=0;//ƒŒƒCƒ„î•ñI—¹s	SrcData.frameCount	=0;//“Ç‚İæ‚èƒtƒŒ[ƒ€”//‘æˆêƒpƒX//–`“ªƒ‰ƒCƒ“‚ª¯•ÊƒR[ƒh‚Ü‚½‚Í‹ós‚Å‚È‚©‚Á‚½ê‡‚ÍA‚³‚æ‚¤‚È‚çŒä–Æ‚Ë//IE‚Ìƒf[ƒ^‚ÌŒŸØ‚à‚±‚±‚Å‚â‚Á‚Æ‚¢‚½‚Ù‚¤‚ª—Ç‚¢?	for (l=0;l<SrcData.length;l++)	{		if(SrcData[l].match(/^\s*$/))		{			continue;		}else{		if(MSIE){	var choped=SrcData[l].charCodeAt(SrcData[l].length-1);	if(choped<=32)	SrcData[l] = SrcData[l].slice(0,-1);		}		//‚È‚º‚¾‚©ƒiƒ]‚È‚º‚Éˆê•¶š‘½‚¢‚Ì‚©?/*	‚Ç‚¤‚µ‚Ü‚µ‚å‚Á‚½‚çA‚Ç[‚µ‚Ü‚µ‚å ‚Ü‚¾vˆÄ’† ƒVƒAƒ“‚ÍÔ‚Ì•âF‚Å‚·B*/if(SrcData[l].match(/^nasTIME-SHEET\ 0\.[1-4]$/)){	SrcData.startLine =l;//ƒf[ƒ^ŠJns	break;}else{	if(SrcData[l].match(/^Adobe\ After\ Effects\x20([456]\.[05])\ Keyframe\ Data$/))	{		SrcData.dataClass ="AEKey";//ƒf[ƒ^í•Ê		SrcData.startLine =l;//ƒf[ƒ^ŠJns		break;	}else{		if(SrcData[l].match(/^#TimeSheetGrid\x20SheetData$/))		{		SrcData.dataClass ="AERemap";//ƒf[ƒ^í•Ê(.ard)alert("look AERemep");		SrcData.startLine =l;//ƒf[ƒ^ŠJns		break;		}else{			if(SrcData[l].match(/^\x22([^\x09]+\x09){25}[^\x09]+$/))			{				SrcData.dataClass ="TSheet";//ƒf[ƒ^í•Ê(.tsh)				SrcData.startLine =0;//ƒf[ƒ^ŠJns				break;			}else{				if(TSXEx)				{					SrcData.dataClass ="TSX";//ƒf[ƒ^í•Ê					SrcData.startLine =0;//ƒf[ƒ^ŠJns(TSX‚Í0ŒÅ’è)					break;				}else{//	alert("‚Ç‚¤‚à‚·‚İ‚Ü‚¹‚ñB‚±‚Ìƒf[ƒ^‚Í“Ç‚ß‚È‚¢‚İ‚½‚¢ƒ_\n"+SrcData[l]);	this.ErorCord=0;	this.ErorMsg="‚Ç‚¤‚à‚·‚İ‚Ü‚¹‚ñB‚±‚Ìƒf[ƒ^‚Í“Ç‚ß‚È‚¢‚İ‚½‚¢ƒ_\n"+SrcData[l];		return false;				}			}		}	}}		}	}//‘æˆêƒpƒX‚¨‚µ‚Ü‚¢B‚È‚ñ‚É‚àƒf[ƒ^‚ª–³‚©‚Á‚½‚çƒTƒˆƒiƒ‰	if(SrcData.startLine==0 && SrcData.length==l){	this.ErorCord=0;	this.ErorMsg="“Ç‚İæ‚éƒf[ƒ^‚ª‚È‚¢‚Ì‚Å‚·B";//		xUI.riseSW("data_");//q‹ŸƒIƒuƒWƒFƒNƒg‚ÉˆË‘¶‚µ‚Æ‚é ƒˆƒNƒiƒC		return false;	}//##•Ï”–¼‚ÆƒvƒƒpƒeƒB–¼‚Ì‘ÎÆƒe[ƒuƒ‹//	var varNames=["MAPPING_FILE","TITLE","SUB_TITLE","OPUS","SCENE","CUT","TIME","TRIN","TROUT","FRAME_RATE","CREATE_USER","UPDATE_USER","CREATE_TIME","UPDATE_TIME"	];	var propNames=["mapfile","title","subtitle","opus","scene","cut","time","trin","trout","framerate","create_user","update_user","create_time","update_time"	];	var props =new Array(varNames.length);for (i=0;i<varNames.length;i++){props[varNames[i]]=propNames[i];};if (SrcData.dataClass=="XPS"){//	ƒf[ƒ^‘–¸‘æ“ñƒpƒX(XPS)	for(line=SrcData.startLine;line<SrcData.length;line++){			//‘O’u•”•ª‚ğ“Ç‚İ‚İ‚Â‚ÂA–{‘Ìî•ñ‚ÌŠm”F		if(MSIE){	var choped=SrcData[line].charCodeAt(SrcData[line].length-1);	if(choped<=32)	SrcData[line] = SrcData[line].slice(0,-1);		}		//‚È‚º‚¾‚©ƒiƒ]‚È‚º‚Éˆê•¶š‘½‚¢‚Ì‚©?//			ƒV[ƒgƒvƒƒpƒeƒB‚Éƒ}ƒbƒ`		if(SrcData[line].match(/^\#\#([A-Z].*)=(.*)$/))		{			nAme=RegExp.$1;vAlue=RegExp.$2;//	ŠÔŠÖ˜AƒvƒƒpƒeƒB‚ğæs‚µ‚Ä•]‰¿B//	“Ç‚İæ‚Á‚½ƒtƒŒ[ƒ€”‚Æw’èŠÔ‚Ì’·‚¢‚Ù‚¤‚ÅƒV[ƒg‚ğ‰Šú‰»‚·‚éB//		ŠÔƒvƒƒpƒeƒBŒ‡—‚Ì‚½‚ß‚É‰Šú’lİ’è//	SrcData.time	=thisComp.duration*thisComp.frameRate;//“Ç‚İæ‚è//	SrcData.trin	=[this.trin[0],this.trin[1]];//	SrcData.trout	=[this.trout[0],this.trout[1]];//		SrcData.time="6+0";		SrcData.trin=[0,""];		SrcData.trout=[0,""];switch (nAme){case	"TRIN":			;//ƒgƒ‰ƒ“ƒVƒbƒgƒCƒ“case	"TROUT":		;//ƒgƒ‰ƒ“ƒVƒbƒgƒAƒEƒg		var tm=nas.FCT2Frm(vAlue.split(",")[0]);		if(isNaN(tm)){tm=0};		var nm=vAlue.split(",")[1];		if(! nm){nm=prpName};			  SrcData[props[nAme]]=[tm,nm];			break	;case	"TIME":			;//ƒJƒbƒgÚ		var tm=nas.FCT2Frm(vAlue);		if(isNaN(tm)){tm=0}			  SrcData[props[nAme]]=tm;			break	;default:				;//ŠÔŠÖ˜AˆÈŠO			SrcData[props[nAme]]=vAlue;//					”»’è‚µ‚½’l‚ğƒvƒƒpƒeƒB‚ÅT‚¦‚é}		}//			ƒŒƒCƒ„ƒwƒbƒ_‚Ü‚½‚ÍI—¹¯•Ê‚Éƒ}ƒbƒ`		if(SrcData[line].match(/^\[(([a-zA-Z]+)\t?.*)\]$/))		{//ƒV[ƒgI‚í‚Á‚Ä‚¢‚½‚çƒƒ‚‚ğæ‚è‚ñ‚ÅI—¹			if(SrcData[line].match(/\[END\]/))			{//	ƒV[ƒgƒ{ƒfƒBI—¹ƒ‰ƒCƒ“T‚¦				SrcData.layerBodyEnd=line;				SrcData["memo"]='';				for(li=line+1;li<SrcData.length;li++)				{SrcData["memo"]+=SrcData[li]+"\n"}					break ;			}else{//ŠeƒŒƒCƒ„‚Ìî•ñ‚ğæ“¾//	ƒŒƒCƒ„ƒwƒbƒ_‚ÌŠJns‚ğ‹L˜^				if(SrcData.layerHeader==0)					{SrcData.layerHeader=line};//	ƒƒbƒg‚ğ‹L˜^(Å‘å‚Ìs‚ğÌ‚é)				var LayerCount =				SrcData[line].split("\t").length-3;				SrcData.layerCount=				(SrcData.layerCount<LayerCount)?				LayerCount	:	SrcData.layerCount;//	ƒGƒ“ƒgƒŠ”‚ğ‹L˜^				SrcData.layerProps++;			}		}else{//	ƒV[ƒgƒf[ƒ^–{‘Ì‚Ìs”‚ğ‰ÁZ	if(! SrcData[line].match(/^\#.*$/))	{		SrcData.frameCount++;	//“Ç‚İæ‚èƒtƒŒ[ƒ€”	}		}	}};//	ƒf[ƒ^‘–¸‘æ“ñƒpƒX(AEKey)if (SrcData.dataClass=="AEKey"){//	‰¼‚Éƒf[ƒ^‚ğæ“¾‚·‚éƒRƒ“ƒ|‚ğ‰Šú‰»		thisComp= new FakeComposition();		thisComp.maxFrame=0;//ƒL[‚ÌÅ‘åŠÔ‚ğæ“¾‚·‚éƒvƒƒpƒeƒB‚ğ‰Šú‰»		ly_id	=0;//ƒŒƒCƒ„ID‰Šú‰»		tl_id	=0;//ƒ^ƒCƒ€ƒ‰ƒCƒ“ID‰Šú‰»		kf_id	=0;//ƒL[ƒtƒŒ[ƒ€ID‰Šú‰» ‚¢‚ç‚È‚¢‚©?//		‘æ“ñƒpƒXŠJn//	ƒf[ƒ^‚ğƒXƒLƒƒƒ“‚µ‚ÄƒRƒ“ƒ|(ƒIƒuƒWƒFƒNƒg)‚ÉŠi”[	for(line=SrcData.startLine;line<SrcData.length;line++)	{			// ƒL[ƒf[ƒ^‚ÉŠÜ‚Ü‚ê‚éƒŒƒCƒ„î•ñ‚Ìæ“¾		if(MSIE){	var choped=SrcData[line].charCodeAt(SrcData[line].length-1);	if(choped<=32) SrcData[line] = SrcData[line].slice(0,-1);		}		//ƒf[ƒ^‘Oˆ—E‚È‚º‚¾‚©ƒiƒ]A‚È‚º‚Éˆê•¶š‘½‚¢‚Ì‚©?//‹ó”’s‚ÌƒXƒLƒbƒv	if(SrcData[line]=='') continue;//ˆê”ÔƒGƒ“ƒgƒŠ‚Ì‘½‚¢ƒf[ƒ^s‚ğÅ‰‚Éˆ—	if( SrcData[line].match(/^\t.*/) )	{//if(dbg) dbgPut("\tDATALINEs\nLayer No."+ly_id+" TimeLineID :"+tl_id+ " "+line+":"+SrcData[line]);		var SrcLine = SrcData[line].split("\t");		if(SrcLine[1]=="Frame") continue;//ƒtƒB[ƒ‹ƒhƒ^ƒCƒgƒ‹sƒXƒLƒbƒv		if (tl_id==0){ //ƒŒƒCƒ„“à‚Åˆê“x‚àƒ^ƒCƒ€ƒ‰ƒCƒ“‚ğˆ—‚µ‚Ä‚¢‚È‚¢B//if(dbg) dbgPut(SrcLine);//ƒŒƒCƒ„ƒwƒbƒ_‚È‚Ì‚ÅƒŒƒCƒ„‚ÌƒvƒƒpƒeƒB‚ğŒŸØ‚µ‚ÄƒIƒuƒWƒFƒNƒg‚É“o˜^switch (SrcLine[1]){case	"Units\ Per\ Second"	:			;//ƒRƒ“ƒ|ƒtƒŒ[ƒ€ƒŒ[ƒg	thisComp.frameRate	= SrcLine[2]		; break;	//‚±‚Ì•”•ª‚ğ‚±‚Ì‚Ü‚Ü•ú’u‚·‚é‚ÆƒRƒ“ƒ|‚ÌƒtƒŒ[ƒ€ƒŒ[ƒg‚ªAÅŒã‚ÌƒŒƒCƒ„‚ÅŒˆ’è‚³‚ê‚é‚Ì‚Å’ˆÓBcase	"Source\ Width"	:				;//ƒŒƒCƒ„ƒ\[ƒX•	thisLayer.width	= SrcLine[2]	; break;case	"Source\ Height"	:			;//ƒŒƒCƒ„ƒ\[ƒX‚‚³	thisLayer.height	= SrcLine[2]	; break;case	"Source\ Pixel\ Aspect\ Ratio"	:		;//ƒ\[ƒX‚Ìc‰¡”ä	thisLayer.pixelAspect	= SrcLine[2]	; break;case	"Comp\ Pixel\ Aspect\ Ratio"	:		;//ƒRƒ“ƒ|‚Ìc‰¡”ä	thisComp.pixelAspect	= SrcLine[2]		; break;default:				;//ŠÔŠÖ˜AˆÈŠO	thisLayer[SrcLine[1]]	= SrcLine[2]	; break;//	”»’è‚µ‚½’l‚ğƒŒƒCƒ„‚ÌƒvƒƒpƒeƒB‚ÉT‚¦‚éB}		}else{//ƒ^ƒCƒ€ƒ‰ƒCƒ“ƒf[ƒ^‚È‚Ì‚ÅƒAƒNƒeƒBƒu‚Èƒ^ƒCƒ€ƒ‰ƒCƒ“‚É“o˜^//if(dbg) dbgPut("timelinedata line No."+line+":"+SrcData[line]);	frame=SrcLine[1]*1;		if(frame > thisComp.maxFrame) thisComp.maxFrame=frame;		//	ƒL[ƒtƒŒ[ƒ€‚ÌÅ‘åŠÔ‚ğ‹L˜^	value=SrcLine.slice(2,SrcLine.length-1);//	value=SrcLine.slice(2);//	ƒ^ƒCƒ€ƒ‰ƒCƒ“‚ÌÅ‘å’l‚ğT‚¦‚é 999999 ‚Í—\–ñ’l‚È‚Ì‚ÅƒpƒX//	ÀÛ–â‘è‚±‚±‚ÅT‚¦‚½•û‚ª—Ç‚¢‚Ì‚©‚±‚ê‚Í?//	if (thisTimeLine.maxValue<value && value < 999999)//	thisTimeLine.maxValue=value;//result=thisTimeLine.push(new KeyFrame(frame,value));//thisComp.layers[ly_id][tl_id][kf_id] = new KeyFrame(frame,value);//kf_id ++;//result=thisComp.layers[ly_id][tl_id].setKeyFrame(new KeyFrame(frame,value));	thisComp.layers[ly_id][tl_id].push(new KeyFrame(frame,value));	result=thisComp.layers[ly_id][tl_id].length;//	if(dbg) dbgPut(">>set "+thisComp.layers[ly_id][tl_id].name+//	" frame:"+frame+"  to value:"+value+"<<"+result+//	"::and maxFrame is :" + thisComp.maxFrame);//if(dbg) dbgPut(">>> "+ thisComp.layers[ly_id][tl_id][kf_id].frame +"<<<");		}	continue;//Ÿ‚Ì”»’è‚ÍA“–‘RƒpƒX‚µ‚ÄŸ‚Ìs‚ğˆ—	};//ƒŒƒCƒ„ŠJn”»’è	if(SrcData[line].match(/^Adobe\ After\ Effects\x20([456]\.[015])\ Keyframe\ Data$/)){//if(dbg) dbgPut("\n\nNew Layer INIT "+l+":"+SrcData[line]);		//ƒŒƒCƒ„ì¬		thisComp.layers[ly_id]=new FakeLayer();//		thisComp.layers[ly_id].init();		thisLayer=thisComp.layers[ly_id];//ƒ|ƒCƒ“ƒ^İ’è		continue;	}//		ƒ^ƒCƒ€ƒ‰ƒCƒ“ŠJn”»’è‚Ü‚½‚ÍAƒŒƒCƒ„I—¹	if( SrcData[line].match(/^[\S]/))	{//@ƒ^ƒCƒ€ƒ‰ƒCƒ“I—¹ˆ—‚ª‚ ‚ê‚Î‚±‚±‚É// ƒŒƒCƒ„I—¹ˆ—//if(dbg)	dbgPut(line+" : "+SrcData[line]);		if(SrcData[line].match(/^End\ of\ Keyframe\ Data$/))		{//			thisComp.setFrameDuration()			ly_id ++ ;tl_id	=0;kf_id=0;		//ƒŒƒCƒ„IDƒCƒ“ƒNƒŠƒƒ“ƒgEƒ^ƒCƒ€ƒ‰ƒCƒ“ID‰Šú‰»		}else{//	ÅãˆÊŠK‘w‚Íƒf[ƒ^ƒuƒƒbƒN‚ÌƒZƒpƒŒ[ƒ^‚È‚Ì‚Å“Ç‚İæ‚è‘ÎÛ‚ğØ‚èŠ·‚¦	//	ƒ^ƒCƒ€ƒ‰ƒCƒ“‚ğ”»’è‚µ‚Äì¬//	if(! SrcData[line].match(/^\s*$/)){}//V‹Kƒ^ƒCƒ€ƒ‰ƒCƒ“İ’è	SrcLine=SrcData[line].split("\t");switch (SrcLine[0]){case	"Time\ Remap":	tl_id="timeRemap";	break;case	"Anchor\ Point":	tl_id="anchorPoint";	break;case	"Position":	tl_id="position";	break;case	"Scale":	tl_id="scale";	break;case	"Rotation":	tl_id="rotation";	break;case	"Opacity":	tl_id="opacity";	break;case	"•ÏŠ·I—¹":	tl_id="wipe";//AE 4.0-5.5 wipe/ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“	break;case "ƒXƒ‰ƒCƒ_":	tl_id="slider";//AE 4.0-5.5 ƒXƒ‰ƒCƒ_§Œä	break;case	"Effects":	//AE 6.5 (6.0? —vŠm”F) ƒGƒtƒFƒNƒgƒwƒbƒ_ƒTƒu”»’è‚ª•K—v	switch (SrcLine[1].slice("\ ")[0])	{	case "•ÏŠ·I—¹":	tl_id="wipe";break;	case "ƒXƒ‰ƒCƒ_§Œä":	tl_id="slider";break;//	case "":	tl_id="";break;//	case "":	tl_id="";break;//	case "":	tl_id="";break;	defaulet:	tlid=SrcLine[1];	}	break;default:	tlid=SrcLine[0];}//	if(! thisComp.layers[ly_id][tl_id]){thisComp.layers[ly_id][tl_id]= new TimeLine(tl_id)}else{if(dbg) dbgPut(tl_id)}	if(! thisComp.layers[ly_id][tl_id])	{		thisComp.layers[ly_id][tl_id]= new Array();		thisComp.layers[ly_id][tl_id].name=[tl_id];		thisComp.layers[ly_id][tl_id].maxValue=0;		thisComp.layers[ly_id][tl_id].valueAtTime=valueAtTime_;	};//else{	if(dbg) dbgPut(tl_id + " is exist")	}//			‚È‚¯‚ê‚Îì‚é‚·‚Å‚É‚ ‚éƒ^ƒCƒ€ƒ‰ƒCƒ“‚È‚çƒXƒLƒbƒv		thisTimeLine=thisComp.layers[ly_id][tl_id];//		if(dbg) dbgPut("set TIMELINE :"+ly_id+":"+tl_id);		continue;		}	continue;	}	}//		all_AEfake();//	ƒL[‚Ì“Ç‚İ‚İ‚ªI‚í‚Á‚½‚Ì‚ÅƒL[ƒf[ƒ^‚ğ‰ğÍ//ƒL[‚ÌÅŒã‚ÌƒtƒŒ[ƒ€‚ğ‚İ‚ÄAƒJƒbƒg‚ÌŒp‘±ŠÔ‚ğŠ„‚èo‚·B	thisComp.duration=	nas.FCT2ms(		ssUnit(thisComp.frameRate)*		Math.ceil(thisComp.maxFrame/ssUnit(thisComp.frameRate))	)/1000;//Å¬’PˆÊ‚ÍƒLƒŠ‚Ì—Ç‚¢‚Æ‚±‚ë‚Åİ’è////ƒ^ƒCƒ€ƒ‰ƒCƒ“‚ğƒ`ƒFƒbƒN‚µ‚Äƒ^ƒCƒ~ƒ“ƒOî•ñ‚ğ’Šo//ƒŒƒCƒ„‚Åƒ‹[ƒvfor (lyr in thisComp.layers){/*	ƒRƒ“ƒ|ƒWƒVƒ‡ƒ“‚ÌƒŒƒCƒ„î•ñ‚ğ“Ç‚ñ‚ÅA•ÏŠ·‚Ìƒpƒ‰ƒ[ƒ^‚ğ”»’è‚·‚é	Œ»İ”F¯‚µ‚Ä“Ç‚İæ‚éƒ^ƒCƒ€ƒ‰ƒCƒ“timeRemap	ƒ^ƒCƒ~ƒ“ƒOî•ñ—L‚è	slider	ƒ^ƒCƒ~ƒ“ƒOî•ñ‚Ì‰Â”\«—L‚èopacity	ƒ^ƒCƒ~ƒ“ƒOî•ñ‚Ì‰Â”\«—L‚èwipe	ƒ^ƒCƒ~ƒ“ƒOî•ñ‚Ì‰Â”\«—L‚è**ƒJƒƒ‰ƒ[ƒN”»’è‚ÍAŒ»İ‚È‚µ í‚Éfalse*///ƒ\[ƒXƒf[ƒ^—pî•ñƒgƒŒ[ƒ‰		SrcData.layers[lyr]=new Object();//@‰Šú‰»	SrcData.layers[lyr].haveTimingData	=false;	SrcData.layers[lyr].haveCameraWork	=false;//ƒƒ\ƒbƒhEˆÊ’u‚ğƒfƒtƒHƒ‹ƒg‚Éİ’è	SrcData.layers[lyr].blmtd=xUI.blmtd;	SrcData.layers[lyr].blpos=xUI.blpos;	SrcData.layers[lyr].blmtd="wipe";	SrcData.layers[lyr].blpos="first";	SrcData.layers[lyr].lot="=AUTO=";		//‰¼‚Ìƒuƒ‰ƒ“ƒNƒŒƒCƒ„		SrcData.layers[lyr].bTimeLine=false;		SrcData.layers[lyr].tBlank=false;//ƒŠƒ}ƒbƒv‚Í‚ ‚é?	if (thisComp.layers[lyr].timeRemap)	{		SrcData.layers[lyr].haveTimingData	=true;//ƒJƒ‰ƒZƒ‹§ŒäƒŒƒCƒ„‚Í‚ ‚é‚©if (thisComp.layers[lyr].opacity){		if(ckBlank(thisComp.layers[lyr].opacity)){	SrcData.layers[lyr].blmtd="opacity";	SrcData.layers[lyr].blpos="end";		//‰¼‚Ìƒuƒ‰ƒ“ƒNƒŒƒCƒ„		SrcData.layers[lyr].bTimeLine=thisComp.layers[lyr].opacity;		SrcData.layers[lyr].tBlank=0;//alert("hasBlankOpacity");		}}else{if (thisComp.layers[lyr].wipe){		if(ckBlank(thisComp.layers[lyr].wipe)){	SrcData.layers[lyr].blmtd="wipe";	SrcData.layers[lyr].blpos="end";		//‰¼‚Ìƒuƒ‰ƒ“ƒNƒŒƒCƒ„		SrcData.layers[lyr].bTimeLine=thisComp.layers[lyr].wipe;		SrcData.layers[lyr].tBlank=100;//alert("hasBlankWipe");		}}}//ƒL[‚ğ‘S”ŒŸ¸	var isExpression=false	;//ƒGƒNƒXƒvƒŒƒbƒVƒ‡ƒ“ƒtƒ‰ƒO	var MaxValue=0	;//Å‘å’l‚ğT‚¦‚é•Ï”	var blAP=false	;//ƒJƒ‰ƒZƒ‹oŒ»ƒtƒ‰ƒO	var tmpBlank=(SrcData.layers[lyr].blmtd=="opacity")? 0 : 100 ;//‰¼‚Ìƒuƒ‰ƒ“ƒN’lfor (kid=0;kid<thisComp.layers[lyr].timeRemap.length;kid++){	if(thisComp.layers[lyr].timeRemap[kid].value[0] >= 999999){		isExpression=true;		blAP=true;	};//‚±‚ê‚ªÅ—Dæ(ÅŒã‚É”»’è‚µ‚Äã‘‚«)//Å‘å’l‚ğæ“¾	if(	MaxValue< 1 * thisComp.layers[lyr].timeRemap[kid].value[0] &&		1 * thisComp.layers[lyr].timeRemap[kid].value[0] < 999999)	{	MaxValue=1*thisComp.layers[lyr].timeRemap[kid].value[0];//Å‘å’l‚ªXV‚³‚ê‚½‚çƒL[‚É‘Î‰‚·‚éƒJƒ‰ƒZƒ‹§Œä‚ğƒ`ƒFƒbƒN		if(SrcData.layers[lyr].bTimeLine){//§Œäƒ‰ƒCƒ“‚ ‚é‚©//ƒL[ƒtƒŒ[ƒ€‚ÌˆÊ’u‚Éƒuƒ‰ƒ“ƒNw’è‚ª‚ ‚ê‚ÎA‚»‚±‚ğƒuƒ‰ƒ“ƒN’l‚Éİ’èif(SrcData.layers[lyr].bTimeLine.valueAtTime(thisComp.layers[lyr].timeRemap[kid].frame)==SrcData.layers[lyr].tBlank){	blAP=true;//ƒJƒ‰ƒZƒ‹oŒ»}		}	}}	if(isExpression){		SrcData.layers[lyr].blmtd="expression2";		SrcData.layers[lyr].blpos="end";	}	SrcData.layers[lyr].maxValue=MaxValue;//	ƒtƒŒ[ƒ€ƒŒ[ƒgæ‚èo‚µvar FrameDuration=(thisComp.layers[lyr].frameDuration)?	thisComp.layers[lyr].frameDuration :	thisComp.frameDuration();//	ƒZƒ‹–‡”„’èswitch(SrcData.layers[lyr].blpos){case "end":	SrcData.layers[lyr].lot=(blAP)?		Math.floor(MaxValue/FrameDuration):		Math.floor(MaxValue/FrameDuration)+1	;//end	if(isExpression && blAP)	SrcData.layers[lyr].lot++;//		SrcData.layers[lyr].hasBlank=blAP;	break;case "first":	SrcData.layers[lyr].lot=		Math.floor(MaxValue/FrameDuration);//first	break;case "none":default://	SrcData.layers[lyr].lot="=AUTO=";//end && MaxValue==0}	}else{//	ƒXƒ‰ƒCƒ_§Œä‚Í‚ ‚é?		if (thisComp.layers[lyr].slider)		{/*	ƒXƒ‰ƒCƒ_=ƒGƒNƒXƒvƒŒƒbƒVƒ‡ƒ“‚Ì‰Â”\«—L‚èƒGƒNƒXƒvƒŒƒbƒVƒ‡ƒ“‚¾‚Æ‚·‚é‚Æexpression1‚È‚Ì‚ÅA“¯ˆêƒŒƒCƒ„‚Éƒ^ƒCƒ€ƒ‰ƒCƒ“‚ª“ñ‚ÂˆÈã‚ ‚Á‚Ä‚Í‚È‚ç‚È‚¢‚à‚Ì‚Æ‚·‚éB‚ªA“ñ‚Â–ÚˆÈ~‚ÌƒXƒ‰ƒCƒ_‚ÍAŒ»İ³í‚É“Ç‚ß‚È‚¢B¬‚´‚é‚»‚Ì‚¤‚¿‰½‚Æ‚©‚·‚é*///ƒL[‚ğ‘SŒŸ¸‚·‚éB	var MaxValue=0;	var isTiming=true;for (kid=0;kid<thisComp.layers[lyr].slider.length;kid++){//	®”‚©	if(thisComp.layers[lyr].slider[kid].value[0] %1 != 0) {isTiming=false;break;}//Å‘å’l‚ğæ“¾	if(MaxValue<1*thisComp.layers[lyr].slider[kid].value[0])	{MaxValue=thisComp.layers[lyr].slider[kid].value[0]}}//‚·‚×‚Ä®”’l‚È‚ç‚Îˆê‰ƒGƒNƒXƒvƒŒƒbƒVƒ‡ƒ“‚É‚æ‚éƒ^ƒCƒ~ƒ“ƒO‚Æ”F¯if (isTiming){	SrcData.layers[lyr].haveTimingData	=true;			SrcData.layers[lyr].blmtd="expression1";	SrcData.layers[lyr].blpos="first";	SrcData.layers[lyr].lot=MaxValue;	SrcData.layers[lyr].maxValue=MaxValue;}//					}	}//—¼•û‚Ì”»’è‚ğ”²‚¯‚½‚È‚çƒ^ƒCƒ~ƒ“ƒOî•ñ‚ª‚È‚¢‚Ì‚Å‚±‚ÌƒŒƒCƒ„‚Í‚½‚¾‚Ì‹óƒŒƒCƒ„/*//	ƒ^ƒCƒ~ƒ“ƒO‚¾‚Æv‚í‚ê‚éê‡‚Íƒtƒ‰ƒO—§‚Ä‚éB//case	"slider"://case	"timeRemap":	;break;//ƒL[‚ğ‘S”ŒŸ¸‚·‚éB//§ŒäƒŒƒCƒ„‚ª•t‘®‚µ‚Ä‚¢‚½‚ç‚»‚¿‚ç‚ğ—Dæ‚³‚¹‚éB//§ŒäƒŒƒCƒ„‚Ì’l‚ÆƒŠƒ}ƒbƒv‚Ì’l‚ğ”äŠr‚µ‚ÄƒJƒ‰ƒZƒ‹ƒƒ\ƒbƒh‚Æƒ|ƒWƒVƒ‡ƒ“‚ğo‚·//ƒ^ƒCƒ€ƒŠƒ}ƒbƒv‚ÆƒXƒ‰ƒCƒ_‚Ì‚Ì‚İ‚Ì”»’è//’l‚ÌÅ‘å—Ê‚ğT‚¦‚éif(SrcData.layers[ly_id].maxValue<value) SrcData.layers[ly_id].maxValue= value;//ƒXƒ‰ƒCƒ_‚©‚Â®”ˆÈŠO‚Ì’l‚ª‚ ‚é‚Æ‚«‚Ííœƒtƒ‰ƒO‚ğ—§‚Ä‚éif(tl_id=="slider" && value%1 != 0) SrcData.layers[ly_id].isExpression=false;//ƒ^ƒCƒ€ƒŠƒ}ƒbƒv‚Å‚©‚Â’l‚É"999999"‚ª‚ ‚éê‡‚Íƒƒ\ƒbƒh‚ğexp2‚Éif(tlid=="timeRemap" && value==999999) SrcData.leyers[ly_id].blmtd="exp2";*/}//	‰ğÍ‚µ‚½ƒvƒƒpƒeƒB‚Ì“]‹L	if(AEK){//		b’èˆ—‚¾‚¯‚ÇŒ»İ‚ÌƒJƒbƒg‚Ìî•ñ‚Å–„‚ß‚é‚±‚Æ‚É‚·‚é?SrcData.mapfile	="(no file)";SrcData.title	=this.title;SrcData.subtitle=this.subtitle;SrcData.opus	=this.opus;SrcData.scene	=this.scene;SrcData.cut	=this.cut;SrcData.create_user	=this.create_user;SrcData.update_user	=this.update_user;SrcData.create_time	=this.create_time;SrcData.update_time	=this.update_time;SrcData.framerate	=thisComp.frameRate;SrcData.layerCount	=thisComp.layers.length;SrcData.memo	=this.memo;SrcData.time	=thisComp.duration*thisComp.frameRate;//“Ç‚İæ‚èSrcData.trin	=[this.trin[0],this.trin[1]];SrcData.trout	=[this.trout[0],this.trout[1]];	}else{SrcData.mapfile	="(no file)";SrcData.title	="";SrcData.subtitle="";SrcData.opus	="";SrcData.scene	="";SrcData.cut	="";SrcData.create_user	="";SrcData.update_user	="";SrcData.create_time	="";SrcData.update_time	="";SrcData.framerate	=thisComp.frameRate;SrcData.layerCount	=thisComp.layers.length;SrcData.memo	="";SrcData.time	=thisComp.duration*thisComp.frameRate;//“Ç‚İæ‚èSrcData.trin	=[0,"trin"];SrcData.trout	=[0,"trout"];//ƒL[ƒtƒŒ[ƒ€‚©‚ç‚Í“Ç‚Ü‚È‚¢(ƒ†[ƒU‚ªŒã‚Åw’è)	}//	SrcData.frameCount	=;//	SrcData.	="";//	SrcData.	="";//	SrcData.	="";	//	SrcData.	="";/*	ƒ^ƒCƒ€ƒŠƒ}ƒbƒv‚ÆƒXƒ‰ƒCƒ_§Œä‚Ì—¼•û‚ª‚È‚¢ê‡‚ÍA	ƒŒƒCƒ„‚Íucameraworkv(•Û—¯)	ƒXƒ‰ƒCƒ_§Œä‚ª‚ ‚Á‚ÄA‚©‚Âƒf[ƒ^ƒGƒ“ƒgƒŠ[‚ª‚·‚×‚Ä®”‚Ìê‡‚ÍA	exp1 ‚»‚êˆÈŠO‚ÍƒXƒ‰ƒCƒ_§Œä‚ğ”jŠü	ƒXƒ‰ƒCƒ_§Œä‚Æƒ^ƒCƒ€ƒŠƒ}ƒbƒv‚ª—¼•û‚ ‚éê‡‚Íƒ^ƒCƒ€ƒŠƒ}ƒbƒv—Dæ	*/};//ƒf[ƒ^‘–¸‘æ“ñƒpƒX(.ard)if(SrcData.dataClass=="AERemap"){alert("AER");//ƒf[ƒ^ó‘Ôİ’è Param > Namesvar dataStatus="";	//“Ç‚İ‚İƒXƒe[ƒ^ƒXvar LayerCount=0;	//ƒŒƒCƒ„”‚¦(Šm”F—p)	for(line=SrcData.startLine;line<SrcData.length;line++){			//‘O’u•”•ª‚ğ“Ç‚İ‚İ‚Â‚ÂA–{‘Ìî•ñ‚ÌŠm”F		if(MSIE){	var choped=SrcData[line].charCodeAt(SrcData[line].length-1);	if(choped<=32)	SrcData[line] = SrcData[line].slice(0,-1);		}		//‚È‚º‚¾‚©ƒiƒ]‚È‚º‚Éˆê•¶š‘½‚¢‚Ì‚©?//			ƒV[ƒgƒvƒƒpƒeƒB‚Éƒ}ƒbƒ`//‹ósƒXƒLƒbƒv‚ÆƒXƒe[ƒ^ƒX•ÏX	if(SrcData[line]=="")	{		continue	}else{		var myLineData=SrcData[line].split("\t");		switch(myLineData[0])		{			case "*CommentStart":;			case "*CommentEnd":dataStatus="Skip";continue;break;			case "*ParamStart":dataStatus="Param";continue;break;			case "*MapData":;			case "*MapNumber":;			case "*ChildLayer":dataStatus="Skip";continue;break;			case "*CellName":dataStatus="Names";continue;SrcData.layerHeader=line;break;			case "*CellDataStart":;			case "*Cell":;			case "*End":;			derfault	:dataStatus="end";break;		}	};//	‘æ“ñƒpƒXI—¹if(dataStatus=="end") {break;}//	“Ç‚İ‚Æ‚Î‚µƒf[ƒ^‚È‚Ì‚ÅƒXƒLƒbƒvif(dataStatus=="Skip") {continue;}//	ƒf[ƒ^ƒXƒe[ƒ^ƒX‚ªParam‚Ìˆ—if(dataStatus=="Param"){//	var ARDValue=SrcData[line].split[1];	switch(myLineData[0])	{		case "LayerCount":	SrcData.layerCount=myLineData[1]*1;					break;		case "FrameCount":	SrcData.time=myLineData[1]*1;					break;		case "CmpFps"	:	SrcData.framerate=myLineData[1];					break;		case "SrcWidth":	;//NOP		case "SrcHeight":	;//NOP		case "PageFrame":	;//NOP		case "SrcAspect":	;//NOP		case "EmptyCell":	;//NOP		default	:		break;//NOP	}}//ƒŒƒCƒ„ƒJƒEƒ“ƒgŠm”Fif(dataStatus=="Names" && myLineData[0].match(/^[0-9]+$/)){	LayerCount++;	if (LayerCount>SrcData.layerCount){SrcData.layerCount=LayerCount;};//ƒŒƒCƒ„”Šm”F}	};//	ƒvƒƒpƒeƒB‚Ìİ’èSrcData.mapfile	="(no file)";SrcData.title	=myTitle;SrcData.subtitle=mySubTitle;SrcData.opus	=myOpus;SrcData.scene	="";SrcData.cut	="";SrcData.create_user	=myName;SrcData.update_user	=myName;SrcData.create_time	="";SrcData.update_time	="";SrcData.memo	="AERemap convert";//SrcData.framerate	="";SrcData.trin	=[0,"trin"];SrcData.trout	=[0,"trout"];//	SrcData.frameCount	=;//	SrcData.	="";//	SrcData.	="";//	SrcData.	="";	//	SrcData.	="";};//ƒf[ƒ^‘–¸‘æ“ñƒpƒX(.tsh)if(SrcData.dataClass=="TSheet"){//ƒŒƒCƒ„ƒJƒEƒ“ƒgÅ‘å’l/ƒtƒŒ[ƒ€‘” T‚¦‚éSrcData.time=SrcData.length-3;//ƒ‰ƒxƒ‹sƒ`ƒFƒbƒNsI—¹s‚ğíœvar LayerCount=0;	for(line=2;line<SrcData.length-2;line++)	{		for(col=SrcData[line].split("\t").length-1;col>=0;col--)		{			if(SrcData[line].split("\t")[col])			{			LayerCount=col+1;				SrcData.layerCount=(LayerCount>SrcData.layerCount)?				LayerCount : SrcData.layerCount;				break;			}		}	}//‰½‚ç‚©‚Ìèˆá‚¢‚Å‘SƒJƒ‰‚ÌƒV[ƒg‚ğ“Ç‚İ‚ñ‚¾ê‡‚Ìˆ’uif(LayerCount<=0){	SrcData.layerCount=SheetLayers;//•W€’l‚Å‰Šú‰»//	return false;ƒGƒ‰[•Ô‚µ‚Ä’†~}//	ƒvƒƒpƒeƒB‚Ìİ’èSrcData.mapfile	="(no file)";SrcData.title	=myTitle;SrcData.subtitle=mySubTitle;SrcData.opus	=myOpus;SrcData.scene	="";SrcData.cut	="";SrcData.create_user	=myName;SrcData.update_user	=myName;SrcData.create_time	="";SrcData.update_time	="";SrcData.memo	="T-Sheet convert";SrcData.framerate	=24;//T-Sheet‚Í24fpsê—pSrcData.trin	=[0,"trin"];SrcData.trout	=[0,"trout"];//	SrcData.frameCount	=;//	SrcData.	="";//	SrcData.	="";//	SrcData.	="";	//	SrcData.	="";};//ƒf[ƒ^‘–¸‘æ“ñƒpƒX(TSX)if(TSXEx && SrcData.dataClass=="TSX"){	SrcData.time		=	0;//‰Šú‰»	var LayerDuration	=	0;	SrcData.layerCount	=	0;//‰Šú‰»	var LayerCount		=	0;	for(line=SrcData.startLine;line<SrcData.length;line++){			//–{‘Ìî•ñ‚ÌŠm”F	//ƒŒƒCƒ„ƒJƒEƒ“ƒgEŠeƒŒƒCƒ„‚ÌŒp‘±ŠÔƒJƒEƒ“ƒg	//ƒ^ƒCƒ€ƒV[ƒg‚Ì’·‚³‚ÍÅ’·‚ÌƒŒƒCƒ„‚ğg—p	//ƒV[ƒg‚ÌŒp‘±‚ÍƒTƒ|[ƒg=(’¼Œã‚ÌƒŒƒCƒ„‚Æ˜AŒ‹)	//‹ó”’s‚Í‚·‚×‚ÄƒtƒŒ[ƒ€ƒJƒEƒ“ƒg	//ŠJns‚¨‚æ‚Ñ“Ç‚İ‚İ’â~s‚Ì’¼Œã‚Ìs‚Ì‚İî•ñs‚Æ‚µ‚Äg—p	//	‘æ“ñƒtƒB[ƒ‹ƒh‚ğ	//Œp‘±ŠÔ‚É‰ÁZ‚³‚ê‚È‚¢ƒf[ƒ^	/^[\/eE].*$/	if(SrcData[line].match(/^[\/eE].*$/)){		if(LayerCount!=SrcData.layerCount){			SrcData.layers[LayerCount].duration=LayerDuration;			LayerDuration=0;			LayerCount++;		}		//‹LqI—¹EŒp‘±ŠÔ‰ÁZƒŠƒZƒbƒgEƒŒƒCƒ„‰ÁZ	}else{//if(!SrcData[line].match(/^[\/eE].*$/)){}		if(LayerCount==SrcData.layerCount){			SrcData.layerCount++;			SrcData.layers[LayerCount]= new Object();SrcData.layers[LayerCount].blmtd	="file";SrcData.layers[LayerCount].blpos	="first";SrcData.layers[LayerCount].lot		="=AUTO=";		}		LayerDuration++;		if(SrcData.time<LayerDuration) {SrcData.time= LayerDuration;}	}	//—LŒø‚È“®‰æ”Ô†ƒf[ƒ^(’P“Æ)	/^[1-9][0-9]*\s?.*$/	//—LŒø‚È“®‰æ”Ô†ƒf[ƒ^(ŒJ•Ô)	/^[+rR]?\[?[1-9][\,]\]?	//	//	//	}//	ƒvƒƒpƒeƒB‚Ìİ’èSrcData.mapfile	="(no file)";SrcData.title	=myTitle;SrcData.subtitle=mySubTitle;SrcData.opus	=myOpus;SrcData.scene	="";SrcData.cut	="";SrcData.create_user	=myName;SrcData.update_user	=myName;SrcData.create_time	="";SrcData.update_time	="";SrcData.memo	="TSXreadTEST";SrcData.framerate	="";SrcData.trin	=[0,"trin"];SrcData.trout	=[0,"trout"];//	SrcData.frameCount	=;//	SrcData.	="";//	SrcData.	="";//	SrcData.	="";	//	SrcData.	="";};////	‘æ“ñƒpƒXI—¹E“Ç‚İæ‚Á‚½î•ñ‚ÅXPSƒIƒuƒWƒFƒNƒg‚ğÄ‰Šú‰»(‹¤’Ê)	SrcData.duration=	Math.ceil(SrcData.time+(SrcData.trin[0]+SrcData.trout[0])/2);//		ƒgƒ‰ƒ“ƒVƒbƒgŠÔ‚Ìˆ—‚Í—vÄlBŒ»ó‚ÍØ‚èã‚°	var SheetDuration=(SrcData.duration>(SrcData.frameCount-1))?	SrcData.duration : (SrcData.frameCount-1)	;//‘å‚«‚¢‚Ù‚¤if(false){/*	------ ‚Æ‚è‚ ‚¦‚¸AŒx•”•ª‚ğíœ ---- *** “®ìƒtƒ‰ƒO‚Åƒf[ƒ^í•Ê‚¾‚¯”»’è‚µ‚Ä•Ô‚·ƒIƒvƒVƒ‡ƒ“‚ğ•t‚¯‚Ä‚à—Ç‚¢‚©‚à *///		‚±‚±‚©‚çŒã–ß‚è•s‰Â‚È‚Ì‚ÅŒx‚ğo‚·‚×‚«‚©‚à‚Ëif (SrcData.dataClass.match(/(XPS|AERemap|TSheet)/) ){//	“Ç‚İ‚İŠm”F(XPS)if(! confirm("ƒ^ƒCƒ€ƒV[ƒgƒf[ƒ^‚Ì“Ç‚İ‚İ‚ğs‚¢‚Ü‚·B\n“Ç‚İ‚İ‚ğs‚¤‚ÆˆÈ‘O‚Ì•ÒW“à—e‚ÍÁ‹‚³‚ê‚Ü‚·B\n‚±‚Ì‘€ì‚ÍAæ‚èÁ‚µ‚Å‚«‚Ü‚¹‚ñB\n\n----- ‚æ‚ë‚µ‚¢‚Å‚·‚©?"))	return false;}if (SrcData.dataClass=="AEKey"){//	“Ç‚İ‚İŠm”F(AEKey)//‚±‚±‚ÍAŒã‚©‚çƒIƒvƒVƒ‡ƒ“ƒZƒŒƒNƒ^‚É•ÏX‚·‚é‚±‚ÆB	if (AEK)	{var msg="AEKeyƒf[ƒ^‚Ì“Ç‚İ‚İ‚ğs‚¢‚Ü‚·B\nƒf[ƒ^‚ÍƒJ[ƒ\ƒ‹ˆÊ’u‚É‘}“ü‚³‚ê‚Ü‚·B\n\n----- ‚æ‚ë‚µ‚¢‚Å‚·‚©?";	}else{var msg="AEKeyƒf[ƒ^‚Ì“Ç‚İ‚İ‚ğs‚¢‚Ü‚·B\n“Ç‚İ‚İ‚ğs‚¤‚ÆˆÈ‘O‚Ì•ÒW“à—e‚ÍÁ‹‚³‚ê‚Ü‚·B\n‚±‚Ì‘€ì‚ÍAæ‚èÁ‚µ‚Å‚«‚Ü‚¹‚ñB\n\n----- ‚æ‚ë‚µ‚¢‚Å‚·‚©?";	}if(! confirm(msg)){	return false;}else{//	SrcData.blank_offset=0;// 0 or 1//	SrcData.key_shift=false;}}if (SrcData.dataClass=="TSX"){//	“Ç‚İ‚İŠm”F(TSX)if(! confirm("TSXƒf[ƒ^‚Æ‚µ‚Ä“Ç‚İ‚İ‚ğs‚¢‚Ü‚·B\n“Ç‚İ‚İ‚ğs‚¤‚ÆˆÈ‘O‚Ì•ÒW“à—e‚ÍÁ‹‚³‚ê‚Ü‚·B\n‚±‚Ì‘€ì‚ÍAæ‚èÁ‚µ‚Å‚«‚Ü‚¹‚ñB\n\n----- ‚æ‚ë‚µ‚¢‚Å‚·‚©?"))	return false;};// ---- b’è“I‚ÉƒXƒLƒbƒv -----}//	/////////////////////////	if(dbg) dbgPut("count/duration:"+SrcData.layerCount+":"+SheetDuration);	if(SrcData.dataClass!="AEKey" || (! AEK)) this.init(SrcData.layerCount,SheetDuration);//Ä‰Šú‰»//	///////////////////////if (SrcData.dataClass!="AEKey" || (! AEK)){//	‘æ“ñƒpƒX‚Å“Ç‚İæ‚Á‚½ƒvƒƒpƒeƒB‚ğXPS‚É“]‹L	for(id=0;id<propNames.length;id++)	{		prpName=propNames[id];		if(SrcData[prpName] && prpName!="time")		{			this[prpName]=SrcData[prpName];//					ƒ^ƒCƒ€ˆÈŠO‚Í‚»‚Ì‚Ü‚Ü“]‹L		}	}//	“Ç‚İæ‚èƒf[ƒ^‚ğ’²‚×‚Ä“¾‚½ƒL[ƒƒ\ƒbƒh‚Æƒuƒ‰ƒ“ƒNˆÊ’u‚ğ“]‹Lfor (lyr in SrcData.layers){this.layers[lyr].blmtd	=SrcData.layers[lyr].blmtd;this.layers[lyr].blpos	=SrcData.layers[lyr].blpos;this.layers[lyr].lot	=SrcData.layers[lyr].lot;}	if(SrcData["memo"]) this["memo"]=SrcData["memo"];//memo‚ª‚ ‚ê‚Î“]‹L}// ///// ŠeƒGƒ“ƒgƒŠ‚ÌƒŒƒCƒ„ƒvƒƒpƒeƒB‚ÆƒV[ƒg–{‘Ìî•ñ‚ğæ“¾(‘æOƒpƒX)if (SrcData.dataClass=="XPS"){		var frame_id=0;//“Ç‚İæ‚èƒtƒŒ[ƒ€‰Šú‰»	for(line=SrcData.layerHeader;line<SrcData.layerBodyEnd;line++)	{//ŠpŠ‡ŒÊ‚ÅŠJn‚·‚éƒf[ƒ^‚ÍƒŒƒCƒ„ƒvƒƒpƒeƒB		if(SrcData[line].match(/^\[(([a-zA-Z]+)\t.*)\]$/))		{				var layerProps= RegExp.$1.split("\t");				var layerPropName=RegExp.$2;					if(layerPropName=="CELL"){layerPropName="name"};//	‚±‚ê(CELL)‚¾‚¯ƒV[ƒg•\‹L‚ÆƒvƒƒpƒeƒB–¼‚ªˆê’v‚µ‚Ä‚¢‚È‚¢‚Ì‚Å’uŠ· ˆê’v‚ª­‚È‚¢ê‡‚Íƒe[ƒuƒ‹‚ª•K—v‚É‚È‚é	for (c=0;c<SrcData.layerCount;c++)	{	this["layers"][c][layerPropName]=layerProps[c+2]	}		}else{//‚Ù‚©ƒRƒƒ“ƒgˆÈŠO‚Í‚·‚×‚ÄƒV[ƒgƒf[ƒ^			if(!SrcData[line].match(/^\#.*$/))			{myLineAry=(SrcData[line].match(/\t/))? SrcData[line].split("\t"):SrcData[line].replace(/[\;\:\,]/g,"\t").split("\t");	for (col=1;col<=(SrcData.layerCount+2);col++){//ƒV[ƒg–{‘Ìƒf[ƒ^‚Ìæ“¾		this.xpsBody[col-1][frame_id]=			(myLineAry[col]!=undefined)?			myLineAry[col].replace(/(^\s*|\s*$)/,""):"";	}		frame_id++;			}		}	}}//if (SrcData.dataClass=="AEKey"){//“Ç‚İo‚µ‚½AEƒIƒuƒWƒFƒNƒg‚©‚çî•ñ‚ğÄ\¬‚·‚é	var preValue='';//’¼‘O‚Ì’l‚ğT‚¦‚Ä‚¨‚­•Ï”if(AEK)	{//	var AETransStream=new String();//ƒŠƒUƒ‹ƒg•¶š—ñ‚Ì‰Šú‰»	var AETransStream="";//ƒŠƒUƒ‹ƒg•¶š—ñ‚Ì‰Šú‰»	var AETransArray=new Array(SrcData.layerCount);//	for(layer=0;layer<SrcData.layerCount;layer++){		AETransArray[layer]=new Array();	}}for(layer=0;layer<SrcData.layerCount;layer++){//ƒŒƒCƒ„”‰ñ‚·	timingTL=(SrcData.layers[layer].blmtd=="expression1")? "slider":"timeRemap";//	ƒ^ƒCƒ~ƒ“ƒO•Ûƒ^ƒCƒ€ƒ‰ƒCƒ“‚ğblmtd‚Å•ÏX	BlankValue	=(SrcData.layers[layer].blpos=="first")?		0	:	(SrcData.layers[layer].lot + 1);//	ƒŒƒCƒ„‚²‚Æ‚Ìƒuƒ‰ƒ“ƒN’l‚ğo‚·B999999‚ÍAƒpƒX	for(kid=0; kid < thisComp.layers[layer][timingTL].length ;kid++)	{//ƒ^ƒCƒ~ƒ“ƒO•Ûƒ^ƒCƒ€ƒ‰ƒCƒ“‚ÌƒL[”‚Å“]‘—		if (preValue != thisComp.layers[layer][timingTL][kid].value[0])		{	frame=thisComp.layers[layer][timingTL][kid].frame;//ƒL[ƒtƒŒ[ƒ€‚Ì‘¶İ‚·‚éƒRƒ}‚Ì‚İŠÔ’l‚©‚çƒZƒ‹”Ô†‚ğæ‚èo‚µ‚Ä“]‘—	if(xUI.timeShift){var diffStep = (Math.abs(thisComp.layers[layer][timingTL][kid].value[0] % thisComp.frameDuration()))/thisComp.frameDuration();timeShift=(diffStep < 0.1)? thisComp.frameDuration()*0.5 : 0;	}else{timeShift=0;	};	blank_offset =(SrcData.layers[layer].blpos=="first")? 0 : 1;//‚ ‚ç‚©‚¶‚ßƒZƒ‹”Ô†‚ğŒvZ		cellNo=(timingTL=="timeRemap")?Math.floor((thisComp.layers[layer][timingTL][kid].value[0]*1+timeShift)/thisComp.frameDuration())+blank_offset:thisComp.layers[layer][timingTL][kid].value[0];	if (SrcData.layers[layer].blpos=="first"){		if(cellNo == BlankValue)	{cellNo="X"}	}else{		if(cellNo >= BlankValue)	{cellNo="X"}	}//	–³ğŒƒuƒ‰ƒ“ƒNif(	thisComp.layers[layer][timingTL][kid].value[0]==999999 ||	thisComp.layers[layer][timingTL][kid].value[0]< 0){cellNo="X"};if(SrcData.layers[layer].bTimeLine){	if(SrcData.layers[layer].bTimeLine.valueAtTime(frame)==SrcData.layers[layer].tBlank){cellNo="X"};};//if(dbg) dbgPut(thisComp.layers[layer][timingTL][kid].value);		if(! AEK){	this.xpsBody[layer+1][frame]=cellNo;		}else{	AETransArray[layer].push(cellNo.toString());	if(kid < thisComp.layers[layer][timingTL].length -1)	{		var currentframe = thisComp.layers[layer][timingTL][kid].frame;		var nextframe = thisComp.layers[layer][timingTL][kid+1].frame;		for(fr=currentframe+1;fr<nextframe;fr++){			AETransArray[layer].push("");		}	}		}	}else{			AETransArray[layer].push("");	};	preValue=thisComp.layers[layer][timingTL][kid].value[0];	};	preValue='';//1ƒŒƒCƒ„I‚í‚Á‚½‚çÄ“x‰Šú‰»}//================================	if(AEK)	{//		xUI.put(AETransStream);//	ƒf[ƒ^”z—ñ‚Ì”‚ğ”äŠr‚µ‚ÄÅ‚à‘å‚«‚È‚à‚Ì‚É‡‚í‚¹‚é		var MaxLength=0;		for(layer=0;layer<SrcData.layerCount;layer++)		{	MaxLength=(MaxLength<AETransArray[layer].length)?	AETransArray[layer].length:MaxLength;		}		for(layer=0;layer<SrcData.layerCount;layer++)		{	AETransArray[layer].length=MaxLength;	AETransStream+=AETransArray[layer].join(",");	if(layer<SrcData.layerCount-1)AETransStream+="\n";		};//	dbgPut(AETransStream);	xUI.Select=[1,0];	xUI.put(AETransStream);//		return false;		return true;	}}//AE-Remapif(SrcData.dataClass=="AERemap"){//ƒf[ƒ^ó‘Ôİ’è Param > Namesvar dataStatus="";	//“Ç‚İ‚İƒXƒe[ƒ^ƒXvar LayerCount="";	//ƒŒƒCƒ„ƒJƒEƒ“ƒ^	for(line=SrcData.startLine;line<SrcData.length;line++){//‹ósƒXƒLƒbƒv‚ÆƒXƒe[ƒ^ƒX•ÏX	if(SrcData[line]=="")	{		continue	}else{		var myLineData=SrcData[line].split("\t");		switch(myLineData[0])		{		case "*ParamStart":dataStatus="Param";continue;break;		case "*CellName":dataStatus="Names";continue;SrcData.layerHeader=line;break;		case "*CellDataStart":dataStatus="SheetBody";break;		case "*Cell":LayerCount=myLineData[1]*1;break;		case "*End":;		derfault	:dataStatus="end";break;		}	};//	‘æ“ñƒpƒXI—¹if(dataStatus=="end") {break;}//	ƒf[ƒ^ƒXƒe[ƒ^ƒX‚ªParam‚Ìˆ—if(dataStatus=="Param") continue;//skip//	ƒV[ƒgƒ{ƒfƒBæ‚è‚İif(dataStatus=="SheetBody" && myLineData[0].match(/^[0-9]+$/)){	this.xpsBody[LayerCount+1][(myLineData[0]*1)-1]=(myLineData[1]==0)?	"X":myLineData[1].toString();	continue;}//ƒŒƒCƒ„ƒ‰ƒxƒ‹æ“¾if(dataStatus=="Names" && myLineData[0].match(/^[0-9]+$/)){	this.xpsBody["layers"][myLineData[0]]["name"]=myLineData[1];}	};};//T-Sheetif (SrcData.dataClass=="TSheet"){	var frame_id=0;//“Ç‚İæ‚èƒtƒŒ[ƒ€‰Šú‰»//‘æˆêƒŒƒR[ƒh‚©‚çƒŒƒCƒ„–¼æ“¾	var LayerLabels=SrcData[0].split("\t").slice(0,SrcData.layerCount);	LayerLabels[0]=LayerLabels[0].replace(/^\x22/,"");	for (c=0;c<SrcData.layerCount;c++)	{	this.xpsBody["layers"][c]["name"]=LayerLabels[c];	};//ƒV[ƒgƒf[ƒ^“Ç‚İæ‚è	for(line=2;line<SrcData.length-1;line++)	{//‚·‚×‚ÄƒV[ƒgƒf[ƒ^myLineAry=(SrcData[line].match(/\t/))? SrcData[line].split("\t"):SrcData[line].replace(/[\;\:\,]/g,"\t").split("\t");		for (col=0;col<=SrcData.layerCount;col++){//ƒV[ƒg–{‘Ìƒf[ƒ^‚Ìæ“¾(ƒ_ƒCƒAƒƒOƒtƒB[ƒ‹ƒh‚Í‚È‚¢‚Ì‚Åƒg‚Î‚µ‚ÄE‚¤)			this.xpsBody[col+1][frame_id]=(myLineAry[col]!=undefined)?				myLineAry[col].replace(/(^0$)/,"X"):"";		}		frame_id++;	}};//TSXif(TSXEx && SrcData.dataClass=="TSX"){//ƒJƒEƒ“ƒ^‰Šú‰»	SrcData.time		=	0;//‰Šú‰»	var LayerTime		=	0;	SrcData.layerCount	=	0;//‰Šú‰»	LayerCount		=	0;	var RepeatBuf=new Array();	var repIdx=0;//	var readCountLine	=	0;//	var readCountLayer	=	0;//–{‘Ìƒf[ƒ^“Ç‚İæ‚è	for(line=SrcData.startLine;line<SrcData.length;line++){	if(SrcData[line].match(/^[\/eE].*$/)){		if(LayerCount!=SrcData.layerCount){			LayerTime=0;			LayerCount++;		}		//‹LqI—¹EŒp‘±ŠÔ‰ÁZƒŠƒZƒbƒgEƒŒƒCƒ„‰ÁZ	}else{		if(LayerCount==SrcData.layerCount){			if(RepeatBuf.length){RepeatBuf.length=0;repIdx=0;}			SrcData.layerCount++;		}		body_data=SrcData[line].replace(/^([^\#]*)(\-\-|\#).*$/,"$1");if(body_data.match(/^[1-9][0-9]*$/)){	if(RepeatBuf.length){RepeatBuf.length=0;repIdx=0;}	this.xpsBody[LayerCount+1][LayerTime]=body_data;}else{	if(body_data==""){		if(RepeatBuf.length){			this.xpsBody[LayerCount+1][LayerTime]=RepeatBuf[repIdx%RepeatBuf.length];repIdx++;		}else{			this.xpsBody[LayerCount+1][LayerTime]=body_data;		}	}else{		RepeatBuf=TSX_expdList(body_data);repIdx=0;		this.xpsBody[LayerCount+1][LayerTime]=RepeatBuf[repIdx];repIdx++;	}}		LayerTime++;		if(SrcData.time<LayerDuration) {SrcData.time= LayerDuration;}	}	}}	return false;// ///// “Ç‚İæ‚Á‚½ƒf[ƒ^‚ğŒŸ¸‚·‚é(ƒf[ƒ^ŒŸ¸‚Í•Ê‚Ìƒƒ\ƒbƒh‚É‚µ‚ë!??)/*//	ƒ}ƒbƒvƒtƒ@ƒCƒ‹‚ÍAŒ»İƒTƒ|[ƒg–³‚µ//		ƒTƒ|[ƒgŠJnŠú–¢’è//‚±‚Ìî•ñ‚ÍA‘¼‚Ìî•ñˆÈ‘O‚É”»’è‚µ‚ÄAƒ}ƒbƒvƒIƒuƒWƒFƒNƒg‚Ì¶¬‚ª•K—vB//ƒ}ƒbƒv–¢İ’èó‘Ô‚Å‚ÍA‘ã—pƒ}ƒbƒv‚ğì¬‚µ‚Äg—pB//‘ã—pƒ}ƒbƒv‚ÍAƒfƒtƒHƒ‹ƒg‚Å‘¶İB<<	Œ»İ‚ÍA‘ã—pMAPƒIƒuƒWƒFƒNƒg‚ğæs‚µ‚Äì¬‚µ‚Ä‚ ‚é‚ªA	–{—ˆ‚Ìƒ}ƒbƒv‚ªŠm’è‚·‚é‚Ì‚Í‚±‚Ìƒ^ƒCƒ~ƒ“ƒO‚È‚Ì‚ÅA’ˆÓ!>>*/if(false){//MAPPING_FILE=(no file)//’l‚Í–¢İ’è‚Ì—\–ñ’l?null‚Å‰Šú‰»‚·‚×‚«‚©?			if(! this.mapfile) this.mapfile='(no file)';//ƒ}ƒbƒvƒtƒ@ƒCƒ‹‚ª–¢İ’è‚È‚ç‚ÎA‘ã—pƒ}ƒbƒv‚ğg—p//‚±‚Ì”»’è‚Í‚ ‚Ü‚è‚ÉG‚È‚Ì‚ÅŒã‚Å‚È‚ñ‚Æ‚©‚·‚êif(false){	if(this.mapfile=='(no file)')	{		MapObj=new Map();	//‚Æ‚è‚ ‚¦‚¸Šù‘¶‚Ìƒ_ƒ~[ƒ}ƒbƒv‚ğ‘ã“ü‚µ‚Ä‚¨‚­B	}}//ƒ}ƒbƒvƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ñ‚Åƒ}ƒbƒvƒIƒuƒWƒFƒNƒg‚ğ‰Šú‰»	//	‚»‚Ì‚¤‚¿‚ËA¡‚Í‚Ü‚¾‚È‚¢//“ú•tŠÖ˜A//§ì“ú•t‚Æ§ìÒ‚ª–³‚¢ê‡‚ÍA‹ó”’‚Å‰Šú‰»?–³‹‚µ‚½‚Ù‚¤‚ª—Ç‚¢‚©‚à//CREATE_USER=''//CREATE_TIME=''			if(! this.create_time) this.create_time='';			if(! this.create_user) this.create_user='';//ÅIXV“ú•t‚ÆÅIXVÒ‚ª–³‚¢ê‡‚ÍA‹ó”’‚Å‰Šú‰»?//(‚±‚ê‚ÍA‚Ç‚Ì‚İ‚¿•Û‘¶‚ÉŒ»İ‚Ìƒf[ƒ^‚Åã‘‚«)//UPDATE_USER=''//UPDATE_TIME=''			if(! this.update_time) this.update_time='';			if(! this.update_user) this.update_user='';////FRAME_RATE=24////ƒtƒŒ[ƒ€ƒŒ[ƒg“Ç‚İæ‚ê‚Ä‚È‚¯‚ê‚ÎAŒ»İ‚Ì’l‚Å‰Šú‰»(‘g‚İ‚İ’ˆÓ)			if(! this.framerate)			{	this.framerate=nas.FRATE;			}else{				nas.FRATE=this.framerate;			}//ƒgƒ‰ƒ“ƒVƒbƒg“WŠJ‚µ‚Ä‚¨‚­//TRIN=(ŠÔ•¶š—ñ),(ƒgƒ‰ƒ“ƒVƒbƒgí•Ê)if(! this.trin){this.trin=[0,"trin"]}else{			time=nas.FCT2Frm(this.trin.split(",")[0]);			if(isNaN(time)){time=0};		name=(this.trin.split(",")[1])?this.trin.split(",")[1]:"trin";			  this.trin=[time,name];}//TROUT=(ŠÔ•¶š—ñ),(ƒgƒ‰ƒ“ƒVƒbƒgí•Ê)if(! this.trout){this.trout=[0,"trout"];}else{			time=nas.FCT2Frm(this.trout.split(",")[0]);			if(isNaN(time)){time=0};		name=(this.trout.split(",")[1])?this.trout.split(",")[1]:"trout";			  this.trout=[time,name];}//TIME‚àˆê‰æ‚è‚ñ‚Å‚¨‚­B//ÀÛ‚Ìƒf[ƒ^‚ÌŒp‘±ŠÔ‚Æ‚±‚Ìî•ñ‚Ìu’·‚¢‚Ù‚¤v‚ğÌ‚é//TIME=(ŠÔ•¶š—ñ)			this.time=nas.FCT2Frm(this.time);			if(isNaN(this.time)){this.time=0}//ì•iƒf[ƒ^//î•ñ‚ª–³‚¢ê‡‚ÍA‹ó”’‚Å‰Šú‰»Bƒ}ƒbƒv‚ğ‚İ‚é‚æ‚¤‚É‚È‚Á‚½‚çB//ƒ}ƒbƒv‚Ìî•ñ‚ğQÆ//ÅIì‹Æî•ñ(ƒNƒbƒL[)‚ğQÆ//ƒ†[ƒUİ’è‚É‚æ‚éƒfƒtƒHƒ‹ƒg‚ğQÆ ‚È‚Ç‚©‚ç‘I‘ğ//TITLE=(–¢İ’è‚Æ‚©‚Ì‚Ù‚¤‚ª—Ç‚¢‚©‚à)			if(! this.title) this.title='';//SUB_TITLE=(–¢İ’è‚Æ‚©‚Ì‚Ù‚¤‚ª—Ç‚¢‚©‚à)			if(! this.subtitle) this.subtitle='';//OPUS=()			if(! this.opus) this.opus='';//SCENE=()			if(! this.scene) this.scene='';//CUT=()			if(! this.cut) this.cut='';//ƒV[ƒ“?EƒJƒbƒg”Ô†‚ÍÅIó‘Ô‚Å‚àƒfƒtƒHƒ‹ƒg‚Í‹ó”’‚ÉB•´‚ç‚í‚µ‚¢‚©‚çB}return true;//return this;};////XPS.readIN	=	readIN_	;//

@@ -22,7 +22,7 @@ layerSort= function(targetCol,revFlag){
 //	並び替え対象を設定
 	var myTarget=targetCol;
 //	引数がレイヤコレクションでなかった場合、キャンセル
-	if(!(targetCol instanceof Layers)){return false;};
+	if(targetCol.typename != "Layers"){return false;};
 //	引数なければ下から正順
 	if(! revFlag) revFlag=false;//
 //	並び替え対称のレイヤが1つしかない場合は、並び替え不能なのでキャンセル
@@ -45,7 +45,7 @@ layerSort= function(targetCol,revFlag){
 //並び替えた配列から同名レイヤのチェック
 	for (idx=1;idx<sortOrder.length;idx++){
 		if(sortOrder[idx-1]==sortOrder[idx]){
-			alert("同名のレイヤがあります。\n二つ目以降のレイヤは並び替えの対象になりません。");
+			alert(nas.uiMsg.dm015);//"同名のレイヤがあります。\n二つ目以降のレイヤは並び替えの対象になりません。"
 			break;
 		}
 	}
@@ -63,7 +63,7 @@ layerReverse= function(targetCol){
 //	並び替え対象を設定
 	var myTarget=targetCol;
 //	引数がレイヤコレクションでなかった場合、キャンセル
-	if(!(targetCol instanceof Layers)){return false;};
+	if(targetCol.typename != "Layers"){return false;};
 //	並び替え対称のレイヤが1つしかない場合は、並び替え不能なのでキャンセル
 	if(myTarget.length<=1){return false;};
 
@@ -283,7 +283,8 @@ return true;
 //	
 //alert(activeDocument.name);
 if(app.documents.length){
-var myUndo="レイヤ仕分け";var myAction="classify(activeDocument.activeLayer.parent)";
+var myUndo=localize(nas.uiMsg.layerClassify);//"レイヤ仕分け"
+var myAction="classify(activeDocument.activeLayer.parent)";
 
 
 if(app.activeDocument.suspendHistory){app.activeDocument.suspendHistory(myUndo,myAction)}else{evel(myAction)}

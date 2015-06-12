@@ -15,7 +15,7 @@
 //alert (nas.baseLocation)
 //	nas.prefarenceFolder=new Folder(Folder.nas.path+"/scripts/lib/etc");//保存場所固定
 //	nas.prefarenceFolder=new Folder(Folder.nas.path+"/nas/lib/etc");//保存場所固定
-	nas.prefarenceFolder=new Folder(Folder.userData.path+"/"+Folder.userData.name+"/nas/lib/etc");//保存場所固定
+	nas.prefarenceFolder=new Folder(Folder.userData.fullName+"/nas/lib/etc");//保存場所固定
 nas.readPrefarence=function(myPropName)
 {
 	if(! myPropName){myPropName="*"}
@@ -172,3 +172,49 @@ nas.cleraPrefarence=function()
   };//else{alert("GOGO")}
 }
 //nas.clearPrefarence();
+
+/*nas.importPrefarence(myFolder)
+引数:ターゲットフォルダ　指定のない場合はフォルダターゲットを取得
+戻値: インポート成功時はtrue失敗時はfalse
+外部供給されたプリファレンスを個人領域に取り込むメソッド
+*/
+nas.importPrefarence = function(myFolder){
+	var goFlag=true;
+	if(typeof myFolder !="Folder"){
+		var myMsg="インポートする設定のあるフォルダを指定して下さい";
+		myFolder=Folder.selectDialog(myMsg);
+		if(myFolder){
+			myMsg=myFolder.name + ":\n上のフォルダの設定をインポートします。\n同名の設定は上書きされて取り消しはできません\n実行してよろしいですか？"
+			goFlag=confirm(myMsg);
+		}
+	}
+	if(goFlag){
+		var currentPrefFolder=nas.prefarenceFolder;
+		nas.prefarenceFolder=myFolder;//設定
+		nas.readPrefarence();//全て読む
+		nas.prefarenceFolder=currentPrefFolder;//復帰
+		nas.writePrefarence();//書き込む
+	}
+}
+/*nas.exportPrefarence(myFolder)
+引数:ターゲットフォルダ　指定のない場合はフォルダターゲットを取得
+戻値: インポート成功時はtrue失敗時はfalse
+プリファレンス書き出しメソッド
+*/
+nas.exportPrefarence = function(myFolder){
+	var goFlag=true;
+	if(typeof myFolder !="Folder"){
+		var myMsg="設定を書き出すフォルダを指定して下さい";
+		myFolder=Folder.selectDialog(myMsg);
+		if(myFolder){
+			myMsg=myFolder.name + ":\n上のフォルダに設定をエクスポートします。\n空きフォルダ推奨します\n実行してよろしいですか？"
+			goFlag=confirm(myMsg);
+		}
+	}
+	if(goFlag){
+		var currentPrefFolder=nas.prefarenceFolder;
+		nas.prefarenceFolder=myFolder;//設定
+		nas.writePrefarence();//書き込む
+		nas.prefarenceFolder=currentPrefFolder;//復帰
+	}
+}

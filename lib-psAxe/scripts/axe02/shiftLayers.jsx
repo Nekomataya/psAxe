@@ -74,7 +74,7 @@ w.cnBt.onClick=function(){this.parent.close();}
 w.show();
 //=================================
 }else{
-if(app.version.split(".")[0]<=9){alert("すみません CS2では機能しません")}
+if(app.version.split(".")[0]<=9){alert("This script does not work with Photoshop CS2")}
 }
 
 //xLink (同期レイヤ送り)には未対応なので注意　2011 05.31

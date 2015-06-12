@@ -33,7 +33,8 @@ try{if($.os)
 }
 //二重起動防止トラップ
 if(nas.axe.dbgConsole){
-	if(confirm("すでに起動されています。\nコンソール出力を受信するので二重起動は禁止されています\nリセットしますか"))
+//018:"すでに起動されています。\nコンソール出力を受信するので二重起動は禁止されています\nリセットしますか"
+	if(confirm(localize(nas.uiMsg.dm018)))
 	{
 		if(nas.axe.dbgConsole.isDoc)
 		{
@@ -79,9 +80,9 @@ if(doAction){
 function getScript()
 {
 if(isWindows){
-	var scriptfile = File.openDialog("読み込むスクリプトを選んでください","JSX-Script(*.jsx *.js):*.JSX;*.JS");
+	var scriptfile = File.openDialog(localize({en:"select script to read.",ja:"読み込むスクリプトを選んでください"}),"JSX-Script(*.jsx *.js):*.JSX;*.JS");
 }else{
-	var scriptfile = File.openDialog("読み込むスクリプトを選んでください");
+	var scriptfile = File.openDialog(localize({en:"select script to read.",ja:"読み込むスクリプトを選んでください"}));
 }
 if (scriptfile && scriptfile.name.match(/^[a-z_\-\#0-9]+\.jsx?$/i)){
 	var myOpenfile = new File(scriptfile.fsName);
@@ -102,17 +103,17 @@ function addBuf_(KB)
 
 function saveText(myText)
 {
-if (! myText.length){alert("保存するデータがありません");return false;}
+if (! myText.length){alert(localize(nas.uiMsg.noSvaeData));return false;};//"保存するデータがありません"
 if(isWindows)
 {
-	var mySavefile = File.saveDialog("書き出しのファイル名を指定してください","File (*.js *.jsx *.txt):*.JS;*.JSX;*.TXT");
+	var mySavefile = File.saveDialog(localize(nas.uiMsg.dm019),"File (*.js *.jsx *.txt):*.JS;*.JSX;*.TXT");//019"書き出しのファイル名を指定してください"
 }else{
-	var mySavefile = File.saveDialog("書き出しのファイル名を指定してください","");
+	var mySavefile = File.saveDialog(localize(nas.uiMsg.dm019),"");
 }
 if(! mySavefile){return};
 if(mySavefile.exists)
 {
-if(! confirm("同名のファイルがすでにあります.\n上書きしてよろしいですか?")){return false;};
+if(! confirm(localize(nas.uiMsg.dm016))){return false;};//016"同名のファイルがすでにあります.\n上書きしてよろしいですか?"
 }
 
 if (mySavefile && mySavefile.name.match(/^[a-z_\-\#0-9]+\.(jsx?|txt)$/i)){
@@ -121,7 +122,7 @@ var myOpenfile = new File(mySavefile.fsName);
 	myOpenfile.write(myText);
 	myOpenfile.close();
 }else {
-	alert("拡張子は js/jsx/txt を指定してください。")
+	alert(localize({en:"Extension Please specify js/jsx/txt ",ja:"拡張子は js/jsx/txt を指定してください。"}));//"拡張子は js/jsx/txt を指定してください。"
 	return false;
 };
 }
@@ -166,7 +167,7 @@ nas.axe.dbgConsole= new Window("dialog","dbgConsole",[myWinOffset[0],myWinOffset
 }
 
 /*	ウィンドウにGUIパーツを配置	*/
-nas.axe.dbgConsole.titleLabel=nas.axe.dbgConsole.add("statictext",nasGrid(0,0,480,24),"斧コンソール nas(u) tools (Nekomataya/2011)",{multiline:false});nas.axe.dbgConsole.titleLabel.justify="right";
+nas.axe.dbgConsole.titleLabel=nas.axe.dbgConsole.add("statictext",nasGrid(0,0,480,24),"AXEconsole nas(u) tools (Nekomataya/2015)",{multiline:false});nas.axe.dbgConsole.titleLabel.justify="right";
 
 nas.axe.dbgConsole.resultBox=nas.axe.dbgConsole.add("edittext",nasGrid(0,1,480,192),"",{multiline:true});
 	if(app.name=="Adobe AfterEffects"){nas.axe.dbgConsole.resultBox.addBuf=addBuf_;}
@@ -239,7 +240,7 @@ if(nas.axe.dbgConsole.isDoc){
 	nas.axe.dbgConsole.onResize();
 }else{
 	nas.axe.dbgConsole.onResize();
-	nas.axe.dbgConsole.commandBox.text="/*\tこのボックスにコードを書き込んでください\t"+LineFeed+"\t改行の入力は以下のキー入力で"+LineFeed+"\t[ctlr]+[Enter]\t/Win\t;\t[ctlr]+[M]\t/Mac"+LineFeed+" */"+LineFeed;
+	nas.axe.dbgConsole.commandBox.text="/*\tcommand or expression \t"+LineFeed+"\tInput of the new line in the following key input"+LineFeed+"\t[ctlr]+[Enter]\t/or \t;\t[ctlr]+[M]\t/(old Mac)"+LineFeed+" */"+LineFeed;
 	nas.axe.dbgConsole.show();
 }
 if(app.name=="Adobe AfterEffects")

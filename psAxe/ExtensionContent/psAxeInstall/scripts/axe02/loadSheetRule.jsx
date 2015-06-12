@@ -1,9 +1,12 @@
 // EPS Open Options:
 //Photoshop用ライブラリ読み込み
-	var nas=app.nas;
-	var bootFlag=false;
-	var nasLibFolderPath =Folder.nas.fullName+ "/lib/";;
-
+if(typeof app.nas =="undefined"){
+   var myLibLoader=new File(Folder.userData.fullName+"/nas/lib/Photoshop_Startup.jsx");
+   $.evalFile(myLibLoader);
+}else{
+   nas=app.nas;
+}
+//+++++++++++++++++++++++++++++++++ここまで共用
 //フレームセット内にシート罫線を読み込み(フレームセットがない場合はスキップ)
 
 var myTargetSet=app.activeDocument;
@@ -14,7 +17,7 @@ app.preferences.rulerUnits=Units.MM;
 
 if(true){
 //レジスタ
-  var myRuleFile=new File(表示リセット+"resource/timeSheet6sA3.eps");
+  var myRuleFile=new File(Folder.nas.fullName+"/lib/resource/timeSheet6sA3.eps");
   var myRuleLayer=nas.axeAFC.placeEps(myRuleFile);//この関数が曲者
   myRuleLayer.name="Sheet-Rule";//上記の関数の実行後に最初にDOM操作したオブジェクトは取り消しを受けている
 /*リネームをしなかった場合はレイヤの読み込み自体がUNDOされて読み込んだはずのレイヤが喪失してエラーが発生する*/
@@ -35,7 +38,7 @@ if(myTargetSet){
 }else{
 //===========================================
 //レジスタ画像を読み込んで画像上辺へ移動
-  var myRuleFile=new File(nasLibFolderPath+"resource/timeSheet6sA3.eps");
+  var myRuleFile=new File(Folder.nas.fullName+"/lib/resource/timeSheet6sA3.eps");
 
  var myRuleLayer=nas.axeAFC.placeEps(myRuleFile);
 myRuleLayer.name="rule";

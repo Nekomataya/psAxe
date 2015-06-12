@@ -1,357 +1,1 @@
-//	Psç­‰AE(ä¹™å¥³)ä»¥å¤–ã®ç’°å¢ƒã«XPSStoreã‚’ç§»æ¤
-//ã‚³ãƒ³ãƒå‚ç…§ã‚’è¡Œãªã‚ãšã€Javascriptç’°å¢ƒå…¨èˆ¬ã«å¯¾å¿œã€€è¦nas_lib
-
-/* XPSStoreã€€(ã‚·ãƒ¼ãƒˆãƒˆãƒ¬ãƒ¼ãƒ©)
-	XPSheetStore ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…éƒ¨ã«ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆã‚’è¤‡æ•°è¨˜éŒ²ç¶­æŒã—ã¦åˆ‡ã‚Šæ›ãˆã¦ä½¿ç”¨ã™ã‚‹ä»•çµ„ã¿
-	ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸ã‚¹ãƒˆã‚¢å†…éƒ¨ã«ã‚³ãƒ³ãƒã®å½¢ã§è¨˜éŒ²ã™ã‚‹
-	ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒã‚ã‚Šã€é¸æŠå€¤ã‚’åˆ‡ã‚Šæ›ãˆã¦ãƒãƒƒãƒ•ã‚¡ã¨ã®é–“ã«ã‚„ã‚Šã¨ã‚Šã‚’è¡Œã†
-	ãƒãƒƒãƒ•ã‚¡ã¯XPS(=å¾“æ¥ã®XPSã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãã®ã¾ã¾ä½¿ç”¨)
-	XpsStore.body		å®Ÿéš›ã«ã‚·ãƒ¼ãƒˆã‚’æ ¼ç´ã™ã‚‹é…åˆ—
-			æ”¹è¡Œã¯"\\r\\n"ã«ç½®æ›ã€€å†…éƒ¨çš„ã«ã¯å„ç’°å¢ƒã”ã¨ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã«ã‚ˆã‚‹æ–‡å­—åˆ—
-XpsStore.selected	ã‚«ãƒ¬ãƒ³ãƒˆã®ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã€‚ã‚«ãƒ¬ãƒ³ãƒˆãŒãªã„å ´åˆã‚‚ã‚ã‚‹ãã®å ´åˆã¯null ã¾ãŸã¯ã€€false
-			ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤ï¼ˆã‚¹ãƒˆã‚¢å†…ã®ãƒ‡ãƒ¼ã‚¿ãŒç„¡ã„ï¼‰ã§ã¯null / ã‚¹ãƒˆã‚¢å†…ã«ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Šã‹ã¤é¸æŠã®ç„¡ã„å ´åˆã¯falseã‚’å€¤ã¨ã™ã‚‹
-			AEã§ã¯ãƒ¬ã‚¤ãƒ¤ãŒé…ç½®ã•ã‚Œã‚‹ãŒã€ä»–ã®ç’°å¢ƒã§ã¯XPSã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒé…ç½®ã•ã‚Œã‚‹ã®ã§æ³¨æ„
-			XPSè‡ªä½“ã‚’å–å¾—ã™ã‚‹éš›ã¯getãƒ¡ã‚½ãƒƒãƒ‰ã‚’ä½¿ç”¨ã™ã‚‹ã“ã¨
-			XPS.index ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒå¢—è¨­ã•ã‚Œã¦ã„ã‚‹
-
-XpsStore.currentIndex	ã‚«ãƒ¬ãƒ³ãƒˆã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’è¨˜éŒ²ã™ã‚‹å†…éƒ¨å¤‰æ•°ã€€å¤–éƒ¨æ“ä½œç¦æ­¢
-
-XpsStore.getLength()	ã‚·ãƒ¼ãƒˆç·æ•°ã‚’è¿”ã™
-			ï¼ã‚’è¿”ã•ãšã«falseã‚’è¿”ã™å ´åˆã¯ç¾çŠ¶ã§ã‚·ãƒ¼ãƒˆæ“ä½œç’°å¢ƒãŒãªã„äº‹ã‚’è¡¨ã—ã¦ã„ã‚‹ã€‚(ã“ã®æ©Ÿèƒ½ã¯ä¹™å¥³å°‚ç”¨)
-			ã‚‚ã—ã€ã‚·ãƒ¼ãƒˆæ“ä½œç’°å¢ƒãŒå¿…è¦ãªå ´åˆã¯ã€€XpsStore.initBody()ãƒ¡ã‚½ãƒƒãƒ‰ã§åˆæœŸåŒ–ã™ã‚‹ã¨ç’°å¢ƒãŒæ§‹ç¯‰ã•ã‚Œã‚‹ã€‚
-XpsStore.get(index)	indexã§æŒ‡å®šã•ã‚ŒãŸãƒ¬ã‚¤ãƒ¤ã‹ã‚‰Xpsã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
-XpsStore.set(index,Xps)	indexã§æŒ‡å®šã•ã‚ŒãŸãƒ¬ã‚¤ãƒ¤ã«Xpsã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç™»éŒ²ã™ã‚‹
-XpsStore.pop(index)	indexã§æŒ‡å®šã•ã‚ŒãŸã‚·ãƒ¼ãƒˆã®ãƒ‡ãƒ¼ã‚¿ã‚’XPSãƒãƒƒãƒ•ã‚¡ã«è»¢é€ã™ã‚‹ã€‚
-			indexãŒæŒ‡å®šã•ã‚Œãªã‘ã‚Œã°ã‚«ãƒ¬ãƒ³ãƒˆã®ã‚·ãƒ¼ãƒˆã«å¯¾ã—ã¦å®Ÿè¡Œ
-XpsStore.push(index)	indexã§æŒ‡å®šã•ã‚ŒãŸã‚·ãƒ¼ãƒˆã«XPSãƒãƒƒãƒ•ã‚¡ã®ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ã€‚å†…éƒ¨ã§setInfo()ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
-			indexãŒæŒ‡å®šã•ã‚Œãªã‘ã‚Œã°ã‚«ãƒ¬ãƒ³ãƒˆã®ã‚·ãƒ¼ãƒˆã«å¯¾ã—ã¦å®Ÿè¡Œ
-XpsStore.select(index)	ã‚«ãƒ¬ãƒ³ãƒˆã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’åˆ‡ã‚Šæ›¿ãˆãƒãƒƒãƒ•ã‚¡å†…å®¹ã‚’æ›´æ–°ã™ã‚‹ã€‚
-	æˆ»ã‚Šå€¤ã¯é¸æŠã•ã‚Œã¦ã„ã‚‹ã‚·ãƒ¼ãƒˆã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã€‚æ•°å€¤ã®ã»ã‹ã«ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰"fwd,prv,start,end"ã‚’å—ã‘ä»˜ã‘ã‚‹
-XpsStore.getInfo(index)	æŒ‡å®šindexã®ã‚·ãƒ¼ãƒˆã®ãƒ¢ãƒ‡ã‚£ãƒ•ã‚¡ã‚¤ãƒ‰æƒ…å ±ã‚’å–å¾—
-			æˆ»ã‚Šå€¤ã¯æƒ…å ±ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-			indexãŒæŒ‡å®šã•ã‚Œãªã‘ã‚Œã°ã‚«ãƒ¬ãƒ³ãƒˆã®ã‚·ãƒ¼ãƒˆã«å¯¾ã—ã¦å®Ÿè¡Œ
-XpsStore.setInfo(index)	æŒ‡å®šindexã®ã‚·ãƒ¼ãƒˆã«ç¾è¡Œã®XPSãƒãƒƒãƒ•ã‚¡ã®ãƒ¢ãƒ‡ã‚£ãƒ•ã‚¡ã‚¤ãƒ‰æƒ…å ±ã‚’è¨­å®š
-			æˆ»ã‚Šå€¤ã¯æƒ…å ±ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-			indexãŒæŒ‡å®šã•ã‚Œãªã‘ã‚Œã°ã‚«ãƒ¬ãƒ³ãƒˆã®ã‚·ãƒ¼ãƒˆã«å¯¾ã—ã¦å®Ÿè¡Œ
-XpsStore.add(Xps)	Xpsã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç›´æ¥æ¸¡ã—ã¦æ–°è¦ã«ã‚·ãƒ¼ãƒˆ(ãƒ†ã‚­ã‚¹ãƒˆãƒ¬ã‚¤ãƒ¤)ã‚’ä½œæˆã™ã‚‹ã€‚
-			XPSãƒãƒƒãƒ•ã‚¡ã‚’åŒæ™‚æ›´æ–°
-			ã‚«ãƒ©æŒ‡å®šã®å ´åˆã¯XPSãƒãƒƒãƒ•ã‚¡ã‹ã‚‰ä½œæˆ
-			æ—¢å­˜ã‚·ãƒ¼ãƒˆã¨ã®é‡è¤‡ã¯é–¢çŸ¥ã—ãªã„ã®ã§ã‚ã‚‰ã‹ã˜ã‚ç¢ºèªã¯å¿…è¦
-			æˆ»å€¤ã¯è¿½åŠ æˆåŠŸã—ãŸãƒ†ã‚­ã‚¹ãƒˆãƒ¬ã‚¤ãƒ¤
-XpsStore.remove(index)	æŒ‡å®šindexã®ã‚·ãƒ¼ãƒˆã‚’ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰å‰Šé™¤ã™ã‚‹ã€‚ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã¯å¿…ãšæŒ‡å®šã™ã‚‹ã“ã¨ã€‚
-			ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ä¸æŒ‡å®šæ™‚ã¯å¤±æ•—ã•ã›ã‚‹
-			æˆåŠŸæ™‚ã®æˆ»ã‚Šå€¤ã¯æ–°ãŸãªãƒãƒƒãƒ•ã‚¡å†…å®¹(Xps)ã¾ãŸã¯null(æ®‹ã‚·ãƒ¼ãƒˆãªã—ã®æ™‚)
-XpsStore.duplicate(index,name)	æŒ‡å®šindexã®ã‚·ãƒ¼ãƒˆã‚’nameã§è¤‡è£½ã™ã‚‹ã€‚ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã¯å¿…ãšæŒ‡å®šã™ã‚‹ã“ã¨ã€‚
-			åå‰ãŒæŒ‡å®šã•ã‚Œãªã‹ã£ãŸå ´åˆã¯å…ƒã®ã‚«ãƒƒãƒˆç•ªå·ã«"copy of "ã‚’å‰ç½®ã™ã‚‹
-			æˆåŠŸæ™‚ã®æˆ»ã‚Šå€¤ã¯æ–°ãŸãªãƒãƒƒãƒ•ã‚¡å†…å®¹(Xps)ã€€å¤±æ•—æ™‚ã¯false (æœªå®Ÿè£…ã€€2010 12 19)
-XpsStore.setBody()	å†…éƒ¨ã§ä½¿ç”¨ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã€ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’å‚ç…§ã—ã¦bodyã‚’è‡ªèº«ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ã—ã¦å†è¨­å®šã™ã‚‹
-			è¨­å®šæ¸ˆã¿ã®å ´åˆã¯ä½•ã‚‚ã—ãªã„ã€‚å¤–éƒ¨ã‚¢ã‚¯ã‚»ã‚¹ç¦æ­¢
-
-XpsStore.initBody()	å†…éƒ¨ã§ä½¿ç”¨ã™ã‚‹åˆæœŸåŒ–ãƒ¡ã‚½ãƒƒãƒ‰
-			ã‚«ãƒ©ã®ãƒˆãƒ¬ãƒ¼ãƒ©ã‚’ä½œã‚‹ã®ã§æ³¨æ„
-*/
-
-function XpsStore()
-{
-if((nas.isAdobe)&&(app.name.match(/After/i))){
-	this.body=false;//false or CompItem
-}else{
-	this.body=new Array();//ã‚·ãƒ¼ãƒˆä¿å­˜å¤‰æ•°
-}
-	this.selected=null;//null or TextLayer
-	this.currentIndex=0;//é¸æŠçŠ¶æ…‹ãªã—
-/*
-	ã‚¹ãƒˆã‚¢ã—ãŸã‚·ãƒ¼ãƒˆã«ã¯è‹¥ã„é †ã«ï¼‘ã‹ã‚‰IDãŒæŒ¯ã‚‰ã‚Œã‚‹ã€‚ã“ã‚Œã¯AEã¨ã®äº’æ›æ€§ã«åŠ ãˆã¦ï¼ã‚’éé¸æŠãƒ•ãƒ©ã‚°ã¨ã—ã¦ä½¿ç”¨ã™ã‚‹ãŸã‚ã®æªç½®
-*/
-//AE65ç”¨ãƒ€ãƒŸãƒ¼ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
-//æ–°è¦ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ä½œã‚‹
-	var myProp="{";
-		myProp+="\"name\" :\"AE65dummyProp\",";
-		myProp+="\"modified\" :\""+new Date().toNASString() +"\",";
-		myProp+="\"length\" :\"==000000==\",";//"=="ã§ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã—ã¦ã‚ã‚‹å ´åˆã¯ãƒ•ã‚¡ã‚¤ãƒ«ãªã—
-		myProp+="\"url\" :\"\"}";//"=="ã§ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã—ã¦ã‚ã‚‹å ´åˆã¯ãƒ•ã‚¡ã‚¤ãƒ«ãªã—
-	this.AE65Prop=eval("\("+myProp+"\)");
-
-//
-	
-	this.setBody=function(myIndex){
-		return true;
-		//AEç’°å¢ƒä¸‹ä»¥å¤–ã§ã¯ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯æ„å‘³ã‚’æŒãŸãªã„
-		//myIndexã¯æ•´æ•°ã§ä¸ãˆã‚‹ã“ã¨ã€€åˆæœŸå€¤ã¯currentIndex
-		var myTarget=app.project.items.getByName(nas.sheetBinder);//ã‚ã¨ã§å¤‰æ›´
-//		if(myIndex<0)myIndex=0;
-//		if(myIndex>myTarget.layers.length)myIndex=myTarget.layers.length;
-		if(
-			(myTarget)&&
-			(myTarget.parentFolder.name==nas.ftgFolders["etc"][0])&&
-			(myTarget.parentFolder.parentFolder.name==nas.ftgFolders["ftgBase"][0])
-		){
-			this.body=myTarget;
-			if((isNaN(myIndex))||(myIndex>this.body.length)){myIndex=this.currentIndex};
-			this.selected=((myTarget.layers.length)&&(myIndex))?myTarget.layers[Math.floor(myIndex)]:null;
-		}else{
-			//ãªã„ã¨ãã«åˆæœŸåŒ–ã—ãŸã»ã†ãŒè‰¯ã„ã‹ã‚‚ï¼Ÿ
-			this.body=false;
-			this.selected=null;
-			this.currentIndex=0;
-	}
-		return myTarget;
-	}
-
-	this.initBody=function(){
-//AEç’°å¢ƒä¸‹ä»¥å¤–ã§ã¯ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯æ„å‘³ã‚’æŒãŸãªã„
-		return this.body;
-//ã™ã§ã«ã‚ã‚Œã°ç©ºã‚³ãƒ³ãƒã«åˆæœŸåŒ–ã™ã‚‹ã€‚ã€€ã‚³ãƒ³ãƒãŒãªã‘ã‚Œã°æ–°è¦ã«ä½œã‚‹ã€‚ã€€åˆæœŸåŒ–ç”¨
-//åˆæœŸçŠ¶æ…‹ã®ã‚·ãƒ¼ãƒˆä¿æŒæ•°ã¯0 é¸æŠã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã¯0
-
-		var myTarget=app.project.items.getByName(nas.sheetBinder);
-		if(
-			(myTarget)&&
-			(myTarget.parentFolder.name==nas.ftgFolders["etc"][0])&&
-			(myTarget.parentFolder.parentFolder.name==nas.ftgFolders["ftgBase"][0])
-		){
-			this.body=myTarget;
-			for(var lIdx=1;lIdx<=this.body.length;lIdx++){this.body[lIdx].remove();}
-		}else{
-			if(! (app.project.items.getByName(nas.ftgFolders["ftgBase"][0])) )
-			{	app.project.items.addFolder(nas.ftgFolders["ftgBase"][0]) ;}
-			if(! (app.project.items.getByName(nas.ftgFolders.ftgBase[0]).items.getByName(nas.ftgFolders.etc[0])))
-			{	app.project.items.getByName(nas.ftgFolders.ftgBase[0]).items.addFolder(nas.ftgFolders.etc[0]) ;}
-			
-			this.body=app.project.items.getByName(nas.ftgFolders.ftgBase[0]).items.getByName(nas.ftgFolders.etc[0]).items.addComp(nas.sheetBinder,640,480,1,1,1);
-		}
-		this.select(0);
-		return this.body;
-	}
-/*
-	æš«å®šæ“ä½œãƒ¡ã‚½ãƒƒãƒ‰
-*/
-//getLength of XpSheets
-//	
-	this.getLength=function(){return this.body.length};
-//select selectIndex chicetimesheetIndex
-	this.select=function(index)
-	{
-		//indexã®ã‚ºãƒ¬ã«æ³¨æ„
-		if((!index)&&(this.selected instanceof Xps)){if(index != 0){return this.selected.index}}
-		if(index<0){index=0};//-.select(0) ã¯ã‚¢ãƒ³ã‚»ãƒ¬ã‚¯ãƒˆã‚³ãƒãƒ³ãƒ‰ã§ã‚ã‚‹
-		if(index>this.body.length){index=this.body.length};//ä¸Šé™ä¸€è‡´
-		//ç¾çŠ¶ã§ã¯ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã¯æœªã‚µãƒãƒ¼ãƒˆ
-//		if(! this.getLength()){if(! this.setBody(index)){return false;}}
-//			nas.otome.writeConsole("start isSame : index= "+this.selected.index);
-		if(index==0){this.currentIndex=0;this.selected=null;return 0};//è§£é™¤ï¼ˆãƒãƒƒãƒ•ã‚¡ã®å†…å®¹ã¯æ®‹ã‚‹ã€‚æ³¨æ„ã€€åˆæœŸåŒ–ã¯ã—ãªã„ï¼‰;
-		if(isNaN(index)){return this.currentIndex};
-		if (index>this.getLength()){return this.selected.index};
-		this.selected=this.body[index-1];//ï¼‘ã‚ªãƒªã‚¸ãƒ³ãªã®ã§é…åˆ—IDã¯-1
-		this.currentIndex=index;
-//			nas.otome.writeConsole("before isSame : index= "+this.selected.index);
-		if(! XPS.isSame(this.get(index))){this.pop(index)};//ç¾è¡Œã®ãƒãƒƒãƒ•ã‚¡ã®å†…å®¹ã‚’ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã™ã‚‹ã€€ï¼ˆãªã„ã»ã†ãŒè‰¯ã„ã‹ã‚‚ï¼Ÿï¼Ÿï¼‰
-//			nas.otome.writeConsole("after isSame : index= "+this.selected.index);
-		return this.selected.index;
-	}
-//get Xps from XPSStore
-//ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯å–å¾—ã®ã¿ã§ãƒãƒƒãƒ•ã‚¡ã¯ç„¡è¦–
-	this.get=function(index)
-	{
-//		if(! this.getLength()){if(! this.setBody(index)){return false;}}
-		if(!index){index=(this.selected)?this.selected.index:0};
-		if((isNaN(index))||(index<1)||(index>this.getLength())){return false};
-		var myXps=this.body[index-1];
-//		var myXps=new Xps();
-//		myXps.readIN(this.body.layers[index].sourceText.value.text.replace(/\\r\\n/g,"\n"));
-		return myXps;
-	}		
-//set XPSStore from Object Xps
-//ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯ã‚»ãƒƒãƒˆã®ã¿ã§ãƒãƒƒãƒ•ã‚¡ã¯ç„¡è¦–? ã‚»ãƒ¬ã‚¯ãƒˆã—ãŸã»ã†ãŒé‡å®ã‹ã‚‚ã€€ä¸€è€ƒä¸­
-	this.set=function(index,myXps)
-	{
-//		if(! this.getLength()){if(! this.setBody(index)){return false;}}
-		if((isNaN(index))||(index<1)||(index>this.getLength())){return false};
-		if(! myXps){myXps=XPS;}
-		if(myXps instanceof Xps) {
-			this.body[index-1]=myXps;
-			this.body[index-1].index=index;//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ›´æ–°
-//			this.body.layers[index].sourceText.setValue(myXps.toString().replace(/\n/g,"\\r\\n"));;
-			this.pop(index);//ãƒãƒƒãƒ•ã‚¡ã‚»ãƒƒãƒˆ ã©ã†ã—ã‚ˆã†ã‹ãª
-			return index;
-		}
-		return false;
-	}		
-//add XPSStore from Object Xps
-//ç›´æ¥addã—ãŸå ´åˆã¯setInfoå¿˜ã‚Œãšã«
-//å¼•æ•°ãªã—ã®å ´åˆã¯æ–°è¦Xpsã‚’è¿½åŠ ã™ã‚‹
-	this.add=function(myXps)
-	{
-//		if(! this.getLength()){if(! this.setBody()){return false;}}
-		if(! myXps){
-			myXps=new Xps();
-			myXps.readIN(XPS.toString());
-		}
-//		alert((myXps instanceof Xps))
-		if(myXps instanceof Xps)
-		{
-			var newIx=this.body.length;
-			var myNewTimeSheet=this.body.push(myXps);
-			this.body[newIx].index=newIx+1;//è¦ç´ ã‚’åŠ ãˆãŸã®ã§ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¿½åŠ ã—ã¦ãŠã
-			this.body[newIx].name=[myXps.scene,myXps.cut].join("_");
-//			var myNewTimeSheet=this.body.layers.addText(new TextDocument(myXps.toString().replace(/\n/g,"\\r\\n")));
-
-//			myNewTimeSheet.name=[myXps.scene,myXps.cut].join("_");
-//			if(XPS.toString()!=myXps.toString()){XPS.readIN(myXps.toString());};//ã“ã®ãƒ«ãƒ¼ãƒãƒ³ã®æœ€å¾Œã®select()ãƒ¡ã‚½ãƒƒãƒ‰ã§è§£æ±ºã™ã‚‹ã®ã§ã“ã®è¡Œä¸è¦
-//ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£è»¢è¨˜
-	//		this.setInfo(myNewTimeSheet.index);
-			if(this.select(newIx+1)){return this.selected};//ç¾è¡Œã‚·ãƒ¼ãƒˆã‚’æ–°è¦ã‚¹ãƒˆã‚¢ã—ãŸã®ã§ã‚«ãƒ¬ãƒ³ãƒˆã‚’ç§»ã™
-			//æˆåŠŸæ™‚ãƒ¬ã‚¤ãƒ¤ã‚’æˆ»ã™
-		}
-
-		return false;
-	}		
-//remove timesheet
-	this.remove=function(index)
-	{
-//		if(! this.getLength()){if(! this.setBody(index)){return false;}}
-
-		if(! index){if(this.selected!=null){index=this.selected.index;}else{return false;}}
-		if(index>this.body.length){return false;};
-		if((this.selected!=null)&&(index<=this.selected.index)){
-//			å‰Šé™¤ãƒ¬ã‚¤ãƒ¤ãŒã‚«ãƒ¬ãƒ³ãƒˆã‚ˆã‚Šä¸Šãªã‚‰ãã®ã¾ã¾å‰Šé™¤
-//			å‰Šé™¤ãƒ¬ã‚¤ãƒ¤ãŒã‚«ãƒ¬ãƒ³ãƒˆä»¥ä¸‹ãªã‚‰ã‚«ãƒ¬ãƒ³ãƒˆãŒç§»å‹•ã™ã‚‹ï¼ˆå…ƒã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ç¬¬ä¸€å€™è£œã«ã—ã¦å…ƒã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒãªããªã‚‹å ´åˆã¯ä¸€ç•ªä¸‹ã’ã‚‹ã€‚ãƒ©ã‚¹ãƒˆãªã‚‰ãƒŒãƒ«ã§é¸æŠè§£é™¤ï¼‰
-		var nextIndex=index-1;//ã™ã§ã«0ãŒé™¤å¤–ã•ã‚Œã¦ã„ã‚‹ã®ã§è² ã«ã¯ãªã‚‰ãªã„ã€‚
-//			if(nextIndex==this.body.layers.length) nextIndex--;//
-//			this.body.layers[index].remove();//å‰Šé™¤ã™ã‚‹
-			this.body.splice(index-1,1);//å‰Šé™¤ã™ã‚‹
-			for(var ix=0;ix<this.body.length;ix++){this.body[ix].index=ix+1};//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ›´æ–°
-			if(this.body.length){this.select(nextIndex)};//ã‚«ãƒ¬ãƒ³ãƒˆç§»å‹•ï¼ˆ0ãªã‚‰è§£é™¤ ï¼œã“ã®ä»•æ§˜ä¸€è€ƒã®è¦ã‚ã‚Šï¼‰
-//			if(nextIndex){this.selected=this.body.layers[nextIndex];}else{this.selected=null;}
-		}else{
-				//this.body.layers[index].remove();//ãƒ¬ã‚¤ãƒ¤å‰Šé™¤ã™ã‚‹
-			this.body.splice(index-1,1);//å‰Šé™¤ã™ã‚‹
-			for(var ix=0;ix<this.body.length;ix++){this.body[ix].index=ix+1};//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ›´æ–°
-		}
-			return this.selected;
-	}
-//pop XPSContents from XPSStore currentStack toXPSBuffer
-	this.pop=function(index)
-	{
-//		if(! this.getLength()){if(! this.setBody(index)){return false;}}
-
-		if(! index){if(this.selected){index=this.selected.index;}else{return false;}}
-		if(index>this.body.length){return false;};
-		if(this.body[index-1]){
-			this.selected=this.body[index-1];
-			this.currentIndex=index;
-//			var myContents=this.selected.sourceText.value.text.replace(/\\r\\n/g,"\n");
-			var myXps=this.body[index-1];
-			if(!XPS.isSame(myXps)){XPS.readIN(myXps.toString())};//ç¾è¡Œã®ãƒãƒƒãƒ•ã‚¡ã®å†…å®¹ã‚’ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã™ã‚‹
-			return index;
-		}
-		return false;
-	};//
-//push XPSContents from XPSBuffer to XPSStore currentStack
-	this.push=function(index)
-	{
-//		if(! this.getLength()){if(! this.setBody(index)){return false;}}
-
-		if(! index){if(this.selected){index=this.selected.index;}else{return false;}}
-		this.selected=this.body[index-1];
-		this.currentIndex=index;
-		if(! XPS.isSame(this.selected)){
-			this.body[index-1].leadIN(XPS.toString());
-			this.setInfo(index);
-			return index
-		}
-		return false;
-	};//
-//toString resultXPSContent from currentSheet
-	this.toString=function(index)
-	{
-//		if(! this.getLength()){if(! this.setBody(index)){return false;}}
-
-		if(! index){if(this.selected){index=this.selected.index;}else{return false;}}
-		if(index>this.body.length){return false;};
-		if(this.body[index-1]){
-//			this.selected=index;//åˆ‡ã‚Šæ›¿ãˆãªã„
-			return this.body[index-1].toString().replace(/\\r\\n/g,"\n")+"\n";
-		}
-	};//
-//get XPSInfo from currentSheet
-	this.getInfo=function(index)
-	{
-//		if(AEVersion<7){return this.AE65Prop};//AE65ã®å ´åˆã¯ãƒ€ãƒŸãƒ¼ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¿”ã™
-		if(! index){if(this.selected){index=this.selected.index;}else{return false;}}
-		if(index>this.body.length){return false;};
-		if(this.body[index-1]){
-		var myProps=eval("\("+this.body[index-1].comment+"\)");//JSONã®ã¯ãšãªã‚“ã ã‘ã©æ€–ã„ã‚ˆã­
-		return myProps;
-		}
-		return false;
-	};//
-
-//setXPSInfo to currentSheet from XPSBuffer
-	this.setInfo=function(myIndex,myFile)
-	{
-		if(! myIndex){if(this.selected){index=this.selected.index}else{return false}}
-		if(myIndex>this.body.length){return false;};
-		if(this.body[myIndex-1]){
-			var storeName=[XPS.scene,XPS.cut].join("_");//
-			var myContent=XPS.toString();
-//æ–°è¦ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ä½œã‚‹
-//ãƒ•ã‚¡ã‚¤ãƒ«ãŒä¸ãˆã‚‰ã‚ŒãŸå ´åˆã¯ã€ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã€€ãªã„å ´åˆã¯ç¾çŠ¶ã®ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰
-			if(myFile){		
-			var newProp="{";
-				newProp+="\"name\" :\""+myFile.name +"\",";
-				newProp+="\"modified\" :\""+myFile.modified.toNASString() +"\",";
-				newProp+="\"length\" :\""+myFile.length  +"\",";
-				newProp+="\"url\" :\""+myFile.absoluteURI ;
-				newProp+="\"}";
-			}else{
-				var newProp=XPS.getInfo().toSource();
-			}
-
-//				alert(newProp + myFile.toString() );
-			this.body[myIndex-1].comment=newProp;
-//ãƒ¬ã‚¤ãƒ¤åã‚’è­˜åˆ¥å­ã§ç½®ãæ›ãˆ
-			this.body[myIndex-1].name=storeName;
-
-
-			return eval("\("+newProp+"\)");
-		}
-	return false;
-	};//
-//é–¢é€£ä»˜ã‘ã‚‰ã‚Œã¦ã„ã‚‹ã‚³ãƒ³ãƒã®update//ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯AEã®ã¿ã§æ„å‘³ã‚’æŒã¤ã®ã§ä»–ã®ç’°å¢ƒã§ã¯ã‚³ãƒ¼ãƒ«ã—ãªã„ã“ã¨ 
-	this.update=function(indx){
-		return false;
-		//indxã¯ã‚·ãƒ¼ãƒˆindex =ã‚·ãƒ¼ãƒˆã‚­ãƒ£ãƒªã‚¢ã®ãƒ¬ã‚¤ãƒ¤ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã¨ä¸€è‡´ã€€1ï½
-		var myIdentifier=this.get(indx).getIdentifier();
-		//ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã‚·ãƒ¼ãƒˆã®è­˜åˆ¥ã‚’å–å¾—
-			//ã‚¢ã‚¤ãƒ†ãƒ ç·å½“ã‚Š
-		var myResult=0;
-		for(var idx=1;idx<=app.project.items.length;idx++){
-//CompItem && ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ—ãƒ¬ãƒ•ã‚£ãƒƒã‚¯ã‚¹ã‚ã‚Šã‚³ãƒ¡ãƒ³ãƒˆã‚·ã‚°ãƒãƒãƒ£ã‚ã‚Š
-//3æ¡ä»¶ã‚’è‡ªå‹•æ›´æ–°ã®å¿…è¦æ¡ä»¶ã«ã™ã‚‹â€¦ã‹ãŸã‚ã‚«ãƒ¢
-			if(
-				(app.project.item(idx) instanceof CompItem)&&
-				(app.project.item(idx).name.match(new RegExp("^\\("+nas.itmFootStamps.stage[0]+"\\)")))&&
-				(app.project.item(idx).comment.match(new RegExp("^"+nas.itmFootStamps.stage[1])))
-			){
-				var myXps=app.project.item(idx).getRootXps();//ã‚³ãƒ³ãƒã‹ã‚‰XPSå–å¾—
-				if(myXps){
-					//XpsãŒã‚ã‚Œã°è­˜åˆ¥æƒ…å ±ã‚’æ¯”è¼ƒã€€ä¸€è‡´ã—ãŸã‚‰é©ç”¨
-					if(myIdentifier==myXps.getIdentifier()){
-						app.project.item(idx).applyXPS(myXps);
-						nas.otome.writeConsole("updated Comp ["+idx+"] "+app.project.item(idx).name);
-					//	myComps.push(app.project.item(idx));
-						myResult++;
-					}
-				}
-			}
-		}
-		return myResult;
-	};//
-/*
-	ã“ã®ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã ã¨ã€ã‚«ãƒƒãƒˆè­˜åˆ¥ãŒé‡è¤‡ã—ãŸï¼ˆã‚³ãƒ³ãƒãŒè¤‡æ•°ã‚ã‚‹ï¼‰å ´åˆè¤‡æ•°ã®ã‚³ãƒ³ãƒãŒèª¤èªã§æ›´æ–°ã•ã‚Œã‚‹å ´åˆãŒã‚ã‚‹ãŒã€ãã‚Œã¯ä»•æ§˜ã¨ã™ã‚‹ã€‚
-	åŒä¸€ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…éƒ¨ã§ã®é–¢é€£ä»˜ã‘ã®é‡è¤‡ã§ã‚ã‚‹ã€‚ã‚³ãƒ³ãƒ•ãƒªã‚¯ãƒˆã«æ³¨æ„
-*/
-}
-
+//	Ps“™AE(‰³—)ˆÈŠO‚ÌŠÂ‹«‚ÉXPSStore‚ğˆÚA//ƒRƒ“ƒ|QÆ‚ğs‚È‚í‚¸AJavascriptŠÂ‹«‘S”Ê‚É‘Î‰@—vnas_lib/* XPSStore@(ƒV[ƒgƒgƒŒ[ƒ‰)	XPSheetStore ƒIƒuƒWƒFƒNƒg	ƒvƒƒWƒFƒNƒg“à•”‚Éƒ^ƒCƒ€ƒV[ƒg‚ğ•¡”‹L˜^ˆÛ‚µ‚ÄØ‚èŠ·‚¦‚Äg—p‚·‚éd‘g‚İ	ƒtƒbƒe[ƒWƒXƒgƒA“à•”‚ÉƒRƒ“ƒ|‚ÌŒ`‚Å‹L˜^‚·‚é	ƒCƒ“ƒfƒbƒNƒX‚ª‚ ‚èA‘I‘ğ’l‚ğØ‚èŠ·‚¦‚Äƒoƒbƒtƒ@‚Æ‚ÌŠÔ‚É‚â‚è‚Æ‚è‚ğs‚¤	ƒoƒbƒtƒ@‚ÍXPS(=]—ˆ‚ÌXPSƒIƒuƒWƒFƒNƒg‚ğ‚»‚Ì‚Ü‚Üg—p)	XpsStore.body		ÀÛ‚ÉƒV[ƒg‚ğŠi”[‚·‚é”z—ñ			‰üs‚Í"\\r\\n"‚É’uŠ·@“à•”“I‚É‚ÍŠeŠÂ‹«‚²‚Æ‚ÌƒGƒ“ƒR[ƒfƒBƒ“ƒO‚É‚æ‚é•¶š—ñXpsStore.selected	ƒJƒŒƒ“ƒg‚Ìƒ^ƒCƒ€ƒV[ƒgƒIƒuƒWƒFƒNƒgBƒJƒŒƒ“ƒg‚ª‚È‚¢ê‡‚à‚ ‚é‚»‚Ìê‡‚Ínull ‚Ü‚½‚Í@false			ƒfƒtƒHƒ‹ƒg‚Ì’liƒXƒgƒA“à‚Ìƒf[ƒ^‚ª–³‚¢j‚Å‚Ínull / ƒXƒgƒA“à‚Éƒf[ƒ^‚ª‚ ‚è‚©‚Â‘I‘ğ‚Ì–³‚¢ê‡‚Ífalse‚ğ’l‚Æ‚·‚é			AE‚Å‚ÍƒŒƒCƒ„‚ª”z’u‚³‚ê‚é‚ªA‘¼‚ÌŠÂ‹«‚Å‚ÍXPSƒIƒuƒWƒFƒNƒg‚ª”z’u‚³‚ê‚é‚Ì‚Å’ˆÓ			XPS©‘Ì‚ğæ“¾‚·‚éÛ‚Ígetƒƒ\ƒbƒh‚ğg—p‚·‚é‚±‚Æ			XPS.index ƒvƒƒpƒeƒB‚ª‘İ‚³‚ê‚Ä‚¢‚éXpsStore.currentIndex	ƒJƒŒƒ“ƒgƒCƒ“ƒfƒbƒNƒX‚ğ‹L˜^‚·‚é“à•”•Ï”@ŠO•”‘€ì‹Ö~XpsStore.getLength()	ƒV[ƒg‘”‚ğ•Ô‚·			‚O‚ğ•Ô‚³‚¸‚Éfalse‚ğ•Ô‚·ê‡‚ÍŒ»ó‚ÅƒV[ƒg‘€ìŠÂ‹«‚ª‚È‚¢–‚ğ•\‚µ‚Ä‚¢‚éB(‚±‚Ì‹@”\‚Í‰³—ê—p)			‚à‚µAƒV[ƒg‘€ìŠÂ‹«‚ª•K—v‚Èê‡‚Í@XpsStore.initBody()ƒƒ\ƒbƒh‚Å‰Šú‰»‚·‚é‚ÆŠÂ‹«‚ª\’z‚³‚ê‚éBXpsStore.get(index)	index‚Åw’è‚³‚ê‚½ƒŒƒCƒ„‚©‚çXpsƒIƒuƒWƒFƒNƒg‚ğæ“¾XpsStore.set(index,Xps)	index‚Åw’è‚³‚ê‚½ƒŒƒCƒ„‚ÉXpsƒIƒuƒWƒFƒNƒg‚ğ“o˜^‚·‚éXpsStore.pop(index)	index‚Åw’è‚³‚ê‚½ƒV[ƒg‚Ìƒf[ƒ^‚ğXPSƒoƒbƒtƒ@‚É“]‘—‚·‚éB			index‚ªw’è‚³‚ê‚È‚¯‚ê‚ÎƒJƒŒƒ“ƒg‚ÌƒV[ƒg‚É‘Î‚µ‚ÄÀsXpsStore.push(index)	index‚Åw’è‚³‚ê‚½ƒV[ƒg‚ÉXPSƒoƒbƒtƒ@‚Ìƒf[ƒ^‚ğƒZƒbƒg‚·‚éB“à•”‚ÅsetInfo()‚ğÀs‚·‚éB			index‚ªw’è‚³‚ê‚È‚¯‚ê‚ÎƒJƒŒƒ“ƒg‚ÌƒV[ƒg‚É‘Î‚µ‚ÄÀsXpsStore.select(index)	ƒJƒŒƒ“ƒgƒCƒ“ƒfƒbƒNƒX‚ğØ‚è‘Ö‚¦ƒoƒbƒtƒ@“à—e‚ğXV‚·‚éB	–ß‚è’l‚Í‘I‘ğ‚³‚ê‚Ä‚¢‚éƒV[ƒg‚ÌƒCƒ“ƒfƒbƒNƒXB”’l‚Ì‚Ù‚©‚ÉƒL[ƒ[ƒh"fwd,prv,start,end"‚ğó‚¯•t‚¯‚éXpsStore.getInfo(index)	w’èindex‚ÌƒV[ƒg‚Ìƒ‚ƒfƒBƒtƒ@ƒCƒhî•ñ‚ğæ“¾			–ß‚è’l‚Íî•ñƒIƒuƒWƒFƒNƒg			index‚ªw’è‚³‚ê‚È‚¯‚ê‚ÎƒJƒŒƒ“ƒg‚ÌƒV[ƒg‚É‘Î‚µ‚ÄÀsXpsStore.setInfo(index)	w’èindex‚ÌƒV[ƒg‚ÉŒ»s‚ÌXPSƒoƒbƒtƒ@‚Ìƒ‚ƒfƒBƒtƒ@ƒCƒhî•ñ‚ğİ’è			–ß‚è’l‚Íî•ñƒIƒuƒWƒFƒNƒg			index‚ªw’è‚³‚ê‚È‚¯‚ê‚ÎƒJƒŒƒ“ƒg‚ÌƒV[ƒg‚É‘Î‚µ‚ÄÀsXpsStore.add(Xps)	XpsƒIƒuƒWƒFƒNƒg‚ğ’¼Ú“n‚µ‚ÄV‹K‚ÉƒV[ƒg(ƒeƒLƒXƒgƒŒƒCƒ„)‚ğì¬‚·‚éB			XPSƒoƒbƒtƒ@‚ğ“¯XV			ƒJƒ‰w’è‚Ìê‡‚ÍXPSƒoƒbƒtƒ@‚©‚çì¬			Šù‘¶ƒV[ƒg‚Æ‚Ìd•¡‚ÍŠÖ’m‚µ‚È‚¢‚Ì‚Å‚ ‚ç‚©‚¶‚ßŠm”F‚Í•K—v			–ß’l‚Í’Ç‰Á¬Œ÷‚µ‚½ƒeƒLƒXƒgƒŒƒCƒ„XpsStore.remove(index)	w’èindex‚ÌƒV[ƒg‚ğƒvƒƒWƒFƒNƒg‚©‚çíœ‚·‚éBƒCƒ“ƒfƒbƒNƒX‚Í•K‚¸w’è‚·‚é‚±‚ÆB			ƒCƒ“ƒfƒbƒNƒX•sw’è‚Í¸”s‚³‚¹‚é			¬Œ÷‚Ì–ß‚è’l‚ÍV‚½‚Èƒoƒbƒtƒ@“à—e(Xps)‚Ü‚½‚Ínull(cƒV[ƒg‚È‚µ‚Ì)XpsStore.duplicate(index,name)	w’èindex‚ÌƒV[ƒg‚ğname‚Å•¡»‚·‚éBƒCƒ“ƒfƒbƒNƒX‚Í•K‚¸w’è‚·‚é‚±‚ÆB			–¼‘O‚ªw’è‚³‚ê‚È‚©‚Á‚½ê‡‚ÍŒ³‚ÌƒJƒbƒg”Ô†‚É"copy of "‚ğ‘O’u‚·‚é			¬Œ÷‚Ì–ß‚è’l‚ÍV‚½‚Èƒoƒbƒtƒ@“à—e(Xps)@¸”s‚Ífalse (–¢À‘•@2010 12 19)XpsStore.setBody()	“à•”‚Åg—p‚·‚éƒƒ\ƒbƒhAƒ‰ƒCƒuƒ‰ƒŠ‚ğQÆ‚µ‚Äbody‚ğ©g‚ÌƒIƒuƒWƒFƒNƒg‚Æ‚µ‚ÄÄİ’è‚·‚é			İ’èÏ‚İ‚Ìê‡‚Í‰½‚à‚µ‚È‚¢BŠO•”ƒAƒNƒZƒX‹Ö~XpsStore.initBody()	“à•”‚Åg—p‚·‚é‰Šú‰»ƒƒ\ƒbƒh			ƒJƒ‰‚ÌƒgƒŒ[ƒ‰‚ğì‚é‚Ì‚Å’ˆÓ*/function XpsStore(){if((nas.isAdobe)&&(app.name.match(/After/i))){	this.body=false;//false or CompItem}else{	this.body=new Array();//ƒV[ƒg•Û‘¶•Ï”}	this.selected=null;//null or TextLayer	this.currentIndex=0;//‘I‘ğó‘Ô‚È‚µ/*	ƒXƒgƒA‚µ‚½ƒV[ƒg‚É‚Íá‚¢‡‚É‚P‚©‚çID‚ªU‚ç‚ê‚éB‚±‚ê‚ÍAE‚Æ‚ÌŒİŠ·«‚É‰Á‚¦‚Ä‚O‚ğ”ñ‘I‘ğƒtƒ‰ƒO‚Æ‚µ‚Äg—p‚·‚é‚½‚ß‚Ì‘[’u*///AE65—pƒ_ƒ~[ƒvƒƒpƒeƒB//V‹KƒvƒƒpƒeƒB‚ğì‚é	var myProp="{";		myProp+="\"name\" :\"AE65dummyProp\",";		myProp+="\"modified\" :\""+new Date().toNASString() +"\",";		myProp+="\"length\" :\"==000000==\",";//"=="‚ÅƒGƒXƒP[ƒv‚µ‚Ä‚ ‚éê‡‚Íƒtƒ@ƒCƒ‹‚È‚µ		myProp+="\"url\" :\"\"}";//"=="‚ÅƒGƒXƒP[ƒv‚µ‚Ä‚ ‚éê‡‚Íƒtƒ@ƒCƒ‹‚È‚µ	this.AE65Prop=eval("\("+myProp+"\)");//		this.setBody=function(myIndex){		return true;		//AEŠÂ‹«‰ºˆÈŠO‚Å‚Í‚±‚Ìƒƒ\ƒbƒh‚ÍˆÓ–¡‚ğ‚½‚È‚¢		//myIndex‚Í®”‚Å—^‚¦‚é‚±‚Æ@‰Šú’l‚ÍcurrentIndex		var myTarget=app.project.items.getByName(nas.sheetBinder);//‚ ‚Æ‚Å•ÏX//		if(myIndex<0)myIndex=0;//		if(myIndex>myTarget.layers.length)myIndex=myTarget.layers.length;		if(			(myTarget)&&			(myTarget.parentFolder.name==nas.ftgFolders["etc"][0])&&			(myTarget.parentFolder.parentFolder.name==nas.ftgFolders["ftgBase"][0])		){			this.body=myTarget;			if((isNaN(myIndex))||(myIndex>this.body.length)){myIndex=this.currentIndex};			this.selected=((myTarget.layers.length)&&(myIndex))?myTarget.layers[Math.floor(myIndex)]:null;		}else{			//‚È‚¢‚Æ‚«‚É‰Šú‰»‚µ‚½‚Ù‚¤‚ª—Ç‚¢‚©‚àH			this.body=false;			this.selected=null;			this.currentIndex=0;	}		return myTarget;	}	this.initBody=function(){//AEŠÂ‹«‰ºˆÈŠO‚Å‚Í‚±‚Ìƒƒ\ƒbƒh‚ÍˆÓ–¡‚ğ‚½‚È‚¢		return this.body;//‚·‚Å‚É‚ ‚ê‚Î‹óƒRƒ“ƒ|‚É‰Šú‰»‚·‚éB@ƒRƒ“ƒ|‚ª‚È‚¯‚ê‚ÎV‹K‚Éì‚éB@‰Šú‰»—p//‰Šúó‘Ô‚ÌƒV[ƒg•Û”‚Í0 ‘I‘ğƒCƒ“ƒfƒbƒNƒX‚Í0		var myTarget=app.project.items.getByName(nas.sheetBinder);		if(			(myTarget)&&			(myTarget.parentFolder.name==nas.ftgFolders["etc"][0])&&			(myTarget.parentFolder.parentFolder.name==nas.ftgFolders["ftgBase"][0])		){			this.body=myTarget;			for(var lIdx=1;lIdx<=this.body.length;lIdx++){this.body[lIdx].remove();}		}else{			if(! (app.project.items.getByName(nas.ftgFolders["ftgBase"][0])) )			{	app.project.items.addFolder(nas.ftgFolders["ftgBase"][0]) ;}			if(! (app.project.items.getByName(nas.ftgFolders.ftgBase[0]).items.getByName(nas.ftgFolders.etc[0])))			{	app.project.items.getByName(nas.ftgFolders.ftgBase[0]).items.addFolder(nas.ftgFolders.etc[0]) ;}						this.body=app.project.items.getByName(nas.ftgFolders.ftgBase[0]).items.getByName(nas.ftgFolders.etc[0]).items.addComp(nas.sheetBinder,640,480,1,1,1);		}		this.select(0);		return this.body;	}/*	b’è‘€ìƒƒ\ƒbƒh*///getLength of XpSheets//		this.getLength=function(){return this.body.length};//select selectIndex chicetimesheetIndex	this.select=function(index)	{		//index‚ÌƒYƒŒ‚É’ˆÓ		if((!index)&&(this.selected instanceof Xps)){if(index != 0){return this.selected.index}}		if(index<0){index=0};//-.select(0) ‚ÍƒAƒ“ƒZƒŒƒNƒgƒRƒ}ƒ“ƒh‚Å‚ ‚é		if(index>this.body.length){index=this.body.length};//ãŒÀˆê’v		//Œ»ó‚Å‚ÍƒL[ƒ[ƒh‚Í–¢ƒTƒ|[ƒg//		if(! this.getLength()){if(! this.setBody(index)){return false;}}//			nas.otome.writeConsole("start isSame : index= "+this.selected.index);		if(index==0){this.currentIndex=0;this.selected=null;return 0};//‰ğœiƒoƒbƒtƒ@‚Ì“à—e‚Íc‚éB’ˆÓ@‰Šú‰»‚Í‚µ‚È‚¢j;		if(isNaN(index)){return this.currentIndex};		if (index>this.getLength()){return this.selected.index};		this.selected=this.body[index-1];//‚PƒIƒŠƒWƒ“‚È‚Ì‚Å”z—ñID‚Í-1		this.currentIndex=index;//			nas.otome.writeConsole("before isSame : index= "+this.selected.index);		if(! XPS.isSame(this.get(index))){this.pop(index)};//Œ»s‚Ìƒoƒbƒtƒ@‚Ì“à—e‚ğƒAƒbƒvƒf[ƒg‚·‚é@i‚È‚¢‚Ù‚¤‚ª—Ç‚¢‚©‚àHHj//			nas.otome.writeConsole("after isSame : index= "+this.selected.index);		return this.selected.index;	}//get Xps from XPSStore//‚±‚Ìƒƒ\ƒbƒh‚Íæ“¾‚Ì‚İ‚Åƒoƒbƒtƒ@‚Í–³‹	this.get=function(index)	{//		if(! this.getLength()){if(! this.setBody(index)){return false;}}		if(!index){index=(this.selected)?this.selected.index:0};		if((isNaN(index))||(index<1)||(index>this.getLength())){return false};		var myXps=this.body[index-1];//		var myXps=new Xps();//		myXps.readIN(this.body.layers[index].sourceText.value.text.replace(/\\r\\n/g,"\n"));		return myXps;	}		//set XPSStore from Object Xps//‚±‚Ìƒƒ\ƒbƒh‚ÍƒZƒbƒg‚Ì‚İ‚Åƒoƒbƒtƒ@‚Í–³‹? ƒZƒŒƒNƒg‚µ‚½‚Ù‚¤‚ªd•ó‚©‚à@ˆêl’†	this.set=function(index,myXps)	{//		if(! this.getLength()){if(! this.setBody(index)){return false;}}		if((isNaN(index))||(index<1)||(index>this.getLength())){return false};		if(! myXps){myXps=XPS;}		if(myXps instanceof Xps) {			this.body[index-1]=myXps;			this.body[index-1].index=index;//ƒCƒ“ƒfƒbƒNƒXXV//			this.body.layers[index].sourceText.setValue(myXps.toString().replace(/\n/g,"\\r\\n"));;			this.pop(index);//ƒoƒbƒtƒ@ƒZƒbƒg ‚Ç‚¤‚µ‚æ‚¤‚©‚È			return index;		}		return false;	}		//add XPSStore from Object Xps//’¼Úadd‚µ‚½ê‡‚ÍsetInfo–Y‚ê‚¸‚É//ˆø”‚È‚µ‚Ìê‡‚ÍV‹KXps‚ğ’Ç‰Á‚·‚é	this.add=function(myXps)	{//		if(! this.getLength()){if(! this.setBody()){return false;}}		if(! myXps){			myXps=new Xps();			myXps.readIN(XPS.toString());		}//		alert((myXps instanceof Xps))		if(myXps instanceof Xps)		{			var newIx=this.body.length;			var myNewTimeSheet=this.body.push(myXps);			this.body[newIx].index=newIx+1;//—v‘f‚ğ‰Á‚¦‚½‚Ì‚ÅƒvƒƒpƒeƒB‚ğ’Ç‰Á‚µ‚Ä‚¨‚­			this.body[newIx].name=[myXps.scene,myXps.cut].join("_");//			var myNewTimeSheet=this.body.layers.addText(new TextDocument(myXps.toString().replace(/\n/g,"\\r\\n")));//			myNewTimeSheet.name=[myXps.scene,myXps.cut].join("_");//			if(XPS.toString()!=myXps.toString()){XPS.readIN(myXps.toString());};//‚±‚Ìƒ‹[ƒ`ƒ“‚ÌÅŒã‚Ìselect()ƒƒ\ƒbƒh‚Å‰ğŒˆ‚·‚é‚Ì‚Å‚±‚Ìs•s—v//ƒvƒƒpƒeƒB“]‹L	//		this.setInfo(myNewTimeSheet.index);			if(this.select(newIx+1)){return this.selected};//Œ»sƒV[ƒg‚ğV‹KƒXƒgƒA‚µ‚½‚Ì‚ÅƒJƒŒƒ“ƒg‚ğˆÚ‚·			//¬Œ÷ƒŒƒCƒ„‚ğ–ß‚·		}		return false;	}		//remove timesheet	this.remove=function(index)	{//		if(! this.getLength()){if(! this.setBody(index)){return false;}}		if(! index){if(this.selected!=null){index=this.selected.index;}else{return false;}}		if(index>this.body.length){return false;};		if((this.selected!=null)&&(index<=this.selected.index)){//			íœƒŒƒCƒ„‚ªƒJƒŒƒ“ƒg‚æ‚èã‚È‚ç‚»‚Ì‚Ü‚Üíœ//			íœƒŒƒCƒ„‚ªƒJƒŒƒ“ƒgˆÈ‰º‚È‚çƒJƒŒƒ“ƒg‚ªˆÚ“®‚·‚éiŒ³‚ÌƒCƒ“ƒfƒbƒNƒX‚ğ‘æˆêŒó•â‚É‚µ‚ÄŒ³‚ÌƒCƒ“ƒfƒbƒNƒX‚ª‚È‚­‚È‚éê‡‚Íˆê”Ô‰º‚°‚éBƒ‰ƒXƒg‚È‚çƒkƒ‹‚Å‘I‘ğ‰ğœj		var nextIndex=index-1;//‚·‚Å‚É0‚ªœŠO‚³‚ê‚Ä‚¢‚é‚Ì‚Å•‰‚É‚Í‚È‚ç‚È‚¢B//			if(nextIndex==this.body.layers.length) nextIndex--;////			this.body.layers[index].remove();//íœ‚·‚é			this.body.splice(index-1,1);//íœ‚·‚é			for(var ix=0;ix<this.body.length;ix++){this.body[ix].index=ix+1};//ƒCƒ“ƒfƒbƒNƒXXV			if(this.body.length){this.select(nextIndex)};//ƒJƒŒƒ“ƒgˆÚ“®i0‚È‚ç‰ğœ ƒ‚±‚Ìd—lˆêl‚Ì—v‚ ‚èj//			if(nextIndex){this.selected=this.body.layers[nextIndex];}else{this.selected=null;}		}else{				//this.body.layers[index].remove();//ƒŒƒCƒ„íœ‚·‚é			this.body.splice(index-1,1);//íœ‚·‚é			for(var ix=0;ix<this.body.length;ix++){this.body[ix].index=ix+1};//ƒCƒ“ƒfƒbƒNƒXXV		}			return this.selected;	}//pop XPSContents from XPSStore currentStack toXPSBuffer	this.pop=function(index)	{//		if(! this.getLength()){if(! this.setBody(index)){return false;}}		if(! index){if(this.selected){index=this.selected.index;}else{return false;}}		if(index>this.body.length){return false;};		if(this.body[index-1]){			this.selected=this.body[index-1];			this.currentIndex=index;//			var myContents=this.selected.sourceText.value.text.replace(/\\r\\n/g,"\n");			var myXps=this.body[index-1];			if(!XPS.isSame(myXps)){XPS.readIN(myXps.toString())};//Œ»s‚Ìƒoƒbƒtƒ@‚Ì“à—e‚ğƒAƒbƒvƒf[ƒg‚·‚é			return index;		}		return false;	};////push XPSContents from XPSBuffer to XPSStore currentStack	this.push=function(index)	{//		if(! this.getLength()){if(! this.setBody(index)){return false;}}		if(! index){if(this.selected){index=this.selected.index;}else{return false;}}		this.selected=this.body[index-1];		this.currentIndex=index;		if(! XPS.isSame(this.selected)){			this.body[index-1].leadIN(XPS.toString());			this.setInfo(index);			return index		}		return false;	};////toString resultXPSContent from currentSheet	this.toString=function(index)	{//		if(! this.getLength()){if(! this.setBody(index)){return false;}}		if(! index){if(this.selected){index=this.selected.index;}else{return false;}}		if(index>this.body.length){return false;};		if(this.body[index-1]){//			this.selected=index;//Ø‚è‘Ö‚¦‚È‚¢			return this.body[index-1].toString().replace(/\\r\\n/g,"\n")+"\n";		}	};////get XPSInfo from currentSheet	this.getInfo=function(index)	{//		if(AEVersion<7){return this.AE65Prop};//AE65‚Ìê‡‚Íƒ_ƒ~[ƒvƒƒpƒeƒB‚ğ•Ô‚·		if(! index){if(this.selected){index=this.selected.index;}else{return false;}}		if(index>this.body.length){return false;};		if(this.body[index-1]){		var myProps=eval("\("+this.body[index-1].comment+"\)");//JSON‚Ì‚Í‚¸‚È‚ñ‚¾‚¯‚Ç•|‚¢‚æ‚Ë		return myProps;		}		return false;	};////setXPSInfo to currentSheet from XPSBuffer	this.setInfo=function(myIndex,myFile)	{		if(! myIndex){if(this.selected){index=this.selected.index}else{return false}}		if(myIndex>this.body.length){return false;};		if(this.body[myIndex-1]){			var storeName=[XPS.scene,XPS.cut].join("_");//			var myContent=XPS.toString();//V‹KƒvƒƒpƒeƒB‚ğì‚é//ƒtƒ@ƒCƒ‹‚ª—^‚¦‚ç‚ê‚½ê‡‚ÍAƒtƒ@ƒCƒ‹‚©‚ç@‚È‚¢ê‡‚ÍŒ»ó‚Ìƒf[ƒ^‚©‚ç			if(myFile){					var newProp="{";				newProp+="\"name\" :\""+myFile.name +"\",";				newProp+="\"modified\" :\""+myFile.modified.toNASString() +"\",";				newProp+="\"length\" :\""+myFile.length  +"\",";				newProp+="\"url\" :\""+myFile.absoluteURI ;				newProp+="\"}";			}else{				var newProp=XPS.getInfo().toSource();			}//				alert(newProp + myFile.toString() );			this.body[myIndex-1].comment=newProp;//ƒŒƒCƒ„–¼‚ğ¯•Êq‚Å’u‚«Š·‚¦			this.body[myIndex-1].name=storeName;			return eval("\("+newProp+"\)");		}	return false;	};////ŠÖ˜A•t‚¯‚ç‚ê‚Ä‚¢‚éƒRƒ“ƒ|‚Ìupdate//‚±‚Ìƒƒ\ƒbƒh‚ÍAE‚Ì‚İ‚ÅˆÓ–¡‚ğ‚Â‚Ì‚Å‘¼‚ÌŠÂ‹«‚Å‚ÍƒR[ƒ‹‚µ‚È‚¢‚±‚Æ 	this.update=function(indx){		return false;		//indx‚ÍƒV[ƒgindex =ƒV[ƒgƒLƒƒƒŠƒA‚ÌƒŒƒCƒ„ƒCƒ“ƒfƒbƒNƒX‚Æˆê’v@1`		var myIdentifier=this.get(indx).getIdentifier();		//ƒ`ƒFƒbƒN‚·‚éƒV[ƒg‚Ì¯•Ê‚ğæ“¾			//ƒAƒCƒeƒ€‘“–‚è		var myResult=0;		for(var idx=1;idx<=app.project.items.length;idx++){//CompItem && ƒXƒe[ƒWƒvƒŒƒtƒBƒbƒNƒX‚ ‚èƒRƒƒ“ƒgƒVƒOƒlƒ`ƒƒ‚ ‚è//3ğŒ‚ğ©“®XV‚Ì•K—vğŒ‚É‚·‚éc‚©‚½‚ßƒJƒ‚			if(				(app.project.item(idx) instanceof CompItem)&&				(app.project.item(idx).name.match(new RegExp("^\\("+nas.itmFootStamps.stage[0]+"\\)")))&&				(app.project.item(idx).comment.match(new RegExp("^"+nas.itmFootStamps.stage[1])))			){				var myXps=app.project.item(idx).getRootXps();//ƒRƒ“ƒ|‚©‚çXPSæ“¾				if(myXps){					//Xps‚ª‚ ‚ê‚Î¯•Êî•ñ‚ğ”äŠr@ˆê’v‚µ‚½‚ç“K—p					if(myIdentifier==myXps.getIdentifier()){						app.project.item(idx).applyXPS(myXps);						nas.otome.writeConsole("updated Comp ["+idx+"] "+app.project.item(idx).name);					//	myComps.push(app.project.item(idx));						myResult++;					}				}			}		}		return myResult;	};///*	‚±‚ÌƒAƒ‹ƒSƒŠƒYƒ€‚¾‚ÆAƒJƒbƒg¯•Ê‚ªd•¡‚µ‚½iƒRƒ“ƒ|‚ª•¡”‚ ‚éjê‡•¡”‚ÌƒRƒ“ƒ|‚ªŒë”F‚ÅXV‚³‚ê‚éê‡‚ª‚ ‚é‚ªA‚»‚ê‚Íd—l‚Æ‚·‚éB	“¯ˆêƒvƒƒWƒFƒNƒg“à•”‚Å‚ÌŠÖ˜A•t‚¯‚Ìd•¡‚Å‚ ‚éBƒRƒ“ƒtƒŠƒNƒg‚É’ˆÓ*/}

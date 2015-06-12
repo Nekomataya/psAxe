@@ -20,7 +20,7 @@
 //==================================================================main
 //=========================　ダイアログを作成
 var myHeight=2.5;
-w = nas.GUI.newWindow("dialog","Framerate setting",6,myHeight,320,360);
+w = nas.GUI.newWindow("dialog",localize({en:"Framerate setting",ja:"フレームレート設定"}),6,myHeight,320,360);
 //プロパティ設定	
 //buttonFunction
 

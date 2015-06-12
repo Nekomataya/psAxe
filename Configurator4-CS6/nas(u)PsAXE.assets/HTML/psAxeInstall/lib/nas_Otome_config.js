@@ -1,244 +1,1 @@
-//nas_Otome_config.js
-/*====================================================ã‚ªãƒ¼ãƒˆãƒ“ãƒ«ãƒ‰æ©Ÿèƒ½ã®ãŸã‚ã«ï¼¸ï¼°ï¼³é–¢é€£ã®åˆæœŸåŒ–ã‚’è¡Œãªã†
-ã“ã®è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã¯å®Ÿè¡Œã‚³ãƒ¼ãƒ‰ã®ä¸€éƒ¨ã§ã™ã€‚
-ç·¨é›†æ™‚ã¯ååˆ†ã«ã”æ³¨æ„ãã ã•ã„
-2009.10.24 Nekomataya/kiyo
-*/
-//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®XPSã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä½œæˆ
-var myLayers=4;//ï¼”ãƒ¬ã‚¤ãƒ¤
-var myLength=nas.FRATE*3;//3ç§’
-XPS=new Xps(myLayers,myLength);
-
-/*====================================================ã‚ªãƒ¼ãƒˆãƒ“ãƒ«ãƒ€ç”¨æŒ¯ã‚Šåˆ†ã‘ã‚·ã‚¹ãƒ†ãƒ å¤‰æ•°
-	
-	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ•ãƒƒãƒ†â€ã‚¸ã‚’æ¤œç´¢ã—ã¦æ¡ä»¶ã«ãƒãƒƒãƒã—ãŸãƒ•ãƒƒãƒ†ãƒ¼ã‚¸ã‚’ãƒ•ã‚©ãƒ«ãƒ€ã«åˆ†é¡ã™ã‚‹
-
-		ã‚·ã‚¹ãƒ†ãƒ å¤‰æ•°nas.ftgFoldersã¯ã‚¢ã‚¤ãƒ†ãƒ æŒ¯ã‚Šåˆ†ã‘ç”¨ã®å¤‰æ•°ã§ã™
-		ãƒªã‚¹ãƒˆã«ã‚ã‚‹ãƒ•ã‚©ãƒ«ãƒ€åã®ãƒ•ã‚©ãƒ«ãƒ€ã«ã‚ã‚‹ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸ã¯è‡ªå‹•ã§æŒ¯ã‚Šåˆ†ã‘ãŒè¡Œãªã‚ã‚Œã¾ã™ã€‚
-		ãƒ¦ãƒ¼ã‚¶ã”ã¨ã«ã“ã®å¤‰æ•°ã‚’è¿½åŠ å¤‰æ›´ã™ã‚‹ã“ã¨ã§ã‚µã‚¤ãƒˆã”ã¨ã®ãƒãƒ¥ãƒ¼ãƒ‹ãƒ³ã‚°ãŒå¯èƒ½
-
-	ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸ã‚¢ã‚¤ãƒ†ãƒ ãƒ•ã‚©ãƒ«ãƒ€ã®åç§°
-		ã‚·ã‚¹ãƒ†ãƒ äºˆç´„åã§ã‚ã‚‹
-		é‡è¤‡æ™‚ã¯å…ˆã«ãƒãƒƒãƒã—ãŸãƒ•ã‚©ãƒ«ãƒ€ãŒå‡¦ç†å¯¾è±¡
-		ãƒ¦ãƒ¼ã‚¶å¤‰æ›´ã¯å¯èƒ½ ãŸã ã—å„ãƒ•ã‚©ãƒ«ãƒ€åã®ãƒªã‚¹ãƒˆã«ã‚ã‚‹å…ˆé ­ã®åå‰ãŒãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…ã§ã®ãƒ•ã‚©ãƒ«ãƒ€åã«ãªã‚‹ã®ã§æ³¨æ„
- *	ftgBase	[footages]	 ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸åˆ†é¡ãƒ•ã‚©ãƒ«ãƒ€ã‚’æ ¼ç´ã™ã‚‹ãƒ•ã‚©ãƒ«ãƒ€åã€‚ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã«ã“ã®åå‰ã®ãƒ•ã‚©ãƒ«ãƒ€ãŒã‚ã‚‹å¿…è¦ã¯ãªã„ã€‚
- *	bg      	|- _bg  	èƒŒæ™¯ãƒ•ã‚©ãƒ«ãƒ€ "_bg/(BGãƒ•ã‚©ãƒ«ãƒ€)" é…ä¸‹ã«ã‚ã‚Œã°è‡ªå‹•ç™»éŒ²
- *	etc     	|- _etc 	å„ç¨®ç´ æãƒ•ã‚©ãƒ«ãƒ€ã€‚ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆã¯ã“ã®ãƒ•ã‚©ãƒ«ãƒ€ã«
- *	frame		|- _frame	ãƒ•ãƒ¬ãƒ¼ãƒ è¨­å®šãƒ•ã‚©ãƒ«ãƒ€
- *	lo       	|- _lo  	ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆæ ¼ç´ãƒ•ã‚©ãƒ«ãƒ€ "_lo/(ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆãƒ•ã‚©ãƒ«ãƒ€)"é…ä¸‹ã«ã‚ã‚Œã°è‡ªå‹•ç™»éŒ²
- *	paint 		|- _paint	ã‚»ãƒ«æ ¼ç´ãƒ•ã‚©ãƒ«ãƒ€ "_paint/(ã‚»ãƒ«ãƒ•ã‚©ãƒ«ãƒ€)"é…ä¸‹ã«ã‚ã‚Œã°è‡ªå‹•ç™»éŒ²
- *	sound		|- _sound	(äºˆç´„)
- *	system		|- _system	(äºˆç´„)
- *	rough		|- _rough	(äºˆç´„)ãƒ©ãƒ•åŸç”¨
- *	key    		|- _key 	(äºˆç´„)åŸç”»ç”¨
- *	draw  		|- _drawing	(äºˆç´„)å‹•ç”»ç”¨
-*/
-	nas.ftgFolders={
-		"ftgBase":["[footages]"]
-,		"bg":["_bg","_èƒŒæ™¯","BG"]
-,		"etc":["_etc","_timesheet"]
-,		"frame":["_frame","_ãƒ•ãƒ¬ãƒ¼ãƒ "]
-,		"lo":["_lo","_ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ","Layout"]
-,		"paint":["_paint","_ã‚»ãƒ«","CELL"]
-,		"sound":["_sound"]
-,		"rough":["_rough"]
-,		"key":["_key","Key\ Animation"]
-,		"drawing":["_drawing","_draw","Inbetween"]
-,		"unknown":["_other"]
-}	;
-
-/*	ftgFolderã‚’åˆæœŸåŒ–ã™ã‚‹
-	
-	é †æ¬¡ä»¥å‰ã®ã‚³ãƒ¼ãƒ‰ã‚’ä¿®æ­£ã™ã‚‹ã“ã¨
-*/
-
-nas.ftgFolders.init=function(){
-	this.length=-1;//ftgBaseã‚’é™¤å¤–ã™ã‚‹ãŸã‚ã«-1ã‹ã‚‰é–‹å§‹
-	this.cpRx=new Array;//æ¯”è¼ƒé…åˆ—ã‚’ä½œã‚‹
-	this.names=new Array;//æ¯”è¼ƒç¾çŠ¶ã®ãƒ•ã‚©ãƒ«ãƒ€åé…åˆ—
-	for(var prp in this)
-	{
-		if(!( prp.match(/(init|length|cpRx|names)/) ))
-		{
-//å„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®æ­£è¦è¡¨ç¾ã‚’å…ˆã«çµ„ã‚“ã§ãŠã
-			var myRegStr=this[prp].join("|");
-			this.cpRx.push(new RegExp("\("+myRegStr+"\)","i"));//æ­£è¦è¡¨ç¾ã‚’è¦ç´ ã«ã™ã‚‹
-			this.names.push(this[prp][0]);//ã‚¢ã‚¤ãƒ†ãƒ åã‚’ãƒªã‚¹ãƒˆã—ã¦ãŠã
-			this.length++;
-		}
-	}
-}
-
-nas.ftgFolders.init();
-
-//ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆä¿æŒç”¨ã‚³ãƒ³ãƒã®è­˜åˆ¥åç§°
-		nas.sheetBinder="[timeSheetBinder]";
-//ã‚¢ã‚¤ãƒ†ãƒ è­˜åˆ¥ç”¨ãƒãƒ¼ã‚«ãƒ¼
-		nas.itmFootStamps={
-		"stage":["(stg)","//nas-mkStage;"]
-,		"clipWindow":["(clp)","##nas-mkClipWndow"]
-,		"outputMedia":["(opm)","##nas-mkOutputMedia"]
-}
-/*
-	ãƒ¦ãƒ¼ã‚¶å¤‰æ›´æ™‚ã¯ä¸Šã®ãƒ†ãƒ¼ãƒ–ãƒ«ã«å€¤ã‚’åŠ ãˆã¦ãã ã•ã„
-			ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£åã¯ãã‚Œãã‚Œã®ç´ æã‚’åˆ†é¡ã™ã‚‹ã“ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªä¸Šã®è­˜åˆ¥åã§ã™ã€‚
-					ï½†ï½”ï½‡Folder	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…ã§ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸ã‚’æ ¼ç´ã™ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ã‚¢ã‚¤ãƒ†ãƒ åç§°ï¼ˆå¤‰æ›´éæ¨å¥¨ï¼‰æœ€å¾Œã«è¨­å®šã—ãŸãƒ‡ãƒ¼ã‚¿ã®ã¿æœ‰åŠ¹
-				ä¸Šè¨˜ä»¥å¤–ã¯ãã‚Œãã‚Œã®ç´ æã‚’æ ¼ç´ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ä¸Šã®è­˜åˆ¥ç”¨ãƒ•ã‚©ãƒ«ãƒ€å ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã®ä¸Šä½ãƒ•ã‚©ãƒ«ãƒ€ã®åå‰ãŒã“ã®è¨­å®šã¨ä¸€è‡´ã—ã¦ã„ãŸå ´åˆ
-				ãã‚Œãã‚Œã®ç´ æç¨®åˆ¥ã¨ã—ã¦èªè­˜ã™ã‚‹
-					ï½‚ï½‡=èƒŒæ™¯
-					etc=ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆç­‰ã®ç”»åƒå¤–ãƒªã‚½ãƒ¼ã‚¹
-					frame=æ’®å½±æŒ‡å®šãƒ•ãƒ¬ãƒ¼ãƒ 
-					lo=ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
-					paint=å½©è‰²æ¸ˆã¿ã‚»ãƒ«ï¼ˆé€šå¸¸ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸ï¼‰
-					sound=éŸ³éŸ¿ãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆã¾ãŸã¯å­—å¹•ãƒ•ã‚¡ã‚¤ãƒ«ï¼Ÿï¼‰
-					rough=ãƒ©ãƒ•åŸç”»ç­‰ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ã‚±ãƒƒãƒ
-					key=åŸç”»
-					drawing=å‹•ç”»
-			ãƒ•ã‚©ãƒ«ãƒ€ã«ã‚ˆã‚‹åˆ†é¡ã«å¤±æ•—ã—ãŸãƒ•ãƒƒãƒ†ãƒ¼ã‚¸ã¯å½©è‰²æ¸ˆã¿ã‚»ãƒ«ã¨ã—ã¦æ‰±ã„ã¾ã™
-			ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…éƒ¨ã§ã¯é…åˆ—ã®ã‚‚ã£ã¨ã‚‚å·¦ã®åç§°ã§ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸æ ¼ç´ç”¨ãƒ•ã‚©ãƒ«ãƒ€ã‚¢ã‚¤ãƒ†ãƒ ãŒä½œæˆã•ã‚Œã¾ã™ã€‚
-*/
-/*
-		MAPãƒ•ã‚©ãƒ«ãƒ€ã‚¢ã‚¤ãƒ†ãƒ ã®åç§°
-		ã‚·ã‚¹ãƒ†ãƒ äºˆç´„åã§ã‚ã‚‹
-		ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…ã«åŒåã®ãƒ•ã‚©ãƒ«ãƒ€ã‹è¤‡æ•°ã‚ã‚‹æ™‚ã¯å…ˆã«ãƒãƒƒãƒã—ãŸãƒ•ã‚©ãƒ«ãƒ€ãŒå‡¦ç†å¯¾è±¡
-		ãƒ¦ãƒ¼ã‚¶å¤‰æ›´ã¯ï¼ˆè¨­å®šã¯å¯èƒ½ã§ã™ãŒï¼‰éæ¨å¥¨
- *		[MAP]
- *			|- [CAMERAWORK]	ã‚«ãƒ¡ãƒ©ãƒ¯ãƒ¼ã‚¯ãƒ•ã‚©ãƒ«ãƒ€ï¼ˆå°†æ¥ã®æ‹¡å¼µç”¨ï¼‰
- *			|- [CELL]	ã‚»ãƒ«ã‚°ãƒ«ãƒ¼ãƒ—ãƒ•ã‚©ãƒ«ãƒ€
- *			|- [EFFECT]	æ’®å½±åŠ¹æœãƒ•ã‚©ãƒ«ãƒ€ï¼ˆå°†æ¥ã®æ‹¡å¼µç”¨ï¼‰
- *			|- [SOUND]	ã‚µã‚¦ãƒ³ãƒ‰ãƒ•ã‚©ãƒ«ãƒ€ï¼ˆå°†æ¥ã®æ‹¡å¼µç”¨ï¼‰
- *			|- [SYSTEM]	ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆï¼ˆå°†æ¥ã®æ‹¡å¼µç”¨ï¼‰
-
-*/
-//ã‚·ã‚¹ãƒ†ãƒ ãƒ•ã‚©ãƒ«ãƒ€ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹
-	nas.mapFolders={
-		"mapBase":"[MAP]"
-,			"cameraWork":"[CAMERAWORK]"
-,			"cell":"[CELL]"
-,			"effect":"[EFFECT]"
-,			"sound":"[SOUND]"
-,			"system":"[SYSTEM]"
-};
-/*
-		ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ”ãƒ³ã‚°ã‚’æŠ½è±¡åŒ–ã—ã¦nasã‚·ã‚¹ãƒ†ãƒ ã¨æ•´åˆåŒ–ã™ã‚‹ãŸã‚ã«ãƒ—ãƒªã‚³ãƒ³ãƒã‚’ä½œæˆã—ã¦Mapãƒ‡ãƒ¼ã‚¿ã‚’å®Ÿè£…ã™ã‚‹ãŸã‚ã®æ ¼ç´ç”¨ãƒ•ã‚©ãƒ«ãƒ€åã§ã™
-		å¯èƒ½ãªé™ã‚Šå¤‰æ›´ã¯é¿ã‘ã¦ãã ã•ã„ã€‚
- */
-
-//ã‚¤ãƒ³ãƒãƒ¼ãƒˆãƒ•ã‚£ãƒ«ã‚¿
-	nas.importFilter = new RegExp(".*\.(mov|mpg|avi|tiff?|tga|psd|png|jpe?g|gif|sgi|eps)$","i");
-//ã‚¿ã‚¤ãƒ ã‚·ãƒ¼ãƒˆåˆ¤åˆ¥ãƒ•ã‚£ãƒ«ã‚¿
-	nas.xpSheetRegex = new RegExp(".*\.(xps|ard|tsh|sts)$","i");
-//ã‚»ãƒ«ã‚·ãƒ¼ã‚±ãƒ³ã‚¹åˆ¤å®š(ãƒ¬ã‚¤ãƒ¤ã‚½ãƒ¼ã‚¹åã«å¯¾ã—ã¦é©ç”¨ã€‚ $1 ãŒã‚»ãƒ«ãƒ©ãƒ™ãƒ«ã«ãªã‚‹)ã“ã‚Œã¯ãƒ¬ã‚¤ãƒ¤åã«å¯¾ã™ã‚‹ãƒ•ã‚£ãƒ«ã‚¿(ã¾ãŸã¯ã‚·ãƒ¼ã‚±ãƒ³ã‚¹å)
- 	nas.cellRegex = new RegExp("[\-_\/\s0-9]?([^\-_\/\s\[]*)[\-_\/]?\[[0-9]+\-[0-9]+\]\.(tga|tiff?|png|gif|jpe?g|eps|sgi|bmp)$","i")
-//èƒŒæ™¯ãƒ»ä¸‹çµµåˆ¤å®š
-	nas.bgRegex=new RegExp("(bg|back|èƒŒæ™¯?|ä¸‹çµµ?)","i");
-//ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã€å‚ç…§ç”»
-	nas.mgRegex=new RegExp("book|fg|mid|mg|fore|fg|[å‰ä¸­]æ™¯?|[ä¸­ä¸Š]çµµ","i");
-	nas.loRegex=new RegExp("lo|cf|z\.[io]|t\.?[ub]|sl(ide)?|cam(era)?|fr(ame)?|pan|mill?|(ã‚­ãƒ£|ã‚«)ãƒ¡ãƒ©|ãƒ•ãƒ¬ãƒ¼ãƒ |å¼•ã|ãƒ’ã‚­|ã‚¹ãƒ©ã‚¤ãƒ‰|çµ„|ã‚¯ãƒŸ|ãã¿","i");
-
-//	ä½œç”»ãƒ•ãƒ¬ãƒ¼ãƒ DB
-//	ä½œç”»(ã‚½ãƒ¼ã‚¹)ãƒ‡ãƒ¼ã‚¿ã®æ¨™æº–ãƒ•ãƒ¬ãƒ¼ãƒ 
-//  "è­˜åˆ¥å",[æ¨ªå¹…(mm),ãƒ•ãƒ¬ãƒ¼ãƒ ç¸¦æ¨ªæ¯”(æ–‡å­—åˆ—),åŸºæº–è§£åƒåº¦(dpi),ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ]
-/*
-	å…¥åŠ›ãƒ¡ãƒ‡ã‚£ã‚¢DBã®æœ¬è³ªã¯ä½œç”»æƒ…å ±
-	ä½•ã‚»ãƒ³ãƒã®ãƒ•ãƒ¬ãƒ¼ãƒ ã«å¯¾ã—ã¦ã©ã®ãã‚‰ã„ã®è§£åƒåº¦ã§å‡¦ç†ã‚’è¡Œãªã†ã‹ãŒæƒ…å ±ã®ãƒã‚¤ãƒ³ãƒˆ
-	ãƒ”ã‚¯ã‚»ãƒ«ã‚¢ã‚¹ãƒšã‚¯ãƒˆã¯å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã”ã¨ã«ã“ã¨ãªã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§DBä¸Šã§ã¯æ¨™æº–å€¤ã‚’1ã¨ç½®ãã€
-	ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸ã«è¨˜éŒ²ã®ãªã„å ´åˆã®ã¿ä»®ã®å€¤ã¨ã—ã¦ä½¿ç”¨ã™ã‚‹
-*/
-
-	nas.inputMedias=new nTable();
-		nas.inputMedias.onChange=function(){
-			//ãƒ¡ãƒ‡ã‚£ã‚¢ãŒã‚»ãƒ¬ã‚¯ãƒˆã•ã‚ŒãŸã‚‰ã‚·ã‚¹ãƒ†ãƒ ã®è§£åƒåº¦ã¨ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã‚’å¤‰æ›´ã™ã‚‹
-			if(nas.LENGTH!=this.selectedRecord[1]){nas.LENGTH=this.selectedRecord[1]}
-			if(nas.ASPECT!=this.selectedRecord[2]){nas.ASPECT=this.selectedRecord[2]}
-			var myDPC=this.selectedRecord[3]/ 2.540;//è§£åƒåº¦ã‚’DPCã«å¤‰æ›
-			if(nas.RESOLUTION!=myDPC){nas.RESOLUTION=myDPC}
-			if(nas.FRATE!=this.selectedRecord[4]){nas.FRATE=this.selectedRecord[4]}
-			}
-
-			nas.inputMedias.push("10in/16:9/144dpi",[254,"16/9",144,24]);//index=0 (AJA)
-			nas.inputMedias.push("225mm/4:3/144dpi",[225,"4/3",144,24]);// index 1 ä»¥ä¸‹é †ã«å¢—åŠ 
-			nas.inputMedias.push("240mm/4:3/150dpi",[240,"4/3",150,24]);
-			nas.inputMedias.push("265mm/16:9/144dpi",[265,"16/9",144,25]);
-			nas.inputMedias.push("240mm/16:9/150dpi",[240,"16/9",150,30]);
-			nas.inputMedias.push("203mm/16:9/200dpi",[203,"16/9",200,24]);
-			nas.inputMedias.push("260mm/16:9/200dpi",[260,"16/9",200,24]);
-			nas.inputMedias.push("260mm/16:9/150dpi",[260,"16/9",150,23.976]);
-
-
-
-//	å‡ºåŠ›ãƒ¡ãƒ‡ã‚£ã‚¢DB(ãƒ€ãƒŸãƒ¼)
-//	"è­˜åˆ¥å",[æ¨ªå¹…(px),ãƒ©ã‚¤ãƒ³æ•°,ãƒ”ã‚¯ã‚»ãƒ«ã‚¢ã‚¹ãƒšã‚¯ãƒˆ,ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ]
-/*
-	å‡ºåŠ›ãƒ¡ãƒ‡ã‚£ã‚¢DBã®æœ¬è³ªã¯ãƒ ãƒ¼ãƒ“ãƒ¼æƒ…å ±
-	ã©ã®ãƒ¡ãƒ‡ã‚£ã‚¢ã«å¯¾ã—ã¦å‡¦ç†ã‚’è¡Œãªã†ã‹ãŒæƒ…å ±ã®ãƒã‚¤ãƒ³ãƒˆ
-	ãƒ”ã‚¯ã‚»ãƒ«ã‚¢ã‚¹ãƒšã‚¯ãƒˆã¯ãƒ¡ãƒ‡ã‚£ã‚¢é™å®šãªã®ã§æ¨™æº–å€¤ã‚’æŒ‡å®šã™ã‚‹
-	é€†ã«ç·šå¯†åº¦ã«ã¯æ„å‘³ãŒãªããªã‚‹ã®ã§è¨˜è¼‰ãŒãªã„
-*/
-	nas.outputMedias=new nTable();
-		nas.outputMedias.onChange=function(){
-			
-			if(nas.COMP_W!=this.selectedRecord[1]){nas.COMP_W=this.selectedRecord[1]}
-			if(nas.COMP_H!=this.selectedRecord[2]){nas.COMP_H=this.selectedRecord[2]}
-			if(nas.COMP_A!=this.selectedRecord[3]){nas.COMP_A=this.selectedRecord[3]}
-//			if(nas.FRATE!=this.selectedRecord[4]){nas.FRATE=this.selectedRecord[4]};//å‡ºåŠ›ã¯ä¸€èˆ¬ç³»ã‚’åˆ‡ã‚Šæ›¿ãˆãªã„
-		}
-
-			nas.outputMedias.push("DV",[720,480,0.9,29.97]);
-			nas.outputMedias.push("DV(wide)",[720,480,1.2,29.97]);
-			nas.outputMedias.push("HD720/24p",[1280,720,1,24]);
-			nas.outputMedias.push("HD1080/24p",[1920,1080,1,24]);
-			nas.outputMedias.push("SD486/24p",[720,486,0.9,24]);
-			nas.outputMedias.push("SD540/24p",[720,540,1,24]);
-			nas.outputMedias.push("SD486",[720,486,0.9,29.97]);
-			nas.outputMedias.push("SD540",[720,540,1,29.97]);
-			nas.outputMedias.push("VGA/24p",[640,480,1,24]);
-			nas.outputMedias.push("VGA/30p",[640,480,1,30]);
-
-
-
-//ã¨ã‚Šã‚ãˆãšæš«å®š
-//	ä½œæ¥­ã‚¿ã‚¤ãƒˆãƒ«DB(ãƒ€ãƒŸãƒ¼)
-	nas.workTitles=new nTable();
-
-			nas.workTitles.push("template01HDTV",["temp1","Ta",0,2]);
-			nas.workTitles.push("template02SDTV",["temp2","Tb",1,4]);
-			nas.workTitles.push("template03MOVIE",["temp3","Tc",1,3]);
-			nas.workTitles.push("template04VISTA",["temp4","Td",2,5]);
-
-			nas.workTitles.onChange=function(){
-				nas.inputMedias.select(this.selectedRecord[3]);
-				nas.outputMedias.select(this.selectedRecord[4]);
-			}
-		
-			nas.workTitles.select(0);
-//			nas.inputMedias.select(nas.workTitles.selectedRecord[3]);
-//			nas.outputMedias.select(nas.workTitles.selectedRecord[4]);
-
-//ã‚»ãƒ¬ã‚¯ãƒˆãƒ¡ã‚½ãƒƒãƒ‰ã§é¸æŠ
-/*			ä¸Šè¨˜ã®DBã¯æœ€å¾Œã«ç™»éŒ²ã—ãŸã‚‚ã®ãŒã‚«ãƒ¬ãƒ³ãƒˆã«ãªã£ã¦ã„ã¾ã™ã€‚
-	è‡ªåˆ†ã®å¿…è¦ãªã‚‚ã®ã‚’è¿½åŠ ã—ã¦ã”ä½¿ç”¨ãã ã•ã„
-*/
-//	æŒ¯ã‚Šåˆ†ã‘ãƒ•ãƒ©ã‚° ã‚¹ã‚¤ãƒƒãƒãŒã‚ªãƒ³ã®ã¨ãã¯ä¸æ˜ãƒ•ãƒƒãƒ†ãƒ¼ã‚¸ã‚’ä¸æ˜ãƒ•ã‚©ãƒ«ãƒ€ã«ä»•åˆ†ã‘ã‚‹
-	nas.dividerOptionUnknown=true;
-//	ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã®è¡¨ç¤ºæ–¹æ³•
-	nas.viewLayout=new Object();//ã‚ã¨ã§é…ç½®ã‚’è€ƒãˆã‚‹ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯ä»®
-		nas.viewLayout.MODE=BlendingMode.MULTIPLY;//åˆ—æŒ™å­ã‚’è¨˜å…¥
-		nas.viewLayout.RATIO=75;// (%)
-		nas.viewLayout.visible=false;//
-		nas.viewLayout.guideLayer=true;//
-
-//	ã‚»ãƒ«ã®è‡ªå‹•å‡¦ç†ã‚ªãƒ—ã‚·ãƒ§ãƒ³
-	nas.goClip=true;
-	nas.killAlpha=false;
-		nas.goSmooth = false;
-		nas.smoothClip = false;
-
-	nas.cellOptions=new nTable();
-nas.cellOptions.push("OLM-smoother",["OLM Smoother",["Use Color Key","\/\/\-\-otome\ cellClip\-\-\n1;","Color Key","\/\/\-\-otome\ cellClip\-\-\nthis.value;"]]);
-nas.cellOptions.push("kp-smooth",["smooth",["range","\/\/\-\-otome\ cellClip\-\-\n1.0;","white option","\/\/\-\-otome\ cellClip\-\-\n1;"]]);
-nas.cellOptions.push("kp-antiAlias",["KP AntiAliasing",["Range","\/\/\-\-otome\ cellClip\-\-\n20;"]]);
-
-nas.cellOptions.select(0);//åˆæœŸå€¤
-
-//=============================================================ä»¥ä¸Šã‚ªãƒ¼ãƒˆãƒ“ãƒ«ãƒ€ã®ãŸã‚ã®å¤‰æ•°ãƒ¦ãƒ¼ã‚¶ç·¨é›†å¯èƒ½
+//nas_Otome_config.js/*====================================================ƒI[ƒgƒrƒ‹ƒh‹@”\‚Ì‚½‚ß‚É‚w‚o‚rŠÖ˜A‚Ì‰Šú‰»‚ğs‚È‚¤‚±‚Ìİ’èƒtƒ@ƒCƒ‹‚ÍÀsƒR[ƒh‚Ìˆê•”‚Å‚·B•ÒW‚Í\•ª‚É‚²’ˆÓ‚­‚¾‚³‚¢2009.10.24 Nekomataya/kiyo*///ƒfƒtƒHƒ‹ƒg‚ÌXPSƒIƒuƒWƒFƒNƒgì¬var myLayers=4;//‚SƒŒƒCƒ„var myLength=nas.FRATE*3;//3•bXPS=new Xps(myLayers,myLength);/*====================================================ƒI[ƒgƒrƒ‹ƒ_—pU‚è•ª‚¯ƒVƒXƒeƒ€•Ï”		ƒvƒƒWƒFƒNƒg“à‚Ìƒtƒ@ƒCƒ‹ƒtƒbƒe]ƒW‚ğŒŸõ‚µ‚ÄğŒ‚Éƒ}ƒbƒ`‚µ‚½ƒtƒbƒe[ƒW‚ğƒtƒHƒ‹ƒ_‚É•ª—Ş‚·‚é		ƒVƒXƒeƒ€•Ï”nas.ftgFolders‚ÍƒAƒCƒeƒ€U‚è•ª‚¯—p‚Ì•Ï”‚Å‚·		ƒŠƒXƒg‚É‚ ‚éƒtƒHƒ‹ƒ_–¼‚ÌƒtƒHƒ‹ƒ_‚É‚ ‚éƒtƒbƒe[ƒW‚Í©“®‚ÅU‚è•ª‚¯‚ªs‚È‚í‚ê‚Ü‚·B		ƒ†[ƒU‚²‚Æ‚É‚±‚Ì•Ï”‚ğ’Ç‰Á•ÏX‚·‚é‚±‚Æ‚ÅƒTƒCƒg‚²‚Æ‚Ìƒ`ƒ…[ƒjƒ“ƒO‚ª‰Â”\	ƒtƒbƒe[ƒWƒAƒCƒeƒ€ƒtƒHƒ‹ƒ_‚Ì–¼Ì		ƒVƒXƒeƒ€—\–ñ–¼‚Å‚ ‚é		d•¡‚Íæ‚Éƒ}ƒbƒ`‚µ‚½ƒtƒHƒ‹ƒ_‚ªˆ—‘ÎÛ		ƒ†[ƒU•ÏX‚Í‰Â”\ ‚½‚¾‚µŠeƒtƒHƒ‹ƒ_–¼‚ÌƒŠƒXƒg‚É‚ ‚éæ“ª‚Ì–¼‘O‚ªƒvƒƒWƒFƒNƒg“à‚Å‚ÌƒtƒHƒ‹ƒ_–¼‚É‚È‚é‚Ì‚Å’ˆÓ *	ftgBase	[footages]	 ƒtƒbƒe[ƒW•ª—ŞƒtƒHƒ‹ƒ_‚ğŠi”[‚·‚éƒtƒHƒ‹ƒ_–¼Bƒtƒ@ƒCƒ‹ƒVƒXƒeƒ€‚É‚±‚Ì–¼‘O‚ÌƒtƒHƒ‹ƒ_‚ª‚ ‚é•K—v‚Í‚È‚¢B *	bg      	|- _bg  	”wŒiƒtƒHƒ‹ƒ_ "_bg/(BGƒtƒHƒ‹ƒ_)" ”z‰º‚É‚ ‚ê‚Î©“®“o˜^ *	etc     	|- _etc 	Šeí‘fŞƒtƒHƒ‹ƒ_Bƒ^ƒCƒ€ƒV[ƒg‚Í‚±‚ÌƒtƒHƒ‹ƒ_‚É *	frame		|- _frame	ƒtƒŒ[ƒ€İ’èƒtƒHƒ‹ƒ_ *	lo       	|- _lo  	ƒŒƒCƒAƒEƒgŠi”[ƒtƒHƒ‹ƒ_ "_lo/(ƒŒƒCƒAƒEƒgƒtƒHƒ‹ƒ_)"”z‰º‚É‚ ‚ê‚Î©“®“o˜^ *	paint 		|- _paint	ƒZƒ‹Ši”[ƒtƒHƒ‹ƒ_ "_paint/(ƒZƒ‹ƒtƒHƒ‹ƒ_)"”z‰º‚É‚ ‚ê‚Î©“®“o˜^ *	sound		|- _sound	(—\–ñ) *	system		|- _system	(—\–ñ) *	rough		|- _rough	(—\–ñ)ƒ‰ƒtŒ´—p *	key    		|- _key 	(—\–ñ)Œ´‰æ—p *	draw  		|- _drawing	(—\–ñ)“®‰æ—p*/	nas.ftgFolders={		"ftgBase":["[footages]"],		"bg":["_bg","_”wŒi","BG"],		"etc":["_etc","_timesheet"],		"frame":["_frame","_ƒtƒŒ[ƒ€"],		"lo":["_lo","_ƒŒƒCƒAƒEƒg","Layout"],		"paint":["_paint","_ƒZƒ‹","CELL"],		"sound":["_sound"],		"rough":["_rough"],		"key":["_key","Key\ Animation"],		"drawing":["_drawing","_draw","Inbetween"],		"unknown":["_other"]}	;/*	ftgFolder‚ğ‰Šú‰»‚·‚é		‡ŸˆÈ‘O‚ÌƒR[ƒh‚ğC³‚·‚é‚±‚Æ*/nas.ftgFolders.init=function(){	this.length=-1;//ftgBase‚ğœŠO‚·‚é‚½‚ß‚É-1‚©‚çŠJn	this.cpRx=new Array;//”äŠr”z—ñ‚ğì‚é	this.names=new Array;//”äŠrŒ»ó‚ÌƒtƒHƒ‹ƒ_–¼”z—ñ	for(var prp in this)	{		if(!( prp.match(/(init|length|cpRx|names)/) ))		{//ŠeƒvƒƒpƒeƒB‚Ì³‹K•\Œ»‚ğæ‚É‘g‚ñ‚Å‚¨‚­			var myRegStr=this[prp].join("|");			this.cpRx.push(new RegExp("\("+myRegStr+"\)","i"));//³‹K•\Œ»‚ğ—v‘f‚É‚·‚é			this.names.push(this[prp][0]);//ƒAƒCƒeƒ€–¼‚ğƒŠƒXƒg‚µ‚Ä‚¨‚­			this.length++;		}	}}nas.ftgFolders.init();//ƒ^ƒCƒ€ƒV[ƒg•Û—pƒRƒ“ƒ|‚Ì¯•Ê–¼Ì		nas.sheetBinder="[timeSheetBinder]";//ƒAƒCƒeƒ€¯•Ê—pƒ}[ƒJ[		nas.itmFootStamps={		"stage":["(stg)","//nas-mkStage;"],		"clipWindow":["(clp)","##nas-mkClipWndow"],		"outputMedia":["(opm)","##nas-mkOutputMedia"]}/*	ƒ†[ƒU•ÏX‚Íã‚Ìƒe[ƒuƒ‹‚É’l‚ğ‰Á‚¦‚Ä‚­‚¾‚³‚¢			ƒvƒƒpƒeƒB–¼‚Í‚»‚ê‚¼‚ê‚Ì‘fŞ‚ğ•ª—Ş‚·‚é‚±‚Ìƒ‰ƒCƒuƒ‰ƒŠã‚Ì¯•Ê–¼‚Å‚·B					‚†‚”‚‡Folder	ƒvƒƒWƒFƒNƒg“à‚Åƒtƒbƒe[ƒW‚ğŠi”[‚·‚éƒtƒHƒ‹ƒ_ƒAƒCƒeƒ€–¼Ìi•ÏX”ñ„§jÅŒã‚Éİ’è‚µ‚½ƒf[ƒ^‚Ì‚İ—LŒø				ã‹LˆÈŠO‚Í‚»‚ê‚¼‚ê‚Ì‘fŞ‚ğŠi”[‚·‚éƒtƒ@ƒCƒ‹ƒVƒXƒeƒ€ã‚Ì¯•Ê—pƒtƒHƒ‹ƒ_–¼ ƒ\[ƒXƒtƒ@ƒCƒ‹‚ÌãˆÊƒtƒHƒ‹ƒ_‚Ì–¼‘O‚ª‚±‚Ìİ’è‚Æˆê’v‚µ‚Ä‚¢‚½ê‡				‚»‚ê‚¼‚ê‚Ì‘fŞí•Ê‚Æ‚µ‚Ä”F¯‚·‚é					‚‚‚‡=”wŒi					etc=ƒ^ƒCƒ€ƒV[ƒg“™‚Ì‰æ‘œŠOƒŠƒ\[ƒX					frame=B‰ew’èƒtƒŒ[ƒ€					lo=ƒŒƒCƒAƒEƒg					paint=ÊFÏ‚İƒZƒ‹i’Êíƒtƒbƒe[ƒWj					sound=‰¹‹¿ƒtƒ@ƒCƒ‹i‚Ü‚½‚Íš–‹ƒtƒ@ƒCƒ‹Hj					rough=ƒ‰ƒtŒ´‰æ“™ƒ‚[ƒVƒ‡ƒ“ƒXƒPƒbƒ`					key=Œ´‰æ					drawing=“®‰æ			ƒtƒHƒ‹ƒ_‚É‚æ‚é•ª—Ş‚É¸”s‚µ‚½ƒtƒbƒe[ƒW‚ÍÊFÏ‚İƒZƒ‹‚Æ‚µ‚Äˆµ‚¢‚Ü‚·			ƒvƒƒWƒFƒNƒg“à•”‚Å‚Í”z—ñ‚Ì‚à‚Á‚Æ‚à¶‚Ì–¼Ì‚Åƒtƒbƒe[ƒWŠi”[—pƒtƒHƒ‹ƒ_ƒAƒCƒeƒ€‚ªì¬‚³‚ê‚Ü‚·B*//*		MAPƒtƒHƒ‹ƒ_ƒAƒCƒeƒ€‚Ì–¼Ì		ƒVƒXƒeƒ€—\–ñ–¼‚Å‚ ‚é		ƒvƒƒWƒFƒNƒg“à‚É“¯–¼‚ÌƒtƒHƒ‹ƒ_‚©•¡”‚ ‚é‚Íæ‚Éƒ}ƒbƒ`‚µ‚½ƒtƒHƒ‹ƒ_‚ªˆ—‘ÎÛ		ƒ†[ƒU•ÏX‚Íiİ’è‚Í‰Â”\‚Å‚·‚ªj”ñ„§ *		[MAP] *			|- [CAMERAWORK]	ƒJƒƒ‰ƒ[ƒNƒtƒHƒ‹ƒ_i«—ˆ‚ÌŠg’£—pj *			|- [CELL]	ƒZƒ‹ƒOƒ‹[ƒvƒtƒHƒ‹ƒ_ *			|- [EFFECT]	B‰eŒø‰ÊƒtƒHƒ‹ƒ_i«—ˆ‚ÌŠg’£—pj *			|- [SOUND]	ƒTƒEƒ“ƒhƒtƒHƒ‹ƒ_i«—ˆ‚ÌŠg’£—pj *			|- [SYSTEM]	ƒ^ƒCƒ€ƒV[ƒgi«—ˆ‚ÌŠg’£—pj*///ƒVƒXƒeƒ€ƒtƒHƒ‹ƒ_ƒf[ƒ^ƒx[ƒX	nas.mapFolders={		"mapBase":"[MAP]",			"cameraWork":"[CAMERAWORK]",			"cell":"[CELL]",			"effect":"[EFFECT]",			"sound":"[SOUND]",			"system":"[SYSTEM]"};/*		ƒf[ƒ^ƒ}ƒbƒsƒ“ƒO‚ğ’ŠÛ‰»‚µ‚ÄnasƒVƒXƒeƒ€‚Æ®‡‰»‚·‚é‚½‚ß‚ÉƒvƒŠƒRƒ“ƒ|‚ğì¬‚µ‚ÄMapƒf[ƒ^‚ğÀ‘•‚·‚é‚½‚ß‚ÌŠi”[—pƒtƒHƒ‹ƒ_–¼‚Å‚·		‰Â”\‚ÈŒÀ‚è•ÏX‚Í”ğ‚¯‚Ä‚­‚¾‚³‚¢B *///ƒCƒ“ƒ|[ƒgƒtƒBƒ‹ƒ^	nas.importFilter = new RegExp(".*\.(mov|mpg|avi|tiff?|tga|psd|png|jpe?g|gif|sgi|eps)$","i");//ƒ^ƒCƒ€ƒV[ƒg”»•ÊƒtƒBƒ‹ƒ^	nas.xpSheetRegex = new RegExp(".*\.(xps|ard|tsh|sts)$","i");//ƒZƒ‹ƒV[ƒPƒ“ƒX”»’è(ƒŒƒCƒ„ƒ\[ƒX–¼‚É‘Î‚µ‚Ä“K—pB $1 ‚ªƒZƒ‹ƒ‰ƒxƒ‹‚É‚È‚é)‚±‚ê‚ÍƒŒƒCƒ„–¼‚É‘Î‚·‚éƒtƒBƒ‹ƒ^(‚Ü‚½‚ÍƒV[ƒPƒ“ƒX–¼) 	nas.cellRegex = new RegExp("[\-_\/\s0-9]?([^\-_\/\s\[]*)[\-_\/]?\[[0-9]+\-[0-9]+\]\.(tga|tiff?|png|gif|jpe?g|eps|sgi|bmp)$","i")//”wŒiE‰ºŠG”»’è	nas.bgRegex=new RegExp("(bg|back|”wŒi?|‰ºŠG?)","i");//ƒŒƒCƒAƒEƒgAQÆ‰æ	nas.mgRegex=new RegExp("book|fg|mid|mg|fore|fg|[‘O’†]Œi?|[’†ã]ŠG","i");	nas.loRegex=new RegExp("lo|cf|z\.[io]|t\.?[ub]|sl(ide)?|cam(era)?|fr(ame)?|pan|mill?|(ƒLƒƒ|ƒJ)ƒƒ‰|ƒtƒŒ[ƒ€|ˆø‚«|ƒqƒL|ƒXƒ‰ƒCƒh|‘g|ƒNƒ~|‚­‚İ","i");//	ì‰æƒtƒŒ[ƒ€DB//	ì‰æ(ƒ\[ƒX)ƒf[ƒ^‚Ì•W€ƒtƒŒ[ƒ€//  "¯•Ê–¼",[‰¡•(mm),ƒtƒŒ[ƒ€c‰¡”ä(•¶š—ñ),Šî€‰ğ‘œ“x(dpi),ƒtƒŒ[ƒ€ƒŒ[ƒg]/*	“ü—ÍƒƒfƒBƒADB‚Ì–{¿‚Íì‰æî•ñ	‰½ƒZƒ“ƒ`‚ÌƒtƒŒ[ƒ€‚É‘Î‚µ‚Ä‚Ç‚Ì‚­‚ç‚¢‚Ì‰ğ‘œ“x‚Åˆ—‚ğs‚È‚¤‚©‚ªî•ñ‚Ìƒ|ƒCƒ“ƒg	ƒsƒNƒZƒ‹ƒAƒXƒyƒNƒg‚Í“ü—Íƒtƒ@ƒCƒ‹‚²‚Æ‚É‚±‚Æ‚È‚é‰Â”\«‚ª‚ ‚é‚Ì‚ÅDBã‚Å‚Í•W€’l‚ğ1‚Æ’u‚«A	ƒtƒbƒe[ƒW‚É‹L˜^‚Ì‚È‚¢ê‡‚Ì‚İ‰¼‚Ì’l‚Æ‚µ‚Äg—p‚·‚é*/	nas.inputMedias=new nTable();		nas.inputMedias.onChange=function(){			//ƒƒfƒBƒA‚ªƒZƒŒƒNƒg‚³‚ê‚½‚çƒVƒXƒeƒ€‚Ì‰ğ‘œ“x‚ÆƒtƒŒ[ƒ€ƒŒ[ƒg‚ğ•ÏX‚·‚é			if(nas.LENGTH!=this.selectedRecord[1]){nas.LENGTH=this.selectedRecord[1]}			if(nas.ASPECT!=this.selectedRecord[2]){nas.ASPECT=this.selectedRecord[2]}			var myDPC=this.selectedRecord[3]/ 2.540;//‰ğ‘œ“x‚ğDPC‚É•ÏŠ·			if(nas.RESOLUTION!=myDPC){nas.RESOLUTION=myDPC}			if(nas.FRATE!=this.selectedRecord[4]){nas.FRATE=this.selectedRecord[4]}			}			nas.inputMedias.push("10in/16:9/144dpi",[254,"16/9",144,24]);//index=0 (AJA)			nas.inputMedias.push("225mm/4:3/144dpi",[225,"4/3",144,24]);// index 1 ˆÈ‰º‡‚É‘‰Á			nas.inputMedias.push("240mm/4:3/150dpi",[240,"4/3",150,24]);			nas.inputMedias.push("265mm/16:9/144dpi",[265,"16/9",144,25]);			nas.inputMedias.push("240mm/16:9/150dpi",[240,"16/9",150,30]);			nas.inputMedias.push("203mm/16:9/200dpi",[203,"16/9",200,24]);			nas.inputMedias.push("260mm/16:9/200dpi",[260,"16/9",200,24]);			nas.inputMedias.push("260mm/16:9/150dpi",[260,"16/9",150,23.976]);//	o—ÍƒƒfƒBƒADB(ƒ_ƒ~[)//	"¯•Ê–¼",[‰¡•(px),ƒ‰ƒCƒ“”,ƒsƒNƒZƒ‹ƒAƒXƒyƒNƒg,ƒtƒŒ[ƒ€ƒŒ[ƒg]/*	o—ÍƒƒfƒBƒADB‚Ì–{¿‚Íƒ€[ƒr[î•ñ	‚Ç‚ÌƒƒfƒBƒA‚É‘Î‚µ‚Äˆ—‚ğs‚È‚¤‚©‚ªî•ñ‚Ìƒ|ƒCƒ“ƒg	ƒsƒNƒZƒ‹ƒAƒXƒyƒNƒg‚ÍƒƒfƒBƒAŒÀ’è‚È‚Ì‚Å•W€’l‚ğw’è‚·‚é	‹t‚Éü–§“x‚É‚ÍˆÓ–¡‚ª‚È‚­‚È‚é‚Ì‚Å‹LÚ‚ª‚È‚¢*/	nas.outputMedias=new nTable();		nas.outputMedias.onChange=function(){						if(nas.COMP_W!=this.selectedRecord[1]){nas.COMP_W=this.selectedRecord[1]}			if(nas.COMP_H!=this.selectedRecord[2]){nas.COMP_H=this.selectedRecord[2]}			if(nas.COMP_A!=this.selectedRecord[3]){nas.COMP_A=this.selectedRecord[3]}//			if(nas.FRATE!=this.selectedRecord[4]){nas.FRATE=this.selectedRecord[4]};//o—Í‚Íˆê”ÊŒn‚ğØ‚è‘Ö‚¦‚È‚¢		}			nas.outputMedias.push("DV",[720,480,0.9,29.97]);			nas.outputMedias.push("DV(wide)",[720,480,1.2,29.97]);			nas.outputMedias.push("HD720/24p",[1280,720,1,24]);			nas.outputMedias.push("HD1080/24p",[1920,1080,1,24]);			nas.outputMedias.push("SD486/24p",[720,486,0.9,24]);			nas.outputMedias.push("SD540/24p",[720,540,1,24]);			nas.outputMedias.push("SD486",[720,486,0.9,29.97]);			nas.outputMedias.push("SD540",[720,540,1,29.97]);			nas.outputMedias.push("VGA/24p",[640,480,1,24]);			nas.outputMedias.push("VGA/30p",[640,480,1,30]);//‚Æ‚è‚ ‚¦‚¸b’è//	ì‹Æƒ^ƒCƒgƒ‹DB(ƒ_ƒ~[)	nas.workTitles=new nTable();			nas.workTitles.push("template01HDTV",["temp1","Ta",0,2]);			nas.workTitles.push("template02SDTV",["temp2","Tb",1,4]);			nas.workTitles.push("template03MOVIE",["temp3","Tc",1,3]);			nas.workTitles.push("template04VISTA",["temp4","Td",2,5]);			nas.workTitles.onChange=function(){				nas.inputMedias.select(this.selectedRecord[3]);				nas.outputMedias.select(this.selectedRecord[4]);			}					nas.workTitles.select(0);//			nas.inputMedias.select(nas.workTitles.selectedRecord[3]);//			nas.outputMedias.select(nas.workTitles.selectedRecord[4]);//ƒZƒŒƒNƒgƒƒ\ƒbƒh‚Å‘I‘ğ/*			ã‹L‚ÌDB‚ÍÅŒã‚É“o˜^‚µ‚½‚à‚Ì‚ªƒJƒŒƒ“ƒg‚É‚È‚Á‚Ä‚¢‚Ü‚·B	©•ª‚Ì•K—v‚È‚à‚Ì‚ğ’Ç‰Á‚µ‚Ä‚²g—p‚­‚¾‚³‚¢*///	U‚è•ª‚¯ƒtƒ‰ƒO ƒXƒCƒbƒ`‚ªƒIƒ“‚Ì‚Æ‚«‚Í•s–¾ƒtƒbƒe[ƒW‚ğ•s–¾ƒtƒHƒ‹ƒ_‚Éd•ª‚¯‚é	nas.dividerOptionUnknown=true;//	ƒŒƒCƒAƒEƒg‚Ì•\¦•û–@	nas.viewLayout=new Object();//‚ ‚Æ‚Å”z’u‚ğl‚¦‚é‚±‚ÌƒIƒuƒWƒFƒNƒg‚Í‰¼		nas.viewLayout.MODE=BlendingMode.MULTIPLY;//—ñ‹“q‚ğ‹L“ü		nas.viewLayout.RATIO=75;// (%)		nas.viewLayout.visible=false;//		nas.viewLayout.guideLayer=true;////	ƒZƒ‹‚Ì©“®ˆ—ƒIƒvƒVƒ‡ƒ“	nas.goClip=true;	nas.killAlpha=false;		nas.goSmooth = false;		nas.smoothClip = false;	nas.cellOptions=new nTable();nas.cellOptions.push("OLM-smoother",["OLM Smoother",["Use Color Key","\/\/\-\-otome\ cellClip\-\-\n1;","Color Key","\/\/\-\-otome\ cellClip\-\-\nthis.value;"]]);nas.cellOptions.push("kp-smooth",["smooth",["range","\/\/\-\-otome\ cellClip\-\-\n1.0;","white option","\/\/\-\-otome\ cellClip\-\-\n1;"]]);nas.cellOptions.push("kp-antiAlias",["KP AntiAliasing",["Range","\/\/\-\-otome\ cellClip\-\-\n20;"]]);nas.cellOptions.select(0);//‰Šú’l//=============================================================ˆÈãƒI[ƒgƒrƒ‹ƒ_‚Ì‚½‚ß‚Ì•Ï”ƒ†[ƒU•ÒW‰Â”\

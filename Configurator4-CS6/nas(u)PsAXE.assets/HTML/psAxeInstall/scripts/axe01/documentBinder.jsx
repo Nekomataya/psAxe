@@ -43,7 +43,10 @@ AEでは、シートにしたがってレイヤごとに ON/OFF(IN/OUT or ON/bla
 //for PreComp with Photoshop
 
 var exFlag=false;
-exFlag=confirm("現在開いているドキュメントを収集します。変更は破棄されて、すべてのファイルは閉じられます 実行してよろしいですか？");
+exFlag=confirm(localize({
+en:"It will bundle a document that is currently open.\nChange of documents being destroyed, all the files will be closed.\nAre you sure you want to run?",
+ja:"現在開いているドキュメントを収集します。\n変更は破棄されて、すべてのファイルは閉じられます。\n実行してよろしいですか？"
+}));
     if (exFlag){
 //現在オープンされているすべてのドキュメントをソースとして控える。
 //ソース候補の選択UIが必要 可能ならadobe製のモノを流用
@@ -80,10 +83,10 @@ for (idx=0;idx<app.documents.length;idx++)
 	}
 //ここはプロンプトでなく File.saveFlg()に置き換える
 
-//	myDocName=prompt("ドキュメントの名前を入力",previewValue);
+//	myDocName=prompt(localize(nas.uiMsg.inputDocName),previewValue);//ドキュメントの名前を入力
 
 var myDoc=new File(targetFolder.path.toString()+"/"+targetFolder.name+"/"+previewValue+".psd");
-	var myResult=myDoc.saveDlg("ドキュメントの名前を入力");
+	var myResult=myDoc.saveDlg(localize(nas.uiMsg.inputDocName));//"ドキュメントの名前を入力"
 if(myResult){
 	targetFolder=myResult.parent;
 	myDocName=myResult.name.replace(/\.[^.]+$/,"");

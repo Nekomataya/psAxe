@@ -25,7 +25,7 @@ var myValues=(animationMode=="timelineAnimation")?
 	[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
 //=========================　ダイアログを作成
 var myHeight=Math.ceil(myValues.length/6)+2.5;
-w = nas.GUI.newWindow("dialog","Frame Duration -eXt",6,myHeight,320,360);
+w = nas.GUI.newWindow("dialog","set frame duration",6,myHeight,320,360);
 //プロパティ設定	
 	w.setFrames ="0";
 // 配列をボタンに展開

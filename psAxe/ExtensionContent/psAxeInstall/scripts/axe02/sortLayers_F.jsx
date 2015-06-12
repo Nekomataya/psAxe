@@ -26,7 +26,7 @@ layerSort= function(revFlag){
 //並び替えた配列から同名レイヤのチェック
 	for (idx=1;idx<sortOrder.length;idx++){
 		if(sortOrder[idx-1]==sortOrder[idx]){
-			alert("同名のレイヤがあります。\n二つ目以降のレイヤは並び替えの対象になりません。");
+			alert(localize(nas.uiMsg.dm015));//"同名のレイヤがあります。\n二つ目以降のレイヤは並び替えの対象になりません。"
 			break;
 		}
 	}

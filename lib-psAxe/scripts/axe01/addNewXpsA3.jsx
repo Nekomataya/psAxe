@@ -7,10 +7,13 @@
 用紙の色は、選択式
 
 */
-	var nas=app.nas;
-	var bootFlag=false;
-	var nasLibFolderPath =Folder.nas.fullName+ "/lib/";;
-
+/Photoshop用ライブラリ読み込み
+if(typeof app.nas =="undefined"){
+   var myLibLoader=new File(Folder.userData.fullName+"/nas/lib/Photoshop_Startup.jsx");
+   $.evalFile(myLibLoader);
+}else{
+   nas=app.nas;
+}
 //+++++++++++++++++++++++++++++++++ここまで共用
 
 function checkSelection(){var flg = true;try {activeDocument.selection.translate(0,0);}catch(e){flg = false;};return flg;}
@@ -27,19 +30,25 @@ if(checkSelection()){
 }
 }
 
-//ダイアログを出力してドキュメントの指定条件を取得
+//ダイアログを出力してドキュメントの指定条件を取得　"選択範囲からドキュメントを作成"
 if(clipB){
-	var w=nas.GUI.newWindow("dialog","選択範囲から新規タイムシート(画像)ドキュメントを作成",9,9,320,240);
+	var w=nas.GUI.newWindow("dialog",localize({
+		en:"Create a new exposure sheet document (picture) from the selected range",
+		ja:"選択範囲から新規タイムシート(画像)ドキュメントを作成"
+	}),9,9,320,240);
 }else{
-	var w=nas.GUI.newWindow("dialog","新規タイムシート(画像)ドキュメントを作成します",9,9,320,240);
+	var w=nas.GUI.newWindow("dialog",localize({
+		en:"Create a new exposure sheet document (picture) ",
+		ja:"新規タイムシート(画像)ドキュメントを作成します"
+	}),9,9,320,240);
 }
- w.lb0 = nas.GUI.addStaticText(w,"ファイル名",0,0,2,1);
+ w.lb0 = nas.GUI.addStaticText(w,localize(nas.uiMsg.fileName),0,0,2,1);
 // w.fileName= nas.GUI.addEditText(w,nas.incrStr(currentName),2,0,5,1);
  w.fileName= nas.GUI.addEditText(w,currentName,2,0,5,1);
 
- w.lb1 = nas.GUI.addStaticText(w,"制作#.",0,1,2,.75);
- w.lb2 = nas.GUI.addStaticText(w,"CUT#.",2.25,1,2,.75);
- w.lb3 = nas.GUI.addStaticText(w,"( TIME )",4.5,1,2,0.75);
+ w.lb1 = nas.GUI.addStaticText(w,localize(nas.uiMsg.opus),0,1,2,.75);//"制作#."
+ w.lb2 = nas.GUI.addStaticText(w,localize(nas.uiMsg.sceneCut),2.25,1,2,.75);//"CUT#."
+ w.lb3 = nas.GUI.addStaticText(w,"( TIME )",4.5,1,2,0.75);//
 
  w.opusNumber= nas.GUI.addEditText(w,nas.Zf(nas.axe.dmCurrent[1],2),0.75,1,1,1);
    w.opusInc= nas.GUI.addButton(w,"+",1.45 ,1,0.6,1);
@@ -57,12 +66,12 @@ if(clipB){
    w.frmDec= nas.GUI.addButton(w,"-6",6.25,2,.75,1);
 
 // w.titleCB= nas.GUI.addEditText(w,nas.workTitles.names(0),nas.workTitles.selected,2,0,4,1);
-　w.edPanel=nas.GUI.addPanel(w,"編集",0,3,7,6); 
+　w.edPanel=nas.GUI.addPanel(w,localize(nas.uiMsg.Edit),0,3,7,6); //"編集"
 
-w.edPanel.lb0 = nas.GUI.addStaticText(w.edPanel,"タイトル（テンプレート）:",0,0.5,2,1);
+w.edPanel.lb0 = nas.GUI.addStaticText(w.edPanel,localize({en:"title (template) :",ja:"タイトル（テンプレート）:"}),0,0.5,2,1);
 w.edPanel.selectTT=nas.GUI.addComboBox(w.edPanel,nas.workTitles.names(0),nas.workTitles.selected,2,0.5,4,1)
 
-w.edPanel.lb1 = nas.GUI.addStaticText(w.edPanel,"背景色:",0,2,3,1).justify="right";
+w.edPanel.lb1 = nas.GUI.addStaticText(w.edPanel,localize(nas.uiMsg.backgroundColor)+":",0,2,3,1).justify="right";//"背景色:"
 w.edPanel.selectCl=nas.GUI.addDropDownList(w.edPanel,nas.axe.lyBgColors,1,3,2,3,1);
 //w.edPanel.SP = nas.GUI.addStaticText(w.edPanel,"==================================================================================================================",0,1,2,1);
 //====================================================
@@ -82,8 +91,7 @@ w.edPanel.selectWS=nas.GUI.addDropDownList(w.edPanel,["なし","フレームの�
 
 //w.edPanel.lbWIDTH = nas.GUI.addStaticText(w.edPanel,"幅:",1,6,2,1).justify="right";
 //w.edPanel.lbHEIGHT = nas.GUI.addStaticText(w.edPanel,"高:",1,7,2,1).justify="right";
-w.edPanel.lbRESOLUTION = nas.GUI.addStaticText(w.edPanel,"解像度:",1,3,2,1).justify="right";
-
+w.edPanel.lbRESOLUTION = nas.GUI.addStaticText(w.edPanel,localize({en:"resolution:",ja:"解像度:"}),1,3,2,1).justify="right";
 //w.edPanel.etWIDTH = nas.GUI.addEditText(w.edPanel,Math.round(nas.decodeUnit(nas.paperSizes.selectedRecord[1]+"mm","px")),3,6,2,1);
 //w.edPanel.etHEIGHT = nas.GUI.addEditText(w.edPanel,Math.round(nas.decodeUnit(nas.paperSizes.selectedRecord[2]+"mm","px")),3,7,2,1);
 w.edPanel.etRESOLUTION = nas.GUI.addEditText(w.edPanel,"200",3,3,2,1);
@@ -92,11 +100,12 @@ w.edPanel.etRESOLUTION = nas.GUI.addEditText(w.edPanel,"200",3,3,2,1);
 //w.edPanel.pstHEIGHT = nas.GUI.addStaticText(w.edPanel,"pixel",5,7,2,1);
 w.edPanel.pstRESOLUTION = nas.GUI.addStaticText(w.edPanel,"dpi",5,3,2,1);
 
-w.edPanel.lbx = nas.GUI.addStaticText(w.edPanel,"データモードはRGB/8bit深度固定です。",0,4,6,1);
+//alert(localize(nas.uiMsg.fileName));
+w.edPanel.lbx =  nas.GUI.addStaticText(w.edPanel,localize({en:"Data mode is RGB / 8bit depth fixed.",ja:"データモードはRGB/8bit深度固定です。"}),0,4,6,1);
 
 //=========================
  w.okBt=nas.GUI.addButton(w,"OK",7,0,2,1);
- w.cnBt=nas.GUI.addButton(w,"キャンセル",7,1,2,1);
+ w.cnBt=nas.GUI.addButton(w,"Cancel",7,1,2,1);
 /*
  w.tsBt=nas.GUI.addButton(w,"タイトルを保存",7,2,2,1).enabled=false;
  w.isBt=nas.GUI.addButton(w,"入力メディアを保存",7,3,2,1).enabled=false;
@@ -104,6 +113,7 @@ w.edPanel.lbx = nas.GUI.addStaticText(w.edPanel,"データモードはRGB/8bit�
 //=============　コントロールメソッド
 //タイトルセレクタ更新　各コントロール更新してドキュメント名を作成
 w.edPanel.selectTT.onChange=function(){
+	//alert(this.value)
  nas.workTitles.select(this.selected);//選択タイトルを切り替える？
  nas.axe.dmCurrent[0]=nas.workTitles.selected;
  this.parent.parent.fileName.update();
@@ -138,7 +148,9 @@ w.edPanel.selectRM.onChange=function(){
  */
 //ファイル名更新（一方通行で）
 w.fileName.update=function(){
-var currentName=nas.workTitles.bodys[nas.axe.dmCurrent[0]][2]+this.parent.opusNumber.text+"c"+this.parent.cutNumber.text;
+	var myPrefix=(w.edPanel.selectTT.value == nas.workTitles.bodys[nas.axe.dmCurrent[0]][0])?
+		nas.workTitles.bodys[nas.axe.dmCurrent[0]][2] :w.edPanel.selectTT.value;
+var currentName=myPrefix+this.parent.opusNumber.text+"c"+this.parent.cutNumber.text;
 this.text=currentName;
 }
 //値上下ボタン
@@ -213,15 +225,8 @@ if(myLayerCounts>1){myWorkSets[0].move(app.activeDocument,ElementPlacement.PLACE
 var currentUnitBase=app.preferences.rulerUnits;//控える
 app.preferences.rulerUnits=Units.MM;
 if(myLayerCounts>0){
-/*
-//レジスタ
-  var myPegFile=new File(nasLibFolderPath+"resource/Pegs/"+nas.registerMarks.selectedRecord[1]);
-  myRuleLayer=nas.axeAFC.placeEps(myPegFile);
-  myRuleLayer.translate("0 px",-1*myRuleLayer.bounds[1]);//上辺へはっつけ
-  myRuleLayer.name="peg";
-*/
 //シート罫線を読み込み
-  var myRuleFile=new File(nasLibFolderPath+"resource/timeSheet6sA3.eps");
+  var myRuleFile=new File(Folder.nas.fullName+"/lib/resource/timeSheet6sA3.eps");
   myRuleLayer=nas.axeAFC.placeEps(myRuleFile);
   myRuleLayer.blendMode=BlendMode.MULTIPLY;
 var myOffset=(((myRuleLayer.bounds[3]-myRuleLayer.bounds[1])/2)+myRuleLayer.bounds[1]).as("mm")-nas.inputMedias.selectedRecord[7];
@@ -234,7 +239,10 @@ var myTextLayer=myWorkSets[0].artLayers.add();//レイヤ追加
 var myTextOffsetX=(((myTextLayer.bounds[2]-myTextLayer.bounds[0])/2)+myTextLayer.bounds[0]).as("mm");
 var myTextOffsetY=(((myTextLayer.bounds[3]-myTextLayer.bounds[1])/2)+myTextLayer.bounds[1]).as("mm");
   myTextLayer.kind = LayerKind.TEXT;//テキストレイヤに変換
-  myTextLayer.textItem.contents = nas.workTitles.selectedRecord[1]+" #"+this.parent.opusNumber.text;
+var titlePrefix=(nas.workTitles.selectedRecord[0]==w.edPanel.selectTT.value)?
+	nas.workTitles.selectedRecord[1]:w.edPanel.selectTT.value;
+  myTextLayer.textItem.contents =  titlePrefix+" #"+this.parent.opusNumber.text;
+  
   myTextLayer.translate(
 	new UnitValue(((myRuleLayer.bounds[0]-myTextLayer.bounds[0]).as("mm")+7)+" mm"),
 	new UnitValue(((myRuleLayer.bounds[3]-myTextLayer.bounds[1]).as("mm")-394)+" mm")

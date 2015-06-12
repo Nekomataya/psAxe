@@ -19,14 +19,17 @@ var currentName=nas.workTitles.bodys[nas.axe.dmCurrent[0]][2]+nas.Zf(nas.axe.dmC
 
 if(nas.axe.dmDialog){
 //ダイアログを出力してドキュメントの指定条件を取得
-	var w=nas.GUI.newWindow("dialog","現在のドキュメントにタイトルテキストを追加",9,9,320,240);
+	var w=nas.GUI.newWindow("dialog",localize({
+		en:"Add the title text in the current document",
+		ja:"現在のドキュメントにタイトルテキストを追加"
+	}),9,9,320,240);
 
- w.lb0 = nas.GUI.addStaticText(w,"ファイル名",0,0,2,1);
+ w.lb0 = nas.GUI.addStaticText(w,localize(nas.uiMsg.fileName),0,0,2,1);//"ファイル名"
 // w.fileName= nas.GUI.addEditText(w,nas.incrStr(currentName),2,0,5,1);
  w.fileName= nas.GUI.addEditText(w,currentName,2,0,5,1);
 
- w.lb1 = nas.GUI.addStaticText(w,"制作#." ,0,1,2,.75);
- w.lb2 = nas.GUI.addStaticText(w,"CUT#." ,2.25,1,2,.75);
+ w.lb1 = nas.GUI.addStaticText(w, localize(nas.uiMsg.opus),0,1,2,.75);//"制作#."
+ w.lb2 = nas.GUI.addStaticText(w, localize(nas.uiMsg.sceneCut),2.25,1,2,.75);//"CUT#."
  w.lb3 = nas.GUI.addStaticText(w,"( TIME )" ,4.5,1,2,0.75);
 
  w.opusNumber= nas.GUI.addEditText(w,nas.Zf(nas.axe.dmCurrent[1],2),0.75,1,1,1);
@@ -43,22 +46,22 @@ if(nas.axe.dmDialog){
    w.frmInc= nas.GUI.addButton(w,"+6",5.8  ,2,.75,1);
    w.frmDec= nas.GUI.addButton(w,"-6",6.25,2,.75,1);
 
-　w.imPanel=nas.GUI.addPanel(w,"フレーム",0,3,7,6); 
+　w.imPanel=nas.GUI.addPanel(w,localize(nas.uiMsg.Frame),0,3,7,6);//"フレーム"
 
-w.imPanel.lb0 = nas.GUI.addStaticText(w.imPanel,"タイトル:",0,0.5,2,1);
+w.imPanel.lb0 = nas.GUI.addStaticText(w.imPanel,localize(nas.uiMsg.title)+":",0,0.5,2,1);//"タイトル:"
 w.imPanel.selectTT=nas.GUI.addComboBox(w.imPanel,nas.workTitles.names(0),nas.workTitles.selected,2,0.5,4,1)
 
-w.imPanel.lb1 = nas.GUI.addCheckBox(w.imPanel,":フレーム",0,2,3,1);
+w.imPanel.lb1 = nas.GUI.addCheckBox(w.imPanel,":"+localize(nas.uiMsg.Frame),0,2,3,1);//":フレーム"
 w.imPanel.lb1.value=false;
 w.imPanel.selectIM=nas.GUI.addDropDownList(w.imPanel,nas.inputMedias.names(0),nas.workTitles.selectedRecord[3],3,2,4,1);
 
-w.imPanel.lb3 = nas.GUI.addCheckBox(w.imPanel,":タップ",0,3,3,1);
+w.imPanel.lb3 = nas.GUI.addCheckBox(w.imPanel,":"+localize(nas.uiMsg.peg),0,3,3,1);//":タップ"
 w.imPanel.lb3.value =false;
 w.imPanel.selectRM=nas.GUI.addDropDownList(w.imPanel,nas.registerMarks.names(0),nas.registerMarks.selected,3,3,4,1);
 
 //=========================
  w.okBt=nas.GUI.addButton(w,"OK",7,0,2,1);
- w.cnBt=nas.GUI.addButton(w,"キャンセル",7,1,2,1);
+ w.cnBt=nas.GUI.addButton(w,"Cancel",7,1,2,1);
 //=============　コントロールメソッド
 //タイトルセレクタ更新　各コントロール更新してドキュメント名を作成
 w.imPanel.selectTT.onChange=function(){

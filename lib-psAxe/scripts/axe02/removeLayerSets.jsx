@@ -18,4 +18,4 @@ var targetSets=activeDocument.activeLayer.parent.layerSets;var setCount=targetSe
 		}
 		targetSet.remove();
 	}
-}else{alert("ドキュメントが無いみたいダ");}
+}else{alert( localize(nas.uiMsg.noDocument));};//"ドキュメントが無いみたいダ"

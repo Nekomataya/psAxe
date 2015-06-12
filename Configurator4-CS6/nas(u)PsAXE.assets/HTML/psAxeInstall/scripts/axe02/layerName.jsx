@@ -163,4 +163,6 @@ w.show();
 //w.watch("onOpen",function(){alert(w.onOpen);w.unwatch("onOpen");});
 
 //whle(true){}
-	}else{alert("なんだかレイヤが無いみたい");}
+	}else{
+		alert(localize(nas.uiMsg.noTarget));//"なんだかパタパタするものが無いみたい"
+	}

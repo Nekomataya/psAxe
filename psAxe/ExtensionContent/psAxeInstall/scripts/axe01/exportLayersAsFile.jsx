@@ -65,7 +65,8 @@ var noSave=false;
 //-----------------------操作開始時に未保存の場合警告
 if((app.documents.length)&&(! app.activeDocument.saved)){
     noSave=true;
-    noSave=confirm("ドキュメントは保存されていません。保存しますか？");
+    noSave=confirm(localize(nas.uiMsg.dm017));
+   //017:"ドキュメントは保存されていません。保存しますか？"
 //一度も保存されていないファイルに名前をつけて保存するルーチンが必要
 //または明示的に保存されたファイルのみを扱うようにトラップする
     if(noSave){app.activeDocument.save();noSave=false;}
@@ -254,21 +255,24 @@ psdドキュメントに存在しないレイヤを指すフレームやアニ�
     */
 }
 //==============================================UI
-exportFiles.w=nas.GUI.newWindow("dialog","レイヤをファイルとして保存",6,12);
+exportFiles.w=nas.GUI.newWindow("dialog",　localize({en:"save layer as each file",ja:"レイヤをファイルとして保存"}),6,12);
 
-exportFiles.w.msgBox=nas.GUI.addStaticText(exportFiles.w,"レイヤをファイルとして保存します。保存先を指定してください。",0,0,6,1);
+exportFiles.w.msgBox=nas.GUI.addStaticText(exportFiles.w,localize({
+	en:"It will save the layer as each file.\nspecify a destination.",
+	ja:"レイヤをファイルとして保存します。保存先を指定してください。"
+}),0,0,6,1);
 
 
 exportFiles.w.folderTargetName=nas.GUI.addEditText(exportFiles.w,exportFiles.currentTargetFolder.fsName,0,1,5,1);
-exportFiles.w.chgFolder=nas.GUI.addButton(exportFiles.w,"変更",5,1,1,1);
+exportFiles.w.chgFolder=nas.GUI.addButton(exportFiles.w,localize(nas.uiMsg.Change),5,1,1,1);
 
 exportFiles.w.fileList=nas.GUI.addListBoxO(exportFiles.w,exportFiles.outputListView,null,0,2,4,7,{multiselect:true});
 //チェックコントロール
-exportFiles.w.mkSF=nas.GUI.addCheckBox(exportFiles.w,"サブフォルダを作る",0,9,4,1);
+exportFiles.w.mkSF=nas.GUI.addCheckBox(exportFiles.w,localize({en:"create a subfolder",ja:"サブフォルダを作る"}),0,9,4,1);
 	exportFiles.w.mkSF.value=exportFiles.mkFolder;
-exportFiles.w.regOpt=nas.GUI.addCheckBox(exportFiles.w,"タップとフレームを表示する",0,10,4,1);
+exportFiles.w.regOpt=nas.GUI.addCheckBox(exportFiles.w,localize({en:"View the peg and the frame",ja:"タップとフレームを表示する"}),0,10,4,1);
 	exportFiles.w.regOpt.value=exportFiles.withRegister;
-exportFiles.w.afcOpt=nas.GUI.addCheckBox(exportFiles.w,"アニメフレームを出力する",0,11,4,1);
+exportFiles.w.afcOpt=nas.GUI.addCheckBox(exportFiles.w,localize({en:"Outputs animation-frame",ja:"アニメフレームを出力する"}),0,11,4,1);
 	exportFiles.w.afcOpt.value=exportFiles.byAFC;
 //ボタンコントロール
 exportFiles.w.ffLb=nas.GUI.addStaticText(exportFiles.w,"file format:",4,2,2,1);
@@ -350,7 +354,7 @@ exportFiles.w.afcOpt.onClick=function(){
 //アニメフレームをビルドする
 exportFiles.w.bdBt.onClick=function(){
 　app.activeDocument=exportFiles.targetDoc;
- var UndoString="レイヤからアニメフレーム";
+ var UndoString=localize({en:"layers to animation frames",ja:"レイヤからアニメフレーム"});
  var myExecute="nas.axeAFC.initFrames();for(var fix=0;fix<this.parent.fileList.items.length;fix++){if(fix>0){nas.axeAFC.duplicateFrame();}exportFiles.setA(fix);};nas.axeAFC.reverseAnimationFrames();";
 
  if(app.activeDocument.suspendHistory){

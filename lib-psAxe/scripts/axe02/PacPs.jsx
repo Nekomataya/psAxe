@@ -164,11 +164,13 @@ break;}
 	}
 
 //	GUI初期化
-w=nas.GUI.newWindow("dialog","レイヤリネーム",5,18);
+w=nas.GUI.newWindow("dialog",localize({en:"layer rename",ja:"レイヤリネーム"}),5,18);
 w.onClose=function(){myEasyFlip.viewRestore();};
 w.onOpen=true;
-
-nas.GUI.setTabPanel(w,["追加","置換","連番"],0,0,5,5);
+switch(nas.locale){
+  case "ja":nas.GUI.setTabPanel(w,["追加","置換","連番"],0,0,5,5);break;
+  default  :nas.GUI.setTabPanel(w,["add","replace","numbering"],0,0,5,5);
+}
 //tabPanel[0]	文字列追加インターフェース
 w.tabPanel[0].prpf1=nas.GUI.addRadioButton(w.tabPanel[0],"prefix",0,1,1.5,1);
 w.tabPanel[0].prpf2=nas.GUI.addRadioButton(w.tabPanel[0],"postfix",0,2,1.5,1);
@@ -401,4 +403,9 @@ w.show();
 //w.watch("onOpen",function(){alert(w.onOpen);w.unwatch("onOpen");});
 
 //whle(true){}
-	}else{alert("リネームするレイヤが無いか、ライブラリが見当たりません様でス");}
+	}else{
+	  alert(localize({
+		en:"no layer for rename. or no nas library",
+		ja:"リネームするレイヤが無いか、ライブラリが見当たりません様でス"
+	  }));
+	}

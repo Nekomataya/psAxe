@@ -25,7 +25,7 @@
 </span>
 -->
 <div style="width:100%;">
-         <button id="pnlChg0" class=hw onClick='chgPnl("0");'><img width=4 height=23 src="images/blank.png" title="preview"><img>
+         <button id="pnlChg0" class=hw onClick='chgPnl("0");syscProp();'><img width=4 height=23 src="images/blank.png" title="preview"><img>
 </button><button id="pnlChg1" class=hw onClick='chgPnl("1");'><img width=4 height=23 src="images/blank.png" title="tools"><img>
 </button><button id="pnlChg2" class=hw onClick='chgPnl("2");'><img width=4 height=23 src="images/blank.png" title="layer"><img>
 </button><button id="pnlChg3" class=hw onClick='chgPnl("3");'><img width=4 height=23 src="images/blank.png" title="document"><img>
@@ -64,7 +64,7 @@
 </div>
 <div id="pnl0" >
 
-<button id="convertAFT" class=toolChip onClick='doAxeScript("convertPsAxeAnimation");syncProp();' title="convert animation/timeline"><img src=images/ICONs/ModeConv.png>
+<button id="convertAFT" class=toolChip onClick='syncProp(doAxeScript("convertPsAxeAnimation"));' title="convert animation/timeline"><img src=images/ICONs/ModeConv.png>
 </button><button id="vtFocus" class=toolChip style="width:26px;background-color:#558888;"
  onClick='if(this.innerHTML=="f"){this.innerHTML="✓";doScript("nas.axe.focusMove=false;");}else{this.innerHTML="f";doScript("nas.axe.focusMove=true;");};doScript("nas.writePrefarence(\"nas.axe\")");'  title="focus change with moveing playhead">✓
 </button>

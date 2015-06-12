@@ -1,89 +1,11 @@
 // EPS Open Options:
 //Photoshop用ライブラリ読み込み
-
-//Photoshop用ライブラリ読み込み
-
-	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-	var includeLibs=[nasLibFolderPath+"config.js"];//読み込みライブラリを格納する配列
-
-if(! app.nas){
-//iclude nasライブラリに必要な基礎オブジェクトを作成する
-	var nas = new Object();
-		nas.Version=new Object();
-		nas.isAdobe=true;
-		nas.axe=new Object();
-		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	ライブラリのロード　CS2-5用
-//==================== ライブラリを登録して事前に読み込む
-/*
-	includeLibs配列に登録されたファイルを順次読み込む。
-	登録はパスで行う。(Fileオブジェクトではない)
-	$.evalFile メソッドが存在する場合はそれを使用するがCS2以前の環境ではglobal の eval関数で読み込む
-
-＝＝＝　ライブラリリスト（以下は読み込み順位に一定の依存性があるので注意）
-　config.js"		一般設定ファイル（デフォルト値書込）このルーチン外では参照不能
-  nas_common.js		AE・HTML共用一般アニメライブラリ
-  nas_GUIlib.js		Adobe環境共用GUIライブラリ
-  nas_psAxeLib.js	PS用環境ライブラリ
-  nas_prefarenceLib.js	Adobe環境共用データ保存ライブラリ
-
-  nasXpsStore.js	PSほかAdobe汎用XpsStoreライブラリ(AE用は特殊)
-  xpsio.js		汎用Xpsライブラリ
-  mapio.js		汎用Mapライブラリ
-  lib_STS.js		Adobe環境共用STSライブラリ
-  dataio.js		Xpsオブジェクト入出力ライブラリ（コンバータ部）
-  fakeAE.js		中間環境ライブラリ
-  io.js			りまぴん入出力ライブラリ
-  xpsQueue.js		PS用Xps-FrameAnimation連携ライブラリ
-*/
-includeLibs=[
-	nasLibFolderPath+"config.js",
-	nasLibFolderPath+"nas_common.js",
-	nasLibFolderPath+"nas_GUIlib.js",
-	nasLibFolderPath+"nas_psAxeLib.js",
-	nasLibFolderPath+"nas_prefarenceLib.js"
-];
-//=====================================　Application Objectに参照をつける
-	app.nas=nas;
-	bootFlag=true;
+if(typeof app.nas =="undefined"){
+   var myLibLoader=new File(Folder.userData.fullName+"/nas/lib/Photoshop_Startup.jsx");
+   $.evalFile(myLibLoader);
 }else{
-	//alert("object nas exists")
-	nas=app.nas;
-	bootFlag=false;
-};
-
-/*	ライブラリ読み込み
-ここで必要なライブラリをリストに加えてから読み込みを行う
-*/
-	if(false){
-includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
-includeLibs.push(nasLibFolderPath+"xpsio.js");
-includeLibs.push(nasLibFolderPath+"mapio.js");
-includeLibs.push(nasLibFolderPath+"lib_STS.js");
-includeLibs.push(nasLibFolderPath+"dataio.js");
-includeLibs.push(nasLibFolderPath+"fakeAE.js");
-includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"xpsQueue.js");
-	}
-for(prop in includeLibs){
-	var myScriptFileName=includeLibs[prop];
-	if($.evalFile){
-	//$.evalFile ファンクションがあれば実行する
-		$.evalFile(myScriptFileName);
-	}else{
-	//$.evalFile が存在しないバージョンではevalにファイルを渡す
-		var scriptFile = new File(myScriptFileName);
-		if(scriptFile.exists){
-			scriptFile.open();
-			var myContent=scriptFile.read()
-			scriptFile.close();
-			eval(myContent);
-		}
-	}
+   nas=app.nas;
 }
-//===========保存してあるカスタマイズ情報を取得(オブジェクトが既存の場合はスキップ)
-if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
-//=====================================
 //+++++++++++++++++++++++++++++++++ここまで共用
 //フレームセットにレジスタ画像とフレームを読み込み(フレームセットがない場合はドキュメントのルートトレーラーにセット)
 
@@ -96,13 +18,13 @@ app.preferences.rulerUnits=Units.MM;
 
 if(true){
 //レジスタ
-  var myPegFile=new File(nasLibFolderPath+"resource/Pegs/"+nas.registerMarks.selectedRecord[1]);
+  var myPegFile=new File(Folder.nas.fullName+"/lib/resource/Pegs/"+nas.registerMarks.selectedRecord[1]);
   var myPegLayer=nas.axeAFC.placeEps(myPegFile);//この関数が曲者
   myPegLayer.name="peg";//上記の関数の実行後に最初にDOM操作したオブジェクトは取り消しを受けている
 /*リネームをしなかった場合はレイヤの読み込み自体がUNDOされて読み込んだはずのレイヤが喪失してエラーが発生する*/
   myPegLayer.translate("0 mm",-1*myPegLayer.bounds[1]);//上辺へはっつけ
 //100フレーム枠を読み込み
-  var myFrameFile=new File(nasLibFolderPath+"resource/Frames/"
+  var myFrameFile=new File(Folder.nas.fullName+"/lib/resource/Frames/"
 	+nas.inputMedias.selectedRecord[1]+"mm"
 	+nas.inputMedias.selectedRecord[2].replace(/\//,"x")
 	+".eps"
@@ -120,8 +42,8 @@ if(false){
 var docWidth=Math.floor(app.activeDocument.width.as("in"));
 var myWidth=11;
 for(var w =0;w<2;w++){if([16,14][w]<=docWidth){myWidth=[16,14][w];break;}};
-//alert(nasLibFolderPath+"resorce/FieldCharts/fieldChart"+myWidth.toString()+"F.eps");
- var myFieldChart=new File(nasLibFolderPath+"resource/FieldCharts/fieldChart"+myWidth.toString()+"F.eps");
+//alert(Folder.nas.fullName+"/lib/resorce/FieldCharts/fieldChart"+myWidth.toString()+"F.eps");
+ var myFieldChart=new File(Folder.nas.fullName+"/lib/resource/FieldCharts/fieldChart"+myWidth.toString()+"F.eps");
 //セット
   var  myFieldChartLayer=nas.axeAFC.placeEps(myFieldChart);//ポイント
 //フレーム配置　今日はセンタリングのみで左右はパス 20110820
@@ -147,7 +69,7 @@ if(myTargetSet){
 }else{
 //===========================================
 //レジスタ画像を読み込んで画像上辺へ移動
-  var myPegFile=new File(nasLibFolderPath+"resource/Pegs/"+nas.registerMarks.selectedRecord[1]);
+  var myPegFile=new File(Folder.nas.fullName+"/lib/resource/Pegs/"+nas.registerMarks.selectedRecord[1]);
 
  var myPegLayer=nas.axeAFC.placeEps(myPegFile);
 myPegLayer.name="peg";
@@ -236,13 +158,13 @@ var epsOpts = new EPSOpenOptions();
 */
 //↓こんな風に使うらしい　なるほど
 if (myTarget.mode==DocumentMode.BITMAP){
-	var myFile=new File(nasLibFolderPath+"resource/Pegs/peg3p.eps");
+	var myFile=new File(Folder.nas.fullName+"/lib/resource/Pegs/peg3p.eps");
 	var myOpt=new EPSOpenOptions();
 	myOpt.mode = OpenDocumentMode.GRAYSCALE;
 	myOpt.resolution=myTarget.resolution;
 	myOpt.antiAlias=false;
 }else{
-	var myFile=new File(nasLibFolderPath+"resource/Pegs/peg3p.eps");
+	var myFile=new File(Folder.nas.fullName+"/lib/resource/Pegs/peg3p.eps");
 	var myOpt=new EPSOpenOptions();
 	myOpt.mode = eval("Open"+myTarget.mode.toString());
 	myOpt.resolution=myTarget.resolution;

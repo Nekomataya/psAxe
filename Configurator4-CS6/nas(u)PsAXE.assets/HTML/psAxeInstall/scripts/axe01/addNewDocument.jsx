@@ -6,9 +6,13 @@
 */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
 // #target photoshop
-	var nas=app.nas;
-	var bootFlag=false;
-	var nasLibFolderPath =Folder.nas.fullName+ "/lib/";;
+//Photoshop用ライブラリ読み込み
+if(typeof app.nas =="undefined"){
+   var myLibLoader=new File(Folder.userData.fullName+"/nas/lib/Photoshop_Startup.jsx");
+   $.evalFile(myLibLoader);
+}else{
+   nas=app.nas;
+}
 //+++++++++++++++++++++++++++++++++ここまで共用
 
 function checkSelection(){var flg = true;try {activeDocument.selection.translate(0,0);}catch(e){flg = false;};return flg;}
@@ -28,17 +32,20 @@ if(checkSelection()){
 if(nas.axe.dmDialog){
 //ダイアログを出力してドキュメントの指定条件を取得
 if(clipB){
-	var w=nas.GUI.newWindow("dialog","選択範囲から新規ドキュメントを作成",9,14,320,240);//
+	var w=nas.GUI.newWindow("dialog",localize({
+		en:"Create a new document from the selected range",
+		ja:"選択範囲から新規ドキュメントを作成"
+	}),9,14,320,240);//
 }else{
-	var w=nas.GUI.newWindow("dialog","新規ドキュメントを作成します",9,14,320,240);
+	var w=nas.GUI.newWindow("dialog",localize(nas.uiMsg.dm022),9,14,320,240);//022:"新規ドキュメントを作成します"
 }
- w.lb0 = nas.GUI.addStaticText(w,"ファイル名",0,0,2,1);
+ w.lb0 = nas.GUI.addStaticText(w,localize(nas.uiMsg.fileName),0,0,2,1);
 // w.fileName= nas.GUI.addEditText(w,nas.incrStr(currentName),2,0,5,1);
  w.fileName= nas.GUI.addEditText(w,currentName,2,0,5,1);
 
- w.lb1 = nas.GUI.addStaticText(w,"制作#.",0,1,2,.75);
- w.lb2 = nas.GUI.addStaticText(w,"CUT#.",2.25,1,2,.75);
- w.lb3 = nas.GUI.addStaticText(w,"( TIME )",4.5,1,2,0.75);
+ w.lb1 = nas.GUI.addStaticText(w,localize(nas.uiMsg.opus),0,1,2,.75);//"制作#."
+ w.lb2 = nas.GUI.addStaticText(w,localize(nas.uiMsg.sceneCut),2.25,1,2,.75);//"CUT#."
+ w.lb3 = nas.GUI.addStaticText(w,"( TIME )",4.5,1,2,0.75);//
 
  w.opusNumber= nas.GUI.addEditText(w,nas.Zf(nas.axe.dmCurrent[1],2),0.75,1,1,1);
    w.opusInc= nas.GUI.addButton(w,"+",1.45 ,1,0.6,1);
@@ -59,35 +66,42 @@ if(clipB){
     スタートアッププロパティ増設　21040919
     タップとフレームの表示初期値
  */
-w.pegBlend=nas.GUI.addCheckBox(w,"タップを差の絶対値で",7,9,2,1);
+w.pegBlend=nas.GUI.addCheckBox(w,localize({en:"peg BlendingMode:DIFFERENCE",ja:"タップを差の絶対値で"}),7,9,2,1);
     w.pegBlend.value=nas.axe.pegBlend;
 w.pegBlend.onClick=function(){nas.axe.pegBlend=this.value};
-w.frameOpc=nas.GUI.addCheckBox(w,"フレームを半透明で",7,10,2,1);
+w.frameOpc=nas.GUI.addCheckBox(w,localize({en:"frame semi-transparent",ja:"フレームを半透明で"}),7,10,2,1);
     w.frameOpc.value=nas.axe.frameOpc;
 w.frameOpc.onClick=function(){nas.axe.frameOpc=this.value};
 // w.titleCB= nas.GUI.addEditText(w,nas.workTitles.names(0),nas.workTitles.selected,2,0,4,1);
-　w.imPanel=nas.GUI.addPanel(w,"作画領域",0,3,7,11); 
+　w.imPanel=nas.GUI.addPanel(w,localize({en:"drawing area",ja:"作画領域"}),0,3,7,11); 
 
-w.imPanel.lb0 = nas.GUI.addStaticText(w.imPanel,"タイトル（テンプレート）:",0,0.5,2,1);
+w.imPanel.lb0 = nas.GUI.addStaticText(w.imPanel,localize({en:"title (template) :",ja:"タイトル（テンプレート）:"}),0,0.5,2,1);
 w.imPanel.selectTT=nas.GUI.addComboBox(w.imPanel,nas.workTitles.names(0),nas.workTitles.selected,2,0.5,4,1)
 
 //w.imPanel.SP = nas.GUI.addStaticText(w.imPanel,"==================================================================================================================",0,1,2,1);
 //====================================================
-w.imPanel.lb1 = nas.GUI.addStaticText(w.imPanel,"標準フレーム:",0,2,3,1).justify="right";
+w.imPanel.lb1 = nas.GUI.addStaticText(w.imPanel,localize({en:"base frame :",ja:"標準フレーム:"}),0,2,3,1).justify="right";
 w.imPanel.selectIM=nas.GUI.addDropDownList(w.imPanel,nas.inputMedias.names(0),nas.workTitles.selectedRecord[3],3,2,4,1);
 
-w.imPanel.lb2 = nas.GUI.addStaticText(w.imPanel,"用紙 :" ,0,3,3,1).justify="right";
+w.imPanel.lb2 = nas.GUI.addStaticText(w.imPanel,localize({en:"paper :",ja:"用紙 :"}),0,3,3,1).justify="right";
 w.imPanel.selectDP=nas.GUI.addDropDownList(w.imPanel,nas.paperSizes.names(0),nas.paperSizes.selected,3,3,4,1);
 
-w.imPanel.lb3 = nas.GUI.addStaticText(w.imPanel,"タップ:",0,4,3,1).justify="right";
+w.imPanel.lb3 = nas.GUI.addStaticText(w.imPanel,localize({en:"peg :",ja:"タップ:"}),0,4,3,1).justify="right";
 w.imPanel.selectRM=nas.GUI.addDropDownList(w.imPanel,nas.registerMarks.names(0),nas.registerMarks.selected,3,4,4,1);
 
-w.imPanel.lb4 = nas.GUI.addStaticText(w.imPanel,"初期ワークセット(レイヤセット):",0,5,3,1).justify="right";
-w.imPanel.selectWS=nas.GUI.addDropDownList(w.imPanel,["なし","フレームのみ","フレーム+1(A)","フレーム+2(A,B)","フレーム+3(A,B,C)","フレーム+4(A,B,C,D)"],3,3,5,4,1);
+w.imPanel.lb4 = nas.GUI.addStaticText(w.imPanel,localize({en:"startup warkset (LayerSet):",ja:"初期ワークセット(レイヤセット):"}),0,5,3,1).justify="right";
+w.imPanel.selectWS=nas.GUI.addDropDownList(w.imPanel,[
+	localize({en:"no",ja:"なし"}),
+	localize({en:"only Frames",ja:"フレームのみ"}),
+	localize({en:"Frames+1(A) ",ja:"フレーム+1(A)"}),
+	localize({en:"Frames+2(A,B)",ja:"フレーム+2(A,B)"}),
+	localize({en:"Frames+3(A,B,C)",ja:"フレーム+3(A,B,C)"}),
+	localize({en:"Frames+4(A,B,C,D)",ja:"フレーム+4(A,B,C,D)"})
+],3,3,5,4,1);
 
-w.imPanel.lbWIDTH = nas.GUI.addStaticText(w.imPanel,"幅:",1,6,2,1).justify="right";
-w.imPanel.lbHEIGHT = nas.GUI.addStaticText(w.imPanel,"高:",1,7,2,1).justify="right";
-w.imPanel.lbRESOLUTION = nas.GUI.addStaticText(w.imPanel,"解像度:",1,8,2,1).justify="right";
+w.imPanel.lbWIDTH = nas.GUI.addStaticText(w.imPanel,localize({en:"width:",ja:"幅:"}),1,6,2,1).justify="right";
+w.imPanel.lbHEIGHT = nas.GUI.addStaticText(w.imPanel,localize({en:"height:",ja:"高:"}),1,7,2,1).justify="right";
+w.imPanel.lbRESOLUTION = nas.GUI.addStaticText(w.imPanel,localize({en:"resolution:",ja:"解像度:"}),1,8,2,1).justify="right";
 
 w.imPanel.etWIDTH = nas.GUI.addEditText(w.imPanel,Math.round(nas.decodeUnit(nas.paperSizes.selectedRecord[1]+"mm","px")),3,6,2,1);
 w.imPanel.etHEIGHT = nas.GUI.addEditText(w.imPanel,Math.round(nas.decodeUnit(nas.paperSizes.selectedRecord[2]+"mm","px" )),3,7,2,1);
@@ -97,11 +111,11 @@ w.imPanel.pstWIDTH = nas.GUI.addStaticText(w.imPanel,"pixel",5,6,2,1);
 w.imPanel.pstHEIGHT = nas.GUI.addStaticText(w.imPanel,"pixel",5,7,2,1);
 w.imPanel.pstRESOLUTION = nas.GUI.addStaticText(w.imPanel,"dpi",5,8,2,1);
 
-w.imPanel.lbx = nas.GUI.addStaticText(w.imPanel,"データモードはRGB/8bit深度固定です。",0,9,6,1);
+w.imPanel.lbx = nas.GUI.addStaticText(w.imPanel,localize({en:"Data mode is RGB / 8bit depth fixed.",ja:"データモードはRGB/8bit深度固定です。"}),0,9,6,1);
 
 //=========================
  w.okBt=nas.GUI.addButton(w,"OK",7,0,2,1);
- w.cnBt=nas.GUI.addButton(w,"キャンセル",7,1,2,1);
+ w.cnBt=nas.GUI.addButton(w,"Cancel",7,1,2,1);
 /*
  w.tsBt=nas.GUI.addButton(w,"タイトルを保存",7,2,2,1).enabled=false;
  w.isBt=nas.GUI.addButton(w,"入力メディアを保存",7,3,2,1).enabled=false;
@@ -137,7 +151,9 @@ w.imPanel.selectRM.onChange=function(){
 }
 //ファイル名更新（一方通行で）
 w.fileName.update=function(){
-var currentName=nas.workTitles.bodys[nas.axe.dmCurrent[0]][2]+this.parent.opusNumber.text+"c" +this.parent.cutNumber.text;
+	var myPrefix=(w.imPanel.selectTT.value == nas.workTitles.bodys[nas.axe.dmCurrent[0]][0])?	
+		nas.workTitles.bodys[nas.axe.dmCurrent[0]][2] :w.imPanel.selectTT.value;
+var currentName=myPrefix+this.parent.opusNumber.text+"c" +this.parent.cutNumber.text;
 this.text=currentName;
 }
 //値上下ボタン
@@ -221,7 +237,7 @@ var currentUnitBase=app.preferences.rulerUnits;//控える
 app.preferences.rulerUnits=Units.MM;
 if(myLayerCounts>0){
 //レジスタ
-  var myPegFile=new File(nasLibFolderPath+"resource/Pegs/" +nas.registerMarks.selectedRecord[1]);
+  var myPegFile=new File(Folder.nas.fullName+"/lib/resource/Pegs/" +nas.registerMarks.selectedRecord[1]);
   myPegLayer=nas.axeAFC.placeEps(myPegFile);
   myPegLayer.translate("0 px",-1*myPegLayer.bounds[1]);//上辺へはっつけ
   if(nas.axe.pegBlend){myPegLayer.blendMode=BlendMode.DIFFERENCE;};
@@ -229,7 +245,7 @@ if(myLayerCounts>0){
   myPegLayer.move(myWorkSets[0],ElementPlacement.PLACEATEND);
 
 //100フレーム枠を読み込み
-  var myFrameFile=new File(nasLibFolderPath+"resource/Frames/"
+  var myFrameFile=new File(Folder.nas.fullName+"/lib/resource/Frames/"
 	+nas.inputMedias.selectedRecord[1]+"mm"
 	+nas.inputMedias.selectedRecord[2].replace(/\//,"x")
 	+".eps"
@@ -246,7 +262,10 @@ var myTextLayer=myWorkSets[0].artLayers.add();//レイヤ追加
 var myTextOffsetX=(((myTextLayer.bounds[2]-myTextLayer.bounds[0])/2)+myTextLayer.bounds[0]).as("mm" );
 var myTextOffsetY=(((myTextLayer.bounds[3]-myTextLayer.bounds[1])/2)+myTextLayer.bounds[1]).as("mm" );
   myTextLayer.kind = LayerKind.TEXT;//テキストレイヤに変換
-  myTextLayer.textItem.contents = nas.workTitles.selectedRecord[1]+" #"+this.parent.opusNumber.text;
+
+var titlePrefix=(nas.workTitles.selectedRecord[0]==w.imPanel.selectTT.value)?
+	nas.workTitles.selectedRecord[1]:w.imPanel.selectTT.value;
+  myTextLayer.textItem.contents =  titlePrefix+" #"+this.parent.opusNumber.text;
   myTextLayer.translate(
 	new UnitValue(((myPegLayer.bounds[0]-myTextLayer.bounds[0]).as("mm")+0)+" mm"),
 	new UnitValue(((myPegLayer.bounds[3]-myTextLayer.bounds[1]).as("mm")+5)+" mm")

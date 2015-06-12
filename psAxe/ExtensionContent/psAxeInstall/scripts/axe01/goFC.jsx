@@ -49,6 +49,6 @@ w.mySlider.onChange();
 w.show();
 //=================================
 }else{
-	alert("no Animation Frames")
+	alert(localize(nas.uiMsg.noAnimationFrames));
 }
 
