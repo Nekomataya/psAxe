@@ -3,7 +3,7 @@
  */
   var nas=app.nas;
 //	"アニメフレームを複製"
-var myUndoStr=localize(nas.uiMsg["duplicateAnimationFrame"]);
+var myUndoStr=nas.localize(nas.uiMsg["duplicateAnimationFrame"]);
 var myExcute="";
 //=============== コード
 myExcute+="nas.axeAFC.duplicateFrame();";

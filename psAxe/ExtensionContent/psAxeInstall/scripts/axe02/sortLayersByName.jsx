@@ -16,7 +16,7 @@ if(myTarget.length>1){
 	sortOrder.sort();//sortOrder.reverse();
 	for (idx=1;idx<sortOrder.length;idx++){
 		if(sortOrder[idx-1]==sortOrder[idx]){
-			alert(localize(nas.uiMsg.dm015));//"同名のレイヤがあります。\n二つ目以降のレイヤは並び替えの対象になりません。"
+			alert(nas.localize(nas.uiMsg.dm015));//"同名のレイヤがあります。\n二つ目以降のレイヤは並び替えの対象になりません。"
 			break;
 		}
 	}

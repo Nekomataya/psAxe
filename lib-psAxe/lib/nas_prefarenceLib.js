@@ -128,11 +128,14 @@ nas.writePrefarence=function(myPrefs)
 					myOpenFile.write(myContent);
 					myOpenFile.close();
 				}else{
-					var msg=myOpenFile.fsName+": これなんか書けないカンジ";
+					var msg=myOpenFile.fsName+nas.localize({en:": It failed to write",ja:": これなんか書けないカンジ"});
 					if(nas.otome){nas.otome.writeConsole(msg)}else{alert(msg)}
 				};//ファイルが既存かとか調べない うほほ
 			}else{
-				var msg="object :"+myPrefs[idx]+"は存在しないようです。保存できません。";
+				var msg=nas.localize({
+	en:"object :%OBJECT% does not seem to exist. It can not be saved.",
+	ja:"object :%OBJECT%は存在しないようです。保存できません。"
+				}).replace(/%OBJECT%/,myPrefs[idx]);
 				if(nas.otome){nas.otome.writeConsole(msg)}else{alert(msg)}
 			}
 		}
@@ -144,11 +147,14 @@ nas.writePrefarence=function(myPrefs)
 */
 nas.cleraPrefarence=function()
 {
-
+//023
+/*
  var msg="個人領域に記録した情報をすべてクリアします。"+nas.GUI.LineFeed;
     msg+="nasライブラリを使用するすべてのアプリケーションの情報をクリアしますので、"+nas.GUI.LineFeed;
     msg+="AEとPSでnasライブラリを使用している方は特にご注意ください。"+nas.GUI.LineFeed;
     msg+="クリアして良いですか？"+nas.GUI.LineFeed;
+*/
+ var msg=nas.localize(nas.uiMsg.dm023);
 
  var doFlag=confirm(msg);
 	
@@ -161,12 +167,16 @@ nas.cleraPrefarence=function()
 	 {
            try{myPrefFiles[idx].remove();clearCount++;}catch(er){continue;}
 	 }
-     msg="個人領域に記録した情報 :"+ clearCount +"個のデータをクリアしました。"+nas.GUI.LineFeed;
-    msg+="現在の情報は、メモリ上にあります。"+nas.GUI.LineFeed;
-    msg+="データはアプリケーション再起動の際に初期化されます。"+nas.GUI.LineFeed;
-    msg+="初期化を希望する場合は、保存せずにアプリケーションを再起動してください。"+nas.GUI.LineFeed;
+//024
+/*
+個人領域に記録した情報 :%COUNT% 個のデータをクリアしました。
+現在の情報は、メモリ上にあります。\nデータはアプリケーション再起動の際に初期化されます。
+初期化を希望する場合は、保存せずにアプリケーションを再起動してください。"
+*/
+     msg=nas.localize(nas.uiMsg.dm024).replace(/%COUNT%/,clearCount);//
 	}else{
-  msg="消去するデータがありませんでした"+nas.GUI.LineFeed;
+//no data
+  msg=nas.localize(nas.uiMsg.noRemoveData);//"消去するデータがありませんでした"
 	}
 	alert(msg);
   };//else{alert("GOGO")}
@@ -181,10 +191,10 @@ nas.cleraPrefarence=function()
 nas.importPrefarence = function(myFolder){
 	var goFlag=true;
 	if(typeof myFolder !="Folder"){
-		var myMsg="インポートする設定のあるフォルダを指定して下さい";
+		var myMsg=nas.localize(nas.uiMsg.dm025);//"インポートする設定のあるフォルダを指定して下さい";
 		myFolder=Folder.selectDialog(myMsg);
 		if(myFolder){
-			myMsg=myFolder.name + ":\n上のフォルダの設定をインポートします。\n同名の設定は上書きされて取り消しはできません\n実行してよろしいですか？"
+			myMsg=myFolder.fullName + nas.localize(nas.uiMsg.dm027);//027":\n上のフォルダの設定をインポートします。\n同名の設定は上書きされて取り消しはできません\n実行してよろしいですか？"
 			goFlag=confirm(myMsg);
 		}
 	}
@@ -204,10 +214,10 @@ nas.importPrefarence = function(myFolder){
 nas.exportPrefarence = function(myFolder){
 	var goFlag=true;
 	if(typeof myFolder !="Folder"){
-		var myMsg="設定を書き出すフォルダを指定して下さい";
+		var myMsg=nas.localize(nas.uiMsg.dm026);//"設定を書き出すフォルダを指定して下さい";
 		myFolder=Folder.selectDialog(myMsg);
 		if(myFolder){
-			myMsg=myFolder.name + ":\n上のフォルダに設定をエクスポートします。\n空きフォルダ推奨します\n実行してよろしいですか？"
+			myMsg=myFolder.fullName + nas.localize(nas.uiMsg.dm028);//028":\n上のフォルダに設定をエクスポートします。\n空きフォルダ推奨します\n実行してよろしいですか？"
 			goFlag=confirm(myMsg);
 		}
 	}

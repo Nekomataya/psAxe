@@ -95,7 +95,7 @@ myExecute+="applyPbk(\""+nasLibFolderPath+"PixelBenderKernel/thin003.pbk\",\"thi
 }
 myExecute+="applyPbk(\""+nasLibFolderPath+"PixelBenderKernel/punchOutRed.pbk\",\"punchOutRed\",);";
 
-app.activeDocument.suspendHistory (localize({en:"thin line",ja:"画像細線化"}), myExecute ); 
+app.activeDocument.suspendHistory (nas.localize({en:"thin line",ja:"画像細線化"}), myExecute ); 
 }else{
 /* こんな関数か?
 	applyFilter(filterDescription,[[control,value]],dialog)
@@ -143,7 +143,7 @@ myExecute+="applyFilter(\"psPaint thin003\",[],\"NO\");"
 }
 myExecute+="applyFilter(\"psPaint punchOutRed\",[],\"NO\");"
 if(app.activeDocument.suspendHistory){
-app.activeDocument.suspendHistory (localize({en:"line thinning",ja:"画像細線化"}), myExecute ); 
+app.activeDocument.suspendHistory (nas.localize({en:"line thinning",ja:"画像細線化"}), myExecute ); 
 }else{
 eval(myExecute);
 }

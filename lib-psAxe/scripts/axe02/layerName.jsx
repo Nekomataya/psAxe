@@ -164,5 +164,5 @@ w.show();
 
 //whle(true){}
 	}else{
-		alert(localize(nas.uiMsg.noTarget));//"なんだかパタパタするものが無いみたい"
+		alert(nas.localize(nas.uiMsg.noTarget));//"なんだかパタパタするものが無いみたい"
 	}

@@ -5,8 +5,8 @@
 */
 nas.axe = new Object;//アニメ拡張オブジェクト AEのotome に相当するオブジェクト
 var moduleName="psAxeLib"
-var myFilename=("$RCSfile: nas_psAxeLib.js,v $").split(":")[1].split(",")[0];
-var myFilerevision=("$Revision: 1.5 $").split(":")[1].split("$")[0];
+	var myFilename=("nas_psAxeLib.js")
+		var myFilerevision=("1.6");//2015 06.10
 
 	if(nas.Version)
 	{	nas.Version[moduleName]=moduleName+" :"+myFilename+" :"+myFilerevision;};
@@ -48,66 +48,81 @@ if(isWindows){
 	nas.axe.newLayerTpr=true;//新規レイヤの透過 有・無
 	nas.axe.onsOpc=0.65;//オニオンスキンの標準不透過率
 	nas.axe.lyBgColor=0;//選択色
-	nas.axe.lyBgColors=[
+	nas.axe.lyBgColors=(nas.locale=="ja")?[
 		["透明"  ,[1.0,1.0,1.0,0.0]],
 		["白"    ,[1.0,1.0,1.0,1.0]],
 		["黄色"	 ,[1.0,1.0,0.8,1.0]],
 		["ピンク",[1.0,0.9,0.9,1.0]],
 		["あさぎ",[0.9,0.9,1.0,1.0]],
 		["若草"  ,[0.9,1.0,0.9,1.0]],
+	]:[
+		[ "claer"	,[1.0,1.0,1.0,0.0]],
+		[ "white"	,[1.0,1.0,1.0,1.0]],
+		[ "yellow"	,[1.0,1.0,0.8,1.0]],
+		[ "pink"	,[1.0,0.9,0.9,1.0]],
+		[ "blue"	,[0.9,0.9,1.0,1.0]],
+		[ "green"	,[0.9,1.0,0.9,1.0]],
 	];
 	nas.axe.ovlBgColor=0;//修正レイヤ背景色
-	nas.axe.ovlBgColors=[
+	nas.axe.ovlBgColors=(nas.locale=="ja")?[
 		["透明"  ,[1.0,1.0,1.0,0.0]],
 		["白"    ,[1.0,1.0,1.0,1.0]],
 		["黄色"	 ,[1.0,1.0,0.8,1.0]],
 		["ピンク",[1.0,0.9,0.9,1.0]],
 		["あさぎ",[0.9,0.9,1.0,1.0]],
 		["若草"  ,[0.9,1.0,0.9,1.0]],
+	]:[
+		[ "claer"	,[1.0,1.0,1.0,0.0]],
+		[ "white"	,[1.0,1.0,1.0,1.0]],
+		[ "yellow"	,[1.0,1.0,0.8,1.0]],
+		[ "pink"	,[1.0,0.9,0.9,1.0]],
+		[ "blue"	,[0.9,0.9,1.0,1.0]],
+		[ "green"	,[0.9,1.0,0.9,1.0]],
 	];
 
 //カラー配列 ["色名",[r,g,b,a]] float 背景色用の仮配列そのうちオブジェクトを作って交換
 
 //	フレームアニメーションプレビュー操作プロパティ
-	nas.axe.focusMove=true;//アニメウインドウのコマ送り時のフォーカス移動 有・無
-	nas.axe.skipFrames=1;//タイムラインモードのヘッド移動スキップ量
-	nas.axe.useOptkey=true;//タイムラインモードのヘッド移動に不透明度キーを使用・不使用
+	nas.axe.focusMove=true	;//アニメウインドウのコマ送り時のフォーカス移動 有・無
+	nas.axe.skipFrames=1	;//タイムラインモードのヘッド移動スキップ量
+	nas.axe.useOptkey=true	;//タイムラインモードのヘッド移動に不透明度キーを使用・不使用
 //	ドキュメントマネージャ関連
-	nas.axe.dmDialog=true;//新規ファイルダイアログをカスタムするか否か
-	nas.axe.dmCurrent=[0,0,0,0];//最後に操作したドキュメント情報[タイトルDBid,opusNo.,cutNo.,time]
+	nas.axe.dmDialog=true	;//新規ファイルダイアログをカスタムするか否か
+	nas.axe.dmCurrent=[0,0,0,0]	;//最後に操作したドキュメント情報[タイトルDBid,opusNo.,cutNo.,time]
 //ドキュメント・シート等の新規作成時に参照・更新する値
-    	nas.axe.pegAlignment="N";//    タップ画像配置　N:上　S:下???? どう扱うか考えとく
-    	nas.axe.pegBlend=true;//    タップ画像を差の絶対値にする
-	nas.axe.frameOpc=true;//    フレーム画像を不透明度２０％にする
+    	nas.axe.pegAlignment="N"	;//タップ画像配置　N:上　S:下???? どう扱うか考えとく
+    	nas.axe.pegBlend=true	;//タップ画像を差の絶対値にする
+	nas.axe.frameOpc=true	;//フレーム画像を不透明度２０％にする
 //アニメーションモードコンバートオプション
-	nas.axe.mcDuplicateLayers=false;	//タイムライン変換時にレイヤの複製を許可する
-	nas.axe.mcUseOpacityKeyAll=false;	//タイムライン変換時に全て不透明度キーを使う
-	nas.axe.mcOpt2Vis=false;		//アニメフレーム変換時に不透明度を可視プロパティに変換する
+	nas.axe.mcDuplicateLayers=false	;//タイムライン変換時にレイヤの複製を許可する
+	nas.axe.mcUseOpacityKeyAll=false	;//タイムライン変換時に全て不透明度キーを使う
+	nas.axe.mcOpt2Vis=false	;//アニメフレーム変換時に不透明度を可視プロパティに変換する
 //================================================================以下は作業タイトルDB
 
-//インポートフィルタ
+//インポートフィルタ/import filter
 	nas.importFilter = new RegExp(".*\.(mov|mpg|avi|tiff?|tga|psd|png|jpe?g|gif|sgi|eps)$","i");
-//タイムシート判別フィルタ
+//タイムシート判別フィルタ/supported exposure sheet extention
 	nas.xpSheetRegex = new RegExp(".*\.(xps|ard|tsh|sts)$","i");
-//セルシーケンス判定(レイヤソース名に対して適用。 $1 がセルラベルになる)これはレイヤ名に対するフィルタ(またはシーケンス名)
+//セルシーケンス判定(レイヤソース名に対して適用。 RegExp.$1 がセルラベルになる)これはレイヤ名に対するフィルタ(またはシーケンス名)
+//cell Sequence identification(Apply to the layer source name. RegExp.$1 is the label of track) This filter for the layer name (orsequence name)
 	nas.cellRegex = new RegExp("[\-_\/\s0-9]?([^\-_\/\s\[]*)[\-_\/]?\[[0-9]+\-[0-9]+\]\.(tga|tiff?|png|gif|jpe?g|eps|sgi|bmp)$","i")
-//背景・下絵判定
+//背景・下絵判定 / Background, sketch identification
 	nas.bgRegex=new RegExp("(bg|back|背景?|下絵?)","i");
-//レイアウト、参照画
 	nas.mgRegex=new RegExp("book|fg|mid|mg|fore|fg|[前中]景?|[中上]絵","i");
+//レイアウト、参照画 / layout, reference image
 	nas.loRegex=new RegExp("lo|cf|z\.[io]|t\.?[ub]|sl(ide)?|cam(era)?|fr(ame)?|pan|mill?|(キャ|カ)メラ|フレーム|引き|ヒキ|スライド|組|クミ|くみ","i");
 
-//	作画フレームDB
+//	作画フレームDB / drawing frameDB
 //	PegBarDB(ダミー)
 //	"識別名",[[配置座標],テンプレート画像パス,ポイント数,]
 /*
-	作画用紙DB
+	作画用紙DB / drawing stage (paper) DB
 
 */
 	nas.paperSizes=new nTable();
 		nas.paperSizes.onChange=function(){
 		}
-
+if(nas.locale=="ja"){
 			nas.paperSizes.push("A4横(297x210)",[297,210]);
 			nas.paperSizes.push("A3横(420x297)",[420,297]);
 			nas.paperSizes.push("A3縦(297x420)",[297,420]);
@@ -116,7 +131,16 @@ if(isWindows){
 			nas.paperSizes.push("OLD-STD(268x244)",[268,244]);
 			nas.paperSizes.push("OLD-横x2(536x244)",[536,244]);
 			nas.paperSizes.push("OLD-縦x2(268x488)",[268,488]);
-
+}else{
+			nas.paperSizes.push("A4landscape(297x210)",[297,210]);
+			nas.paperSizes.push("A3landscape(420x297)",[420,297]);
+			nas.paperSizes.push("A3portrait(297x420)",[297,420]);
+			nas.paperSizes.push("jisB4landscape(353x250)",[353,250]);
+			nas.paperSizes.push("jisB3portrait(500x353)",[500,353]);
+			nas.paperSizes.push("jpOLD-STD(268x244)",[268,244]);
+			nas.paperSizes.push("jpOLD-Vx2(536x244)",[536,244]);
+			nas.paperSizes.push("jpOLD-Hx2(268x488)",[268,488]);
+}
 /*
 	作画用レジスターマークDB
 	実際の描画はテンプレート画像を配置して行うので、対照に注意 テンプレート画像の配置は現在システム固定で lib/resource/Pegs/
@@ -126,7 +150,7 @@ if(isWindows){
 	nas.registerMarks=new nTable();
 		nas.registerMarks.onChange=function(){
 		}
-
+if(nas.locale=="ja"){
 			nas.registerMarks.push("3穴トンボ",["peg3p1.eps"]);//0
 			nas.registerMarks.push("3穴白抜き",["peg3p2.eps"]);//1
 			nas.registerMarks.push("3穴ベタ",["peg3p3.eps"]);//2
@@ -134,7 +158,15 @@ if(isWindows){
 			nas.registerMarks.push("2穴トンボ",["peg2p1.eps"]);//3
 			nas.registerMarks.push("2穴白抜き",["peg2p2.eps"]);//4
 			nas.registerMarks.push("2穴ベタ",["peg2p3.eps"]);//5
-
+}else{
+			nas.registerMarks.push("ACMECloss",["peg3p1.eps"]);//0
+			nas.registerMarks.push("ACMEOutline",["peg3p2.eps"]);//1
+			nas.registerMarks.push("ACMEShape",["peg3p3.eps"]);//2
+			nas.registerMarks.push("ACMEInverse",["peg3p4.eps"]);//2
+			nas.registerMarks.push("2holeCloss",["peg2p1.eps"]);//3
+			nas.registerMarks.push("2holeACMEOutline",["peg2p2.eps"]);//4
+			nas.registerMarks.push("2holeShape",["peg2p3.eps"]);//5
+}
 //	作画(ソース)データの標準フレーム
 //  "識別名",[横幅(mm),フレーム縦横比(文字列),基準解像度(dpi),フレームレート(,PegID,[配置座標])]
 /*
@@ -205,7 +237,7 @@ if(isWindows){
 //WorkTitleDBは共用（環境非依存ライブラリ）側に
 	nas.workTitles=new nTable();
 
-			nas.workTitles.push("タイトル",["略称","記号",0,3]);
+			nas.workTitles.push("(long title name)",["(short name)","(prefix)",0,3]);
 			nas.workTitles.push("ぽこあぽこ・られんたんど",["poco","PP",5,3]);
 			nas.workTitles.push("かちかち山",["KachiKachi","KT",1,4]);
 			nas.workTitles.push("かちかち山Max",["KachiMax","ktM",2,5]);

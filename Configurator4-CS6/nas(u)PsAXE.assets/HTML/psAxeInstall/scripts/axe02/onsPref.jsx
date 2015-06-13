@@ -89,26 +89,26 @@ if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
 
 //=====================================UI
 var uix=(app.version.split(".")[0]>9)
-var w=nas.GUI.newWindow("dialog",localize({en:"layer settings",ja:"レイヤ設定"}),6,10);
- w.cbOpc=nas.GUI.addCheckBox(w,localize({en:"Translucent new layer",ja:"新規レイヤを透過"}),0,0,3,1);///新規レイヤを半透明で作るか不透明で作るか
+var w=nas.GUI.newWindow("dialog",nas.localize({en:"layer settings",ja:"レイヤ設定"}),6,10);
+ w.cbOpc=nas.GUI.addCheckBox(w,nas.localize({en:"Translucent new layer",ja:"新規レイヤを透過"}),0,0,3,1);///新規レイヤを半透明で作るか不透明で作るか
  w.cbOpc.value=nas.axe.newLayerTpr;
 if(uix){
- w.mySlider=nas.GUI.addMultiControl(w,"number",1,0,0.5,6,2,true,localize({en:"opacity",ja:"不透過率"}),nas.axe.onsOpc*100,0,100,true);
+ w.mySlider=nas.GUI.addMultiControl(w,"number",1,0,0.5,6,2,true,nas.localize({en:"opacity",ja:"不透過率"}),nas.axe.onsOpc*100,0,100,true);
  w.mySlider.onChange=function(){this.set(Math.floor(this.value),0,true);}
 }else{
- w.opSPX=nas.GUI.addStaticText(w,localize({en:"% (opacity)",ja:"%（不透過率）"}),1,1,2,1);//
+ w.opSPX=nas.GUI.addStaticText(w,nas.localize({en:"% (opacity)",ja:"%（不透過率）"}),1,1,2,1);//
  w.opSPC=nas.GUI.addEditText(w,nas.axe.onsOpc*100,0,1,1,1);//
 }
 
 
 //=========新規動画背景色選択
-w.colorSPC=nas.GUI.addPanel(w,localize({en:"bg-color of new layer",ja:"新規レイヤの背景色"}),0,2.2,6,2);
+w.colorSPC=nas.GUI.addPanel(w,nas.localize({en:"bg-color of new layer",ja:"新規レイヤの背景色"}),0,2.2,6,2);
 for(var ix=0;ix<nas.axe.lyBgColors.length;ix++){
 	w["rbl"+ix]=nas.GUI.addRadioButton(w.colorSPC,nas.axe.lyBgColors[ix][0],ix*1.2,0.3,1.5,1);
 }
 	w["rbl"+nas.axe.lyBgColor].value=true;
 //=========修正用紙色選択
-w.colorSPCovl=nas.GUI.addPanel(w,localize({en:"bg-color of correct layer",ja:"修正レイヤの背景色"}),0,3.9,6,2);
+w.colorSPCovl=nas.GUI.addPanel(w,nas.localize({en:"bg-color of correct layer",ja:"修正レイヤの背景色"}),0,3.9,6,2);
 for(var ix=0;ix<nas.axe.ovlBgColors.length;ix++){
 	w["rbo"+ix]=nas.GUI.addRadioButton(w.colorSPCovl,nas.axe.ovlBgColors[ix][0],ix*1.2,0.3,1.5,1);
 }
@@ -156,10 +156,10 @@ if(myDocLayers.xLinks==undefined){
 //		}
 	}
 }else{
-		myWSnames.push(localize({en:"There is no possible linkage layer sets",ja:"連動可能なレイヤセットはありません"}));
+		myWSnames.push(nas.localize({en:"There is no possible linkage layer sets",ja:"連動可能なレイヤセットはありません"}));
 		mySelectedOptions.push(false);
 }
-var myMsgIL=localize({
+var myMsgIL=nas.localize({
 	en:"Interlocking\n as each set.\ndonot recorded.",
 	ja:"レイヤセット連動\nレイヤセットごとに設定します。\n 保存はされません。"
 });//

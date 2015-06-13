@@ -4,7 +4,7 @@ nas リファレンスチャートは、スキャナ等で実物のアニメー�
 実際に取り込んだリファレンスと比較してデジタイズの精度の確認にご利用下さい
 2015.05.17	Nekomataya / kiyo
 */
-/Photoshop用ライブラリ読み込み
+//Photoshop用ライブラリ読み込み
 if(typeof app.nas =="undefined"){
    var myLibLoader=new File(Folder.userData.fullName+"/nas/lib/Photoshop_Startup.jsx");
    $.evalFile(myLibLoader);

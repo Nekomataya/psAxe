@@ -3,7 +3,7 @@
  */
 	var nas=app.nas;
 //	"アニメフレームを全選択";
-var myUndoStr=localize(nas.uiMsg["animationFrameSelectAll"]);
+var myUndoStr=nas.localize(nas.uiMsg["animationFrameSelectAll"]);
 var myExcute="";
 //=============== コード
 myExcute+="nas.axeAFC.selectFramesAll();";

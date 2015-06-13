@@ -34,7 +34,7 @@ try{if($.os)
 //二重起動防止トラップ
 if(nas.axe.dbgConsole){
 //018:"すでに起動されています。\nコンソール出力を受信するので二重起動は禁止されています\nリセットしますか"
-	if(confirm(localize(nas.uiMsg.dm018)))
+	if(confirm(nas.localize(nas.uiMsg.dm018)))
 	{
 		if(nas.axe.dbgConsole.isDoc)
 		{
@@ -80,9 +80,9 @@ if(doAction){
 function getScript()
 {
 if(isWindows){
-	var scriptfile = File.openDialog(localize({en:"select script to read.",ja:"読み込むスクリプトを選んでください"}),"JSX-Script(*.jsx *.js):*.JSX;*.JS");
+	var scriptfile = File.openDialog(nas.localize({en:"select script to read.",ja:"読み込むスクリプトを選んでください"}),"JSX-Script(*.jsx *.js):*.JSX;*.JS");
 }else{
-	var scriptfile = File.openDialog(localize({en:"select script to read.",ja:"読み込むスクリプトを選んでください"}));
+	var scriptfile = File.openDialog(nas.localize({en:"select script to read.",ja:"読み込むスクリプトを選んでください"}));
 }
 if (scriptfile && scriptfile.name.match(/^[a-z_\-\#0-9]+\.jsx?$/i)){
 	var myOpenfile = new File(scriptfile.fsName);
@@ -103,17 +103,17 @@ function addBuf_(KB)
 
 function saveText(myText)
 {
-if (! myText.length){alert(localize(nas.uiMsg.noSvaeData));return false;};//"保存するデータがありません"
+if (! myText.length){alert(nas.localize(nas.uiMsg.noSvaeData));return false;};//"保存するデータがありません"
 if(isWindows)
 {
-	var mySavefile = File.saveDialog(localize(nas.uiMsg.dm019),"File (*.js *.jsx *.txt):*.JS;*.JSX;*.TXT");//019"書き出しのファイル名を指定してください"
+	var mySavefile = File.saveDialog(nas.localize(nas.uiMsg.dm019),"File (*.js *.jsx *.txt):*.JS;*.JSX;*.TXT");//019"書き出しのファイル名を指定してください"
 }else{
-	var mySavefile = File.saveDialog(localize(nas.uiMsg.dm019),"");
+	var mySavefile = File.saveDialog(nas.localize(nas.uiMsg.dm019),"");
 }
 if(! mySavefile){return};
 if(mySavefile.exists)
 {
-if(! confirm(localize(nas.uiMsg.dm016))){return false;};//016"同名のファイルがすでにあります.\n上書きしてよろしいですか?"
+if(! confirm(nas.localize(nas.uiMsg.dm016))){return false;};//016"同名のファイルがすでにあります.\n上書きしてよろしいですか?"
 }
 
 if (mySavefile && mySavefile.name.match(/^[a-z_\-\#0-9]+\.(jsx?|txt)$/i)){
@@ -122,7 +122,7 @@ var myOpenfile = new File(mySavefile.fsName);
 	myOpenfile.write(myText);
 	myOpenfile.close();
 }else {
-	alert(localize({en:"Extension Please specify js/jsx/txt ",ja:"拡張子は js/jsx/txt を指定してください。"}));//"拡張子は js/jsx/txt を指定してください。"
+	alert(nas.localize({en:"Extension Please specify js/jsx/txt ",ja:"拡張子は js/jsx/txt を指定してください。"}));//"拡張子は js/jsx/txt を指定してください。"
 	return false;
 };
 }

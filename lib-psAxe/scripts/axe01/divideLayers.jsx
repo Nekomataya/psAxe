@@ -283,7 +283,7 @@ return true;
 //	
 //alert(activeDocument.name);
 if(app.documents.length){
-var myUndo=localize(nas.uiMsg.layerClassify);//"レイヤ仕分け"
+var myUndo=nas.localize(nas.uiMsg.layerClassify);//"レイヤ仕分け"
 var myAction="classify(activeDocument.activeLayer.parent)";
 
 

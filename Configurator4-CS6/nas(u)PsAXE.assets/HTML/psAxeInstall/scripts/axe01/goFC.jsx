@@ -49,6 +49,6 @@ w.mySlider.onChange();
 w.show();
 //=================================
 }else{
-	alert(localize(nas.uiMsg.noAnimationFrames));
+	alert(nas.localize(nas.uiMsg.noAnimationFrames));
 }
 

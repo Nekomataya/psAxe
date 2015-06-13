@@ -44,4 +44,4 @@ if(myRootCount<app.activeDocument.layers.length){
 selectFrame(1);//最後に第一フレームにフォーカスしておく
 
 
-	}else{alert(localize(nas.uiMsg["noLayers"]));}
+	}else{alert(nas.localize(nas.uiMsg["noLayers"]));}

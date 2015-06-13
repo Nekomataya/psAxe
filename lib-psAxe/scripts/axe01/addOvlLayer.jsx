@@ -26,7 +26,7 @@ var wasFold=(
  )?true:false;
 var myDocLayers=(wasFold)?app.activeDocument.activeLayer:app.activeDocument.activeLayer.parent;
 //	新規修正レイヤ作成
-var myUndoStr=localize(nas.uiMsg["addNewOvl"]);
+var myUndoStr=nas.localize(nas.uiMsg["addNewOvl"]);
 var myExcute="";
 myExcute+="myDocLayers.artLayers.add();";//この操作でアクティブレイヤ移動
 myExcute+="app.activeDocument.selection.selectAll();";

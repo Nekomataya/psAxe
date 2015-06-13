@@ -43,9 +43,9 @@ try{if(app.isProfessionalVersion)
 function getScript()
 {
 if(isWindows){
-	var scriptfile = File.openDialog(localize({en:"select script to read.",ja:"読み込むスクリプトを選んでください"}),"JSX-Script(*.jsx *.js):*.JSX;*.JS");
+	var scriptfile = File.openDialog(nas.localize({en:"select script to read.",ja:"読み込むスクリプトを選んでください"}),"JSX-Script(*.jsx *.js):*.JSX;*.JS");
 }else{
-	var scriptfile = File.openDialog(localize({en:"select script to read.",ja:"読み込むスクリプトを選んでください"}));
+	var scriptfile = File.openDialog(nas.localize({en:"select script to read.",ja:"読み込むスクリプトを選んでください"}));
 }
 if (scriptfile && scriptfile.name.match(/^[a-z_\-\#0-9]+\.jsx?$/i)){
 	var myOpenfile = new File(scriptfile.fsName);
@@ -66,17 +66,17 @@ function addBuf_(KB)
 
 function saveText(myText)
 {
-if (! myText.length){alert(localize({en:"no data to save.",ja:"保存するデータがありません"}));return false;}
+if (! myText.length){alert(nas.localize({en:"no data to save.",ja:"保存するデータがありません"}));return false;}
 if(isWindows)
 {
-	var mySavefile = File.saveDialog(localize({en:"specify the file name for export",ja:"書き出しのファイル名を指定してください"}),"File (*.js *.jsx *.txt):*.JS;*.JSX;*.TXT");
+	var mySavefile = File.saveDialog(nas.localize({en:"specify the file name for export",ja:"書き出しのファイル名を指定してください"}),"File (*.js *.jsx *.txt):*.JS;*.JSX;*.TXT");
 }else{
-	var mySavefile = File.saveDialog(localize({en:"specify the file name for export",ja:"書き出しのファイル名を指定してください"}),"");
+	var mySavefile = File.saveDialog(nas.localize({en:"specify the file name for export",ja:"書き出しのファイル名を指定してください"}),"");
 }
 if(! mySavefile){return};
 if(mySavefile.exists)
 {
-if(! confirm(localize({en:"There is already a file with the same name.\nAre you sure you want to overwrite?",ja:"同名のファイルがすでにあります.\n上書きしてよろしいですか?"}))){return false;};
+if(! confirm(nas.localize({en:"There is already a file with the same name.\nAre you sure you want to overwrite?",ja:"同名のファイルがすでにあります.\n上書きしてよろしいですか?"}))){return false;};
 }
 
 if (mySavefile && mySavefile.name.match(/^[a-z_\-\#0-9]+\.(jsx?|txt)$/i)){
@@ -85,7 +85,7 @@ var myOpenfile = new File(mySavefile.fsName);
 	myOpenfile.write(myText);
 	myOpenfile.close();
 }else {
-	alert(localize({en:"Extension Please specify js/jsx/txt ",ja:"拡張子は js/jsx/txt を指定してください。"}))
+	alert(nas.localize({en:"Extension Please specify js/jsx/txt ",ja:"拡張子は js/jsx/txt を指定してください。"}))
 	return false;
 };
 }
@@ -181,7 +181,7 @@ if(app.name=="Adobe AfterEffects")
 {		testConsole.resultBox.addBuf(20);
 		testConsole.commandBox.addBuf(10);
 }
-		testConsole.commandBox.text=localize({
+		testConsole.commandBox.text=nas.localize({
 			en:"/*\t*Please write the code in this box\t*/",
 			ja:"/*\tこのボックスにコードを書き込んでください\t*/"
 		})+LineFeed;

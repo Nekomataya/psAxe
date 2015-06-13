@@ -62,7 +62,7 @@ nas.locale="ja";//判定不能時はとりあえずjaにするので初期値を
 	if( typeof localize=="undefined" ){localize=nas.localize;}
 //
  
-
+　
 nas.LanguagePack=function(){
 	this["en"]=[];
 	this["ja"]=[];

@@ -6,7 +6,7 @@ var myPathStroke="var myPath=app.activeDocument.pathItems[0];";
 //作業パスを削除
     myPathStroke+="myPath.remove();";
  if(app.activeDocument.suspendHistory){
-     app.activeDocument.suspendHistory(localize({en:"stroke path -",ja:"パスをストローク"}), myPathStroke);
+     app.activeDocument.suspendHistory(nas.localize({en:"stroke path -",ja:"パスをストローク"}), myPathStroke);
  }else{
      eval(myPathStroke);
  }

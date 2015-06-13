@@ -32,19 +32,19 @@ if(checkSelection()){
 if(nas.axe.dmDialog){
 //ダイアログを出力してドキュメントの指定条件を取得
 if(clipB){
-	var w=nas.GUI.newWindow("dialog",localize({
+	var w=nas.GUI.newWindow("dialog",nas.localize({
 		en:"Create a new document from the selected range",
 		ja:"選択範囲から新規ドキュメントを作成"
 	}),9,14,320,240);//
 }else{
-	var w=nas.GUI.newWindow("dialog",localize(nas.uiMsg.dm022),9,14,320,240);//022:"新規ドキュメントを作成します"
+	var w=nas.GUI.newWindow("dialog",nas.localize(nas.uiMsg.dm022),9,14,320,240);//022:"新規ドキュメントを作成します"
 }
- w.lb0 = nas.GUI.addStaticText(w,localize(nas.uiMsg.fileName),0,0,2,1);
+ w.lb0 = nas.GUI.addStaticText(w,nas.localize(nas.uiMsg.fileName),0,0,2,1);
 // w.fileName= nas.GUI.addEditText(w,nas.incrStr(currentName),2,0,5,1);
  w.fileName= nas.GUI.addEditText(w,currentName,2,0,5,1);
 
- w.lb1 = nas.GUI.addStaticText(w,localize(nas.uiMsg.opus),0,1,2,.75);//"制作#."
- w.lb2 = nas.GUI.addStaticText(w,localize(nas.uiMsg.sceneCut),2.25,1,2,.75);//"CUT#."
+ w.lb1 = nas.GUI.addStaticText(w,nas.localize(nas.uiMsg.opus),0,1,2,.75);//"制作#."
+ w.lb2 = nas.GUI.addStaticText(w,nas.localize(nas.uiMsg.sceneCut),2.25,1,2,.75);//"CUT#."
  w.lb3 = nas.GUI.addStaticText(w,"( TIME )",4.5,1,2,0.75);//
 
  w.opusNumber= nas.GUI.addEditText(w,nas.Zf(nas.axe.dmCurrent[1],2),0.75,1,1,1);
@@ -66,42 +66,42 @@ if(clipB){
     スタートアッププロパティ増設　21040919
     タップとフレームの表示初期値
  */
-w.pegBlend=nas.GUI.addCheckBox(w,localize({en:"peg BlendingMode:DIFFERENCE",ja:"タップを差の絶対値で"}),7,9,2,1);
+w.pegBlend=nas.GUI.addCheckBox(w,nas.localize({en:"peg BlendingMode:DIFFERENCE",ja:"タップを差の絶対値で"}),7,9,2,1);
     w.pegBlend.value=nas.axe.pegBlend;
 w.pegBlend.onClick=function(){nas.axe.pegBlend=this.value};
-w.frameOpc=nas.GUI.addCheckBox(w,localize({en:"frame semi-transparent",ja:"フレームを半透明で"}),7,10,2,1);
+w.frameOpc=nas.GUI.addCheckBox(w,nas.localize({en:"frame semi-transparent",ja:"フレームを半透明で"}),7,10,2,1);
     w.frameOpc.value=nas.axe.frameOpc;
 w.frameOpc.onClick=function(){nas.axe.frameOpc=this.value};
 // w.titleCB= nas.GUI.addEditText(w,nas.workTitles.names(0),nas.workTitles.selected,2,0,4,1);
-　w.imPanel=nas.GUI.addPanel(w,localize({en:"drawing area",ja:"作画領域"}),0,3,7,11); 
+　w.imPanel=nas.GUI.addPanel(w,nas.localize({en:"drawing area",ja:"作画領域"}),0,3,7,11); 
 
-w.imPanel.lb0 = nas.GUI.addStaticText(w.imPanel,localize({en:"title (template) :",ja:"タイトル（テンプレート）:"}),0,0.5,2,1);
+w.imPanel.lb0 = nas.GUI.addStaticText(w.imPanel,nas.localize({en:"title (template) :",ja:"タイトル（テンプレート）:"}),0,0.5,2,1);
 w.imPanel.selectTT=nas.GUI.addComboBox(w.imPanel,nas.workTitles.names(0),nas.workTitles.selected,2,0.5,4,1)
 
 //w.imPanel.SP = nas.GUI.addStaticText(w.imPanel,"==================================================================================================================",0,1,2,1);
 //====================================================
-w.imPanel.lb1 = nas.GUI.addStaticText(w.imPanel,localize({en:"base frame :",ja:"標準フレーム:"}),0,2,3,1).justify="right";
+w.imPanel.lb1 = nas.GUI.addStaticText(w.imPanel,nas.localize({en:"base frame :",ja:"標準フレーム:"}),0,2,3,1).justify="right";
 w.imPanel.selectIM=nas.GUI.addDropDownList(w.imPanel,nas.inputMedias.names(0),nas.workTitles.selectedRecord[3],3,2,4,1);
 
-w.imPanel.lb2 = nas.GUI.addStaticText(w.imPanel,localize({en:"paper :",ja:"用紙 :"}),0,3,3,1).justify="right";
+w.imPanel.lb2 = nas.GUI.addStaticText(w.imPanel,nas.localize({en:"paper :",ja:"用紙 :"}),0,3,3,1).justify="right";
 w.imPanel.selectDP=nas.GUI.addDropDownList(w.imPanel,nas.paperSizes.names(0),nas.paperSizes.selected,3,3,4,1);
 
-w.imPanel.lb3 = nas.GUI.addStaticText(w.imPanel,localize({en:"peg :",ja:"タップ:"}),0,4,3,1).justify="right";
+w.imPanel.lb3 = nas.GUI.addStaticText(w.imPanel,nas.localize({en:"peg :",ja:"タップ:"}),0,4,3,1).justify="right";
 w.imPanel.selectRM=nas.GUI.addDropDownList(w.imPanel,nas.registerMarks.names(0),nas.registerMarks.selected,3,4,4,1);
 
-w.imPanel.lb4 = nas.GUI.addStaticText(w.imPanel,localize({en:"startup warkset (LayerSet):",ja:"初期ワークセット(レイヤセット):"}),0,5,3,1).justify="right";
+w.imPanel.lb4 = nas.GUI.addStaticText(w.imPanel,nas.localize({en:"startup warkset (LayerSet):",ja:"初期ワークセット(レイヤセット):"}),0,5,3,1).justify="right";
 w.imPanel.selectWS=nas.GUI.addDropDownList(w.imPanel,[
-	localize({en:"no",ja:"なし"}),
-	localize({en:"only Frames",ja:"フレームのみ"}),
-	localize({en:"Frames+1(A) ",ja:"フレーム+1(A)"}),
-	localize({en:"Frames+2(A,B)",ja:"フレーム+2(A,B)"}),
-	localize({en:"Frames+3(A,B,C)",ja:"フレーム+3(A,B,C)"}),
-	localize({en:"Frames+4(A,B,C,D)",ja:"フレーム+4(A,B,C,D)"})
+	nas.localize({en:"no",ja:"なし"}),
+	nas.localize({en:"only Frames",ja:"フレームのみ"}),
+	nas.localize({en:"Frames+1(A) ",ja:"フレーム+1(A)"}),
+	nas.localize({en:"Frames+2(A,B)",ja:"フレーム+2(A,B)"}),
+	nas.localize({en:"Frames+3(A,B,C)",ja:"フレーム+3(A,B,C)"}),
+	nas.localize({en:"Frames+4(A,B,C,D)",ja:"フレーム+4(A,B,C,D)"})
 ],3,3,5,4,1);
 
-w.imPanel.lbWIDTH = nas.GUI.addStaticText(w.imPanel,localize({en:"width:",ja:"幅:"}),1,6,2,1).justify="right";
-w.imPanel.lbHEIGHT = nas.GUI.addStaticText(w.imPanel,localize({en:"height:",ja:"高:"}),1,7,2,1).justify="right";
-w.imPanel.lbRESOLUTION = nas.GUI.addStaticText(w.imPanel,localize({en:"resolution:",ja:"解像度:"}),1,8,2,1).justify="right";
+w.imPanel.lbWIDTH = nas.GUI.addStaticText(w.imPanel,nas.localize({en:"width:",ja:"幅:"}),1,6,2,1).justify="right";
+w.imPanel.lbHEIGHT = nas.GUI.addStaticText(w.imPanel,nas.localize({en:"height:",ja:"高:"}),1,7,2,1).justify="right";
+w.imPanel.lbRESOLUTION = nas.GUI.addStaticText(w.imPanel,nas.localize({en:"resolution:",ja:"解像度:"}),1,8,2,1).justify="right";
 
 w.imPanel.etWIDTH = nas.GUI.addEditText(w.imPanel,Math.round(nas.decodeUnit(nas.paperSizes.selectedRecord[1]+"mm","px")),3,6,2,1);
 w.imPanel.etHEIGHT = nas.GUI.addEditText(w.imPanel,Math.round(nas.decodeUnit(nas.paperSizes.selectedRecord[2]+"mm","px" )),3,7,2,1);
@@ -111,7 +111,7 @@ w.imPanel.pstWIDTH = nas.GUI.addStaticText(w.imPanel,"pixel",5,6,2,1);
 w.imPanel.pstHEIGHT = nas.GUI.addStaticText(w.imPanel,"pixel",5,7,2,1);
 w.imPanel.pstRESOLUTION = nas.GUI.addStaticText(w.imPanel,"dpi",5,8,2,1);
 
-w.imPanel.lbx = nas.GUI.addStaticText(w.imPanel,localize({en:"Data mode is RGB / 8bit depth fixed.",ja:"データモードはRGB/8bit深度固定です。"}),0,9,6,1);
+w.imPanel.lbx = nas.GUI.addStaticText(w.imPanel,nas.localize({en:"Data mode is RGB / 8bit depth fixed.",ja:"データモードはRGB/8bit深度固定です。"}),0,9,6,1);
 
 //=========================
  w.okBt=nas.GUI.addButton(w,"OK",7,0,2,1);

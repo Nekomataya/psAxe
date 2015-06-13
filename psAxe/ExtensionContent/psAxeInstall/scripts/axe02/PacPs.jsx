@@ -164,7 +164,7 @@ break;}
 	}
 
 //	GUI初期化
-w=nas.GUI.newWindow("dialog",localize({en:"layer rename",ja:"レイヤリネーム"}),5,18);
+w=nas.GUI.newWindow("dialog",nas.localize({en:"layer rename",ja:"レイヤリネーム"}),5,18);
 w.onClose=function(){myEasyFlip.viewRestore();};
 w.onOpen=true;
 switch(nas.locale){
@@ -404,7 +404,7 @@ w.show();
 
 //whle(true){}
 	}else{
-	  alert(localize({
+	  alert(nas.localize({
 		en:"no layer for rename. or no nas library",
 		ja:"リネームするレイヤが無いか、ライブラリが見当たりません様でス"
 	  }));

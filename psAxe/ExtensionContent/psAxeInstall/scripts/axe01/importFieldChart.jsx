@@ -3,7 +3,7 @@ nasライブラリ領域にあるフィールドチャートを読み込み、�
 2015.05.17	Nekomataya / kiyo
 */
 // EPS Open Options:
-/Photoshop用ライブラリ読み込み
+//Photoshop用ライブラリ読み込み
 if(typeof app.nas =="undefined"){
    var myLibLoader=new File(Folder.userData.fullName+"/nas/lib/Photoshop_Startup.jsx");
    $.evalFile(myLibLoader);

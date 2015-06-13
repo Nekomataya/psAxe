@@ -63,12 +63,12 @@ if(theFile.name.match(nas.importFilter)){importFileList.push(theFile);}else{retu
 //return;
 //}
 //ListBoxUI
-var w=nas.GUI.newWindow("dialog",localize({
+var w=nas.GUI.newWindow("dialog",nas.localize({
 	en:"import files as layers",
 	ja:"ファイルをレイヤとして読込"
 }),6,13);
 
-w.msgBox=nas.GUI.addStaticText(w,localize({
+w.msgBox=nas.GUI.addStaticText(w,nas.localize({
 	en:"folder recursively search to read the files as  layers.",
 	ja:"フォルダを検索してファイルをレイヤとして読み込みます。"
 }) ,0,0,6,1)
@@ -77,22 +77,22 @@ w.fileTargetName=nas.GUI.addEditText(w,"",0,1,6,1);
 
 w.fileList=nas.GUI.addListBoxO(w,[],null,0,2,4,7,{multiselect:true});
 //チェックコントロール
-w.mkWS=nas.GUI.addCheckBox(w,localize({
+w.mkWS=nas.GUI.addCheckBox(w,nas.localize({
 	en:"Create a layer set for each folder",
 	ja:"フォルダごとにレイヤセットを作成"
 }),0,9,4,1);
 	w.mkWS.value=true;
-w.rmOpt=nas.GUI.addCheckBox(w,localize({
+w.rmOpt=nas.GUI.addCheckBox(w,nas.localize({
 	en:"read the same file only once",
 	ja:"重複したファイルを読まない"
 }),0,10,4,1);
 	w.rmOpt.value=true;
-w.mxSize=nas.GUI.addCheckBox(w,localize({
+w.mxSize=nas.GUI.addCheckBox(w,nas.localize({
 	en:"Create a document in the maximum size of the image",
 	ja:"ファイルの最大サイズで読み込み"
 }),0,11,4,1);
 	w.mxSize.value=true;
-w.rmWhite=nas.GUI.addCheckBox(w,localize({
+w.rmWhite=nas.GUI.addCheckBox(w,nas.localize({
 	en:"clip out white",
 	ja:"白部分を削除"
 }),0,12,4,1);
@@ -101,7 +101,7 @@ w.rmWhite=nas.GUI.addCheckBox(w,localize({
 w.rdRegistor=nas.GUI.addCheckBox(w,"AddFrames",4,7,2,1);
 	w.rdRegistor.value=true;
 
-w.adLvl=nas.GUI.addCheckBox(w,localize({
+w.adLvl=nas.GUI.addCheckBox(w,nas.localize({
 	en:"Levels",
 	ja:"レベル補正"
 }),4,8,2,1);
@@ -129,7 +129,7 @@ w.fileList.update=function(){
 //ボタンコントロール
 w.FdBt.onClick=function(){
 //var myCurrentFolder=Folder.current;
- var myFolder=Folder.current.selectDlg (localize({
+ var myFolder=Folder.current.selectDlg (nas.localize({
  	en:"specify the folder to read",
  	ja:"読み込むフォルダを指定してください"
  }));
@@ -142,20 +142,20 @@ w.FdBt.onClick=function(){
 	for (index in files){if (files[index] instanceof Folder) {currentFolders++;}};
 		var checkStartFolder=true;
 if(!(myFolder.parent instanceof Folder)||(currentFolders>=maxFolders)){
-        checkStartFolder=confirm (localize({
+        checkStartFolder=confirm (nas.localize({
         	en:"Whether the route is specified, the number of folders read directory exceeds the specified value \n number of folders:%CURRENTFOLDERS% \n folder:%ISFOLDER% : %FOLDERNAME% \n Do you want to continue processing?",
 	ja:"ルートが指定されたか、読み込みディレクトリのフォルダ数が規定値を超えています\nフォルダ数: %CURRENTFOLDERS%\nフォルダ: %ISFOLDER% : %FOLDERNAME%\n処理を続行しますか？"
 
         }).replace(/%CURRENTFOLDERS%/,currentFolders) .replace(/%ISFOLDER%/,(myFolder.parent instanceof Folder)).replace(/%FOLDERNAME%/,myFolder.fullName),
-	"no", localize({en:"!! caution !!",ja:"!! 注意 !!"})
+	"no", nas.localize({en:"!! caution !!",ja:"!! 注意 !!"})
         );
     }
 if(importFileList.length>=maxHandle){
-        checkFileCount=confirm (localize({
+        checkFileCount=confirm (nas.localize({
         	en:"Reading list the total number exceeds the specified value %MAXHANDLE% \nmh: %FILECOUNT% / %MAXHANDLE% \n Do you want to continue processing?",
 	ja:"読込リスト総数が規定値の%MAXHANDLE%を超えています\nmh:%FILECOUNT%/%MAXHANDLE%\n処理を続行しますか？"
           }).replace(/%MAXHANDLE%/g,maxHandle).replace(/%FILECOUNT%/, importFileList.length),
-          "no", localize({en:"!! caution !!",ja:"!! 注意 !!"})
+          "no", nas.localize({en:"!! caution !!",ja:"!! 注意 !!"})
         );
 }
 
@@ -168,7 +168,7 @@ if(importFileList.length>=maxHandle){
 // alert(importFileList.length);
 }
 w.FlBt.onClick=function(){
- var myFiles=File.openDialog(localize({en:"specify the file for import",ja:"読み込むファイルを指定してください"}),"allFiles:*.*" ,true);
+ var myFiles=File.openDialog(nas.localize({en:"specify the file for import",ja:"読み込むファイルを指定してください"}),"allFiles:*.*" ,true);
 //CS2のopenDialogにマルチセレクトがないので配列でなくFileが帰ってくる可能性があるので注意
  if(myFiles){
 	if(!(myFiles instanceof Array)){myFiles=[myFiles]}

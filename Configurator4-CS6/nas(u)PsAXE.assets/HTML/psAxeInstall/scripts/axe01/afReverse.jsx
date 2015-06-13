@@ -3,7 +3,7 @@
  */
 	var nas=app.nas;
 //	"アニメフレームを反転";
-var myUndoStr=localize(nas.uiMsg["reverseAnimationFrame"]);
+var myUndoStr=nas.localize(nas.uiMsg["reverseAnimationFrame"]);
 var myExcute="";
 //=============== コード
 myExcute+="nas.axeAFC.reverseAnimationFrames();";

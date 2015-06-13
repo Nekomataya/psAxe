@@ -7,7 +7,7 @@
 用紙の色は、選択式
 
 */
-/Photoshop用ライブラリ読み込み
+//Photoshop用ライブラリ読み込み
 if(typeof app.nas =="undefined"){
    var myLibLoader=new File(Folder.userData.fullName+"/nas/lib/Photoshop_Startup.jsx");
    $.evalFile(myLibLoader);
@@ -32,22 +32,22 @@ if(checkSelection()){
 
 //ダイアログを出力してドキュメントの指定条件を取得　"選択範囲からドキュメントを作成"
 if(clipB){
-	var w=nas.GUI.newWindow("dialog",localize({
+	var w=nas.GUI.newWindow("dialog",nas.localize({
 		en:"Create a new exposure sheet document (picture) from the selected range",
 		ja:"選択範囲から新規タイムシート(画像)ドキュメントを作成"
 	}),9,9,320,240);
 }else{
-	var w=nas.GUI.newWindow("dialog",localize({
+	var w=nas.GUI.newWindow("dialog",nas.localize({
 		en:"Create a new exposure sheet document (picture) ",
 		ja:"新規タイムシート(画像)ドキュメントを作成します"
 	}),9,9,320,240);
 }
- w.lb0 = nas.GUI.addStaticText(w,localize(nas.uiMsg.fileName),0,0,2,1);
+ w.lb0 = nas.GUI.addStaticText(w,nas.localize(nas.uiMsg.fileName),0,0,2,1);
 // w.fileName= nas.GUI.addEditText(w,nas.incrStr(currentName),2,0,5,1);
  w.fileName= nas.GUI.addEditText(w,currentName,2,0,5,1);
 
- w.lb1 = nas.GUI.addStaticText(w,localize(nas.uiMsg.opus),0,1,2,.75);//"制作#."
- w.lb2 = nas.GUI.addStaticText(w,localize(nas.uiMsg.sceneCut),2.25,1,2,.75);//"CUT#."
+ w.lb1 = nas.GUI.addStaticText(w,nas.localize(nas.uiMsg.opus),0,1,2,.75);//"制作#."
+ w.lb2 = nas.GUI.addStaticText(w,nas.localize(nas.uiMsg.sceneCut),2.25,1,2,.75);//"CUT#."
  w.lb3 = nas.GUI.addStaticText(w,"( TIME )",4.5,1,2,0.75);//
 
  w.opusNumber= nas.GUI.addEditText(w,nas.Zf(nas.axe.dmCurrent[1],2),0.75,1,1,1);
@@ -66,12 +66,12 @@ if(clipB){
    w.frmDec= nas.GUI.addButton(w,"-6",6.25,2,.75,1);
 
 // w.titleCB= nas.GUI.addEditText(w,nas.workTitles.names(0),nas.workTitles.selected,2,0,4,1);
-　w.edPanel=nas.GUI.addPanel(w,localize(nas.uiMsg.Edit),0,3,7,6); //"編集"
+　w.edPanel=nas.GUI.addPanel(w,nas.localize(nas.uiMsg.Edit),0,3,7,6); //"編集"
 
-w.edPanel.lb0 = nas.GUI.addStaticText(w.edPanel,localize({en:"title (template) :",ja:"タイトル（テンプレート）:"}),0,0.5,2,1);
+w.edPanel.lb0 = nas.GUI.addStaticText(w.edPanel,nas.localize({en:"title (template) :",ja:"タイトル（テンプレート）:"}),0,0.5,2,1);
 w.edPanel.selectTT=nas.GUI.addComboBox(w.edPanel,nas.workTitles.names(0),nas.workTitles.selected,2,0.5,4,1)
 
-w.edPanel.lb1 = nas.GUI.addStaticText(w.edPanel,localize(nas.uiMsg.backgroundColor)+":",0,2,3,1).justify="right";//"背景色:"
+w.edPanel.lb1 = nas.GUI.addStaticText(w.edPanel,nas.localize(nas.uiMsg.backgroundColor)+":",0,2,3,1).justify="right";//"背景色:"
 w.edPanel.selectCl=nas.GUI.addDropDownList(w.edPanel,nas.axe.lyBgColors,1,3,2,3,1);
 //w.edPanel.SP = nas.GUI.addStaticText(w.edPanel,"==================================================================================================================",0,1,2,1);
 //====================================================
@@ -91,7 +91,7 @@ w.edPanel.selectWS=nas.GUI.addDropDownList(w.edPanel,["なし","フレームの�
 
 //w.edPanel.lbWIDTH = nas.GUI.addStaticText(w.edPanel,"幅:",1,6,2,1).justify="right";
 //w.edPanel.lbHEIGHT = nas.GUI.addStaticText(w.edPanel,"高:",1,7,2,1).justify="right";
-w.edPanel.lbRESOLUTION = nas.GUI.addStaticText(w.edPanel,localize({en:"resolution:",ja:"解像度:"}),1,3,2,1).justify="right";
+w.edPanel.lbRESOLUTION = nas.GUI.addStaticText(w.edPanel,nas.localize({en:"resolution:",ja:"解像度:"}),1,3,2,1).justify="right";
 //w.edPanel.etWIDTH = nas.GUI.addEditText(w.edPanel,Math.round(nas.decodeUnit(nas.paperSizes.selectedRecord[1]+"mm","px")),3,6,2,1);
 //w.edPanel.etHEIGHT = nas.GUI.addEditText(w.edPanel,Math.round(nas.decodeUnit(nas.paperSizes.selectedRecord[2]+"mm","px")),3,7,2,1);
 w.edPanel.etRESOLUTION = nas.GUI.addEditText(w.edPanel,"200",3,3,2,1);
@@ -100,8 +100,8 @@ w.edPanel.etRESOLUTION = nas.GUI.addEditText(w.edPanel,"200",3,3,2,1);
 //w.edPanel.pstHEIGHT = nas.GUI.addStaticText(w.edPanel,"pixel",5,7,2,1);
 w.edPanel.pstRESOLUTION = nas.GUI.addStaticText(w.edPanel,"dpi",5,3,2,1);
 
-//alert(localize(nas.uiMsg.fileName));
-w.edPanel.lbx =  nas.GUI.addStaticText(w.edPanel,localize({en:"Data mode is RGB / 8bit depth fixed.",ja:"データモードはRGB/8bit深度固定です。"}),0,4,6,1);
+//alert(nas.localize(nas.uiMsg.fileName));
+w.edPanel.lbx =  nas.GUI.addStaticText(w.edPanel,nas.localize({en:"Data mode is RGB / 8bit depth fixed.",ja:"データモードはRGB/8bit深度固定です。"}),0,4,6,1);
 
 //=========================
  w.okBt=nas.GUI.addButton(w,"OK",7,0,2,1);

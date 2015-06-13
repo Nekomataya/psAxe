@@ -39,7 +39,7 @@ myExecute+="app.activeDocument.selection.clear();";
 myExecute+="app.activeDocument.selection.deselect();";
 
 if(app.activeDocument.suspendHistory){
-app.activeDocument.suspendHistory (localize({en:"punchout white",ja:"白部分削除"}), myExecute ); 
+app.activeDocument.suspendHistory (nas.localize({en:"punchout white",ja:"白部分削除"}), myExecute ); 
 }else{
 eval(myExecute);
 }

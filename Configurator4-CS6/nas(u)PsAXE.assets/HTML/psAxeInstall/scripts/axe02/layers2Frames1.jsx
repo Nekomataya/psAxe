@@ -51,4 +51,4 @@ if(myRootCount<app.activeDocument.layers.length){
 nas.axeAFC.selectFrame(1);//最後に第一フレームにフォーカスしておく
 
 
-	}else{alert(localize(nas.uiMsg["noLayers"]));};//"展開するレイヤがありません"
+	}else{alert(nas.localize(nas.uiMsg["noLayers"]));};//"展開するレイヤがありません"

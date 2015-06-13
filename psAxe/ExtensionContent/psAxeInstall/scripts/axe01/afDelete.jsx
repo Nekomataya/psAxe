@@ -3,7 +3,7 @@
  */
   var nas=app.nas;
 //	"アニメフレームを削除"
-var myUndoStr=localize(nas.uiMsg["removeAnimationFrame"]);
+var myUndoStr=nas.localize(nas.uiMsg["removeAnimationFrame"]);
 var myExcute="";
 //=============== コード
 myExcute+="nas.axeAFC.removeSelection();";

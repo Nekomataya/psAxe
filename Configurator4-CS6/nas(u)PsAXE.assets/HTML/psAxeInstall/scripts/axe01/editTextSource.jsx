@@ -129,5 +129,5 @@ w.show();
 
 //whle(true){}
 	}else{
- 		alert(localize(nas.uiMsg.noTarget));//"対象アイテムがありません"
+ 		alert(nas.localize(nas.uiMsg.noTarget));//"対象アイテムがありません"
 	}

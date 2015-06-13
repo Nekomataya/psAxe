@@ -94,13 +94,14 @@ nas.uiMsg={};
  nas.uiMsg.makeNewXPS	={en:"make new eXposureSheet",ja:"新規タイムシートを作成します"};
  nas.uiMsg.saveAndClose	={en:"save and close",ja:"保存して閉じる"};
  nas.uiMsg.noSvaeData	={en:"no data to save.",ja:"保存するデータがありません"};
+ nas.uiMsg.noRemoveData	={en:"no data to remove.",ja:"削除するデータがありません"};
  nas.uiMsg.Open	={en:"Open",ja:"開く"};
  nas.uiMsg.File	={en:"File",ja:"ファイル"};
  nas.uiMsg.fileName	={en:"file name",ja:"ファイル名"};
  nas.uiMsg.Edit	={en:"Edit",ja:"編集"};
  nas.uiMsg.layerRename	={en:"layer rename",ja:"レイヤ名変更"};
  nas.uiMsg.peg	={en:"peg"	,ja:"タップ"};
-nas.uiMsg.savePsdPlease	={en:"Please save the document in psd format.",ja:"ドキュメントをpsd形式で保存してください。"};
+ nas.uiMsg.savePsdPlease	={en:"Please save the document in psd format.",ja:"ドキュメントをpsd形式で保存してください。"};
 /*
  nas.uiMsg.	={en:""	,ja:""};
  nas.uiMsg.	={en:""	,ja:""};
@@ -199,12 +200,37 @@ nas.uiMsg.dm022={
 	en:"Create a new document",
 	ja:"新規ドキュメントを作成します"
 };
+nas.uiMsg.dm023	={
+	en:"All the recorded information to the individual area to clear.\nbut it does clear the information of all the applications that use the nas library, please particular attention to those who are using the nas library in AE ,PS and others.\nIt is may be clear?",
+	ja:"個人領域に記録した情報をすべてクリアします。\nnasライブラリを使用するすべてのアプリケーションの情報をクリアしますので、AEとPSでnasライブラリを使用している方は特にご注意ください。\nクリアして良いですか？"
+};
+nas.uiMsg.dm024	={
+	en:"Information was recorded in the personal area : %COUNT% pieces of data has been cleared.\nThe current information is located on the memory.\nData is initialized at the time of application restart.\nIf you want to initialize, please restart the application without saving.",
+	ja:"個人領域に記録した情報 :%COUNT% 個のデータをクリアしました。\n現在の情報は、メモリ上にあります。\nデータはアプリケーション再起動の際に初期化されます。\n初期化を希望する場合は、保存せずにアプリケーションを再起動してください。"
+};
+nas.uiMsg.dm025	={
+	en:"please choose Folder to import.",
+	ja:"読み込むフォルダを指定してください"
+};
+nas.uiMsg.dm026={
+	en:"please choose Folder to export",
+	ja:"書き出しフォルダを指定してください"
+};
+nas.uiMsg.dm027={
+	en:":\n You will import the settings of the folder above.\nThe same name of the setting can not undo been overwritten.\nAre you sure you want to run?",
+	ja:":\n 上のフォルダの設定をインポートします。\n同名の設定は上書きされて取り消しはできません。\n実行してよろしいですか？"
+};
+nas.uiMsg.dm028={
+	en:":\nIt will export the settings to a folder of the above.\nWe recommend the free folder.\nAre you sure you want to run?",
+	ja:":\n上のフォルダに設定をエクスポートします。\n空きフォルダ推奨します\n実行してよろしいですか？"
+};
+
 /*
 
  nas.uiMsg.	={en:""	,ja:""};
 nas.uiMsg.dm={
 	en:"",
 	ja:""
-  };
+};
 */
 //=========nas.uiMsg

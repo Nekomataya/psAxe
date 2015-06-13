@@ -334,7 +334,7 @@ break;}
 	}
 
 //	GUI初期化
-w=nas.GUI.newWindow("dialog",localize(nas.uiMsg.layerRename),5,5);
+w=nas.GUI.newWindow("dialog",nas.localize(nas.uiMsg.layerRename),5,5);
 w.onClose=function(){myEasyFlip.viewRestore();};
 w.onOpen=true;
 
@@ -413,5 +413,5 @@ w.show();
 
 //whle(true){}
 	}else{
-		alert(localize(nas.uiMsg.noTarget));//"なんだかパタパタするものが無いみたい"
+		alert(nas.localize(nas.uiMsg.noTarget));//"なんだかパタパタするものが無いみたい"
 	}
