@@ -33,8 +33,7 @@ Photoshop CC/CC2014 のためにpixelBender関連とIcons関連を削除
 
 //置き替え先のパスを文字列で設定してください
 
-nas_Installer.replacePath.nas=app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas";
-//%NAS% 新バージョン2011 からはターゲットパスを こちらに変更　ただし　plugin システムメニューに出すスクリプトは別
+nas_Installer.replacePath.nas=app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas";	//%NAS% 新バージョン2011 からはターゲットパスを こちらに変更　ただし　plugin システムメニューに出すスクリプトは別
 //　Ps用のライブラリやスクリプトはこちらで、AE用は変わらずAEプログラムフォルダのスクリプトロケーションにインストールする。
 //　コードは可能な限り共有　ターゲット設定もしておいたほうがよさげ
 // localize("$$$/BenderSig/App/ScriptingSupport/InstalledScripts=Adobe/Adobe Photoshop CS4/Presets/Scripts") + "/"
