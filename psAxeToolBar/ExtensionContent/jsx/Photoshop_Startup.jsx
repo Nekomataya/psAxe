@@ -1,15 +1,22 @@
 // psAxe include function
+/*この関数は、CSX環境下では不要*/
 function getApplicationResult(arg) {return eval(arg)}
 
 if(typeof app.nas =="undefined"){
 var myInstallFolder=Folder.userData.fullName+"/nas";
-//すでに１回以上インストールされている場合は選択的にインストール・アンインストールを行う＝　ツールバーは特に警告を行わない
+//すでに１回以上インストールされている場合は選択的にインストール・アンインストールを行う
  if(!(File(myInstallFolder).exists)||!(File(myInstallFolder+"/lib/nas_psAxeLib.js").exists)){
-//alert("インストールは完了していません\nパネルの左上の斧アイコンでインストールを完了して下さい")
-
+if(false){
+//ツールバーでは特にインストール警告はなし
+alert(localize({
+    en:"Installation is not complete.\nPlease complete the installation in the upper left corner of the ax icon of panel",
+    ja:"インストールは完了していません\nパネルの左上の斧アイコンでインストールを完了して下さい"
+ }));
+}
 //$.evalFile("psAxe/scripts/psAxeSplash.jsx");
+
  }else{
-//ここでnasオブジェクトの初期化を行う、同様のinitializeをCSX環境下ではPsAxe.jsxで担当するので　そこに同ルーチンを入れる
+//ここでnasオブジェクトの初期化を行う、同様のinitializeをCSX環境下ではnas(u)PsAXE.xml内部に書き込む
 
 //Photoshop用ライブラリ読み込み CS6以降　初期化専用
 var includeLibs=[];//読み込みライブラリを格納する配列
@@ -49,25 +56,26 @@ includeLibs=[
 	nasLibFolderPath+"nas_GUIlib.js",
 	nasLibFolderPath+"nas_psAxeLib.js",
 	nasLibFolderPath+"nas_prefarenceLib.js",
-    nasLibFolderPath+"nas_axeEventHandler.js",
-    nasLibFolderPath+"messages.js"
+	nasLibFolderPath+"nas_axeEventHandler.js",
+	nasLibFolderPath+"nas_locale.js",
+	nasLibFolderPath+"messages.js",
+	nasLibFolderPath+"psCCfontFix.js"
 ];
 //==============================　Application Objectに参照をつける
 	app.nas=nas;
 	bootFlag=true;
 /*	ライブラリ読み込み
 ここで必要なライブラリをリストに加えてから読み込みを行う
+includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
 */
-includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
-includeLibs.push(nasLibFolderPath+"xpsio.js");
-includeLibs.push(nasLibFolderPath+"mapio.js");
-includeLibs.push(nasLibFolderPath+"lib_STS.js");
-includeLibs.push(nasLibFolderPath+"dataio.js");
-includeLibs.push(nasLibFolderPath+"fakeAE.js");
-includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"xpsQueue.js");
-includeLibs.push(nasLibFolderPath+"messages.js");
-includeLibs.push(nasLibFolderPath+"psCCfontFix.js");
+    includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
+    includeLibs.push(nasLibFolderPath+"xpsio.js");
+    includeLibs.push(nasLibFolderPath+"mapio.js");
+    includeLibs.push(nasLibFolderPath+"lib_STS.js");
+    includeLibs.push(nasLibFolderPath+"dataio.js");
+    includeLibs.push(nasLibFolderPath+"fakeAE.js");
+    includeLibs.push(nasLibFolderPath+"io.js");
+    includeLibs.push(nasLibFolderPath+"xpsQueue.js");
 
 for(prop in includeLibs){
 	var myScriptFileName=includeLibs[prop];

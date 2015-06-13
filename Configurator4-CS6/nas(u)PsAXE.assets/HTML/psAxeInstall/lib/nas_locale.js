@@ -13,7 +13,7 @@ kind	UIのオブジェクト種別innerHTMLはjQueryで変更 他のプロパテ
 propertyName	オブジェクトを文字列で指定 HTMLならばid AESオブジェクトならばUIオブジェクトの参照
 
 */
-if(typeof nas =="undefined"){var nas = new Object};
+if(typeof nas =="undefined"){var nas = new Object ;};
 //HTML	JQueryを使う	$("#"+propertyName).html(value);
 //AES	textプロパティを更新	eval[propertyName+'.txt="'+value+'"';]
 //変更書式　["エレメントid","プロパティ","値"]
@@ -62,7 +62,7 @@ nas.locale="ja";//判定不能時はとりあえずjaにするので初期値を
 	if( typeof localize=="undefined" ){localize=nas.localize;}
 //
  
-　
+
 nas.LanguagePack=function(){
 	this["en"]=[];
 	this["ja"]=[];

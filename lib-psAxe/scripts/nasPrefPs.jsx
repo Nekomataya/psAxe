@@ -938,14 +938,12 @@ nas.Pref.tabPanel[2].loGd.onClick=function(){nas.viewLayout.guideLayer=(this.val
 		myTargets=[
 		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/importFieldChart.jsx"].join("/"),
 		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/importReference.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/goNext.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/goPrev.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/shiftLayersB.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/shiftLayersU.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/swapLayers.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/editTextSource.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/frameMoveWidthLayerFocusBwd.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/frameMoveWidthLayerFocusFwd.jsx"].join("/")
+		[app.path ,localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/goNext.jsx"].join("/"),
+		[app.path ,localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/goPrev.jsx"].join("/"),
+		[app.path ,localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/shiftLayersB.jsx"].join("/"),
+		[app.path ,localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/shiftLayersU.jsx"].join("/"),
+		[app.path ,localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/swapLayers.jsx"].join("/"),
+		[app.path ,localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/editTextSource.jsx"].join("/")
 		];
 		myTools=[
 		[Folder.userData.fullName,"nas/scripts/axe/importFieldChart.jsx"].join("/"),
@@ -956,8 +954,6 @@ nas.Pref.tabPanel[2].loGd.onClick=function(){nas.viewLayout.guideLayer=(this.val
 		[Folder.userData.fullName,"nas/scripts/axe/shiftLayersU.jsx"].join("/"),
 		[Folder.userData.fullName,"nas/scripts/axe/swapLayers.jsx"].join("/"),
 		[Folder.userData.fullName,"nas/scripts/axe/editTextSource.jsx"].join("/"),
-		[Folder.userData.fullName,"nas/scripts/axe/frameMoveWidthLayerFocusBwd.jsx"].join("/"),
-		[Folder.userData.fullName,"nas/scripts/axe/frameMoveWidthLayerFocusFwd.jsx"].join("/")
 		];
 			var counter=0;
 			var names=new Array();
