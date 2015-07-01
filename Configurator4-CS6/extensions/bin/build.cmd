@@ -1,0 +1,1 @@
+./bin/ZXPSignCmd -sign psAxe myTest2.zxp ../psAXe2014.p12 oba95kigen!

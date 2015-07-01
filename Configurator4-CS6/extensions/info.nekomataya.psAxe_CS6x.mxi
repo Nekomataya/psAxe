@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<macromedia-extension id="info.nekomataya.psAxe" name="info.nekomataya.psAxe" requires-restart="true" version="1.1.4">
+  <author name="kiyo@nekomataya.info"/>
+  <description/>
+  <license-agreement/>
+  <products>
+    <product familyname="Photoshop"/>
+  </products>
+  <files>
+    <file destination="" file-type="CSXS" products="" source="nas(u)psAXE.zxp"/>
+    <file destination="" file-type="CSXS" products="" source="psAXEToolbar.zxp"/>
+    <file destination="" file-type="CSXS" products="" source="remapingCEP.zxp"/>
+  </files>
+</macromedia-extension>

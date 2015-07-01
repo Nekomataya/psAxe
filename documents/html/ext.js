@@ -1,5 +1,7 @@
 //CS2014以降のHTML CEP環境とそれ以前のCSX環境を見分けるために window.__adobe_cep__オブジェクトの有無をチェックする
 //このスクリプトはCS6-CS2014エクステンション共用
+//HTML環境（ヘルプ）用のコードを追加 06/21
+
 var isCEP={};
 try{ isCEP=(window.__adobe_cep__)?true:false;}catch(er){isCEP = false;}
 
@@ -21,6 +23,7 @@ function onLoaded(){
     // Define event handler
 
 	}
+	nas.LangPack.chgLocale("en");
 }
 
 

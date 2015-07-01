@@ -1,0 +1,28 @@
+<languageVersion : 1.0;>
+
+kernel punchOutRed
+<   namespace : "info.nekomataya";
+    vendor : "Nekomataya www.nekomataya.info";
+    version : 1;
+    description : "duplicate red-Ch data to other Ch";
+>
+//細線化モジュールの処理ブロック　R-Chのデータを他へ複製して細線化処理を終了する。
+{
+    input image4 src;
+    output pixel4 dst;
+
+    void
+    evaluatePixel()
+    {
+	float4 myPix =sample(src,outCoord());
+        dst.r =myPix.r;
+        dst.g =myPix.r;
+        dst.b =myPix.r;
+        dst.a =myPix.a;
+    }
+}
+/*
+	従来仕様です。見直し必要かも
+	2012.04.05
+*/
+          

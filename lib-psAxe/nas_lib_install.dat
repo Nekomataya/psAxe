@@ -1,0 +1,652 @@
+//(nas_library_installer_data01)
+/*===========================	これはインストール設定ファイル	===============================*/
+//第一行目のシグネチャは、インストーラに記述された変数と一致する必要があるので、注意 これがデータの識別子となります。任意
+/*
+	インストールを記述するにはこのファイルを書き直します。
+	
+$id:$
+*/
+//								**インストーラー動作条件
+
+//アプリケーションが想定アプリで想定バージョンである事
+nas_Installer.locale="ja_JP";//限定…この判定はどうも簡単じゃなさそう
+//インストールパッケージ名称とバージョン
+nas_Installer.pkgName    ="nas_animation_Lib";//package名称(文字列)インストール済みの情報ファイル名にするのでファイル名使用可能なパッケージ名にしといてくらさい。
+nas_Installer.pkgVersion ="1.0.0";//バージョン番号はドット区切り3ブロックの数値文字列で
+
+/*
+
+パッケージがインストール済みの場合は、
+バージョンの新旧にかかわらずメッセージを提示して終了
+という事に今のところしておく
+
+Photoshop CC/CC2014 のためにpixelBender関連とIcons関連を削除
+暫定的に100ファイルを超えるライブラリを分割して格納
+2014.10.27
+
+新規のファイルを追加　11.26
+
+多言語化処理開始
+現在メッセージは{en:,ja:}のみ
+
+CC2015リリースにつきバージョン追加
+念のため少し先のバージョンまで準備しておく（CEPに合わせ）
+
+*/
+
+//置き替え先のパスを文字列で設定してください
+
+nas_Installer.replacePath.nas=app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas";	//%NAS% 新バージョン2011 からはターゲットパスを こちらに変更　ただし　plugin システムメニューに出すスクリプトは別
+//　Ps用のライブラリやスクリプトはこちらで、AE用は変わらずAEプログラムフォルダのスクリプトロケーションにインストールする。
+//　コードは可能な限り共有　ターゲット設定もしておいたほうがよさげ
+// localize("$$$/BenderSig/App/ScriptingSupport/InstalledScripts=Adobe/Adobe Photoshop CS4/Presets/Scripts") + "/"
+//app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas"
+nas_Installer.replacePath.install=Folder.userData.fullName+"/nas";//%INSTALL%
+//nas_Installer.replacePath.startup+"/プリセット/スクリプト/nas";	
+//%INSTALL%インストール先は必須(アンインストール情報を置くため)標準でNASフォルダでOK
+nas_Installer.replacePath.user=Folder.userData.fullName+"/nas";//"ここを好きな文字列に置き換えて使ってください";//%USER% ユーザ指定可能
+
+//=================================以下にアプリケーション・バージョンの制限を正規表現で記述
+
+nas_Installer.myAppRegExp=new RegExp("^Adobe\\ Photoshop$");//application.name
+/*
+Adobe Photoshop
+Adobe AfterEffects
+Extend Toolkit
+Adobe Bridge
+
+などの "app.name"で参照される文字列を正規表現でフィルタする。
+*/
+nas_Installer.myVersionRegExp=new RegExp("^(6|5|4|3)\\.[0123456789]\\..+$");//version.name
+/*
+バーション番号を正規表現でフィルタ
+ */
+
+
+//インストールアクションのリストを配列 nas_Installer.myInstall に記述
+/*
+1 要素が 1 レコード(=コマンド)
+配列要素はすべて配列
+コマンド配列 の0番要素をコマンド文字列として1番要素以降を引数として実行
+以下のコマンドが使用可能
+["mkdir"	,引数	]	パス文字列(置換あり)
+["rmdir"	,引数	]	パス文字列(置換あり)
+[   "cd"	,引数	]	パス文字列(置換あり)
+[   "cp"	,引数,引数]	パス文字列(置換あり)
+[   "mv"	,引数,引数]	パス文字列(置換あり)
+[   "rm"	,引数	]	パス文字列(置換あり)
+[Function	,引数	]	引数は文字列
+[ "パス"	,"パス"	]	単純にファイルパス文字列ふたつ 前者を後者へコピー
+["confirm"	,引数	]	確認用メッセージ(中断機能付)
+["shutdown"]	引数なし	アプリケーションを終了する。
+分岐とかループが必要ならばとりあえずは直接書きましょう。
+
+パス文字列はインストーラを基点に相対パスで記述
+コマンドはインデックスの若い順に実行される
+存在しないディレクトリへの複製はおこなわない。エラーを記録
+ディレクトリの削除は、カラの場合のみ成功(そのままFolder.remove()を実行)。
+関数を単独で置くと1番要素を引数に実行
+
+
+*/
+//install手順とuninstall手順は当たり前だけど別なので注意
+/*
+
+	このファイルは、PhotoshopをターゲットにMacのみバージョンで分岐しています。
+
+各環境のインストールとアンインストール手順を記述してこのファイルの末尾で実行用のバッファへ当該環境の
+手順をインストールします。
+
+*/
+//Mac/Windowsほか 対象全バージョン用
+
+nas_Installer.myInstall=[
+["confirm",localize({
+en:"starting Install package nasPsAxe \n documents that are currently open, we recommend to close.\nis good to start?",
+ja:"nasPsAXEパッケージ をインストールします。\n 開いているドキュメントは閉じておいた方が良いと思います。\nはじめて良いですか?"
+})],
+["mkdir","%USER%"],
+["mkdir","%USER%/lib"],
+["mkdir","%USER%/lib/resource"],
+
+["confirm",localize({
+en:"Clear some of the settings for the content change of the library.\nIf the backup is needed, please save the interruption.\nDo you want to continue?",
+ja:"ライブラリの内容変更のため設定の一部を消去します。\nバックアップが必要な場合は中断して保存してください。\n継続しますか？"
+})],
+["rm","%USER%/lib/etc/nas.axe.json"],
+
+["%SOURCE%/lib/resource/timeSheet6sA3.eps","%USER%/lib/resource/timeSheet6sA3.eps"],
+
+["mkdir","%USER%/lib/resource/FieldCharts"],
+["%SOURCE%/lib/resource/FieldCharts/fieldChart11F.eps","%USER%/lib/resource/FieldCharts/fieldChart11F.eps"],
+["%SOURCE%/lib/resource/FieldCharts/fieldChart14F.eps","%USER%/lib/resource/FieldCharts/fieldChart14F.eps"],
+["%SOURCE%/lib/resource/FieldCharts/fieldChart16F.eps","%USER%/lib/resource/FieldCharts/fieldChart16F.eps"],
+
+["mkdir","%USER%/lib/resource/Frames"],
+["%SOURCE%/lib/resource/Frames/203mm16x9.eps","%USER%/lib/resource/Frames/203mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/225mm4x3.eps","%USER%/lib/resource/Frames/225mm4x3.eps"],
+["%SOURCE%/lib/resource/Frames/225mm22x16.eps","%USER%/lib/resource/Frames/225mm22x16.eps"],
+["%SOURCE%/lib/resource/Frames/240mm4x3.eps","%USER%/lib/resource/Frames/240mm4x3.eps"],
+["%SOURCE%/lib/resource/Frames/240mm16x9.eps","%USER%/lib/resource/Frames/240mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/240mm22x16.eps","%USER%/lib/resource/Frames/240mm22x16.eps"],
+["%SOURCE%/lib/resource/Frames/254mm1.85x1.eps","%USER%/lib/resource/Frames/254mm1.85x1.eps"],
+["%SOURCE%/lib/resource/Frames/254mm16x9.eps","%USER%/lib/resource/Frames/254mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/260mm16x9.eps","%USER%/lib/resource/Frames/260mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/263mm16x9.eps","%USER%/lib/resource/Frames/263mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/264mm16x9.eps","%USER%/lib/resource/Frames/264mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/265mm1.85x1.eps","%USER%/lib/resource/Frames/265mm1.85x1.eps"],
+["%SOURCE%/lib/resource/Frames/265mm16x9.eps","%USER%/lib/resource/Frames/265mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/271mm16x9.eps","%USER%/lib/resource/Frames/271mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/303mm16x9.eps","%USER%/lib/resource/Frames/303mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/305mm16x9.eps","%USER%/lib/resource/Frames/305mm16x9.eps"],
+["%SOURCE%/lib/resource/Frames/frameTemplate.ps","%USER%/lib/resource/Frames/frameTemplate.ps"],
+
+["mkdir","%USER%/lib/resource/Pegs"],
+["%SOURCE%/lib/resource/Pegs/peg2p1.eps","%USER%/lib/resource/Pegs/peg2p1.eps"],
+["%SOURCE%/lib/resource/Pegs/peg2p2.eps","%USER%/lib/resource/Pegs/peg2p2.eps"],
+["%SOURCE%/lib/resource/Pegs/peg2p3.eps","%USER%/lib/resource/Pegs/peg2p3.eps"],
+["%SOURCE%/lib/resource/Pegs/peg3p1.eps","%USER%/lib/resource/Pegs/peg3p1.eps"],
+["%SOURCE%/lib/resource/Pegs/peg3p2.eps","%USER%/lib/resource/Pegs/peg3p2.eps"],
+["%SOURCE%/lib/resource/Pegs/peg3p3.eps","%USER%/lib/resource/Pegs/peg3p3.eps"],
+["%SOURCE%/lib/resource/Pegs/peg3p4.eps","%USER%/lib/resource/Pegs/peg3p4.eps"],
+
+["mkdir","%USER%/lib/resource/Reference"],
+["%SOURCE%/lib/resource/Reference/refSheetA3F.eps","%USER%/lib/resource/Reference/refSheetA3F.eps"],
+["%SOURCE%/lib/resource/Reference/refSheetA3L.eps","%USER%/lib/resource/Reference/refSheetA3L.eps"],
+["%SOURCE%/lib/resource/Reference/refSheetA4L.eps","%USER%/lib/resource/Reference/refSheetA4L.eps"],
+["%SOURCE%/lib/resource/Reference/refSheetB4L.eps","%USER%/lib/resource/Reference/refSheetB4L.eps"],
+
+["mkdir","%USER%/lib/pixelBenderKernel"],
+["%SOURCE%/lib/pixelBenderKernel/borderFill.pbk","%USER%/lib/pixelBenderKernel/borderFill.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/dotRemoveW.pbk","%USER%/lib/pixelBenderKernel/dotRemoveW.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/paintPreProcess.pbk","%USER%/lib/pixelBenderKernel/paintPreProcess.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/pickupColor.pbk","%USER%/lib/pixelBenderKernel/pickupColor.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/punchOutRed.pbk","%USER%/lib/pixelBenderKernel/punchOutRed.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/punchOutWhite.pbk","%USER%/lib/pixelBenderKernel/punchOutWhite.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/scanLineNormalize.pbk","%USER%/lib/pixelBenderKernel/scanLineNormalize.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/thin000.pbk","%USER%/lib/pixelBenderKernel/thin000.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/thin001.pbk","%USER%/lib/pixelBenderKernel/thin001.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/thin002.pbk","%USER%/lib/pixelBenderKernel/thin002.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/thin003.pbk","%USER%/lib/pixelBenderKernel/thin003.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/traceAll.pbk","%USER%/lib/pixelBenderKernel/traceAll.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/traceB.pbk","%USER%/lib/pixelBenderKernel/traceB.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/traceC.pbk","%USER%/lib/pixelBenderKernel/traceC.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/traceG.pbk","%USER%/lib/pixelBenderKernel/traceG.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/traceGY.pbk","%USER%/lib/pixelBenderKernel/traceGY.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/traceK.pbk","%USER%/lib/pixelBenderKernel/traceK.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/traceP.pbk","%USER%/lib/pixelBenderKernel/traceP.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/traceR.pbk","%USER%/lib/pixelBenderKernel/traceR.pbk"],
+["%SOURCE%/lib/pixelBenderKernel/traceY.pbk","%USER%/lib/pixelBenderKernel/traceY.pbk"],
+
+["mkdir","%USER%/lib/etc"],
+["mkdir","%USER%/lib/(temp)"],
+
+["%SOURCE%/lib/_event.js"  , "%USER%/lib/_event.js"],
+["%SOURCE%/lib/config.js"  , "%USER%/lib/config.js"],
+["%SOURCE%/lib/dataio.js"  , "%USER%/lib/dataio.js"],
+["%SOURCE%/lib/fakeAE.js" , "%USER%/lib/fakeAE.js"],
+["%SOURCE%/lib/io.js"         , "%USER%/lib/io.js"],
+["%SOURCE%/lib/lib_STS.js" , "%USER%/lib/lib_STS.js"],
+["%SOURCE%/lib/map.js"     , "%USER%/lib/map.js"],
+["%SOURCE%/lib/mapio.js"  , "%USER%/lib/mapio.js"],
+["%SOURCE%/lib/nas_locale.js"  , "%USER%/lib/nas_locale.js"],
+["%SOURCE%/lib/messages.js"  , "%USER%/lib/messages.js"],
+["%SOURCE%/lib/nas_axeEventHandler.js" , "%USER%/lib/nas_axeEventHandler.js"],
+["%SOURCE%/lib/nas_common.js" , "%USER%/lib/nas_common.js"],
+["%SOURCE%/lib/nas_GUIlib.js"     , "%USER%/lib/nas_GUIlib.js"],
+["%SOURCE%/lib/nas_Otome_config.js" , "%USER%/lib/nas_Otome_config.js"],
+["%SOURCE%/lib/nas_prefarenceLib.js" , "%USER%/lib/nas_prefarenceLib.js"],
+["%SOURCE%/lib/nas_psAxeLib.js" , "%USER%/lib/nas_psAxeLib.js"],
+["%SOURCE%/lib/nas.XpsStore.js" , "%USER%/lib/nas.XpsStore.js"],
+["%SOURCE%/lib/nasLibInstall.js" , "%USER%/lib/nasLibInstall.js"],
+["%SOURCE%/lib/psCCfontFix.js" , "%USER%/lib/psCCfontFix.js"],
+["%SOURCE%/lib/xpsio.js"            , "%USER%/lib/xpsio.js"],
+["%SOURCE%/lib/xpsQueue.js"     , "%USER%/lib/xpsQueue.js"],
+["%SOURCE%/lib/additionalLodaer.jsx"  , "%USER%/lib/additionalLodaer.jsx"],
+["%SOURCE%/lib/Photoshop_Startup.jsx"  , "%USER%/lib/Photoshop_Startup.jsx"],
+["%SOURCE%/lib/newXps.jsx"       , "%USER%/lib/newXps.jsx"],
+
+["confirm",localize({
+en:"nas library package has been installed.\nInstall the PsAxe Continuing.",
+ja:"nasライブラリパッケージをインストールできたと思います。\n続けてPsAxeをインストールします。"
+})],
+
+["mkdir","%USER%/scripts"],
+["%SOURCE%/scripts/mkFrame.jsx" , "%USER%/scripts/mkFrame.jsx"],
+["%SOURCE%/scripts/nasPrefPs.jsx","%USER%/scripts/nasPrefPs.jsx"],
+
+["mkdir","%USER%/scripts/axe"],
+
+["%SOURCE%/scripts/axe01/activateKey.jsx","%USER%/scripts/axe/activateKey.jsx"],
+["%SOURCE%/scripts/axe01/activateTopLayer.jsx","%USER%/scripts/axe/activateTopLayer.jsx"],
+["%SOURCE%/scripts/axe01/addFav.jsx","%USER%/scripts/axe/addFav.jsx"],
+["%SOURCE%/scripts/axe01/addNewDocument.jsx","%USER%/scripts/axe/addNewDocument.jsx"],
+["%SOURCE%/scripts/axe01/addNewLayer.jsx","%USER%/scripts/axe/addNewLayer.jsx"],
+["%SOURCE%/scripts/axe01/addNewNumText.jsx","%USER%/scripts/axe/addNewNumText.jsx"],
+["%SOURCE%/scripts/axe01/addNewXpsA3.jsx","%USER%/scripts/axe/addNewXpsA3.jsx"],
+["%SOURCE%/scripts/axe01/addOvlLayer.jsx","%USER%/scripts/axe/addOvlLayer.jsx"],
+["%SOURCE%/scripts/axe01/afCopy.jsx","%USER%/scripts/axe/afCopy.jsx"],
+["%SOURCE%/scripts/axe01/afDelete.jsx","%USER%/scripts/axe/afDelete.jsx"],
+["%SOURCE%/scripts/axe01/afDuplicate.jsx","%USER%/scripts/axe/afDuplicate.jsx"],
+["%SOURCE%/scripts/axe01/afPaste.jsx","%USER%/scripts/axe/afPaste.jsx"],
+["%SOURCE%/scripts/axe01/afReverse.jsx","%USER%/scripts/axe/afReverse.jsx"],
+["%SOURCE%/scripts/axe01/afSelectAll.jsx","%USER%/scripts/axe/afSelectAll.jsx"],
+["%SOURCE%/scripts/axe01/applyFilter.jsx","%USER%/scripts/axe/applyFilter.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterAA.jsx","%USER%/scripts/axe/applyFilterAA.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterBorderFill.jsx","%USER%/scripts/axe/applyFilterBorderFill.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterDotRemoveW.jsx","%USER%/scripts/axe/applyFilterDotRemoveW.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterPBK.jsx","%USER%/scripts/axe/applyFilterPBK.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterPickupColor.jsx","%USER%/scripts/axe/applyFilterPickupColor.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterScanLineNormalize.jsx","%USER%/scripts/axe/applyFilterScanLineNormalize.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceALL.jsx","%USER%/scripts/axe/applyFilterTraceALL.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceB.jsx","%USER%/scripts/axe/applyFilterTraceB.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceC.jsx","%USER%/scripts/axe/applyFilterTraceC.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceFGC.jsx","%USER%/scripts/axe/applyFilterTraceFGC.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceG.jsx","%USER%/scripts/axe/applyFilterTraceG.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceGY.jsx","%USER%/scripts/axe/applyFilterTraceGY.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceK.jsx","%USER%/scripts/axe/applyFilterTraceK.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceM.jsx","%USER%/scripts/axe/applyFilterTraceM.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceP.jsx","%USER%/scripts/axe/applyFilterTraceP.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceR.jsx","%USER%/scripts/axe/applyFilterTraceR.jsx"],
+["%SOURCE%/scripts/axe01/applyFilterTraceY.jsx","%USER%/scripts/axe/applyFilterTraceY.jsx"],
+["%SOURCE%/scripts/axe01/applyXps.jsx","%USER%/scripts/axe/applyXps.jsx"],
+["%SOURCE%/scripts/axe01/ccBl.jsx","%USER%/scripts/axe/ccBl.jsx"],
+["%SOURCE%/scripts/axe01/ccGr.jsx","%USER%/scripts/axe/ccGr.jsx"],
+["%SOURCE%/scripts/axe01/ccGy.jsx","%USER%/scripts/axe/ccGy.jsx"],
+["%SOURCE%/scripts/axe01/ccOr.jsx","%USER%/scripts/axe/ccOr.jsx"],
+["%SOURCE%/scripts/axe01/ccRd.jsx","%USER%/scripts/axe/ccRd.jsx"],
+["%SOURCE%/scripts/axe01/ccVl.jsx","%USER%/scripts/axe/ccVl.jsx"],
+["%SOURCE%/scripts/axe01/ccX.jsx","%USER%/scripts/axe/ccX.jsx"],
+["%SOURCE%/scripts/axe01/ccYl.jsx","%USER%/scripts/axe/ccYl.jsx"],
+["%SOURCE%/scripts/axe01/centeringLayers.jsx","%USER%/scripts/axe/centeringLayers.jsx"],
+["%SOURCE%/scripts/axe01/convertPsAxeAnimation.jsx","%USER%/scripts/axe/convertPsAxeAnimation.jsx"],
+["%SOURCE%/scripts/axe01/dbgConsolePs.jsx","%USER%/scripts/axe/dbgConsolePs.jsx"],
+["%SOURCE%/scripts/axe01/divideLayers.jsx","%USER%/scripts/axe/divideLayers.jsx"],
+["%SOURCE%/scripts/axe01/documentBinder.jsx","%USER%/scripts/axe/documentBinder.jsx"],
+["%SOURCE%/scripts/axe01/duplicateReg.jsx","%USER%/scripts/axe/duplicateReg.jsx"],
+["%SOURCE%/scripts/axe01/durationSpc.jsx","%USER%/scripts/axe/durationSpc.jsx"],
+["%SOURCE%/scripts/axe01/easyXPSLink_Ps.jsx","%USER%/scripts/axe/easyXPSLink_Ps.jsx"],
+["%SOURCE%/scripts/axe01/editTextSource.jsx","%USER%/scripts/axe/editTextSource.jsx"],
+["%SOURCE%/scripts/axe01/editXps.jsx","%USER%/scripts/axe/editXps.jsx"],
+["%SOURCE%/scripts/axe01/exportLayersAsFile.jsx","%USER%/scripts/axe/exportLayersAsFile.jsx"],
+["%SOURCE%/scripts/axe01/extractWA.jsx","%USER%/scripts/axe/extractWA.jsx"],
+["%SOURCE%/scripts/axe01/ezFlip.jsx","%USER%/scripts/axe/ezFlip.jsx"],
+["%SOURCE%/scripts/axe01/ezFlip2.jsx","%USER%/scripts/axe/ezFlip2.jsx"],
+["%SOURCE%/scripts/axe01/getFrontColorInfo.jsx","%USER%/scripts/axe/getFrontColorInfo.jsx"],
+["%SOURCE%/scripts/axe01/goEnd.jsx","%USER%/scripts/axe/goEnd.jsx"],
+["%SOURCE%/scripts/axe01/goFC.jsx","%USER%/scripts/axe/goFC.jsx"],
+["%SOURCE%/scripts/axe01/goFrst.jsx","%USER%/scripts/axe/goFrst.jsx"],
+["%SOURCE%/scripts/axe01/goNext.jsx","%USER%/scripts/axe/goNext.jsx"],
+["%SOURCE%/scripts/axe01/goPrev.jsx","%USER%/scripts/axe/goPrev.jsx"],
+["%SOURCE%/scripts/axe01/goTC.jsx","%USER%/scripts/axe/goTC.jsx"],
+["%SOURCE%/scripts/axe01/goWAend.jsx","%USER%/scripts/axe/goWAend.jsx"],
+["%SOURCE%/scripts/axe01/goWAsrt.jsx","%USER%/scripts/axe/goWAsrt.jsx"],
+["%SOURCE%/scripts/axe01/groupingSelectedLayers.jsx","%USER%/scripts/axe/groupingSelectedLayers.jsx"],
+["%SOURCE%/scripts/axe01/importFieldChart.jsx","%USER%/scripts/axe/importFieldChart.jsx"],
+["%SOURCE%/scripts/axe01/importFilesAsLayer.jsx","%USER%/scripts/axe/importFilesAsLayer.jsx"],
+["%SOURCE%/scripts/axe01/importReference.jsx","%USER%/scripts/axe/importReference.jsx"],
+
+["%SOURCE%/scripts/axe02/PacPs.jsx","%USER%/scripts/axe/PacPs.jsx"],
+["%SOURCE%/scripts/axe02/PaintPreProcess.jsx","%USER%/scripts/axe/PaintPreProcess.jsx"],
+["%SOURCE%/scripts/axe02/layerName.jsx","%USER%/scripts/axe/layerName.jsx"],
+["%SOURCE%/scripts/axe02/layerNameDec.jsx","%USER%/scripts/axe/layerNameDec.jsx"],
+["%SOURCE%/scripts/axe02/layerNameInc.jsx","%USER%/scripts/axe/layerNameInc.jsx"],
+["%SOURCE%/scripts/axe02/layerNames.jsx","%USER%/scripts/axe/layerNames.jsx"],
+["%SOURCE%/scripts/axe02/layers2Frames0.jsx","%USER%/scripts/axe/layers2Frames0.jsx"],
+["%SOURCE%/scripts/axe02/layers2Frames1.jsx","%USER%/scripts/axe/layers2Frames1.jsx"],
+["%SOURCE%/scripts/axe02/layers2Frames2.jsx","%USER%/scripts/axe/layers2Frames2.jsx"],
+["%SOURCE%/scripts/axe02/liftWA.jsx","%USER%/scripts/axe/liftWA.jsx"],
+["%SOURCE%/scripts/axe02/lineSplit.jsx","%USER%/scripts/axe/lineSplit.jsx"],
+["%SOURCE%/scripts/axe02/loadPeg.jsx","%USER%/scripts/axe/loadPeg.jsx"],
+["%SOURCE%/scripts/axe02/loadSheetRule.jsx","%USER%/scripts/axe/loadSheetRule.jsx"],
+["%SOURCE%/scripts/axe02/moveIP.jsx","%USER%/scripts/axe/moveIP.jsx"],
+["%SOURCE%/scripts/axe02/moveOP.jsx","%USER%/scripts/axe/moveOP.jsx"],
+["%SOURCE%/scripts/axe02/numberingLayers.jsx","%USER%/scripts/axe/numberingLayers.jsx"],
+["%SOURCE%/scripts/axe02/ons.jsx","%USER%/scripts/axe/ons.jsx"],
+["%SOURCE%/scripts/axe02/ons0.jsx","%USER%/scripts/axe/ons0.jsx"],
+["%SOURCE%/scripts/axe02/ons2.jsx","%USER%/scripts/axe/ons2.jsx"],
+["%SOURCE%/scripts/axe02/ons3.jsx","%USER%/scripts/axe/ons3.jsx"],
+["%SOURCE%/scripts/axe02/ons4.jsx","%USER%/scripts/axe/ons4.jsx"],
+["%SOURCE%/scripts/axe02/onsPref.jsx","%USER%/scripts/axe/onsPref.jsx"],
+["%SOURCE%/scripts/axe02/onsReset.jsx","%USER%/scripts/axe/onsReset.jsx"],
+["%SOURCE%/scripts/axe02/pathRPAFa.jsx","%USER%/scripts/axe/pathRPAFa.jsx"],
+["%SOURCE%/scripts/axe02/pathRPASnp.jsx","%USER%/scripts/axe/pathRPASnp.jsx"],
+["%SOURCE%/scripts/axe02/pathRPASnpB.jsx","%USER%/scripts/axe/pathRPASnpB.jsx"],
+["%SOURCE%/scripts/axe02/pathRPASp.jsx","%USER%/scripts/axe/pathRPASp.jsx"],
+["%SOURCE%/scripts/axe02/pathRPASpB.jsx","%USER%/scripts/axe/pathRPASpB.jsx"],
+["%SOURCE%/scripts/axe02/pickupFrontColor.jsx","%USER%/scripts/axe/pickupFrontColor.jsx"],
+["%SOURCE%/scripts/axe02/posterize2+.jsx","%USER%/scripts/axe/posterize2+.jsx"],
+["%SOURCE%/scripts/axe02/putColorChip.jsx","%USER%/scripts/axe/putColorChip.jsx"],
+["%SOURCE%/scripts/axe02/removeAnimationFrames.jsx","%USER%/scripts/axe/removeAnimationFrames.jsx"],
+["%SOURCE%/scripts/axe02/removeLayerSets.jsx","%USER%/scripts/axe/removeLayerSets.jsx"],
+["%SOURCE%/scripts/axe02/removeWhitePixel.jsx","%USER%/scripts/axe/removeWhitePixel.jsx"],
+["%SOURCE%/scripts/axe02/reverseLayerOrder.jsx","%USER%/scripts/axe/reverseLayerOrder.jsx"],
+["%SOURCE%/scripts/axe02/rmKey.jsx","%USER%/scripts/axe/rmKey.jsx"],
+["%SOURCE%/scripts/axe02/rotate.jsx","%USER%/scripts/axe/rotate.jsx"],
+["%SOURCE%/scripts/axe02/rotateCanvas.jsx","%USER%/scripts/axe/rotateCanvas.jsx"],
+["%SOURCE%/scripts/axe02/rotateLayersB.jsx","%USER%/scripts/axe/rotateLayersB.jsx"],
+["%SOURCE%/scripts/axe02/rotateLayersF.jsx","%USER%/scripts/axe/rotateLayersF.jsx"],
+["%SOURCE%/scripts/axe02/rotateSelection.jsx","%USER%/scripts/axe/rotateSelection.jsx"],
+["%SOURCE%/scripts/axe02/rotationAlignmentDoc.jsx","%USER%/scripts/axe/rotationAlignmentDoc.jsx"],
+["%SOURCE%/scripts/axe02/rotationAlignmentLayer.jsx","%USER%/scripts/axe/rotationAlignmentLayer.jsx"],
+["%SOURCE%/scripts/axe02/setDelay.jsx","%USER%/scripts/axe/setDelay.jsx"],
+["%SOURCE%/scripts/axe02/setDelay1.jsx","%USER%/scripts/axe/setDelay1.jsx"],
+["%SOURCE%/scripts/axe02/setDelay2.jsx","%USER%/scripts/axe/setDelay2.jsx"],
+["%SOURCE%/scripts/axe02/setDelay3.jsx","%USER%/scripts/axe/setDelay3.jsx"],
+["%SOURCE%/scripts/axe02/setFps.jsx","%USER%/scripts/axe/setFps.jsx"],
+["%SOURCE%/scripts/axe02/setKey.jsx","%USER%/scripts/axe/setKey.jsx"],
+["%SOURCE%/scripts/axe02/setLabel.jsx","%USER%/scripts/axe/setLabel.jsx"],
+["%SOURCE%/scripts/axe02/setOns.jsx","%USER%/scripts/axe/setOns.jsx"],
+["%SOURCE%/scripts/axe02/setWAend.jsx","%USER%/scripts/axe/setWAend.jsx"],
+["%SOURCE%/scripts/axe02/setWAsrt.jsx","%USER%/scripts/axe/setWAsrt.jsx"],
+["%SOURCE%/scripts/axe02/shiftLayers.jsx","%USER%/scripts/axe/shiftLayers.jsx"],
+["%SOURCE%/scripts/axe02/shiftLayersB.jsx","%USER%/scripts/axe/shiftLayersB.jsx"],
+["%SOURCE%/scripts/axe02/shiftLayersU.jsx","%USER%/scripts/axe/shiftLayersU.jsx"],
+["%SOURCE%/scripts/axe02/sliceTL.jsx","%USER%/scripts/axe/sliceTL.jsx"],
+["%SOURCE%/scripts/axe02/smartFix.jsx","%USER%/scripts/axe/smartFix.jsx"],
+["%SOURCE%/scripts/axe02/smartMove.jsx","%USER%/scripts/axe/smartMove.jsx"],
+["%SOURCE%/scripts/axe02/smartReset.jsx","%USER%/scripts/axe/smartReset.jsx"],
+["%SOURCE%/scripts/axe02/sortLayersByName.jsx","%USER%/scripts/axe/sortLayersByName.jsx"],
+["%SOURCE%/scripts/axe02/sortLayers_B.jsx","%USER%/scripts/axe/sortLayers_B.jsx"],
+["%SOURCE%/scripts/axe02/sortLayers_F.jsx","%USER%/scripts/axe/sortLayers_F.jsx"],
+["%SOURCE%/scripts/axe02/swapLayers.jsx","%USER%/scripts/axe/swapLayers.jsx"],
+["%SOURCE%/scripts/axe02/swcFav.jsx","%USER%/scripts/axe/swcFav.jsx"],
+["%SOURCE%/scripts/axe02/test_console.jsx","%USER%/scripts/axe/test_console.jsx"],
+["%SOURCE%/scripts/axe02/test_libLoad.jsx","%USER%/scripts/axe/test_libLoad.jsx"],
+["%SOURCE%/scripts/axe02/thinLine.jsx","%USER%/scripts/axe/thinLine.jsx"],
+["%SOURCE%/scripts/axe02/thinLinePbk.jsx","%USER%/scripts/axe/thinLinePbk.jsx"],
+["%SOURCE%/scripts/axe02/trimIP.jsx","%USER%/scripts/axe/trimIP.jsx"],
+["%SOURCE%/scripts/axe02/trimOP.jsx","%USER%/scripts/axe/trimOP.jsx"],
+["%SOURCE%/scripts/axe02/viewQFtest.jsx","%USER%/scripts/axe/viewQFtest.jsx"],
+["%SOURCE%/scripts/axe02/viewReset.jsx","%USER%/scripts/axe/viewReset.jsx"],
+["%SOURCE%/scripts/axe02/void.jsx","%USER%/scripts/axe/void.jsx"],
+["%SOURCE%/scripts/axe02/xpsQueue.jsx","%USER%/scripts/axe/xpsQueue.jsx"],
+
+["%SOURCE%/nasPsAxeInstall.jsx","%USER%/nasPsAxeInstall.jsx"],
+["%SOURCE%/nas_PsAxe_install.dat","%USER%/nas_PsAxe_install.dat"],
+["confirm",localize({
+en:"I think that it is the way the error was able to install the PsAxe package if too much there.\nIt's safer you restart the Photoshop for just in case",
+ja:"途中でエラーがあまり無ければPsAxeパッケージをインストールできたと思います。\n念の為にPhotoshopを再起動したほうが安全です"
+})]
+];
+
+nas_Installer.myUnInstall=[
+["confirm",localize({
+en:"Uninstall nas library.\nNo MAY be troubled scripts that depend on the library.\nIs it ok?",
+ja:"nasライブラリをアンインストールします。\nライブラリに依存するスクリプトは困るかも知れません。\n良いですか?"
+})],
+
+["rm","%USER%/lib/resource/timeSheet6sA3.eps"],
+
+["rm","%USER%/lib/resource/FieldCharts/fieldChart11F.eps"],
+["rm","%USER%/lib/resource/FieldCharts/fieldChart14F.eps"],
+["rm","%USER%/lib/resource/FieldCharts/fieldChart16F.eps"],
+["rmdir","%USER%/lib/resource/FieldCharts"],
+
+["rm","%USER%/lib/resource/Frames/203mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/225mm4x3.eps"],
+["rm","%USER%/lib/resource/Frames/225mm22x16.eps"],
+["rm","%USER%/lib/resource/Frames/240mm4x3.eps"],
+["rm","%USER%/lib/resource/Frames/240mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/240mm22x16.eps"],
+["rm","%USER%/lib/resource/Frames/254mm1.85x1.eps"],
+["rm","%USER%/lib/resource/Frames/254mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/260mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/263mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/264mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/265mm1.85x1.eps"],
+["rm","%USER%/lib/resource/Frames/265mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/271mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/303mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/305mm16x9.eps"],
+["rm","%USER%/lib/resource/Frames/frameTemplate.ps"],
+["rmdir","%USER%/lib/resource/Frames"],
+
+["rm","%USER%/lib/resource/Pegs/peg2p1.eps"],
+["rm","%USER%/lib/resource/Pegs/peg2p2.eps"],
+["rm","%USER%/lib/resource/Pegs/peg2p3.eps"],
+["rm","%USER%/lib/resource/Pegs/peg3p1.eps"],
+["rm","%USER%/lib/resource/Pegs/peg3p2.eps"],
+["rm","%USER%/lib/resource/Pegs/peg3p3.eps"],
+["rm","%USER%/lib/resource/Pegs/peg3p4.eps"],
+["rmdir","%USER%/lib/resource/Pegs"],
+
+["rm","%USER%/lib/resource/Reference/refSheetA3F.eps"],
+["rm","%USER%/lib/resource/Reference/refSheetA3L.eps"],
+["rm","%USER%/lib/resource/Reference/refSheetA4L.eps"],
+["rm","%USER%/lib/resource/Reference/refSheetB4L.eps"],
+["rmdir","%USER%/lib/resource/Reference"],
+
+["rm","%USER%/lib/pixelBenderKernel/borderFill.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/dotRemoveW.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/paintPreProcess.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/pickupColor.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/punchOutRed.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/punchOutWhite.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/scanLineNormalize.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/thin000.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/thin001.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/thin002.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/thin003.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/traceAll.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/traceB.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/traceC.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/traceG.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/traceGY.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/traceK.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/traceP.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/traceR.pbk"],
+["rm","%USER%/lib/pixelBenderKernel/traceY.pbk"],
+["rmdir","%USER%/lib/pixelBenderKernel"],
+
+["rm","%USER%/lib/_event.js"],
+["rm","%USER%/lib/config.js"],
+["rm","%USER%/lib/dataio.js"],
+["rm","%USER%/lib/fakeAE.js"],
+["rm","%USER%/lib/io.js"],
+["rm","%USER%/lib/lib_STS.js"],
+["rm","%USER%/lib/map.js"],
+["rm","%USER%/lib/mapio.js"],
+["rm","%USER%/lib/nas_locale.js"],
+["rm","%USER%/lib/messages.js"],
+["rm","%USER%/lib/nas_axeEventHandler.js"],
+["rm","%USER%/lib/nas_common.js"],
+["rm","%USER%/lib/nas_GUIlib.js"],
+["rm","%USER%/lib/nas_Otome_config.js"],
+["rm","%USER%/lib/nas_prefarenceLib.js"],
+["rm","%USER%/lib/nas_psAxeLib.js"],
+["rm","%USER%/lib/nas.XpsStore.js"],
+["rm","%USER%/lib/nasLibInstall.js"],
+["rm","%USER%/lib/psCCfontFix.js"],
+["rm","%USER%/lib/xpsio.js"],
+["rm","%USER%/lib/xpsQueue.js"],
+["rm", "%USER%/lib/additionalLodaer.jsx"],
+["rm", "%USER%/lib/Photoshop_Startup.jsx"],
+["rm", "%USER%/lib/newXps.jsx"],
+
+["rm","%USER%/scripts/axe/activateKey.jsx"],
+["rm","%USER%/scripts/axe/activateTopLayer.jsx"],
+["rm","%USER%/scripts/axe/addFav.jsx"],
+["rm","%USER%/scripts/axe/addNewDocument.jsx"],
+["rm","%USER%/scripts/axe/addNewLayer.jsx"],
+["rm","%USER%/scripts/axe/addNewNumText.jsx"],
+["rm","%USER%/scripts/axe/addNewXpsA3.jsx"],
+["rm","%USER%/scripts/axe/addOvlLayer.jsx"],
+["rm","%USER%/scripts/axe/afCopy.jsx"],
+["rm","%USER%/scripts/axe/afDelete.jsx"],
+["rm","%USER%/scripts/axe/afDuplicate.jsx"],
+["rm","%USER%/scripts/axe/afPaste.jsx"],
+["rm","%USER%/scripts/axe/afReverse.jsx"],
+["rm","%USER%/scripts/axe/afSelectAll.jsx"],
+["rm","%USER%/scripts/axe/applyFilter.jsx"],
+["rm","%USER%/scripts/axe/applyFilterAA.jsx"],
+["rm","%USER%/scripts/axe/applyFilterBorderFill.jsx"],
+["rm","%USER%/scripts/axe/applyFilterDotRemoveW.jsx"],
+["rm","%USER%/scripts/axe/applyFilterPBK.jsx"],
+["rm","%USER%/scripts/axe/applyFilterPickupColor.jsx"],
+["rm","%USER%/scripts/axe/applyFilterScanLineNormalize.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceALL.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceB.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceC.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceFGC.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceG.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceGY.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceK.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceM.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceP.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceR.jsx"],
+["rm","%USER%/scripts/axe/applyFilterTraceY.jsx"],
+["rm","%USER%/scripts/axe/applyXps.jsx"],
+["rm","%USER%/scripts/axe/ccBl.jsx"],
+["rm","%USER%/scripts/axe/ccGr.jsx"],
+["rm","%USER%/scripts/axe/ccGy.jsx"],
+["rm","%USER%/scripts/axe/ccOr.jsx"],
+["rm","%USER%/scripts/axe/ccRd.jsx"],
+["rm","%USER%/scripts/axe/ccVl.jsx"],
+["rm","%USER%/scripts/axe/ccX.jsx"],
+["rm","%USER%/scripts/axe/ccYl.jsx"],
+["rm","%USER%/scripts/axe/centeringLayers.jsx"],
+["rm","%USER%/scripts/axe/convertPsAxeAnimation.jsx"],
+["rm","%USER%/scripts/axe/dbgConsolePs.jsx"],
+["rm","%USER%/scripts/axe/divideLayers.jsx"],
+["rm","%USER%/scripts/axe/documentBinder.jsx"],
+["rm","%USER%/scripts/axe/duplicateReg.jsx"],
+["rm","%USER%/scripts/axe/durationSpc.jsx"],
+["rm","%USER%/scripts/axe/easyXPSLink_Ps.jsx"],
+["rm","%USER%/scripts/axe/editTextSource.jsx"],
+["rm","%USER%/scripts/axe/editXps.jsx"],
+["rm","%USER%/scripts/axe/exportLayersAsFile.jsx"],
+["rm","%USER%/scripts/axe/extractWA.jsx"],
+["rm","%USER%/scripts/axe/ezFlip.jsx"],
+["rm","%USER%/scripts/axe/ezFlip2.jsx"],
+["rm","%USER%/scripts/axe/getFrontColorInfo.jsx"],
+["rm","%USER%/scripts/axe/goEnd.jsx"],
+["rm","%USER%/scripts/axe/goFC.jsx"],
+["rm","%USER%/scripts/axe/goFrst.jsx"],
+["rm","%USER%/scripts/axe/goNext.jsx"],
+["rm","%USER%/scripts/axe/goPrev.jsx"],
+["rm","%USER%/scripts/axe/goTC.jsx"],
+["rm","%USER%/scripts/axe/goWAend.jsx"],
+["rm","%USER%/scripts/axe/goWAsrt.jsx"],
+["rm","%USER%/scripts/axe/groupingSelectedLayers.jsx"],
+["rm","%USER%/scripts/axe/importFieldChart.jsx"],
+["rm","%USER%/scripts/axe/importFilesAsLayer.jsx"],
+["rm","%USER%/scripts/axe/importReference.jsx"],
+["rm","%USER%/scripts/axe/PacPs.jsx"],
+["rm","%USER%/scripts/axe/PaintPreProcess.jsx"],
+["rm","%USER%/scripts/axe/layerName.jsx"],
+["rm","%USER%/scripts/axe/layerNameDec.jsx"],
+["rm","%USER%/scripts/axe/layerNameInc.jsx"],
+["rm","%USER%/scripts/axe/layerNames.jsx"],
+["rm","%USER%/scripts/axe/layers2Frames0.jsx"],
+["rm","%USER%/scripts/axe/layers2Frames1.jsx"],
+["rm","%USER%/scripts/axe/layers2Frames2.jsx"],
+["rm","%USER%/scripts/axe/liftWA.jsx"],
+["rm","%USER%/scripts/axe/lineSplit.jsx"],
+["rm","%USER%/scripts/axe/loadPeg.jsx"],
+["rm","%USER%/scripts/axe/loadSheetRule.jsx"],
+["rm","%USER%/scripts/axe/moveIP.jsx"],
+["rm","%USER%/scripts/axe/moveOP.jsx"],
+["rm","%USER%/scripts/axe/numberingLayers.jsx"],
+["rm","%USER%/scripts/axe/ons.jsx"],
+["rm","%USER%/scripts/axe/ons0.jsx"],
+["rm","%USER%/scripts/axe/ons2.jsx"],
+["rm","%USER%/scripts/axe/ons3.jsx"],
+["rm","%USER%/scripts/axe/ons4.jsx"],
+["rm","%USER%/scripts/axe/onsPref.jsx"],
+["rm","%USER%/scripts/axe/onsReset.jsx"],
+["rm","%USER%/scripts/axe/pathRPAFa.jsx"],
+["rm","%USER%/scripts/axe/pathRPASnp.jsx"],
+["rm","%USER%/scripts/axe/pathRPASnpB.jsx"],
+["rm","%USER%/scripts/axe/pathRPASp.jsx"],
+["rm","%USER%/scripts/axe/pathRPASpB.jsx"],
+["rm","%USER%/scripts/axe/pickupFrontColor.jsx"],
+["rm","%USER%/scripts/axe/posterize2+.jsx"],
+["rm","%USER%/scripts/axe/putColorChip.jsx"],
+["rm","%USER%/scripts/axe/removeAnimationFrames.jsx"],
+["rm","%USER%/scripts/axe/removeLayerSets.jsx"],
+["rm","%USER%/scripts/axe/removeWhitePixel.jsx"],
+["rm","%USER%/scripts/axe/reverseLayerOrder.jsx"],
+["rm","%USER%/scripts/axe/rmKey.jsx"],
+["rm","%USER%/scripts/axe/rotate.jsx"],
+["rm","%USER%/scripts/axe/rotateCanvas.jsx"],
+["rm","%USER%/scripts/axe/rotateLayersB.jsx"],
+["rm","%USER%/scripts/axe/rotateLayersF.jsx"],
+["rm","%USER%/scripts/axe/rotateSelection.jsx"],
+["rm","%USER%/scripts/axe/rotationAlignmentDoc.jsx"],
+["rm","%USER%/scripts/axe/rotationAlignmentLayer.jsx"],
+["rm","%USER%/scripts/axe/setDelay.jsx"],
+["rm","%USER%/scripts/axe/setDelay1.jsx"],
+["rm","%USER%/scripts/axe/setDelay2.jsx"],
+["rm","%USER%/scripts/axe/setDelay3.jsx"],
+["rm","%USER%/scripts/axe/setFps.jsx"],
+["rm","%USER%/scripts/axe/setKey.jsx"],
+["rm","%USER%/scripts/axe/setLabel.jsx"],
+["rm","%USER%/scripts/axe/setOns.jsx"],
+["rm","%USER%/scripts/axe/setWAend.jsx"],
+["rm","%USER%/scripts/axe/setWAsrt.jsx"],
+["rm","%USER%/scripts/axe/shiftLayers.jsx"],
+["rm","%USER%/scripts/axe/shiftLayersB.jsx"],
+["rm","%USER%/scripts/axe/shiftLayersU.jsx"],
+["rm","%USER%/scripts/axe/sliceTL.jsx"],
+["rm","%USER%/scripts/axe/smartFix.jsx"],
+["rm","%USER%/scripts/axe/smartMove.jsx"],
+["rm","%USER%/scripts/axe/smartReset.jsx"],
+["rm","%USER%/scripts/axe/sortLayersByName.jsx"],
+["rm","%USER%/scripts/axe/sortLayers_B.jsx"],
+["rm","%USER%/scripts/axe/sortLayers_F.jsx"],
+["rm","%USER%/scripts/axe/swapLayers.jsx"],
+["rm","%USER%/scripts/axe/swcFav.jsx"],
+["rm","%USER%/scripts/axe/test_console.jsx"],
+["rm","%USER%/scripts/axe/test_libLoad.jsx"],
+["rm","%USER%/scripts/axe/thinLine.jsx"],
+["rm","%USER%/scripts/axe/thinLinePbk.jsx"],
+["rm","%USER%/scripts/axe/trimIP.jsx"],
+["rm","%USER%/scripts/axe/trimOP.jsx"],
+["rm","%USER%/scripts/axe/viewQFtest.jsx"],
+["rm","%USER%/scripts/axe/viewReset.jsx"],
+["rm","%USER%/scripts/axe/void.jsx"],
+["rm","%USER%/scripts/axe/xpsQueue.jsx"],
+
+["rm","%USER%/scripts/mkFrame.jsx"],
+["rm","%USER%/scripts/nasPrefPs.jsx"],
+
+["rmdir","%USER%/scripts/axe"],
+
+["rm","%USER%/nasPsAxeInstall.jsx"],
+["rm","%USER%/nas_PsAxe_install.dat"],
+
+[nas_Installer.showMsg,localize({
+en:"I think that it can be uninstalled.\nPlease try to install again, if necessary.",
+ja:"アンインストールできたと思います。\nもし必要なら再度インストールしてみてください。"
+})]
+];
+/*
+
+
+["rmdir","%USER%/scripts"],
+["rm","%USER%/scripts/nasPsAxe.jsx"],
+
+["rmdir","%USER%/lib/resource"],
+["rmdir","%USER%/lib/(temp)"],
+["rmdir","%USER%/lib"],
+["rmdir","%USER%/lib/resource/Icons"],
+["rmdir","%USER%/lib/resource/Frames"],
+["rmdir","%USER%/lib/resource/Pegs"],
+["rmdir","%USER%"],
+*/
+/*===========================	これはインストール設定ファイル	===============================*/
+/*
+	このファイルは、Adobe Script のソースファイルです。
+	環境が整った時点でインストーラ内でevalされて各パッケージ別の情報を設定します。
+	このファイル内で以下のプロパティの設定が終了している事
+
+	nas_Installer.replacePath.nas	nasのインストール先
+	nas_Installer.replacePath.install	パッケージのインストール先
+	nas_Installer.replacePath.user	置換用ユーザパス(任意)
+
+	nas_Installer.myInstall	インストール手順
+	nas_Installer.myUnInstall	アンインストール手順
+
+		書式は…コメント読んでね
+ */

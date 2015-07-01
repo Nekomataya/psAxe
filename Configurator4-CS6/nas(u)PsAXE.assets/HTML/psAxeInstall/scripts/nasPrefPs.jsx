@@ -1,17 +1,13 @@
-/*(各種設定)
+﻿/*(各種設定)
  *	nasPsPref.jsx
  *
- *	プリファレンスパネル まだまだ変わるよ 暫定版
- *	直接	lib/config.js
- *		lib/nas_axeLib.js を書き換えれば何でもかけますよ、と
- *	Photoshop用に暫定的に改装　2011 06 25
- *	英語版を試験的に調整 2015 05 17
  *	タイトルDBセットアップ時に解像度とフレームレートをキャンセルしている動作を補正　2015/05/21
+ *	英語版 2015 06 29 psAXe ver1.0.x 1.1.x　共用
  */
 nas=app.nas;
 //オブジェクト識別文字列生成 
-var myFilename=("$RCSfile: nasPrefPs.jsx,v $").split(":")[1].split(",")[0];
-var myFilerevision=("$Revision: 1.1 $").split(":")[1].split("$")[0];
+var myFilename=("nasPrefPs.jsx");
+var myFilerevision=("1.2");
 var exFlag=true;
 var moduleName="Pref";//モジュール名で置き換えてください。
 //二重初期化防止トラップ
@@ -31,7 +27,7 @@ if(nas[moduleName]){
 		}
 	}
 }catch(err){
-	alert("nasライブラリが必要です。\nnasStartup.jsx を実行してください。");
+alert("nas-library is required./nasライブラリが必要です\nPlease startup or load nas-library./nasStartup.jsx を実行してください");
 	exFlag=false;
 }
 
@@ -56,10 +52,10 @@ if(exFlag){
 //メインコントロール
 // TAB設定
 //	nas.GUI.setTabPanel(nas.Pref,["一般環境","メディア設定","動作設定","作画設定"],0,0,9,19);
-if(true){	nas.GUI.setTabPanel(nas.Pref,[	localize(nas.uiMsg["Common"]),
-						localize(nas.uiMsg["Medias"]),
-						localize(nas.uiMsg["Action"]),
-						localize(nas.uiMsg["Drawing"])
+if(true){	nas.GUI.setTabPanel(nas.Pref,[	nas.localize(nas.uiMsg["Common"]),
+						nas.localize(nas.uiMsg["Medias"]),
+						nas.localize(nas.uiMsg["Action"]),
+						nas.localize(nas.uiMsg["Drawing"])
 					],0,0,9,19);
 }
 //各タブにコントロールを配置
@@ -67,17 +63,17 @@ if(true){	nas.GUI.setTabPanel(nas.Pref,[	localize(nas.uiMsg["Common"]),
 /*
 config.js関連　斧・りまぴん共通部分(nas)
 */
-	nas.GUI.addStaticText(nas.Pref.tabPanel[0],localize(nas.uiMsg["userName"]),0,1,2,1).justify="right";
-//	nas.GUI.addStaticText(nas.Pref.tabPanel[0],localize({en:"name"}),0,1,2,1).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[0],nas.localize(nas.uiMsg["userName"]),0,1,2,1).justify="right";
+//	nas.GUI.addStaticText(nas.Pref.tabPanel[0],nas.localize({en:"name"}),0,1,2,1).justify="right";
 	nas.Pref.tabPanel[0].Uname=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,1,2,1);
 
-	nas.GUI.addStaticText(nas.Pref.tabPanel[0],localize(nas.uiMsg["baseResolution"]),0,2,2,1).justify="right";//"基準解像度"
+	nas.GUI.addStaticText(nas.Pref.tabPanel[0],nas.localize(nas.uiMsg["baseResolution"]),0,2,2,1).justify="right";//"基準解像度"
 	nas.Pref.tabPanel[0].bResolution=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,2,2,1);
 
-	nas.GUI.addStaticText(nas.Pref.tabPanel[0],localize(nas.uiMsg["Framerate"]),0,3,2,1).justify="right";//"フレームレート"
+	nas.GUI.addStaticText(nas.Pref.tabPanel[0],nas.localize(nas.uiMsg["Framerate"]),0,3,2,1).justify="right";//"フレームレート"
 	nas.Pref.tabPanel[0].fRate=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,3,2,1);
 
-	nas.GUI.addStaticText(nas.Pref.tabPanel[0],localize(nas.uiMsg["SheetLength"]),0,4,2,1).justify="right";//"シート1枚の長さ"
+	nas.GUI.addStaticText(nas.Pref.tabPanel[0],nas.localize(nas.uiMsg["SheetLength"]),0,4,2,1).justify="right";//"シート1枚の長さ"
 	nas.Pref.tabPanel[0].stLength=nas.GUI.addEditText(nas.Pref.tabPanel[0],"",2,4,2,1);
 
 //タイトル編集
@@ -89,7 +85,7 @@ config.js関連　斧・りまぴん共通部分(nas)
 
 //プリセットリスト
 	nas.Pref.tabPanel[0].TitleSelector=
-		nas.GUI.addPanel(nas.Pref.tabPanel[0],localize(nas.uiMsg["workTitles"]),0.2,8,8.5,9);//"作品タイトル登録"
+		nas.GUI.addPanel(nas.Pref.tabPanel[0],nas.localize(nas.uiMsg["workTitles"]),0.2,8,8.5,9);//"作品タイトル登録"
 //編集コントロール登録
 	nas.Pref.tabPanel[0].TitleSelector.init=function(){
 	this.list=
@@ -117,11 +113,11 @@ config.js関連　斧・りまぴん共通部分(nas)
 
 //データ操作コントロール
 	this.addEntry=
-		nas.GUI.addButton(this,localize(nas.uiMsg["Registration"]),2.5,0.4,2,1);//"新規登録"
+		nas.GUI.addButton(this,nas.localize(nas.uiMsg["Registration"]),2.5,0.4,2,1);//"新規登録"
 	this.delEntry=
-		nas.GUI.addButton(this,localize(nas.uiMsg["Delete"]),4.5,0.4,2,1);//"削除"
+		nas.GUI.addButton(this,nas.localize(nas.uiMsg["Delete"]),4.5,0.4,2,1);//"削除"
 	this.chgEntry=
-		nas.GUI.addButton(this,localize(nas.uiMsg["Update"]),6.5,0.4,2,1);//"更新"
+		nas.GUI.addButton(this,nas.localize(nas.uiMsg["Update"]),6.5,0.4,2,1);//"更新"
 	}
 nas.Pref.tabPanel[0].TitleSelector.init();
 
@@ -194,7 +190,7 @@ nas.Pref.tabPanel[0].init();
 
 //プリセットリスト
 	nas.Pref.tabPanel[1].MediaList=
-			nas.GUI.addPanel(nas.Pref.tabPanel[1],localize(nas.uiMsg["IMedit"]),0.2,0,8.5,9.);//"入力メディア編集"
+			nas.GUI.addPanel(nas.Pref.tabPanel[1],nas.localize(nas.uiMsg["IMedit"]),0.2,0,8.5,9.);//"入力メディア編集"
 
 //編集コントロール登録
 	nas.Pref.tabPanel[1].MediaList.init=function()
@@ -238,13 +234,13 @@ nas.Pref.tabPanel[0].init();
 	this.imPegR=
 		nas.GUI.addEditText(this,nas.inputMedias.selectedRecord[8],7.2,2.5,1,1);
 
-//データ操作コントロール localize(nas.uiMsg[""])
+//データ操作コントロール nas.localize(nas.uiMsg[""])
 	this.addEntry=
-		nas.GUI.addButton(this,localize(nas.uiMsg["Registration"]),2.5,0.4,2,1);//"新規登録"
+		nas.GUI.addButton(this,nas.localize(nas.uiMsg["Registration"]),2.5,0.4,2,1);//"新規登録"
 	this.delEntry=
-		nas.GUI.addButton(this,localize(nas.uiMsg["Delete"]),4.5,0.4,2,1);//"削除"
+		nas.GUI.addButton(this,nas.localize(nas.uiMsg["Delete"]),4.5,0.4,2,1);//"削除"
 	this.chgEntry=
-		nas.GUI.addButton(this,localize(nas.uiMsg["Update"]),6.5,0.4,2,1);//"更新"
+		nas.GUI.addButton(this,nas.localize(nas.uiMsg["Update"]),6.5,0.4,2,1);//"更新"
 	}
 nas.Pref.tabPanel[1].MediaList.init();
 
@@ -296,7 +292,7 @@ nas.Pref.tabPanel[1].MediaList.update = function()
 
 //プリセットリスト
 	nas.Pref.tabPanel[1].oMediaList=
-		nas.GUI.addPanel(nas.Pref.tabPanel[1],localize(nas.uiMsg["OMedit"]),0.2,9,8.5,8.5);//"出力メディア編集"
+		nas.GUI.addPanel(nas.Pref.tabPanel[1],nas.localize(nas.uiMsg["OMedit"]),0.2,9,8.5,8.5);//"出力メディア編集"
 
 //編集コントロール登録
 	nas.Pref.tabPanel[1].oMediaList.init=function()
@@ -332,11 +328,11 @@ nas.Pref.tabPanel[1].MediaList.update = function()
 
 //データ操作コントロール
 	this.addEntry=
-		nas.GUI.addButton(this,localize(nas.uiMsg["Registration"]),2.5,0.4,2,1);//"新規登録"
+		nas.GUI.addButton(this,nas.localize(nas.uiMsg["Registration"]),2.5,0.4,2,1);//"新規登録"
 	this.delEntry=
-		nas.GUI.addButton(this,localize(nas.uiMsg["Delete"]),4.5,0.4,2,1);//"削除"
+		nas.GUI.addButton(this,nas.localize(nas.uiMsg["Delete"]),4.5,0.4,2,1);//"削除"
 	this.chgEntry=
-		nas.GUI.addButton(this,localize(nas.uiMsg["Update"]),6.5,0.4,2,1);//"更新"
+		nas.GUI.addButton(this,nas.localize(nas.uiMsg["Update"]),6.5,0.4,2,1);//"更新"
 	}
 nas.Pref.tabPanel[1].oMediaList.init();
 
@@ -387,12 +383,12 @@ nas.Pref.tabPanel[1].init();
 
 //=========================================================タブパネル２/詳細動作設定
 
-	nas.GUI.addStaticText(nas.Pref.tabPanel[2],localize({en:"footage filter(RegExp)",ja:"読み込みフィルタ(正規表現)"}),0,0,8,1).justify="right";//"読み込みフィルタ"
-	nas.GUI.addStaticText(nas.Pref.tabPanel[2],localize(nas.uiMsg["ElementsFilter"]),0,1,2,1).justify="right";//"素材フィルタ : "
-	nas.GUI.addStaticText(nas.Pref.tabPanel[2],localize(nas.uiMsg["Cell"]),0,2,2,1).justify="right";//"セルフィルタ : "
-	nas.GUI.addStaticText(nas.Pref.tabPanel[2],localize(nas.uiMsg["BG"]),0,3,2,1).justify="right";//"背景 : "
-	nas.GUI.addStaticText(nas.Pref.tabPanel[2],localize(nas.uiMsg["Book"]),0,4,2,1).justify="right";//"BOOK : "
-	nas.GUI.addStaticText(nas.Pref.tabPanel[2],localize(nas.uiMsg["Layout"]),0,5,2,1).justify="right";//"レイアウト : "
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],nas.localize({en:"footage filter(RegExp)",ja:"読み込みフィルタ(正規表現)"}),0,0,8,1).justify="right";//"読み込みフィルタ"
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],nas.localize(nas.uiMsg["ElementsFilter"]),0,1,2,1).justify="right";//"素材フィルタ : "
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],nas.localize(nas.uiMsg["Cell"]),0,2,2,1).justify="right";//"セルフィルタ : "
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],nas.localize(nas.uiMsg["BG"]),0,3,2,1).justify="right";//"背景 : "
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],nas.localize(nas.uiMsg["Book"]),0,4,2,1).justify="right";//"BOOK : "
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],nas.localize(nas.uiMsg["Layout"]),0,5,2,1).justify="right";//"レイアウト : "
 /*
 	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"====================	素材管理フォルダ　====================",0,6,8,1).justify="right";
 	nas.GUI.addStaticText(nas.Pref.tabPanel[2],"セル : ",0,7,2,1).justify="right";
@@ -529,56 +525,60 @@ nas.Pref.tabPanel[1].init();
 	nas.Pref.tabPanel[2].smsClip.value=nas.smoothClip;
 */
 //memo "このパネルの変更はセッション限りです。記録が必要な場合は下のボタンで保存してください。"
-	nas.GUI.addStaticText(nas.Pref.tabPanel[2],localize(nas.uiMsg.dm001),0,16,9,2).justify="right";
+	nas.GUI.addStaticText(nas.Pref.tabPanel[2],nas.localize(nas.uiMsg.dm001),0,16,9,2).justify="right";
 //=========================================================タブパネル３　/　作画機能設定
 
-nas.GUI.addStaticText(nas.Pref.tabPanel[3],localize(nas.uiMsg["drawingFunctions"]),0,0,9,1).justify="right";//"作画機能設定"
+nas.GUI.addStaticText(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["drawingFunctions"]),0,0,9,1).justify="right";//"作画機能設定"
 
 //レイヤコントロール設定
-nas.GUI.addStaticText(nas.Pref.tabPanel[3],localize(nas.uiMsg["layerControl"]),0,1,3,1).justify="right";//"レイヤコントロール"
+nas.GUI.addStaticText(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["layerControl"]),0,1,3,1).justify="right";//"レイヤコントロール"
 
-nas.GUI.addStaticText(nas.Pref.tabPanel[3],localize(nas.uiMsg["atCreateNewLayer"]),1,1.5,3,1).justify="right";//"新規レイヤ作成時に"
-nas.Pref.tabPanel[3].nlOpc=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],localize(nas.uiMsg["withTransparent"]),4,1.5,2,1);//"透過させる"
-nas.Pref.tabPanel[3].nlOpcValue=nas.GUI.addEditText(nas.Pref.tabPanel[3],"65",6,1.5,1,1);
-nas.GUI.addStaticText(nas.Pref.tabPanel[3],"%",7,1.5,1,1).justify="left";
+nas.GUI.addStaticText(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["atCreateNewLayer"]),1,2,3,1).justify="right";//"新規レイヤ作成時に"
+nas.Pref.tabPanel[3].nlOpc=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["withTransparent"]),4,2,2,1);//"透過させる"
+nas.Pref.tabPanel[3].nlOpcValue=nas.GUI.addEditText(nas.Pref.tabPanel[3],"65",6,2,1,1);
+nas.GUI.addStaticText(nas.Pref.tabPanel[3],"%",7,2,1,1).justify="left";
 
 //=========色選択
 //動画レイヤ
-nas.Pref.tabPanel[3].colorSPC=nas.GUI.addPanel(nas.Pref.tabPanel[3],localize(nas.uiMsg["newLayerBgColor"]),2,2,6,2);//"新規レイヤの背景色"
+nas.Pref.tabPanel[3].colorSPC=nas.GUI.addPanel(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["newLayerBgColor"]),1,2.5,7.5,2);//"新規レイヤの背景色"
 for(var ix=0;ix<nas.axe.lyBgColors.length;ix++){
-	nas.Pref.tabPanel[3]["rb"+ix]=nas.GUI.addRadioButton(nas.Pref.tabPanel[3].colorSPC,nas.axe.lyBgColors[ix][0],ix*1.2,0.3,1.5,1);
+	nas.Pref.tabPanel[3]["rb"+ix]=nas.GUI.addRadioButton(nas.Pref.tabPanel[3].colorSPC,nas.axe.lyBgColors[ix][0],ix*1.2,0.3,1.4,1);
 }
 	nas.Pref.tabPanel[3]["rb"+nas.axe.lyBgColor].value=true;
 //修正レイヤ
-nas.Pref.tabPanel[3].colorSPCo=nas.GUI.addPanel(nas.Pref.tabPanel[3],localize(nas.uiMsg["overlayBgColor"]),2,3.7,6,2);//"修正レイヤの背景色"
+nas.Pref.tabPanel[3].colorSPCo=nas.GUI.addPanel(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["overlayBgColor"]),1,4.2,7.5,2);//"修正レイヤの背景色"
 for(var ix=0;ix<nas.axe.ovlBgColors.length;ix++){
-	nas.Pref.tabPanel[3]["rbo"+ix]=nas.GUI.addRadioButton(nas.Pref.tabPanel[3].colorSPCo,nas.axe.ovlBgColors[ix][0],ix*1.2,0.3,1.5,1);
+	nas.Pref.tabPanel[3]["rbo"+ix]=nas.GUI.addRadioButton(nas.Pref.tabPanel[3].colorSPCo,nas.axe.ovlBgColors[ix][0],ix*1.2,0.3,1.4,1);
 }
 	nas.Pref.tabPanel[3]["rbo"+nas.axe.ovlBgColor].value=true;
 
 //プレビューコントロール設定
-	nas.GUI.addStaticText(nas.Pref.tabPanel[3],localize(nas.uiMsg["previewControl"]),0,7,3,1).justify="right";//"プレビューコントロール"
+	nas.GUI.addStaticText(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["previewControl"]),0,7.3,3,1).justify="right";//"プレビューコントロール"
 
-nas.Pref.tabPanel[3].focusInterlocking=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],localize(nas.uiMsg["dm002"]),4,6,6,2);//"フレーム移動時にアクティブレイヤを移動"
-nas.Pref.tabPanel[3].playheadMoveToOptKey=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],localize(nas.uiMsg["dm010"]),4,7,6,2);//"ヘッド移動に不透明度キーを使用(timeline)"
-nas.Pref.tabPanel[3].playheadSkipFrames=nas.GUI.addEditText(nas.Pref.tabPanel[3],"0",4,8.5,1,1);
-nas.Pref.tabPanel[3].playheadSkip=nas.GUI.addStaticText(nas.Pref.tabPanel[3],localize(nas.uiMsg["dm011"]),5,8.5,5,2);//"frame skip (timeline)"
+nas.Pref.tabPanel[3].focusInterlocking=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["dm002"]),3,7,6,1.5);//"フレーム移動時にアクティブレイヤを移動"
+if(nas.Version.psAxe>="1.1.0"){
+
+nas.Pref.tabPanel[3].playheadMoveToOptKey=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["dm010"]),3,8.5,6,1.5);//"ヘッド移動に不透明度キーを使用(timeline)"
+nas.Pref.tabPanel[3].playheadSkipFrames=nas.GUI.addEditText(nas.Pref.tabPanel[3],"0",3,10,1,1);
+nas.Pref.tabPanel[3].playheadSkip=nas.GUI.addStaticText(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["dm011"]),4,10,5,1);//"frame skip (timeline)"
+
+}
 
 //ドキュメント設定
-	nas.GUI.addStaticText(nas.Pref.tabPanel[3],localize(nas.uiMsg["Documents"]),0,11,3,1).justify="right";//"ドキュメント設定"
+	nas.GUI.addStaticText(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["Documents"]),0,11.5,3,1).justify="right";//"ドキュメント設定"
 
 //nas.GUI.addStaticText(nas.Pref.tabPanel[3],"新規ファイル作成ダイアログ",1,9,2,1).justify="right";
-nas.Pref.tabPanel[3].selectDialog=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],localize(nas.uiMsg["dm004"]),4,10,6,1);//"新規ドキュメント作成時にアニメ拡張機能"
+nas.Pref.tabPanel[3].selectDialog=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["dm004"]),3,11.5,6,1);//"新規ドキュメント作成時にアニメ拡張機能"
 //タップ画像配置時にブレンドモードを差の絶対値にする
-nas.Pref.tabPanel[3].pegBlendMode=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],localize(nas.uiMsg["dm013"]),4,11,6,1);//"タップ画像配置時に差の絶対値にする"
+nas.Pref.tabPanel[3].pegBlendMode=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["dm013"]),3,12.5,6,1);//"タップ画像配置時に差の絶対値にする"
 //フレーム画像配置時に２０％透過にする
-nas.Pref.tabPanel[3].frameOpacity=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],localize(nas.uiMsg["dm014"]),4,12,6,1);//"フレーム画像配置時に半透明にする"
+nas.Pref.tabPanel[3].frameOpacity=nas.GUI.addCheckBox(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["dm014"]),3,13.5,6,1);//"フレーム画像配置時に半透明にする"
 
 //ショートカット用スクリプトインストール
-	nas.GUI.addStaticText(nas.Pref.tabPanel[3],localize(nas.uiMsg["shortcutKey"]),0,14,3,1).justify="right";//"ショートカット用ツール"
+	nas.GUI.addStaticText(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["shortcutKey"]),0,15,3,1).justify="right";//"ショートカット用ツール"
 
-	nas.Pref.tabPanel[3].utInstall	=nas.GUI.addRadioButton(nas.Pref.tabPanel[3],localize(nas.uiMsg["install"]),4,14,2,1);//"インストール"
-	nas.Pref.tabPanel[3].utRemove	=nas.GUI.addRadioButton(nas.Pref.tabPanel[3],localize(nas.uiMsg["uninstall"]),6,14,2.5,1);//"アンインストール"
+	nas.Pref.tabPanel[3].utInstall	=nas.GUI.addRadioButton(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["install"]),4,15,2,1);//"インストール"
+	nas.Pref.tabPanel[3].utRemove	=nas.GUI.addRadioButton(nas.Pref.tabPanel[3],nas.localize(nas.uiMsg["uninstall"]),6,15,2.5,1);//"アンインストール"
 
 
 nas.Pref.tabPanel[3].init=function()
@@ -588,12 +588,14 @@ nas.Pref.tabPanel[3].init=function()
 	nas.Pref.tabPanel[3]["rb"+nas.axe.lyBgColor].value=true;
 	nas.Pref.tabPanel[3]["rbo"+nas.axe.ovlBgColor].value=true;
 	nas.Pref.tabPanel[3].focusInterlocking.value=nas.axe.focusMove;
+if(nas.Version.psAxe>="1.1.0"){
 	nas.Pref.tabPanel[3].playheadMoveToOptKey.value=nas.axe.useOptKey;
 	nas.Pref.tabPanel[3].playheadSkipFrames.text=nas.axe.skipFrames;
+}
 	nas.Pref.tabPanel[3].selectDialog.value=nas.axe.dmDialog;
 	nas.Pref.tabPanel[3].pegBlendMode.value=nas.axe.pegBlend;
 	nas.Pref.tabPanel[3].frameOpacity.value=nas.axe.frameOpc;
-    var inStallChecker=File(app.path + "/"+ localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas/goNext.jsx");
+    var inStallChecker=File(app.path + "/"+ nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") + "/nas/goNext.jsx");
 	nas.Pref.tabPanel[3].utInstall.value=(inStallChecker.exists)?true:false;
 	nas.Pref.tabPanel[3].utRemove.value=(inStallChecker.exists)?false:true;
 }
@@ -602,12 +604,12 @@ nas.Pref.tabPanel[3].init();
 
 
 //Yes No Cancel
-	nas.Pref.importButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Import"]),0,19,1,1);//"インポート"
-	nas.Pref.exportButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Export"]),1,19,1,1);//"エクスポート"
-	nas.Pref.readButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Load"]),2,19,2,1);//"読込"
-	nas.Pref.writeButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Save"]),4,19,2,1);//"保存"
-	nas.Pref.clearButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Destruction"]),6,19,1,1);//"破棄"
-	nas.Pref.closeButton=nas.GUI.addButton(nas.Pref,localize(nas.uiMsg["Close"]),7,19,2,1);//"close"	
+	nas.Pref.importButton=nas.GUI.addButton(nas.Pref,nas.localize(nas.uiMsg["Import"]),0,19,1,1);//"インポート"
+	nas.Pref.exportButton=nas.GUI.addButton(nas.Pref,nas.localize(nas.uiMsg["Export"]),1,19,1,1);//"エクスポート"
+	nas.Pref.readButton=nas.GUI.addButton(nas.Pref,nas.localize(nas.uiMsg["Load"]),2,19,2,1);//"読込"
+	nas.Pref.writeButton=nas.GUI.addButton(nas.Pref,nas.localize(nas.uiMsg["Save"]),4,19,2,1);//"保存"
+	nas.Pref.clearButton=nas.GUI.addButton(nas.Pref,nas.localize(nas.uiMsg["Destruction"]),6,19,1,1);//"破棄"
+	nas.Pref.closeButton=nas.GUI.addButton(nas.Pref,nas.localize(nas.uiMsg["Close"]),7,19,2,1);//"close"	
 
 //=========================================================コントロールファンクション設定
 //メインコントロール
@@ -904,12 +906,13 @@ nas.Pref.tabPanel[2].loGd.onClick=function(){nas.viewLayout.guideLayer=(this.val
 	 nas.Pref.tabPanel[3]["rbo"+ix].onClick=nas.Pref.tabPanel[3].chgColor
 	}
 	nas.Pref.tabPanel[3].focusInterlocking.onClick=function(){nas.axe.focusMove=this.value;}
+if(nas.Version.psAxe>="1.1.0"){
 	nas.Pref.tabPanel[3].playheadMoveToOptKey.onClick=function(){nas.axe.useOptKey=this.value;}
 	nas.Pref.tabPanel[3].playheadSkipFrames.onChange=function(){
 		var myNumber=new Number(this.text);
 		if((myNumber<=60)&&(myNumber>=0)){nas.axe.skipFrames=myNumber;}else{this.text=nas.axe.skipFrames;}		
 	}
-	
+}
 	nas.Pref.tabPanel[3].selectDialog.onClick=function(){nas.axe.dmDialog=this.value;}
 	nas.Pref.tabPanel[3].pegBlendMode.onClick=function(){nas.axe.pegBlend=this.value;}
 	nas.Pref.tabPanel[3].frameOpacity.onClick=function(){nas.axe.frameOpc=this.value;}
@@ -918,16 +921,16 @@ nas.Pref.tabPanel[2].loGd.onClick=function(){nas.viewLayout.guideLayer=(this.val
 	function setShortcut(status)
 	{
 		myTargets=[
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/importFieldChart.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/importReference.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/goNext.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/goPrev.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/shiftLayersB.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/shiftLayersU.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/swapLayers.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/editTextSource.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/frameMoveWidthLayerFocusBwd.jsx"].join("/"),
-		[app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/frameMoveWidthLayerFocusFwd.jsx"].join("/")
+		[app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/importFieldChart.jsx"].join("/"),
+		[app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/importReference.jsx"].join("/"),
+		[app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/goNext.jsx"].join("/"),
+		[app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/goPrev.jsx"].join("/"),
+		[app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/shiftLayersB.jsx"].join("/"),
+		[app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/shiftLayersU.jsx"].join("/"),
+		[app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/swapLayers.jsx"].join("/"),
+		[app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/editTextSource.jsx"].join("/"),
+		[app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/frameMoveWidthLayerFocusBwd.jsx"].join("/"),
+		[app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas/frameMoveWidthLayerFocusFwd.jsx"].join("/")
 		];
 		myTools=[
 		[Folder.userData.fullName,"nas/scripts/axe/importFieldChart.jsx"].join("/"),
@@ -947,9 +950,13 @@ nas.Pref.tabPanel[2].loGd.onClick=function(){nas.viewLayout.guideLayer=(this.val
 		{
             var doCopy=true;
 //ターゲットフォルダが無ければ作る
-	var myTargetFolder=Folder([app.path , localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas"].join("/"));
+	var myTargetFolder=Folder([app.path , nas.localize("$$$/ScriptingSupport/InstalledScripts=Presets/Scripts") ,"nas"].join("/"));
 	if(! myTargetFolder.exists){
-        if(myTargetFolder.create()){alert("フォルダを作成しました")}else{alert("フォルダの作成ができません　管理者権限のあるユーザで実行して下さい");doCopy=false;}
+        if(myTargetFolder.create()){
+		alert(nas.localize({en:"Folder creation was successful",ja:"フォルダを作成しました"}))
+	}else{
+		alert(nas.localize({en:"It failed to create a folder. It must be executed by a user with administrative privileges",ja:"フォルダの作成ができません　管理者権限のあるユーザで実行して下さい"}));doCopy=false;
+	}
         }
 if(doCopy){
 //コピー
@@ -961,7 +968,10 @@ if(doCopy){
 					names.push(File(myTools[ix]).name);
 				};
 			}
-					var msg=names.join(" ,")+nas.GUI.LineFeed+counter +" 個の　ショートカット用スクリプトをインストールしました。PSを再起動後にショートカットの設定をして下さい";
+					var msg=names.join(" ,")+nas.GUI.LineFeed+nas.localize({
+	en: "%1 script was installed for shortcut-key. Please set-up the shortcut-key after restart PS",
+	ja: "%1 個の　ショートカット用スクリプトをインストールしました。PSを再起動後にショートカットの設定をして下さい"
+					},counter);
 					alert(msg);
 }
 		}else{
@@ -974,7 +984,10 @@ if(doCopy){
 					names.push(File(myTargets[ix]).name);
 				};
 			}
-					var msg=names.join(" ,")+nas.GUI.LineFeed+counter +" 個の　ショートカット用スクリプトを削除しました。";
+					var msg=names.join(" ,")+nas.GUI.LineFeed+nas.localize({
+	en:"%1 script wasremoved for shortcut-key.",
+	ja:"%1 個の　ショートカット用スクリプトを削除しました。"
+					},counter);
 					alert(msg);
 		}
 	}	
@@ -986,11 +999,17 @@ if(doCopy){
 	nas.Pref.importButton.onClick=function(){nas.importPrefarence();this.parent.init("all");};
 	nas.Pref.exportButton.onClick=function(){nas.exportPrefarence();};
 	nas.Pref.readButton.onClick=function(){
-		var doAction=confirm("保存中の設定を読み込みます。現在の設定は上書きされます。"+nas.GUI.LineFeed+"取り消しはできません。よろしいですか？");
+		var doAction=confirm(nas.localize({
+	en:"You will read the settings during storage. The current settings will be overwritten. \n cancellation can not be. Are you sure?",
+	ja:"保存中の設定を読み込みます。現在の設定は上書きされます。\n取り消しはできません。よろしいですか？"
+		}));
 		if(doAction){nas.readPrefarence();this.parent.init("all")};
 		};
 	nas.Pref.writeButton.onClick=function(){
-		var doAction=confirm("設定を["+nas.prefarenceFolder.fsName+"]以下に保存します。"+nas.GUI.LineFeed+"以前のファイルは上書きされます。よろしいですか？");
+		var doAction=confirm(nas.localize({
+	en:"It will save the settings [ %1 ] below. \n the previous file will be overwritten. Are you sure?",
+	ja:"設定を[ %1 ]以下に保存します。\n以前のファイルは上書きされます。よろしいですか？"
+		},nas.prefarenceFolder.fsName));
 		if(doAction){nas.writePrefarence()}
 		};
 	nas.Pref.clearButton.onClick=function(){nas.cleraPrefarence();};

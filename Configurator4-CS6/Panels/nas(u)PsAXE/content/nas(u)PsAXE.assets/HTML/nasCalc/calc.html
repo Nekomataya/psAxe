@@ -1,0 +1,490 @@
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+<title>ねこまた電卓</title>
+	
+<LINK REL="stylesheet" TYPE="text/css" href="./dougubako.css">
+<script language="JavaScript">
+<!--
+/**/
+//各バッファを初期化
+var dEbag=0;
+var inBuf='0';//入力バッファ、文字列で扱うこと
+
+operandStack = new Array;//電卓のスタック
+operandStack.push(0);
+var newStack=1;//スタック内容確定のフラグ
+
+var comBuf='';//オペレータ
+
+var maxPlace=12;//電卓としての最大桁数?
+var bufPlace=1;//現在の入力バッファ桁数・初期値0 なので 最少は1桁
+var bufDecimalPlace = 0;//入力バッファ小数部桁数
+var checkRegex = /[0-9\.]+/ ;
+//演算モード変数
+var INPUTmode='dec'//bin,oct,dec,hex,frame,tc,sk,
+var prefix = '';
+var cardinal = 10;
+var checkRegex = /^[0-9]$/;
+//chgINPUTmode('dec');
+//コンソールにメッセージ表示
+function putsCONS(string){
+	document.nasExchg.CONS.value=document.nasExchg.CONS.value+string+'\n';
+}
+//	tclsh 互換リスト操作サブプロシージャ
+//	lsearch(配列,検索値)
+function nas_Alsearch(arr,ser) {for(n=0; n<arr.length; n++){if( arr[n] == ser ){ return n; break;}}}
+
+function chgINPUTmode(mode) {
+if (mode == 'next'){
+var MODEs=["dec","oct","hex","dec"]
+mode = MODEs[ nas_Alsearch(["oct","hex","dec"],INPUTmode) ];
+}
+	INPUTmode=mode;
+
+switch (mode) {
+case "bin":	checkRegex = /^[01]$/;prefix = '';cardinal = 10;break;
+case "oct":	checkRegex = /^[0-7]$/;prefix = '0';cardinal = 8;break;
+case "hex":	checkRegex = /^[0-9A-F]$/;prefix = '0x';cardinal = 16;break;
+default:	checkRegex = /^[0-9]$/;prefix = '';cardinal = 10;break;
+}
+
+document.nasExchg.inputMode.value=INPUTmode;
+pushKey('=')
+}
+
+function pushKey(button){
+
+
+
+if (newStack && ! comBuf=='' && button.match(checkRegex)){
+//スタックの入力が確定しているので、新しいスタックをプッシュ
+//10進依存コードあり
+	inBuf='0';
+	bufPlace=1;
+	bufDecimalPlace=0;
+
+if (dEbag){putsCONS('StackPush');}
+	operandStack.push(0);
+
+//確定解除
+	newStack=0;
+	}
+	
+	if (button.match(checkRegex)) {
+		if (bufPlace<maxPlace) {
+	var oldDATA=inBuf+'/'+operandStack[operandStack.length -1];
+			if (inBuf=='0') {
+//ゼロのみの場合は入力でバッファを置き換え 桁数留保
+				inBuf = button;
+//				inBuf = eval(button).toString(cardinal);
+			}else{
+//ゼロ以外の値ならば文字連結してバッファに格納 桁数は繰り上げ
+				inBuf = inBuf + button;bufPlace ++ ;
+			}
+//小数フラグが立っていたら小数桁も切り上げ
+			if (bufDecimalPlace>=1) bufDecimalPlace ++;
+//電卓スタックの同期
+			operandStack.pop() ;
+			operandStack.push(eval(prefix + inBuf));
+//ディスプレイに表示
+	document.nasExchg.INbuf.value = inBuf;
+//	document.nasExchg.INbuf.value = Math.floor(inBuf);
+//デバッグ表示
+if (dEbag){
+	var newDATA=inBuf+'/'+operandStack[operandStack.length -1];
+	document.nasExchg.stackTop.value = newDATA;
+	putsCONS(oldDATA + ':'+newDATA+':'+bufPlace+':'+bufDecimalPlace);
+}
+		}else{
+//NOP
+		;
+		}
+
+	} else {SW(button)}	
+}
+
+function operatioN(){
+//保留オペレータの解決(二項以上の演算子のみ)
+if (operandStack.length==1) return;
+	switch (comBuf){
+	case		"-":	//減算
+operandStack.push(- operandStack.pop() + operandStack.pop());break;
+	case		"+":	//加算
+operandStack.push(operandStack.pop() + operandStack.pop());break;
+	case		"*":	//乗算
+operandStack.push(operandStack.pop() * operandStack.pop());break;
+	case		"/":	//実数商
+operandStack.push((1/operandStack.pop()) * operandStack.pop());break;
+	case		"MOD":	//剰余
+var key=operandStack.pop();
+operandStack.push(operandStack.pop()%key);break;
+	case		"^":	//ベキ乗
+var mulcount=operandStack.pop();
+operandStack.push(Math.pow(operandStack.pop(),mulcount));
+
+break;
+	default:
+putsCONS('NOP');
+;//NOP
+}
+
+}
+function SW(ComInput) {
+// putsCONS(ComInput + '\t>>')
+//オペレータを受信したら
+
+switch (ComInput) {
+// 二項演算子
+case		"-":	//減算
+case		"+":	//加算
+case		"*":	//乗算
+case		"/":	//実数商
+case		"%":	//剰余
+case		"^":	//ベキ乗
+if (! comBuf=='') {
+//オペレータバッファが空ならば、オペレータを積むだけ
+//それ以外は、以前の二項演算子を解決して次のオペレータを積む
+	operatioN();
+}
+//オペレータをオペレータスタックに積んでリターン
+	comBuf = ComInput;
+	document.nasExchg.COMbuf.value = comBuf;
+	newStack=1;
+//	return;
+break;
+// 以下単項演算子
+case		"R":	//√平方根
+	operandStack.push(Math.sqrt(operandStack.pop()));
+break;
+case		"P":	//入力バッファにパイを入力
+	operandStack.pop();//現スタックを廃棄
+	operandStack.push(Math.PI);
+break;
+case		"T":	//符号反転
+	operandStack.push(-(operandStack.pop()));
+break;
+case		"m2i":	//mm>インチ換算
+	operandStack.push((operandStack.pop())/25.40);
+break;
+case		"i2m":	//インチ>mm換算
+	operandStack.push(25.40*(operandStack.pop()));
+break;
+// 以下コマンド
+case		"AC":	//オールクリア
+	comBuf='';inBuf='0';
+	while(operandStack.length) operandStack.pop() ;
+	operandStack.pop() ;
+	operandStack.push(0);
+	bufDecimalPlace=0;
+	bufPlace=1;
+	newStack=0;
+
+	document.nasExchg.CONS.value='';
+	document.nasExchg.INbuf.value = inBuf;
+	return;
+break;
+case		"CE":	//クリアエントリ
+	operandStack.pop();
+	operandStack.push(0);
+break;
+case		"BS":	//
+if (newStack) newStack=0;
+if(bufPlace==1){
+	inBuf = 0;
+}else{
+	if ( bufDecimalPlace == 2) {
+	inBuf = inBuf.slice(0,inBuf.length-2);
+		bufDecimalPlace =0 ;
+	} else {
+	inBuf = inBuf.slice(0,inBuf.length-1);
+		if (bufDecimalPlace != 0 ) {
+			bufDecimalPlace --;
+		}
+	}
+	bufPlace --;
+}
+	operandStack.pop();operandStack.push(eval(prefix + inBuf))
+	document.nasExchg.INbuf.value = inBuf;
+	return;
+break;
+case		"=":	//
+ 	operatioN();
+	comBuf = '';//初期化
+	document.nasExchg.COMbuf.value = comBuf;
+
+break;
+case		".":	//
+if ( INPUTmode == 'dec'){
+	if (bufDecimalPlace==0){
+	bufDecimalPlace = 1;
+	inBuf=inBuf+'.';
+	document.nasExchg.INbuf.value=inBuf;
+	}
+}
+return;
+break;
+case		"STACK":	//
+	putsCONS();return;
+break;
+case		"check":	//
+document.nasExchg.CONS.value = '';
+	putsCONS('STACK / '+ operandStack+'\n'+'inBuf / '+ inBuf +' : '+bufPlace + '/' +bufDecimalPlace);return;
+break;
+case		"":	//
+break;
+
+}
+
+//document.nasExchg.INbuf.value = inBuf;
+//document.nasExchg.INbuf.value = operandStack[operandStack.length-1];
+
+//オペランドスタックのトップの値を16桁で丸めてバッファと置き換え
+inBuf=Math.round(operandStack[operandStack.length-1]*Math.pow(10,maxPlace))/Math.pow(10,maxPlace);
+//oct,hex の場合は、整数きり捨て
+//alert(INPUTmode);
+if (INPUTmode !='dec') {inBuf=Math.floor(inBuf)};
+	newStack=1;
+	document.nasExchg.INbuf.value = inBuf.toString(cardinal);
+	
+	//ここで、バッファの内容から桁の値を取り出して代入する必要あり?
+	if (inBuf % 1 == 0){
+		bufPlace=inBuf.toString().length;
+		bufDecimalPlace=0;
+	}else{
+		bufPlace=inBuf.toString().length - 1;
+		bufDecimalPlace=inBuf.toString().length - inBuf.toString().search(/\./);
+	}
+if (inBuf<0) bufPlace --;
+	inBuf=inBuf.toString();
+
+	} 
+// -->
+</script></head>
+<body>
+<form name="nasExchg">
+<table border="0" cellpadding="0" cellspacing="0" style="text-align: center;">
+
+<tbody><tr><td rowspan="11">
+<textarea
+	name=CONS
+	rows="23" cols="32"
+></textarea><BR><INPUT type=button
+name =clearCONS
+value="CLEAR"
+onClick="document.nasExchg.CONS.value='';"
+></td>
+<td colspan="6"><input type="text"
+	name="mainDP"
+	size="18"
+	value="00:00:00:00"
+	style="font-size: 18pt; text-align: right;
+"></td></tr>
+
+<tr><td colspan="6"><input type="text"
+	name="stackTop"
+	size="18"
+	value="0"
+	style="font-size: 16pt; text-align: right;"
+></td></tr>
+
+<tr nowrap><td colspan="6"><input type="text"
+	name="COMbuf"
+	size="1"
+	value=" "
+	style="font-size: 16pt; text-align: center;"
+><input type="text"
+	name="INbuf"
+	size="16"
+	value="0"
+	style="font-size: 16pt; text-align: right;"
+></td></tr>
+
+<tr><td colspan="6"><input type="button"
+	name="inputMode"
+	value="dec"
+	onclick="chgINPUTmode('next')"
+><input type="button"
+	name="voidy"
+	value="mm→in"
+	onclick="pushKey('m2i')"
+><BR><input type="button"
+	name="voidy"
+	value="in→mm"
+	onclick="pushKey('i2m')"
+><input type="button"
+	name="voidy"
+	value="NA"
+	onclick="pushKey(this.value)"
+></td></tr>
+
+<tr><td colspan="6" nowrap="nowrap"><input type="button"
+	name="voidy"
+	value="+/-"
+	onclick="pushKey('T')"
+><input type="button"
+	name="voidy"
+	value="BS"
+	onclick="pushKey(this.value)"
+><input type="button"
+	name="voidy"
+	value="CE"
+	onclick="pushKey(this.value)"
+><input type="button"
+	name="voidy"
+	value="AC"
+	onclick="pushKey(this.value)"
+></td></tr>
+
+<tr><td colspan="6" nowrap="nowrap"><input type="button"
+	name="voidy"
+	value="π"
+	onclick="pushKey('P')"
+><input type="button"
+	name="voidy"
+	value="√"
+	onclick="pushKey('R')"
+><input type="button"
+	name="voidy"
+	value="MOD"
+	onclick="pushKey(this.value)"
+><input type="button"
+	name="voidy"
+	value="check"
+	onclick="pushKey(this.value)"
+></td></tr>
+
+
+<tr><td><input type="button"
+	name="voidy"
+	value="A"
+	style="font-size: 14pt;"
+	onclick="pushKey('A')"
+></td><td><input type="button"
+	name="voidy"
+	value="B"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="C"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="D"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="＾"
+	style="font-size: 14pt;"
+	onclick="pushKey('^')"
+></td><td><br></td></tr>
+
+<tr><td><input type="button"
+	name="voidy"
+	value="7"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="8"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="9"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="E"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="÷"
+	style="font-size: 14pt;"
+	onclick="pushKey('/')"
+></td><td><br></td></tr>
+
+<tr><td><input type="button"
+	name="voidy"
+	value="4"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="5"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="6"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="F"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="×"
+	style="font-size: 14pt;"
+	onclick="pushKey('*')"
+></td><td><br></td></tr>
+
+<tr><td><input type="button"
+	name="voidy"
+	value="1"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="2"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="3"
+	style="font-size: 14pt;"
+	onclick="pushKey(this.value)"
+></td><td><input type="button"
+	name="voidy"
+	value="＋"
+	style="font-size: 14pt;"
+	onclick="pushKey('+')"
+></td><td><input type="button"
+	name="voidy"
+	value="−"
+	style="font-size: 14pt;"
+	onclick="pushKey('-')"
+></td><td><br></td></tr>
+
+<tr><td colspan=2><input type="button"
+	name="voidy"
+	value="　0　"
+	style="font-size: 14pt;"
+	onclick="pushKey('0')"
+></td><td><input type="button"
+	name="voidy"
+	value="．"
+	style="font-size: 14pt;"
+	onclick="pushKey('.')"
+></td><td colspan="2"><input type="button"
+	name="voidy"
+	value="　＝　"
+	style="font-size: 14pt;"
+	onclick="pushKey('=')"
+></td><td><br></td></tr>
+
+
+</tbody></table></form>
+2004.09.12
+一応電卓、作り始め 何とか電卓らしくなってきた。<BR>
+時計はまだ組み込んでない。<BR>
+既成のストップウオッチッを組み込むヨテー<BR>
+タイムコードの計算機能もまだ。<BR>
+<BR>
+</body></html>
