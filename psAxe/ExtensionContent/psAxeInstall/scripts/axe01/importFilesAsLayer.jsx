@@ -143,18 +143,17 @@ w.FdBt.onClick=function(){
 		var checkStartFolder=true;
 if(!(myFolder.parent instanceof Folder)||(currentFolders>=maxFolders)){
         checkStartFolder=confirm (nas.localize({
-        	en:"Whether the route is specified, the number of folders read directory exceeds the specified value \n number of folders:%CURRENTFOLDERS% \n folder:%ISFOLDER% : %FOLDERNAME% \n Do you want to continue processing?",
-	ja:"ルートが指定されたか、読み込みディレクトリのフォルダ数が規定値を超えています\nフォルダ数: %CURRENTFOLDERS%\nフォルダ: %ISFOLDER% : %FOLDERNAME%\n処理を続行しますか？"
-
-        }).replace(/%CURRENTFOLDERS%/,currentFolders) .replace(/%ISFOLDER%/,(myFolder.parent instanceof Folder)).replace(/%FOLDERNAME%/,myFolder.fullName),
+        	en:"Whether the route is specified, the number of folders read directory exceeds the specified value \n number of folders:%1 \n folder:%2 : %3 \n Do you want to continue processing?",
+	ja:"ルートが指定されたか、読み込みディレクトリのフォルダ数が規定値を超えています\nフォルダ数: %1 \nフォルダ: %2 : %3 \n処理を続行しますか？"
+        },currentFolders,(myFolder.parent instanceof Folder),myFolder.fullName),
 	"no", nas.localize({en:"!! caution !!",ja:"!! 注意 !!"})
         );
     }
 if(importFileList.length>=maxHandle){
         checkFileCount=confirm (nas.localize({
-        	en:"Reading list the total number exceeds the specified value %MAXHANDLE% \nmh: %FILECOUNT% / %MAXHANDLE% \n Do you want to continue processing?",
-	ja:"読込リスト総数が規定値の%MAXHANDLE%を超えています\nmh:%FILECOUNT%/%MAXHANDLE%\n処理を続行しますか？"
-          }).replace(/%MAXHANDLE%/g,maxHandle).replace(/%FILECOUNT%/, importFileList.length),
+        	en:"Reading list the total number exceeds the specified value %1 \nmh: %2 / %1 \n Do you want to continue processing?",
+	ja:"読込リスト総数が規定値の%1 を超えています\nmh:%2 / %1 \n処理を続行しますか？"
+          },maxHandle, importFileList.length),
           "no", nas.localize({en:"!! caution !!",ja:"!! 注意 !!"})
         );
 }

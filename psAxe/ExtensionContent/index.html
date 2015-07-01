@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+
 <script src="./lib/CSInterface-4.0.0.js"></script>
 <script src="./ext.js"></script>
 <script src="./common_files/nas_common.js"></script>
@@ -10,9 +11,14 @@
 <script src="./messages.js"></script>
 
 <!--
+<meta name=application-name content=nas(u)psAxe>
+<meta name=application-version content=1.1.4>
 	sliderValue() を利用するためだけに古いライブラリを使用しているので注意
 タイミングを見てpsAxe用のコードを抽出するか、フルサイズの新規ライブラリに換装すること 2015 06-10
-
+アプリケーションの識別及びバージョンをhtnl内に埋め込んでおきたいが…
+input hidden ? meta ?
+現状ではext.jsにextVerプロパティとして記述する
+内容は　onLoaded時にホスト側のapp.nas.Version.psAxeへ転送しておく　2015 06-29
 -->
 
 <link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
@@ -20,13 +26,13 @@
 
 </head>
 
-<body onLoad='nas.LangPack.chgLocale("en");onLoaded();'>
+<body onLoad='onLoaded();'>
 <div id="content">
 
 <button id="inst" class="qw" onClick='doInstall()' ><img src=images/axe.png></img>
 </button>
 
-<span align=rigth width=300 nowrap>nas(u)PsAXE
+<span stile="width:300px">nas(u)PsAXE
 <button id="inst" class="qw" onClick='doPref()' ><img src=images/gear.png></img>
 </button>
 </span>
@@ -277,7 +283,7 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
 >( ++ )</button><button id=decLNMN class=qwd style="height:16px;" onClick='doAxeScript("layerNameDec")' title="label number --"
 >( -- )</button>
 <br>
-         <button  id=pacPS class=hwd style="height:16px;" "onClick='doAxeScript("PacPs")' title="レイヤ名一括変更">［PacPs］
+         <button  id=pacPS class=hwd style="height:16px;" onClick='doAxeScript("PacPs")' title="レイヤ名一括変更">［PacPs］
 </button> <button id=ezFlip class=hwd style="height:16px;" onClick='doAxeScript("ezFlip")' title="レイヤ名変更パネル">[レイヤ名変更]
 </button>
 

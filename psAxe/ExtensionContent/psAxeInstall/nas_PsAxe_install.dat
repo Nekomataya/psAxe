@@ -1,4 +1,4 @@
-//(nas_PsAxe_installer_data06)
+//(nas_PsAxe_installer_data21050628)
 /*===========================	これはインストール設定ファイル	===============================*/
 //第一行目のシグネチャは、インストーラに記述された変数と一致する必要があるので、注意 これがデータの識別子となります。任意
 /*
@@ -12,7 +12,7 @@ $id:$
 nas_Installer.locale="ja_JP";//限定…この判定はどうも簡単じゃなさそう
 //インストールパッケージ名称とバージョン
 nas_Installer.pkgName    ="nas_animation_Tools";//package名称(文字列)インストール済みの情報ファイル名にするのでファイル名使用可能なパッケージ名にしといてくらさい。
-nas_Installer.pkgVersion ="2.9.0";//バージョン番号はドット区切り3ブロックの数値文字列で
+nas_Installer.pkgVersion ="3.0.0";//バージョン番号はドット区切り3ブロックの数値文字列で
 
 /*
 
@@ -28,6 +28,11 @@ Photoshop CC/CC2014 のためにpixelBender関連とIcons関連を削除
 
 多言語化処理開始
 現在メッセージは{en:,ja:}のみ
+
+CC2015リリースにつきバージョン追加
+念のため少し先のバージョンまで準備しておく（CEPに合わせ）
+ライブラリをpsAxe 1.0 と1.1で共通化　axeのプロパティは一致させる
+1.0では不使用の物あり
 
 */
 
@@ -54,7 +59,7 @@ Adobe Bridge
 
 などの "app.name"で参照される文字列を正規表現でフィルタする。
 */
-nas_Installer.myVersionRegExp=new RegExp("^(15|14|13|12|11|10|9)\\.[012]\\..+$");//version.name
+nas_Installer.myVersionRegExp=new RegExp("^(20|19|18|17|16|15|14|13|12|11|10|9)\\.[012]\\..+$");//version.name
 /*
 バーション番号を正規表現でフィルタ
  */
@@ -362,7 +367,7 @@ ja:"nasライブラリパッケージをインストールできたと思いま�
 ["%SOURCE%/nasPsAxeInstall.jsx","%USER%/nasPsAxeInstall.jsx"],
 ["%SOURCE%/nas_PsAxe_install.dat","%USER%/nas_PsAxe_install.dat"],
 ["confirm",localize({
-en:"",
+en:"I think that it is the way the error was able to install the PsAxe package if too much there.\nIt's safer you restart the Photoshop for just in case",
 ja:"途中でエラーがあまり無ければPsAxeパッケージをインストールできたと思います。\n念の為にPhotoshopを再起動したほうが安全です"
 })]
 ];
