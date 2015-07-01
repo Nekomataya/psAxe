@@ -6,13 +6,15 @@
 <script src="./lib/CSInterface-4.0.0.js"></script>
 <script src="./ext.js"></script>
 <script src="./common_files/nas_common.js"></script>
+<script src="./psAxeInstall/lib/nas_locale.js"></script>
+<script src="./messages.js"></script>
 
 <link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
 <title>nasPsAxe</title>
 
 </head>
 
-<body onLoad="onLoaded();">
+<body onLoad="onLoaded();" onSelectStart="return false;">
 <div id="content">
 
 <button id="inst" class="qw" onClick='doInstall()' ><img src=images/axe.png></img>
@@ -265,37 +267,91 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
 <br>
 <!-- -->
 </div>
-<button class=fsp onClick='javascript:document.getElementById("DBGCons").style.display=(document.getElementById("DBGCons").style.display=="none")?"inline":"none";' title="デバッグほか">デバッグ/スクリプト</button><br>
+<button id=handleDBG class=fsp onClick='javascript:document.getElementById("DBGCons").style.display=(document.getElementById("DBGCons").style.display=="none")?"inline":"none";' title="デバッグほか">デバッグ/スクリプト</button><br>
 <div id=DBGCons style="display:none">
-<!--
-<button class=fw onClick='doAxeScript("dbgConsolePs")' title=""> jsコンソール
-</button>
-<br>-->
-<A HREF="javascript:void(0);" onclick='doAxeScript("dbgConsolePs");return false;' title="Adobe Script Console">
-	photoshop js コンソール</A>
+<A id=aesConsole HREF="javascript:void(0);" onclick='doAxeScript("dbgConsolePs");return false;' title="Adobe Script Console">
+	[photoshop js コンソール]</A>
 <br>
-<A HREF="nasCalc/index.html" title="電卓">
-	電卓</A>
-<BR>
+<A id=nasCalk HREF="nasCalc/index.html" title="電卓">
+	/電卓/</A>
+<br>
+<button id=reload class=fwd onClick='location="./index.html"'>/reload/</button>
+<br>
 
-<A HREF="fakeAE/TEST.html"  title="エクスプレッションの評価">
-	Javascript Console</A>
+<button id=jsConsole class=fw onClick='javascript:document.getElementById("dbgConsolePsAxe").style.display=(document.getElementById("dbgConsolePsAxe").style.display=="none")?"inline":"none";' title="エクスプレッションの評価">
+	/Javascript Console</button>
 <br>
 
 <!-- <input type=text size=14 value=0 onMousedown = "sliderVALUE([event,this,'260','-60','-1'])" >
 -->
-</div>
+
 <!--
 	<button class=hw onClick='doAxeScript("marqueeRectTool")' title="">marqueeRectTool
 </button><button class=hw onClick='doAxeScript("rulerTool")' title="">rulerTool
 </button>
-	<button id=class=qw onClick='doAxeScript("")' title="">QT
-</button><button class=qw onClick='doAxeScript("")' title="">QT
-</button><button class=qw onClick='doAxeScript("")' title="">QT
-</button><button class=qw onClick='doAxeScript("")' title="">QT
+	<button id= class=qw onClick='doAxeScript("")' title="">QT
+</button><button id= class=qw onClick='doAxeScript("")' title="">QT
+</button><button id= class=qw onClick='doAxeScript("")' title="">QT
+</button><button id= class=qw onClick='doAxeScript("")' title="">QT
 </button>
 <br> -->
+<script language = "JavaScript">
+<!--
+function evalCMD(name) {
+var eXpression = document.getElementById("inputBox1").value
++ "\n;" + document.getElementById("inputBox2").value +"\n;";
+var resultText="";
+try{resultText= eval(eXpression);}catch(err){resultText=err};
 
-</div></body>
+document.getElementById("resultBox").value +="\n"+resultText;
+}
+function evalApplicationCMD(name) {
+var eXpression = "nas=app.nas;"+document.getElementById("inputBox1").value
++ "\n;" + document.getElementById("inputBox2").value +"\n;";
+var resultText="";
+ if(isCEP){
+try{resultText= evalScript(eXpression,function(myResult){document.getElementById("resultBox").value+="\n"+myResult;});}catch(err){resultText=err};
+  if(resultText){
+   document.getElementById("resultBox").value +="\nerr:\n"+resultText;
+  }
+ }else{
+ try{resultText= getApplicationResult(eXpression);}catch(err){resultText=err;};
+   document.getElementById("resultBox").value +="\n"+resultText;
+ }
+}
+
+-->
+</script>
+<div id=dbgConsolePsAxe style="display:none;">
+RESULT<BR>
+<textarea id=resultBox name="RESULTBOX" COLS=32 ROWS=8 WRAP=soft onFocus="select()"
+style="text-align:left;color:black;background:white;font-size:9pt;border:1"
+>
+</textarea><BR>
+INPUT1<BR>
+<textarea id=inputBox1 name="INPUTBOX1" COLS=32 ROWS=5 WRAP=soft onFocus="select()"
+style="text-align:left;color:black;background:white;font-size:9pt;border:1"
+>
+</textarea><BR>
+INPUT2<BR>
+<textarea id=inputBox2 name="INPUTBOX2" COLS=32 ROWS=5 WRAP=soft onFocus="select()"
+style="text-align:left;color:black;background:white;font-size:9pt;border:1"
+>
+</textarea><BR>
+<button id=actioN class=hwd onClick='evalCMD()'>EVAL</button>
+<button id=sctioN2 class=hwd onClick="evalApplicationCMD()">EVAL-app</button>
+<br>
+<button id=cleaR class=hw onClick='document.getElementById("resultBox").value="";'>clear result</button>
+
+<button id=cls1 class=qw onClick='document.getElementById("inputBox1").value="";'>clear 1</button>
+<button id=cls2 class=qw onClick='document.getElementById("inputBox2").value="";'>clear 2</button>
+</div>
+  </div>
+
+
+
+</div>
+
+</body>
 
 </html>

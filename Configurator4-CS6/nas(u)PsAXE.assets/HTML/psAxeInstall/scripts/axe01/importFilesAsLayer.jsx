@@ -1,102 +1,10 @@
 /*	nas.axe.getLayers(targetFolder)
  */
-// enable double clicking from the Macintosh Finder or the Windows Explorer
-// #target photoshop
-// in case we double clicked the file
-	app.bringToFront();
 //Photoshop用ライブラリ読み込み
-
-if($.fileName){
-//	CS3以降は　$.fileNameオブジェクトがあるのでロケーションフリーにできる
-	var nasLibFolderPath = new File($.fileName).parent.parent.path +"/lib/";
-}else{
-//	$.fileName オブジェクトがない場合はインストールパスをきめうちする
-	var nasLibFolderPath = Folder.userData.fullName + "/nas/lib/";
-}
-var includeLibs=[nasLibFolderPath+"config.js"];//読み込みライブラリを格納する配列
-
-if(! app.nas){
-//iclude nasライブラリに必要な基礎オブジェクトを作成する
-	var nas = new Object();
-		nas.Version=new Object();
-		nas.isAdobe=true;
-		nas.axe=new Object();
-		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");
-//	ライブラリのロード　CS2-5用
-//==================== ライブラリを登録して事前に読み込む
-/*
-	includeLibs配列に登録されたファイルを順次読み込む。
-	登録はパスで行う。(Fileオブジェクトではない)
-	$.evalFile メソッドが存在する場合はそれを使用するがCS2以前の環境ではglobal の eval関数で読み込む
-
-＝＝＝　ライブラリリスト（以下は読み込み順位に一定の依存性があるので注意）
-　config.js		一般設定ファイル（デフォルト値書込）このルーチン外では参照不能
-  nas_common.js		AE・HTML共用一般アニメライブラリ
-  nas_GUIlib.js		Adobe環境共用GUIライブラリ
-  nas_psAxeLib.js	PS用環境ライブラリ
-  nas_prefarenceLib.js	Adobe環境共用データ保存ライブラリ
-
-  nasXpsStore.js	PSほかAdobe汎用XpsStoreライブラリ(AE用は特殊)
-  xpsio.js		汎用Xpsライブラリ
-  mapio.js		汎用Mapライブラリ
-  lib_STS.js		Adobe環境共用STSライブラリ
-  dataio.js		Xpsオブジェクト入出力ライブラリ（コンバータ部）
-  fakeAE.js		中間環境ライブラリ
-  io.js			りまぴん入出力ライブラリ
-  psAnimationFrameClass.js	PS用フレームアニメーション操作ライブラリ
-  xpsQueue.js		PS用Xps-FrameAnimation連携ライブラリ
-*/
-includeLibs=[
-	nasLibFolderPath+"config.js",
-	nasLibFolderPath+"nas_common.js",
-	nasLibFolderPath+"nas_GUIlib.js",
-	nasLibFolderPath+"nas_psAxeLib.js",
-	nasLibFolderPath+"nas_prefarenceLib.js"
-];
-//=====================================　Application Objectに参照をつける
-	app.nas=nas;
-	bootFlag=true;
-}else{
-	//alert("object nas exists")
-	nas=app.nas;
-	bootFlag=false;
-};
-
-/*	ライブラリ読み込み
-ここで必要なライブラリをリストに加えてから読み込みを行う
-*/
-includeLibs.push(nasLibFolderPath+"fakeAE.js" );
-	if(false){
-includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");
-includeLibs.push(nasLibFolderPath+"xpsio.js");
-includeLibs.push(nasLibFolderPath+"mapio.js");
-includeLibs.push(nasLibFolderPath+"lib_STS.js");
-includeLibs.push(nasLibFolderPath+"dataio.js");
-includeLibs.push(nasLibFolderPath+"io.js");
-includeLibs.push(nasLibFolderPath+"psAnimationFrameClass.js");
-includeLibs.push(nasLibFolderPath+"xpsQueue.js");
-	}
-for(prop in includeLibs){
-	var myScriptFileName=includeLibs[prop];
-	if($.evalFile){
-	//$.evalFile ファンクションがあれば実行する
-		$.evalFile(myScriptFileName);
-	}else{
-	//$.evalFile が存在しないバージョンではevalにファイルを渡す
-		var scriptFile = new File(myScriptFileName);
-		if(scriptFile.exists){
-			scriptFile.open();
-			var myContent=scriptFile.read()
-			scriptFile.close();
-			eval(myContent);
-		}
-	}
-}
-//=====================================保存してあるカスタマイズ情報を取得
-if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
-//=====================================
+	var nas=app.nas;
+	var bootFlag=false;
+	var nasLibFolderPath =Folder.nas.fullName+ "/lib/";
 //+++++++++++++++++++++++++++++++++ここまで共用
-
 
 	var	myImportCount=0;
 	var	importFileList=new Array();
@@ -106,7 +14,7 @@ if(bootFlag){nas.readPrefarence();nas.workTitles.select();}
     //以下はUIに出しても良い
 	var	controllingDepth=2;//テスト様に2段　運用は5段くらいにする　
 	var	maxHandle=30;//テスト用に30 運用は300くらい で
-	var	maxFolders=30;//フォルダハンドル制限　一般的には15レイヤ程度が人間が感覚で闇梨できる上限
+	var	maxFolders=30;//フォルダハンドル制限　一般的には15レイヤ程度が人間が感覚で管理できる上限
 //nas.axeAFC.importFilesAsLayer = function(targetFolder,option){
 //	if (! targetFolder) {	return false;}
 
@@ -155,27 +63,48 @@ if(theFile.name.match(nas.importFilter)){importFileList.push(theFile);}else{retu
 //return;
 //}
 //ListBoxUI
-var w=nas.GUI.newWindow("dialog","フォルダを検索して読み込みX",6,13);
+var w=nas.GUI.newWindow("dialog",nas.localize({
+	en:"import files as layers",
+	ja:"ファイルをレイヤとして読込"
+}),6,13);
 
-w.msgBox=nas.GUI.addStaticText(w,"フォルダを検索してファイルをレイヤとして読み込みます。" ,0,0,6,1)
+w.msgBox=nas.GUI.addStaticText(w,nas.localize({
+	en:"folder recursively search to read the files as  layers.",
+	ja:"フォルダを検索してファイルをレイヤとして読み込みます。"
+}) ,0,0,6,1)
 
 w.fileTargetName=nas.GUI.addEditText(w,"",0,1,6,1);
 
 w.fileList=nas.GUI.addListBoxO(w,[],null,0,2,4,7,{multiselect:true});
 //チェックコントロール
-w.mkWS=nas.GUI.addCheckBox(w,"フォルダごとにレイヤセットを作成",0,9,4,1);
+w.mkWS=nas.GUI.addCheckBox(w,nas.localize({
+	en:"Create a layer set for each folder",
+	ja:"フォルダごとにレイヤセットを作成"
+}),0,9,4,1);
 	w.mkWS.value=true;
-w.rmOpt=nas.GUI.addCheckBox(w,"重複したファイルを読まない",0,10,4,1);
+w.rmOpt=nas.GUI.addCheckBox(w,nas.localize({
+	en:"read the same file only once",
+	ja:"重複したファイルを読まない"
+}),0,10,4,1);
 	w.rmOpt.value=true;
-w.mxSize=nas.GUI.addCheckBox(w,"ファイルの最大サイズで読み込み",0,11,4,1);
+w.mxSize=nas.GUI.addCheckBox(w,nas.localize({
+	en:"Create a document in the maximum size of the image",
+	ja:"ファイルの最大サイズで読み込み"
+}),0,11,4,1);
 	w.mxSize.value=true;
-w.rmWhite=nas.GUI.addCheckBox(w,"白部分を削除",0,12,4,1);
+w.rmWhite=nas.GUI.addCheckBox(w,nas.localize({
+	en:"clip out white",
+	ja:"白部分を削除"
+}),0,12,4,1);
 	w.rmWhite.value=false;
 
 w.rdRegistor=nas.GUI.addCheckBox(w,"AddFrames",4,7,2,1);
 	w.rdRegistor.value=true;
 
-w.adLvl=nas.GUI.addCheckBox(w,"レベル補正",4,8,2,1);
+w.adLvl=nas.GUI.addCheckBox(w,nas.localize({
+	en:"Levels",
+	ja:"レベル補正"
+}),4,8,2,1);
 	w.adLvl.value=false;
 
 //ボタンコントロール
@@ -200,7 +129,10 @@ w.fileList.update=function(){
 //ボタンコントロール
 w.FdBt.onClick=function(){
 //var myCurrentFolder=Folder.current;
- var myFolder=Folder.current.selectDlg ("読み込むフォルダを指定してください");
+ var myFolder=Folder.current.selectDlg (nas.localize({
+ 	en:"specify the folder to read",
+ 	ja:"読み込むフォルダを指定してください"
+ }));
  if(myFolder){
 	Folder.current=myFolder;
 	//第一階層のフォルダ数が多すぎる場合警告する
@@ -210,17 +142,19 @@ w.FdBt.onClick=function(){
 	for (index in files){if (files[index] instanceof Folder) {currentFolders++;}};
 		var checkStartFolder=true;
 if(!(myFolder.parent instanceof Folder)||(currentFolders>=maxFolders)){
-        checkStartFolder=confirm (
-            "ルートが指定されたか、読み込みディレクトリのフォルダ数が規定値を超えています"+nas.GUI.LineFeed
-            +"フォルダ数:"+currentFolders+nas.GUI.LineFeed+"フォルダ:"+(myFolder.parent instanceof Folder)+":"+myFolder.fullName+nas.GUI.LineFeed
-            +"処理を続行しますか？", "no", "!! 注意 !!"
+        checkStartFolder=confirm (nas.localize({
+        	en:"Whether the route is specified, the number of folders read directory exceeds the specified value \n number of folders:%1 \n folder:%2 : %3 \n Do you want to continue processing?",
+	ja:"ルートが指定されたか、読み込みディレクトリのフォルダ数が規定値を超えています\nフォルダ数: %1 \nフォルダ: %2 : %3 \n処理を続行しますか？"
+        },currentFolders,(myFolder.parent instanceof Folder),myFolder.fullName),
+	"no", nas.localize({en:"!! caution !!",ja:"!! 注意 !!"})
         );
     }
 if(importFileList.length>=maxHandle){
-        checkFileCount=confirm (
-            "読込リスト総数が規定値の"+maxHandle+"を超えています"+nas.GUI.LineFeed
-            +"mh:"+importFileList.length+"/"+maxHandle+nas.GUI.LineFeed
-            +"処理を続行しますか？", "no", "!! 注意 !!"
+        checkFileCount=confirm (nas.localize({
+        	en:"Reading list the total number exceeds the specified value %1 \nmh: %2 / %1 \n Do you want to continue processing?",
+	ja:"読込リスト総数が規定値の%1 を超えています\nmh:%2 / %1 \n処理を続行しますか？"
+          },maxHandle, importFileList.length),
+          "no", nas.localize({en:"!! caution !!",ja:"!! 注意 !!"})
         );
 }
 
@@ -233,7 +167,7 @@ if(importFileList.length>=maxHandle){
 // alert(importFileList.length);
 }
 w.FlBt.onClick=function(){
- var myFiles=File.openDialog("読み込むファイルを指定してください","allFiles:*.*" ,true);
+ var myFiles=File.openDialog(nas.localize({en:"specify the file for import",ja:"読み込むファイルを指定してください"}),"allFiles:*.*" ,true);
 //CS2のopenDialogにマルチセレクトがないので配列でなくFileが帰ってくる可能性があるので注意
  if(myFiles){
 	if(!(myFiles instanceof Array)){myFiles=[myFiles]}

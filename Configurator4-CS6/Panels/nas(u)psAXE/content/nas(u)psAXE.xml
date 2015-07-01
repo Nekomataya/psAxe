@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gpc defaultLocale="ja_JP" version="4" keySequence="5" currentLocale="ja_JP">
+  <product appid="PHSP" version="13" name="Photoshop CS6"/>
+  <target id="PHSP-13"/>
+  <ConfiguratorPanel name="nas(u)psAXE" width="240" height="610" minWidth="240" minHeight="610" init="doInit" close="doClose" persistent="false" normalIcon="res/axe.png" darkNormalIcon="res/axe_d.png" extensionId="info.nekomataya.psAxe" extensionVersion="1.0.2" menuName="nas(u)psAXE" flyoutMenuAbout="$$$/Configurator/FlyoutMenu/about">
+    <onInit><![CDATA[// psAxe include functionfunction getApplicationResult(arg) {return eval(arg)}{var myInstallFolder=Folder.userData.fullName+"/nas";//すでに１回以上インストールされている場合は選択的にインストール・アンインストールを行う if(!(File(myInstallFolder).exists)||!(File(myInstallFolder+"/lib/nas_psAxeLib.js").exists)){alert("Installation is not complete / インストールが完了していません\n Please install the library in the upper left corner of the ax icon of panel / \nパネルの左上の斧アイコンでライブラリをインストールして下さい");//ライブラリインストール前のなのでapplication locale　を判定して仮設オブジェクトとして設定var nas=new Object; nas.locale="ja";//判定不能時はとりあえずjaにするので初期値を与える	if(typeof locale != "undefined"){	  nas.locale=locale.split("_")[0];//"ja_JP"等の前置部分のみをとる	}else{	  if(typeof uiLocale != "undefined" ){	    nas.locale=uiLocale; 	  }else{	    if(typeof app !="undefined"){	      if(app.locale){nas.locale=app.locale.split("_")[0];}	    }else{	      if(typeof $ != "undefined"){	        if($.locale){nas.locale=$.locale.split("_")[0];}	      }else{	        if(typeof navigator != "undefined"){	          nas.locale=(navigator.userLanguage||navigator.browserLanguage||navigator.language).substr(0,2);	        }	      }	    }	  }	}nas.Version={};nas.libNotInstalled="true";//ライブラリが未インストールであるフラグを与えるapp.nas=nas;//$.evalFile("psAxe/scripts/psAxeSplash.jsx"); }else{//ここでnasオブジェクトの初期化を行う、同様のinitializeをCSX環境下ではPsAxe.jsxで担当するので　そこに同ルーチンを入れる//Photoshop用ライブラリ読み込み CS6以降　初期化専用var includeLibs=[];//読み込みライブラリを格納する配列//iclude nasライブラリに必要な基礎オブジェクトを作成する	var nas = new Object();		nas.Version=new Object();		nas.isAdobe=true;		nas.axe=new Object();		nas.baseLocation=new Folder(Folder.userData.fullName+ "/nas");var nasLibFolderPath =  nas.baseLocation+"/lib/";//	ライブラリのロード　CS6-CC用//==================== ライブラリを登録して事前に読み込む/*	includeLibs配列に登録されたファイルを順次読み込む。	登録はパスで行う。(Fileオブジェクトではない)	$.evalFile メソッドが存在する場合はそれを使用するがCS2以前の環境ではglobal の eval関数で読み込む＝＝＝　ライブラリリスト（以下は読み込み順位に一定の依存性があるので注意）  config.js		一般設定ファイル（デフォルト値書込）このルーチン外では参照不能  nas_common.js		AE・HTML共用一般アニメライブラリ  nas_GUIlib.js		Adobe環境共用GUIライブラリ  nas_psAxeLib.js	PS用環境ライブラリ  nas_prefarenceLib.js	Adobe環境共用データ保存ライブラリ  nasXpsStore.js	PSほかAdobe汎用XpsStoreライブラリ(AE用は特殊)  xpsio.js		汎用Xpsライブラリ  mapio.js		汎用Mapライブラリ  lib_STS.js		Adobe環境共用STSライブラリ  dataio.js		Xpsオブジェクト入出力ライブラリ（コンバータ部）  fakeAE.js		中間環境ライブラリ  io.js			りまぴん入出力ライブラリ  psAnimationFrameClass.js	PS用フレームアニメーション操作ライブラリ  xpsQueue.js		PS用Xps-FrameAnimation連携ライブラリ*/includeLibs=[	nasLibFolderPath+"config.js",	nasLibFolderPath+"nas_common.js",	nasLibFolderPath+"nas_GUIlib.js",	nasLibFolderPath+"nas_psAxeLib.js",	nasLibFolderPath+"nas_prefarenceLib.js",	nasLibFolderPath+"nas_locale.js",	nasLibFolderPath+"messages.js"];//==============================　Application Objectに参照をつける	app.nas=nas;	bootFlag=true;/*	ライブラリ読み込みここで必要なライブラリをリストに加えてから読み込みを行う*/includeLibs.push(nasLibFolderPath+"nas.XpsStore.js");includeLibs.push(nasLibFolderPath+"xpsio.js");includeLibs.push(nasLibFolderPath+"mapio.js");includeLibs.push(nasLibFolderPath+"lib_STS.js");includeLibs.push(nasLibFolderPath+"dataio.js");includeLibs.push(nasLibFolderPath+"fakeAE.js");includeLibs.push(nasLibFolderPath+"io.js");includeLibs.push(nasLibFolderPath+"xpsQueue.js");for(prop in includeLibs){	var myScriptFileName=includeLibs[prop];	//$.evalFile ファンクションで実行する		$.evalFile(myScriptFileName);}//=====================================保存してあるカスタマイズ情報を取得nas.readPrefarence();nas.workTitles.select();//=====================================startup }}//+++++++++++++++++++++++++++++++++初期化終了]]></onInit>
+    <aboutBox><![CDATA[nekomataya Animation Tools for Photoshop<br/><p>作成者 <a href='http://www.nekomataya.info' target='_blank'>kiyo@nekomataya.info</a> <a href='http://labs.adobe.com/technologies/configurator/' target='_blank'>Configurator</a> を使用</p>]]></aboutBox>
+    <extensionDescription><![CDATA[photoshop animation utils]]></extensionDescription>
+    <extensionAuthor><![CDATA[kiyo@nekomataya.info]]></extensionAuthor>
+    <onClose><![CDATA[]]></onClose>
+    <eventListeners>
+      <function id="doInit" actionType="jsfunction" jsFunctionName="invoke_script">
+        <param id="onInit"/>
+      </function>
+      <function id="doClose" actionType="jsfunction" jsFunctionName="invoke_script">
+        <param id="onClose"/>
+      </function>
+    </eventListeners>
+    <watermark height="17" x="$$$/Configurator/watermark/x" width="$$$/Configurator/watermark/width" bottom="0" right="0" backgroundAlpha="0" y="203">
+      <htmlText><![CDATA[$$$/Configurator/watermark/htmlText]]></htmlText>
+    </watermark>
+    <html _itemId="widget_html" toolTip="$$$/Configurator/Widget/HTML/desc" backwardToolTip="$$$/Configurator/Widget/HTML/backwardToolTip" forwardToolTip="$$$/Configurator/Widget/HTML/forwardToolTip" browseListToolTip="$$$/Configurator/Widget/HTML/browseListToolTip" locationTextToolTip="$$$/Configurator/Widget/HTML/locationTextToolTip" offlinePromptTitle="$$$/Configurator/Widget/HTML/offlinePromptTitle" offlinePromptDetail="$$$/Configurator/Widget/HTML/offlinePromptDetail" netUnAvailablePromptTitle="$$$/Configurator/Widget/HTML/netUnAvailablePromptTitle" netUnAvailablePromptDetail="$$$/Configurator/Widget/HTML/netUnAvailablePromptDetail" loadingText="$$$/Configurator/Widget/HTML/loadingText" homeText="$$$/Configurator/Widget/HTML/homeText" reloadText="$$$/Configurator/Widget/HTML/reloadText" reloadLabel="$$$/Configurator/Widget/HTML/reloadLabel" escCloseText="$$$/Configurator/Widget/HTML/escCloseText" showNavBar="$$$/Configurator/Attribute/showNavBar/value###1" location="$$$/Configurator/key_###2" homeLocation="$$$/Configurator/key_###3" width="200" height="200" cfgVisible="$$$/Configurator/Attribute/visible/value###4" top="0" bottom="0" left="0" right="0" x="0" y="0">
+      <htmlText><![CDATA[$$$/Configurator/key_###5]]></htmlText>
+    </html>
+  </ConfiguratorPanel>
+  <images/>
+  <scripts/>
+  <elements>
+    <element id="ConfiguratorPanel" classRT="com.adobe.configurator2.component.panel.PanelRuntime">
+      <attr id="name" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="minWidth" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="minHeight" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="maxWidth" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="maxHeight" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="persistent" meta="Other" translate="y"/>
+      <attr id="extensionId" meta="Other" translate="y"/>
+      <attr id="extensionVersion" meta="Other" translate="y"/>
+      <attr id="extensionAuthor" meta="Other" translate="y"/>
+      <attr id="extensionDescription" meta="Other" translate="y"/>
+      <attr id="menuName" meta="Other" translate="y"/>
+      <attr id="init" meta="EVENT" translate="y"/>
+      <attr id="close" meta="EVENT" translate="y"/>
+      <attr id="onInit" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="aboutBox" meta="UI_ACCESSOR" localize="y" translate="y"/>
+      <attr id="flyoutMenuAbout" meta="Other" localize="y" translate="y"/>
+      <attr id="normalIcon" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="rollOverIcon" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="darkNormalIcon" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="width" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="height" meta="UI_ACCESSOR" translate="y"/>
+    </element>
+    <element id="watermark" classRT="com.adobe.configurator2.component.WatermarkRuntime">
+      <attr id="htmlText" meta="UI_ACCESSOR" localize="y" translate="y"/>
+      <attr id="styleName" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="backgroundAlpha" meta="UI_STYLE" translate="y"/>
+      <attr id="width" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="height" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="x" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="y" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="bottom" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="right" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="top" meta="UI_STYLE" translate="y"/>
+      <attr id="bottom" meta="UI_STYLE" translate="y"/>
+      <attr id="left" meta="UI_STYLE" translate="y"/>
+      <attr id="right" meta="UI_STYLE" translate="y"/>
+      <attr id="horizontalCenter" meta="UI_STYLE" translate="y"/>
+      <attr id="verticalCenter" meta="UI_STYLE" translate="y"/>
+      <attr id="x" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="y" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="cfgVisible" meta="UI_ACCESSOR" localize="y"/>
+      <attr id="width" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="height" meta="UI_ACCESSOR" translate="y"/>
+    </element>
+    <element id="html" classRT="com.adobe.configurator2.component.HTMLRuntime">
+      <attr id="htmlText" meta="UI_ACCESSOR" localize="y" translate="y"/>
+      <attr id="location" meta="UI_ACCESSOR" localize="y" translate="y"/>
+      <attr id="homeLocation" meta="UI_ACCESSOR" localize="y" translate="y"/>
+      <attr id="showNavBar" meta="UI_ACCESSOR" localize="y"/>
+      <attr id="backwardToolTip" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="forwardToolTip" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="browseListToolTip" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="locationTextToolTip" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="offlinePromptTitle" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="offlinePromptDetail" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="netUnAvailablePromptTitle" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="netUnAvailablePromptDetail" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="reloadLabel" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="reloadText" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="homeText" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="loadingText" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="escCloseText" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="top" meta="UI_STYLE" translate="y"/>
+      <attr id="bottom" meta="UI_STYLE" translate="y"/>
+      <attr id="left" meta="UI_STYLE" translate="y"/>
+      <attr id="right" meta="UI_STYLE" translate="y"/>
+      <attr id="horizontalCenter" meta="UI_STYLE" translate="y"/>
+      <attr id="verticalCenter" meta="UI_STYLE" translate="y"/>
+      <attr id="x" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="y" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="cfgVisible" meta="UI_ACCESSOR" localize="y"/>
+      <attr id="width" meta="UI_ACCESSOR" translate="y"/>
+      <attr id="height" meta="UI_ACCESSOR" translate="y"/>
+    </element>
+  </elements>
+  <properties>
+    <property id="LocaleSearchPath2">${HostProductRoot}/Locales/${LocaleID}/Support Files/Panels/${PanelName}/dictionary.xml</property>
+    <property id="LocaleSearchPath1">${HostProductRoot}/Locales/${LocaleID}/Support Files/Panels/fsPanels.xml</property>
+  </properties>
+</gpc>

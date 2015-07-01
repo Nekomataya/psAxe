@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<gpc defaultLocale="ja_JP" version="3" keySequence="5" currentLocale="ja_JP">
+<gpc defaultLocale="ja_JP" version="4" keySequence="5" currentLocale="en_US">
   <product appid="PHSP" version="13" name="Photoshop CS6"/>
   <target id="PHSP-13"/>
-  <ConfiguratorPanel name="psAXEtoolbar" width="1280" height="52" init="doInit" close="doClose" persistent="false" extensionId="info.nekomataya.psAXEtoolbar" extensionVersion="1.0.1" menuName="psAXEtoolbar" flyoutMenuAbout="$$$/Configurator/FlyoutMenu/about" normalIcon="res/psaxe.png" darkNormalIcon="res/axe_d.png" minWidth="780" minHeight="52" maxWidth="1920" maxHeight="128">
+  <ConfiguratorPanel name="psAXEtoolbar" width="1280" height="52" minWidth="780" minHeight="52" init="doInit" close="doClose" persistent="true" normalIcon="res/psaxe_d.png" darkNormalIcon="res/axe_h.png" extensionId="info.nekomataya.psAXEtoolbar" extensionVersion="1.0.1" menuName="psAXEtoolbar" flyoutMenuAbout="$$$/Configurator/FlyoutMenu/about">
     <onInit><![CDATA[]]></onInit>
-    <aboutBox><![CDATA[nekomataya AnimationTools for Photoshop<br/><p>作成者 <a href='http://www.nekomataya.info' target='_blank'>kiyo@nekomataya.info</a> <a href='http://labs.adobe.com/technologies/configurator/' target='_blank'>Configurator</a> を使用</p>]]></aboutBox>
-    <extensionDescription><![CDATA[toolbar for psAxe]]></extensionDescription>
-    <extensionAuthor><![CDATA[Nekomataya]]></extensionAuthor>
+    <aboutBox><![CDATA[nekomataya Animation Tools for Photoshop<br/><p>作成者 <a href='http://www.nekomataya.info' target='_blank'>kiyo@nekomataya.info</a> <a href='http://labs.adobe.com/technologies/configurator/' target='_blank'>Configurator</a> を使用</p>]]></aboutBox>
+    <extensionDescription><![CDATA[command toolbar for nas(u)psAxe ]]></extensionDescription>
+    <extensionAuthor><![CDATA[kiyo@nekomataya.info]]></extensionAuthor>
     <onClose><![CDATA[]]></onClose>
     <eventListeners>
       <function id="doInit" actionType="jsfunction" jsFunctionName="invoke_script">
@@ -19,7 +19,7 @@
     <watermark height="17" x="$$$/Configurator/watermark/x" width="$$$/Configurator/watermark/width" bottom="0" right="0" backgroundAlpha="0" y="203">
       <htmlText><![CDATA[$$$/Configurator/watermark/htmlText]]></htmlText>
     </watermark>
-    <html _itemId="widget_html" toolTip="$$$/Configurator/Widget/HTML/desc" backwardToolTip="$$$/Configurator/Widget/HTML/backwardToolTip" forwardToolTip="$$$/Configurator/Widget/HTML/forwardToolTip" browseListToolTip="$$$/Configurator/Widget/HTML/browseListToolTip" locationTextToolTip="$$$/Configurator/Widget/HTML/locationTextToolTip" offlinePromptTitle="$$$/Configurator/Widget/HTML/offlinePromptTitle" offlinePromptDetail="$$$/Configurator/Widget/HTML/offlinePromptDetail" netUnAvailablePromptTitle="$$$/Configurator/Widget/HTML/netUnAvailablePromptTitle" netUnAvailablePromptDetail="$$$/Configurator/Widget/HTML/netUnAvailablePromptDetail" loadingText="$$$/Configurator/Widget/HTML/loadingText" homeText="$$$/Configurator/Widget/HTML/homeText" reloadText="$$$/Configurator/Widget/HTML/reloadText" reloadLabel="$$$/Configurator/Widget/HTML/reloadLabel" escCloseText="$$$/Configurator/Widget/HTML/escCloseText" showNavBar="$$$/Configurator/Attribute/showNavBar/value###1" location="$$$/Configurator/key_###2" homeLocation="$$$/Configurator/key_###3" width="1280" height="52" cfgVisible="$$$/Configurator/Attribute/visible/value###4" x="0" y="0" top="0" bottom="0" left="0" right="0">
+    <html _itemId="widget_html" toolTip="$$$/Configurator/Widget/HTML/desc" backwardToolTip="$$$/Configurator/Widget/HTML/backwardToolTip" forwardToolTip="$$$/Configurator/Widget/HTML/forwardToolTip" browseListToolTip="$$$/Configurator/Widget/HTML/browseListToolTip" locationTextToolTip="$$$/Configurator/Widget/HTML/locationTextToolTip" offlinePromptTitle="$$$/Configurator/Widget/HTML/offlinePromptTitle" offlinePromptDetail="$$$/Configurator/Widget/HTML/offlinePromptDetail" netUnAvailablePromptTitle="$$$/Configurator/Widget/HTML/netUnAvailablePromptTitle" netUnAvailablePromptDetail="$$$/Configurator/Widget/HTML/netUnAvailablePromptDetail" loadingText="$$$/Configurator/Widget/HTML/loadingText" homeText="$$$/Configurator/Widget/HTML/homeText" reloadText="$$$/Configurator/Widget/HTML/reloadText" reloadLabel="$$$/Configurator/Widget/HTML/reloadLabel" escCloseText="$$$/Configurator/Widget/HTML/escCloseText" showNavBar="$$$/Configurator/Attribute/showNavBar/value###1" location="$$$/Configurator/key_###2" homeLocation="$$$/Configurator/key_###3" width="200" height="200" cfgVisible="$$$/Configurator/Attribute/visible/value###4" top="0" bottom="0" left="0" right="0" x="0" y="0">
       <htmlText><![CDATA[$$$/Configurator/key_###5]]></htmlText>
     </html>
   </ConfiguratorPanel>

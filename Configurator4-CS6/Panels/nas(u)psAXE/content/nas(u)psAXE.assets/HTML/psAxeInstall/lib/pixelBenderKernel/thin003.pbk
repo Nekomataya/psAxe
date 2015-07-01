@@ -1,0 +1,67 @@
+<languageVersion : 1.0;>
+
+kernel thin003
+<   namespace : "info.nekomataya";
+    vendor : "Nekomataya www.nekomataya.info";
+    version : 1;
+    description : "tinning block module No. XXX";
+>
+//処理画像はあらかじめ２値化されたRGB画像である必要がある。
+{
+    input image4 src;
+    output pixel4 dst;
+
+    void
+    evaluatePixel()
+    {
+	float2 pos=outCoord();
+	float4 myPix =sampleNearest(src,pos);
+float4 px0=sampleNearest(src, pos+float2(-1.,-1.));
+float4 px1=sampleNearest(src, pos+float2( 0.,-1.));
+float4 px2=sampleNearest(src, pos+float2( 1.,-1.));
+float4 px3=sampleNearest(src, pos+float2(-1., 0.));
+float4 px4=sampleNearest(src, pos+float2( 0., 0.));
+float4 px5=sampleNearest(src, pos+float2( 1., 0.));
+float4 px6=sampleNearest(src, pos+float2(-1., 1.));
+float4 px7=sampleNearest(src, pos+float2( 0., 1.));
+float4 px8=sampleNearest(src, pos+float2( 1., 1.));
+
+float3 pl0=float3(px0.r, px1.r, px2.r);
+float3 pl1=float3(px3.r, px4.r, px5.r);
+float3 pl2=float3(px6.r, px7.r, px8.r);
+//003
+float3 ck0=pl0 *float3(1.,0.,4.)+pl1*float3(1.,0.,4.)+pl2*float3(1.,0.,4.);
+float3 ck1=pl0 *float3(0.,4.,4.)+pl1*float3(1.,0.,4.)+pl2*float3(1.,1.,0.);
+float3 ck2=pl0 *float3(4.,4.,4.)+pl1*float3(0.,0.,0.)+pl2*float3(1.,1.,1.);
+/*
+//000
+float3 ck0=pl0 *float3(1.,1.,1.)+pl1*float3(0.,0.,0.)+pl2*float3(4.,4.,4.);
+float3 ck1=pl0 *float3(1.,1.,0.)+pl1*float3(1.,0.,4.)+pl2*float3(0.,4.,4.);
+float3 ck2=pl0 *float3(1.,0.,4.)+pl1*float3(1.,0.,4.)+pl2*float3(1.,0.,4.);
+//001
+float3 ck0=pl0 *float3(4.,4.,4.)+pl1*float3(0.,0.,0.)+pl2*float3(1.,1.,1.);
+float3 ck1=pl0 *float3(4.,4.,0.)+pl1*float3(4.,0.,1.)+pl2*float3(0.,1.,1.);
+float3 ck2=pl0 *float3(4.,0.,1.)+pl1*float3(4.,0.,1.)+pl2*float3(4.,0.,1.);
+//002
+float3 ck0=pl0 *float3(4.,0.,1.)+pl1*float3(4.,0.,1.)+pl2*float3(4.,0.,1.);
+float3 ck1=pl0 *float3(0.,1.,1.)+pl1*float3(4.,0.,1.)+pl2*float3(4.,4.,0.);
+float3 ck2=pl0 *float3(1.,1.,1.)+pl1*float3(0.,0.,0.)+pl2*float3(4.,4.,4.);
+//003
+float3 ck0=pl0 *float3(1.,0.,4.)+pl1*float3(1.,0.,4.)+pl2*float3(1.,0.,4.);
+float3 ck1=pl0 *float3(0.,4.,4.)+pl1*float3(1.,0.,4.)+pl2*float3(1.,1.,0.);
+float3 ck2=pl0 *float3(4.,4.,4.)+pl1*float3(0.,0.,0.)+pl2*float3(1.,1.,1.);
+*/
+	int X=0;
+if((pl1[1]==0.)&&((ck0[0]+ck0[1]+ck0[2]==12.)||(ck1[0]+ck1[1]+ck1[2]==12.)||(ck2[0]+ck2[1]+ck2[2]==12.))) X=1;
+        dst.r =(X==0)? myPix.r:1.;
+        dst.g =myPix.g;
+        dst.b =myPix.b;
+        dst.a =myPix.a;
+    }
+}
+/*
+	従来仕様の細線化機能ブロック
+	判別しているのは赤チャンネルのみなので、後処理が必要
+	2012.04.05
+*/
+          

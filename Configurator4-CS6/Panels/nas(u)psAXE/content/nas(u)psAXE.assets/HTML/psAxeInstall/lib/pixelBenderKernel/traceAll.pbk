@@ -1,0 +1,23 @@
+<languageVersion : 1.0;>
+
+kernel traceAll
+<   namespace : "info.nekomataya";
+    vendor : "Nekomataya www.nekomataya.info";
+    version : 1;
+    description : "taraceAll creates an alpha channel based on the minimum luminance of the RGB channels.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    void
+    evaluatePixel()
+    {
+        float4 inputColor = sample(src, outCoord());
+        dst.r = (inputColor.r < min(inputColor.g,inputColor.b))? 0.0:(inputColor.r -min(inputColor.g,inputColor.b)) / (1.0 - min(inputColor.g,inputColor.b));
+        dst.g = (inputColor.g < min(inputColor.r,inputColor.b))? 0.0:(inputColor.g -min(inputColor.r,inputColor.b)) / (1.0 - min(inputColor.r,inputColor.b));
+        dst.b = (inputColor.b < min(inputColor.g,inputColor.r))? 0.0:(inputColor.b -min(inputColor.g,inputColor.r)) / (1.0 - min(inputColor.g,inputColor.r));
+        dst.a = 1.0 - (min(min(inputColor.r,inputColor.g),inputColor.b));
+    }
+}
+          

@@ -1,9 +1,20 @@
-//CS2014以降のHTML CEP環境とそれ以前のCSX環境を見分けるために window.__adobe_cep__オブジェクトの有無をチェックする
-//このスクリプトはCS6-CS2014エクステンション共用
+/*	 paAxe ver 1.0 1.1 共用　extension html start-up scrpt 2015 06-29
+
+CC以降のHTML CEP環境とそれ以前のCSX環境を見分けるために window.__adobe_cep__オブジェクトの有無をチェックする
+このスクリプトはCS6-CS2015エクステンション共用
+
+
+*/
+var extVer="1.0.1";//バージョンごとにこの値を書き換えること
 var isCEP={};
 try{ isCEP=(window.__adobe_cep__)?true:false;}catch(er){isCEP = false;}
 
 function onLoaded(){
+	chgPnl(0);//メニューバーの初期化
+//　extensionVersionをライブラリに設定
+	doScript('app.nas.Version.psAxeToolbar="psAxeToolbar:'+extVer+'";');//バージョントレーラーにエクステンションバージョンを設定
+//	applyHostLocale();//locale取得して反映
+//if(extVer>="1.1.0"){applyHostProp();}//プロパティ初期化
 	if(isCEP) {
 //CEP環境用
     var csInterface =new CSInterface();
@@ -18,39 +29,82 @@ function onLoaded(){
     addEventListener('ThemeChangedEvent', onAppThemeColorChanged);
     //CSX環境では戻り値は無い CSX環境では起動時にテーマチェンジイベントが発生するがCEP環境では初回イベントは無い模様
     // Define event handler
-
 	}
-    chgPnl(0);//メニューバーの初期化
 }
-
-
-if(isCEP){
-	/**
-	 * Update the theme with the AppSkinInfo retrieved from the host product.
-	 */
+/*=======================================*/
+/*	ホストアプリケーションのロケールを取得して画面に反映させる	*/
+function applyHostLocale(){
+ if(isCEP){
+	evalScript('getApplicationResult(app.nas.locale);',function(myLocale){nas.LangPack.chgLocale(myLocale)}); 	
+ }else{
+	var myLocale=getApplicationResult('app.nas.locale');nas.LangPack.chgLocale(myLocale);
+ }
+}
+/*	インターフェース上のスイッチで初期化の必要な物を初期化する	*/
+function syncProp(){
+ if(isCEP){
+	 evalScript('if((typeof app.nas !="undefined")){getApplicationResult([app.nas.axe.skipFrames,app.nas.axe.useOptKey,app.nas.axe.focusMove,app.nas.axeCMC.getAnimationMode()])}else{getApplicationResult(false)}',function(currentStatus){
+		 if(! currentStatus){return false}
+		 myStatus=currentStatus.split(",");
+	document.getElementById("moveSpanDuration").value=Frm2FCT(myStatus[0],3,0);
+	document.getElementById("vtUseOpt").innerHTML=(myStatus[1])? "o":"✓";
+	document.getElementById("vtFocus").innerHTML  =(myStatus[2])? "f":"✓";
+	if(myStatus[3]=="timelineAnimation"){
+		document.getElementById("vtControl").style.display="inline";document.getElementById("afControl").style.display="none";
+	}else{
+	document.getElementById("vtControl").style.display="none";document.getElementById("afControl").style.display="inline";
+	}
+	 });
+ }else{
+	 if(getApplicationResult('(typeof app.nas=="undefined")')) return false;
+document.getElementById("moveSpanDuration").value=Frm2FCT(getApplicationResult("app.nas.axe.skipFrames"),3,0);
+document.getElementById("vtUseOpt").innerHTML=(getApplicationResult("app.nas.axe.useOptKey"))? "o":"✓";
+document.getElementById("vtFocus").innerHTML  =(getApplicationResult("app.nas.axe.focusMove"))? "f":"✓";
+var myMode=getApplicationResult("if((app.documents.length)&&(app.activeDocument)){app.nas.axeCMC.getAnimationMode()}else{false}");
+if(myMode=="timelineAnimation"){
+	document.getElementById("vtControl").style.display="inline";document.getElementById("afControl").style.display="none";
+}else{
+	document.getElementById("vtControl").style.display="none";document.getElementById("afControl").style.display="inline";
+}
+ }
+}
+/*=======================================*/
+/*	ホストアプリケーションのインストール状態を取得して可能ならがプロパティの同期を行う*/
+function applyHostProp(){
+ if(isCEP){
+	evalScript('getApplicationResult(app.nas.libNotInstalled);',function(myResult){if(! myResult){syncProp();}}); 	
+ }else{
+	var myNoInstall=getApplicationResult('app.nas.libNotInstalled');if(! myNoInstall){syncProp();};
+ }
+}
+/*=======================================*/
+	if(isCEP){
+/**
+ * Update the theme with the AppSkinInfo retrieved from the host product.
+ */
 function updateThemeWithAppSkinInfo(appSkinInfo) {
- //Update the background color of the panel
+    //Update the background color of the panel
     var panelBackgroundColor = appSkinInfo.panelBackgroundColor.color;
     document.body.bgColor = toHex(panelBackgroundColor);
-		        
+        
     document.body.style.color=reverseColor(appSkinInfo.panelBackgroundColor);
 
     document.styleSheets[0].addRule("button.fw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("button.hw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("button.qw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("A","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
+    document.styleSheets[0].addRule("button.hw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
+    document.styleSheets[0].addRule("button.qw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
+    document.styleSheets[0].addRule("A","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
 }
 	} else {
 //for CSX
 function updateThemeWithAppSkinInfoCSX(appSkinInfo) {
 // change the content to match the current scheme
-	document.body.bgColor=appSkinInfo.panelBackgroundColor;
-	document.body.style.color=reverseColor(Hex2Color(appSkinInfo.panelBackgroundColor));
+document.body.bgColor=appSkinInfo.panelBackgroundColor;
+document.body.style.color=reverseColor(Hex2Color(appSkinInfo.panelBackgroundColor));
 
-	document.styleSheets[0].addRule("button.fw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("button.hw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("button.qw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
-	document.styleSheets[0].addRule("A","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[0].addRule("button.fw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[0].addRule("button.hw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[0].addRule("button.qw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[0].addRule("A","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
 }
 updateThemeWithAppSkinInfo=updateThemeWithAppSkinInfoCSX;
 	};
@@ -190,9 +244,7 @@ function doAxeScript(myName,myArg){
 	}
 }
 
-function doScript(cmd,myArg){
-	if(!(myArg===void(0))&&(!(myArg instanceof Array))){myArg=[myArg];}
-
+function doScript(cmd){
 	if(isCEP){
     new CSInterface().evalScript(cmd, null);
 	}else{
@@ -348,8 +400,10 @@ default :
 	doScript('(function(myLabel){if((app.documents.length)&&(app.activeDocument.activeLayer.name!=myLabel))app.activeDocument.activeLayer.name=myLabel})("'+myLabel+'");');
     }
 }
-
+if(! isCEP){
+//CSX(-CS6)専用アプリケーションエンジンのリザルト取得関数
 function getApplicationResult(myProp){return _Adobe.JSXInterface.call("eval",myProp)}
+}
 
 //UIパネル切替部分
 

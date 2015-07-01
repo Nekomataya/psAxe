@@ -1,0 +1,68 @@
+<languageVersion : 1.0;>
+
+kernel traceK
+<   namespace : "info.nekomataya";
+    vendor : "Nekomataya";
+    version : 1;
+    description : "pickup K";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+    
+    parameter float saturation
+    <
+        maxValue :100.0;
+        minValue :0.0;
+        defaultValue    :13.;
+        descliption :"SaturationThreshold";
+        
+    >;
+/*
+
+
+*/
+    parameter float backgroundClip
+    <
+        maxValue :100.0;
+        minValue :0.0;
+        defaultValue    :100.;
+        descliption :"clipThreshold";
+        
+    >;
+
+    parameter float lineIntensity
+    <
+        maxValue :100.0;
+        minValue :0.0;
+        defaultValue    :0.;
+        descliption :"lineIntensity";
+        
+    >;
+
+    void
+    evaluatePixel()
+    {
+    float4 myPix = sample(src, outCoord());
+
+	float minValue=(((100. - backgroundClip)*(100.-lineIntensity))/10000.);
+	float maxValue=(100.-lineIntensity)/100.;
+	float myAlpha=(1.-(max(max(myPix.r,myPix.g),myPix.b))-minValue)/(maxValue-minValue);
+	if(myAlpha<=0.) myAlpha=0.;
+	if(myAlpha>=1.) myAlpha=1.;
+	float myY = myPix.r *0.299 + myPix.g * 0.587 + myPix.b * 0.114;
+	float2 myPxCol;
+	myPxCol.x =myPix.b-myY;
+	myPxCol.y =myPix.r-myY;
+	float myLength = (length(myPxCol)*10.-(saturation/100.))*(0.5*saturation/100.);//ƒxƒNƒgƒ‹’·
+	if(myLength<=0.)myLength=0.;
+	if(myLength>=1.)myLength=1.;
+	myLength=1.0-myLength;
+
+        dst.r = (myLength==0.)? 1. : 0.;
+        dst.g = (myLength==0.)? 1. : 0.;
+        dst.b = (myLength==0.)? 1. : 0.;
+        dst.a = myAlpha*myLength;
+	}
+}
+

@@ -1,0 +1,148 @@
+%!PS-Aobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 340 85
+%%TITLE: Peg2P.eps
+%%Creater: kiyo
+%%Pages: 1
+% ↑これが用紙の大きさです 単位はポイント(1/72インチ)で左から順に
+% 左下X座標 左下Y座標 右上X座標 右上Y座標
+% エリアは 12 cm × 3 cm
+% 2ポイントタップ(トンボ)
+% 2011.06.23	Nekomataya/kiyo
+%%EndComment
+% 単位換算
+/cm {28.3464 mul} def
+/mm {2.83464 mul} def
+/in {72 mul} def
+
+% %%%% フレーム単位変換関数(ここは、書き換えない様にして下さい)
+/fl {60 add 160 div BaseWidth mul} def
+/p2f {160 mul BaseWidth div 60 sub} def
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% % DATAs
+%用紙の幅
+	/PaperWidth {12 cm} def
+%用紙の高さ
+	/PaperHeight {3 cm} def
+
+% タップ穴を表示するか否かまたはタップ位置をトンボで打つか、外形を描くか
+% 0:非表示/1:トンボ打ち/2:外形描画/3:黒で塗りつぶし
+	/PegForm {2} def
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%% ここから下は変更しないで下さいね
+
+
+% center drawing
+% センタポイントを描く
+%　クロスのみ
+/CenterDraw
+{
+	 gsave
+	.5 in CrossDraw
+	 grestore
+} def
+
+% hall drawing
+% pin穴を描く
+% 原点位置はセンタクロスに置く
+% ISO 838 準拠　8 cm 間隔　6 mm 穴　
+/HallDraw
+{
+		PegForm 1 gt
+		{
+	 newpath
+	 0 0 3 mm 0 360 arc
+	 PegForm 3 eq
+	{
+		 closepath
+
+		 0.3 setgray
+		 gsave
+		 fill
+		 grestore
+	}
+	{
+		 0 setgray
+		 stroke
+	} ifelse
+		}
+		{
+	PegForm 1 eq
+	{
+	gsave
+	12 mm CrossDraw
+	grestore
+	} if
+ 		} ifelse
+} def
+
+% 穴あけ用ガイド
+% 原点位置はホールの中心
+% 幅 238 mm ・ 高さ 1 インチ
+/DrawTappingGuide
+{
+50 mm neg 36 rmoveto
+0 72 neg rlineto
+100 mm 0 rmoveto
+0 72 rlineto
+
+0.02 cm setlinewidth
+.0 setgray
+
+stroke
+} def
+
+%	クロス 描画
+%		スタックにクロスのサイズを置いてから呼び出す
+%	例:	3 cm CrossDraw
+/CrossDraw
+{
+	dup 2 div neg 0 rmoveto
+	dup 0 rlineto
+	dup 2 div neg 0 rmoveto
+	dup 2 div 0 exch rmoveto
+	0 exch neg rlineto
+		0.02 cm setlinewidth
+		.0 setgray
+		stroke
+} def
+
+%%EndProlog
+
+% タップ孔描画
+ newpath
+	PaperWidth 2 div PaperHeight 2 div moveto
+%		タップ中心へ移動
+% センタレジストリホール
+gsave
+currentpoint translate
+CenterDraw
+grestore
+
+% タッピングガイド描画
+gsave
+	DrawTappingGuide
+grestore
+%
+% 左スロット
+gsave
+	4 cm neg 0 rmoveto
+%		4 cm左へ
+currentpoint translate
+HallDraw
+grestore
+
+% 右スロット
+gsave
+	4 cm 0 rmoveto
+%		4 cm 右へ
+currentpoint translate
+HallDraw
+grestore
+
+% %%%%%%%%%
+showpage
+
+%%Trailer

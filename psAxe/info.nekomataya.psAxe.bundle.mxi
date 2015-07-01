@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<macromedia-extension id="info.nekomataya.psAxe" name="info.nekomataya.psAxe" requires-restart="true" version="1.0.0">
+<macromedia-extension id="info.nekomataya.psAxe" name="info.nekomataya.psAxe" requires-restart="true" version="1.0.2">
   <author name="kiyo@nekomataya.info"/>
   <description/>
   <license-agreement/>
@@ -8,6 +8,7 @@
   </products>
   <files>
     <file destination="" file-type="CSXS" products="" source="psAxe.zxp"/>
-    <file destination="" file-type="CSXS" products="" source="psAxeToolBar.zxp"/>
+    
+  <file destination="" file-type="CSXS" products="" source="psAxeToolBar.zxp"/>
   </files>
 </macromedia-extension>
