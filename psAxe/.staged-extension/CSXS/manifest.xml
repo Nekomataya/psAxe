@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ExtensionManifest Version="4.0" ExtensionBundleId="info.nekomataya.psAxe" ExtensionBundleVersion="1.1.4"
+<ExtensionManifest Version="4.0" ExtensionBundleId="info.nekomataya.psAxe" ExtensionBundleVersion="1.1.5"
 		ExtensionBundleName="psAxe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Author>
 		<![CDATA[kiyo@nekomataya.info]]>
 	</Author>	<Contact mailto="support@nekomataya.info"/>	<Legal href="http://www.nekomataya.info/psAxe/"/>	<Abstract href="http://www.nekomataya.info/psAxe/"/>	<ExtensionList>
-		<Extension Id="info.nekomataya.psAxe" Version="1.1.4" />
+		<Extension Id="info.nekomataya.psAxe" Version="1.1.5" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>

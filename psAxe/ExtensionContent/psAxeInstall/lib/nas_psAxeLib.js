@@ -1,7 +1,7 @@
 /*(nas_psAxeLib.js)
 	photoshop用アニメーション拡張ライブラリ Photo Shop Animation eXtEntion
 	アイコンは斧だ！ ざっくり ばっさり行こう
-	$Id: nas_psAxeLib.js,v 1.5 2015/05/06  kiyo Exp $
+	$Id: nas_psAxeLib.js,v 1.5 2016/01/26  kiyo Exp $
 */
 nas.axe = new Object;//アニメ拡張オブジェクト AEのotome に相当するオブジェクト
 var moduleName="psAxeLib"
@@ -193,16 +193,16 @@ if(nas.locale=="ja"){
 			nas.registerMarks.select(this.selectedRecord[5]);
 			}
 
-			nas.inputMedias.push("254mm/16:9/200dpi",[254,"16/9",200,24,2,0,105,0]);//(AJA)index=0
-			nas.inputMedias.push("225mm/4:3/144dpi",[225,"4/3",144,24,2,0,115,0]);//(NA) index 1 以下順に増加
-			nas.inputMedias.push("240mm/4:3/150dpi",[240,"4/3",150,24,2,0,120,0]);//(I.G)
-			nas.inputMedias.push("265mm/16:9/144dpi",[265,"16/9",144,24,2,0,105,0]);//max
-			nas.inputMedias.push("240mm/16:9/150dpi",[240,"16/9",150,34,2,0,105,0]);//
-			nas.inputMedias.push("203mm/16:9/200dpi",[203,"16/9",200,24,2,0,105,0]);//pocopoco
-			nas.inputMedias.push("260mm/16:9/200dpi",[260,"16/9",200,24,2,0,105,0]);//
-			nas.inputMedias.push("260mm/16:9/150dpi",[260,"16/9",150,24,2,0,105,0]);//
-			nas.inputMedias.push("303mm/16:9/150dpi",[303,"16/9",150,24,2,0,120,0]);//(I.G large)
-			nas.inputMedias.push("305mm/16:9/300dpi",[305,"16/9",300,24,2,0,120,0]);//(12in 120mm)
+			nas.inputMedias.push("254mm/16:9/200dpi",[254,"16/9",200,24,2,0,105,0]);	//0:10in/W HD(AJA)
+			nas.inputMedias.push("225mm/4:3/144dpi",[225,"4/3",144,24,2,0,115,0]);		//1:225mm/W SD (NipponAnimation-old format)
+			nas.inputMedias.push("240mm/4:3/150dpi",[240,"4/3",150,24,2,0,120,0]);		//2:240mm/W SD (I.G-old format)
+			nas.inputMedias.push("265mm/16:9/144dpi",[265,"16/9",144,24,2,0,105,0]);	//3:265mm/W HD (BONES) A4-横最大フレーム
+			nas.inputMedias.push("240mm/16:9/150dpi",[240,"16/9",150,34,2,0,105,0]);	//4:240mm/W HD (I.G-old format B)
+			nas.inputMedias.push("203mm/16:9/200dpi",[203,"16/9",200,24,2,0,105,0]);	//5:203mm/W HD pocopoco 特殊フォーマット例
+			nas.inputMedias.push("260mm/16:9/200dpi",[260,"16/9",200,24,2,0,105,0]);	//6:260mm/W HD 200dpi (I.G for TV drawing)
+			nas.inputMedias.push("260mm/16:9/150dpi",[260,"16/9",150,24,2,0,105,0]);	//7:260mm/W HD 150dpi (I.G for TV paint)
+			nas.inputMedias.push("303mm/16:9/150dpi",[303,"16/9",150,24,2,0,120,0]);	//8:303mm/W HD (I.G large for paint)
+			nas.inputMedias.push("305mm/16:9/300dpi",[305,"16/9",300,24,2,0,120,0]);	//9:12in/W HD 300dpi peg 120mm for drawing
 
 //	出力メディアDB(ダミー)
 //	"識別名",[横幅(px),ライン数,ピクセルアスペクト,フレームレート]
@@ -221,26 +221,28 @@ if(nas.locale=="ja"){
 //			if(nas.FRATE!=this.selectedRecord[4]){nas.FRATE=this.selectedRecord[4]};//出力は一般系を切り替えない
 		}
 
-			nas.outputMedias.push("wideSD/24p",[950,540,1,24]);
-			nas.outputMedias.push("DV",[720,480,0.9,29.97]);
-			nas.outputMedias.push("DV(wide)",[720,480,1.2,29.97]);
-			nas.outputMedias.push("HD720/24p",[1280,720,1,24]);
-			nas.outputMedias.push("HD1080/24p",[1920,1080,1,24]);
-			nas.outputMedias.push("SD486/24p",[720,486,0.9,24]);
-			nas.outputMedias.push("SD540/24p",[720,540,1,24]);
-			nas.outputMedias.push("SD486",[720,486,0.9,29.97]);
-			nas.outputMedias.push("SD540",[720,540,1,29.97]);
-			nas.outputMedias.push("VGA/24p",[640,480,1,24]);
-			nas.outputMedias.push("VGA/30p",[640,480,1,30]);
+			nas.outputMedias.push("wideSD/24p",[950,540,1,24]);		//0:
+			nas.outputMedias.push("DV",[720,480,0.9,29.97]);		//1:
+			nas.outputMedias.push("DV(wide)",[720,480,1.2,29.97]);	//2:
+			nas.outputMedias.push("HD720/24p",[1280,720,1,24]);		//3:
+			nas.outputMedias.push("HD1080/24p",[1920,1080,1,24]);	//4:
+			nas.outputMedias.push("SD486/24p",[720,486,0.9,24]);	//5:
+			nas.outputMedias.push("SD540/24p",[720,540,1,24]);		//6:
+			nas.outputMedias.push("SD486",[720,486,0.9,29.97]);		//7:
+			nas.outputMedias.push("SD540",[720,540,1,29.97]);		//8:
+			nas.outputMedias.push("VGA/24p",[640,480,1,24]);		//9:
+			nas.outputMedias.push("VGA/30p",[640,480,1,30]);		//10:
 
 //	作業タイトルDB(ダミー) 
+// タイトル　,[ 省略タイトル,　ファイル前置用略号,　入力メディアID,　出力メディアID ]
 //WorkTitleDBは共用（環境非依存ライブラリ）側に
 	nas.workTitles=new nTable();
 
 			nas.workTitles.push("(long title name)",["(short name)","(prefix)",0,3]);
+			nas.workTitles.push("かちかち山",["KachiKachi","KT",0,3]);
+			nas.workTitles.push("かちかち山Max",["KachiMax","ktM",9,4]);
 			nas.workTitles.push("ぽこあぽこ・られんたんど",["poco","PP",5,3]);
-			nas.workTitles.push("かちかち山",["KachiKachi","KT",1,4]);
-			nas.workTitles.push("かちかち山Max",["KachiMax","ktM",2,5]);
+			nas.workTitles.push("遊技機用3:4",["pc34","pc",1,6]);
 
 			nas.workTitles.onChange=function(){
 				nas.inputMedias.select(this.selectedRecord[3]);

@@ -133,9 +133,9 @@ nas.writePrefarence=function(myPrefs)
 				};//ファイルが既存かとか調べない うほほ
 			}else{
 				var msg=nas.localize({
-	en:"object :%OBJECT% does not seem to exist. It can not be saved.",
-	ja:"object :%OBJECT%は存在しないようです。保存できません。"
-				}).replace(/%OBJECT%/,myPrefs[idx]);
+	en:"object :%1 does not seem to exist. It can not be saved.",
+	ja:"object :%1 は存在しないようです。保存できません。"
+				},myPrefs[idx]);
 				if(nas.otome){nas.otome.writeConsole(msg)}else{alert(msg)}
 			}
 		}
@@ -173,7 +173,7 @@ nas.cleraPrefarence=function()
 現在の情報は、メモリ上にあります。\nデータはアプリケーション再起動の際に初期化されます。
 初期化を希望する場合は、保存せずにアプリケーションを再起動してください。"
 */
-     msg=nas.localize(nas.uiMsg.dm024).replace(/%COUNT%/,clearCount);//
+     msg=nas.localize(nas.uiMsg.dm024,clearCount);//
 	}else{
 //no data
   msg=nas.localize(nas.uiMsg.noRemoveData);//"消去するデータがありませんでした"

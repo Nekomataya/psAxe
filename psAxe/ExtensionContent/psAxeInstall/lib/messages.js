@@ -205,8 +205,8 @@ nas.uiMsg.dm023	={
 	ja:"個人領域に記録した情報をすべてクリアします。\nnasライブラリを使用するすべてのアプリケーションの情報をクリアしますので、AEとPSでnasライブラリを使用している方は特にご注意ください。\nクリアして良いですか？"
 };
 nas.uiMsg.dm024	={
-	en:"Information was recorded in the personal area : %COUNT% pieces of data has been cleared.\nThe current information is located on the memory.\nData is initialized at the time of application restart.\nIf you want to initialize, please restart the application without saving.",
-	ja:"個人領域に記録した情報 :%COUNT% 個のデータをクリアしました。\n現在の情報は、メモリ上にあります。\nデータはアプリケーション再起動の際に初期化されます。\n初期化を希望する場合は、保存せずにアプリケーションを再起動してください。"
+	en:"Information was recorded in the personal area : %1 pieces of data has been cleared.\nThe current information is located on the memory.\nData is initialized at the time of application restart.\nIf you want to initialize, please restart the application without saving.",
+	ja:"個人領域に記録した情報 :%1 個のデータをクリアしました。\n現在の情報は、メモリ上にあります。\nデータはアプリケーション再起動の際に初期化されます。\n初期化を希望する場合は、保存せずにアプリケーションを再起動してください。"
 };
 nas.uiMsg.dm025	={
 	en:"please choose Folder to import.",
