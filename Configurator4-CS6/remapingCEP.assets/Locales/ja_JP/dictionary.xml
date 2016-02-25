@@ -13,7 +13,7 @@
     <val>http://www.nekomataya.info/test/remaping/</val>
   </str>
   <str name="Configurator/key_###3" translate="yes">
-    <val>http://www.nekomataya.info/test/remaping/</val>
+    <val>HTML/index.html</val>
   </str>
   <str name="Configurator/key_###5" translate="yes">
     <val/>
@@ -22,10 +22,10 @@
     <val>作成者 &lt;a href='http://www.nekomataya.info' target='_blank'&gt;kiyo@nekomataya.info&lt;/a&gt; &lt;a href='http://labs.adobe.com/technologies/configurator/' target='_blank'&gt;Configurator&lt;/a&gt; を使用</val>
   </str>
   <str name="Configurator/watermark/width" translate="yes">
-    <val>237</val>
+    <val>239</val>
   </str>
   <str name="Configurator/watermark/x" translate="yes">
-    <val>143</val>
+    <val>141</val>
   </str>
   <str name="Configurator/Widget/HTML/backwardToolTip" translate="yes">
     <val>前のページに戻る</val>

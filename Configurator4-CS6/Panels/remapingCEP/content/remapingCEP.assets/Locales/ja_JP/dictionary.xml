@@ -13,7 +13,7 @@
     <val>http://www.nekomataya.info/test/remaping/</val>
   </str>
   <str name="Configurator/key_###3" translate="yes">
-    <val>http://www.nekomataya.info/test/remaping/</val>
+    <val>HTML/index.html</val>
   </str>
   <str name="Configurator/key_###5" translate="yes">
     <val/>

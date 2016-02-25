@@ -35,7 +35,7 @@ function onLoaded(){
 /*	ホストアプリケーションのロケールを取得して画面に反映させる	*/
 function applyHostLocale(){
  if(isCEP){
-	evalScript('getApplicationResult(app.nas.locale);',function(myLocale){nas.LangPack.chgLocale(myLocale)}); 	
+	evalScript('getApplicationResult("app.nas.locale");',function(myLocale){nas.LangPack.chgLocale(myLocale)}); 	
  }else{
 	var myLocale=getApplicationResult('app.nas.locale');nas.LangPack.chgLocale(myLocale);
  }
@@ -72,7 +72,7 @@ if(myMode=="timelineAnimation"){
 /*	ホストアプリケーションのインストール状態を取得して可能ならがプロパティの同期を行う*/
 function applyHostProp(){
  if(isCEP){
-	evalScript('getApplicationResult(app.nas.libNotInstalled);',function(myResult){if(! myResult){syncProp();}}); 	
+	evalScript('getApplicationResult("app.nas.libNotInstalled");',function(myResult){if(! myResult){syncProp();}}); 	
  }else{
 	var myNoInstall=getApplicationResult('app.nas.libNotInstalled');if(! myNoInstall){syncProp();};
  }

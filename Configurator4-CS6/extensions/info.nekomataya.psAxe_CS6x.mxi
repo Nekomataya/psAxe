@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<macromedia-extension id="info.nekomataya.psAxe" name="info.nekomataya.psAxe" requires-restart="true" version="1.1.4">
+<macromedia-extension id="info.nekomataya.psAxe" name="psAxe" requires-restart="true" version="1.1.5">
+<description><![CDATA[Collection of tools to support the animation business of Japanese style.
+Library with scripts and image resources, and launcher panel to call it
+]]></description>
+
   <author name="kiyo@nekomataya.info"/>
   <description/>
   <license-agreement/>
   <products>
     <product familyname="Photoshop"/>
+    <product familyname="Photoshop32"/>
+    <product familyname="Photoshop64"/>
+    <product version="13"/>
+
   </products>
   <files>
     <file destination="" file-type="CSXS" products="" source="nas(u)psAXE.zxp"/>

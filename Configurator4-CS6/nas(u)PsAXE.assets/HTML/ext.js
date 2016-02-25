@@ -1,15 +1,17 @@
 /*	 paAxe ver 1.0 1.1 共用　extension html start-up scrpt 2015 06-29
-
+	psAxe ver 1.1.5  用にチューニング　2016 02-03
 CC以降のHTML CEP環境とそれ以前のCSX環境を見分けるために window.__adobe_cep__オブジェクトの有無をチェックする
 このスクリプトはCS6-CS2015エクステンション共用
-
+psAxe本体用
 
 */
-var extVer="1.1.4";//バージョンごとにこの値を書き換えること
+var extVer="1.1.5";//バージョンごとにこの値を書き換えることこれはpsAxeのバージョンとなる
 var isCEP={};
 try{ isCEP=(window.__adobe_cep__)?true:false;}catch(er){isCEP = false;}
 
+var eVentCount=0;
 function onLoaded(){
+	chgTooltip(false);
 	if(isCEP) {
 //CEP環境用
     var csInterface =new CSInterface();
@@ -19,6 +21,7 @@ function onLoaded(){
     updateThemeWithAppSkinInfo(csInterface.hostEnvironment.appSkinInfo);
     // Update the color of the panel when the theme color of the product changed.
     csInterface.addEventListener(CSInterface.THEME_COLOR_CHANGED_EVENT, onAppThemeColorChanged);
+    psHtmlDispatch();//再ロード抑制
 	}else{
     document.getElementById('LLSelector').style.display="none";//CSX環境で使用不能なドロップダウンリストを非表示にする
     addEventListener('ThemeChangedEvent', onAppThemeColorChanged);
@@ -28,8 +31,18 @@ function onLoaded(){
 //　extensionVersionをライブラリに設定
 	doScript('app.nas.Version.psAxe="psAxe:'+extVer+'";');//バージョントレーラーにエクステンションバージョンを設定
 //    chgPnl(0);//メニューバーの初期化
+	chgTab("PTHhandle");//tab初期化
 	applyHostLocale();//locale取得して反映
 if(extVer>="1.1.0"){applyHostProp();}//プロパティ初期化
+}
+
+/*======= パネルの再ロードを抑制する ==========*/
+function psHtmlDispatch(){
+	var event = new CSEvent();
+	event.type = "com.adobe.PhotoshopPersistent";
+	event.scope = "APPLICATION";
+	event.extensionId = window.__adobe_cep__.getExtensionId();
+	new CSInterface().dispatchEvent(event);
 }
 /*=======================================*/
 /*	ホストアプリケーションのロケールを取得して画面に反映させる	*/
@@ -39,6 +52,7 @@ function applyHostLocale(){
  }else{
 	var myLocale=getApplicationResult('app.nas.locale');nas.LangPack.chgLocale(myLocale);
  }
+    adjustSpacer();
 }
 /*	インターフェース上のスイッチで初期化の必要な物を初期化する	*/
 function syncProp(){
@@ -46,7 +60,7 @@ function syncProp(){
 	 evalScript('if((typeof app.nas !="undefined")){getApplicationResult([app.nas.axe.skipFrames,app.nas.axe.useOptKey,app.nas.axe.focusMove,app.nas.axeCMC.getAnimationMode()])}else{getApplicationResult(false)}',function(currentStatus){
 		 if(! currentStatus){return false}
 		 myStatus=currentStatus.split(",");
-	document.getElementById("moveSpanDuration").value=Frm2FCT(myStatus[0],3,0);
+	document.getElementById("moveSpanDuration").value=nas.Frm2FCT(myStatus[0],3,0);
 	document.getElementById("vtUseOpt").innerHTML=(myStatus[1])? "o":"✓";
 	document.getElementById("vtFocus").innerHTML  =(myStatus[2])? "f":"✓";
 	if(myStatus[3]=="timelineAnimation"){
@@ -57,7 +71,7 @@ function syncProp(){
 	 });
  }else{
 	 if(getApplicationResult('(typeof app.nas=="undefined")')) return false;
-document.getElementById("moveSpanDuration").value=Frm2FCT(getApplicationResult("app.nas.axe.skipFrames"),3,0);
+document.getElementById("moveSpanDuration").value=nas.Frm2FCT(getApplicationResult("app.nas.axe.skipFrames"),3,0);
 document.getElementById("vtUseOpt").innerHTML=(getApplicationResult("app.nas.axe.useOptKey"))? "o":"✓";
 document.getElementById("vtFocus").innerHTML  =(getApplicationResult("app.nas.axe.focusMove"))? "f":"✓";
 var myMode=getApplicationResult("if((app.documents.length)&&(app.activeDocument)){app.nas.axeCMC.getAnimationMode()}else{false}");
@@ -69,7 +83,7 @@ if(myMode=="timelineAnimation"){
  }
 }
 /*=======================================*/
-/*	ホストアプリケーションのインストール状態を取得して可能ならがプロパティの同期を行う*/
+/*	ホストアプリケーションのインストール状態を取得して可能ならプロパティの同期を行う*/
 function applyHostProp(){
  if(isCEP){
 	evalScript('getApplicationResult("app.nas.libNotInstalled");',function(myResult){if(! myResult){syncProp();}}); 	
@@ -83,28 +97,56 @@ function applyHostProp(){
  * Update the theme with the AppSkinInfo retrieved from the host product.
  */
 function updateThemeWithAppSkinInfo(appSkinInfo) {
+eVentCount++;
     //Update the background color of the panel
+// alert( appSkinInfo.panelBackgroundColor); //CEPではcolorプロパティを持ったオブジェクトが来る
     var panelBackgroundColor = appSkinInfo.panelBackgroundColor.color;
-    document.body.bgColor = toHex(panelBackgroundColor);
-        
-    document.body.style.color=reverseColor(appSkinInfo.panelBackgroundColor);
+//    document.body.bgColor = toHex(panelBackgroundColor);
+    document.body.style.backgroundColor = toHex(panelBackgroundColor);
+    document.body.style.color=reverseColor(appSkinInfo.panelBackgroundColor.color);
 
-    document.styleSheets[0].addRule("button.fw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
-    document.styleSheets[0].addRule("button.hw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
-    document.styleSheets[0].addRule("button.qw","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
-    document.styleSheets[0].addRule("A","background-color:#"+document.body.bgColor+";color:"+document.body.style.color+";");
+document.getElementById("resultBox").innerHTML+=nas.colorStr2Ary(document.body.style.backgroundColor)+"\n";
+if(nas.colorStr2Ary(document.body.style.backgroundColor)[1]<0.5){
+document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons384x320px.png);");
+document.getElementById("psAxeLogo").src="images/psAxe.png";
+	}else{
+document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons384x320pxIVS.png);");
+document.getElementById("psAxeLogo").src="images/psAxeIVS.png";
+	}
+
+    document.styleSheets[1].addRule("#fixedHeader","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
+
+    document.styleSheets[1].addRule(".iconButton","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
+    document.styleSheets[1].addRule("button.fw","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
+    document.styleSheets[1].addRule("button.hw","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
+    document.styleSheets[1].addRule("button.qw","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
+    document.styleSheets[1].addRule("A","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
 }
 	} else {
 //for CSX
 function updateThemeWithAppSkinInfoCSX(appSkinInfo) {
+eVentCount++;
 // change the content to match the current scheme
-document.body.bgColor=appSkinInfo.panelBackgroundColor;
+// alert( appSkinInfo.panelBackgroundColor); CSXでは１６進文字列（＃なし）が来る
+
+document.body.style.backgroundColor = "#"+appSkinInfo.panelBackgroundColor;
 document.body.style.color=reverseColor(Hex2Color(appSkinInfo.panelBackgroundColor));
 
-document.styleSheets[0].addRule("button.fw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
-document.styleSheets[0].addRule("button.hw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
-document.styleSheets[0].addRule("button.qw","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
-document.styleSheets[0].addRule("A","background-color:#"+appSkinInfo.panelBackgroundColor+";color:"+document.body.style.color+";");
+document.getElementById("resultBox").innerHTML+=nas.colorStr2Ary("#"+document.body.bgColor)[1]+"\n";
+if(nas.colorStr2Ary(document.body.style.backgroundColor)[1]<0.5){
+document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons384x320px.png);");
+document.getElementById("psAxeLogo").src="images/psAxe.png";
+	}else{
+document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons384x320pxIVS.png);");
+document.getElementById("psAxeLogo").src="images/psAxeIVS.png";
+	}
+document.styleSheets[1].addRule("#fixedHeader","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
+
+document.styleSheets[1].addRule(".iconButton","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[1].addRule("button.fw","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[1].addRule("button.hw","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[1].addRule("button.qw","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
+document.styleSheets[1].addRule("A","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
 }
 updateThemeWithAppSkinInfo=updateThemeWithAppSkinInfoCSX;
 	};
@@ -113,7 +155,7 @@ updateThemeWithAppSkinInfo=updateThemeWithAppSkinInfoCSX;
 
 function addRule(stylesheetId, selector, rule) {
     var stylesheet = document.getElementById(stylesheetId);
-  //  if(!(stylesheet instanceof CSSStyleSheet)){stylesheet = document.styleSheets[0]};
+  //  if(!(stylesheet instanceof CSSStyleSheet)){stylesheet = document.styleSheets[1]};
 
     if (stylesheet) {
         stylesheet = stylesheet.sheet;
@@ -169,6 +211,16 @@ function onAppThemeColorChanged(event) {
     updateThemeWithAppSkinInfo(skinInfo);
 }
 
+/*	画面サイズの変更時等にシートボディのスクロールスペーサーを調整する
+	固定ヘッダとフッタの高さをスクロールスペーサーと一致させる
+	2010.08.28
+	引数なし
+ */
+function adjustSpacer() {
+    var headHeight=document.getElementById("fixedHeader").clientHeight;
+    var myOffset=0;
+	document.getElementById("scrollSpaceHd").style.height=(headHeight-myOffset)+"px";
+}
 /*
 Hex2Color(hexString);
 
@@ -430,4 +482,90 @@ default	: myID=parseInt(kwd);if(myID===NaN){myID=0};myID=myID%pnlCount
 			document.getElementById("pnl"+pnlID).style.display="none";
 		}
 	}
+	if(kwd=="0"){syncProp()}
+}
+
+//UIタブメニュー切替部分
+/*タブメニューは排他　ただし[ctrl]同時押しで単独操作可能*/
+var myTabID=[["PTHhandle","path"],["FRMhandle","preview"],["XPShandle","xps"],["LNMhandle","layerName"],["LYRhandle","documents"],["TRChandle","trace"],["DBGCons","debug"]];
+//var myTabID=[["PTHhandle","path"],["FRMhandle","preview"],["LNMhandle","layerName"],["LYRhandle","documents"],["TRChandle","trace"],["DBGCons","debug"]];
+
+chgTab=function(kwd){
+	if (!kwd) return;
+if(event.shiftKey){
+//単独操作
+	var myTarget=document.getElementById(kwd);
+	var myTargetButton=event.target;
+	if(myTarget.style.display=="none"){
+	    myTarget.style.display="inline";
+	    myTargetButton.style.backgroundColor="gray";
+	}else{
+	    myTarget.style.display="none";
+	    myTargetButton.style.backgroundColor=document.body.style.backgroundColor;
+	}
+}else{
+    for(var hID=0;hID<myTabID.length;hID++){
+	var myTarget=document.getElementById(myTabID[hID][0]);
+	var myTargetButton=document.getElementById("buttonTab_"+myTabID[hID][1]);
+//トグル操作
+	if(kwd==myTabID[hID][0]){
+		if(myTarget.style.display=="none") myTarget.style.display="inline";		
+//		if(myTargetButton.style.backgroundColor=="black") 
+myTargetButton.style.backgroundColor="gray";		
+//myTargetButton.disabled=true;
+	}else{
+		if(myTarget.style.display=="inline") myTarget.style.display="none";		
+//		if(myTargetButton.style.backgroundColor=="gray") 
+myTargetButton.style.backgroundColor=document.body.style.backgroundColor;		
+//myTargetButton.disabled=false;
+	}
+    }
+}
+	if(kwd=="FRMhandle"){syncProp()}
+}
+/*	chgTooltip(status)
+//	ツールチップ表示切替
+*/
+var myTooltip=true;
+// ツールチップ初期化
+/*	effect: "fade",          // エフェクト
+	fadeOutSpeed: "fast",    // フェードアウト速度
+	predelay: 3000,
+        delay:300,
+*/
+    $( function() {
+var myToolTips=["#content"];
+for (var tid=0;tid<myToolTips.length;tid++){
+        $(myToolTips[tid]).tooltip( {
+        position: {
+            my: "center top",
+            at: "center bottom",
+            track:true,
+        }
+    } );
+ }
+    } );
+
+function chgTooltip(status){
+	if(typeof(status)=="undefined") status=(myTooltip)?false:true;
+   if(status){
+    $( function() {
+var myToolTips=["#content"];
+for (var tid=0;tid<myToolTips.length;tid++){
+        $(myToolTips[tid]).tooltip({disabled:false});
+ }
+    } );
+    document.getElementById("tltp").style.backgroundColor="#808080";
+    myTooltip=true;
+   }else{
+    $( function() {
+var myToolTips=["#content"];
+for (var tid=0;tid<myToolTips.length;tid++){
+        $(myToolTips[tid]).tooltip({disabled:true});
+ }
+    } );
+    document.getElementById("tltp").style.backgroundColor=document.body.style.backgroundColor;
+    myTooltip=false;
+   }
+ return myTooltip;
 }

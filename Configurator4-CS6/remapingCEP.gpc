@@ -2,9 +2,9 @@
 <gpc defaultLocale="ja_JP" version="3" keySequence="5" currentLocale="ja_JP">
   <product appid="PHSP" version="13" name="Photoshop CS6"/>
   <target id="PHSP-13"/>
-  <ConfiguratorPanel name="remapingCEP" width="380" height="640" init="doInit" close="doClose" persistent="True" extensionId="com.configurator.remapingCEP" extensionVersion="1.0.0" menuName="remapingCEP" flyoutMenuAbout="$$$/Configurator/FlyoutMenu/about">
+  <ConfiguratorPanel name="remapingCEP" width="380" height="640" init="doInit" close="doClose" persistent="True" extensionId="info.nekomataya.remapingCEP" extensionVersion="1.0.0" menuName="remapingCEP" flyoutMenuAbout="$$$/Configurator/FlyoutMenu/about" normalIcon="res/xps.png" darkNormalIcon="res/xps_d.png">
     <onInit><![CDATA[]]></onInit>
-    <aboutBox><![CDATA[nekomataya AnimationTools for Photoshop<br/><p>作成者 <a href='http://www.nekomataya.info' target='_blank'>kiyo@nekomataya.info</a> <a href='http://labs.adobe.com/technologies/configurator/' target='_blank'>Configurator</a> を使用</p>]]></aboutBox>
+    <aboutBox><![CDATA[nekomataya Animation Tools for Photoshop<br/><p>作成者 <a href='http://www.nekomataya.info' target='_blank'>kiyo@nekomataya.info</a> <a href='http://labs.adobe.com/technologies/configurator/' target='_blank'>Configurator</a> を使用</p>]]></aboutBox>
     <extensionDescription><![CDATA[nekomataya remaping]]></extensionDescription>
     <extensionAuthor><![CDATA[kiyo]]></extensionAuthor>
     <onClose><![CDATA[]]></onClose>
