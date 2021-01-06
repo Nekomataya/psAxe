@@ -3,236 +3,261 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="./lib/CSInterface-4.0.0.js"></script>
-<script src="./ext.js"></script>
-<script src="./common_files/nas_common.js"></script>
 
-<!-- <script src="./lib/Vulcan-4.0.0.js"></script> -->
-<title>psAxeToolBar</title>
-
-
+<link rel="stylesheet"  type="text/css" href="./nas/ext_lib/jquery-ui-1.10.2.custom.min.css">
 <link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
 
+<script src="./lib/CSInterface-4.0.0.js"></script>
+<script src="./lib/Vulcan-4.0.0.js"></script>
 
+<script src="./nas/ext_lib/jquery.js"></script>
+<script src="./nas/ext_lib/jquery-ui.js"></script>
+
+<script src="./ext.js"></script>
+<script src="./nas/lib/nas_common.js"></script>
+<script src="./nas/lib/nas_common_HTML.js"></script>
+<script src="./nas/lib/nas_locale.js"></script>
+<script src="./nas/messages.js"></script>
+
+<title>psAxeToolBar</title>
+<!--
+<meta name=application-name content=psAxeToolbar>
+<meta name=application-version content=1.1.0>
+
+アプリケーションの識別及びバージョンをhtnl内に埋め込んでおきたいが…
+input hidden ? meta ?
+現状ではext.jsにextVerプロパティとして記述する
+内容は　onLoaded時にホスト側のapp.nas.Version.psAxeへ転送しておく　2015 06-29
+
+ライブラリを調整して　旧ライブラリを　nas_common,nas_common_HTML に更新　変更に伴いグローバル側からのアクセスは終了
+FCT2Frm等はnas.FCT2Frm 等々へ変換　2016 01-30
+ jQuery-ui組み込み　ツールチップを処理・ロケール関連を組み込み　言語（英語）リソース作成 2016 02-03
+-->
 </head>
 
 <body onLoad="onLoaded();" onselectstart='return false;'>
 
 <!--
-<button id="fixWindow" class=toolChip style="width:16px" onClick='setFront()' ><img src=images/pin.png></img>
-</button><span align=right width=300 nowrap>nas(u)PsAXE animation tools<button id="inst" class=toolChip onClick='doInstall()' ><img src=images/axe.png></img></button><button id="inst" class=toolChip onClick='doPref()' ><img src=images/gear.png></img>
+<button id="fixWindow" class="iconButton iconButton-" style="width:16px" onClick='setFront()' ><img src=images/pin.png></img>
+</button><span align=right width=300 nowrap>nas(u)PsAXE animation tools<button id="inst" class="iconButton iconButton-" onClick='doInstall()' ><img src=images/axe.png></img></button><button id="inst" class="iconButton iconButton-" onClick='doPref()' ><img src=images/gear.png></img>
 </button>
 </span>
 -->
 <div style="width:100%;">
-         <button id="pnlChg0" class=hw onClick='chgPnl("0");syscProp();'><img width=4 height=23 src="images/blank.png" title="preview"><img>
-</button><button id="pnlChg1" class=hw onClick='chgPnl("1");'><img width=4 height=23 src="images/blank.png" title="tools"><img>
-</button><button id="pnlChg2" class=hw onClick='chgPnl("2");'><img width=4 height=23 src="images/blank.png" title="layer"><img>
-</button><button id="pnlChg3" class=hw onClick='chgPnl("3");'><img width=4 height=23 src="images/blank.png" title="document"><img>
-</button><button id="pnlChg4" class=hw onClick='chgPnl("4");'><img width=4 height=23 src="images/blank.png" title="paint"><img></button> 
-
+<button id="tltp" class="iconButton iconButton-dialog" onClick='chgTooltip()' title="ツールチップ切替" >
+</button><button id="chgLocale" class="iconButton iconButton-debug" onclick='if(nas.locale=="ja"){nas.LangPack.chgLocale(nas.locale="en");doScript("nas.locale=\"en\"");}else{nas.LangPack.chgLocale(nas.locale="ja");doScript("nas.locale=\"ja\"");};return false;'>
+</button>
+              <button id="pnlChg0" class=hw onClick='chgPnl("0");syncProp();'><span width=64 height=20 title="preview">preview</span>
+</button><button id="pnlChg1" class=hw onClick='chgPnl("1");'><span width=64 height=20 title="tools">tools</span>
+</button><button id="pnlChg2" class=hw onClick='chgPnl("2");'><span width=64 height=20 title="layer">layer</span>
+</button><button id="pnlChg3" class=hw onClick='chgPnl("3");'><span width=64 height=20 title="document">documents</span>
+</button><button id="pnlChg4" class=hw onClick='chgPnl("4");'><span width=64 height=20 title="paint">paint</span></button> 
+<br>
 <!-- ================================================================= -->
 <!-- フレームアニメーション操作		Preview	Frame　Timeline　and XPS		-->
 <div id="pnl2" >
-         <button id="rtBtm" class=toolChip onClick='doAxeScript("shiftLayersB")' title="上シフト"><img src=images/ICONs/shiftDn.png>
-</button><button id="rtTop" class=toolChip onClick='doAxeScript("shiftLayersU")' title="下シフト"><img src=images/ICONs/shiftUp.png>
-</button><button id="swpLy" class=toolChip onClick='doAxeScript("swapLayers")' title="レイヤ入換"><img src=images/ICONs/swapTop.png>
-</button><button id="FcsTp" class=toolChip onClick='doAxeScript("activateTopLayer")'title="表示レイヤにフォーカス"><img src=images/ICONs/focusTop.png>
-</button><button id="lnInc" class=toolChip onClick='doAxeScript("layerNameInc")' title="ラベル番号増"><img src=images/ICONs/incNum.png>
-</button><button id="lnDec" class=toolChip onClick='doAxeScript("layerNameDec")' title="ラベル番号減"><img src=images/ICONs/decNum.png>
-</button><button id="lyADD" class=toolChip onClick='doAxeScript("addOvlLayer" )' title="修正レイヤ"><img src=images/ICONs/addOVL.png>
-</button><button id="lyADD" class=toolChip onClick='doAxeScript("addNewLayer" )' title="新規レイヤ"><img src=images/ICONs/addLayer.png>
+         <button id="rtBtm" class="iconButton iconButton-shiftLayerB" onClick='doAxeScript("shiftLayersB")' title="上シフト">
+</button><button id="rtTop" class="iconButton iconButton-shiftLayerU" onClick='doAxeScript("shiftLayersU")' title="下シフト">
+</button><button id="swpLy" class="iconButton iconButton-swapLayers" onClick='doAxeScript("swapLayers")' title="レイヤ入換">
+</button><button id="FcsTp" class="iconButton iconButton-focusTop" onClick='doAxeScript("activateTopLayer")'title="表示レイヤにフォーカス">
+</button><button id="lnInc" class="iconButton iconButton-incr" onClick='doAxeScript("layerNameInc")' title="ラベル番号増">
+</button><button id="lnDec" class="iconButton iconButton-decr" onClick='doAxeScript("layerNameDec")' title="ラベル番号減">
+</button><button id="lyADD" class="iconButton iconButton-addLayer_1" onClick='doAxeScript("addOvlLayer" )' title="修正レイヤ">
+</button><button id="lyADD" class="iconButton iconButton-addLayer_2" onClick='doAxeScript("addNewLayer" )' title="新規レイヤ">
 </button>
 
-         <button id="lySMT" class=toolChip onClick='doAxeScript("smartMove")' title="スマート変形"><img src=images/ICONs/smartObj.png>
-</button><button id="lyFIX" class=toolChip onClick='doAxeScript("smartFix")' title="スマートレイヤをラスタライス"><img src=images/ICONs/rastarize.png>
-</button><button id="lyRST" class=toolChip onClick='doAxeScript("smartReset")' title="スマートレイヤをリセット"><img src=images/ICONs/recovery.png>
-</button><img class=hw src="images/blank.png"></img></button><button id="lyADD" class=toolChip onClick='doAxeScript("onsPref")' title="透過設定"> <img src=images/ICONs/OslSetting.png></button><img class=hw src="images/blank.png"></img><button id="lodSp" class=toolChip onClick='doAxeScript("shiftLayers")' title="ラベル指定して移動"><img src=images/ICONs/spcLO.png>
-<button id="lySRT" class=toolChip onClick='doAxeScript("sortLayersByName")' title="レイヤソート"><img src=images/ICONs/sortLO.png>
-</button><button id="lyRVS" class=toolChip onClick='doAxeScript("reverseLayerOrder")' title="レイヤ順反転"><img src=images/ICONs/inverseLO.png>
+         <button id="lySMT" class="iconButton iconButton-smartTrsfm" onClick='doAxeScript("smartMove")' title="スマート変形">
+</button><button id="lyFIX" class="iconButton iconButton-fixTrsfm" onClick='doAxeScript("smartFix")' title="スマートレイヤをラスタライス">
+</button><button id="lyRST" class="iconButton iconButton-resetTrsfm" onClick='doAxeScript("smartReset")' title="スマートレイヤをリセット">
+</button><span class=hw ></span></button><button id="lyADD" class="iconButton iconButton-layerSetting" onClick='doAxeScript("onsPref")' title="透過設定"></button><span class=hw ></span><button id="lodSp" class="iconButton iconButton-goTo" onClick='doAxeScript("shiftLayers")' title="ラベル指定して移動">
+<button id="lySRT" class="iconButton iconButton-sortLayers" onClick='doAxeScript("sortLayersByName")' title="レイヤソート">
+</button><button id="lyRVS" class="iconButton iconButton-reverseLayers" onClick='doAxeScript("reverseLayerOrder")' title="レイヤ順反転">
 </button>
 
 <!--
 <img src=images/ICONs/.png>
 -->
-         <button id="ons2" class=toolChip onClick='doAxeScript("ons2")' title="2枚透過"><img src=images/ICONs/2Osl.png>
-</button><button id="ons3" class=toolChip onClick='doAxeScript("ons3")' title="3枚透過"><img src=images/ICONs/3Osl.png>
-</button><button id="ons4" class=toolChip onClick='doAxeScript("ons4")' title="4枚透過"><img src=images/ICONs/4Osl.png>
-</button><button id="onsR" class=toolChip onClick='doAxeScript("onsReset")' title="不透明度リセット"><img src=images/ICONs/OslReset.png>
+         <button id="ons2" class="iconButton iconButton-ONS_2" onClick='doAxeScript("ons2")' title="2枚透過">
+</button><button id="ons3" class="iconButton iconButton-ONS_3" onClick='doAxeScript("ons3")' title="3枚透過">
+</button><button id="ons4" class="iconButton iconButton-ONS_4" onClick='doAxeScript("ons4")' title="4枚透過">
+</button><button id="onsR" class="iconButton iconButton-ONSsetting" onClick='doAxeScript("onsReset")' title="不透明度リセット">
 </button>
 <br>
 </div>
 <div id="pnl0" >
 
-<button id="convertAFT" class=toolChip onClick='syncProp(doAxeScript("convertPsAxeAnimation"));' title="convert animation/timeline"><img src=images/ICONs/ModeConv.png>
-</button><button id="vtFocus" class=toolChip style="width:26px;background-color:#558888;"
+<button id="convertAFT" class="iconButton iconButton-switchTF" onClick='syncProp(doAxeScript("convertPsAxeAnimation"));' title="convert animation/timeline">
+</button><button id="vtFocus" class="toolChip" style="width:24px;background-color:#558888;"
  onClick='if(this.innerHTML=="f"){this.innerHTML="✓";doScript("nas.axe.focusMove=false;");}else{this.innerHTML="f";doScript("nas.axe.focusMove=true;");};doScript("nas.writePrefarence(\"nas.axe\")");'  title="focus change with moveing playhead">✓
 </button>
 <!-- animationframe/playhead move -->
-	<span id=vtControl style="display:none;">
-                <button id="atFst" class=toolChipN onClick='doAxeScript("goFrst")' title="start"><img src=images/ICONsN/leftStop.png>
-</button><button id="atPrv" class=toolChipN onClick='doAxeScript("goPrev")' title="prev"><img src=images/ICONsN/LEFT.png>
-</button><button id="atNxt" class=toolChipN onClick='doAxeScript("goNext")' title="next"><img src=images/ICONsN/RIGHT.png>
-</button><button id="atEnd" class=toolChipN onClick='doAxeScript("goEnd") ' title="end"><img src=images/ICONsN/rightStop.png>
+              <button id="atFst" class="iconButton iconButton-goPrev" onClick='doAxeScript("goFrst")' >
+</button><button id="atPrv" class="iconButton iconButton-goBWD" onClick='doAxeScript("goPrev")' >
+</button><button id="atGo" class="iconButton iconButton-goToTime" onClick='doAxeScript("goFC")' >
+</button><button id="atNxt" class="iconButton iconButton-goFWD" onClick='doAxeScript("goNext")' >
+</button><button id="atEnd" class="iconButton iconButton-goNext" onClick='doAxeScript("goEnd")' >
 </button>
+
+	<span id=vtControl style="display:none;">
 <!-- workarea controll -->
-                 <button id="goWAsrt" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/moveWAhead.png>
-</button><button id="setWAsrt" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/WAhead.png>
-</button><button id="liftWA" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/extractWA.png>
-</button><button id="extractWA" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/liftWA.png>
-</button><button id="setWAend" class=toolChipN onClick='doAxeScript(this.id)'  title=""><img src=images/ICONsN/WAtail.png>
-</button><button id="goWAend" class=toolChipN onClick='doAxeScript(this.id)'  title=""><img src=images/ICONsN/moveWAtail.png>
+         <button id="goWAsrt" class="iconButton iconButton-goWorkAreaHead" onClick='doAxeScript(this.id)' >
+</button><button id="setWAsrt" class="iconButton iconButton-setWorkAreaHead" onClick='doAxeScript(this.id)' >
+</button><button id="liftWA" class="iconButton iconButton-extractWorkArea" onClick='doAxeScript(this.id)' >
+</button><button id="extractWA" class="iconButton iconButton-liftWorkArea" onClick='doAxeScript(this.id)' >
+</button><button id="setWAend" class="iconButton iconButton-setWaokAreaTail" onClick='doAxeScript(this.id)' >
+</button><button id="goWAend" class="iconButton iconButton-goWorkAreaTail" onClick='doAxeScript(this.id)' >
 </button>
 <!-- move and trimming timeline-->
-                 <button id="moveIP" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/MoveHead.png>
-</button><button id="trimIP" class=toolChipN onClick='doAxeScript(this.id)' title=""> <img src=images/ICONsN/Head.png>
-</button><button id="sliceTL" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/Scissors.png>
-</button><button id="trimOP" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/Tail.png>
-</button><button id="moveOP" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/MoveTail.png>
+                 <button id="moveIP" class="iconButton iconButton-moveStartTL" onClick='doAxeScript(this.id)' >
+</button><button id="trimIP" class="iconButton iconButton-setStartTL" onClick='doAxeScript(this.id)' >
+</button><button id="sliceTL" class="iconButton iconButton-splitTL" onClick='doAxeScript(this.id)' >
+</button><button id="trimOP" class="iconButton iconButton-setEndTL" onClick='doAxeScript(this.id)' >
+</button><button id="moveOP" class="iconButton iconButton-moveEndTL" onClick='doAxeScript(this.id)' >
 </button>
 
-                 <button id="setKey" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/placeMark.png>
-</button><button id="rmKey" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/deleteMark.png>
-</button><button id="activateKey" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/stopWatch.png>
-</button><button id="swcFav" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/switchFAV.png>
-</button><button id="addFav" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/setFAV.png>
-</button><button id="ons" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/Ons.png>
-</button><button id="setOns" class=toolChipN onClick='doAxeScript(this.id)' title=""><img src=images/ICONsN/LyrSetting.png>
+                <button id="setKey" class="iconButton iconButton-putKey" onClick='doAxeScript(this.id)' >
+</button><button id="rmKey" class="iconButton iconButton-removeKey" onClick='doAxeScript(this.id)' >
+</button><button id="activateKey" class="iconButton iconButton-shiftKey" onClick='doAxeScript(this.id)' >
+</button><button id="swcFav" class="iconButton iconButton-flagBox" onClick='doAxeScript(this.id)' >
+</button><button id="addFav" class="iconButton iconButton-flagPlus" onClick='doAxeScript(this.id)' >
+</button><button id="ons" class="iconButton iconButton-ONS" onClick='doAxeScript(this.id)' >
+</button><button id="setOns" class="iconButton iconButton-ONSsetting" onClick='doAxeScript(this.id)' >
 </button>
+
 
 <!-- 新規タイムライン /　移動スキップ量-->
-<button id="vtNewLyr" class=toolChipN onClick='doAxeScript("addNewLayer")' title="add new timeline"><img src=images/ICONsN/addNewLayer.png>
-</button><input id=moveSpanDuration class=operation type=text size=5 value="1 + 00." style="text-align:center;" title="new timeline length and moveing step"
-onMousedown = "this.value=FCT2Frm(this.value);sliderVALUE([event,this,'240','1','0']);"
-onChange='this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);doScript("nas.axe.skipFrames="+FCT2Frm(this.value.toString(),3,0)+";nas.writePrefarence(\"nas.axe\")");'
-><button id="vtDec" class=toolChipN style="border-style:outset;width:12px;" 
-onClick='document.getElementById("moveSpanDuration").value=(FCT2Frm(document.getElementById("moveSpanDuration").value)>1)?Frm2FCT(FCT2Frm(document.getElementById("moveSpanDuration").value)-1,3,0):"0 + 01 .";doScript("app.nas.axe.skipFrames="+FCT2Frm(document.getElementById("moveSpanDuration").value.toString(),3,0)+";nas.writePrefarence(\"nas.axe\")");'
+<button id="vtNewLyr" class="iconButton iconButton-addLayer_2" onClick='doAxeScript("addNewLayer" )' title="新規レイヤ作成">
+</button><input id=moveSpanDuration class=qw type=text size=5 value="1+0" style="text-align:center;background-color:#eeeeee;width:80px;" title="新規レイヤの長さ/ヘッド移動スパン"
+onMousedown = "this.value=nas.FCT2Frm(this.value);nas.sliderVALUE([event,this.id,'240','1','0']);"
+onChange=' this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);
+	doScript("app.nas.axe.skipFrames="+nas.FCT2Frm(this.value.toString(),3,0)+";nas.writePrefarence(\"nas.axe\")");'
+><button id="vtDec" class=toolChip style="width:12px;" 
+onClick='document.getElementById("moveSpanDuration").value=(nas.FCT2Frm(document.getElementById("moveSpanDuration").value)>1)?nas.Frm2FCT(nas.FCT2Frm(document.getElementById("moveSpanDuration").value)-1,3,0):"0 + 01 .";doScript("app.nas.axe.skipFrames="+nas.FCT2Frm(document.getElementById("moveSpanDuration").value.toString(),3,0)+";nas.writePrefarence(\"nas.axe\")");'
   title="減値">-
-</button><button id="vtInc" class=toolChipN style="border-style:outset;width:12px;" 
-onClick='document.getElementById("moveSpanDuration").value=Frm2FCT(FCT2Frm(document.getElementById("moveSpanDuration").value)+1,3,0);doScript("app.nas.axe.skipFrames="+FCT2Frm(document.getElementById("moveSpanDuration").value.toString(),3,0)+";nas.writePrefarence(\"nas.axe\")");'
+</button><button id="vtInc" class=toolChip style="width:12px;" 
+onClick='document.getElementById("moveSpanDuration").value=nas.Frm2FCT(nas.FCT2Frm(document.getElementById("moveSpanDuration").value)+1,3,0);doScript("app.nas.axe.skipFrames="+nas.FCT2Frm(document.getElementById("moveSpanDuration").value.toString(),3,0)+";nas.writePrefarence(\"nas.axe\")");'
   title="増値">+
-</button><button id="vtUseOpt" class=toolChipN style="width:26px;background-color:#5555cc;"
+</button><button id="vtUseOpt" class=toolChip style="background-color:#5555cc;"
  onClick='if(this.innerHTML=="o"){this.innerHTML="✓";doScript("nas.axe.useOptKey=false;");}else{this.innerHTML="o";doScript("nas.axe.useOptKey=true;");};doScript("nas.writePrefarence(\"nas.axe\")");'
-  title="move to keyframe">✓
-</button>	</span>
+  title="キー移動">✓
+</button>
+</span>
 <!--			タイムシート適用		
-         <button class=toolChip onClick='doAxeScript("applyXps")' title="XPS適用"><img src=images/ICONs/applyXPS.png>
-</button><button class=toolChip onClick='doAxeScript("editXps")' title="XPS編集"><img src=images/ICONs/editXPS.png>
-</button><button class=toolChip onClick='doAxeScript("easyXPSLink_Ps")' title="（詳細）"><img src=images/ICONs/linkXPS.png>
+         <button class="iconButton iconButton-" onClick='doAxeScript("applyXps")' title="XPS適用"><img src=images/ICONs/applyXPS.png>
+</button><button class="iconButton iconButton-" onClick='doAxeScript("editXps")' title="XPS編集"><img src=images/ICONs/editXPS.png>
+</button><button class="iconButton iconButton-" onClick='doAxeScript("easyXPSLink_Ps")' title="（詳細）"><img src=images/ICONs/linkXPS.png>
 </button>-->
 <!-----  --------->
 	<span id=afControl style="display:inline;">
-                 <button id="afFst" class=toolChip onClick='doAxeScript("goFrst")' title="start"><img src=images/ICONs/leftStop.png>
-</button><button id="afPrv" class=toolChip onClick='doAxeScript("goPrev")' title="prev"><img src=images/ICONs/LEFT.png>
-</button><button id="afNxt" class=toolChip onClick='doAxeScript("goNext")' title="next"><img src=images/ICONs/RIGHT.png>
-</button><button id="afEnd" class=toolChip onClick='doAxeScript("goEnd") ' title="end"><img src=images/ICONs/rightStop.png>
+         <button id="afSAl" class="iconButton iconButton-selectAllAF" onClick='doAxeScript("afSelectAll")' title="">
+</button><button id="afRst" class="iconButton iconButton-initAF" onClick='doAxeScript("removeAnimationFrames")' title="">
+</button><button id="afNWF" class="iconButton iconButton-duplicateAF" onClick='doAxeScript("afDuplicate")' title="">
+</button><button id="afCpy" class="iconButton iconButton-copyAF" onClick='doAxeScript("afCopy")' title="">
+</button><button id="afDel" class="iconButton iconButton-removeAF" onClick='doAxeScript("afDelete")'  title="">
+</button><button id="afPst" class="iconButton iconButton-pasteAF" onClick='doAxeScript("afPaste")'  title="">
+</button><button id="afRVS" class="iconButton iconButton-reverseAF" onClick='doAxeScript("afReverse")' title="">
 </button>
 
-<button id="afSAl" class=toolChip onClick='doAxeScript("afSelectAll")' title="select all frames"><img src=images/ICONs/selectAll.png>
-</button><button id="afRst" class=toolChip onClick='doAxeScript("removeAnimationFrames")' title="reset animation"><img src=images/ICONs/resetFrames.png>
-</button><button id="afNWF" class=toolChip onClick='doAxeScript("afDuplicate")' title="duplicate selected frames"><img src=images/ICONs/addFrame.png>
-</button><button id="afCpy" class=toolChip onClick='doAxeScript("afCopy")' title="copy selected frames"><img src=images/ICONs/copyFrame.png>
-</button><button id="afDel" class=toolChip onClick='doAxeScript("afDelete")'  title="remove selected frames"><img src=images/ICONs/deleteFrame.png>
-</button><button id="afPst" class=toolChip onClick='doAxeScript("afPaste")'  title="paste animation farames"><img src=images/ICONs/pasteFrame.png>
-</button><button id="afRVS" class=toolChip onClick='doAxeScript("afReverse")' title="inverse selected frames"><img src=images/ICONs/inverseFrames.png>
-</button><button id="afLF2" class=toolChip onClick='doAxeScript("layers2Frames2")' title="make animationFrames from selected layers"> <img src=images/ICONs/exPandSelection.png>
-</button><button id="afLF1" class=toolChip onClick='doAxeScript("layers2Frames1")' title="make animationFrames from layerset"><img src=images/ICONs/exPandLayerset.png>
-</button><button id="afLF0" class=toolChip onClick='doAxeScript("layers2Frames0")' title="make animationFrames from all ArtLayers"><img src=images/ICONs/exPandAll.png>
+<button id="afLF2" class="iconButton iconButton-expandSelection" onClick='doAxeScript("layers2Frames2")' title="選択レイヤをフレームへ">
+</button><button id="afLF1" class="iconButton iconButton-expandLayrset" onClick='doAxeScript("layers2Frames1")' title="レイヤセットからフレームへ">
+</button><button id="afLF0" class="iconButton iconButton-expandAll" onClick='doAxeScript("layers2Frames0")' title="全レイヤをフレームへ">
 </button>
 	</span>
-<button id="afSd1" class=toolChip onClick='doAxeScript("setDelay1")' title="set delay 1f"><img src=images/ICONs/1k.png>
-</button><button id="afSd2" class=toolChip onClick='doAxeScript("setDelay2")' title="set delay 2f"><img src=images/ICONs/2k.png>
-</button><button id="afSd3" class=toolChip onClick='doAxeScript("setDelay3")' title="set delay 3f"><img src=images/ICONs/3k.png>
-</button><button id="afSdS" class=toolChip onClick='doAxeScript("durationSpc")' title="遅延指定パネル"><img src=images/ICONs/spc.png>
+<button id="afSd1" class="iconButton iconButton-movieFrame" onClick='doAxeScript("setDelay1")' title="set delay 1f">1k
+</button><button id="afSd2" class="iconButton iconButton-movieFrame" onClick='doAxeScript("setDelay2")' title="set delay 2f">2k
+</button><button id="afSd3" class="iconButton iconButton-movieFrame" onClick='doAxeScript("setDelay3")' title="set delay 3f">3k
+</button><button id="afSdS" class="iconButton iconButton-movieFrame" onClick='doAxeScript("durationSpc")' title="遅延指定パネル">set
 </button>
 
 <input id=currentDuration class=operation type=text size=5 value="0 + 00." style="text-align:center;" title="遅延時間を整数またはTCで指定"
-onMousedown = "this.value=FCT2Frm(this.value);sliderVALUE([event,this,'240','0','0']);"
-onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
-><button id="afDec" class=toolChip style="border-style:outset;width:12px;"
- onClick='document.getElementById("currentDuration").value=(FCT2Frm(document.getElementById("currentDuration").value)>1)?Frm2FCT(FCT2Frm(document.getElementById("currentDuration").value)-1,3,0):"0 + 00 .";'
+onMousedown = "this.value=nas.FCT2Frm(this.value);nas.sliderVALUE([event,this.id,'240','0','0']);"
+onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
+><button id="afDec" class="toolChip" style="border-style:outset;width:12px;"
+ onClick='document.getElementById("currentDuration").value=(nas.FCT2Frm(document.getElementById("currentDuration").value)>1)?nas.Frm2FCT(nas.FCT2Frm(document.getElementById("currentDuration").value)-1,3,0):"0 + 00 .";'
   title="減値">-
-</button><button id="afInc" class=toolChip style="border-style:outset;width:12px;"
- onClick='document.getElementById("currentDuration").value=Frm2FCT(FCT2Frm(document.getElementById("currentDuration").value)+1,3,0);'
+</button><button id="afInc" class="toolChip" style="border-style:outset;width:12px;"
+ onClick='document.getElementById("currentDuration").value=nas.Frm2FCT(nas.FCT2Frm(document.getElementById("currentDuration").value)+1,3,0);'
   title="増値">+
-</button><button id="afSet" class=toolChip onClick='doAxeScript("setDelay",[document.getElementById("currentDuration").value]);' title="フレーム数指定">set!
-</button><button id="setFps" class=toolChip onClick='doAxeScript(this.id)' title="setting framerate"><img src=images/ICONs/setFPS.png>
+</button><button id="afSet" class="toolChip" onClick='doAxeScript("setDelay",[document.getElementById("currentDuration").value]);' title="フレーム数指定">set!
+</button><button id="setFps" class="toolChip" onClick='doAxeScript(this.id)' title="setting framerate">fps
 </button>
 <!--		apply Xps			-->
-         <button class=toolChip onClick='doAxeScript("applyXps")' title="XPS適用"><img src=images/ICONs/applyXPS.png>
-</button><button class=toolChip onClick='doAxeScript("editXps")' title="XPS編集"><img src=images/ICONs/editXPS.png>
-</button><button class=toolChip onClick='doAxeScript("easyXPSLink_Ps")' title="（詳細）"><img src=images/ICONs/linkXPS.png>
+         <button id=applyXps class="iconButton iconButton-buildXPS" onClick='doAxeScript("applyXps")' title="">
+</button><button id=editXps class="iconButton iconButton-editXPS" onClick='doAxeScript("editXps")' title="">
+</button><button id=ezXpsL class="iconButton iconButton-linkXPS" onClick='doAxeScript("easyXPSLink_Ps")' title="">
+</button><button id=dial2Tx class="iconButton iconButton-dialog2Text" onClick='doAxeScript("convertDialog2Text")' title="">
 </button>
+
 </div>
 <div id=pnl1 style="display:inline">
 
-<!--			standerd tools			-->
-         <button id="PcTl" class=toolChip onClick="chgTool(this.id)" title="pencil"><img src=images/pen.png></img>
-</button><button id="PbTl" class=toolChip onClick='chgTool("PbTl")' title="brush"><img src=images/PbTl.png></img>
-</button><button id="ErTl" class=toolChip onClick='chgTool("ErTl")' title="eracer"><img src=images/erace.png></img>
-</button><button id="marqueeRectTool" class=toolChip onClick='chgTool("marqueeRectTool")' title="marqueeRect"><img src=images/marquee.png></img>
-</button><button id="marqueeEllipTool" class=toolChip onClick='chgTool("marqueeEllipTool")' title="marqueeEllipTool"><img src=images/elipso.png></img>
-</button><button id="lassoTool" class=toolChip onClick='chgTool("lassoTool")' title="lassoTool"><img src=images/loop.png></img>
-</button><button id="magicWandTool" class=toolChip onClick='chgTool("magicWandTool")' title="magicWandTool"><img src=images/wand.png></img>
-</button><button id="quickSelectTool" class=toolChip onClick='chgTool("quickSelectTool")' title="quickSelectTool"><img src=images/quickSelect.png></img>
+<!--			standard tools			-->
+         <button id="PcTl" class=toolChipX onClick="chgTool(this.id)" title="pencil"><img src=images/pen.png></img>
+</button><button id="PbTl" class=toolChipX onClick='chgTool("PbTl")' title="brush"><img src=images/PbTl.png></img>
+</button><button id="ErTl" class=toolChipX onClick='chgTool("ErTl")' title="eracer"><img src=images/erace.png></img>
+</button><button id="marqueeRectTool" class=toolChipX onClick='chgTool("marqueeRectTool")' title="marqueeRect"><img src=images/marquee.png></img>
+</button><button id="marqueeEllipTool" class=toolChipX onClick='chgTool("marqueeEllipTool")' title="marqueeEllipTool"><img src=images/elipso.png></img>
+</button><button id="lassoTool" class=toolChipX onClick='chgTool("lassoTool")' title="lassoTool"><img src=images/loop.png></img>
+</button><button id="magicWandTool" class=toolChipX onClick='chgTool("magicWandTool")' title="magicWandTool"><img src=images/wand.png></img>
+</button><button id="quickSelectTool" class=toolChipX onClick='chgTool("quickSelectTool")' title="quickSelectTool"><img src=images/quickSelect.png></img>
 </button>
 
-         <button id="moveTool" class=toolChip onClick='chgTool("moveTool")' title="moveTool"><img src=images/move.png></img>
-</button><button id="rotateTool" class=toolChip onClick='chgTool("rotateTool")' title="rotateTool"><img src=images/rotation.png></img>
-</button><button id="bucketTool" class=toolChip onClick='chgTool("bucketTool")' title="bucketTool"><img src=images/fill.png></img>
-</button><button id="GrTl" class=toolChip onClick='chgTool("GrTl")' title="gradation"><img src=images/GrTl.png></img>
+         <button id="moveTool" class=toolChipX onClick='chgTool("moveTool")' title="moveTool"><img src=images/move.png></img>
+</button><button id="rotateTool" class=toolChipX onClick='chgTool("rotateTool")' title="rotateTool"><img src=images/rotation.png></img>
+</button><button id="bucketTool" class=toolChipX onClick='chgTool("bucketTool")' title="bucketTool"><img src=images/fill.png></img>
+</button><button id="GrTl" class=toolChipX onClick='chgTool("GrTl")' title="gradation"><img src=images/GrTl.png></img>
 </button>
 
-</button><img class=hw src="images/blank.png"></img>
+</button><span class=hw ></span>
 <!--			パス/定規 PathTools			-->
-         <button id="penTool" class=toolChip onClick='chgTool("penTool")' ><img src=images/penTool.png></img>
-</button><button id="freeformPenTool" class=toolChip onClick='chgTool("freeformPenTool")' ><img src=images/freeformPenTool.png></img>
-</button><button id="addKnotTool" class=toolChip onClick='chgTool("addKnotTool")' ><img src=images/addKnotTool.png></img>
-</button><button id="deleteKnotTool" class=toolChip onClick='chgTool("deleteKnotTool")' ><img src=images/deleteKnotTool.png></img>
-</button><button id="convertKnotTool" class=toolChip onClick='chgTool("convertKnotTool")' ><img src=images/convertKnotTool.png></img>
-</button><button id="directSelectTool" class=toolChip onClick='chgTool("directSelectTool")' ><img src=images/directSelectTool.png></img>
-</button><button id="pathComponentSelectTool" class=toolChip onClick='chgTool("pathComponentSelectTool")' ><img src=images/pathComponentSelectTool.png></img>
-</button><button id="pathComponentSelectTool" class=toolChip onClick='chgTool("rulerTool")' ><img src=images/measureTool.png></img>
-</button><button id="drawClearP" class=toolChip onClick='doAxeScript("pathRPASp")' ><img src=images/pathRPASp.png></img>
-</button><button id="draw2ClearP" class=toolChip onClick='doAxeScript("pathRPASnp")' ><img src=images/pathRPASnp.png></img>
-</button><button id="drawClearP" class=toolChip onClick='doAxeScript("pathRPASpB")' ><img src=images/pathRPASpB.png></img>
-</button><button id="draw2ClearP" class=toolChip onClick='doAxeScript("pathRPASnpB")' ><img src=images/pathRPASnpB.png></img>
-</button><button id="fillClearP" class=toolChip onClick='doAxeScript("pathRPAFa")' ><img src=images/pathRPAFa.png></img>
-</button><button id="poster2" class=toolChip onClick='doAxeScript("posterize2+")' ><img src=images/ccBlack.png></img>
-</button></button><img class=hw src="images/blank.png"></img>
-	<button class=toolChip onClick='doAxeScript("rotationAlignmentLayer")' title="">Lyr.
-</button><button class=toolChip onClick='doAxeScript("rotationAlignmentDoc")' title="">Doc
-</button><button class=toolChip onClick='doAxeScript("rotateSelection")' title="">Sel.
-</button><button class=toolChip onClick='doAxeScript("rotateCanvas")' title="">Canv.
-</button>
+         <button id="penTool" class=toolChipX onClick='chgTool("penTool")' ><img src=images/penTool.png></img>
+</button><button id="freeformPenTool" class=toolChipX onClick='chgTool("freeformPenTool")' ><img src=images/freeformPenTool.png></img>
+</button><button id="addKnotTool" class=toolChipX onClick='chgTool("addKnotTool")' ><img src=images/addKnotTool.png></img>
+</button><button id="deleteKnotTool" class=toolChipX onClick='chgTool("deleteKnotTool")' ><img src=images/deleteKnotTool.png></img>
+</button><button id="convertKnotTool" class=toolChipX onClick='chgTool("convertKnotTool")' ><img src=images/convertKnotTool.png></img>
+</button><button id="directSelectTool" class=toolChipX onClick='chgTool("directSelectTool")' ><img src=images/directSelectTool.png></img>
+</button><button id="pathComponentSelectTool" class=toolChipX onClick='chgTool("pathComponentSelectTool")' ><img src=images/pathComponentSelectTool.png></img>
+</button><button id="pathComponentSelectTool" class=toolChipX onClick='chgTool("rulerTool")' ><img src=images/measureTool.png></img>
+</button><button id="drawClearP" class=toolChipX onClick='doAxeScript("pathRPASp")' ><img src=images/pathRPASp.png></img>
+</button><button id="drawVClearP" class=toolChipX onClick='doAxeScript("pathRPASnp")' ><img src=images/pathRPASnp.png></img>
+</button><button id="drawClearP2" class=toolChipX onClick='doAxeScript("pathRPASpB")' ><img src=images/pathRPASpB.png></img>
+</button><button id="drawVClearP2" class=toolChipX onClick='doAxeScript("pathRPASnpB")' ><img src=images/pathRPASnpB.png></img>
+</button><button id="fillClearP" class=toolChipX onClick='doAxeScript("pathRPAFa")' ><img src=images/pathRPAFa.png></img>
+</button><button id="poster2" class=toolChipX onClick='doAxeScript("posterize2+")' ><img src=images/ccBlack.png></img>
+</button></button>
+
 </div>
 <!-- ================================================================= -->
 <!--		document/layer controll	ドキュメント/レイヤ管理			-->
 <div id=pnl3 >
-         <button class=toolChip onClick='doAxeScript("addNewDocument")' title="新規書類"><img src=images/ICONs/newDoc.png>
-</button><button class=toolChip onClick='doAxeScript("addNewXpsA3")' title="新規シート(画像)"><img src=images/ICONs/newXps.png>
-</button><button class=toolChip onClick='doAxeScript("importFilesAsLayer")' title="フォルダ指定でファイルをレイヤとして読み込む"><img src=images/ICONs/import.png>
-</button><button class=toolChip onClick='doAxeScript("exportLayersAsFile")' title="レイヤをファイルに書き出し"><img src=images/ICONs/export.png>
+         <button id=newDoc class="iconButton iconButton-document" onClick='doAxeScript("addNewDocument")' title="新規ドキュメント">
+</button><button id=newXps class="iconButton iconButton-timesheet" onClick='doAxeScript("addNewXpsA3")' title="新規シート(画像)">
+</button><button id=import class="iconButton iconButton-import" onClick='doAxeScript("importFilesAsLayer")' title="フォルダ指定でファイルをレイヤとして読み込む">
+</button><button id=export class="iconButton iconButton-export" onClick='doAxeScript("exportLayersAsFile")' title="レイヤをファイルに書き出し">
+</button><button id=iptRGST class="iconButton iconButton-addRegister" onClick='doAxeScript("loadPeg")' title="レジスタマークを読み込み">
+</button><button id=cpyRGST class="iconButton iconButton-duplicateRegister" onClick='doAxeScript("duplicateReg")' title="選択レイヤにレジスタマークを複製" >
+</button><button id=import class="iconButton iconButton-fromTVP" onClick='doAxeScript("classifyTVPData")' title="TVPcsvを変換（仮）">
+</button><button id=export class="iconButton iconButton-toTVP" onClick='doAxeScript("exportPsdForTvp")' title="TVP用に書き出し（仮）">
+
+
+</button><button id=addTXT class="iconButton iconButton-addText" onClick='doAxeScript("addNewNumText")' title="カット番号を挿入">
+</button><button id=edtTXT class="iconButton iconButton-editText" onClick='doAxeScript("editTextSource")' title="テキストレイヤのソースを編集">
+</button></button><button class="iconButton iconButton-fldChart" onClick='doAxeScript("importFieldChart")' title="フィールドガイド">
+</button><button class="iconButton iconButton-refChart" onClick='doAxeScript("importReference")' title="リファレンス">
 </button>
 
-	       <button class=toolChip onClick='doAxeScript("loadPeg")' title="レジスタマークを読み込み"><img src=images/ICONs/addRegister.png>
-</button><button class=toolChip onClick='doAxeScript("duplicateReg")' title="選択レイヤにレジスタマークを複製"><img src=images/ICONs/dupRegister.png>
-</button><button class=toolChip onClick='doAxeScript("addNewNumText")' title="カット番号を挿入"><img src=images/ICONs/addText.png>
-</button><button class=toolChip onClick='doAxeScript("editTextSource")' title="テキストレイヤのソースを編集"><img src=images/ICONs/editText.png>
-</button><button class=toolChip onClick='doAxeScript("importFieldChart")' title="フィールドガイド"><img src=images/ICONs/fieldChart.png>
-</button><button class=toolChip onClick='doAxeScript("importReference")' title="リファレンス"><img src=images/ICONs/Reference.png>
+             <button id=bindDoc class="iconButton iconButton-gatherLayers" onClick='doAxeScript("documentBinder")' title="ドキュメントをひとつにまとめる">
+</button><button id=divLyr class="iconButton iconButton-divideLayers" onClick='doAxeScript("divideLayers")' title="レイヤ名で振り分け">
+</button><button id=bindLyr class="iconButton iconButton-makeLayerset" onClick='doAxeScript("groupingSelectedLayers")' title="選択レイヤをグループに">
+</button><button id=renameSeq class="iconButton iconButton-renumber" onClick='doAxeScript("numberingLayers")' title="セット内を連番">
 </button>
-                 <button class=toolChip onClick='doAxeScript("documentBinder")' title="ドキュメントをひとつにまとめる"><img src=images/ICONs/gather.png>
-</button><button class=toolChip onClick='doAxeScript("divideLayers")' title="レイヤ名で振り分け"><img src=images/ICONs/divider.png>
-</button><button class=toolChip onClick='doAxeScript("groupingSelectedLayers")' title="選択レイヤをグループに"><img src=images/ICONs/bind.png>
-</button><button class=toolChip onClick='doAxeScript("numberingLayers")' title="セット内を連番"><img src=images/ICONs/numbering.png>
-</button>
+
 <!-- ================================================================= -->
 <!-- Layer label editor  レイヤラベルエディタ 
 数値付きラベルだった場合は数値部分を残してプレフィックスのみを変更する
 複数レイヤが選択されている場合は、全てのレイヤのプレフィックスを更新する
 -->
-<div style="position:absolute;top:4px;left:600px;bottom:54px;">
+<div style="position:absolute;top:4px;left:500px;bottom:32px;">
 	<button class=owd style="width:18px;" onclick="var newValue=getCurrentLabel(document.getElementById('myLabel').value);" value=">" title="get label from current layer">⇒
 	</button><input type=text id=myLabel class=hw style="text-align:center;background-color:#eeeeee;width:108px;" value="LO"
 	onChange="setLabel(this.value,false);"
@@ -270,40 +295,41 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
 </button><button id="ccX" class=owd onClick='doAxeScript(this.id)' style="backGround-color:whitesmoke;color:black;" >×
 </button>
 
- <br>
  <!-- layer name util -->
-        <button class=qwd style="height:16px;" onClick='setLabel("+","add");' title="layer name add +"> add+</button>
-        <button class=qwd style="height:16px;" onClick='setLabel("+","remove");' title="remove +" >rmv+ </button>
-        <button class=qwd style="height:16px;" onClick='doAxeScript("layerNameInc")' title="label number ++">( ++ )</button>
-        <button class=qwd style="height:16px;" onClick='doAxeScript("layerNameDec")' title="label number --" >( -- )</button>
-        <button class=qwd style="height:16px;" onClick='doAxeScript("PacPs")' title="レイヤ名一括変更">［PacPs]</button>
-	<button class=qwd style="height:16px;" onClick='doAxeScript("ezFlip")' title="レイヤ名変更パネル">LyerNAME</button>
+        <button class="iconButton iconButton-addPlus"  onClick='setLabel("+","add");' title="layer name add +">
+</button><button class="iconButton iconButton-removePlus" onClick='setLabel("+","remove");' title="remove +" ></button>
+        <button class="iconButton iconButton-incr" onClick='doAxeScript("layerNameInc")' title="label number ++">
+</button><button class="iconButton iconButton-decr" onClick='doAxeScript("layerNameDec")' title="label number --" ></button>
+        <button class=qwd style="height:16px;width:72px;" onClick='doAxeScript("PacPs")' title="レイヤ名一括変更">[PacPs]</button>
+	<button class=qwd style="height:16px;width:72px;" onClick='doAxeScript("ezFlip")' title="レイヤ名変更パネル">LyerNAME</button>
 
 </div>
 <br></div>
 <!-- ================================================================= -->
 <!--			彩色補助ツール トレース/ペイント			-->
 <div id=pnl4 >
-	 <button class=toolChip onClick='doAxeScript("applyFilterScanLineNormalize")' title="PaintPreProcess"><img src=images/ICONs/paintPreProcess.png>
-</button><button class=toolChip onClick='doAxeScript("lineSplit")' title="traceSepaletion"><img src=images/ICONs/traceSep.png>
-</button><button class=toolChip onClick='doAxeScript("PaintPreProcess")' title="buildPaintLayer"><img src=images/ICONs/paintLayer.png>
-</button><button class=toolChip onClick='doAxeScript("thinLine")' title="thinnig"><img src=images/ICONs/thin.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterBorderFill")' title="paintBorderColor"><img src=images/ICONs/borderFill.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterAA")' title="Smooth"><img src=images/ICONs/smooth.png>
-</button><button class=toolChip onClick='doAxeScript("putColorChip")' title="putColorChip"><img src=images/ICONs/colorChip.png>
-</button><button class=toolChip onClick='doAxeScript("getFrontColorInfo")' title="collorInfo"><img src=images/ICONs/colorInfo.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterTraceR")' title="TraceR" style="background-color:#DD0000;"><img src=images/ICONs/R.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterTraceG")' title="TraceG" style="background-color:#008800;"><img src=images/ICONs/G.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterTraceB")' title="TraceB" style="background-color:#0000DD;"><img src=images/ICONs/B.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterTraceK")' title="TraceK" style="background-color:#222222;"><img src=images/ICONs/traceK.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterTraceC")' title="TraceC" style="background-color:#00BBDD;"><img src=images/ICONs/C.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterTraceP")' title="TraceP" style="background-color:#DD00BB;"><img src=images/ICONs/M.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterTraceY")' title="TraceY" style="background-color:#DDBB00;"><img src=images/ICONs/Y.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterTraceGY")' title="TraceGY" style="background-color:#DDff00;"><img src=images/ICONs/GY.png>
-</button> <button class=toolChip onClick='doAxeScript("applyFilterTraceAll")' title="TraceAll"><img src=images/ICONs/traceAll.png>
-</button><button class=toolChip onClick='doAxeScript("applyFilterTraceFGC")' title="traceForegroundColor"><img src=images/ICONs/traceFGC.png>
+	<button id=nomalizeLine class="iconButton iconButton-tracePPP" onClick='doAxeScript("applyFilterScanLineNormalize")' title="">
+</button><button id=linSPLT class="iconButton iconButton-separation" onClick='doAxeScript("lineSplit")' title="">
+</button><button id=PPP class="iconButton iconButton-paintLayer" onClick='doAxeScript("PaintPreProcess")' title="">
+</button><button id=thinnig class="iconButton iconButton-thiningLine" onClick='doAxeScript("thinLine")' title="">
+</button><button id=borderFill class="iconButton iconButton-borderFill" onClick='doAxeScript("applyFilterBorderFill")' title="">
+</button><button id=smooth class="iconButton iconButton-smoother" onClick='doAxeScript("applyFilterAA")' title="">
+</button><button id=putColorChip class="iconButton iconButton-colorBox" onClick='doAxeScript("putColorChip")' title="">
+</button><button id=getColorInfo class="iconButton iconButton-colorInfo" onClick='doAxeScript("getFrontColorInfo")' title="">
 </button>
-<br>
+              <button id=AFtR class="iconButton iconButton-traceR" onClick='doAxeScript("applyFilterTraceR")' title="">
+</button><button id=AFtG class="iconButton iconButton-traceG" onClick='doAxeScript("applyFilterTraceG")' title="">
+</button><button id=AFtB class="iconButton iconButton-traceB" onClick='doAxeScript("applyFilterTraceB")' title="">
+</button><button id=AFtK class="iconButton iconButton-traceK" onClick='doAxeScript("applyFilterTraceK")' title="">
+</button><button id=AFtC class="iconButton iconButton-traceC" onClick='doAxeScript("applyFilterTraceC")' title="">
+</button><button id=AFtP class="iconButton iconButton-traceM" onClick='doAxeScript("applyFilterTraceP")' title="">
+</button><button id=AFtY class="iconButton iconButton-traceY" onClick='doAxeScript("applyFilterTraceY")' title="">
+</button><button id=AFtGY class="iconButton iconButton-traceGY" onClick='doAxeScript("applyFilterTraceGY")' title="" >
+</button>
+	<button id=AFtAll class="iconButton iconButton-traceAll" onClick='doAxeScript("applyFilterTraceAll")' title="">
+</button><button id=AFtFG class="iconButton iconButton-traceFGC" onClick='doAxeScript("applyFilterTraceFGC")' title="" >
+</button> 
+
 </div>
 <!-- ================================================================= -->
 <!--
@@ -362,13 +388,13 @@ onChange="this.value=Frm2FCT(FCT2Frm(this.value.toString()),3,0);"
 </div>
 -->
 <!--
-	<button class=toolChip onClick='doAxeScript("marqueeRectTool")' title="">marqueeRectTool
-</button><button class=toolChip onClick='doAxeScript("rulerTool")' title="">rulerTool
+	<button class="iconButton iconButton-" onClick='doAxeScript("marqueeRectTool")' title="">marqueeRectTool
+</button><button class="iconButton iconButton-" onClick='doAxeScript("rulerTool")' title="">rulerTool
 </button>
-	<button id=class=toolChip onClick='doAxeScript("")' title="">QT
-</button><button class=toolChip onClick='doAxeScript("")' title="">QT
-</button><button class=toolChip onClick='doAxeScript("")' title="">QT
-</button><button class=toolChip onClick='doAxeScript("")' title="">QT
+	<button id=class="iconButton iconButton-" onClick='doAxeScript("")' title="">QT
+</button><button class="iconButton iconButton-" onClick='doAxeScript("")' title="">QT
+</button><button class="iconButton iconButton-" onClick='doAxeScript("")' title="">QT
+</button><button class="iconButton iconButton-" onClick='doAxeScript("")' title="">QT
 </button>
 <br> -->
 

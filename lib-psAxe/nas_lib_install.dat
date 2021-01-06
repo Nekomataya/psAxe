@@ -1,4 +1,4 @@
-//(nas_library_installer_data01)
+//(nas_library_installer_data08)
 /*===========================	これはインストール設定ファイル	===============================*/
 //第一行目のシグネチャは、インストーラに記述された変数と一致する必要があるので、注意 これがデータの識別子となります。任意
 /*
@@ -12,7 +12,7 @@ $id:$
 nas_Installer.locale="ja_JP";//限定…この判定はどうも簡単じゃなさそう
 //インストールパッケージ名称とバージョン
 nas_Installer.pkgName    ="nas_animation_Lib";//package名称(文字列)インストール済みの情報ファイル名にするのでファイル名使用可能なパッケージ名にしといてくらさい。
-nas_Installer.pkgVersion ="1.0.0";//バージョン番号はドット区切り3ブロックの数値文字列で
+nas_Installer.pkgVersion ="1.0.1";//バージョン番号はドット区切り3ブロックの数値文字列で
 
 /*
 
@@ -186,7 +186,15 @@ ja:"ライブラリの内容変更のため設定の一部を消去します。\
 ["%SOURCE%/lib/dataio.js"  , "%USER%/lib/dataio.js"],
 ["%SOURCE%/lib/fakeAE.js" , "%USER%/lib/fakeAE.js"],
 ["%SOURCE%/lib/io.js"         , "%USER%/lib/io.js"],
+["%SOURCE%/lib/lib_AEK.js" , "%USER%/lib/lib_AEK.js"],
+["%SOURCE%/lib/lib_AER.js" , "%USER%/lib/lib_AER.js"],
+["%SOURCE%/lib/lib_ARD.js" , "%USER%/lib/lib_ARD.js"],
+["%SOURCE%/lib/lib_ARDJ.js" , "%USER%/lib/lib_ARDJ.js"],
 ["%SOURCE%/lib/lib_STS.js" , "%USER%/lib/lib_STS.js"],
+["%SOURCE%/lib/lib_stylosCSV.js" , "%USER%/lib/lib_stylosCSV.js"],
+["%SOURCE%/lib/lib_TSH.js" , "%USER%/lib/lib_TSH.js"],
+["%SOURCE%/lib/lib_TSX.js" , "%USER%/lib/lib_TSX.js"],
+["%SOURCE%/lib/lib_TVP.js" , "%USER%/lib/lib_TVP.js"],
 ["%SOURCE%/lib/map.js"     , "%USER%/lib/map.js"],
 ["%SOURCE%/lib/mapio.js"  , "%USER%/lib/mapio.js"],
 ["%SOURCE%/lib/nas_locale.js"  , "%USER%/lib/nas_locale.js"],
@@ -444,7 +452,15 @@ ja:"nasライブラリをアンインストールします。\nライブラリ�
 ["rm","%USER%/lib/dataio.js"],
 ["rm","%USER%/lib/fakeAE.js"],
 ["rm","%USER%/lib/io.js"],
-["rm","%USER%/lib/lib_STS.js"],
+["rm", "%USER%/lib/lib_AEK.js"],
+["rm", "%USER%/lib/lib_AER.js"],
+["rm", "%USER%/lib/lib_ARD.js"],
+["rm", "%USER%/lib/lib_ARDJ.js"],
+["rm", "%USER%/lib/lib_STS.js"],
+["rm", "%USER%/lib/lib_stylosCSV.js"],
+["rm", "%USER%/lib/lib_TSH.js"],
+["rm", "%USER%/lib/lib_TSX.js"],
+["rm", "%USER%/lib/lib_TVP.js"],
 ["rm","%USER%/lib/map.js"],
 ["rm","%USER%/lib/mapio.js"],
 ["rm","%USER%/lib/nas_locale.js"],

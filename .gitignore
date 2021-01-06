@@ -8,3 +8,5 @@
 .project
 *.zxp
 .DS_Store
+*.p12
+

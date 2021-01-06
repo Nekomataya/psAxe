@@ -3,7 +3,7 @@
  *	AE等のAdobe Script 環境で使用可能な関数およびプロパティをサポートします
  *
  *
- *	$Id: nas_common.js,v 1.14.4.13 2010/11/06 00:45:35 kiyo Exp $
+ *	$Id$
  */
  myFilename=("$RCSfile: nas_common.js,v $").split(":")[1].split(",")[0];
  myFilerevision=("$Revision: 1.14.4.13 $").split(":")[1].split("$")[0];

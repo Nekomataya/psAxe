@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ExtensionManifest Version="4.0" ExtensionBundleId="info.nekomataya.remapingCEP" ExtensionBundleVersion="1.0.0"
+<ExtensionManifest Version="4.0" ExtensionBundleId="info.nekomataya.remapingCEP" ExtensionBundleVersion="1.1.0"
 		ExtensionBundleName="remapingCEP" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Author>
 		<![CDATA[kiyo@nekomataya.info]]>
 	</Author>	<Contact mailto="support@nekomataya.info"/>	<Legal href="http://www.nekomataya.info/"/>	<Abstract href="http://www.nekomataya.info/"/>	<ExtensionList>
-		<Extension Id="info.nekomataya.remapingCEP" Version="1.0" />
+		<Extension Id="info.nekomataya.remapingCEP" Version="1.1.1" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
-			<Host Name="PHXS" Version="[14.0,20.9]" />
-			<Host Name="PHSP" Version="[14.0,20.9]" />
+			<Host Name="PHSP" Version="[14.0,24.9]" />
+			<Host Name="PHXS" Version="[14.0,24.9]" />
 		</HostList>
 		<LocaleList>
 			<Locale Code="All" />
@@ -22,7 +22,6 @@
 	</ExecutionEnvironment>
 	<DispatchInfoList>
 		<Extension Id="info.nekomataya.remapingCEP">
-
 			<DispatchInfo >
 				<Resources>
 				<MainPath>./index.html</MainPath>
@@ -32,14 +31,26 @@
 					<AutoVisible>true</AutoVisible>
 				</Lifecycle>
 				<UI>
-					<Type>Panel</Type>
+					<Type>Modeless</Type>
 					<Menu>remapingCEP</Menu>
 					<Geometry>
 						<Size>
 							<Height>480</Height>
 							<Width>800</Width>
 						</Size>
+						<MinSize>
+							<Height>480</Height>
+							<Width>240</Width>
+						</MinSize>
+						<MaxSize>
+							<Height>3600</Height>
+							<Width>1280</Width>
+						</MaxSize>
 					</Geometry>
+					<Icons>
+						<Icon Type="Normal">./res/xps.png</Icon>
+						<Icon Type="RollOver">./res/xps_d.png</Icon>
+					</Icons>
 				</UI>
 			</DispatchInfo>
 		</Extension>

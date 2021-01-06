@@ -3,41 +3,19 @@
 <html>
 <head>
 <meta charset="utf-8">
-
-<link rel="stylesheet"  type="text/css" href="./common_files/jquery-ui-1.10.2.custom.min.css">
+<link rel="stylesheet"  type="text/css" href="./nas/ext-lib/jquery-ui-1.10.2.custom.min.css">
 <link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
 
-<!--<script src="./lib/CSInterface-4.0.0.js"></script>-->
+<!-- <script src="./lib/CSInterface.js"></script> -->
 
-<script src="./common_files/jquery.js"></script>
-<script src="./common_files/jquery-ui.js"></script>
-
+<script src="./nas/ext-lib/jquery.js"></script>
+<script src="./nas/ext-lib/jquery-ui.js"></script>
+<script src="./nas/lib/config.js"></script>
+<script src="./nas/lib/nas_common.js"></script>
+<script src="./nas/lib/nas_common_HTML.js"></script>
+<script src="./nas/lib/nas_locale.js"></script>
+<script src="./nas/messages.js"></script>
 <script src="./ext.js"></script>
-<script src="./common_files/nas_common.js"></script>
-<script src="./common_files/nas_common_HTML.js"></script>
-<script src="./psAxeInstall/lib/nas_locale.js"></script>
-<script src="./messages.js"></script>
-
-<!--
-<script src="./common_files/jquery.js"></script>
-<script src="./common_files/jquery-ui.min.js"></script>
-
-<meta name=application-name content=nas(u)psAxe>
-<meta name=application-version content=1.1.5>
-	sliderValue() を利用するためだけに古いライブラリを使用しているので注意
-タイミングを見てpsAxe用のコードを抽出するか、フルサイズの新規ライブラリに換装すること 2015 06-10
-アプリケーションの識別及びバージョンをhtnl内に埋め込んでおきたいが…
-input hidden ? meta ?
-
-現状ではext.jsにextVerプロパティとして記述する
-内容は　onLoaded時にホスト側のapp.nas.Version.psAxeへ転送しておく　2015 06-29
-
-ライブラリを調整して　nas_common,nas_common_HTML に更新　変更に伴いグローバル側からのアクセスは終了
-FCT2Frm等はnas.FCT2Frm 等々へ変換　2016 01-30
-
-
-<link id="ppstyle" rel="stylesheet" type="text/css" href="./common_files/bootstrap.min.css">
--->
 
 <title>nasPsAxe</title>
 
@@ -47,7 +25,7 @@ FCT2Frm等はnas.FCT2Frm 等々へ変換　2016 01-30
 <div id="content">
 	<div class="fixedHeader" id="fixedHeader">
 
-<button id="inst" class="iconButton iconButton-axe_2" onClick='doInstall()' title="psAxeについて">
+<button id="inst" class="iconButton iconButton-axe_2" onClick='checkLibInstall()' title="psAxeについて">
 </button>
 <!-- <span stile="width:300px">nas(u)PsAXE -->
 <img id=psAxeLogo src=images/psAxe.png></img>
@@ -85,10 +63,11 @@ FCT2Frm等はnas.FCT2Frm 等々へ変換　2016 01-30
 </button>
 <br>
 
-         <button id="ons2" class=qwd onClick='doAxeScript("ons2")' title="2枚透過">[2]]]
-</button><button id="ons3" class=qwd onClick='doAxeScript("ons3")' title="3枚透過">[3]]]]
-</button><button id="ons4" class=qwd onClick='doAxeScript("ons4")' title="4枚透過">[4]]]]]
-</button><button id="onsR" class=qwd onClick='doAxeScript("onsReset")' title="不透明度リセット">RESET
+         <button id="onsX" class=cwd onClick='doAxeScript("onsX")' title="透過">[X]]
+</button><button id="ons2" class=cwd onClick='doAxeScript("ons2")' title="2枚透過">[2]]]
+</button><button id="ons3" class=cwd onClick='doAxeScript("ons3")' title="3枚透過">[3]]]]
+</button><button id="ons4" class=cwd onClick='doAxeScript("ons4")' title="4枚透過">[4]]]]]
+</button><button id="onsR" class=cwd onClick='doAxeScript("onsReset")' title="不透明度リセット">RESET
 </button>
 <br>
          <button id="PcTl" class=toolChip onClick="chgTool(this.id)" title="pencil"><img src=images/pen.png></img>
@@ -113,8 +92,8 @@ FCT2Frm等はnas.FCT2Frm 等々へ変換　2016 01-30
 <br>
 <!-- </div> -->
 
-<!-- ========================================================タブ切替スイッチ群========= -->
-<div></div>
+<!-- ========================================================タブ切替スイッチ群=========<div></div> -->
+
 
 <button id="buttonTab_path" class='iconButton iconButton-path' onClick='chgTab("PTHhandle")' title="path/ruler"><!-- パス編集ツール -->
 </button><button id="buttonTab_preview" class='iconButton iconButton-preview' onClick='chgTab("FRMhandle")' title="フレームアニメーション/タイムライン操作"><!-- プレビューコントロール -->
@@ -274,6 +253,7 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
          <button id=applyXps class="iconButton iconButton-buildXPS" onClick='doAxeScript("applyXps")' title="">
 </button><button id=editXps class="iconButton iconButton-editXPS" onClick='doAxeScript("editXps")' title="">
 </button><button id=ezXpsL class="iconButton iconButton-linkXPS" onClick='doAxeScript("easyXPSLink_Ps")' title="">
+</button><button id=dial2Tx class="iconButton iconButton-dialog2Text" onClick='doAxeScript("convertDialog2Text")' title="">
 </button>
 <br>
 </div>
@@ -341,7 +321,9 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
 </button><button id=divLyr class="iconButton iconButton-divideLayers" onClick='doAxeScript("divideLayers")' title="レイヤ名で振り分け">
 </button><button id=iptRGST class="iconButton iconButton-addRegister" onClick='doAxeScript("loadPeg")' title="レジスタマークを読み込み">
 </button><button id=cpyRGST class="iconButton iconButton-duplicateRegister" onClick='doAxeScript("duplicateReg")' title="選択レイヤにレジスタマークを複製" >
-</button><br><button id=addTXT class="iconButton iconButton-addText" onClick='doAxeScript("addNewNumText")' title="カット番号を挿入">
+</button><br><button id=import class="iconButton iconButton-fromTVP" onClick='doAxeScript("classifyTVPData")' title="TVPcsvを変換（仮）">
+</button><button id=export class="iconButton iconButton-toTVP" onClick='doAxeScript("exportPsdForTvp")' title="TVP用に書き出し（仮）">
+</button><button id=addTXT class="iconButton iconButton-addText" onClick='doAxeScript("addNewNumText")' title="カット番号を挿入">
 </button><button id=edtTXT class="iconButton iconButton-editText" onClick='doAxeScript("editTextSource")' title="テキストレイヤのソースを編集">
 </button><button id=iptFCHT class="iconButton iconButton-fldChart" onClick='doAxeScript("importFieldChart")' title="フィールドチャート読込">
 </button><button id=iptRCHT class="iconButton iconButton-refChart" onClick='doAxeScript("importReference")' title="リファレンスチャート読込">
@@ -350,34 +332,38 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
 <!-- トレース/ペイント -->
 <div id=TRChandle style="display:none">
 <button id=handleTRC class=fsp onClick='javascript:document.getElementById("TRChandle").style.display=(document.getElementById("TRChandle").style.display=="none")?"inline":"none";' title="彩色補助ツール">トレース/ペイント</button><br>
-<!-- -->
-	<button id=nomalizeLine class="iconButton iconButton-tracePPP" onClick='doAxeScript("applyFilterScanLineNormalize")' title="">
+<!--
+<button id=thinnig class="iconButton iconButton-thiningLine" onClick='doAxeScript("thinLine")' title="">
+</button>
+<button id=AFtG class="iconButton iconButton-traceG" onClick='doAxeScript("applyFilterTraceG")' title="">
+</button>
+<button id=AFtC class="iconButton iconButton-traceC" onClick='doAxeScript("applyFilterTraceC")' title="">
+</button><button id=AFtP class="iconButton iconButton-traceM" onClick='doAxeScript("applyFilterTraceP")' title="">
+</button><button id=AFtY class="iconButton iconButton-traceY" onClick='doAxeScript("applyFilterTraceY")' title="">
+</button><button id=AFtGY class="iconButton iconButton-traceGY" onClick='doAxeScript("applyFilterTraceGY")' title="" >
+</button><br>
+ -->
+	<button id=nomalizeLine class="iconButton iconButton-tracePPP" onClick='doAxeScript("scanLineNormalize")' title="">
 </button><button id=linSPLT class="iconButton iconButton-separation" onClick='doAxeScript("lineSplit")' title="">
 </button><button id=PPP class="iconButton iconButton-paintLayer" onClick='doAxeScript("PaintPreProcess")' title="">
-</button><button id=thinnig class="iconButton iconButton-thiningLine" onClick='doAxeScript("thinLine")' title="">
 </button><button id=borderFill class="iconButton iconButton-borderFill" onClick='doAxeScript("applyFilterBorderFill")' title="">
 </button><button id=smooth class="iconButton iconButton-smoother" onClick='doAxeScript("applyFilterAA")' title="">
 </button><button id=putColorChip class="iconButton iconButton-colorBox" onClick='doAxeScript("putColorChip")' title="">
 </button><button id=getColorInfo class="iconButton iconButton-colorInfo" onClick='doAxeScript("getFrontColorInfo")' title="">
 </button><br>
-              <button id=AFtR class="iconButton iconButton-traceR" onClick='doAxeScript("applyFilterTraceR")' title="">
-</button><button id=AFtG class="iconButton iconButton-traceG" onClick='doAxeScript("applyFilterTraceG")' title="">
-</button><button id=AFtB class="iconButton iconButton-traceB" onClick='doAxeScript("applyFilterTraceB")' title="">
-</button><button id=AFtK class="iconButton iconButton-traceK" onClick='doAxeScript("applyFilterTraceK")' title="">
-</button><button id=AFtC class="iconButton iconButton-traceC" onClick='doAxeScript("applyFilterTraceC")' title="">
-</button><button id=AFtP class="iconButton iconButton-traceM" onClick='doAxeScript("applyFilterTraceP")' title="">
-</button><button id=AFtY class="iconButton iconButton-traceY" onClick='doAxeScript("applyFilterTraceY")' title="">
-</button><button id=AFtGY class="iconButton iconButton-traceGY" onClick='doAxeScript("applyFilterTraceGY")' title="" >
-</button><br>
-	<button id=AFtAll class="iconButton iconButton-traceAll" onClick='doAxeScript("applyFilterTraceAll")' title="">
-</button><button id=AFtFG class="iconButton iconButton-traceFGC" onClick='doAxeScript("applyFilterTraceFGC")' title="" >
+              <button id=AFtR class="iconButton iconButton-traceR" onClick='doAxeScript("traceR")' title="">
+</button><button id=AFtB class="iconButton iconButton-traceB" onClick='doAxeScript("traceRx")' title="">
+</button><button id=AFtK class="iconButton iconButton-traceK" onClick='doAxeScript("traceK")' title="">
+</button><button id=fillWhite class="iconButton iconButton-cell" onClick='doAxeScript("fillWhite")' title="">
+</button><button id=AFtAll class="iconButton iconButton-traceAll" onClick='doAxeScript("applyFilterTraceAll")' title="">
+</button><button id=AFtFG class="iconButton iconButton-traceFGC" onClick='doAxeScript("traceCol")' title="" >
 </button> 
 <br>
 <!-- -->
 </div>
 <!--デバッグ/スクリプト-->
-<div id=DBGCons style="display:none">
-<button id=handleDBG class=fsp onClick='javascript:document.getElementById("DBGCons").style.display=(document.getElementById("DBGCons").style.display=="none")?"inline":"none";' title="デバッグほか">デバッグ/スクリプト</button><br>
+<div id=DBGCons  style="display:none;">
+<button id=handleDBG class=fsp onClick='javascript:document.getElementById("DBGCons").style.display=(document.getElementById("DBGCons").style.display=="none")?"inline":"none";' title="デバッグほか">デバッグ/スクリプト</button>+<br>
 <button id=chgLocale onclick='if(nas.locale=="ja"){nas.LangPack.chgLocale(nas.locale="en");doScript("nas.locale=\"en\"");}else{nas.LangPack.chgLocale(nas.locale="ja");doScript("nas.locale=\"ja\"");};return false;' title="change UI locale en/ja">
 	change UI locale en/ja</button>
 <br>
@@ -392,7 +378,7 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
 <br>
 
 <button id=jsConsole class=fw onClick='javascript:document.getElementById("dbgConsolePsAxe").style.display=(document.getElementById("dbgConsolePsAxe").style.display=="none")?"inline":"none";' title="エクスプレッションの評価">
-	/Javascript Console</button>
+	/Javascript Console/</button>
 <br>
 
 <!-- <input type=text size=14 value=0 onMousedown = "nas.sliderVALUE([event,this,'260','-60','-1'])" >
@@ -419,24 +405,71 @@ try{resultText= eval(eXpression);}catch(err){resultText=err};
 document.getElementById("resultBox").value +="\n"+resultText;
 }
 function evalApplicationCMD(name) {
-var eXpression = "nas=app.nas;"+document.getElementById("inputBox1").value
+    var eXpression = "nas=app.nas;"+document.getElementById("inputBox1").value
 + "\n;" + document.getElementById("inputBox2").value +"\n;";
 var resultText="";
- if(isCEP){
-try{resultText= evalScript(eXpression,function(myResult){document.getElementById("resultBox").value+="\n"+myResult;});}catch(err){resultText=err};
-  if(resultText){
-   document.getElementById("resultBox").value +="\nerr:\n"+resultText;
-  }
- }else{
- try{resultText= getApplicationResult(eXpression);}catch(err){resultText=err;};
-   document.getElementById("resultBox").value +="\n"+resultText;
- }
+    if(appHost.platform == 'CEP'){
+        try{
+            resultText= evalScript(eXpression,function(myResult){
+                document.getElementById("resultBox").value+="\n"+myResult;
+            });
+        }catch(err){
+            resultText=err
+        };
+        if(resultText){
+            document.getElementById("resultBox").value +="\nerr:\n"+resultText;
+        }
+    } else if(appHost.platform == 'CSX'){
+        try{
+            resultText= getApplicationResult(eXpression);
+        }catch(err){
+            resultText=err;
+        };
+        document.getElementById("resultBox").value +="\n"+resultText;
+    }else{
+        console.log('no application photoshop.\n TEST : '+eXpression);
+    }
+}
+function doCmdWithApplication(cmd,cback){
+    cmd = String(cmd);
+    if(cmd.indexOf("'") >= 0) cmd = cmd.replace(/\'/g,"\\'");
+    var eXpression = "if(typeof nas =='undefined') var nas = app.nas; var result;try{ result = eval('"+cmd+"');}catch(err){result = err};String(result);";
+    var resultText="";
+    if(appHost.platform == 'CSX'){
+        try{
+            resultText = getApplicationResult(eXpression);
+        }catch(err){
+            resultText = "\nerr :\n" + err;
+        };
+        nas.console.putResult(resultText,nas.console);
+    }else if(appHost.platform == 'CEP'){
+        try{
+            resultText = new CSInterface().evalScript(eXpression,function(res){nas.console.putResult(res,nas.console)});
+        }catch(err){
+//            resultText = err;
+            nas.console.putResult(err,nas.console)
+            };
+        if(resultText){
+            cback("\nerr:\n"+resultText,nas.console);
+        };
+    } else {
+        cback('no application photoshop.\n TEST : '+eXpression,this);
+    };
 }
 
 -->
 </script>
-<div id=dbgConsolePsAxe style="display:none;">
-RESULT<BR>
+<div id=dbgConsolePsAxe style="display:inline;">
+CONSOLE<BR>
+<textarea id=console name="console" COLS=32 ROWS=8 WRAP=soft 
+style="text-align:left;color:snow;background:#444444;font-size:9pt;border:1"
+>
+</textarea><BR>
+<button id=chgHost class=hwd onClick='nas.console.changeHost()'>changeHost</button>
+<button id=cls     class=hwd onClick="nas.console.clear()">clear</button>
+<br>
+<button id=cls     class=fwd onClick='javascript:document.getElementById("oldStyleConsole").style.display=(document.getElementById("oldStyleConsole").style.display=="none")?"inline":"none";'>old-console</button>
+<div id='oldStyleConsole' style="display:none;">
 <textarea id=resultBox name="RESULTBOX" COLS=32 ROWS=8 WRAP=soft onFocus="select()"
 style="text-align:left;color:black;background:white;font-size:9pt;border:1"
 >
@@ -458,6 +491,7 @@ style="text-align:left;color:black;background:white;font-size:9pt;border:1"
 
 <button id=cls1 class=qw onClick='document.getElementById("inputBox1").value="";'>clear 1</button>
 <button id=cls2 class=qw onClick='document.getElementById("inputBox2").value="";'>clear 2</button>
+</div>
 </div>
   </div>
 </div></body>

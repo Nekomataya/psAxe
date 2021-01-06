@@ -6,10 +6,8 @@
 <script type="text/javascript" src=./lib/AIRAliases.js></script>
 <script type="text/javascript" src=./nas_common.js></script>
 <script type="text/javascript" src=./lib/fakeAE.js></script>
-<script type="text/javascript" src=./lib/clipboard.min.js></script>
 <script type="text/javascript" src=./nasCalc.js></script>
 <script type="text/javascript" src=./spf.js></script>
-
 <!--
  -->
 
@@ -36,7 +34,7 @@ onContextMenu	= "if (KeyMODE == 'stopwatch') return false"
 	</td></tr><tr><td>
 	<img id="flipPicture" src="./images/tall.png" style="display:inline;">
 	</td></tr></tbody></table>
-Nekomataya/2016
+Nekomataya/2010
 <!--<span
 	id="uiTable"
 >Nekomataya/2008</span>  		-->
@@ -337,9 +335,9 @@ Nekomataya/2016
 	onclick="pushKey(this.id)"
 ><br /><hr / padding=0><input type="button"
 	class=toolKB
-	id="backURL"
-	value=back
-	title="前のアドレスへ戻る"
+	id="back"
+	title="戻る"
+	value="BACK"
 	onclick='location="../index.html"'
 	style="background-color:gray;"
 ><br /><input type="button"
@@ -380,13 +378,10 @@ Nekomataya/2016
 <table style="margin:0px;padding:0px;">
 <tbody><tr><td colspan=2><input type="button"
 class=numButtonW
-id="clip_copy"
-value="clipboard"
-title="put clipboard"
-	data-clipboard-action="copy"
-	data-clipboard-target="#INbuf"
-	style="background-color:gray;"
-onclick="return false"
+id="PF1"
+value="fitting"
+title="fittingWindow"
+onclick="nas_sizeToContent();"
 ></td><td colspan=2><input type="button"
 		class=numButtonW
 		id="PF2"
@@ -659,19 +654,6 @@ onclick="pushKey('0')"
 	<!-- りまぴんmini挿入位置 -->
 
 </form>
-
- <script>
-    var clipboard = new Clipboard('#clip_copy');
-
-    clipboard.on('success', function(e) {
-    e.clearSelection();
-        console.log(e);
-    });
-
-    clipboard.on('error', function(e) {
-        console.log(e);
-    });
-    </script>
 <!--
 
 <textarea
@@ -742,11 +724,6 @@ AIRに馴染んだら、りまぴんをローカルアプリにしようっと
 2010/12/05
 ミスコーディングしていた30DF部分を修正　5年ぶりにまともな計算になる
 とほほほ
-
-2016 /01/23
-html5用のクリップボードライブラリを組み込んで
-Enter・Stop・Lapの際にクリップボードに結果を送り込むように変更
-当該のAPI対応ブラウザはまだ差がある状態
 </textarea>
 -->
 </body></html>

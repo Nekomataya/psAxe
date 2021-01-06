@@ -1,4 +1,4 @@
-/*
+﻿/*
 	html language resource for psAxe
 	2016 02.03
 
@@ -225,8 +225,8 @@ nas.LangPack.en=[
 ];
 nas.LangPack.ja=[
 	["inst","title","psAxeについて"],
-	["pref","title","各種設定"],
-	["tltp","title","ツールチップ切替"],
+	["pref","title","psAxeについて"],
+	["tltp","title","psAxeについて"],
 	["rtBtm","title","上シフト"],
 	["rtTop","title","下シフト"],
 	["swpLy","title","レイヤ入換"],

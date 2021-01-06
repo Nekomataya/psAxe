@@ -4,7 +4,7 @@
 	インストール先
 	環境取得・設定など
 
-nas_lib_Install.jsx,v 1.0 2015/06/19
+nas_lib_Install.jsx,v 1.1 2016/05/01
 
 */
 // enable double clicking from the Macintosh Finder or the Windows Explorer
@@ -33,7 +33,7 @@ if($.fileName){
 //	alert(nasFolderPath)
 var thisFileName="nasPsAxeInstall.jsx";//識別用自己ファイル名
 var thisDataFileName="nas_PsAxe_install.dat";//データファイル名識別用 同ディレクトリのみ
-var thisPackageSign="//(nas_PsAxe_installer_data07)";//データの第一行目をすべて。これが一致しないと動作終了
+var thisPackageSign="//(nas_PsAxe_installer_data08)";//データの第一行目をすべて。これが一致しないと動作終了
 //2015 06-17 シグネチャ不一致の場合の処理を追加
 //	nasライブラリを前提としない、単独で動作するスクリプトである。
     var myInstall={};

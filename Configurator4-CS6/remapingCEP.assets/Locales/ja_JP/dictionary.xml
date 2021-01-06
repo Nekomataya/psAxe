@@ -10,10 +10,10 @@
     <val>情報</val>
   </str>
   <str name="Configurator/key_###2" translate="yes">
-    <val>http://www.nekomataya.info/test/remaping/</val>
+    <val>http://localhost/~kiyo/remaping.js/</val>
   </str>
   <str name="Configurator/key_###3" translate="yes">
-    <val>HTML/index.html</val>
+    <val>http://localhost/~kiyo/remaping.js/</val>
   </str>
   <str name="Configurator/key_###5" translate="yes">
     <val/>

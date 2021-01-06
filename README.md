@@ -1,4 +1,5 @@
 psAxe ver1.0.0 29/11/2014 
+psAxe ver1.5.0 04/02/2016
 =====
 
 Photoshop Animation Xps Extension
@@ -7,7 +8,6 @@ Adobe Photoshop Extension Panelas and Library
 
 Animation workingtoolkit of Japanese-style
 
-Currently requires a Japanese version of Photoshop
 =====
 Photoshop　アニメタームシート拡張
 =====
@@ -15,8 +15,9 @@ Adobe Photoshopの機能拡張パネルです
 
 日本型のアニメーション作業用ツールキットになっています
 
-メニュー類が日本語のみなので利用には日本語バージョンが必要です
-
+英語リソースが付きました
+翻訳は怪しげです。
+ネイティブの監修を望む
 =====
 ソースのビルドのためには、以下のツールが必要です
 =====

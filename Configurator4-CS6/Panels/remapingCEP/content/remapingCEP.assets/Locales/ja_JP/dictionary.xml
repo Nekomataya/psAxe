@@ -10,7 +10,7 @@
     <val>情報</val>
   </str>
   <str name="Configurator/key_###2" translate="yes">
-    <val>http://www.nekomataya.info/test/remaping/</val>
+    <val>http://192.168.188.2/~kiyo/remaping/</val>
   </str>
   <str name="Configurator/key_###3" translate="yes">
     <val>HTML/index.html</val>

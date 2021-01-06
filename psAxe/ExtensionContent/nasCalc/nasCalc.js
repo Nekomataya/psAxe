@@ -1634,10 +1634,9 @@ default:	;//(NOP)
 }
 // コマンドの結果で表示を更新
 if (dEbug) putsCONS( operandStack.top() );
+
 //入力確定
 	syncIB4ST(ComInput);
-//表示の更新と同タイミングでその内容をクリップボードに転送できない
-//セキュリティ上の仕様なので、それは受け入れる
 }
 /*
 	mipq+alpha

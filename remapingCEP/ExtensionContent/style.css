@@ -30,8 +30,31 @@ margin:3px 0px 3px 0px;
 }
 
 #topRibbon {
-	padding:0;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:50px;
+	padding:0 50 0 50px;
 	background-color:#bbbbbb;
+}
+#commandColumn {
+    position:absolute;
+    top:0;
+    left:0;
+    width:50px;
+    height:100%;
+	padding:50px 0 0 0;
+	background-color:#bbbbbb;
+}
+#cornerBox {
+    position:absolute;
+    top:0;
+    left:0;
+    width:50px;
+    height:50px;
+	padding:0 0 0 0;
+	background-color:#666666;
 }
 #leftAlign{
 	height:24px;
@@ -42,7 +65,7 @@ margin:3px 0px 3px 0px;
 	text-align:right;
 }
 .ribbonButton{
-	height:24px;
-	width:32px;
+	height:48px;
+	width:48px;
 	background-color:#bbbbbb;
 }

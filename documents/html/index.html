@@ -1,6 +1,99 @@
 <html>
-<iframe height=100% src=./panel_index.html>
+<body
+	onload='window.name="referenceViewer"';
+>
+<iframe id="iframe_target" style ="height:100%;" src=./panel_index.html>
 
 </iframe>
-<div>========</div>
+<div style="position:absolute;top:0;left:380;　"
+>========
+<div id=docArea>
+ <fieldset style="padding:10px; margin-bottom:20px; background:#fee;" >
+      <legend>自身のコンテンツ</legend>
+      受信<br>
+      <textarea id="input_result" style="width:100%; height:100px; margin:0px 0px 20px 0px;" ></textarea><br>
+      送信<br>
+      <input type="text"   id="input_message" style="width:100%; margin:0px 0px 10px 0px;" value="送信テスト" ><br>
+      <input type="button" id="input_post"    style="width:100%; height:50px; margin:0px;" value="送信" >
+    </fieldset>
+
+</div>
+========
+</div>
+<script>
+function rcvmsg(msg){document.getElementById("docArea").innerHTML=msg;};
+
+  <!--
+
+	// 信頼するオリジン
+	var origin_allow = "*";
+
+	// ------------------------------------------------------------
+	// 各要素を取得
+	// ------------------------------------------------------------
+	var element_result  = document.getElementById("input_result");
+	var element_message = document.getElementById("input_message");
+	var element_post    = document.getElementById("input_post");
+	var iframe_target   = document.getElementById("iframe_target");
+
+	// ------------------------------------------------------------
+	// メッセージ受信時に実行されるコールバック関数
+	// ------------------------------------------------------------
+	var WindowMessageHandler = function (e) {
+
+		// 出力テスト
+		element_result.value = "timeStamp:" + e.timeStamp + " origin:\"" + e.origin + "\"\n\n" + element_result.value;
+alert(e.data);
+
+		// ------------------------------------------------------------
+		// 信頼できる送信者か調べる
+		// ------------------------------------------------------------
+//		if(e.origin != origin_allow) return;
+
+		// ------------------------------------------------------------
+		// 受信処理
+		// ------------------------------------------------------------
+		// 受信データを取得
+		var request_obj = JSON.parse(e.data);
+		// 受信データを出力
+		element_result.value = "data:" + JSON.stringify(request_obj) + "\n" + element_result.value;
+	};
+
+	// ------------------------------------------------------------
+	// イベントのリッスンを開始する
+	// ------------------------------------------------------------
+	if(window.addEventListener){
+		window.addEventListener("message" , WindowMessageHandler);
+	}else if(window.attachEvent){
+		window.attachEvent("onmessage" , WindowMessageHandler);
+	}
+
+	// ------------------------------------------------------------
+	// 送信ボタンをクリックした時に実行されるイベント
+	// ------------------------------------------------------------
+	element_post.onclick = function (e){
+
+		// ------------------------------------------------------------
+		// インラインフレーム内の Window オブジェクトを取得
+		// ------------------------------------------------------------
+		var window_target  = iframe_target.contentWindow;
+
+		// ------------------------------------------------------------
+		// 送信用オブジェクト
+		// ------------------------------------------------------------
+		var request_obj = {
+			message:element_message.value,
+			param:{}
+		};
+
+		// ------------------------------------------------------------
+		// 相手に送信する
+		// ------------------------------------------------------------
+		window_target.postMessage( JSON.stringify(request_obj) , origin_allow );
+
+	};
+
+    //-->
+    </script>
+</body>
 </html>

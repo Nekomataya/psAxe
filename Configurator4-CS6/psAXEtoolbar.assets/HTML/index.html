@@ -4,20 +4,20 @@
 <head>
 <meta charset="utf-8">
 
-<link rel="stylesheet"  type="text/css" href="./common_files/jquery-ui-1.10.2.custom.min.css">
+<link rel="stylesheet"  type="text/css" href="./nas/ext_lib/jquery-ui-1.10.2.custom.min.css">
 <link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
 
 <!--<script src="./lib/CSInterface-4.0.0.js"></script>-->
 <!--<script src="./lib/Vulcan-4.0.0.js"></script>-->
 
-<script src="./common_files/jquery.js"></script>
-<script src="./common_files/jquery-ui.js"></script>
+<script src="./nas/ext_lib/jquery.js"></script>
+<script src="./nas/ext_lib/jquery-ui.js"></script>
 
 <script src="./ext.js"></script>
-<script src="./common_files/nas_common.js"></script>
-<script src="./common_files/nas_common_HTML.js"></script>
-<script src="./common_files/nas_locale.js"></script>
-<script src="./messages.js"></script>
+<script src="./nas/lib/nas_common.js"></script>
+<script src="./nas/lib/nas_common_HTML.js"></script>
+<script src="./nas/lib/nas_locale.js"></script>
+<script src="./nas/messages.js"></script>
 
 <title>psAxeToolBar</title>
 <!--
@@ -45,13 +45,14 @@ FCT2Frm等はnas.FCT2Frm 等々へ変換　2016 01-30
 -->
 <div style="width:100%;">
 <button id="tltp" class="iconButton iconButton-dialog" onClick='chgTooltip()' title="ツールチップ切替" >
-</button><button id=chgLocale class="iconButton iconButton-debug" onclick='if(nas.locale=="ja"){nas.LangPack.chgLocale(nas.locale="en");doScript("nas.locale=\"en\"");}else{nas.LangPack.chgLocale(nas.locale="ja");doScript("nas.locale=\"ja\"");};return false;' title="change UI locale en/ja">
-</button><button id="pnlChg0" class=hw onClick='chgPnl("0");syscProp();'><span width=4 height=23 title="preview"></span>
-</button><button id="pnlChg1" class=hw onClick='chgPnl("1");'><span width=4 height=23 title="tools"></span>
-</button><button id="pnlChg2" class=hw onClick='chgPnl("2");'><span width=4 height=23 title="layer"></span>
-</button><button id="pnlChg3" class=hw onClick='chgPnl("3");'><span width=4 height=23 title="document"></span>
-</button><button id="pnlChg4" class=hw onClick='chgPnl("4");'><span width=4 height=23 title="paint"></span></button> 
-
+</button><button id="chgLocale" class="iconButton iconButton-debug" onclick='if(nas.locale=="ja"){nas.LangPack.chgLocale(nas.locale="en");doScript("nas.locale=\"en\"");}else{nas.LangPack.chgLocale(nas.locale="ja");doScript("nas.locale=\"ja\"");};return false;'>
+</button>
+              <button id="pnlChg0" class=hw onClick='chgPnl("0");syncProp();'><span width=64 height=20 title="preview">preview</span>
+</button><button id="pnlChg1" class=hw onClick='chgPnl("1");'><span width=64 height=20 title="tools">tools</span>
+</button><button id="pnlChg2" class=hw onClick='chgPnl("2");'><span width=64 height=20 title="layer">layer</span>
+</button><button id="pnlChg3" class=hw onClick='chgPnl("3");'><span width=64 height=20 title="document">documents</span>
+</button><button id="pnlChg4" class=hw onClick='chgPnl("4");'><span width=64 height=20 title="paint">paint</span></button> 
+<br>
 <!-- ================================================================= -->
 <!-- フレームアニメーション操作		Preview	Frame　Timeline　and XPS		-->
 <div id="pnl2" >
@@ -184,7 +185,9 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
          <button id=applyXps class="iconButton iconButton-buildXPS" onClick='doAxeScript("applyXps")' title="">
 </button><button id=editXps class="iconButton iconButton-editXPS" onClick='doAxeScript("editXps")' title="">
 </button><button id=ezXpsL class="iconButton iconButton-linkXPS" onClick='doAxeScript("easyXPSLink_Ps")' title="">
+</button><button id=dial2Tx class="iconButton iconButton-dialog2Text" onClick='doAxeScript("convertDialog2Text")' title="">
 </button>
+
 </div>
 <div id=pnl1 style="display:inline">
 
@@ -233,6 +236,10 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
 </button><button id=export class="iconButton iconButton-export" onClick='doAxeScript("exportLayersAsFile")' title="レイヤをファイルに書き出し">
 </button><button id=iptRGST class="iconButton iconButton-addRegister" onClick='doAxeScript("loadPeg")' title="レジスタマークを読み込み">
 </button><button id=cpyRGST class="iconButton iconButton-duplicateRegister" onClick='doAxeScript("duplicateReg")' title="選択レイヤにレジスタマークを複製" >
+</button><button id=import class="iconButton iconButton-fromTVP" onClick='doAxeScript("classifyTVPData")' title="TVPcsvを変換（仮）">
+</button><button id=export class="iconButton iconButton-toTVP" onClick='doAxeScript("exportPsdForTvp")' title="TVP用に書き出し（仮）">
+
+
 </button><button id=addTXT class="iconButton iconButton-addText" onClick='doAxeScript("addNewNumText")' title="カット番号を挿入">
 </button><button id=edtTXT class="iconButton iconButton-editText" onClick='doAxeScript("editTextSource")' title="テキストレイヤのソースを編集">
 </button></button><button class="iconButton iconButton-fldChart" onClick='doAxeScript("importFieldChart")' title="フィールドガイド">

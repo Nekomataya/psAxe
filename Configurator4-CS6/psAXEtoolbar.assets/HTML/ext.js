@@ -108,10 +108,10 @@ function updateThemeWithAppSkinInfo(appSkinInfo) {
 
 //document.getElementById("resultBox").innerHTML+=nas.colorStr2Ary(document.body.style.backgroundColor)+"\n";
 if(nas.colorStr2Ary(document.body.style.backgroundColor)[1]<0.5){
-document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons382x320px.png);");
+document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons432x432px.png);");
 //document.getElementById("psAxeLogo").src="images/psAxe.png";
 	}else{
-document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons382x320pxIVS.png);");
+document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons432x432pxIVS.png);");
 //document.getElementById("psAxeLogo").src="images/psAxeIVS.png";
 	}
 
@@ -135,10 +135,10 @@ document.body.style.color=reverseColor(Hex2Color(appSkinInfo.panelBackgroundColo
 
 //document.getElementById("resultBox").innerHTML+=nas.colorStr2Ary("#"+document.body.bgColor)[1]+"\n";
 if(nas.colorStr2Ary(document.body.style.backgroundColor)[1]<0.5){
-document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons382x320px.png);");
+document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons432x432px.png);");
 //document.getElementById("psAxeLogo").src="images/psAxe.png";
 	}else{
-document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons382x320pxIVS.png);");
+document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons432x432pxIVS.png);");
 //document.getElementById("psAxeLogo").src="images/psAxeIVS.png";
 	}
 //document.styleSheets[1].addRule("#fixedHeader","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
@@ -460,7 +460,10 @@ function getApplicationResult(myProp){return _Adobe.JSXInterface.call("eval",myP
 
 var pnlCount=5;//パネルの数
 var myID=0;
-
+/*
+	パネル切替操作をタブ形式に変更する
+	現在セレクトされているタブの以外の背景をグレーにする
+ */
 chgPnl=function(kwd){
 	if(! kwd){kwd="0"}
 	switch(kwd){
@@ -477,8 +480,10 @@ default	: myID=parseInt(kwd);if(myID===NaN){myID=0};myID=myID%pnlCount
 	for (pnlID=0;pnlID<pnlCount;pnlID++){
 		if (pnlID==myID){
 			document.getElementById("pnl"+pnlID).style.display="inline";
+			document.getElementById("pnlChg"+pnlID).style.backgroundColor=document.body.style.backgroundColor;
 		}else{
 			document.getElementById("pnl"+pnlID).style.display="none";
+			document.getElementById("pnlChg"+pnlID).style.backgroundColor="gray";
 		}
 	}
 	if(kwd=="0"){syncProp()}
