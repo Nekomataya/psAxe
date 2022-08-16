@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="true" key="CommitDialog.showUntracked"/>
+	<list key="CommitDialog.authorValues">
+		<item value="norifumi kiyozumi &lt;kiyo@nekomataya.info&gt;"/>
+	</list>
+	<list key="CommitDialog.committerValues">
+		<item value="norifumi kiyozumi &lt;kiyo@nekomataya.info&gt;"/>
+	</list>
+	<section name="GitCommitMessageComponent">
+	</section>
+	<section name="org.eclipse.egit.ui.COMMIT_DIALOG_SECTION">
+		<item value="626" key="DIALOG_WIDTH"/>
+		<item value="-11" key="DIALOG_Y_ORIGIN"/>
+		<item value="270" key="DIALOG_X_ORIGIN"/>
+		<item value="623" key="DIALOG_HEIGHT"/>
+		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
+	</section>
+</section>
