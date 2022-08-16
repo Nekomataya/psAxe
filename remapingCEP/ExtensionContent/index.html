@@ -1,57 +1,129 @@
 <!doctype html>
-
 <html>
 <head>
-<meta charset="utf-8">
-<script src="./lib/CSInterface-4.0.0.js"></script>
-<!-- <script src="./lib/CSInterface.js"></script> -->
+<link rel="shortcut icon" href="./images/icons/pmu.ico">
+<link href="./nas/lib/nas_common_HTML.css" type="text/css" rel=stylesheet media="screen,tv">
+<link href="./template/remaping.css" type="text/css" rel=stylesheet media="screen,tv">
+<link href="./template/xmap.css" type="text/css" rel=stylesheet >
+<link href="./template/printout.css" type="text/css" rel=stylesheet media="print">
+
+<link href="./template/jquery-ui.css" type="text/css" rel="stylesheet">
+<link href="./nas/ext-lib/perfect-scrollbar/css/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+
+
+<!-- 基礎ライブラリ-->
+<script src="./lib/CSInterface.js"></script>
+
+<script src=./nas/ext-lib/ecl/ecl.js></script>
+<script src=./nas/ext-lib/csv/csvsimple.js></script>
+
+<script src=./nas/lib/config.js></script>
+<script src=./nas/lib/nas_common.js></script>
+<script src=./nas/lib/nas_AnimationValues.js></script>
+<script src=./nas/lib/pmio.js></script>
+<script src=./nas/lib/storyboard.js></script>
+<script src=./nas/lib/mapio.js></script>
+<script src=./nas/lib/xpsio.js></script>
+<script src=./nas/lib/cameraworkDescriptionDB.js></script>
+
+<script src=./nas/pmdb/configPMDB.js></script>
+
+<!--     汎用ライブラリのためソース分離 一括マージ可能      -->
+<script src=./nas/lib/postscriptConvert.js></script>
+<script src=./nas/lib/lib_AEK.js></script>
+<script src=./nas/lib/lib_TVP.js></script>
+<script src=./nas/lib/lib_stylosCSV.js></script>
+<script src=./nas/lib/lib_TSH.js></script>
+<script src=./nas/lib/lib_ARD.js></script>
+<script src=./nas/lib/lib_ARDJ.js></script>
+<script src=./nas/lib/lib_TSX.js></script>
+<script src=./nas/lib/lib_TDTS.js></script>
+
+<!-- /* i18next */ -->
+<script type="text/javascript" src="./nas/ext-lib/i18n/i18next.min.js"></script>
+<script type="text/javascript" src="./nas/ext-lib/i18n/jquery-i18next.js"></script>
+<script type="text/javascript" src="./nas/ext-lib/i18n/i18nextXHRBackend.js"></script>
+
+<!-- /*  AdobeExtension/Scripts 準互換 多言語化ライブラリ*/ -->
+<script src=./nas/lib/nas_locale.js></script>
+
+<!-- システム言語リソース -->
+<script src=./nas/lib/messages.js></script>
+
+
+<!-- アプリケーションUIライブラリ-->
+<script src=./nas/ext-lib/jquery.js></script>
+<script src=./nas/ext-lib/jquery-ui.js></script>
+<script src=./nas/ext-lib/perfect-scrollbar/dist/perfect-scrollbar.min.js></script>
+
+<script src=./nas/lib/nas_common_HTML.js></script>
+<script src=./nas/scripts/remaping/nodeUI.js></script>
+<!--
+<script src=./nas/scripts/remaping/airUI.js></script>
+
+<script src=./nas/scripts/remaping/docio.js></script>
+<script src=./nas/scripts/remaping/remaping.js></script>
+ 以下remaping.jsにマージ予定
+<script src=./nas/scripts/remaping/utils.js></script>
+/*  開発用テストコード   2016.07.16  追加*/ これらはすべてremaping.jsへ統合予定
+<script src=./nas/serviceAgent.js></script>
+
+<script src=./nas/serviceAgent.SessionControls.js></script>
+<script src=./nas/scripts/serverio_test.js></script>
+<script src=./nas/scripts/remaping/documentPanel.js></script>
+
+<script src=./nas/xUI.SessionControl.js></script>
+
+<script src=./nas/newTaskController.js></script>
+
+アプリケーション言語リソース
+<script src=./nas/scripts/remaping/messages.js></script>
+-->
+<!-- ライブラリインストール -->
+<!-- エクステンションスタートアップ -->
 <script src="./ext.js"></script>
+<title>pman</title>
+</head>
+<body onload = 'onLoaded();' >
+<div>
+<button
+	onclick = "nas.console.changeHost();"
+>changeHost</button>
+<button
+	onclick = "nas.console.clear();"
+>clear</button>
+</div>
+<div>
+	** console help > _help
+</div>
 
-        <style type="text/css">
-            html, body ,iframe{
-                width:100%;
-                height:100%;
-                border:0px;
-                margin:0px;
-                overflow:hidden;
-            }
-        </style>
-<link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
-<title>remapingCEP</title>
-    </head>
-    <body>
-<div id=topRibbon>
-<div id=leftAlign >
-<button class=ribbonButton
-	onClick="location.reload(true);"
-><img src=./images/cat.png></button>
-<button class=ribbonButton
-	onClick="history.back()"
-><img src=./images/left.png></button>
-<button class=ribbonButton
-	onClick="history.forward()"
-><img src=./images/right.png></button>
-<span id=titleBar></span>
-</div>
-<div id=rightAlign>
-<button class=ribbonButton
-	onClick="alert(history.length)"
-><img src=./images/history.png></button>q
-</div>
-</div>
-<div id=commandColumn>
-TEST
-</div>
-<div id=cornerBox>
+<!--
+    <body  onload="nas.console = new nas.Console(document.getElementById('console'),function(cmd,cback){try{cback(eval(cmd),this);}catch(err){cback(err,this);}},'cons');">
+コンソールの画面を一つにまとめる
 
+コンソールオブジェクトを作る
+
+コマンドバッファをもたせる　履歴あり
+
+テキストエリアの入力をコマンドバッファに転送する（changeingイベント駆動で）
+
+	エンターを検知したらコマンドとして実行
+	エンター以外はコマンドバッファの編集
+
+
+var nas.console= {};
+	nas.console.commandStore=[];
+	nas.console.
+	
+value.lengthを使用する
+
+出力の書き換えはできない（禁止）
+-->
+<div>
+<textarea
+	id=console
+	style='width:640px;height:480px;padding:6px;margin:12px;color:#44DD33;background-color:#22222f;'
+></textarea><br>
 </div>
-        
-<!--        <iframe src="http://192.168.188.2/~kiyo/remaping/index.html"></iframe>-->
-    <iframe
-        scrolling = 'yes'
-        style = "width:100%;height:100%;overflow-x:scroll; overflow-y:scroll;"
-        src="http://www.nekomataya.info/remaping/index.html"
-    ></iframe>
-<!--     <iframe src="./remaping/index.html"></iframe>  -->
-    </body>
+</body>
 </html>

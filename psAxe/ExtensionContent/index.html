@@ -8,6 +8,8 @@
 
 <script src="./lib/CSInterface.js"></script>
 
+
+
 <script src="./nas/ext-lib/jquery.js"></script>
 <script src="./nas/ext-lib/jquery-ui.js"></script>
 <script src="./nas/lib/config.js"></script>
@@ -213,7 +215,7 @@ onClick='document.getElementById("moveSpanDuration").value=nas.Frm2FCT(nas.FCT2F
 	
 <button id="afLF2" class="iconButton iconButton-expandSelection" onClick='doAxeScript("layers2Frames2")' title="選択レイヤをフレームへ">
 </button><button id="afLF1" class="iconButton iconButton-expandLayrset" onClick='doAxeScript("layers2Frames1")' title="レイヤセットからフレームへ">
-</button><button id="afLF0" class="iconButton iconButton-expandAll" onClick='doAxeScript("layers2Frames0")' title="全レイヤをフレームへ">
+</button><button id="afLF0" disabled class="iconButton iconButton-expandAll" onClick='doAxeScript("layers2Frames0")' title="全レイヤをフレームへ">
 </button>
 <!--
          <button id=applyXps class="iconButton iconButton-buildXPS" onClick='doAxeScript("applyXps")' title="">
@@ -249,11 +251,14 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
 <!-- ================================================================= -->
 <!-- XPS編集 -->
 <div id=XPShandle style="display:none">
-<button id=handleXPS class=fsp onClick='javascript:document.getElementById("XPShandle").style.display=(document.getElementById("XPShandle").style.display=="none")?"inline":"none";' title="タイムシート適用">XPSタイムシート</button><br>
-         <button id=applyXps class="iconButton iconButton-buildXPS" onClick='doAxeScript("applyXps")' title="">
-</button><button id=editXps class="iconButton iconButton-editXPS" onClick='doAxeScript("editXps")' title="">
-</button><button id=ezXpsL class="iconButton iconButton-linkXPS" onClick='doAxeScript("easyXPSLink_Ps")' title="">
-</button><button id=dial2Tx class="iconButton iconButton-dialog2Text" onClick='doAxeScript("convertDialog2Text")' title="">
+<button id=handleXPS class=fsp
+    onClick='javascript:document.getElementById("XPShandle").style.display=(document.getElementById("XPShandle").style.display=="none")?"inline":"none";'
+    title="タイムシート適用"
+>XPSタイムシート</button><br>
+         <button id=applyXps class="iconButton iconButton-buildXPS" onClick='doAxeScript("applyXps")' title="タイムシート適用">
+</button><button id=editXps class="iconButton iconButton-editXPS" onClick='doAxeScript("editXps")' title="タイムシート編集(要外部ツール)">
+</button><button id=ezXpsL disabled class="iconButton iconButton-linkXPS" onClick='doAxeScript("easyXPSLink_Ps")' title="簡易タイムシートツール">
+</button><button id=dial2Tx class="iconButton iconButton-dialog2Text" onClick='doAxeScript("convertDialog2Text")' title="シートの台詞をレイヤに">
 </button>
 <br>
 </div>
@@ -264,10 +269,10 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
 -->
 <div id=LNMhandle style="display:none">
 <button id=handleLMN class=fsp onClick='javascript:document.getElementById("LNMhandle").style.display=(document.getElementById("LNMhandle").style.display=="none")?"inline":"none";' title="管理メニュー">レイヤラベルエディタ</button><br>
-	<button id=getLNM class=owd style="width:18px;" onclick="var newValue=getCurrentLabel(document.getElementById('myLabel').value);" title="get label from current layer"
+	<button id=getLNM class=owd style="width:18px;" onclick="var newValue=getCurrentLabel(document.getElementById('myLabel').value);" title="現在のラベルを取り込む"
 	>⇒</button><input type=text id=myLabel class=hw style="text-align:center;background-color:#eeeeee;width:150px;" value="LO"
 	onChange="setLabel(this.value,false);"
-	><select id=LLSelector name=LLSelector class=owd style="width:20px;height:20px;" onChange="document.getElementById('myLabel').value+=this.value;">
+	><select id=LLSelector name=LLSelector class=owd style="width:20px;height:20px;" onChange="document.getElementById('myLabel').value+=this.value;" title="ラベルに単語を追加">
 <option>LO</option>
 <option>BG</option>
 <option>cont</option>
@@ -286,10 +291,10 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
 <option>動画</option>
 </select
 ><br>
-	<button id=applyLNM class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"selection");' title="set Label">Label
-</button><button id=setLNM class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"")' title="set　layerName">Name
-</button><button id=applyL2L class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"auto");' title="set　Label to Layers">bulk
-</button><button id=applyL2sL class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"swap");' title="set　Label to selected layers">apply
+	<button id=applyLNM class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"selection");' title="選択したレイヤのラベルにする">Label
+</button><button id=setLNM class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"")' title="レイヤのラベルにする">Name
+</button><button id=applyL2L class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"auto");' title="レイヤセットの名前を設定してレイヤのラベルにする">bulk
+</button><button id=applyL2sL class=qwd style="height:16px;" onClick='setLabel(document.getElementById("myLabel").value,"swap");' title="ラベル交換">apply
 </button><br>
          <button  id=pacPS class=hwd style="height:16px;" onClick='doAxeScript("PacPs")' title="レイヤ名一括変更">［PacPs］
 </button> <button id=ezFlip class=hwd style="height:16px;" onClick='doAxeScript("ezFlip")' title="レイヤ名変更パネル">[レイヤ名変更]
@@ -343,20 +348,20 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
 </button><button id=AFtGY class="iconButton iconButton-traceGY" onClick='doAxeScript("applyFilterTraceGY")' title="" >
 </button><br>
  -->
-	<button id=nomalizeLine class="iconButton iconButton-tracePPP" onClick='doAxeScript("scanLineNormalize")' title="">
-</button><button id=linSPLT class="iconButton iconButton-separation" onClick='doAxeScript("lineSplit")' title="">
-</button><button id=PPP class="iconButton iconButton-paintLayer" onClick='doAxeScript("PaintPreProcess")' title="">
-</button><button id=borderFill class="iconButton iconButton-borderFill" onClick='doAxeScript("applyFilterBorderFill")' title="">
-</button><button id=smooth class="iconButton iconButton-smoother" onClick='doAxeScript("applyFilterAA")' title="">
-</button><button id=putColorChip class="iconButton iconButton-colorBox" onClick='doAxeScript("putColorChip")' title="">
-</button><button id=getColorInfo class="iconButton iconButton-colorInfo" onClick='doAxeScript("getFrontColorInfo")' title="">
+	<button id=nomalizeLine class="iconButton iconButton-tracePPP" onClick='doAxeScript("scanLineNormalize")' title="スキャン線画標準化">
+</button><button id=linSPLT class="iconButton iconButton-separation" onClick='doAxeScript("lineSplit")' title="線画分離">
+</button><button id=PPP disabled class="iconButton iconButton-paintLayer" onClick='doAxeScript("PaintPreProcess")' title="彩色事前処理">
+</button><button id=borderFill class="iconButton iconButton-borderFill" onClick='doAxeScript("applyFilterBorderFill")' title="黒境界線を周辺色で塗る">
+</button><button id=smooth class="iconButton iconButton-smoother" onClick='doAxeScript("applyFilterAA")' title="スムージングフィルタ">
+</button><button id=putColorChip class="iconButton iconButton-colorBox" onClick='doAxeScript("putColorChip")' title="色指定チップ作る">
+</button><button id=getColorInfo class="iconButton iconButton-colorInfo" onClick='doAxeScript("getFrontColorInfo")' title="色情報">
 </button><br>
-              <button id=AFtR class="iconButton iconButton-traceR" onClick='doAxeScript("traceR")' title="">
+              <button id=AFtR class="iconButton iconButton-traceR" onClick='doAxeScript("traceR")' title="赤系トレス抽出">
 </button><button id=AFtB class="iconButton iconButton-traceB" onClick='doAxeScript("traceRx")' title="">
-</button><button id=AFtK class="iconButton iconButton-traceK" onClick='doAxeScript("traceK")' title="">
-</button><button id=fillWhite class="iconButton iconButton-cell" onClick='doAxeScript("fillWhite")' title="">
-</button><button id=AFtAll class="iconButton iconButton-traceAll" onClick='doAxeScript("applyFilterTraceAll")' title="">
-</button><button id=AFtFG class="iconButton iconButton-traceFGC" onClick='doAxeScript("traceCol")' title="" >
+</button><button id=AFtK class="iconButton iconButton-traceK" onClick='doAxeScript("traceK")' title="黒線抽出">
+</button><button id=fillWhite class="iconButton iconButton-cell" onClick='doAxeScript("fillWhite")' title="白で塗りつぶし">
+</button><button id=AFtAll class="iconButton iconButton-traceAll" onClick='doAxeScript("applyFilterTraceAll")' title="白成分を透明に">
+</button><button id=AFtFG class="iconButton iconButton-traceFGC" onClick='doAxeScript("traceCol")' title="前景色をクリップアウト" >
 </button> 
 <br>
 <!-- -->
@@ -434,6 +439,7 @@ function doCmdWithApplication(cmd,cback){
     cmd = String(cmd);
     if(cmd.indexOf("'") >= 0) cmd = cmd.replace(/\'/g,"\\'");
     var eXpression = "if(typeof nas =='undefined') var nas = app.nas; var result;try{ result = eval('"+cmd+"');}catch(err){result = err};String(result);";
+    console.log(eXpression);
     var resultText="";
     if(appHost.platform == 'CSX'){
         try{

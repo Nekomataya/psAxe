@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <asf locale="ja_JP" version="1.0" xmlns="http://ns.adobe.com/asf">
   <str name="Configurator/Attribute/showNavBar/value###1" translate="yes">
-    <val>True</val>
+    <val>true</val>
   </str>
   <str name="Configurator/Attribute/visible/value###4" translate="yes">
-    <val>True</val>
+    <val>true</val>
   </str>
   <str name="Configurator/FlyoutMenu/about" translate="yes">
     <val>情報</val>
   </str>
   <str name="Configurator/key_###2" translate="yes">
-    <val>http://localhost/~kiyo/remaping.js/</val>
+    <val>http://www.nekomataya.info/remaping/</val>
   </str>
   <str name="Configurator/key_###3" translate="yes">
-    <val>http://localhost/~kiyo/remaping.js/</val>
+    <val>HTML/console.html</val>
   </str>
   <str name="Configurator/key_###5" translate="yes">
     <val/>

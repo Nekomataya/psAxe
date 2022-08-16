@@ -7,6 +7,7 @@ psAxe ToolBar用
 */
 var extVer="1.1.0";//バージョンごとにこの値を書き換えること
 var isCEP={};
+alert(appHost.platform);
 try{ isCEP=(window.__adobe_cep__)?true:false;}catch(er){isCEP = false;}
 
 var eVentCount=0;

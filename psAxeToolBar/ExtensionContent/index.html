@@ -3,26 +3,21 @@
 <html>
 <head>
 <meta charset="utf-8">
-
-<link rel="stylesheet"  type="text/css" href="./nas/ext_lib/jquery-ui-1.10.2.custom.min.css">
+<link rel="stylesheet"  type="text/css" href="./nas/ext-lib/jquery-ui-1.10.2.custom.min.css">
 <link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
-
-<script src="./lib/CSInterface-4.0.0.js"></script>
-<script src="./lib/Vulcan-4.0.0.js"></script>
-
-<script src="./nas/ext_lib/jquery.js"></script>
-<script src="./nas/ext_lib/jquery-ui.js"></script>
-
-<script src="./ext.js"></script>
+<script src="./lib/CSInterface.js"></script>
+<script src="./nas/ext-lib/jquery.js"></script>
+<script src="./nas/ext-lib/jquery-ui.js"></script>
+<script src="./nas/lib/config.js"></script>
 <script src="./nas/lib/nas_common.js"></script>
 <script src="./nas/lib/nas_common_HTML.js"></script>
 <script src="./nas/lib/nas_locale.js"></script>
 <script src="./nas/messages.js"></script>
-
+<script src="./ext.js"></script>
 <title>psAxeToolBar</title>
 <!--
 <meta name=application-name content=psAxeToolbar>
-<meta name=application-version content=1.1.0>
+<meta name=application-version content=1.1.1>
 
 アプリケーションの識別及びバージョンをhtnl内に埋め込んでおきたいが…
 input hidden ? meta ?
@@ -35,7 +30,7 @@ FCT2Frm等はnas.FCT2Frm 等々へ変換　2016 01-30
 -->
 </head>
 
-<body onLoad="onLoaded();" onselectstart='return false;'>
+<body onSelectStart='return false;' onLoad='onLoaded();'>
 
 <!--
 <button id="fixWindow" class="iconButton iconButton-" style="width:16px" onClick='setFront()' ><img src=images/pin.png></img>
@@ -77,7 +72,8 @@ FCT2Frm等はnas.FCT2Frm 等々へ変換　2016 01-30
 <!--
 <img src=images/ICONs/.png>
 -->
-         <button id="ons2" class="iconButton iconButton-ONS_2" onClick='doAxeScript("ons2")' title="2枚透過">
+         <button id="ons1" class="iconButton iconButton-ONS_1" onClick='doAxeScript("onsX")' title="透過">
+</button><button id="ons2" class="iconButton iconButton-ONS_2" onClick='doAxeScript("ons2")' title="2枚透過">
 </button><button id="ons3" class="iconButton iconButton-ONS_3" onClick='doAxeScript("ons3")' title="3枚透過">
 </button><button id="ons4" class="iconButton iconButton-ONS_4" onClick='doAxeScript("ons4")' title="4枚透過">
 </button><button id="onsR" class="iconButton iconButton-ONSsetting" onClick='doAxeScript("onsReset")' title="不透明度リセット">
@@ -160,7 +156,7 @@ onClick='document.getElementById("moveSpanDuration").value=nas.Frm2FCT(nas.FCT2F
 
 <button id="afLF2" class="iconButton iconButton-expandSelection" onClick='doAxeScript("layers2Frames2")' title="選択レイヤをフレームへ">
 </button><button id="afLF1" class="iconButton iconButton-expandLayrset" onClick='doAxeScript("layers2Frames1")' title="レイヤセットからフレームへ">
-</button><button id="afLF0" class="iconButton iconButton-expandAll" onClick='doAxeScript("layers2Frames0")' title="全レイヤをフレームへ">
+</button><button id="afLF0" disabled class="iconButton iconButton-expandAll" onClick='doAxeScript("layers2Frames0")' title="全レイヤをフレームへ">
 </button>
 	</span>
 <button id="afSd1" class="iconButton iconButton-movieFrame" onClick='doAxeScript("setDelay1")' title="set delay 1f">1k
@@ -182,10 +178,10 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
 </button><button id="setFps" class="toolChip" onClick='doAxeScript(this.id)' title="setting framerate">fps
 </button>
 <!--		apply Xps			-->
-         <button id=applyXps class="iconButton iconButton-buildXPS" onClick='doAxeScript("applyXps")' title="">
-</button><button id=editXps class="iconButton iconButton-editXPS" onClick='doAxeScript("editXps")' title="">
-</button><button id=ezXpsL class="iconButton iconButton-linkXPS" onClick='doAxeScript("easyXPSLink_Ps")' title="">
-</button><button id=dial2Tx class="iconButton iconButton-dialog2Text" onClick='doAxeScript("convertDialog2Text")' title="">
+         <button id=applyXps class="iconButton iconButton-buildXPS" onClick='doAxeScript("applyXps")' title="タイムシート適用">
+</button><button id=editXps class="iconButton iconButton-editXPS" onClick='doAxeScript("editXps")' title="タイムシートを外部アプリで開く">
+</button><button id=ezXpsL disabled class="iconButton iconButton-linkXPS" onClick='doAxeScript("easyXPSLink_Ps")' title="詳細">
+</button><button id=dial2Tx class="iconButton iconButton-dialog2Text" onClick='doAxeScript("convertDialog2Text")' title="タイムシートのセリフをテキストレイヤーにする">
 </button>
 
 </div>
@@ -306,28 +302,30 @@ onChange="this.value=nas.Frm2FCT(nas.FCT2Frm(this.value.toString()),3,0);"
 </div>
 <br></div>
 <!-- ================================================================= -->
-<!--			彩色補助ツール トレース/ペイント			-->
+<!--			彩色補助ツール トレース/ペイント		
+<button id=thinnig class="iconButton iconButton-thiningLine" onClick='doAxeScript("thinLine")' title="">
+</button><button id=AFtG class="iconButton iconButton-traceG" onClick='doAxeScript("applyFilterTraceG")' title="">
+</button><button id=AFtP class="iconButton iconButton-traceM" onClick='doAxeScript("applyFilterTraceP")' title="">
+</button><button id=AFtY class="iconButton iconButton-traceY" onClick='doAxeScript("applyFilterTraceY")' title="">
+</button><button id=AFtGY class="iconButton iconButton-traceGY" onClick='doAxeScript("applyFilterTraceGY")' title="" >
+</button>
+	
+	-->
 <div id=pnl4 >
-	<button id=nomalizeLine class="iconButton iconButton-tracePPP" onClick='doAxeScript("applyFilterScanLineNormalize")' title="">
+	<button id=nomalizeLine class="iconButton iconButton-tracePPP" onClick='doAxeScript("scanLineNormalize")' title="">
 </button><button id=linSPLT class="iconButton iconButton-separation" onClick='doAxeScript("lineSplit")' title="">
-</button><button id=PPP class="iconButton iconButton-paintLayer" onClick='doAxeScript("PaintPreProcess")' title="">
-</button><button id=thinnig class="iconButton iconButton-thiningLine" onClick='doAxeScript("thinLine")' title="">
+</button><button id=PPP disabled class="iconButton iconButton-paintLayer" onClick='doAxeScript("PaintPreProcess")' title="">
 </button><button id=borderFill class="iconButton iconButton-borderFill" onClick='doAxeScript("applyFilterBorderFill")' title="">
 </button><button id=smooth class="iconButton iconButton-smoother" onClick='doAxeScript("applyFilterAA")' title="">
 </button><button id=putColorChip class="iconButton iconButton-colorBox" onClick='doAxeScript("putColorChip")' title="">
 </button><button id=getColorInfo class="iconButton iconButton-colorInfo" onClick='doAxeScript("getFrontColorInfo")' title="">
 </button>
-              <button id=AFtR class="iconButton iconButton-traceR" onClick='doAxeScript("applyFilterTraceR")' title="">
-</button><button id=AFtG class="iconButton iconButton-traceG" onClick='doAxeScript("applyFilterTraceG")' title="">
-</button><button id=AFtB class="iconButton iconButton-traceB" onClick='doAxeScript("applyFilterTraceB")' title="">
-</button><button id=AFtK class="iconButton iconButton-traceK" onClick='doAxeScript("applyFilterTraceK")' title="">
-</button><button id=AFtC class="iconButton iconButton-traceC" onClick='doAxeScript("applyFilterTraceC")' title="">
-</button><button id=AFtP class="iconButton iconButton-traceM" onClick='doAxeScript("applyFilterTraceP")' title="">
-</button><button id=AFtY class="iconButton iconButton-traceY" onClick='doAxeScript("applyFilterTraceY")' title="">
-</button><button id=AFtGY class="iconButton iconButton-traceGY" onClick='doAxeScript("applyFilterTraceGY")' title="" >
-</button>
-	<button id=AFtAll class="iconButton iconButton-traceAll" onClick='doAxeScript("applyFilterTraceAll")' title="">
-</button><button id=AFtFG class="iconButton iconButton-traceFGC" onClick='doAxeScript("applyFilterTraceFGC")' title="" >
+              <button id=AFtR class="iconButton iconButton-traceR" onClick='doAxeScript("traceR")' title="">
+</button><button id=AFtB class="iconButton iconButton-traceB" onClick='doAxeScript("traceRx")' title="">
+</button><button id=AFtK class="iconButton iconButton-traceK" onClick='doAxeScript("traceK")' title="">
+</button><button id=fillWhite class="iconButton iconButton-cell" onClick='doAxeScript("fillWhite")' title="">
+</button><button id=AFtAll class="iconButton iconButton-traceAll" onClick='doAxeScript("applyFilterTraceAll")' title="">
+</button><button id=AFtFG class="iconButton iconButton-traceFGC" onClick='doAxeScript("applyFilterTraceCol")' title="" >
 </button> 
 
 </div>

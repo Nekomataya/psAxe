@@ -8,12 +8,10 @@ psAxe本体用
 nasライブラリの更新に対応
 	psAxe ver 2.0.0　用　調整　20201227
 */
-/* バージョンごとにこの値を書き換えることこれはpsAxeのバージョンとなる
+/* バージョンごとにこの値を書き換えること これはpsAxeのバージョンとなる
  *	ライブラリを新バージョンに交換 変数isCEP を廃止 Object appHost の参照に全面切り替え
- * var isCEP={};
- *	try{ isCEP=(window.__adobe_cep__)?true:false;}catch(er){isCEP = false;}
  */
-var extVer="2.0.0";
+var extVer="2.0.1";
 
 var eVentCount=0;
 /*
@@ -42,7 +40,7 @@ function onLoaded(){
  *	CSX環境では起動時にテーマチェンジイベントが発生するがCEP環境では初回イベントは無い模様
  */
 // Define event handler
-	}
+	};
 //extensionVersionをライブラリに設定
 	doScript('app.nas.Version.psAxe="psAxe:'+extVer+'";');
 //バージョントレーラーにエクステンションバージョンを設定
@@ -57,7 +55,6 @@ function onLoaded(){
 //本体コンソールがない場合はコンソールとしてアタッチ
 		if((console)&&(! console.log)) console = nas.console;
 	};
-	adjustSpacer();
 };
 	if(appHost.platform == 'CEP'){
 /*======= パネルの再ロードを抑制する ==========*/
@@ -68,7 +65,9 @@ function psHtmlDispatch(){
 	event.extensionId = window.__adobe_cep__.getExtensionId();
 	new CSInterface().dispatchEvent(event);
 }
-	}
+	}else{
+function psHtmlDispatch(){}
+	};
 /*=======================================*/
 /*	ホストアプリケーションのロケールを取得して画面に反映させる	*/
 function applyHostLocale(){
@@ -84,7 +83,8 @@ function applyHostLocale(){
 		nas.LangPack.chgLocale(myLocale);
 	}else{
 		nas.LangPack.chgLocale(nas.locale);
-	}
+	};
+	adjustSpacer();//?
 }
 /*	インターフェース上のスイッチで初期化の必要な物を初期化する	*/
 function syncProp(){
@@ -92,7 +92,7 @@ function syncProp(){
 		evalScript(
 			'if((typeof app.nas !="undefined")){getApplicationResult([app.nas.axe.skipFrames,app.nas.axe.useOptKey,app.nas.axe.focusMove,app.nas.axeCMC.getAnimationMode()])}else{getApplicationResult(false)}',
 			function(currentStatus){
-				if(! currentStatus){return false}
+				if(! currentStatus) return false ;
 				myStatus=currentStatus.split(",");
 				document.getElementById("moveSpanDuration").value=nas.Frm2FCT(myStatus[0],3,0);
 				document.getElementById("vtUseOpt").innerHTML=(myStatus[1])? "o":"✓";
@@ -101,7 +101,7 @@ function syncProp(){
 					document.getElementById("vtControl").style.display="inline";document.getElementById("afControl").style.display="none";
 				}else{
 					document.getElementById("vtControl").style.display="none";document.getElementById("afControl").style.display="inline";
-				}
+				};
 			}
 		);
 	}else if(appHost.platform == 'CSX'){
@@ -114,10 +114,10 @@ function syncProp(){
 			document.getElementById("vtControl").style.display = "inline";document.getElementById("afControl").style.display="none";
 		}else{
 			document.getElementById("vtControl").style.display = "none";document.getElementById("afControl").style.display="inline";
-		}
+		};
 	}else{
 		if(console) console.log('テスト環境:')
-	}
+	};
 }
 /*=======================================*/
 /*	ホストアプリケーションのインストール状態を取得して可能ならプロパティの同期を行う*/
@@ -159,7 +159,7 @@ function updateThemeWithAppSkinInfo(appSkinInfo){
 	}else{
 		document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons432x432pxIVS.png);");
 		document.getElementById("psAxeLogo").src="images/psAxeIVS.png";
-	}
+	};
 
 	document.styleSheets[1].addRule("#fixedHeader","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
 	document.styleSheets[1].addRule(".iconButton","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
@@ -186,7 +186,7 @@ function updateThemeWithAppSkinInfoCSX(appSkinInfo) {
 	}else{
 		document.styleSheets[1].addRule(".iconButton","background-image:url(images/nas-ui-icons432x432pxIVS.png);");
 		document.getElementById("psAxeLogo").src="images/psAxeIVS.png";
-	}
+	};
 	document.styleSheets[1].addRule("#fixedHeader","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
 
 	document.styleSheets[1].addRule(".iconButton","background-color:"+document.body.style.backgroundColor+";color:"+document.body.style.color+";");
@@ -232,7 +232,7 @@ function toHex(color, delta) {
 			computedValue = 0;
 		} else if (computedValue > 255) {
 			computedValue = 255;
-		}
+		};
 
 		computedValue = computedValue.toString(16);
 		return computedValue.length == 1 ? "0" + computedValue : computedValue;
@@ -240,10 +240,8 @@ function toHex(color, delta) {
 
 	var hex = "";
 	if (color) {
-		with (color) {
-			 hex = computeValue(red, delta) + computeValue(green, delta) + computeValue(blue, delta);
-		};
-	}
+		hex = computeValue(color.red, delta) + computeValue(color.green, delta) + computeValue(color.blue, delta);
+	};
 	return "#" + hex;
 }
 
@@ -256,7 +254,7 @@ function onAppThemeColorChanged(event) {
 	} else if(appHost.platform == 'CSX'){
 	// for CSX
 		var skinInfo = event.appSkinInfo;
-	}
+	};
 	updateThemeWithAppSkinInfo(skinInfo);
 }
 
@@ -267,7 +265,7 @@ function onAppThemeColorChanged(event) {
  */
 function adjustSpacer() {
 	var headHeight=document.getElementById("fixedHeader").clientHeight;
-	if(headHeight  > 500 ) headHeight = 214;
+	if(headHeight > 500) headHeight = 214;
 	var myOffset=0;
 	document.getElementById("scrollSpaceHd").style.height=(headHeight-myOffset)+"px";
 }
@@ -312,9 +310,16 @@ function onClickButton(ppid) {
 	} else {
 		var extScript = "$._ext_" + ppid + ".run()";
 		evalScript(extScript);
-	}
+	};
 }
 
+	}else{
+function loadJSX() {
+}
+function evalScript(script, callback) {
+}
+function onClickButton(ppid) {
+}
 	};//相当する機能がCSX環境に存在しないのでCEPのみで実装
 
 /**
@@ -327,7 +332,7 @@ function onClickButton(ppid) {
  */
 // doAxeScript(scriptFileName,arg) 第二オプションは引数配列
 function doAxeScript(myName,myArg){
-	if(!(myArg==void(0))&&(!(myArg instanceof Array))){myArg=[myArg];}
+	if(!(myArg==void(0))&&(!(myArg instanceof Array))) myArg=[myArg];
 	if(appHost.platform == 'CEP'){
 		var csInterface = new CSInterface();
 		var axeRoot = csInterface.getSystemPath(SystemPath.USER_DATA) + "/nas/scripts/axe/";
@@ -335,14 +340,14 @@ function doAxeScript(myName,myArg){
 	csInterface.evalScript('arguments='+JSON.stringify(myArg)+';$.evalFile("'+axeRoot+myName+'.jsx")');//引数あり
 		}else{
 	csInterface.evalScript('$.evalFile("'+axeRoot+myName+'.jsx")');//引数なし
-		}
+		};
 	}else if(appHost.platform == 'CSX'){
 		var myLocation='Folder.userData.fullName+ "/nas/scripts/axe/';
 		if(myArg){
 	_AdobeInvokeScript('arguments='+JSON.stringify(myArg)+';$.evalFile('+myLocation+myName+'.jsx");');//引数あり
 		}else{
 	_AdobeInvokeScript('$.evalFile('+myLocation+myName+'.jsx");');//引数なし
-		}
+		};
 	}else{
 console.log('not Adobe Photoshop: TEST')
 console.log([myName,myArg]);
@@ -357,7 +362,7 @@ function doScript(cmd){
 	}else{
 console.log('not Adobe Photoshop: TEST')
 console.log(cmd)
-	}
+	};
 }
 
 function doCurrentScript(myName){
@@ -368,10 +373,10 @@ function doCurrentScript(myName){
 	}else{
 console.log('no ESTK:')
 console.log(myName)
-	}
+	};
 }
 
-afcSetDly=function(myTime){
+function afcSetDly(myTime){
 var myExpression='';
 myExpression += 'var desc = new ActionDescriptor();';
 myExpression += 'var ref = new ActionReference();';
@@ -389,10 +394,8 @@ myExpression += 'executeAction( charIDToTypeID( "setd" ), desc, DialogModes.NO )
 
 //ツール切替コマンド
 function chgTool(myCommand){
-	if(! myCommand){return false};
-
-var myEx='ErrStrs = {};ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation");try{';
-
+	if(! myCommand) return false;
+var myEx='ErrStrs = {};ErrStrs.USER_CANCELLED=localize("$$$/ScriptingSupport/Error/UserCancelled=User cancelled the operation");try{';//
 switch (myCommand){
 //ツール切り換え(CharID)
 case "PcTl":
@@ -410,7 +413,6 @@ myEx+="		ref.putClass( idTl );";
 myEx+="	desc.putReference( idNull, ref );";
 myEx+='	executeAction( idslct, desc, DialogModes.NO );';
 //myEx+='	executeAction( charIDToTypeID( "slct" ), desc, DialogModes.ALL );';
-
 break;
 //ツール切り換え(StringID)
 case "moveTool":
@@ -462,7 +464,7 @@ function doPref(){
 	} else if(appHost.platform == 'CSX'){
 		var myPref='Folder.userData.fullName+ "/nas/scripts/nasPrefPs.jsx"';
 		doScript('$.evalFile('+myPref+');');
-	}
+	};
 }
 
 function checkLibInstall(){
@@ -472,7 +474,7 @@ function checkLibInstall(){
 		csInterface.evalScript('$.evalFile("' + myInstall + '")');	
 	} else if(appHost.platform == 'CSX'){
 		doCurrentScript("HTML/nas/scripts/psAxeSplash");
-	}
+	};
 }
 //アクティブレイヤ名からラベル部分を抽出して返す 戻り値が無いのでCEP環境のみで有効
 	if(appHost.platform == 'CEP'){
@@ -483,14 +485,13 @@ function getCurrentLabel(currentName){
 	return myLayerName;
 }
 	} else if(appHost.platform == 'CSX'){
-function getCurrentLabelCSX(currentName){
+function getCurrentLabel(currentName){
 	if(_Adobe){
 		currentName=_Adobe.JSXInterface.call("eval","app.activeDocument.activeLayer.name");
-	}
+	};
 	document.getElementById('myLabel').value =  currentName;
 }
-getCurrentLabel=getCurrentLabelCSX;
-	}
+	};
 //ラベルをレイヤ及びレイヤセットに設定する
 function setLabel(myLabel,myOption){
 	switch (myOption){
@@ -509,23 +510,22 @@ case "remove":
 break;
 default :
 	doScript('(function(myLabel){if((app.documents.length)&&(app.activeDocument.activeLayer.name!=myLabel))app.activeDocument.activeLayer.name=myLabel})("'+myLabel+'");');
-	}
+	};
 }
 //CSX(-CS6)専用アプリケーションエンジンのリザルト取得関数
-	function getApplicationResult(myProp){
-		if(_Adobe.JSXInterface){
-			return _Adobe.JSXInterface.call("eval",myProp);
-		}else{
-			return myProp;
-		};
-	}
+function getApplicationResult(myProp){
+	if(_Adobe.JSXInterface){
+		return _Adobe.JSXInterface.call("eval",myProp);
+	}else{
+		return myProp;
+	};
+}
 
-//UIパネル切替部分
-
+//UIパネル切替部分(for toolbar)
 var pnlCount=5;//パネルの数
 var myID=0;
 
-chgPnl=function(kwd){
+function chgPnl(kwd){
 	if(! kwd){kwd="0"}
 	switch(kwd){
 case	"next":myID=(myID+1)%pnlCount;
@@ -537,54 +537,50 @@ case	"frst":myID=0;
 case	"end":myID=pnlCount-1;
 	break;
 default	: myID=parseInt(kwd);if(myID===NaN){myID=0};myID=myID%pnlCount
-	}
-	for (pnlID=0;pnlID<pnlCount;pnlID++){
-		if (pnlID==myID){
+	};
+	for (var pnlID=0;pnlID<pnlCount;pnlID++){
+		if(pnlID==myID){
 			document.getElementById("pnl"+pnlID).style.display="inline";
 		}else{
 			document.getElementById("pnl"+pnlID).style.display="none";
-		}
-	}
+		};
+	};
 	if(kwd=="0"){syncProp()}
 }
 
-//UIタブメニュー切替部分
-/*タブメニューは排他　ただし[ctrl]同時押しで単独操作可能*/
+//UIタブメニュー切替部分(本体用)
+/*タブメニューは排他 ただし[ctrl]同時押しで単独操作可能*/
 var myTabID=[["PTHhandle","path"],["FRMhandle","preview"],["XPShandle","xps"],["LNMhandle","layerName"],["LYRhandle","documents"],["TRChandle","trace"],["DBGCons","debug"]];
 //var myTabID=[["PTHhandle","path"],["FRMhandle","preview"],["LNMhandle","layerName"],["LYRhandle","documents"],["TRChandle","trace"],["DBGCons","debug"]];
 
-chgTab=function(kwd){
+function chgTab(kwd){
 	if (!kwd) return;
-if(event.shiftKey){
+ 	if(event.shiftKey){
 //単独操作
-	var myTarget=document.getElementById(kwd);
-	var myTargetButton=event.target;
-	if(myTarget.style.display=="none"){
-		myTarget.style.display="inline";
-		myTargetButton.style.backgroundColor="gray";
+		var myTarget=document.getElementById(kwd);
+		var myTargetButton=event.target;
+		if(myTarget.style.display=="none"){
+			myTarget.style.display="inline";
+			myTargetButton.style.backgroundColor="gray";
+		}else{
+			myTarget.style.display="none";
+			myTargetButton.style.backgroundColor=document.body.style.backgroundColor;
+		};
 	}else{
-		myTarget.style.display="none";
-		myTargetButton.style.backgroundColor=document.body.style.backgroundColor;
-	}
-}else{
-	for(var hID=0;hID<myTabID.length;hID++){
-	var myTarget=document.getElementById(myTabID[hID][0]);
-	var myTargetButton=document.getElementById("buttonTab_"+myTabID[hID][1]);
+		for(var hID=0;hID<myTabID.length;hID++){
+			var myTarget=document.getElementById(myTabID[hID][0]);
+			var myTargetButton=document.getElementById("buttonTab_"+myTabID[hID][1]);
 //トグル操作
-	if(kwd==myTabID[hID][0]){
-		if(myTarget.style.display=="none") myTarget.style.display="inline";		
-//		if(myTargetButton.style.backgroundColor=="black") 
-myTargetButton.style.backgroundColor="gray";		
-//myTargetButton.disabled=true;
-	}else{
-		if(myTarget.style.display=="inline") myTarget.style.display="none";		
-//		if(myTargetButton.style.backgroundColor=="gray") 
-myTargetButton.style.backgroundColor=document.body.style.backgroundColor;		
-//myTargetButton.disabled=false;
-	}
-	}
-}
-	if(kwd=="FRMhandle"){syncProp()}
+			if(kwd==myTabID[hID][0]){
+				if(myTarget.style.display=="none") myTarget.style.display="inline";
+				myTargetButton.style.backgroundColor="gray";
+			}else{
+				if(myTarget.style.display=="inline") myTarget.style.display="none";
+				myTargetButton.style.backgroundColor=document.body.style.backgroundColor;
+			};
+		};
+	};
+	if(kwd=="FRMhandle") syncProp();
 }
 /*	chgTooltip(status)
 //	ツールチップ表示切替
@@ -596,39 +592,40 @@ var myTooltip=true;
 	predelay: 3000,
 		delay:300,
 */
-	$( function() {
-var myToolTips=["#content"];
-for (var tid=0;tid<myToolTips.length;tid++){
+$(function() {
+	var myToolTips=["#content"];
+	for (var tid=0;tid<myToolTips.length;tid++){
 		$(myToolTips[tid]).tooltip( {
-		position: {
-			my: "center top",
-			at: "center bottom",
-			track:true,
-		}
-	} );
- }
-	} );
+			position: {
+				my: "center top",
+				at: "center bottom",
+				track:true,
+			}
+		});
+	}
+});
 
 function chgTooltip(status){
 	if(typeof(status)=="undefined") status=(myTooltip)?false:true;
-   if(status){
-	$( function() {
-var myToolTips=["#content"];
-for (var tid=0;tid<myToolTips.length;tid++){
-		$(myToolTips[tid]).tooltip({disabled:false});
- }
-	} );
-	document.getElementById("tltp").style.backgroundColor="#808080";
-	myTooltip=true;
-   }else{
-	$( function() {
-var myToolTips=["#content"];
-for (var tid=0;tid<myToolTips.length;tid++){
-		$(myToolTips[tid]).tooltip({disabled:true});
- }
-	} );
-	document.getElementById("tltp").style.backgroundColor=document.body.style.backgroundColor;
-	myTooltip=false;
-   }
- return myTooltip;
+	if(status){
+		$( function() {
+			var myToolTips=["#content"];
+			for (var tid=0;tid<myToolTips.length;tid++){
+				$(myToolTips[tid]).tooltip({disabled:false});
+ 			}
+		});
+		document.getElementById("tltp").style.backgroundColor="#808080";
+		myTooltip=true;
+	}else{
+		$( function() {
+			var myToolTips=["#content"];
+			for (var tid=0;tid<myToolTips.length;tid++){
+				$(myToolTips[tid]).tooltip({disabled:true});
+ 			}
+		});
+		document.getElementById("tltp").style.backgroundColor=document.body.style.backgroundColor;
+		myTooltip=false;
+	};
+	return myTooltip;
 }
+//

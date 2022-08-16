@@ -1,0 +1,1775 @@
+﻿/*	remaping.css											*/
+/*	りまぴん のためのスタイルシート							*/
+/*	このスタイルシートを変更してデザインを調整できます。	*/
+/*  プリント環境改善のために実寸系に置きかえ				*/
+/*	Nekomataya/kiyo 2017									*/
+/*	想定用紙サイズは JIS/ISO A3								*/
+
+/*========== タイムシート全体 ============*/
+ * {
+  margin: 0; padding: 0;
+ }
+/*		基本デザイン
+	情報量が多くて密度が低いのでフォントは小さめに
+	ユーザ選択は基本的に禁止
+*/
+@page { size: A3 }           /* A3タテ */
+  body {
+    width: 1122px; /* needed for Chrome */
+	margin:0 38px 0 38px;
+	padding:0 19px 0 0 ;
+	overflow:scroll;
+	background-color:white;
+	user-select:none;
+	-moz-user-select:none;
+	-khtml-user-select:none;
+	-webkit-user-select:none;
+	vertical-align:middle;
+	font-size:9pt;
+	line-height:1.5;
+	font-family: '游ゴシック体', 'Yu Gothic', 'YuGothic','ヒラギノ角ゴシック', 'Hiragino Sans', 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', 'MS PGothic', 'sans-serif';
+}
+/*========== リンク ============*/
+a:link		{color:#000066}
+a:visited	{color:green}
+a:hover		{color:red;background-color:snow}
+a:active	{color:gray;background-color:snow}
+a:focus		{color:#880000;background-color:snow}
+
+/*		固定ヘッダ
+	ウインドウ全体をUIに割り付け、UIのマージン等を取得するエレメント
+*/
+#fixedHeader {
+	display:none;
+}
+/* スクロール領域*/
+#UIheaderScrollV {
+	display:none;
+}
+#UIheaderScrollH {
+	display:none;
+}
+#UIheaderFix {
+	display:none;
+}
+#qdr4 {
+	position:relative;
+}
+
+/* アプリケーションヘッダーライン
+	印刷時は非表示
+*/
+div #toolbarHeader{
+	display:none;
+}
+/*	ステータス表示行	*/
+.headerInfo{
+	text-align:right;
+}
+/*	ステータス表示行セレクターつき（閲覧用）	*/
+.headerInfoAlt	{
+	display:none;
+}
+/*		デバッグ
+	AIR専用エレメントは取リわけ
+*/
+.debug {
+	display:none;
+}
+#debug {
+	display:none;
+}
+#airDbg {
+	display:none;
+}
+/*		各種UIテーブル/エレメント
+	各エレメントの値は設定ファイルを読み込んで更新されるので、この値は仮値
+*/
+div#UIheader {
+	position:fixed;
+	display:none;
+	z-index: 2;
+}
+div.fixedHeadline {
+	position:absolute;
+}
+iframe.UIhidden {
+	visibility:none;
+}
+/*
+	タイムシートテーブルルック基礎
+*/
+table {
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	border-width:0;
+	border-style:none;
+	table-layout:fixed;
+	max-height:100%;
+}
+table.UItable{
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	border-width:2px 1px 0 0;
+	border-style:solid;
+	table-layout:fixed;
+}
+table.info	{
+	width:1058px;
+	height:136px;
+	border-width:0;
+	table-layout:fixed;
+}
+table.sheet	{
+		z-index: 1;
+transform: {matrix(1, 0, 0, 1, 0, 0)};
+}
+table.toolbox {	
+	margin:0 0 0 0;
+	padding:0 0 0 0
+}
+/*
+		テーブル要素
+	基準高さはth全体で設定
+*/
+th {
+	text-align:center;
+	border-style:solid;
+	border-width:4px 1px 1px 0;
+	line-height:1;
+}
+/*
+	シートヘッダビュー設定
+	合計280mm=1058px
+*/
+td#edchg {display:none}
+th.headerLabel{color:gray;border-color:#bbbbbb;text-align:left;border-width:0 0 4px 0;}
+.opusHeader  { width:106px;}
+.titleHeader { width:348px;}
+.scenecutHeader { width:151px;}
+.subtitleHeader { width:302px;}
+.timeHeader { width:189px;}
+.nameHeader { width:132px;}
+.pageHeader { width:132px;}
+
+/*
+	シート本体のビュー設定
+	時間スケール(トラック左端)
+	display:none;
+*/
+.tlhead {
+	overflow:visible;
+	height:1px;
+	border-style:none;
+	border-width:0;
+	vertical-align:bottom;
+}
+/*
+
+*/
+th.tcSpan {
+	width:3em;
+}
+th.tclabel{
+	color:gray;
+	text-align:center;
+	border-style:solid;
+	border-width:2px 1px 3px 1px;
+	}
+/*
+	参照欄(アクション・参考欄)
+ */
+th.referenceSpan {
+	width:17px;
+}
+th.layerlabelR {
+	color:gray;
+	text-align:center;
+	border-style:solid;
+	border-width:3px 1px 3px 0;
+}
+/*
+	ダイアログトラック
+*/
+th.dialogSpan {
+	width:38px;
+}
+th.dialoglabel {
+	color:gray;
+	text-align:center;
+	border-style:solid;
+	border-width:2px 1px 3px 0;
+}
+
+/*
+		一般編集領域
+	dialog/still/timing/sfx/camera
+*/
+th.editSpan {
+	width:36px;
+}
+th.layerlabel {
+	color:gray;
+	text-align:center;
+	border-style:solid;
+	border-width:3px 1px 3px 0;
+	font-size:10px;
+	height:16px;
+}
+
+/* still */
+th.stillSpan {
+	width:12px;
+}
+th.stilllabel {
+	color:gray;
+	text-align:center;
+	border-style:solid;
+	border-width:3px 1px 3px 0;
+}
+/* timing/replacement */
+th.timingSpan {
+	width:36px;
+}
+th.timinglabel {
+	color:gray;
+	text-align:center;
+	border-style:solid;
+	border-width:3px 1px 3px 0;
+}
+/* sfx/effect */
+th.sfxSpan {
+	width:36px;
+}
+th.sfxlabel {
+	color:gray;
+	text-align:center;
+	border-style:solid;
+	border-width:3px 1px 3px 0;
+}
+/* camera/geometry */
+th.cameraSpan {
+	width:36px;
+}
+th.cameralabel {
+	color:gray;
+	text-align:center;
+	border-style:solid;
+	border-width:3px 1px 3px 0;
+}
+/*
+		フレームコメント
+	全体幅のクッションエリアとしても機能させるので
+	このエレメントは幅指定無し
+*/
+th.framenoteSpan {
+	width:96px;
+}
+th.framenotelabel {
+	color:gray;
+	text-align:center;
+	border-style:solid;
+	border-width:2px 1px 3px 1px;
+}
+
+/*
+	ページ印刷用トレーラー
+*/
+div.printPage {
+	page-break-inside:avoid;
+	page-break-after:always;
+}
+/*
+	シート冒頭メモ欄
+*/
+.top_comment {
+	font-size:10pt;
+}
+/*
+	タイムシート記述終了マーカー
+*/
+.endMarker {
+	display:inline-block;
+	position:absolute;
+	width:378px;
+	height:15px;
+	margin:0;
+	text-align:center;
+	border-top-style:double;	
+	border-width:4px 0 0 0;
+	z-index:3;
+	margin-top:8px;
+}
+/*
+		テーブルデータ(td)基本
+		一番多いシートセルの送りとルックを設定
+		送りピッチは基本的に 340mm/72frames = 17.847px(/96dpi)
+*/
+td {
+	border-color:#bbbbbb;
+	position:relative;
+	text-align:center;
+	vertical-align:middle;
+	border-style:solid;
+	border-width:0 1px 1px 0;
+	padding:0;
+	margin:0;
+	white-space: nowrap;
+	overflow:hidden;
+	font-size:10px;
+	line-height:1;
+	height:16px;
+}
+
+td.menu {
+	text-align:left;
+	border-style:none;
+	vertical-align:bottom
+}
+
+td.toolbar {
+	text-align:left;
+	border-style:none;
+	vertical-align:top
+}
+
+td.toolbarR {
+	text-align:right;
+	border-style:none;
+	vertical-align:top
+}
+
+td.logo	{
+	text-align:right;
+	border-style:none;
+	vertical-align:bottom
+	}
+
+td.header {
+	background-color:#000000;
+	color:#f8f8f8;
+	text-align:center;
+	border-style:none;
+	vertical-align:middle;
+	font-weight:bold;
+}
+
+td.footer {
+	background-color:#000000;
+	color:#f8f8f8;
+	text-align:center;
+	border-style:none;
+	vertical-align:middle;
+	font-weight:bold;
+}
+td.layerOption {
+	color:#f8f8f8;
+	text-align:center;
+	border-style:none;
+	vertical-align:middle;
+	font-weight:bold;
+	width:100px;
+}
+/*		UI　TCインジケータ
+*/
+input.fct {
+	width:128px;
+}
+/*		UI　グラフィックアイコンボタン
+	width:24px;
+	height:24px;
+*/
+button.iconButton {
+	width:27px;
+	height:27px;
+	background-color:#666666;
+	border-width:1px;
+
+   /* 角丸 */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+/*アイコンイメージ*/
+
+background-image: url(images/ui/nas-ui-icons432x432px.png);
+}
+
+button.iconButton:hover {
+	background-color:#464646;
+}
+
+button.iconButton:disabled {
+	background-color:#b0b0b0;
+}
+
+/*	icon offset positioning 27x27*/
+
+.iconButton-blank { background-position: 27px 27px; }
+
+.iconButton-selectBox { background-position: 0 0; }
+.iconButton-selectCircle { background-position: -27px 0; }
+.iconButton-cut { background-position: -54px 0; }
+.iconButton-cut_d { background-position: -81px 0; }
+.iconButton-copy { background-position: -108px 0; }
+.iconButton-copy_d { background-position: -135px 0; }
+.iconButton-paste { background-position: -162px 0; }
+.iconButton-paste_d { background-position: -189px 0; }
+.iconButton-undo { background-position: -216px 0; }
+.iconButton-undo_d { background-position: -243px 0; }
+.iconButton-redo { background-position: -270px 0; }
+.iconButton-redo_d { background-position: -297px 0; }
+.iconButton-gia { height:18px ;background-position: -324px 0; }
+.iconButton-gia_d { height:18px ;background-position: -351px 0; }
+/*
+.iconButton- { background-position: -378px 0; }
+.iconButton- { background-position: -405px 0; }
+*/
+
+.iconButton-toReference { background-position: 0 -27px; }
+.iconButton-fromReference { background-position: -27px -27px; }
+.iconButton-toRight { background-position: -54px -27px; }
+.iconButton-toLeft { background-position: -81px -27px; }
+.iconButton-reload { background-position: -108px -27px; }
+.iconButton-set { background-position: -135px -27px; }
+.iconButton-get { background-position: -162px -27px; }
+.iconButton-openX { background-position: -189px -27px; }
+.iconButton-storeX { background-position: -216px -27px; }
+.iconButton-cgiStore { background-position: -243px -27px; }
+.iconButton-storeAs { background-position: -270px -27px; }
+.iconButton-exp { background-position: -297px -27px; }
+.iconButton-imp { background-position: -324px -27px; }
+.iconButton-push { background-position: -351px -27px; }
+.iconButton-pull { background-position: -378px -27px; }
+.iconButton-close { background-position: -405px -27px; }
+
+.iconButton-document { background-position: 0 -54px; }
+.iconButton-timesheet { background-position: -27px -54px; }
+.iconButton-layerName { background-position: -54px -54px; }
+.iconButton-export { background-position: -81px -54px; }
+.iconButton-import { background-position: -108px -54px; }
+.iconButton-cat { background-position: -135px -54px; }
+.iconButton-fldChart { background-position: -162px -54px; }
+.iconButton-refChart { background-position: -189px -54px; }
+.iconButton-fromTVP { background-position: -216px -54px; }
+.iconButton-toTVP { background-position: -243px -54px; }
+.iconButton-dialog2Text { background-position: -270px -54px; }
+.iconButton-dialogEdit { background-position: -297px -54px; }
+.iconButton-simplify { background-position: -324px -54px; }
+.iconButton-eraser { background-position: -351px -54px; }
+.iconButton-zoom { background-position: -378px -54px; }
+.iconButton-search { background-position: -405px -54px; }
+
+.iconButton-section { background-position: 0 -81px; }
+.iconButton-reformat { background-position: -27px -81px; }
+.iconButton-clearFS { background-position: -54px -81px; }
+.iconButton-axe_1 { background-position: -81px -81px; }
+.iconButton-axe_2 { background-position: -108px -81px; }
+.iconButton-axe_3 { background-position: -135px -81px; }
+.iconButton-axe_4 { background-position: -162px -81px; }
+.iconButton-pen_1 { background-position: -189px -81px; }
+.iconButton-pen_2 { background-position: -216px -81px; }
+.iconButton-pen_3 { background-position: -243px -81px; }
+.iconButton-footStamp { background-position: -270px -81px; }
+.iconButton-letter { background-position: -297px -81px; }
+.iconButton-inbetweenDot { background-position: -324px -81px; }
+.iconButton-bigCross { background-position: -351px -81px; }
+.iconButton-notice { background-position: -378px -81px; }
+/*.iconButton-dialog { background-position: -405px -81px; }*/
+.iconButton-dialog { height:18px ;background-position: -405px -86px; }
+
+.iconButton-clearTL { background-position: 0 -108px; }
+.iconButton-FO { background-position: -27px -108px; }
+.iconButton-FI { background-position: -54px -108px; }
+.iconButton-transition { background-position: -81px -108px; }
+.iconButton-interpSection { background-position: -108px -108px; }
+.iconButton-strongCell { background-position: -135px -108px; }
+.iconButton-interpDot { background-position: -162px -108px; }
+.iconButton-vLine { background-position: -189px -108px; }
+.iconButton-wLine { background-position: -216px -108px; }
+.iconButton-incrCell { background-position: -243px -108px; }
+.iconButton-decrCell { background-position: -270px -108px; }
+.iconButton-addCircle { background-position: -297px -108px; }
+.iconButton-addBrackets { background-position: -324px -108px; }
+.iconButton-addAngles { background-position: -351px -108px; }
+.iconButton-incr { background-position: -378px -108px; }
+.iconButton-decr { background-position: -405px -108px; }
+/*
+*/
+.iconButton-util { background-position: 0 -135px; }
+.iconButton-util_d { background-position: -27px -135px; }
+.iconButton-skb { background-position: -54px -135px; }
+.iconButton-skb_d { background-position: -81px -135px; }
+.iconButton-path { background-position: -108px -135px; }
+.iconButton-preview { background-position: -135px -135px; }
+.iconButton-xps { background-position: -162px -135px; }
+.iconButton-documents { background-position: -189px -135px; }
+.iconButton-trace { background-position: -216px -135px; }
+/* .iconButton-debug { background-position: -243px -135px; } */
+.iconButton-debug { height:18px ;background-position: -243px -139px; }
+.iconButton-renumber { background-position: -270px -135px; }
+.iconButton-makeLayerset { background-position: -297px -135px; }
+.iconButton-divideLayers { background-position: -324px -135px; }
+.iconButton-gatherLayers { background-position: -351px -135px; }
+.iconButton-addRegister { background-position: -378px -135px; }
+.iconButton-duplicateRegister { background-position: -405px -135px; }
+/*
+*/
+.iconButton-switchTF { background-position: 0 -162px; }
+.iconButton-timelineAnimation { background-position: -27px -162px; }
+.iconButton-frameAnimation { background-position: -54px -162px; }
+.iconButton-switchShortcut { background-position: -81px -162px; }
+.iconButton-multipage { background-position: -108px -162px; }
+.iconButton-singlepage { background-position: -135px -162px; }
+.iconButton-plus { background-position: -162px -162px; }
+.iconButton-paintFS { background-position: -189px -162px; }
+
+.iconButton-movie { background-position: -216px -162px; }
+.iconButton-ps { background-position: -243px -162px; }
+.iconButton-printer { background-position: -270px -162px; }
+.iconButton-floating { background-position: -297px -162px; }
+.iconButton-info { background-position: -324px -162px; }
+.iconButton-DBentry { background-position: -351px -162px; }
+.iconButton-management { background-position: -378px -162px; }
+/*
+.iconButton- { background-position: -405px -162px; }
+*/
+.iconButton-shiftLayerB { background-position: 0 -189px; }
+.iconButton-shiftLayerU { background-position: -27px -189px; }
+.iconButton-swapLayers { background-position: -54px -189px; }
+.iconButton-focusTop { background-position: -81px -189px; }
+.iconButton-duplicateLayers { background-position: -108px -189px; }
+.iconButton-removeLayers { background-position: -135px -189px; }
+.iconButton-addLayer_1 { background-position: -162px -189px; }
+.iconButton-addLayer_2 { background-position: -189px -189px; }
+.iconButton-goTo { background-position: -216px -189px; }
+.iconButton-sortLayers { background-position: -243px -189px; }
+.iconButton-reverseLayers { background-position: -270px -189px; }
+.iconButton-smartTrsfm { background-position: -297px -189px; }
+.iconButton-fixTrsfm { background-position: -324px -189px; }
+.iconButton-resetTrsfm { background-position: -351px -189px; }
+.iconButton-layerSetting { background-position: -378px -189px; }
+.iconButton-layerRotation { background-position: -405px -189px; }
+/*
+*/
+.iconButton-addStillTL { background-position: 0 -216px; }
+.iconButton-addReplacementTL { background-position: -27px -216px; }
+.iconButton-addStageworkTL { background-position: -54px -216px; }
+.iconButton-addEffectsTL { background-position: -81px -216px; }
+.iconButton-addSoundTL { background-position: -108px -216px; }
+.iconButton-addTransitionTL { background-position: -135px -216px; }
+.iconButton-addPeg { background-position: -162px -216px; }
+.iconButton-addCameraTL { background-position: -189px -216px; }
+.iconButton-insertTL { background-position: -216px -216px; }
+.iconButton-removeTL { background-position: -243px -216px; }
+.iconButton-blockRemove { background-position: -270px -216px; }
+.iconButton-blockInsert { background-position: -297px -216px; }
+.iconButton-addText { background-position: -324px -216px; }
+.iconButton-editText { background-position: -351px -216px; }
+.iconButton-addPlus { background-position: -378px -216px; }
+.iconButton-removePlus { background-position: -405px -216px; }
+/*
+*/
+.iconButton-selectAllAF { background-position: 0 -243px; }
+.iconButton-initAF { background-position: -27px -243px; }
+.iconButton-duplicateAF { background-position: -54px -243px; }
+.iconButton-copyAF { background-position: -81px -243px; }
+.iconButton-removeAF { background-position: -108px -243px; }
+.iconButton-pasteAF { background-position: -135px -243px; }
+.iconButton-reverseAF { background-position: -162px -243px; }
+.iconButton-expandSelection { background-position: -189px -243px; }
+.iconButton-expandLayrset { background-position: -216px -243px; }
+.iconButton-expandAll { background-position: -243px -243px; }
+.iconButton-flagBox { background-position: -270px -243px; }
+.iconButton-flagMinus { background-position: -297px -243px; }
+.iconButton-flagPlus { background-position: -324px -243px; }
+.iconButton-flagCircle { background-position: -351px -243px; }
+.iconButton-flagCross { background-position: -378px -243px; }
+.iconButton-flagTriangle { background-position: -405px -243px; }
+/*
+*/
+.iconButton-goWorkAreaHead { background-position: 0 -270px; }
+.iconButton-goWorkAreaTail { background-position: -27px -270px; }
+.iconButton-setWorkAreaHead { background-position: -54px -270px; }
+.iconButton-setWaokAreaTail { background-position: -81px -270px; }
+.iconButton-extractWorkArea { background-position: -108px -270px; }
+.iconButton-liftWorkArea { background-position: -135px -270px; }
+.iconButton-moveStartTL { background-position: -162px -270px; }
+.iconButton-moveEndTL { background-position: -189px -270px; }
+.iconButton-setStartTL { background-position: -216px -270px; }
+.iconButton-setEndTL { background-position: -243px -270px; }
+.iconButton-splitTL { background-position: -270px -270px; }
+.iconButton-putKey { background-position: -297px -270px; }
+.iconButton-removeKey { background-position: -324px -270px; }
+.iconButton-shiftKey { background-position: -351px -270px; }
+.iconButton-goToTime { background-position: -378px -270px; }
+/*
+.iconButton- { background-position: -405px -270px; }
+*/
+.iconButton-goBWD { background-position: 0 -297px; }
+.iconButton-goFWD { background-position: -27px -297px; }
+.iconButton-pause { background-position: -54px -297px; }
+.iconButton-goFFWD { background-position: -81px -297px; }
+.iconButton-goFBWD { background-position: -108px -297px; }
+.iconButton-goNext { background-position: -135px -297px; }
+.iconButton-goPrev { background-position: -162px -297px; }
+.iconButton-stop { background-position: -189px -297px; }
+.iconButton-eject { background-position: -216px -297px; }
+.iconButton-OPEN { background-position: -243px -297px; }
+.iconButton-READ { background-position: -270px -297px; }
+.iconButton-FIX { background-position: -297px -297px; }
+.iconButton-CLOSE { background-position: -324px -297px; }
+.iconButton-HOLD { background-position: -351px -297px; }
+/*
+.iconButton- { background-position: -378px -297px; }
+.iconButton- { background-position: -405px -297px; }
+*/
+.iconButton-buildXPS { background-position: 0 -324px; }
+.iconButton-editXPS { background-position: -27px -324px; }
+.iconButton-linkXPS { background-position: -54px -324px; }
+.iconButton-FPS { background-position: -81px -324px; }
+.iconButton-movieFrame { background-position: -108px -324px; }
+.iconButton-moieFrameSetting { background-position: -135px -324px; }
+/*
+.iconButton- { background-position: -162px -324px; }
+.iconButton- { background-position: -189px -324px; }
+.iconButton- { background-position: -216px -324px; }
+.iconButton- { background-position: -243px -324px; }
+.iconButton- { background-position: -270px -324px; }
+.iconButton- { background-position: -297px -324px; }
+.iconButton- { background-position: -324px -324px; }
+.iconButton- { background-position: -351px -324px; }
+.iconButton- { background-position: -378px -324px; }
+.iconButton- { background-position: -405px -324px; }
+*/
+.iconButton-ONS { background-position: 0 -351px; }
+.iconButton-ONSsetting { background-position: -27px -351px; }
+.iconButton-ONS_0 { background-position: -54px -351px; }
+.iconButton-ONS_1 { background-position: -81px -351px; }
+.iconButton-ONS_2 { background-position: -108px -351px; }
+.iconButton-ONS_3 { background-position: -135px -351px; }
+.iconButton-ONS_4 { background-position: -162px -351px; }
+.iconButton-traceBlack { background-position: -189px -351px; }
+.iconButton-traceR { background-position: -216px -351px; }
+.iconButton-traceG { background-position: -243px -351px; }
+.iconButton-traceB { background-position: -270px -351px; }
+.iconButton-traceC { background-position: -297px -351px; }
+.iconButton-traceM { background-position: -324px -351px; }
+.iconButton-traceY { background-position: -351px -351px; }
+.iconButton-traceGY { background-position: -378px -351px; }
+/*
+.iconButton- { background-position: -405px -351px; }
+*/
+/*
+.iconButton- { background-position: 0 -378px; }
+.iconButton- { background-position: -27px -378px; }
+.iconButton- { background-position: -54px -378px; }
+.iconButton- { background-position: -81px -378px; }
+.iconButton- { background-position: -108px -378px; }
+.iconButton- { background-position: -135px -378px; }
+.iconButton- { background-position: -162px -378px; }
+.iconButton- { background-position: -189px -378px; }
+.iconButton- { background-position: -216px -378px; }
+.iconButton- { background-position: -243px -378px; }
+.iconButton- { background-position: -270px -378px; }
+.iconButton- { background-position: -297px -378px; }
+.iconButton- { background-position: -324px -378px; }
+.iconButton- { background-position: -351px -378px; }
+.iconButton- { background-position: -378px -378px; }
+.iconButton- { background-position: -405px -378px; }
+*/
+.iconButton-checker { background-position: 0 -405px; }
+.iconButton-cell { background-position: -27px -405px; }
+.iconButton-separation { background-position: -54px -405px; }
+.iconButton-traceAll { background-position: -81px -405px; }
+.iconButton-traceFGC { background-position: -108px -405px; }
+.iconButton-traceK { background-position: -135px -405px; }
+.iconButton-tracePPP { background-position: -162px -405px; }
+.iconButton-paintLayer { background-position: -189px -405px; }
+.iconButton-thiningLine { background-position: -216px -405px; }
+.iconButton-borderFill { background-position: -243px -405px; }
+.iconButton-smoother { background-position: -270px -405px; }
+.iconButton-colorBox { background-position: -297px -405px; }
+.iconButton-colorInfo { background-position: -324px -405px; }
+/*
+.iconButton- { background-position: -351px -405px; }
+.iconButton- { background-position: -378px -405px; }
+.iconButton- { background-position: -405px -405px; }
+*/
+
+
+/*一文字用ボタン*/
+button.oneChr {display:none;}
+
+/*サインイン／アウトボタン*/
+button.sign {display:none;}
+
+/*		UI　AEキー　コンバートスイッチ
+*/
+input.aekConvert {
+	display:none;
+}
+/*		UI　入力エリア
+*/
+input.iNputbOx {
+	text-align:right;
+	width:9em;
+}
+/*		UI　サブコントロール
+	height:12px(1px overlap)
+	width:20px;
+*/
+span.subControl_TC {
+	display:none;
+	position:relative;
+	height:24px;
+	width:64px;
+	left:64px;
+	vertical-align:middle;
+}
+span.subControl_XTC {
+	position:relative;
+	height:24px;
+	width:64px;
+	left:64px;
+}
+span.subControl_SPIN {
+	position:relative;
+	height:24px;
+	width:24px;
+	left:24px;
+}
+input.tcInput {
+	width:96px;
+}
+
+button.subControl {
+	width:21px;
+	height:12px;
+	background-color:#666666;
+	border-width:1px;
+
+/*アイコンイメージ*/
+	background-image: url(images/ui/subControlButtons.png);
+}
+button.subControl:hover {
+	background-color:#464646;
+}
+button.subControl:disabled {
+	background-color:#b0b0b0;
+}
+
+/* アイコン分離*/
+.subControl-incrS { background-position: -2px 0; }
+.subControl-incr6 { background-position: -26px 0; }
+.subControl-incr { background-position: -50px 0; }
+.subControl-decrT { background-position: -74px 0; }
+
+.subControl-decrS { background-position: -2px -12px; }
+.subControl-decr6 { background-position: -26px -12px; }
+.subControl-decr { background-position: -50px -12px; }
+.subControl-incrT { background-position: -74px -12px; }
+
+.subControl-leftStop { background-position: -2px -24px; }
+.subControl-left { background-position: -26px -24px; }
+.subControl-right { background-position: -70px -24px; }
+.subControl-rightStop { background-position: -54px -24px; }
+
+.subControl-playT { background-position: -2px -36px; }
+.subControl-circle { background-position: -26px -36px; }
+.subControl-stop { background-position: -50px -36px; }
+.subControl-pause { background-position: -74px -36px; }
+
+.subControl-lock { background-position: -2px -48px; }
+.subControl-unlock { background-position: -26px -48px; }
+
+input.spinCtl {
+	width:48px;
+	margin: 0;
+    text-align:center;
+    border:1px solid #888;
+    margin-right:20px;
+}
+button.spinCtl {
+	margin: 0;
+    font-size:6px;
+    text-align:center;
+    padding:0;
+    border:1px solid #888;
+	position:absolute;
+}
+/*
+    background-image:-moz-linear-gradient(top,#fff 0%,
+    #000);
+    background-image:-webkit-gradient(linear,left top,left bottom,from(#fff),
+    to(#000)););
+*/
+button.spinCtl-top {
+	left:-22px;top:-5px;
+   /* 角丸 */
+    -moz-border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+button.spinCtl-bottom {
+	left:-22px;top:6px;
+	margin: 0;
+   /* 角丸 */
+    -moz-border-radius: 0 0 4px 4px ;
+    -webkit-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+
+}
+
+/**
+ * .timeControlButton
+ */
+.timeControl {
+	margin: 2px 62px 2px 0;
+}
+button.subControl {
+	margin: 0;
+    font-size:6px;
+    text-align:center;
+    padding:0;
+    border:1px solid #888;
+	position:absolute;
+}
+
+.subControl-left {
+	left:-60px;top:-5px;
+	margin: 0;
+   /* 角丸 */
+    -moz-border-radius: 3px 0 0 3px;
+    -webkit-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+ }
+.subControl-right {
+	margin: 0;
+   /* 角丸 */
+    -moz-border-radius: 0 3px 3px 0;
+    -webkit-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+ }
+  .subControl-left-top {
+	left:-60px;top:-5px;
+	margin: 0;
+   /* 角丸 */
+    -moz-border-radius: 3px 0 0 0;
+    -webkit-border-radius: 3px 0 0 0;
+    border-radius: 3px 0 0 0;
+ }
+ .subControl-left-bottom {
+	left:-60px;top:6px;
+	margin: 0;
+   /* 角丸 */
+    -moz-border-radius: 0 0 0 3px;
+    -webkit-border-radius: 0 0 0 3px;
+    border-radius: 0 0 0 3px;
+ }
+ .subControl-mid-top {
+	left:-40px;top:-5px;
+	margin: 0;
+ }
+ .subControl-mid-bottom {
+	left:-40px;top:6px;
+	margin: 0;
+ }
+  .subControl-right-top {
+	left:-20px;top:-5px;
+	margin: 0;
+   /* 角丸 */
+    -moz-border-radius: 0 3px 0 0;
+    -webkit-border-radius: 0 3px 0 0;
+    border-radius: 0 3px 0 0;
+ }
+ .subControl-right-bottom {
+	left:-20px;top:6px;
+	margin: 0;
+   /* 角丸 */
+    -moz-border-radius: 0 0 3px 0;
+    -webkit-border-radius: 0 0 3px 0;
+    border-radius: 0 0 3px 0;
+ }
+/*========== ページヘッダーエリア包括 ============
+	値取得の簡略化のためこの要素のheightは、
+	この配下の二つのテーブルの合算を設定しておくこと
+ */
+.headerArea {
+	width:1058px;
+	height:318px;
+ }
+/*========== ページヘッダーテーブル ============
+ 	第一ページのみシートヘッダとなる
+ */
+table.pageHeader , .sheetHeader {
+	width:1058px;
+	height:68px;
+	margin:0;
+	border-style:solid;
+	border-width:1px 1px 1px 1px;
+	border-color:#bbbbbb;
+}
+td.pgHeader {
+	height:38px;
+	margin:0;
+	border-width:0;
+	border-style:none;
+	font-size:16pt;
+}
+/*========== シートヘッダーマージン ============
+	メモ領域をとるマージン
+	２ページめ以降はダミー
+*/
+table.sheetHeaderMargin {
+	width:1058px;
+	height:250px;
+	margin:0;
+	border-style:none;
+	border-width:0;
+}
+td.memoSpace {
+	border-style:none;
+	border-width:0;
+	text-align:left;
+	height:250px;
+	vertical-align:top;
+	line-height:1.5;
+}
+/*	ツールボックスの部品*/
+input.toolTip	{
+	width:100%;
+}
+/*		UI.表示プロパティ
+
+*/
+div.optionPanel{
+	display:none;
+}
+div.optionPanelModal{
+	display:none;
+}
+div.optionPanelFloat{
+	display:none;
+}
+/*	タイムシートの罫線
+	タイムシートセルは以下の分類でスタイルを設定している
+	Sep	＝セパレータ
+	lt,nt,dt	秒セパレータ
+	ls,ns,ds　サブセパレータ
+	ln,nn,dn	標準セパレータ
+	
+ */
+.Sep {
+	color:gray;
+}
+/*タイムセパレータライン*/
+/*		左端*/
+.ltSep,.ltSep_Blank {
+	color:gray;
+	text-align:right;
+	border-style:solid;
+	vertical-align:bottom;
+	border-width:0 1px 3px 1px;
+}
+/*		通常データ*/
+.ntSep,.ntSep_Blank {
+		border-width:0 1px 3px 0;
+}
+/*		ダイアログ*/
+.dtSep,.dtSep_Blank {
+		border-width:0 1px 3px 0;
+}
+
+/*サブセパレータライン*/
+/*		左端*/
+.lsSep,.lsSep_Blank {
+	color:gray;
+	text-align:right;
+	border-style:solid;
+	vertical-align:bottom;
+		border-width:0 1px 2px 1px;
+}
+/*		通常データ*/
+.nsSep,.nsSep_Blank {
+		border-width:0 1px 2px 0;
+}
+/*		ダイアログ*/
+.dsSep,.dsSep_Blank {
+		border-width:0 1px 0 0;
+}
+
+/*通常ライン*/
+/*		左端*/
+.lnSep,.lnSep_Blank {
+	color:gray;
+	text-align:right;
+	border-style:solid;
+	vertical-align:bottom;
+	border-width:0 1px 1px 1px;
+	height:5px;
+}
+/*		参照データ*/
+.ref {
+		color:gray;
+}
+.rnSep,.rnSep_Blank {
+			border-width:0 1px 1px 0;
+			color:gray;
+}
+th.rnArea{
+		color:gray;
+		border-width:2px 1px 0 0;
+		width:144px;
+		padding:0;
+		font-size:10px;
+		height:16px;
+}
+/*		通常データ*/
+.nnSep,.nnSep_Blank {
+			border-width:0 1px 1px 0;
+}
+
+
+
+th.editArea ,th.camArea{
+		color:gray;
+		border-width:2px 1px 0 0;
+		padding:0;
+		font-size:10px;
+		height:16px;
+}
+/*		ダイアログ*/
+.dnSep,.dnSep_Blank {
+		border-width:0 1px 0 0;
+}
+.dialoglabel {
+		border-width:0 1px 0 0;
+		width:36px;
+}
+.soundbody{
+        font-weight:9;
+}
+/*	カラムセパレータ	*/
+td.colSep {
+	border-style:none;
+	height:1px;
+	width:11px;
+}
+/*	border-width:1px 1px 1px 1px; */
+/*エンドセパレータ（未使用）*/
+/*		左端*/
+.leSep,.leSep_Blank {
+		border-width:0 1px 4px 1px;
+}
+/*		通常データ*/
+.neSep,.neSep_Blank {
+		border-width:0 1px 4px 0;
+}
+/*		ダイアログ*/
+.deSep,.deSep_Blank {
+		border-width:0 1px 4px 0;
+}
+/*	時間表示	*/
+.timeguide {
+	text-align:left;
+}
+/*======================================================
+/*	タイムシート上の入力ボックス	*/
+.IptBox {
+	display:none;
+}
+/*	ページノンブル	*/
+.pgNm {
+	display:none;
+}
+.infoTable {
+	display:none;
+}
+.sheet-header {
+	z-index:auto;
+}
+.headerTool {
+	display:none;
+}
+.footerTool {
+	display:none;
+}
+.screenSpace{
+	display:none;
+}
+.printPageStatus {
+	text-align:right;
+}
+
+.printSpace {
+	width:100%;
+	height:170px;
+}
+
+/*form view*/
+
+input	{text-align:center;}
+select	{text-align:center;}
+/*
+ * {
+  margin: 0; padding: 0;
+ }
+ #fixed {
+  position: fixed;
+ }
+ #sheet_view p {
+  margin:0;
+ }
+	*/
+
+/*タイムシートの文字飾り (例)*/
+.v_bar	{color:blue;border-style:solid;border-color:blue;border-width:0 1px 0 0;padding:0;margin:0;}
+.v_wave	{height:11px;padding:0;margin:0;}
+line  {margin:0;padding:0;}
+.rotate {
+	display: inline-block;     /* インラインブロック化 */
+	-webkit-transform-origin: 50% 50%; /* Chrome,Safari */
+	-ms-transform-origin:     50% 50%; /* IE */
+	transform-origin:         50% 50%; /* CSS3 */
+	transform: rotate( 90deg );
+}
+/* */
+td#title {
+	font-weight:900;
+}
+td#scene_cut {
+	font-weight:900;
+}
+
+/*
+その他のエレメントid は、ソースを直接読むか、取扱説明書をご覧ください。
+	border-color:snow;
+*/
+div.application_status {
+	z-index:88;
+	border-style:solid;
+	border-width:0 0 1px 0;
+	padding:0 0 0 16px 
+}
+/*	オプションパネル
+*/
+div.optionPanel{
+	display:none;
+	padding:0 0 0 8px;
+	backgroung-color:snow;
+}
+div.optionPanelModal{
+	display:none;
+}
+div.optionPanelFloat{
+	display:none;
+    position:absolute;
+    background-color:#efefef;
+    padding:0;
+    border-style:solid;
+    border-width:1px;
+    border-color:#808080;
+    z-index:7;
+  /* 角丸 */
+    -moz-border-radius: 4px ;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+a.minimize{
+    position:absolute;
+    right:32px;
+    top:1px;
+}
+a.minimize img{
+    border:none;
+}
+a.close{
+    position:absolute;
+    right:8px;
+    top:1px;
+}
+a.close img{
+    border:none;
+}
+.optionPanelFloat dl dt {
+    height:25px;
+    line-height:25px;
+    text-indent:1em;
+    font-weight:bold;
+    cursor:move;
+}
+.optionPanelFloat dl dd {
+    margin:0;
+    padding:2em;
+    line-height:1.5;
+    text-indent:1em;
+}
+/*アカウントパネル*/
+#account_box	{
+    display:none;
+}
+
+/*ログインパネル*/
+#optionPanelLogin{
+    display:none;
+}
+/*ソフトウェアキーボード*/
+#optionPanelTbx {
+    display:none;
+    position:absolute;
+    top:64px;
+    left:120px;
+    width:660px;
+    height:165px;
+}
+#formTbx {
+	padding-left:8px;
+}
+/*音響フローティングパネル*/
+#optionPanelSnd {
+    top:32px;
+    left:0px;
+    width:660px;
+    height:248px;
+}
+#formSnd {
+	padding-left:12px;
+}
+#dialogEdit {
+    border-style:none;
+}
+
+/*カメラワークパネル*/
+#optionPanelCam {
+    top:128px;
+    right:32px;
+    width:256px;
+    height:256px;
+}
+#formCam {
+	padding-left:12px;
+}
+/*ステージワークパネル*/
+#optionPanelStg {
+    top:96px;
+    right:64px;
+    width:640px;
+    height:480px;
+}
+#formStg {
+	padding-left:12px;
+}
+/*コンポジットワークパネル*/
+#optionPanelSfx {
+    top:64px;
+    right:96px;
+    width:640px;
+    height:480px;
+}
+#formSfx {
+	padding-left:12px;
+}
+/*手描きメモパネル*/
+#optionPanelDraw {
+    top:32px;
+    right:0px;
+    width:128px;
+    height:256px;
+}
+#formDraw {
+	padding-left:8px;
+}
+
+/*画像フローティングパネル*/
+#optionPanelRef {
+    display:none;
+    position:absolute;
+    top:64px;
+    left:120px;
+	width:640px;
+    padding:0;
+    border-style:solid;
+    border-width:1px;
+    border-color:#808080;
+    z-index:7;
+	overflow:hidden;
+  /* 角丸 */
+    -moz-border-radius: 4px ;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+/**
+	背景表示アンダーレイ
+ */
+div#underlay {
+	display:none;
+}
+/**
+	参照用画像オーバーレイ
+*/
+div.imageOverlay {
+	opacity:.25;
+	background-blend-mode: normal; 
+	overflow:hidden;
+    position:relative;
+}
+#imgEdit {
+    border-style:none;
+}
+#optionPanelRef a.minimize {
+    position:absolute;
+    right:32px;
+    top:1px;
+}
+#optionPanelRef a.close {
+    position:absolute;
+    right:8px;
+    top:1px;
+}
+#optionPanelRef a.minimize img{
+    border:none;
+}
+#optionPanelRef a.close img{
+    border:none;
+}
+#optionPanelRef dl dt{
+    height:25px;
+    line-height:25px;
+    text-indent:1em;
+    font-weight:bold;
+    cursor:move;
+}
+#optionPanelRef dl dd{
+    margin:0;
+    padding:2em;
+    line-height:1.5;
+    text-indent:1em;
+}
+.panelCorner{
+    position:absolute;
+    right:0px;
+    bottom:0px;
+    height:16px;
+    width:16px;
+    cursor:se-resize;
+	margin:0px;
+	padding:0px;
+}
+
+/* 以下オプションパネル群 */
+#optionPanelVer {
+    display:none;
+    width:480px;
+    height:340px;
+    background-color:#efefef;
+    padding:6px;
+    border-style:double;
+}
+
+#optionPanelRol {
+    display:none;
+    width:720px;
+    height:340px;
+    background-color:#efefef;
+    padding:6px;
+    border-style:double;
+	text-align:center;
+}
+#optionPanelProg {
+    display:none;
+    width:240px;
+    height:128px;
+    background-color:#efefef;
+    padding:6px;
+    border-style:double;
+	text-align:center;
+}
+
+#optionPanelPref {
+    display:none;
+    width:480px;
+    height:308px;
+    background-color:#efefef;
+    padding:6px;
+    border-style:double;
+}
+/*	ドキュメントブラウザ関連
+
+*/
+input.ddpInput	{
+	disabled:true;
+}
+
+
+#issueSelector select{
+		width:100%;
+		height:42px;
+	}
+.issueSelector {
+		vertical-align:middle;
+	}
+	.document-selector {
+	  height:60%;
+	}
+	.document-selector-opus {
+	  width:60%;
+	  text-align:right;
+	}
+	.document-selector-cut {
+	  width:40%;
+	  text-align:left;
+	}
+.sciInput {
+	height:24px;
+}
+
+.productFilter {
+	height:27px;
+	width:64px;
+	vertical-align:middle;
+}
+.numberFilter {
+	
+	height:27px;
+	width:48px;
+	vertical-align:middle;
+}
+.documentPanelTools {
+	text-align:right;
+	background-color:#bbddbb;
+}
+.documentPanelTools-man {
+	background-color:#ddbbbb;
+}
+.documentPanelButton {
+	height:27px;
+	width:120px;
+	vertical-align:middle;
+}
+.documentPanelButton-management {
+	height:24px;
+	width:120px;
+	vertical-align:middle;
+}
+.documentPanelButton-search {
+	 width:24px;
+}
+
+/* インポートダイアログ関連
+
+*/
+input.timeInputTC {
+    width:72px;
+    height:24px;
+    border-style:none;
+    background-color:rgba(0,0,0,0);
+}
+
+input.SCiImportCB {
+	display:inline;
+}
+
+#optionPanelSCI_title {
+    width:250px;
+}
+#optionPanelSCI_opus {
+    width:96px;
+}
+#optionPanelSCI_subtitle {
+    width:320px;
+}
+.SCiInput {
+    height:24px;
+    border-style:none;
+    background-color:rgba(0,0,0,0);
+}
+.SCiInput_Number {
+    width:240px;
+}
+
+span.timeInputButtons {
+    position:relative;
+    left:64px;
+    top:4px;
+}
+span.titleInputLB {
+    text-align:right;
+}
+
+div.sciTemplate {
+     display:none;
+     color:red;
+}
+hr.dialog_border {
+	margin: 0px;
+	border-width: 10px 0 0 0;
+  	border-style: solid; /* 種類 */
+	border-color: red;
+}
+
+/*---------------- ドロップダウンメニュー*/
+
+#pMenu div{
+  display:none;
+}
+
+#pMenu li {
+  display:none;
+}
+#pMenu li ul {
+  display: none;
+}
+#pMenu li ul li {
+  display:none;
+}
+#pMenu li ul li a {
+  display: none;
+}
+
+#pMenu li ul{
+	display:none;
+}
+
+input{
+	vertical-align:middle;
+}
+
+#sheet_body {
+transform-origin: 0 0;transform:scale(1,1);	
+}
+/**
+	　jQuery-ui　combobox
+*/
+ .custom-combobox {
+    position: relative;
+    display: none;
+  }
+  .custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+  }
+  .custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+  }
+/**
+	　jQuery-ui　tooltip
+*/
+ .ui-tooltip {	display: none;}
+
+/**
+	cellGraphicLayer
+	canvas object
+*/
+	.cgl {
+		position: absolute;
+		z-index: 3;
+		pointer-events: none;
+		brend-mode: multiply;
+		opacity:0.4;
+	}
+/**
+	データトレーラー
+	startupXPS
+	referenceXPS
+	必ず非表示
+*/
+ #startupXPS,#referenceXPS {
+ 	display:none;
+ }
+ #startupContent,#startupReference {
+ 	display:none;
+ }
+
+ /**
+	.pmcui
+*/
+#pmui	{
+	diaplay:none;
+}
+.pmcui	{
+	display:none;
+}
+span.pmcui_ {
+		font-style:strong;
+	}
+/* document status overlay*/
+
+div.documentStatusOverlay {
+	display:none;
+}
+/* document selector status*/
+
+.docStatus	{
+	background-color:#dedede;
+	border-style:solid;
+	border-width:0px;
+}
+
+.docStatus-Startup	{
+	color:#aaaaaa;
+	border-width:1px;
+	border-color:#ce3d4c;
+}
+.docStatus-Active	{
+	background-color:#68be8d;
+	color:red;
+}
+.docStatus-Hold	{
+	background-color:#aacf53;
+	color:#ff8888;
+}
+.docStatus-Fixed	{
+	background-color:#f3a68c;
+	color:black;
+}
+.docStatus-Fixed-2	{
+	background-color:#ce3d4c;
+	color:black;
+}
+.docStatus-Aborted	{
+	background-color:snow;
+	color:#aaaaff;
+}
+.docStatus-Floating	{
+	background-color:#333333;
+	color:red;
+}
+/* button / input */
+.scnControl {
+	width : 72px;
+}
+.jobControl {
+	width :96px;
+	height:21px;
+}
+.jobControl-checkin {margin-left:8px;}
+.jobControl-deactivate {display:none;}
+
+.pmLabel	{
+	margin-left:16px;
+	display:inline-block;
+	width:96px;
+	text-align:right;
+}
+.pmId	{
+	margin-left:6px;
+	margin-right:6px;
+	display:inline-block;
+	width:36px;
+	text-align:right;
+}
+.pmControl	{
+	width:96px;
+	height:21px;
+}
+.pmControl-new {margin-left:8px;}
+
+.pmControllButton	{
+	width:48px;
+	height:21px;
+}
+.pmSelector	{
+	width:128px;
+	height:18px;	
+}
+
+.dialogComment {
+	width:36px;
+	height:24px;
+}
+
+
+/*
+　UI右よせ
+ */
+.floating-right {
+	position:relative;
+	float:right;
+	right:16px;	
+}
+/*
+	CONTEXT-MENU
+ */
+#contextMenu {
+    display:none;
+    position:absolute;
+	top:450px;
+	left:450px;
+  z-index:7;
+  background-color:#efefef;
+  border-style:solid;
+  border-width:1px;
+  border-color:#d0d0d0;
+  margin:0;
+  padding:4px 8px 4px 8px;
+  width:180px;
+  /* 角丸 */
+    -moz-border-radius: 6px ;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+	
+.contextMenu {
+	display:none;
+}
+/*
+	ストップウオッチバー
+*/
+#optionPanelTimer {
+	color:#22dd22;
+	background-color:#222222;
+}
+
+/*
+	タイムシートマーカー
+*/
+.trackMarker{
+/*アイコンイメージ*/
+	background-image: url(images/ui/trackMarker.png);
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+	background-size:100%;
+}
+
+.noteOverlay{
+	float:right;
+	bottom:0px;
+	position:relative;
+	z-index:4;
+ 	border-style:solid;
+  	border-width:0px 1px 0px 0px;
+  	margin:0;
+}
+.note1 {
+	height:22px;
+}
+.note2 {
+	height:44px;
+}
+.note3 {
+	height:66px;
+}
+.note4 {
+	height:88px;
+}
+.note5 {
+	height:110px;
+}
+.overlayLabel{
+  	border-style:solid;
+  	border-width:1px;
+  	border-color:#d0d0d0;
+  	padding:4px 2px 4px 2px;
+  	height:24px;
+  	white-space:nowrap;
+  /* 角丸 */
+    -moz-border-radius: 3px ;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+	
+}

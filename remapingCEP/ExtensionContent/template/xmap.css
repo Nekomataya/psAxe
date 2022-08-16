@@ -1,0 +1,1233 @@
+﻿/* pmunit コンテナ　common */
+.xmap {
+    width:auto;
+    max-width:1350px;/*357mm(JIS B4長辺) 96ppi　A3印刷時83%に縮小*/
+    min-width:360px;/*3.75in 96ppi*/
+}
+.xmap-box {
+    display: flex;
+    border-style: solid;
+    border-width:1px;
+    border-color: antiquewhite;
+    padding-left: 0;
+}
+.productWrap {
+    display:inline-block;
+}
+.productWrap-inner {
+    vertical-align:top;
+    display:table-row;
+}
+.statusWrap {
+    vertical-align:top;
+    display:inline-block;
+}
+.statusWrap-inner {
+    vertical-align:top;
+    display: table-row;
+}
+.xmap-table {
+    position:relative;
+    display:table;
+    table-layout: fixed;
+    width:98%;
+}
+.xmap-tr {
+    display:table-row;
+}
+.xmap-cell {
+    display:table-cell;
+    vertical-align:top;
+}
+.property-label {
+    font-size: 16px;
+    font-weight: 700;
+}
+.xmap_property {
+    white-space: nowrap;
+    overflow : hidden;
+}
+.xmap-header {
+    background-color: transparent;
+}
+.xmap_property_middle {
+    padding-left:6px;
+    font-size:20px;
+    font-weight:700;
+    text-align:left;
+}
+.xmap_property_large {
+    padding-left:6px;
+    font-size:36px;
+    font-weight:700;
+    text-align:left;
+}
+.xmap_property_extralarge {
+    padding-left:6px;
+    padding-bottom:0px;
+    font-size:48px;
+    font-weight:700;
+    text-align:left;
+}
+
+/*640px以下で適用する内容  */
+@media screen and (max-width:640px){
+    .xmap {
+        min-width:280px;/*3.3in 96ppi*/
+    }
+}
+/*640px~1081pxで適用する内容*/
+@media screen and (min-width:640px){
+    .xmap {
+        width:100%;/*flexible*/
+        min-width:640px;/*3.3in 96ppi*/
+    }
+    .productWrap {
+        display:inline-block;
+    }
+    .productWrap-inner {
+        display: table-cell;
+        width:50%;
+    }
+}
+
+  /*1081px以上で適用する内容  */
+@media screen and (min-width:1081px){
+    .xmap {
+        width: 1350px;
+    }
+    .productWrap {
+        display:inline-block;
+    }
+    .productWrap-inner {
+        display: table-row;
+    }
+    .statusWrap {
+        display:table-row;
+    }
+    .statusWrap-inner {
+        display: table-cell;
+    }
+
+}
+
+
+#xmap {
+    margin-left:1em;
+    overflow:hidden;
+}
+
+#idfDisplay {
+    display:inline-block;
+    border-style:solid;
+    border-width:1px;
+    border-color:#ff8888;
+    margin-left:2em;
+    margin-top: 2em;
+}
+#inheritDisplay {
+    display:block;
+    border-style:solid;
+    border-width:1px;
+    border-color:#ffff88;
+    margin-left:2em;
+    margin-top: 2em;
+}
+#statusDisplay {
+    display:inline-block;
+    border-style:solid;
+    border-width:1px;
+    border-color:#88ff88;
+    margin-left:2em;
+    margin-top: 2em;
+}
+#stageDisplay {
+    display:inline-block;
+    border-style:solid;
+    border-width:1px;
+    border-color:#00ffff;
+    margin-left:2em;
+    margin-top: 2em;
+    overflow-y: visible;
+}
+#nodeDisplay {
+    display:inline-block;
+    border-style:solid;
+    border-width:1px;
+    border-color:#ff88ff;
+    margin-left:2em;
+    margin-top: 2em;
+    overflow-y: visible;
+}
+#propertyDisplay {
+    border-style:solid;
+    border-width:1px;
+    border-color:#8888ff;
+    margin-left:2em;
+    margin-top: 2em;
+    white-space: normal;
+    width:100%;
+    min-width:300px;
+}
+.xmap_productBox {
+    display:table;
+    table-layout: fixed;
+}
+.xmap_productNumberSign{
+    font-size:26px;
+    font-weight:0;
+}
+.xmap_cutNumber {
+    display:block;
+}
+
+.xmap_sciBox {
+    width:100%;
+}
+
+.xmap_stampList {
+    max-width: 834px;
+    width: 100% ;
+}
+.xmap_rulerHeader {
+    display:table;
+    width:100%;
+    padding:0;
+}
+.xmap_nodeSelectHeader {
+    display:table;
+    width:100%;
+    padding:0;
+}
+.xmap_stageChart {
+    max-width: 636px;
+    overflow-y: visible;
+}
+
+
+.xmap_noteArea {
+    display:block;
+    width:auto;
+}
+.xmap_posterPicture {
+    display: block;
+    margin-left:0;
+}
+.xmap_assignment {
+    display: block;
+    margin-left:0;
+}
+
+   button.xmapButton {
+        display:inline-block;
+        border-style:solid;
+        border-width: 2px;
+        border-color: gray;
+        margin:1em 1em 0 2em;
+        width:43px;
+        height:43px;
+        background-color:transparent;
+    }
+
+/*640px以下で適用する内容  */
+@media screen and (max-width:640px){
+    #xmap {
+        margin-left:1em;
+    }
+    #idfDisplay {
+        width:auto;
+        margin-left:0em;
+    }
+    #inheritDisplay {
+        margin-left:0em;
+    }
+    #statusDisplay {
+        margin-left:0em;
+    }
+    #stageDisplay {
+        margin-left:0em;
+        height: auto;
+    }
+    #propertyDisplay {
+        margin-left:0em;
+    }
+}
+/*640px~1081pxで適用する内容*/
+@media screen and (min-width:640px) and (max-width:1081px){
+    #idfDisplay {
+        width:auto;
+        margin-left:1em;
+    }
+    #inheritDisplay {
+        margin-left:2em;
+    }
+    #statusDisplay {
+        margin-left:1em;
+    }
+    #stageDisplay {
+        margin-left:1em;
+        height: auto;
+    }
+    #nodeDisplay {
+        margin-left:1em;
+        height: auto;
+    }
+    #propertyDisplay {
+        margin-left:1em;
+        max-width: 840px;
+        width:100%;
+    }
+    .xmap_noteArea {
+        display:block;
+    }
+    .xmap_posterPicture {
+        display: inline-block;
+        margin-left:0;
+    }
+}
+/*1081px以上で適用する内容  */
+@media screen and (min-width:1081px){
+    #idfDisplay {
+        width:630px;
+    }
+    #inheritDisplay {
+        width:630px;
+    }
+    #propertyDisplay {
+        max-width: 1350px;
+        white-space: nowrap;
+    }
+    #stageDisplay {
+        height: 160px;
+    }
+    #nodeDisplay {
+        border-color: #550000;
+    }
+/*
+    .xmap_productBox {
+        width:630px;
+    }
+    .xmap_cutNumber {
+        width:630px;
+    }
+*/
+    .xmap_sciBox {
+        width:100%;
+    }
+
+    .xmap_stampList {
+    max-width: 626px;
+}
+    .xmap_stampList {
+        width:100%;
+    }
+    /*
+width:626px;
+    */
+    .xmap_assignment {
+        display: inline-block;
+        margin-left:1em;
+    }
+    .xmap_noteArea {
+        display:inline-block;
+    }
+    .xmap_posterPicture {
+        display: inline-block;
+        margin-left:2em;
+    }
+    /*  cut slider   */
+ 
+}
+
+
+/* middle
+*/
+/* small
+*/
+button.xmapButton-close {
+    background-image: url(images/ui/xmapButton.png);
+    background-position: -2px -2px;
+}
+button.xmapButton-open {
+    background-image: url(images/ui/xmapButton_open.png);
+    background-position: -2px -2px;
+}
+/*nodeBox*/
+
+div.nodeSelect {
+    display: inline-block;
+    vertical-align: top;
+    width:50%;
+    border-style:none;
+    margin:6px 0 0 0;
+    overflow:hidden;
+}
+div.nodeSelect-composite {
+    width:35%;
+}
+.nodeBox {
+    display:inline-block;
+    position:relative;
+    border-style:solid;
+    border-width:2px;
+    overflow:hidden;
+    background-color:white;
+    padding-left:6px
+}
+.nodeBox-rect {
+    border-style:none;
+}
+
+.nodeBox-line {
+    position:relative;
+    left:0px;
+    height:20px;
+    width:96px;
+    font-size:12px;
+    margin-bottom:0;
+    border-color:#cccccc;
+    color:#cccccc;
+}
+.nodeBox-line_active {
+    border-color:black;
+    color:black;
+}
+
+.nodeBox-stage {
+    height:32px;
+    width:40px;
+    font-size:20px;
+    border-color:#888888;
+    color:#888888;
+    margin-right:-24px;
+}
+.nodeBox-stage_composite_reference {
+    border-color:#8888ff;
+    color:#8888ff;
+}
+.nodeBox-stage_composite {
+    border-color:#ff8888;
+    color:#ff8888;
+}
+.nodeBox-stage_composite_current {
+    width:240px;
+    border-color:#ff0000;
+    color:#ff0000;
+}
+.nodeBox-stage_active {
+    width:240px;
+    border-color:black;
+    color:black;
+    
+}
+
+/*ruler-slider*/
+div#ruler-body {
+    display: inline-block;
+    vertical-align: top;
+    width:75%;
+}
+div.rulerSection {
+    display: inline-block;
+    width:10%;
+    font-size:100%;
+    height:48px;
+    margin:0;
+    padding:0;
+    vertical-align:top;
+    border-style:none;
+    overflow:hidden;
+    width:10%;
+    /*スライダ目盛り*/
+background-image: url(images/ui/ruler.png);
+}
+/*640px以下で適用する内容  */
+@media screen and (max-width:640px){
+    div#ruler-body {
+        width:230px;
+    }
+}
+/*1081px以上で適用する内容  */
+@media screen and (min-width:1081px){
+    div#ruler-body {
+        width:85%;
+    }
+}
+/*    icon offset positioning 0/12,24
+ruler-start
+ruler-body
+ruler-end
+*/
+
+.rulerSection-start {
+    background-position: 0 0px;
+}
+.rulerSection-body  {
+    background-position: 0 -48px;
+}
+.rulerSection-end   {
+    background-position: 0 -96px;
+}
+#sliderRuler-MAX {
+    padding-right:24px;
+    width:8em;
+}
+.sliderCount {
+    display: table-cell;
+    position:relative;
+    top:0px;
+    left:24px;
+    border-style:solid;
+    border-width:2px;
+    margin:0px 4px 0px 0px;
+    padding:0px 4px 0px 4px;
+}
+#sliderRunner {
+    float: left;
+    position:relative;
+    border-style:none;
+    height:24px;
+    top:-20px;
+    left:0%;
+    margin-left: -3px;
+}
+/*   product Display 
+    grid-template-columns: 143px auto;
+    grid-template-rows: 58px 27px;
+  */
+.productBox_container {
+    border-style:solid;
+    border-width:1px;
+    height:88px;
+    display: block;
+}
+.productBox_container-inside {
+    display: block;
+}
+.product-row {
+    border-style:solid;
+    border-width:1px;
+}
+
+
+
+#productBox_epIdf {
+    position:relative;
+    width:130px;
+    height:86px;
+    border-style:solid;
+    border-width:1px;
+    overflow:hidden;
+}
+#productBox_prodIdf {
+    display:block;
+    position:relative;
+}
+#productBox_title {
+    display: block;
+    position:relative;
+    width:auto;
+    height:58px;
+    border-style:solid;
+    border-width:1px 1px 0px 1px;
+}
+#productBox_subtitle {
+    display: block;
+    height:27px;
+    border-style:solid;
+    border-width:1px;
+}
+
+#cutNumber {
+    display:inline-block;
+    margin-top: 2em;
+}
+
+.cutBox_container {
+    border-style:none;
+    height:88px;
+    width:100%;
+}
+#cutBox_epNo {
+    width:124px;
+    height:86px;
+    border-style:solid;
+    border-width:2px 1px 2px 2px;
+    margin:0;
+    overflow:hidden;
+}
+#cutBox_cutNumber {
+    height:86px;
+    border-style:solid;
+    border-width:2px 2px 2px 1px;
+    margin:0;
+}
+#inheritBox {
+    position:relative;
+    overflow-y:scroll;
+    white-space:normal;
+    max-height:135px;
+}
+@media screen and (max-width:640px){
+    #productBox_epIdf {
+        display: none;
+    }
+    #productBox_prodIdf {
+        display:block;
+    }
+    #productBox_title {
+        width:auto;
+    }
+    #productBox_subtitle {
+        display: block;
+    }
+    #cutNumber {
+        display:inline-block;
+        margin-top: 1.5em;
+    }
+}
+@media screen and (max-width:1081px) and (min-width:640px) {
+    #productBox_epIdf {
+        display:none;
+    }
+    #productBox_prodIdf {
+        display:block;
+    }
+    #productBox_subtitle {
+        display: block;
+    }
+    #cutNumber {
+        display:inline-block;
+    }
+    #inheritBox {
+        max-height:225px;
+    }
+}
+@media screen and (min-width:1081px){
+.productBox_container-inside {
+    display: inline-flex;
+}
+    #productBox_epIdf {
+        display:block; 
+        width:130px;
+        height:86px;
+        border-style:solid;
+        border-width:1px;
+    }
+    #productBox_prodIdf {
+        display:table-cell;
+    }
+    #productBox_title {
+        width:483px;
+    }
+    #productBox_subtitle {
+        display: block;
+        height:27px;
+        border-style:solid;
+        border-width:1px;
+    }
+    #cutNumber {
+        display: none;
+    }
+    .cutBox_container {
+        border-style:solid;
+        border-width:1px;
+        height:88px;
+    }
+    #cutBox_epNo {
+        width:143px;
+        height:86px;
+        border-style:solid;
+        border-width:1px;
+        margin:0;
+    }
+    #cutBox_cutNumber {
+/*        display: inline-block;*/
+        width:487px;
+        height:86px;
+        border-style:solid;
+        border-width:1px;
+        margin:0;
+    }
+    #inheritBox {
+        position:relative;
+        overflow-y:scroll;
+        white-space:normal;
+        max-height:138px;
+    }
+    #inheritBox {
+        max-height:138px;
+        width:630px;
+    }
+}
+
+
+.productInherit_container {
+    border-style:solid;
+    border-width:1px;
+}
+.productInherit {
+    display:block;
+    position:relative;
+    border-style:solid;
+    border-width:1px;
+    height:43px;
+    font-size:32px;
+    padding-left:8px;
+    overflow:hidden;
+}
+.stamp_container {
+    position:relative;
+    display:inline-block;
+    border-style:solid;
+    border-width:2px 0 0 2px;
+    text-align:left;
+    overflow:auto;
+}
+.stampBox {
+    display:inline-block;
+    text-align:center;
+    border-style:solid;
+    border-width:0 2px 0 0;
+    background-color:transparent;
+}
+.stampBox_label {
+    border-style:solid;
+    border-width:0 0 1px 0;
+    font-weight:700;
+    width:102px;
+    display:block;
+}
+.stamp {
+    border-style:solid;
+    border-width:0 0 2px 0;
+    height:64px;
+    display:block;
+}
+
+.stage_line_container {
+    display:table;
+    border-style:solid;
+    border-width:1px 1px 1px 1px;
+    position:relative;
+    height:3em;
+    margin-bottom:2em;
+}
+.stage_container {
+    display:inline-block;
+    border-style:solid;
+    border-width:1px 1px 1px 0;
+    text-align:center;
+    width:4.7em;
+}
+.stage_container_left {
+    border-width:1px 1px 1px 1px;
+}
+.stage_container_right {
+}
+.stageStatus {
+    border-style:solid;
+    border-width:0 0 1px 0;
+    height:1.5em;
+}
+@media screen and (min-width:1081px){
+    .productBox_container {
+        border-style:solid;
+        border-width:1px;
+        height:88px;
+        display: block;
+        table-layout: auto;
+    }   
+    .productInherit_container {
+        border-style:solid;
+        border-width:1px;
+    }
+    .productInherit {
+        display:block;
+        border-style:solid;
+        border-width:1px;
+        height:44px;
+        font-size:32px;
+        padding-left:8px;
+        overflow:hidden;
+    }
+    .stamp_container {
+        position:relative;
+        display:inline-block;
+        border-style:solid;
+        border-width:2px 0 0 2px;
+        text-align:left;
+        overflow:auto;
+    }
+    .stampBox {
+        display:inline-block;
+        text-align:center;
+        border-style:solid;
+        border-width:0 2px 0 0;
+        background-color:transparent;
+    }
+    .stampBox_label {
+        border-style:solid;
+        border-width:0 0 1px 0;
+        font-weight:700;
+        width:102px;
+        display:block;
+    }
+    .stamp {
+        border-style:solid;
+        border-width:0 0 2px 0;
+        height:64px;
+        display:block;
+    }
+
+    .stage_line_container {
+        display:inline-flex;
+        border-style:solid;
+        position:relative;
+        height:3em;
+        margin-bottom:2em;
+    }
+    .stage_container {
+        display:inline-block;
+        border-style:solid;
+        text-align:center;
+        width:4.6em;
+    }
+    .stage_container_left {
+    }
+    .stage_container_right {
+    }
+    .stageStatus {
+        border-style:solid;
+        border-width:0 0 1px 0;
+        height:1.5em;
+    }
+}
+/* */
+#noteArea_content {
+    border-style:solid;
+    border-width:2px;
+    width:96%;
+    height:20em;
+    overflow:scroll;
+}
+/*
+    width: 48%;
+*/
+#posterPicuture_content {
+    border-style:solid;
+    border-width:2px;
+    width: 96%;
+    height:16em;
+    overflow:scroll;
+}
+#assignment_content {
+    border-style:solid;
+    border-width:2px;
+    width:96%;
+    height:16em;
+    overflow:scroll;
+}
+#assignment {
+    display: block;
+}
+@media screen and (max-width:1081px) and (min-width:640px){
+    #posterPicuture {
+        display: inline-block;
+        width:45%;
+    }
+    #assignment {
+        display: inline-block;
+        width:50%;
+    }
+    #assignment_content {
+        display:block;
+        border-style:solid;
+        border-width:2px;
+        width:auto;
+        height:16em;
+        overflow:scroll;
+    }
+}
+@media screen and (min-width:1081px) {
+    #noteArea_content {
+        border-style:solid;
+        border-width:2px;
+        width:630px;
+        height:20em;
+        overflow:scroll;
+    }
+    #posterPicuture_content {
+        border-style:solid;
+        border-width:2px;
+        width: 28.44em;
+        height:16em;
+        overflow:scroll;
+    }
+    #assignment {
+        display: inline-block;
+    }
+    #assignment_content {
+        border-style:solid;
+        border-width:2px;
+        width:23em;
+        height:16em;
+        overflow:scroll;
+    }
+}
+/* tab scropller　*/
+.tabHeader {
+    width:100%;
+}
+.tabScrollRunner{
+    width:10%;
+    background-color:red;
+}
+
+#tabSelector-asset {
+    overflow:auto;
+    position: relative;
+}
+#tabSelector-doc {
+    overflow:auto;
+    position: relative;
+}
+/*  asset browser   */
+#assetBrowser {
+    min-width:360px;
+    width:auto;
+    background-color:#eee;
+}
+@media screen and (max-width:1081px){
+    #assetBrowser {
+        max-width:850px;
+        min-width:360px;
+        width:auto;
+    }
+}
+@media screen and (min-width:1081px){
+    #assetBrowser {
+        width:1350px;
+    }
+}
+.assetTab {
+    display:table;
+        vertical-align: top;
+}
+#assetList {
+      position: relative;
+      margin: 0px auto;
+      padding: 0px;
+      width: 100%;
+      height:50em;
+      overflow: scroll;
+}
+
+.groupColumn {
+    display:inline-block;
+    min-width:160px;
+    max-width:720px;
+    overflow:hidden;
+    vertical-align: top;
+    margin-left:1em;
+}
+.groupLabel {
+    border-width:0 0 1 0;
+    vertical-align:bottom;
+}
+.groupName {
+    display:inline-block;
+    min-width:5em;
+    vertical-align:middle;
+    text-align:center;
+    font-size:large;
+}
+.elementThumbnail {
+    display:none;
+    width:160px;
+}
+.assetAssign {
+    border-style:none;
+    margin:0px 6px 0px 0px;
+    display:inline-block;
+    height:16px;
+    position:relative;
+    top:4px
+}
+.assetName {
+    display:inline-block;
+    vertical-align:middle;
+    margin-left:1em;
+    text-align:left;
+    min-width:6em;
+}
+.assetURL {
+    display:none;
+    min-width:5em;
+}
+.assetProperties {
+    display:none;
+    border-style:solid;
+    border-width:1px;
+    border-color:gray;
+    color:gray;
+    white-space: pre-wrap;
+    margin:0;
+    width:450px;
+    height:160px;
+    position:relative;
+}
+.endSign {
+    border-style:solid;
+    border-width:1px 0px 1px 0px;
+
+}
+/*  nodeTable  */
+#optionPanelNodeChart{
+    display:none;
+}
+table.nodeFlow-chart {
+    border-style:none;
+    border-spacing:0px;
+    background-color:#AAA;
+    margin:0;
+    padding:16px;
+    font-size:16px;
+}
+td.nodeFlow {
+    width:94px;
+    max-width:142px;
+    overflow:hidden;
+    height:24px;
+    border-radius:6px;
+    border-style:none;
+    border-width:1px;
+    background-image:url(./images/ui/nodeFlows.png);
+    font-size:.8em;
+}
+/* サブクラス フローチャート線*/
+td.nodeFlow-line {
+    border-style:solid;
+    border-width:1px;
+    border-color:red;
+    background-color:#fee;
+}
+/* サブクラス フローチャートコンポジット*/
+td.nodeFlow-composite {
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+    background-color:#fdd;
+}
+
+/* サブクラス フローチャート一般ステージ*/
+td.nodeFlow-stage {
+    border-style:none;
+    background-position: 0 -48px;
+}
+/* サブクラス フローチャートブランクエリア*/
+td.nodeFlow-blank {
+    border-style:none;
+    background-position: 0 0;
+}
+/* サブクラス フローチャート開始ノード*/
+td.nodeFlow-startup {
+    border-style:none;
+    background-position: 0 -24px;
+}
+/* サブクラス フローチャート分岐ノード*/
+td.nodeFlow-branch {
+    border-style:none;
+    background-position: 0 -72px;
+}
+/* サブクラス フローチャート通常接続*/
+td.nodeFlow-conect {
+    border-style:none;
+    background-position: 0 -48px;
+}
+/* サブクラス フローチャート分岐線下折れ*/
+td.nodeFlow-down {
+    border-style:none;
+    background-position: 0 -120px;
+}
+/* サブクラス フローチャート分岐線横通過*/
+td.nodeFlow-through {
+    border-style:none;
+    background-position: 0 -96px;
+}
+/* サブクラス フローチャート分岐線横通過下折れ*/
+td.nodeFlow-through_down {
+    border-style:none;
+    background-position: 0 -144px;
+}
+/* サブクラス フローチャート先端*/
+td.nodeFlow-head {
+    border-style:none;
+    background-position: 0 -168px;
+}
+
+td.nodeFlow-store　{
+    border-style : solid;
+    border-width : 3px;
+    background-color:#fff;
+}
+/* node select buttons*/
+.node-stage {
+    border-style:solid;
+    border-radius:10px;
+    border-width:1px;
+    border-color:green;
+    background-color:snow;
+    height:100%;
+    width:86%;
+}
+.node-stage-completed {
+    border-width:2px;
+    border-color:green;
+    background-color:#aca;
+}
+.node-stage-active {
+    border-width:2px;
+    border-color:red;
+    background-color:#afa;
+}
+.node-stage-no_started {
+    border-style:none;
+    background-color:#ccc;
+    color:snow;
+}
+.node-stage-selected {
+    border-style:double;
+    border-width:3;
+}
+.node-stage-elementStore {
+    border-style:double;
+    border-width:3;
+    border-color:#f88;
+    background-color:#fbb;
+    color:#f00;
+    width:95%;
+}
+
+/* node select buttons*/
+.node-composite{
+    border-style:none;
+    border-radius:10px;
+    border-width:1px;
+    background-color:#ccc;
+    height:100%;
+    width:86%;
+}
+.node-composite-reference {
+    border-style:solid;
+    border-width:2px;
+    border-color:blue;
+    background-color:#aac;
+}
+.node-composite-active {
+    border-width:2px;
+    border-color:red;
+    background-color:#afa;
+}
+.node-composite-no_started {
+    border-style:none;
+    background-color:#ccc;
+    color:snow;
+}
+.node-composite-selected {
+    border-style:double;
+    border-width:3;
+}
+.node-composite-elementStore {
+    border-style:double;
+    border-width:3;
+    border-color:#f88;
+    background-color:#fbb;
+    color:#f00;
+    width:95%;
+}
+/*  プロパティ編集|追加ボタン
+親エレメントにたいしてフローティング表示
+配置は
+    overflow:hidden;
+*/
+.xmap_property_edit {
+    opacity:.75;
+    display:flex;
+    float:right;
+    mix-blend-mode: multiply; 
+    position:absolute;
+    margin:8px;
+    border-style:none;
+    width:2em;
+    height:2em;
+    right:0px;
+    top:0px;
+   /*アイコンイメージ*/
+    background-image: url(images/ui/nas-ui-icons432x432px.png);
+}
+.xmap_property_edit:hover {
+   /*アイコンイメージ*/
+    background-image: url(images/ui/nas-ui-icons432x432pxIVS.png);
+}
+/*　　ノードリスト
+ライントレーラー
+*/
+/*
+    nodeList flatTabel
+*/
+div.nodeList{
+    width:360px;
+}
+table.nodeListTable {
+    max-width:360px;
+    width:100%;
+    margin:0 0 8px 0;
+    padding:0 0 0 0;
+    border-color:black;
+    border-width:2px;
+    border-style:solid;
+    table-layout:fixed;
+    border-collapse: collapse;
+}
+.flatTable  {
+    border-color:#000000;
+    margin:0 0 0 0;
+    padding:2px 8px 1px 8px;
+    text-align:center;
+    border-style:solid;
+    border-width:1px;
+    vertical-align:middle;
+    font-weight:bold;
+}
+.flatTable-header  {
+    border-width:0 1px 2px 0;
+}
+.flatTable-stageName  {
+    text-align:left;
+}
+.flatTable-jobName  {
+    text-align:right;
+}
+.flatTable-jobName-hns  {
+    text-align:center;
+    color:#AAAAAA;
+}
+.flatTable-checkin  {
+    color:blue;
+    text-align:left;
+}
+.flatTable-checkout  {
+    color:red;
+    text-align:right;
+}
+
+.nodesummary {
+    display:flex;
+}
+.nodeList_line  {
+    border-style:none;
+    border-width:1px;
+    border-color:blue;
+    margin-right:8px;
+}

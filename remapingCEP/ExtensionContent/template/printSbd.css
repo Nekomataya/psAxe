@@ -1,0 +1,129 @@
+﻿/*	sbe_prt_nas.css						*/
+/*	絵コンテエディタ のためのスタイルシート			*/
+/*	Nekomataya/kiyo 2008					*/
+
+/*========== 絵コンテ全体 ============*/
+/*基本デザイン*/
+
+body {
+	font-size:11pt;
+	margin:0px;
+	padding:0;
+}
+/*logo hrader*/
+img.print-logo {
+	display:block;
+}
+/*タイトルヘッダ*/
+.titleHeader {
+	display:none
+}
+/*ツールヘッダ*/
+.toolHeader {
+	display:none;
+}
+/*インデックスバー*/
+.indexBar {
+	display:none;
+}
+/*絵コンテテーブル
+	width:186mm;
+*/
+table {
+	font-size:9pt;
+	border-collapse:collapse;
+	margin:0px;
+	padding:0px;
+	border-width:3pt;
+	border-style:solid;
+	page-break-before: avoid;
+	page-break-after: avoid; 
+	table-layout: fixed;
+}
+/*	プレイヤ画面	*/
+table.player {
+	display:none;
+}
+
+tr.pageHeader {
+	border-style:solid;
+}
+
+th {
+	text-align:center;
+	border-style:solid;
+	border-width:1pt;
+	font-size:9pt
+}
+
+td {
+	text-align:left;
+	vertical-align:top;
+	border-style:solid;
+	border-width:1pt;
+	padding:1mm 2mm 1mm 2mm;
+	margin:0px;
+	font-size:9pt;
+	overflow:visible;
+}
+
+td.columnLabel {
+	text-align:center;
+	vertical-align:top;
+	font-weight:bold;
+	font-size:18pt;
+	padding:2mm 1mm 2mm 1mm;
+}
+td.pictureArea {
+	text-align:center;
+	vertical-align:middle;
+	margin:0mm;
+	padding:0mm;
+	overflow:visible;
+}
+td.timeText {
+	text-align:center;
+	vertical-align:bottom;
+	font-weight:bold;
+	font-size:11pt;
+	padding:2mm 1mm 2mm 1mm;
+}
+div.pageDivider {
+	page-break-before:always;
+}
+/*========== ページヘッダーテーブル ============*/
+.pageHeader {
+	border-style:solid;
+}
+/*========== ページフッター ============*/
+.pageFooter {
+	width:178mm;
+	text-align:right;
+}
+/*========== リンク ============*/
+a:link {color:#000066}
+a:visited {color:green}
+a:hover {color:red;background-color:snow}
+a:active {color:gray;background-color:snow}
+a:focus {color:#880000;background-color:snow}
+
+/*	ページノンブル	*/
+.pgNm {
+	font-size:9pt;
+}
+/*CUT No*/
+.cutNm {	text-align:center;
+	vertical-align:top;
+	font-weight:bold;
+	font-size:18pt;
+	padding:2mm 1mm 2mm 1mm;
+}
+/*---------------- ドロップダウンメニュー*/
+
+div#pMenu {
+	display:none;
+}
+
+li#pMenu {
+	display:none;
+}
